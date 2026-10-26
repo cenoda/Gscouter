@@ -182,3 +182,10 @@ func TestWarningsKnownIssues(t *testing.T) {
 		t.Errorf("unexpected warnings %q", got)
 	}
 }
+
+func TestScoreTimeline(t *testing.T) {
+	ts := newTestServer(t)
+	_, body := get(t, ts, "/score?a="+url.QueryEscape("800000001:hutao,yelan,xingqiu,zhongli"))
+	mustContain(t, body, "로테이션 타임라인", `id="tl-a-cycle"`, `id="tl-a-steady"`, "교체 순서와 구간별 피해",
+		"능력별 피해", "로테이션 스크립트", `class="tl-bar" data-tip=`, ">E</text>", ">Q</text>")
+}

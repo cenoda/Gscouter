@@ -35,6 +35,8 @@ type Outcome struct {
 	Filled bool
 	Energy map[string]config.Filler
 	Skill  []string
+	// Looped is the rotation that scored best, as run.
+	Looped string
 }
 
 // energyFillers are the ways Score tries for each character that waits
@@ -62,7 +64,7 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 	if err != nil {
 		return nil, err
 	}
-	best := &Outcome{Result: res}
+	best := &Outcome{Result: res, Looped: looped}
 
 	type candidate struct {
 		energy   map[string]config.Filler
@@ -134,7 +136,7 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 			continue
 		}
 		if res.DPS > best.Result.DPS {
-			best = &Outcome{Result: res, Filled: true, Energy: c.energy, Skill: c.skill}
+			best = &Outcome{Result: res, Filled: true, Energy: c.energy, Skill: c.skill, Looped: looped}
 		}
 		followUp(c.energy, c.skill, res)
 	}

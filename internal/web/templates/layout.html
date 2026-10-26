@@ -23,6 +23,8 @@
   --bad-bg: #fdecec; --bad: #a12626; --good: #18794e;
   --pyro: #e2603c; --hydro: #3a8fd0; --anemo: #2fae8e; --electro: #9a5fd6;
   --dendro: #5fa632; --cryo: #4fb3cc; --geo: #c9962a;
+  /* Party slots, in order: categorical, validated for adjacent pairs. */
+  --s0: #2a78d6; --s1: #eb6834; --s2: #1baf7a; --s3: #eda100;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -31,6 +33,7 @@
     --bad-bg: #3b1d1d; --bad: #f19999; --good: #5fd39a;
     --pyro: #f27f5c; --hydro: #5eaee8; --anemo: #55cfae; --electro: #b88af0;
     --dendro: #86c75a; --cryo: #7fd3e6; --geo: #e0b452;
+    --s0: #3987e5; --s1: #d95926; --s2: #199e70; --s3: #c98500;
   }
 }
 * { box-sizing: border-box; }
@@ -115,6 +118,80 @@ ul.teams li { break-inside: avoid; }
 details summary { cursor: pointer; }
 footer { margin-top: 24px; border-top: 1px solid var(--line); padding-top: 12px; }
 footer p { margin: 6px 0; }
+h2.section { margin: 24px 0 8px; }
+.cycle-head { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 4px; }
+.cycle-head h2 { margin: 0; }
+.tabs { position: relative; display: inline-flex; background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+.tabs input { position: absolute; opacity: 0; pointer-events: none; }
+.tabs label { padding: 5px 14px; border-radius: 999px; font-size: .9rem; cursor: pointer; color: var(--muted); }
+.tabs input:checked + label { background: var(--card); color: var(--text); font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+.tabs input:focus-visible + label { outline: 2px solid var(--accent); }
+.tl-panel { display: none; }
+.cycle:has(.tabs input[value=cycle]:checked) .tl-panel[data-v=cycle],
+.cycle:has(.tabs input[value=steady]:checked) .tl-panel[data-v=steady] { display: block; }
+.tl-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 12px 0; }
+.tl-stats div { background: var(--bg); border-radius: 8px; padding: 8px 10px; display: flex; flex-direction: column; }
+.tl-stats b { font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+@media (max-width: 560px) { .tl-stats { grid-template-columns: repeat(2, 1fr); } }
+.sw { display: inline-block; width: 10px; height: 10px; border-radius: 3px; flex: none; }
+.s0 { background: var(--s0); } .s1 { background: var(--s1); } .s2 { background: var(--s2); } .s3 { background: var(--s3); }
+.tl { display: flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.tl-labels { flex: none; width: 52px; border-right: 1px solid var(--line); background: var(--card); }
+.tl-chart-label { font-size: .75rem; color: var(--muted); display: flex; align-items: center; justify-content: center; }
+.tl-lane-label { height: 40px; display: flex; align-items: center; gap: 3px; padding-left: 5px; }
+.tl-lane-label .face { width: 30px; height: 30px; }
+.tl-scroll { overflow-x: auto; flex: 1; min-width: 0; }
+.tl-svg { display: block; font-family: inherit; }
+.tl-svg .grid { stroke: var(--line); stroke-width: 1; }
+.tl-svg .axis { stroke: var(--muted); stroke-opacity: .5; stroke-width: 1; }
+.tl-svg .track { stroke: var(--line); stroke-width: 2; }
+.tl-svg .tick { font-size: 11px; fill: var(--muted); text-anchor: start; }
+.tl-svg .hit { fill: transparent; }
+.tl-svg .f0 { fill: var(--s0); } .tl-svg .f1 { fill: var(--s1); } .tl-svg .f2 { fill: var(--s2); } .tl-svg .f3 { fill: var(--s3); }
+.tl-svg .field { fill-opacity: .22; }
+.tl-svg .tl-bar:hover rect:not(.hit) { filter: brightness(1.12); }
+.tl-svg .tl-bar:hover .hit { fill: var(--text); fill-opacity: .05; }
+.tl-svg .mk circle, .tl-svg .mk rect, .tl-legend .key { fill: var(--card); stroke-width: 2.5; }
+.tl-svg .mk .s0 { stroke: var(--s0); } .tl-svg .mk .s1 { stroke: var(--s1); } .tl-svg .mk .s2 { stroke: var(--s2); } .tl-svg .mk .s3 { stroke: var(--s3); }
+.tl-svg text, .tl-legend text { text-anchor: middle; }
+.tl-svg .mk text, .tl-legend text { font-size: 11px; font-weight: 700; fill: var(--text); pointer-events: none; }
+.tl-svg .mk:hover circle, .tl-svg .mk:hover rect { stroke-width: 3.5; }
+.wait-bg { fill: var(--warn-bg); } .wait-line { stroke: var(--warn); stroke-width: 2; stroke-opacity: .6; }
+.tl-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 10px 0 4px; align-items: center; }
+.tl-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.tl-legend svg { width: 18px; height: 18px; }
+.tl-legend .key { stroke: var(--muted); }
+.tl-legend .key-fill { fill: var(--muted); }
+.tl-legend .key-field { fill: var(--muted); fill-opacity: .3; }
+.cycle h3 { margin-top: 20px; }
+.stints { list-style: none; padding: 0; margin: 8px 0; max-height: 520px; overflow-y: auto; border-top: 1px solid var(--line); }
+.stints li { display: flex; gap: 10px; align-items: center; padding: 8px 4px; border-bottom: 1px solid var(--line); }
+.stints .when { width: 3.6em; flex: none; text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); font-size: .9rem; }
+.stints .who { display: flex; align-items: center; gap: 4px; flex: none; }
+.stints .who .face { width: 34px; height: 34px; }
+.stints .body { flex: 1; min-width: 0; display: grid; gap: 4px; }
+.stints .top { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; }
+.stints .acts { display: inline-flex; flex-wrap: wrap; gap: 4px; }
+.chip { font-size: .78rem; padding: 1px 7px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
+.stints .dmg { display: flex; align-items: center; gap: 10px; }
+.stints .stack-wrap { flex: 1; min-width: 40px; }
+.stints .stack { display: flex; gap: 2px; height: 8px; min-width: 4px; }
+.stints .stack i { display: block; height: 100%; border-radius: 2px; min-width: 2px; }
+.stints .stack .f0 { background: var(--s0); } .stints .stack .f1 { background: var(--s1); } .stints .stack .f2 { background: var(--s2); } .stints .stack .f3 { background: var(--s3); }
+.stints .num { font-variant-numeric: tabular-nums; font-size: .9rem; white-space: nowrap; min-width: 9em; text-align: right; }
+.sources { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+.src { border: 1px solid var(--line); border-radius: 10px; padding: 10px; min-width: 0; }
+.src-head { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+.src-head .face { width: 32px; height: 32px; }
+.src-head .num { margin-left: auto; font-variant-numeric: tabular-nums; font-size: .9rem; }
+.src table { font-size: .85rem; }
+.src td, .src th { padding: 5px 4px; }
+.src th { white-space: nowrap; }
+.src td:first-child { overflow-wrap: anywhere; }
+details.rotation { margin-top: 12px; }
+details.rotation pre { background: var(--bg); border-radius: 8px; padding: 12px; overflow-x: auto; font-size: .82rem; line-height: 1.45; max-height: 420px; }
+.tip { position: fixed; z-index: 10; pointer-events: none; background: var(--text); color: var(--card); padding: 6px 9px;
+  border-radius: 6px; font-size: .8rem; line-height: 1.4; white-space: pre-line; max-width: 260px; display: none; }
 .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--text); color: var(--card);
   padding: 8px 14px; border-radius: 8px; font-size: .9rem; opacity: 0; transition: opacity .2s; pointer-events: none; }
 .toast.show { opacity: 1; }
@@ -163,7 +240,32 @@ footer p { margin: 6px 0; }
 </footer>
 </main>
 <div class="toast" id="toast" role="status"></div>
+<div class="tip" id="tip" role="tooltip"></div>
 <script>
+// Tooltips for chart marks: hover with a mouse, tap on touch screens.
+(function () {
+  var tip = document.getElementById("tip"), current = null;
+  function show(el, x, y) {
+    current = el;
+    tip.textContent = el.getAttribute("data-tip");
+    tip.style.display = "block";
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    tip.style.left = Math.max(8, Math.min(x + 12, innerWidth - w - 8)) + "px";
+    tip.style.top = (y + h + 20 > innerHeight ? y - h - 12 : y + 16) + "px";
+  }
+  function hide() { current = null; tip.style.display = "none"; }
+  document.addEventListener("pointermove", function (e) {
+    if (e.pointerType !== "mouse") return;
+    var el = e.target.closest && e.target.closest("[data-tip]");
+    el ? show(el, e.clientX, e.clientY) : hide();
+  });
+  document.addEventListener("pointerdown", function (e) {
+    if (e.pointerType === "mouse") return;
+    var el = e.target.closest && e.target.closest("[data-tip]");
+    el && el !== current ? show(el, e.clientX, e.clientY) : hide();
+  });
+  addEventListener("scroll", hide, true);
+})();
 function copyLink(btn) {
   var url = location.href;
   var done = function () {

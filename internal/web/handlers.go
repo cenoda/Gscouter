@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"net/url"
 	"slices"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -32,7 +33,9 @@ var funcs = template.FuncMap{
 		}
 		return 0
 	},
-	"neg":     func(v float64) float64 { return -v },
+	"neg": func(v float64) float64 { return -v },
+	// px is a+b as an SVG coordinate.
+	"px":      func(a, b float64) string { return strconv.FormatFloat(a+b, 'f', 1, 64) },
 	"element": element,
 	"face":    face,
 	"meta":    metaOf,
@@ -211,6 +214,7 @@ func (s *Server) handleScore(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(r.Context(), 90*time.Second)
 	defer cancel()
 	tr := s.evaluate(ctx, sel)
+	tr.ID = "a"
 	s.render(w, "score.html", scoreData{Team: tr, Meta: scoreMeta(tr, baseURL(r))})
 }
 
@@ -252,6 +256,7 @@ func (s *Server) handleVersus(w http.ResponseWriter, r *http.Request) {
 
 func (s *Server) versus(ctx context.Context, a, b selection) versusData {
 	data := versusData{A: s.evaluate(ctx, a), B: s.evaluate(ctx, b)}
+	data.A.ID, data.B.ID = "a", "b"
 	if data.A.Result != nil && data.B.Result != nil && data.B.Result.DPS > 0 {
 		data.Scored = true
 		data.Diff = (data.A.Result.DPS - data.B.Result.DPS) / data.B.Result.DPS
