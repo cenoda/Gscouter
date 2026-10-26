@@ -1,0 +1,14 @@
+active furina;
+while 1 {
+  if .furina.skill.ready { furina skill; }
+  if .furina.burst.ready { furina burst; }
+  if .xilonen.skill.ready { xilonen skill; }
+  if .xilonen.burst.ready { xilonen burst; }
+  if .zhongli.skill.ready { zhongli skill[hold=1]; }
+  if .chiori.burst.ready { chiori burst; }
+  if .chiori.skill.ready { chiori skill; }
+  while !.furina.skill.ready {
+    chiori attack:3;
+    if .chiori.skill.ready { chiori skill; }
+  }
+}

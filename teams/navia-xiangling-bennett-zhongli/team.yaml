@@ -1,0 +1,9 @@
+id: navia-xiangling-bennett-zhongli
+name: Navia / Xiangling / Bennett / Zhongli
+members: [navia, xiangling, bennett, zhongli]
+archetype: Geo crystallize carry
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Xiangling pyro with Zhongli geo makes crystallize shards that Navia collects as shrapnel with her skill. Supports act whenever ready, then Navia skill, burst and N4 strings."

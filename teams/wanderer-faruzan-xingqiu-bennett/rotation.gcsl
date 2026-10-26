@@ -1,0 +1,17 @@
+active xingqiu;
+while 1 {
+  if .xingqiu.skill.ready { xingqiu skill; }
+  if .xingqiu.burst.ready { xingqiu burst; }
+  if .bennett.burst.ready { bennett burst; }
+  if .bennett.skill.ready { bennett skill; }
+  if .faruzan.skill.ready { faruzan skill[hold=1]; }
+  if .faruzan.burst.ready { faruzan burst; }
+  if .wanderer.skill.ready {
+    wanderer skill;
+    while .wanderer.status.windfavored-state > 0 {
+      wanderer attack, dash;
+    }
+  }
+  if .wanderer.burst.ready { wanderer burst; }
+  wanderer attack;
+}

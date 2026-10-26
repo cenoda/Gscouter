@@ -1,0 +1,9 @@
+id: chiori-furina-xilonen-zhongli
+name: Chiori / Furina / Xilonen / Zhongli
+members: [chiori, furina, xilonen, zhongli]
+archetype: Geo hypercarry
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Furina, Xilonen and Zhongli act whenever ready, then Chiori burst and skill with N3 strings in between until Furina skill is ready again. Most Chiori damage comes from her doll (Tamoto) and the geo construct it triggers."
