@@ -1,0 +1,21 @@
+# Reference build used to validate the rotation.
+
+beidou char lvl=90/90 cons=6 talent=9,9,9;
+beidou add weapon="serpentspine" refine=5 lvl=90/90;
+beidou add set="thunderingfury" count=4;
+beidou add stats hp=4780 atk=311 atk%=0.666 electro%=0.466 cr=0.511 cd=0.53 er=0.2;
+
+fischl char lvl=90/90 cons=6 talent=1,9,9;
+fischl add weapon="alleyhunter" refine=5 lvl=90/90;
+fischl add set="goldentroupe" count=4;
+fischl add stats hp=4780 atk=311 atk%=0.666 electro%=0.466 cr=0.511 cd=0.53 er=0.11;
+
+xingqiu char lvl=90/90 cons=6 talent=1,9,9;
+xingqiu add weapon="sacrificialsword" refine=5 lvl=90/90;
+xingqiu add set="emblemofseveredfate" count=4;
+xingqiu add stats hp=4780 atk=311 atk%=0.4 hydro%=0.466 cr=0.5 cd=0.5 er=0.55;
+
+sucrose char lvl=90/90 cons=6 talent=1,9,9;
+sucrose add weapon="sacrificialfragments" refine=5 lvl=90/90;
+sucrose add set="viridescentvenerer" count=4;
+sucrose add stats hp=4780 atk=311 em=800 er=0.3 cr=0.1 cd=0.1 atk%=0.1;

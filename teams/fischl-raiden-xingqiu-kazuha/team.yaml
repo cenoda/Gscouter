@@ -1,0 +1,9 @@
+id: fischl-raiden-xingqiu-kazuha
+name: Fischl / Raiden / Xingqiu / Kazuha
+members: [fischl, raiden, xingqiu, kazuha]
+archetype: Fischl Electro-Hydro (Electro-Charged taser)
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Fischl summons Oz first, Xingqiu sets up Hydro, Kazuha groups and swirls (Electro-Charged swirl), Raiden skill and burst, then Fischl attacks until her skill is ready again."

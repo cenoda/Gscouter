@@ -1,0 +1,9 @@
+id: fischl-nahida-xingqiu-collei
+name: Fischl / Nahida / Xingqiu / Collei
+members: [fischl, nahida, xingqiu, collei]
+archetype: Fischl Electro hyperbloom
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Fischl summons Oz first, Nahida marks, Xingqiu and Collei make Dendro Cores, then Fischl attacks until her skill is ready again so Oz hits the Cores for Hyperbloom."

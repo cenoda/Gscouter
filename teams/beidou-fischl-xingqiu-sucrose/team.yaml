@@ -1,0 +1,9 @@
+id: beidou-fischl-xingqiu-sucrose
+name: Beidou / Fischl / Xingqiu / Sucrose
+members: [beidou, fischl, xingqiu, sucrose]
+archetype: Beidou Electro-Charged taser (Swirl)
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Fischl summons Oz, Xingqiu and Sucrose set up Hydro and grouping, then Beidou counters (perfect counter), bursts and attacks until Fischl's skill is ready again (about 25 s loop)."

@@ -1,0 +1,14 @@
+active nahida;
+while 1 {
+  nahida skill[hold=1];
+  xingqiu skill;
+  if .xingqiu.burst.ready { xingqiu burst; }
+  yelan skill;
+  if .yelan.burst.ready { yelan burst; }
+  kaveh skill;
+  if .kaveh.burst.ready { kaveh burst; }
+  if .nahida.burst.ready { nahida burst; }
+  while !.xingqiu.skill.ready {
+    kaveh attack:4;
+  }
+}

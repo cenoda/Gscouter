@@ -1,0 +1,14 @@
+active fischl;
+while 1 {
+  fischl skill;
+  if .fischl.burst.ready { fischl burst; }
+  bennett skill;
+  if .bennett.burst.ready { bennett burst; }
+  kazuha skill;
+  if .kazuha.burst.ready { kazuha burst; }
+  razor skill;
+  if .razor.burst.ready { razor burst; }
+  while !.fischl.skill.ready {
+    razor attack:4;
+  }
+}

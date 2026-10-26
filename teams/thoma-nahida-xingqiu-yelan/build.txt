@@ -1,0 +1,21 @@
+# Reference build used to validate the rotation.
+
+thoma char lvl=90/90 cons=6 talent=9,9,9;
+thoma add weapon="dragonsbane" refine=5 lvl=90/90;
+thoma add set="gildeddreams" count=4;
+thoma add stats hp=4780 atk=311 em=620 pyro%=0.1 cr=0.2 cd=0.3 er=0.3 atk%=0.1;
+
+nahida char lvl=90/90 cons=0 talent=1,9,9;
+nahida add weapon="sacrificialfragments" refine=5 lvl=90/90;
+nahida add set="deepwoodmemories" count=4;
+nahida add stats hp=4780 atk=311 em=800 cr=0.2 cd=0.2 er=0.3;
+
+xingqiu char lvl=90/90 cons=6 talent=1,9,9;
+xingqiu add weapon="sacrificialsword" refine=5 lvl=90/90;
+xingqiu add set="emblemofseveredfate" count=4;
+xingqiu add stats hp=4780 atk=311 atk%=0.4 hydro%=0.466 cr=0.5 cd=0.5 er=0.55;
+
+yelan char lvl=90/90 cons=6 talent=1,9,9;
+yelan add weapon="favoniuswarbow" refine=5 lvl=90/90;
+yelan add set="emblemofseveredfate" count=4;
+yelan add stats hp=4780 atk=311 hp%=0.666 er=0.618 cr=0.561 cd=0.8;

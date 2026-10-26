@@ -1,0 +1,14 @@
+active fischl;
+while 1 {
+  fischl skill;
+  if .fischl.burst.ready { fischl burst; }
+  xingqiu skill;
+  if .xingqiu.burst.ready { xingqiu burst; }
+  kazuha skill;
+  if .kazuha.burst.ready { kazuha burst; }
+  if .raiden.skill.ready { raiden skill; }
+  if .raiden.burst.ready { raiden burst; }
+  while !.fischl.skill.ready {
+    fischl attack;
+  }
+}
