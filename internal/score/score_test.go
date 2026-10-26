@@ -2,8 +2,10 @@ package score
 
 import (
 	"context"
+	"encoding/json"
 	"math"
 	"os"
+	"reflect"
 	"testing"
 
 	"github.com/cenoda/gscouter/internal/config"
@@ -101,5 +103,37 @@ func TestSameSeedIsReproducible(t *testing.T) {
 	}
 	if a.DPS != b.DPS {
 		t.Errorf("same seeds gave %v and %v", a.DPS, b.DPS)
+	}
+}
+
+// Iterations run in slices elsewhere, sent as JSON and merged, must give
+// exactly the score of one run: browsers split a score across workers.
+func TestSlicesMergeToRun(t *testing.T) {
+	cfg := testConfig(t, 60)
+	opts := Options{Iterations: 7, Warmup: 20, Seed: 3, Workers: 2}
+	want, err := Run(context.Background(), cfg, opts)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var its []Iteration
+	for first := 0; first < opts.Iterations; first += 3 {
+		o := opts
+		o.First, o.Iterations = first, min(3, opts.Iterations-first)
+		part, err := RunIterations(context.Background(), cfg, o)
+		if err != nil {
+			t.Fatal(err)
+		}
+		b, err := json.Marshal(part)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var back []Iteration
+		if err := json.Unmarshal(b, &back); err != nil {
+			t.Fatal(err)
+		}
+		its = append(its, back...)
+	}
+	if got := Aggregate(its, opts.Warmup); !reflect.DeepEqual(got, want) {
+		t.Errorf("merged slices = %+v\nwant %+v", got, want)
 	}
 }

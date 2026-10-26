@@ -19,9 +19,14 @@ func init() {
 			`Genshin Impact ve ilgili adlar HoYoverse'ün ticari markalarıdır; karakter görselleri © HoYoverse olup <a href="https://enka.network">Enka.Network</a> üzerinden yüklenir.`,
 		"js.copied":      "Bağlantı kopyalandı",
 		"js.link":        "Bağlantı",
+		"js.progress":    "simülasyon %d · %%%d",
 		"js.calculating": "Hesaplanıyor… Bu bir dakikaya kadar sürebilir.",
 
-		"team.stderr":       "standart hata",
+		"team.stderr": "standart hata",
+
+		"team.pending": "Tarayıcında hesaplanıyor…",
+
+		"client.server":     "Bunun yerine sunucuda hesapla",
 		"team.one_rotation": "Tek rotasyon (dolu enerji): %s DPS",
 		"team.character":    "Karakter",
 		"team.share":        "Pay",

@@ -240,8 +240,9 @@ func (s *Server) handleTeams(w http.ResponseWriter, r *http.Request) {
 }
 
 type scoreData struct {
-	Team teamResult
-	Meta pageMeta
+	Team   teamResult
+	Meta   pageMeta
+	Client *clientData // set when the browser calculates Team
 }
 
 func (s *Server) handleScore(w http.ResponseWriter, r *http.Request) {
@@ -258,6 +259,13 @@ func (s *Server) handleScore(w http.ResponseWriter, r *http.Request) {
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 90*time.Second)
 	defer cancel()
+	if s.inBrowser(r) {
+		tr := s.prepare(ctx, l, sel)
+		tr.ID = "a"
+		job := s.job(l, "score", tr)
+		s.render(w, l, "score.html", scoreData{Team: tr, Meta: pendingScoreMeta(l, tr, baseURL(r)), Client: s.clientData(r, job)})
+		return
+	}
 	tr := s.evaluate(ctx, l, sel)
 	tr.ID = "a"
 	s.render(w, l, "score.html", scoreData{Team: tr, Meta: scoreMeta(l, tr, baseURL(r))})
@@ -270,6 +278,7 @@ type versusData struct {
 	Scored bool
 	Tie    bool
 	Meta   pageMeta
+	Client *clientData // set when the browser calculates the teams
 }
 
 // tieThreshold is the relative difference below which two scores are shown
@@ -295,13 +304,25 @@ func (s *Server) handleVersus(w http.ResponseWriter, r *http.Request) {
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 120*time.Second)
 	defer cancel()
+	if s.inBrowser(r) {
+		data := newVersus(s.prepare(ctx, l, a), s.prepare(ctx, l, b))
+		data.Meta = pendingVersusMeta(l, data, baseURL(r))
+		data.Client = s.clientData(r, s.job(l, "versus", data.A, data.B))
+		s.render(w, l, "versus.html", data)
+		return
+	}
 	data := s.versus(ctx, l, a, b)
 	data.Meta = versusMeta(l, data, baseURL(r))
 	s.render(w, l, "versus.html", data)
 }
 
 func (s *Server) versus(ctx context.Context, l localizer, a, b selection) versusData {
-	data := versusData{A: s.evaluate(ctx, l, a), B: s.evaluate(ctx, l, b)}
+	return newVersus(s.evaluate(ctx, l, a), s.evaluate(ctx, l, b))
+}
+
+// newVersus compares two teams, scored or not.
+func newVersus(a, b teamResult) versusData {
+	data := versusData{A: a, B: b}
 	data.A.ID, data.B.ID = "a", "b"
 	if data.A.Result != nil && data.B.Result != nil && data.B.Result.DPS > 0 {
 		data.Scored = true

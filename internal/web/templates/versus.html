@@ -1,4 +1,9 @@
 {{template "head" .Meta}}
+<div id="page-body">{{template "versus-body" .}}</div>
+{{with .Client}}{{template "client" .}}{{end}}
+{{template "foot"}}
+
+{{define "versus-body"}}
 {{if .Scored}}
 <div class="card verdict">
 {{if .Tie}}{{t "vs.tie"}} <span class="muted">{{t "vs.tie_detail" (percent .Diff)}}</span>
@@ -17,4 +22,4 @@
 </div>
 {{if .A.Timelines}}<h2 class="section">{{t "vs.left_team"}}</h2>{{template "timeline" .A}}{{end}}
 {{if .B.Timelines}}<h2 class="section">{{t "vs.right_team"}}</h2>{{template "timeline" .B}}{{end}}
-{{template "foot"}}
+{{end}}

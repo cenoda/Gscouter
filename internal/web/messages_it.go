@@ -19,9 +19,14 @@ func init() {
 			`Genshin Impact e i nomi correlati sono marchi di HoYoverse; le immagini dei personaggi sono © HoYoverse e vengono caricate da <a href="https://enka.network">Enka.Network</a>.`,
 		"js.copied":      "Link copiato",
 		"js.link":        "Link",
+		"js.progress":    "simulazione %d · %d%%",
 		"js.calculating": "Calcolo in corso… Può richiedere fino a un minuto.",
 
-		"team.stderr":       "errore standard",
+		"team.stderr": "errore standard",
+
+		"team.pending": "Calcolo in corso nel tuo browser…",
+
+		"client.server":     "Calcola sul server",
 		"team.one_rotation": "Una rotazione (energia piena): %s DPS",
 		"team.character":    "Personaggio",
 		"team.share":        "Quota",

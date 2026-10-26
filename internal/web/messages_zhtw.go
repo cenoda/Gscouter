@@ -19,9 +19,14 @@ func init() {
 			`原神及相關名稱為 HoYoverse 的商標；角色圖片 © HoYoverse，從 <a href="https://enka.network">Enka.Network</a> 載入。`,
 		"js.copied":      "已複製連結",
 		"js.link":        "連結",
+		"js.progress":    "模擬 %d · %d%%",
 		"js.calculating": "正在計算… 最多可能需要一分鐘。",
 
-		"team.stderr":       "標準誤差",
+		"team.stderr": "標準誤差",
+
+		"team.pending": "正在瀏覽器中計算…",
+
+		"client.server":     "改為在伺服器上計算",
 		"team.one_rotation": "單輪循環（滿能量）：%s DPS",
 		"team.character":    "角色",
 		"team.share":        "佔比",

@@ -19,9 +19,14 @@ func init() {
 			`Genshin Impact dan nama terkait adalah merek dagang HoYoverse; gambar karakter © HoYoverse, dimuat dari <a href="https://enka.network">Enka.Network</a>.`,
 		"js.copied":      "Link disalin",
 		"js.link":        "Link",
+		"js.progress":    "simulasi %d · %d%%",
 		"js.calculating": "Menghitung… Ini bisa memakan waktu hingga satu menit.",
 
-		"team.stderr":       "galat baku",
+		"team.stderr": "galat baku",
+
+		"team.pending": "Menghitung di browser Anda…",
+
+		"client.server":     "Hitung di server saja",
 		"team.one_rotation": "Satu rotasi (Energy penuh): %s DPS",
 		"team.character":    "Karakter",
 		"team.share":        "Porsi",

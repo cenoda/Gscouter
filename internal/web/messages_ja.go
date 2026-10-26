@@ -19,9 +19,14 @@ func init() {
 			`原神および関連する名称はHoYoverseの商標です。キャラクター画像は© HoYoverseで、<a href="https://enka.network">Enka.Network</a>から読み込んでいます。`,
 		"js.copied":      "リンクをコピーしました",
 		"js.link":        "リンク",
+		"js.progress":    "シミュレーション %d · %d%%",
 		"js.calculating": "計算中です… 最大1分ほどかかることがあります。",
 
-		"team.stderr":       "標準誤差",
+		"team.stderr": "標準誤差",
+
+		"team.pending": "ブラウザで計算中です…",
+
+		"client.server":     "サーバーで計算する",
 		"team.one_rotation": "ローテーション1回(エネルギー満タン): %s DPS",
 		"team.character":    "キャラクター",
 		"team.share":        "割合",

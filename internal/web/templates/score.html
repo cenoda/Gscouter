@@ -1,4 +1,9 @@
 {{template "head" .Meta}}
+<div id="page-body">{{template "score-body" .}}</div>
+{{with .Client}}{{template "client" .}}{{end}}
+{{template "foot"}}
+
+{{define "score-body"}}
 <div class="card">{{template "team" .Team}}
 <div class="actions">
 {{if .Team.Result}}<button type="button" class="secondary" onclick="copyLink(this)"><svg class="icon"><use href="#i-link"/></svg>{{t "score.copy"}}</button>{{end}}
@@ -17,4 +22,4 @@
 </form>
 </div>
 {{end}}
-{{template "foot"}}
+{{end}}
