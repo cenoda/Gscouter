@@ -32,6 +32,10 @@ const (
 	warnReference = 0.05
 	warnWait      = 2.0 // seconds per minute an action is delayed, for any reason
 	warnShare     = 0.01
+	// A character that stands still this long, in seconds per minute of
+	// the scoring window, has stalled the looped rotation (e.g. a burst
+	// it can never charge), even with fillers.
+	failStall = 50.0
 	// A rotation that does not end within this time probably loops
 	// forever: with the enemy's infinite HP, gcsim stops only when the
 	// action list ends.
@@ -201,6 +205,16 @@ func looped(ctx context.Context, r *Report, build string, s Settings) {
 	res := out.Result
 	r.Filler = out.String()
 	r.Res = res
+	if res.DPS <= 0 {
+		r.Failures = append(r.Failures, "the looped rotation deals no damage in the scoring window: it stalls")
+	}
+	for _, c := range res.Characters {
+		for _, reason := range slices.Sorted(maps.Keys(c.Waits)) {
+			if w := c.Waits[reason]; w >= failStall {
+				r.Failures = append(r.Failures, fmt.Sprintf("the looped rotation stalls: %s waits %.1fs/min (%s)", c.Name, w, reason))
+			}
+		}
+	}
 	for _, c := range res.Characters {
 		switch {
 		case c.DPS <= 0:

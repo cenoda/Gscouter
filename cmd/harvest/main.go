@@ -370,7 +370,8 @@ func readFailed(root string) (map[string]string, error) {
 
 func writeFailed(root string, failed map[string]string) error {
 	var b strings.Builder
-	b.WriteString("# Teams cmd/harvest could not import: no database entry reproduced its DPS.\n")
+	b.WriteString("# Teams cmd/harvest could not import: no database entry reproduced its DPS,\n")
+	b.WriteString("# or the imported team failed the full validation (cmd/validate) and was removed.\n")
 	b.WriteString("# The next harvest skips them unless run with -retry-failed.\n")
 	for _, key := range slices.Sorted(maps.Keys(failed)) {
 		fmt.Fprintf(&b, "%s\t%s\n", key, failed[key])
