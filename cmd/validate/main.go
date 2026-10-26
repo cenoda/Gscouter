@@ -1,6 +1,7 @@
 // Command validate runs every library team with its reference build. It
-// checks that one pass of the rotation reproduces the DPS its source
-// config reported, then scores the looped rotation as the site does and
+// checks that one pass of the rotation under the source's own conditions
+// (source.txt) reproduces the DPS its source config reported, then scores
+// the looped rotation as the site does, under the common conditions, and
 // reports energy waits and members with almost no damage.
 //
 // Usage:

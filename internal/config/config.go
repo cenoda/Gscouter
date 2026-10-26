@@ -53,6 +53,38 @@ func Assemble(c Conditions, build, rotation string) string {
 	return b.String()
 }
 
+var iterationRe = regexp.MustCompile(`\s*\biteration=\d+`)
+
+// AssembleSource joins a source config's own conditions with the build
+// and rotation, to reproduce the DPS the source reported. conditions are
+// the source's options, target, energy and hurt lines, one statement per
+// line, as cmd/import stores them in source.txt; lines starting with #
+// are comments. The options line's iteration count is replaced.
+func AssembleSource(conditions string, iterations int, build, rotation string) string {
+	var b strings.Builder
+	hasOptions := false
+	for _, line := range strings.Split(conditions, "\n") {
+		line = strings.TrimSpace(line)
+		if line == "" || strings.HasPrefix(line, "#") {
+			continue
+		}
+		if strings.HasPrefix(line, "options") {
+			hasOptions = true
+			line = iterationRe.ReplaceAllString(strings.TrimSuffix(line, ";"), "") + fmt.Sprintf(" iteration=%d;", iterations)
+		}
+		b.WriteString(line + "\n")
+	}
+	if !hasOptions {
+		b.WriteString(fmt.Sprintf("options iteration=%d;\n", iterations))
+	}
+	b.WriteString("\n")
+	b.WriteString(strings.TrimSpace(build))
+	b.WriteString("\n\n")
+	b.WriteString(strings.TrimSpace(rotation))
+	b.WriteString("\n")
+	return b.String()
+}
+
 // Characters returns the gcsim keys of the characters set up in an
 // assembled config, in the order they appear.
 func Characters(cfg string) ([]string, error) {

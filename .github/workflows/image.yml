@@ -14,12 +14,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
       - run: go vet ./...
       - run: go test ./...
-      - run: go run ./cmd/validate -iter 50
+      # Fully validate the teams this push or pull request changes; with
+      # none, 10 random teams.
+      - name: validate changed teams
+        env:
+          BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          dirs=""
+          if [ -n "$BASE" ] && git cat-file -e "$BASE^{commit}" 2>/dev/null; then
+            for d in $(git diff --name-only "$BASE" HEAD -- teams/ | awk -F/ 'NF > 2 { print $1 "/" $2 }' | sort -u); do
+              [ -f "$d/team.yaml" ] && dirs="$dirs $d"
+            done
+          fi
+          if [ -z "$dirs" ]; then
+            dirs=$(ls -d teams/*/ | shuf -n 10)
+          fi
+          go run ./cmd/validate -iter 50 $dirs
 
   image:
     needs: test

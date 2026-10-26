@@ -6,10 +6,13 @@ package kqm
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
+	"io/fs"
 	"net/http"
 	"net/url"
+	"os"
 	"slices"
 	"strconv"
 	"strings"
@@ -96,7 +99,55 @@ const pageSize = 100
 
 // FetchAll downloads every entry of the database.
 func FetchAll(ctx context.Context) ([]Entry, error) {
-	var all []Entry
+	raw, err := fetchAll(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return decode(raw)
+}
+
+// Cached reads the entries from the file at path, as an earlier call
+// saved them. If the file does not exist, it downloads every entry and
+// saves the database's JSON there.
+func Cached(ctx context.Context, path string) ([]Entry, error) {
+	b, err := os.ReadFile(path)
+	if err == nil {
+		var raw []json.RawMessage
+		if err := json.Unmarshal(b, &raw); err != nil {
+			return nil, fmt.Errorf("%s: %w", path, err)
+		}
+		return decode(raw)
+	}
+	if !errors.Is(err, fs.ErrNotExist) {
+		return nil, err
+	}
+	raw, err := fetchAll(ctx)
+	if err != nil {
+		return nil, err
+	}
+	b, err = json.Marshal(raw)
+	if err != nil {
+		return nil, err
+	}
+	if err := os.WriteFile(path, b, 0o644); err != nil {
+		return nil, err
+	}
+	return decode(raw)
+}
+
+func decode(raw []json.RawMessage) ([]Entry, error) {
+	entries := make([]Entry, len(raw))
+	for i, r := range raw {
+		if err := json.Unmarshal(r, &entries[i]); err != nil {
+			return nil, fmt.Errorf("decode database entry %d: %w", i, err)
+		}
+	}
+	return entries, nil
+}
+
+// fetchAll downloads every entry as the database's JSON.
+func fetchAll(ctx context.Context) ([]json.RawMessage, error) {
+	var all []json.RawMessage
 	for skip := 0; ; skip += pageSize {
 		page, err := fetch(ctx, skip)
 		if err != nil {
@@ -109,7 +160,7 @@ func FetchAll(ctx context.Context) ([]Entry, error) {
 	}
 }
 
-func fetch(ctx context.Context, skip int) ([]Entry, error) {
+func fetch(ctx context.Context, skip int) ([]json.RawMessage, error) {
 	q, err := json.Marshal(map[string]any{"query": map[string]any{}, "limit": pageSize, "skip": skip})
 	if err != nil {
 		return nil, err
@@ -132,7 +183,7 @@ func fetch(ctx context.Context, skip int) ([]Entry, error) {
 		return nil, fmt.Errorf("GET %s: %s", u, resp.Status)
 	}
 	var page struct {
-		Data []Entry `json:"data"`
+		Data []json.RawMessage `json:"data"`
 	}
 	if err := json.Unmarshal(body, &page); err != nil {
 		return nil, fmt.Errorf("decode database page at %d: %w", skip, err)

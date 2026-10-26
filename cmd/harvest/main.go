@@ -1,32 +1,42 @@
 // Command harvest fills the team library from the community gcsim
 // database at db.kqm.gg.
 //
-// It ranks teams by how many accepted database entries use the same four
-// characters, and takes the most common ones. Only entries that run under
-// Gscouter's conditions are counted: one Lv.100 target with 10%
-// resistance, a rotation (not random delays or an action priority list)
-// that starts with active and ends. For each team it imports the entry
-// with the lowest constellations and refinements, closest to an ordinary
-// account, and validates it as cmd/validate does; when the entry fails,
-// it tries the next one.
+// It ranks teams by how many database entries use the same four
+// characters, and takes the most common ones. An entry is usable unless
+// it does not have four characters or its rotation never ends (an
+// unconditional while loop); its enemies, resistances and energy may
+// differ from Gscouter's, because a team is accepted by running one pass
+// of the rotation under the entry's own conditions and comparing the DPS
+// with the database's (validate.CheckReference). For each team it tries
+// the entries from the lowest constellations and refinements up, closest
+// to an ordinary account, and keeps the first that passes.
+//
+// Teams that fail every entry are recorded in <root>/harvest-failed.txt
+// and skipped by the next run unless -retry-failed is set.
 //
 // Usage:
 //
-//	harvest                    # the 64 most common teams into teams/
-//	harvest -n 100 -force      # more teams, replacing existing ones
+//	harvest                                # the 64 most common teams into teams/
+//	harvest -n 10000 -cache kqm.json       # every team, reusing a saved download
+//	harvest -n 100 -force                  # replace existing teams
 package main
 
 import (
+	"bufio"
 	"cmp"
 	"context"
+	"errors"
 	"flag"
 	"fmt"
+	"io/fs"
 	"maps"
 	"os"
 	"path/filepath"
 	"regexp"
+	"runtime"
 	"slices"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/cenoda/gscouter/internal/config"
@@ -36,17 +46,34 @@ import (
 	"github.com/cenoda/gscouter/internal/validate"
 )
 
+// failedFile lists, under the library root, the teams that failed.
+const failedFile = "harvest-failed.txt"
+
+type options struct {
+	root        string
+	n           int
+	minEntries  int
+	tries       int
+	iterations  int
+	jobs        int
+	cache       string
+	force       bool
+	retryFailed bool
+}
+
 func main() {
-	var (
-		root       = flag.String("root", "teams", "team library directory")
-		n          = flag.Int("n", 64, "number of teams the library should hold")
-		minEntries = flag.Int("min", 2, "least database entries a team needs")
-		tries      = flag.Int("tries", 3, "entries to try per team before giving up")
-		iterations = flag.Int("iter", 50, "iterations per validation run")
-		force      = flag.Bool("force", false, "replace teams already in the library")
-	)
+	var o options
+	flag.StringVar(&o.root, "root", "teams", "team library directory")
+	flag.IntVar(&o.n, "n", 64, "number of teams the library should hold")
+	flag.IntVar(&o.minEntries, "min", 1, "least database entries a team needs")
+	flag.IntVar(&o.tries, "tries", 0, "entries to try per team before giving up; 0 tries all")
+	flag.IntVar(&o.iterations, "iter", 20, "iterations per validation run")
+	flag.IntVar(&o.jobs, "j", runtime.NumCPU(), "teams harvested in parallel")
+	flag.StringVar(&o.cache, "cache", "", "file to save the database download to, and to read it from when it exists")
+	flag.BoolVar(&o.force, "force", false, "replace teams already in the library")
+	flag.BoolVar(&o.retryFailed, "retry-failed", false, "try again the teams listed in "+failedFile)
 	flag.Parse()
-	if err := run(*root, *n, *minEntries, *tries, *iterations, *force); err != nil {
+	if err := run(o); err != nil {
 		fmt.Fprintln(os.Stderr, "error:", err)
 		os.Exit(1)
 	}
@@ -63,20 +90,29 @@ type group struct {
 	candidates []candidate
 }
 
-func run(root string, n, minEntries, tries, iterations int, force bool) error {
+func run(o options) error {
+	start := time.Now()
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
-	entries, err := kqm.FetchAll(ctx)
+	var entries []kqm.Entry
+	var err error
+	if o.cache != "" {
+		entries, err = kqm.Cached(ctx, o.cache)
+	} else {
+		entries, err = kqm.FetchAll(ctx)
+	}
 	if err != nil {
 		return err
 	}
+	fmt.Printf("database read in %v\n", time.Since(start).Round(time.Second))
 
 	byTeam := map[string]*group{}
+	byID := map[string]candidate{}
 	rejected := map[string]int{}
 	for i := range entries {
 		e := &entries[i]
 		sp := share.SplitConfig(e.Config)
-		if reason := usable(e, sp); reason != "" {
+		if reason := usable(sp); reason != "" {
 			rejected[reason]++
 			continue
 		}
@@ -87,6 +123,7 @@ func run(root string, n, minEntries, tries, iterations int, force bool) error {
 			byTeam[key] = g
 		}
 		g.candidates = append(g.candidates, candidate{e, sp})
+		byID[e.ID] = candidate{e, sp}
 	}
 	fmt.Printf("%d database entries, %d teams usable\n", len(entries), len(byTeam))
 	for _, reason := range slices.Sorted(maps.Keys(rejected)) {
@@ -98,19 +135,27 @@ func run(root string, n, minEntries, tries, iterations int, force bool) error {
 		return cmp.Or(cmp.Compare(len(b.candidates), len(a.candidates)), cmp.Compare(a.key, b.key))
 	})
 
-	existing, err := existingTeams(root)
+	existing, err := existingTeams(o.root)
 	if err != nil {
 		return err
 	}
-	settings := validate.Settings{Iterations: iterations, Warmup: 150, Duration: 450}
-	held := 0
+	failed, err := readFailed(o.root)
+	if err != nil {
+		return err
+	}
+
+	// Choose the teams to harvest in rank order.
+	var todo []*group
+	held, skippedFailed := 0, 0
 	for _, g := range groups {
-		if held >= n || len(g.candidates) < minEntries {
+		if held+len(todo) >= o.n || len(g.candidates) < o.minEntries {
 			break
 		}
 		if dir, ok := existing[g.key]; ok {
-			if !force {
-				fmt.Printf("keep %-46s (%d entries)\n", filepath.Base(dir), len(g.candidates))
+			if !o.force {
+				if err := backfillSource(dir, byID); err != nil {
+					return err
+				}
 				held++
 				continue
 			}
@@ -118,16 +163,67 @@ func run(root string, n, minEntries, tries, iterations int, force bool) error {
 				return err
 			}
 		}
-		if harvest(root, g, tries, settings) {
-			held++
+		if _, ok := failed[g.key]; ok && !o.retryFailed {
+			skippedFailed++
+			continue
 		}
+		todo = append(todo, g)
 	}
-	fmt.Printf("\nThe library holds %d harvested or kept teams. Run go run ./cmd/validate -v for the full report.\n", held)
+	fmt.Printf("%d teams kept, %d skipped as failed before (-retry-failed), %d to harvest with %d jobs\n", held, skippedFailed, len(todo), o.jobs)
+
+	settings := validate.Settings{Iterations: o.iterations}
+	if o.jobs > 1 {
+		// Teams run in parallel; each simulation runs on one CPU.
+		settings.Workers = 1
+	}
+	var (
+		mu    sync.Mutex
+		next  int
+		added int
+		wg    sync.WaitGroup
+	)
+	harvestStart := time.Now()
+	for range max(o.jobs, 1) {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			for {
+				mu.Lock()
+				if next == len(todo) {
+					mu.Unlock()
+					return
+				}
+				g := todo[next]
+				next++
+				mu.Unlock()
+
+				ok, reason, log := harvest(o.root, g, o.tries, settings)
+				mu.Lock()
+				fmt.Print(log)
+				if ok {
+					added++
+					delete(failed, g.key)
+				} else {
+					failed[g.key] = reason
+				}
+				mu.Unlock()
+			}
+		}()
+	}
+	wg.Wait()
+	if err := writeFailed(o.root, failed); err != nil {
+		return err
+	}
+	fmt.Printf("\nharvested %d of %d teams in %v; the library holds %d teams. %d failed teams are listed in %s.\n",
+		added, len(todo), time.Since(harvestStart).Round(time.Second), held+added, len(failed), filepath.Join(o.root, failedFile))
+	fmt.Println("Run go run ./cmd/validate for the full check, including the looped rotation.")
 	return nil
 }
 
-// harvest imports the team's best candidate that passes validation.
-func harvest(root string, g *group, tries int, s validate.Settings) bool {
+// harvest imports the team's best candidate that passes the reference
+// check. It returns, for a team that fails, the reason the first entry
+// failed, and what to print.
+func harvest(root string, g *group, tries int, s validate.Settings) (bool, string, string) {
 	cs := slices.Clone(g.candidates)
 	slices.SortFunc(cs, func(a, b candidate) int {
 		return cmp.Or(
@@ -136,11 +232,14 @@ func harvest(root string, g *group, tries int, s validate.Settings) bool {
 			cmp.Compare(a.entry.ID, b.entry.ID),
 		)
 	})
+	if tries > 0 {
+		cs = cs[:min(tries, len(cs))]
+	}
 	var failures []string
-	for _, c := range cs[:min(tries, len(cs))] {
+	for _, c := range cs {
 		e := c.entry
-		notes := fmt.Sprintf("Harvested from the KQM gcsim database: %d accepted entries use this team; this one has the lowest constellations and refinements.", len(g.candidates))
-		team, err := c.split.Team([]string{e.Link()}, &library.Reference{DPS: float64(int64(e.Summary.DPS + 0.5)), Computed: e.Updated()}, notes)
+		notes := fmt.Sprintf("Harvested from the KQM gcsim database: %d entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.", len(g.candidates))
+		team, err := c.split.Team([]string{e.Link()}, reference(e), notes)
 		if err != nil {
 			failures = append(failures, e.ID+": "+err.Error())
 			continue
@@ -150,77 +249,69 @@ func harvest(root string, g *group, tries int, s validate.Settings) bool {
 			failures = append(failures, e.ID+": "+err.Error())
 			continue
 		}
-		r := validate.Check(dir, s)
+		r := validate.CheckReference(dir, s)
 		if len(r.Failures) == 0 {
-			fmt.Printf("add  %-46s looped %7.0f  one rotation %7.0f (source %7.0f, %d entries, %s)\n",
-				team.ID, r.Res.DPS, r.Once.DPS, team.Reference.DPS, len(g.candidates), e.ID)
-			return true
+			return true, "", fmt.Sprintf("add  %-46s one rotation %8.0f (source %8.0f, %d entries, %s)\n",
+				team.ID, r.Once.DPS, team.Reference.DPS, len(g.candidates), e.ID)
 		}
 		failures = append(failures, e.ID+": "+strings.Join(r.Failures, "; "))
 		if err := os.RemoveAll(dir); err != nil {
-			fmt.Fprintln(os.Stderr, "error:", err)
+			failures = append(failures, "error: "+err.Error())
 		}
 	}
-	fmt.Printf("fail %-46s (%d entries)\n", g.key, len(g.candidates))
+	var b strings.Builder
+	fmt.Fprintf(&b, "fail %-46s (%d entries)\n", g.key, len(g.candidates))
 	for _, f := range failures {
-		fmt.Printf("       %s\n", f)
+		fmt.Fprintf(&b, "       %s\n", f)
 	}
-	return false
+	reason := fmt.Sprintf("%d entries tried; first: %s", len(cs), strings.Join(strings.Fields(failures[0]), " "))
+	return false, reason[:min(len(reason), 300)], b.String()
 }
 
-var (
-	lvlRe     = regexp.MustCompile(`\blvl=(\d+)`)
-	resistRe  = regexp.MustCompile(`\bresist=([\d.]+)`)
-	foreverRe = regexp.MustCompile(`\bwhile\s+(1|true)\b`)
-)
+// reference is the entry's team DPS. The database reports DPS per
+// target; Gscouter's score is the team's damage on all targets.
+func reference(e *kqm.Entry) *library.Reference {
+	dps := e.Summary.DPS * float64(max(e.Summary.TargetCount, 1))
+	return &library.Reference{DPS: float64(int64(dps + 0.5)), Computed: e.Updated()}
+}
 
-// usable says why an entry cannot be used, or "" if it can.
-func usable(e *kqm.Entry, sp share.Split) string {
+var foreverRe = regexp.MustCompile(`\bwhile\s+(1|true)\b`)
+
+// usable says why an entry cannot be used, or "" if it can. Conditions
+// that differ from Gscouter's are fine: the reference check runs the
+// entry under its own.
+func usable(sp share.Split) string {
 	switch {
-	case !e.HasTag(kqm.TagGcsim) && !e.HasTag(kqm.TagGuides):
-		return "not accepted by gcsim or a guide"
-	case e.HasTag(kqm.TagRandomDelays) || e.HasTag(kqm.TagAPL):
-		return "random delays or action priority list"
-	case e.Summary.Mode != kqm.ModeTTK:
-		return "not a rotation that ends"
-	case e.Summary.TargetCount != 1:
-		return "more than one target"
 	case len(sp.Members) != 4:
 		return "not four characters"
-	case !standardTarget(sp.Dropped):
-		return "enemy other than Lv.100 with 10% resistance"
 	case foreverRe.MatchString(sp.Rotation):
 		return "rotation loops forever"
 	}
+	// Gscouter loops the rotation itself, which needs its setup.
 	if _, err := config.Loop(sp.Rotation); err != nil {
 		return "rotation does not start with active"
 	}
 	return ""
 }
 
-// standardTarget reports whether the config has one Lv.100 target with
-// 10% resistance, the common conditions.
-func standardTarget(header []string) bool {
-	targets := 0
-	for _, h := range header {
-		if !strings.HasPrefix(h, "target") {
-			continue
-		}
-		targets++
-		lvl, res := lvlRe.FindStringSubmatch(h), resistRe.FindStringSubmatch(h)
-		if lvl == nil || lvl[1] != "100" || res == nil || !isTenth(res[1]) {
-			return false
+// backfillSource writes source.txt for a kept team harvested before the
+// file existed, from its database entry.
+func backfillSource(dir string, byID map[string]candidate) error {
+	path := filepath.Join(dir, "source.txt")
+	if _, err := os.Stat(path); !errors.Is(err, fs.ErrNotExist) {
+		return err
+	}
+	t, err := library.Load(dir)
+	if err != nil {
+		return err
+	}
+	for _, src := range t.Sources {
+		id, ok := strings.CutPrefix(src, "https://db.kqm.gg/db/")
+		if c, found := byID[id]; ok && found {
+			return os.WriteFile(path, []byte(c.split.SourceConditions()), 0o644)
 		}
 	}
-	return targets == 1
-}
-
-func isTenth(s string) bool {
-	switch strings.TrimRight(s, "0") {
-	case "0.1", ".1":
-		return true
-	}
-	return false
+	return nil
 }
 
 func teamKey(members []string) string {
@@ -251,4 +342,38 @@ func existingTeams(root string) (map[string]string, error) {
 		out[teamKey(t.Members)] = dir
 	}
 	return out, nil
+}
+
+// readFailed reads the failed teams: one per line, the team key, a tab
+// and the reason.
+func readFailed(root string) (map[string]string, error) {
+	out := map[string]string{}
+	f, err := os.Open(filepath.Join(root, failedFile))
+	if errors.Is(err, fs.ErrNotExist) {
+		return out, nil
+	}
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
+	sc := bufio.NewScanner(f)
+	for sc.Scan() {
+		line := sc.Text()
+		if line == "" || strings.HasPrefix(line, "#") {
+			continue
+		}
+		key, reason, _ := strings.Cut(line, "\t")
+		out[key] = reason
+	}
+	return out, sc.Err()
+}
+
+func writeFailed(root string, failed map[string]string) error {
+	var b strings.Builder
+	b.WriteString("# Teams cmd/harvest could not import: no database entry reproduced its DPS.\n")
+	b.WriteString("# The next harvest skips them unless run with -retry-failed.\n")
+	for _, key := range slices.Sorted(maps.Keys(failed)) {
+		fmt.Fprintf(&b, "%s\t%s\n", key, failed[key])
+	}
+	return os.WriteFile(filepath.Join(root, failedFile), []byte(b.String()), 0o644)
 }

@@ -5,8 +5,9 @@
 //	import https://gcsim.app/sh/<key>
 //	import https://gcsim.app/db/<id>
 //
-// It writes teams/<id>/ with team.yaml, rotation.gcsl and the source's
-// build as build.txt, then prints what to check. Run cmd/validate next.
+// It writes teams/<id>/ with team.yaml, rotation.gcsl, the source's
+// build as build.txt and its conditions as source.txt, then prints what
+// to check. Run cmd/validate next.
 package main
 
 import (
@@ -62,7 +63,7 @@ func run(link, root string, force bool) error {
 	if len(sp.Params) > 0 {
 		fmt.Printf("Character params: %v\n", sp.Params)
 	}
-	fmt.Println("Replaced by the common conditions:")
+	fmt.Println("Replaced by the common conditions on the site; kept in source.txt to validate against the source's DPS:")
 	for _, d := range sp.Dropped {
 		fmt.Println("  " + d)
 	}

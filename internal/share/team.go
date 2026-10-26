@@ -43,8 +43,8 @@ func (sp Split) Team(sources []string, ref *library.Reference, notes string) (*l
 	return t, nil
 }
 
-// Write stores the team in root/<id>/: team.yaml, rotation.gcsl and the
-// source's build as build.txt. It refuses to replace an existing team
+// Write stores the team in root/<id>/: team.yaml, rotation.gcsl, the
+// source's build as build.txt and its conditions as source.txt. It refuses to replace an existing team
 // unless force is set.
 func (sp Split) Write(root string, t *library.Team, force bool) (string, error) {
 	dir := filepath.Join(root, t.ID)
@@ -64,6 +64,7 @@ func (sp Split) Write(root string, t *library.Team, force bool) (string, error) 
 		"team.yaml":     string(meta),
 		"rotation.gcsl": sp.Rotation,
 		"build.txt":     "# Build from the source config, used to validate the rotation.\n\n" + sp.Build,
+		"source.txt":    sp.SourceConditions(),
 	}
 	for name, content := range files {
 		if err := os.WriteFile(filepath.Join(dir, name), []byte(content), 0o644); err != nil {
@@ -79,4 +80,12 @@ func displayName(key string) string {
 		return key
 	}
 	return strings.ToUpper(key[:1]) + key[1:]
+}
+
+// SourceConditions renders the source's own options, target, energy and
+// hurt lines for source.txt. Validation runs one pass of the rotation
+// under them to compare with the source's DPS; the site always uses the
+// common conditions.
+func (sp Split) SourceConditions() string {
+	return "# Conditions of the source config, used to validate the rotation.\n\n" + strings.Join(sp.Dropped, "\n") + "\n"
 }

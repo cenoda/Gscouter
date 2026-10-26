@@ -1,6 +1,9 @@
 package config
 
-import "testing"
+import (
+	"strings"
+	"testing"
+)
 
 func TestRenameCharacters(t *testing.T) {
 	rot := "active travelercryo;\ntravelercryo skill;\nif .travelercryo.burst.ready { travelercryo burst; }\nfaruzan skill;"
@@ -80,5 +83,21 @@ varka burst;
 	}
 	if _, err := Loop("active varka; let x = 1;"); err == nil {
 		t.Error("expected an error without actions")
+	}
+}
+
+func TestAssembleSource(t *testing.T) {
+	conditions := "# Conditions of the source config.\noptions swap_delay=12 iteration=1000 duration=90;\ntarget lvl=95 resist=0.1 hp=1e9;\ntarget lvl=95 resist=0.1 hp=1e9;\n"
+	cfg := AssembleSource(conditions, 20, "xingqiu char lvl=90/90 cons=6 talent=9,9,9;", "active xingqiu;\nxingqiu skill;")
+	for _, want := range []string{"options swap_delay=12 duration=90 iteration=20;\n", "target lvl=95 resist=0.1 hp=1e9;\ntarget lvl=95", "xingqiu skill;"} {
+		if !strings.Contains(cfg, want) {
+			t.Errorf("config does not contain %q:\n%s", want, cfg)
+		}
+	}
+	if strings.Contains(cfg, "1000") || strings.Contains(cfg, "#") {
+		t.Errorf("source iterations or comments kept:\n%s", cfg)
+	}
+	if cfg := AssembleSource("target lvl=100 resist=0.1;", 5, "", "active a;"); !strings.HasPrefix(cfg, "target lvl=100 resist=0.1;\noptions iteration=5;\n") {
+		t.Errorf("missing options line not added:\n%s", cfg)
 	}
 }

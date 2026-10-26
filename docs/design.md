@@ -200,27 +200,28 @@ The library is filled from the community gcsim database at db.kqm.gg, the list g
 
 `cmd/harvest` does the following:
 
-1. **Download** every entry (`/api/db`, 100 per page).
-2. **Filter** to entries that run under our conditions:
-   - accepted by gcsim (tag 1) or from a KQM guide (tag 9);
-   - no random-delay (6) or action-priority-list (8) entries;
-   - TTK mode;
-   - one Lv.100 target with 10% resistance;
-   - four characters;
-   - a rotation with an `active` setup that does not loop forever.
-3. **Rank** teams (sets of four characters) by how many entries use them. This is the popularity measure: what the community simulates most, not our choice.
-4. **Pick** per team the entry with the lowest total constellations and refinements, closest to an ordinary account.
-5. **Validate** it as `cmd/validate` does. If it fails, for example by being more than 5% from the database's DPS, try the next entry, up to three per team.
+1. **Download** every entry (`/api/db`, 100 per page). `-cache <file>` saves the download and reuses it on later runs.
+2. **Filter** out only entries that cannot be used at all:
+   - not four characters;
+   - a rotation that never ends on its own (an unconditional `while 1`);
+   - a rotation without an `active` setup, which Gscouter cannot loop.
+
+   Entries that gcsim has not accepted, random delays, action priority lists and entries with other enemies (several targets, other levels or resistances) or other energy are usable: each is judged by whether it reproduces its own DPS (step 4), and the site scores it under the common conditions.
+3. **Rank** teams (sets of four characters) by how many entries use them. This is the popularity measure: what the community simulates most, not our choice. `-min` (default 1) is the least number of entries a team needs.
+4. **Pick** per team the entries from the lowest total constellations and refinements up, closest to an ordinary account, and accept the first that passes the **reference check** (`validate.CheckReference`): one pass of the rotation with the entry's build under the entry's own conditions, 20 iterations, within 15% of the database's DPS. The database reports DPS per target, so the reference is that times the number of targets. All entries are tried (`-tries` limits them).
+5. Teams run in parallel (`-j`, default one per CPU, each simulation on one CPU; on 4 CPUs this was as fast as one team at a time on all CPUs). Teams that fail every entry go to `teams/harvest-failed.txt` with the first entry's failure, and later runs skip them unless `-retry-failed` is set.
+
+Each team stores the source's options, target, energy and hurt lines in `source.txt`. Only the reference check uses them; the site's score and the looped checks use the common conditions (§3.2).
 
 | Step | Mode | Description |
 |---|---|---|
 | 1. Harvest | Automated | `cmd/harvest -n <teams>`; rerun to refresh. `cmd/import` adds a single gcsim share link by hand. Rotations are never written from scratch |
-| 2. Validation | Automated | `cmd/validate`, also run by CI |
+| 2. Validation | Automated | `cmd/validate`. CI validates fully the team directories a push or pull request changes, or 10 random teams when it changes none |
 | 3. Approval | Manual | After review, set `status: supported` |
 | 4. Regression tests | Automated | Re-run everything on gcsim updates or game patches; flag teams whose DPS shifts more than ±N% for review |
 
 Validation checks:
-- The team reproduces the source's DPS with the source's build within 5%
+- The team reproduces the source's DPS with the source's build under the source's conditions within 15% (a warning above 5%). The tolerance allows for the source having run on another gcsim version
 - The rotation finishes
 - Action waits and members with almost no damage in the looped rotation are reported as warnings
 

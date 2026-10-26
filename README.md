@@ -69,18 +69,18 @@ Flags:
 
 ## Team library
 
-Each team has a `team.yaml`, a `rotation.gcsl` and a `build.txt`, all taken from a community gcsim config. Rotations are never written from scratch.
+Each team has a `team.yaml`, a `rotation.gcsl`, a `build.txt` and a `source.txt` (the source's enemy, energy and options lines), all taken from a community gcsim config. Rotations are never written from scratch.
 
 ```sh
-go run ./cmd/harvest -n 64                       # the most simulated teams from db.kqm.gg
+go run ./cmd/harvest -n 10000 -cache /tmp/kqm.json   # every team in db.kqm.gg, saving the download
 go run ./cmd/import https://gcsim.app/sh/<key>   # one team from a share (or gcsim.app/db/<id>) link
 go run ./cmd/validate                            # every team
 go run ./cmd/validate -v -detail teams/<id>      # one team, with a breakdown
 ```
 
-- `cmd/harvest` downloads the community gcsim database at db.kqm.gg. It keeps entries that run under the common conditions: accepted by gcsim or a guide, one Lv.100 target with 10% resistance, and a rotation that ends. It ranks teams by how many entries use them. For each team it imports the entry with the lowest constellations and refinements that passes validation, trying up to three. `-force` replaces teams already in the library.
-- `cmd/import` splits one shared config into the source's build (`build.txt`), character params such as Hu Tao's `start_hp=1` (`params` in `team.yaml`) and the rotation. The source's options, enemy and energy lines are replaced by the common conditions. It records the source's DPS as `reference`.
-- `cmd/validate` runs each team with its `build.txt`. One pass of the rotation must reproduce the source's DPS within 5%. It then scores the looped rotation as the site does, and warns about energy and other waits and about members with almost no damage. A team with no source, or whose rotation never finishes, fails.
+- `cmd/harvest` downloads the community gcsim database at db.kqm.gg and ranks teams by how many entries use them. Every entry with four characters and a rotation that ends (no unconditional `while 1`) is usable, whatever its enemies, energy or gcsim tags. For each team it tries the entries from the lowest constellations and refinements up and keeps the first whose one pass, under the entry's own conditions, is within 15% of the database's DPS (20 iterations). Flags: `-j` teams in parallel (default: one per CPU), `-cache <file>` saves the download and reuses it, `-min` least entries per team (1), `-tries` entries per team (0, all), `-force` replaces teams already in the library. Teams that fail every entry are listed in `teams/harvest-failed.txt` and skipped by later runs unless `-retry-failed` is set.
+- `cmd/import` splits one shared config into the source's build (`build.txt`), character params such as Hu Tao's `start_hp=1` (`params` in `team.yaml`) and the rotation. The source's options, enemy and energy lines go to `source.txt`; the site replaces them with the common conditions. It records the source's DPS as `reference`.
+- `cmd/validate` runs each team with its `build.txt`. One pass of the rotation under the source's conditions (`source.txt`; enemy count, level, resistance, energy) must reproduce the source's DPS within 15% (a warning above 5%). It then scores the looped rotation as the site does, and warns about energy and other waits and about members with almost no damage. A team with no source, or whose rotation never finishes, fails.
 
 The `add-team` skill (`.claude/skills/add-team/SKILL.md`) describes the workflow.
 
@@ -101,7 +101,7 @@ internal/score/     team DPS from gcsim runs
 internal/steady/    looped scoring with fillers for waits
 internal/share/     gcsim share download, config splitting and team files
 internal/validate/  team checks shared by cmd/validate and cmd/harvest
-teams/<id>/         team.yaml, rotation.gcsl and source build.txt per team
+teams/<id>/         team.yaml, rotation.gcsl, source build.txt and source.txt per team
 deploy/             VM setup and auto-update
 ```
 

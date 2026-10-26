@@ -15,17 +15,13 @@ Run Go commands with `GOTOOLCHAIN=auto` (gcsim needs Go 1.27).
 ## 1. Harvest (many teams)
 
 ```sh
-GOTOOLCHAIN=auto go run ./cmd/harvest -n 64          # keep existing teams
-GOTOOLCHAIN=auto go run ./cmd/harvest -n 64 -force   # replace them
+GOTOOLCHAIN=auto go run ./cmd/harvest -n 10000 -cache /tmp/kqm.json   # every team, keep existing ones
+GOTOOLCHAIN=auto go run ./cmd/harvest -n 64 -force                    # replace them
 ```
 
-This reads the community gcsim database at db.kqm.gg. It ranks teams by how many usable entries use them. For each of the top teams it imports the entry with the lowest constellations and refinements that passes validation, trying up to three. Entries are usable when:
-- they are accepted by gcsim or a guide;
-- they are not random delays or an action priority list;
-- they fight one Lv.100 target with 10% resistance;
-- their rotation ends.
+This reads the community gcsim database at db.kqm.gg (`-cache <file>` saves the download and reuses it). It ranks teams by how many entries use them. Every entry is usable except those without four characters, with a rotation that never ends on its own (`while 1`) or without an `active` setup; gcsim tags, enemies and energy do not matter. For each team it tries the entries from the lowest constellations and refinements up and imports the first that passes the reference check (`validate.CheckReference`: one pass under the entry's own conditions, 20 iterations, within 15% of the database's DPS). Teams run in parallel (`-j`, one per CPU by default).
 
-Teams that fail every try are printed and skipped. To add one particular team, use a share link instead.
+Teams that fail every entry are written to `teams/harvest-failed.txt` and skipped by the next run; `-retry-failed` tries them again. Harvest does not run the looped check: run `cmd/validate` afterwards and remove the teams that fail. To add one particular team, use a share link instead.
 
 ## 2. Import (one team)
 
@@ -37,16 +33,19 @@ GOTOOLCHAIN=auto go run ./cmd/import https://gcsim.app/sh/<key>
 This writes `teams/<id>/`:
 
 - `build.txt`: the source config's character setup, used for validation.
+- `source.txt`: the source config's `options`, `target`, `energy` and
+  `hurt` lines, used only for the reference check.
 - `rotation.gcsl`: everything after the setup (`active`, actions,
   conditions), as written in the source.
 - `team.yaml`: members, `sources`, `params` (character params such as Hu
   Tao's `start_hp=1`, added to each player's character line) and
   `reference` (the DPS the share reports and its gcsim version).
 
-The source's `options`, `target` and `energy` lines are replaced by the
-common conditions (`internal/config`); the import prints them. If they
-differ from ours (other enemy level, resistance, several targets, other
-energy), expect a different DPS.
+The site replaces the source's `options`, `target` and `energy` lines
+with the common conditions (`internal/config`); the import prints them.
+If they differ from ours (other enemy level, resistance, several
+targets, other energy), the site's DPS differs from the source's, but
+validation still compares like with like.
 
 Then set `archetype` in `team.yaml` (e.g. `Pyro vaporize hypercarry`).
 Leave `status: draft`; only the maintainer promotes a team to
@@ -59,15 +58,18 @@ GOTOOLCHAIN=auto go run ./cmd/validate -v teams/<id>
 GOTOOLCHAIN=auto go run ./cmd/validate -detail teams/<id>   # actions, damage by source, reactions
 ```
 
-- The validator runs the rotation once from full energy and compares it
-  with the source's `reference.dps`, then loops it (as the site scores
-  it) and reports energy and other waits.
-- `FAIL` when the one-pass DPS with `build.txt` is more than 5% from the
-  source's `reference.dps`, when it has no source, or when the rotation
-  never ends.
-- A gap usually means the source used other conditions (see the dropped
-  lines) or another gcsim version (`reference.gcsim_version` vs. ours in
-  `go.mod`). Explain it in `notes`, or find a source that matches.
+- The validator runs the rotation once from full energy under
+  `source.txt` (the common conditions if the team has none) and compares
+  it with the source's `reference.dps`, then loops it under the common
+  conditions (as the site scores it) and reports energy and other waits.
+- `FAIL` when the one-pass DPS with `build.txt` is more than 15% from the
+  source's `reference.dps` (`WARN` above 5%), when it has no source, or
+  when the rotation never ends.
+- A gap usually means another gcsim version (`reference.gcsim_version`
+  vs. ours in `go.mod`) or a random rotation. Explain it in `notes`, or
+  find a source that matches.
+- CI fully validates the team directories a push changes, or 10 random
+  teams when it changes none.
 - The rotation must choose `active <char>;` in its setup and must end.
   Gscouter loops it itself: the setup (`active`, `let`, `fn`, `set_*`)
   runs once and the rest repeats. A source with its own unconditional
