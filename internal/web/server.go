@@ -326,7 +326,10 @@ func fillerNote(o *steady.Outcome) string {
 		return ""
 	}
 	var parts []string
-	if len(o.Energy) > 0 {
+	switch {
+	case len(o.Energy) > 0 && o.How == config.FillSkip:
+		parts = append(parts, fmt.Sprintf("%s의 원소폭발 에너지가 모자라면 기다리지 않고 그 원소폭발을 건너뛰었습니다", strings.Join(o.Energy, ", ")))
+	case len(o.Energy) > 0:
 		how := "자기 원소전투 스킬이나 평타"
 		if o.How == config.FillParty {
 			how = "원소전투 스킬(쿨타임이면 다른 파티원으로 교체해 스킬을 쓰고 바로 복귀)이나 평타"

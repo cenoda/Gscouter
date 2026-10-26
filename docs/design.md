@@ -209,7 +209,12 @@ The library is filled from the community gcsim database at db.kqm.gg, the list g
 
    Entries that gcsim has not accepted, random delays, action priority lists and entries with other enemies (several targets, other levels or resistances) or other energy are usable: each is judged by whether it reproduces its own DPS (step 4), and the site scores it under the common conditions.
 3. **Rank** teams (sets of four characters) by how many entries use them. This is the popularity measure: what the community simulates most, not our choice. `-min` (default 1) is the least number of entries a team needs.
-4. **Pick** per team the entries from the lowest total constellations and refinements up, closest to an ordinary account, and accept the first that passes the **reference check** (`validate.CheckReference`): one pass of the rotation with the entry's build under the entry's own conditions, 20 iterations, within 15% of the database's DPS. The database reports DPS per target, so the reference is that times the number of targets. All entries are tried (`-tries` limits them).
+4. **Pick** per team, trying the entries from the lowest total constellations and refinements up, closest to an ordinary account:
+   - the **reference check** (`validate.CheckReference`): one pass of the rotation with the entry's build under the entry's own conditions, 20 iterations, within 15% of the database's DPS. The database reports DPS per target, so the reference is that times the number of targets;
+   - the **full check** (`validate.Check`): the looped rotation, as the site scores it, must not stall;
+   - of the first five entries that pass both (`-choose`), keep the one whose score keeps the most of its one pass under the same, common conditions (`Report.Kept`, counted up to 100%; within 2%, the lower investment wins). A one-cycle entry that opens with every burst charged scores well once but loses much of it when looped (Hu Tao / Yelan / Furina / Zhongli: a 21 s entry lost 42%); an entry whose cycles earn their own energy keeps it.
+
+   Each check runs in a child process, since gcsim cannot cancel a rotation stuck in a loop that takes no action. All entries are tried until five pass (`-tries` limits them).
 5. Teams run in parallel (`-j`, default one per CPU, each simulation on one CPU; on 4 CPUs this was as fast as one team at a time on all CPUs). Teams that fail every entry go to `teams/harvest-failed.txt` with the first entry's failure, and later runs skip them unless `-retry-failed` is set.
 
 Each team stores the source's options, target, energy and hurt lines in `source.txt`. Only the reference check uses them; the site's score and the looped checks use the common conditions (§3.2).
@@ -286,9 +291,10 @@ The first batch held the 64 teams with the most entries in the community databas
   - This directly affects ER requirements, so the same value must apply across the whole library. Confirm before the first library batch.
 - [x] What a character does when the looped rotation makes it stand still (internal/steady, config.Fill)
   - gcsim makes a character wait until its burst has the energy or its skill is off cooldown. A rotation that spends more energy than it gains lives off its starting energy, then stalls; the stall also stops particle generation (Flins / Ineffa / Aino / Sucrose: 111k one pass, 31k looped).
-  - A player fills that time. The score therefore runs the looped rotation as written first. If a character waits 1 s/min or more for energy or for its skill, it runs the rotation again in two variants and keeps the best of all runs:
+  - A player fills that time. The score therefore runs the looped rotation as written first. If a character waits 1 s/min or more for energy or for its skill, it runs the rotation again in three variants and keeps the best of all runs:
     - **own skill**: before each burst of a character short of energy, the character uses its skill when ready, otherwise attacks, until the burst is ready (at most 20 actions);
-    - **party skills**: as above, but when its skill is on cooldown, another member whose skill is ready swaps in and uses it, and the character's next action swaps back to catch the particles.
+    - **party skills**: as above, but when its skill is on cooldown, another member whose skill is ready swaps in and uses it, and the character's next action swaps back to catch the particles;
+    - **skipped bursts**: the character skips a burst it has no energy for, and the rotation goes on. Some rotations wait for a burst they can never charge once looped: Skirk's opening burst is written for her full starting Serpent's Subtlety (gcsim reports her wait as `insufficient_energy`), so a loop that repeats the opener stood still for good, and the whole team with it. The other fillers fail there: their skill puts Skirk into Seven-Phase Flash, and the rotation's own next skill is then rejected by gcsim (whose `.skirk.skill.ready` still reads true in that state).
   - In both variants a character waiting for its skill's cooldown attacks meanwhile (at most 30 attacks).
   - A filler uses each member's skill as the rotation first writes it: its parameters (hold or tap) and the plunges that follow it (Kazuha, Xianyun). Burst-reset skills such as Kazuha C1 come from gcsim.
   - Filling one wait can expose another, for example a member now short of energy. Up to three rounds therefore add the characters still standing still in the best run so far.
@@ -296,7 +302,7 @@ The first batch held the 64 teams with the most entries in the community databas
   - With fillers, 46 of 64 teams stay within 5% of one pass, 16 lose 5–20%, and 2 lose more:
     - Kazuha C6 plunge −27%, down from −61% without fillers;
     - Arlecchino / Furina / Kazuha / Bennett −21%. The site shows a known-issue note on Arlecchino teams: their damage is calculated too low, by about 20%, and the cause is under investigation.
-  - Scoring a team that stood still costs up to seven simulations instead of one (one plus two per round).
+  - Scoring a team that stood still costs up to ten simulations instead of one (one plus three per round).
 - [ ] Whether to support additional rulesets such as an AoE league or a short-fight league (out of scope for now)
 - [ ] How to share results (versus card image, link, etc.)
 

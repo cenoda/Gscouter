@@ -56,6 +56,9 @@ type Report struct {
 	Dir  string
 	Team *library.Team
 	Once *score.Result // one pass under the source's conditions, compared with the source
+	// Common is one pass under the common conditions, comparable with
+	// the score; nil after CheckReference.
+	Common *score.Result
 	// SourceConditions is false when the team has no source.txt and the
 	// one pass ran under the common conditions.
 	SourceConditions bool
@@ -65,6 +68,16 @@ type Report struct {
 	Skipped          string
 	Failures         []string
 	Warnings         []string
+}
+
+// Kept is the score over one pass under the same, common conditions:
+// how much of its one-pass DPS the rotation keeps when it loops. It is 0
+// when the full check did not get that far.
+func (r *Report) Kept() float64 {
+	if r.Res == nil || r.Common == nil || r.Common.DPS <= 0 {
+		return 0
+	}
+	return r.Res.DPS / r.Common.DPS
 }
 
 // CheckReference runs one pass of the team's rotation in dir with its
@@ -183,6 +196,16 @@ func reference(ctx context.Context, dir string, s Settings) (*Report, string) {
 // warns about action waits and members with almost no damage.
 func looped(ctx context.Context, r *Report, build string, s Settings) {
 	team := r.Team
+	r.Common = r.Once
+	if r.SourceConditions {
+		once := config.Assemble(config.Conditions{Iterations: s.Iterations}, build, team.Rotation)
+		res, err := score.Run(ctx, once, score.Options{Iterations: s.Iterations, Workers: s.Workers, Seed: 1})
+		if err != nil {
+			r.Failures = append(r.Failures, "simulation under the common conditions: "+err.Error())
+			return
+		}
+		r.Common = res
+	}
 	if msg := probe(ctx, build, team.Rotation, s); msg != "" {
 		r.Failures = append(r.Failures, msg)
 		return

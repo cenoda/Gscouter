@@ -59,7 +59,7 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 			break
 		}
 		energy, skill = e, sk
-		fillers := []config.Filler{config.FillSelf, config.FillParty}
+		fillers := []config.Filler{config.FillSelf, config.FillParty, config.FillSkip}
 		if len(energy) == 0 {
 			fillers = fillers[:1] // skill waits fill the same way either way
 		}

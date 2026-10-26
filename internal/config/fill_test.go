@@ -56,3 +56,15 @@ func TestFillUsesSkillAsWritten(t *testing.T) {
 		}
 	}
 }
+
+func TestFillSkip(t *testing.T) {
+	rot := "active candace;\nskirk burst;\nskirk skill, attack:2, burst[x=1], attack:5;\n"
+	got := Fill(rot, []string{"skirk"}, nil, []string{"skirk", "candace"}, FillSkip)
+	want := "active candace;\nif .skirk.burst.ready { skirk burst; }\nskirk skill, attack:2; if .skirk.burst.ready { skirk burst[x=1]; } skirk attack:5;\n"
+	if got != want {
+		t.Errorf("got:\n%s\nwant:\n%s", got, want)
+	}
+	if _, _, err := parser.New(ast.NewFile(), "skirk char lvl=90/90 cons=0 talent=9,9,9;\n"+got).Parse(); err != nil {
+		t.Errorf("filled rotation does not parse: %v\n%s", err, got)
+	}
+}
