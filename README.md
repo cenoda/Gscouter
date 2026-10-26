@@ -51,7 +51,7 @@ yelan             15855   21.9%        0.00s/m
 ```
 
 - **Score**: team DPS with the community rotation repeated endlessly, over 150–450 s once the starting energy has run out. Too little Energy Recharge shows up as energy waits and a lower score.
-- **Fillers**: when the looped rotation makes a character stand still (1 s/min or more) waiting for burst energy or a skill cooldown, the rotation is run again with that time filled, and the best run is the score. Burst energy waits are filled with the character's own skill or attacks, or with another member's skill and an immediate swap back. Skill cooldown waits are filled with attacks (`internal/steady`).
+- **Fillers**: when the looped rotation makes a character stand still (1 s/min or more) waiting for burst energy or a skill cooldown, the rotation is run again with that time filled, and the best run is the score. Burst energy waits are filled with the character's own skill or attacks, or with another member's skill and an immediate swap back. Skill cooldown waits are filled with attacks. Skills are used as the rotation writes them (hold or tap, following plunges). Up to three rounds add characters that still stand still (`internal/steady`).
 - **One pass**: the rotation once from full energy, as community gcsim configs report it. Validation compares this with the source.
 - **Energy wait**: seconds per minute that a character's actions waited for energy. Too little Energy Recharge for the rotation lowers the score.
 

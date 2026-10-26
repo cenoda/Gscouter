@@ -279,12 +279,13 @@ The first batch holds the 64 teams with the most entries in the community databa
     - **own skill**: before each burst of a character short of energy, the character uses its skill when ready, otherwise attacks, until the burst is ready (at most 20 actions);
     - **party skills**: as above, but when its skill is on cooldown, another member whose skill is ready swaps in and uses it, and the character's next action swaps back to catch the particles.
   - In both variants a character waiting for its skill's cooldown attacks meanwhile (at most 30 attacks).
+  - A filler uses each member's skill as the rotation first writes it: its parameters (hold or tap) and the plunges that follow it (Kazuha, Xianyun). Burst-reset skills such as Kazuha C1 come from gcsim.
+  - Filling one wait can expose another, for example a member now short of energy. Up to three rounds therefore add the characters still standing still in the best run so far.
   - Filling every burst hurt teams that wait on purpose (Skirk / Furina / Mona / Escoffier went from −2% to −79%). That is why only characters that stood still are filled, and why the unfilled run stays a candidate.
-  - With fillers, 46 of 64 teams stay within 5% of one pass, 15 lose 5–20%, and 3 lose more:
-    - Kazuha C6 plunge −40%;
-    - Gaming −26%, where filling scored lower than waiting;
-    - Arlecchino / Furina / Kazuha / Bennett −21%.
-  - Scoring a team that stood still costs up to three simulations instead of one.
+  - With fillers, 46 of 64 teams stay within 5% of one pass, 16 lose 5–20%, and 2 lose more:
+    - Kazuha C6 plunge −27%, down from −61% without fillers;
+    - Arlecchino / Furina / Kazuha / Bennett −21%. The site shows a known-issue note on Arlecchino teams: their damage is calculated too low, by about 20%, and the cause is under investigation.
+  - Scoring a team that stood still costs up to seven simulations instead of one (one plus two per round).
 - [ ] Whether to support additional rulesets such as an AoE league or a short-fight league (out of scope for now)
 - [ ] How to share results (versus card image, link, etc.)
 

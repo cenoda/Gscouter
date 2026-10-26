@@ -269,10 +269,21 @@ func (s *Server) score(ctx context.Context, cfg string, warmup float64) (*score.
 	return res, nil
 }
 
+// knownIssues are notes shown on every team with the character, keyed
+// by canonical name.
+var knownIssues = map[string]string{
+	"arlecchino": "알려진 문제: 아를레키노의 피해가 실제보다 낮게 계산되는 버그가 있어 원인을 조사 중입니다. 현재 결과에 약 20%를 더하면 실제와 비슷합니다.",
+}
+
 func warnings(team *library.Team, res *score.Result) []string {
 	var out []string
 	if team.Status == library.StatusDraft {
 		out = append(out, "이 파티의 로테이션은 아직 검증 전입니다. 점수가 바뀔 수 있습니다.")
+	}
+	for _, m := range team.Members {
+		if note, ok := knownIssues[library.Canonical(m)]; ok {
+			out = append(out, note)
+		}
 	}
 	for _, c := range res.Characters {
 		if c.EnergyWait >= 1 {

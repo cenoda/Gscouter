@@ -11,6 +11,7 @@ import (
 
 	"github.com/cenoda/gscouter/internal/enka"
 	"github.com/cenoda/gscouter/internal/library"
+	"github.com/cenoda/gscouter/internal/score"
 	"github.com/cenoda/gscouter/teams"
 )
 
@@ -144,4 +145,14 @@ func TestVersus(t *testing.T) {
 	v.Set("b", v.Get("a"))
 	_, body = get(t, ts, "/versus?"+v.Encode())
 	mustContain(t, body, "무승부")
+}
+
+func TestWarningsKnownIssues(t *testing.T) {
+	got := strings.Join(warnings(&library.Team{Members: []string{"arlecchino", "bennett"}}, &score.Result{}), "\n")
+	if !strings.Contains(got, "아를레키노") || !strings.Contains(got, "20%") {
+		t.Errorf("no Arlecchino note in %q", got)
+	}
+	if got := warnings(&library.Team{Members: []string{"hutao"}}, &score.Result{}); len(got) != 0 {
+		t.Errorf("unexpected warnings %q", got)
+	}
 }

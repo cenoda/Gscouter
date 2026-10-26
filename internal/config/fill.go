@@ -39,6 +39,7 @@ func (f Filler) String() string {
 // rotation then waits as before. Names are as the rotation writes them;
 // party lists every member.
 func Fill(rotation string, energy, skill, party []string, how Filler) string {
+	forms := skillForms(rotation, party)
 	var b strings.Builder
 	n := 0
 	start := true // at the start of a statement
@@ -50,7 +51,7 @@ func Fill(rotation string, energy, skill, party []string, how Filler) string {
 				items := rotation[i+m[6] : i+m[7]]
 				if slices.Contains(energy, char) || slices.Contains(skill, char) {
 					b.WriteString(lead)
-					b.WriteString(fillStatement(char, items, slices.Contains(energy, char), slices.Contains(skill, char), party, how, &n))
+					b.WriteString(fillStatement(char, items, slices.Contains(energy, char), slices.Contains(skill, char), party, forms, how, &n))
 					i += m[1]
 					continue
 				}
@@ -74,7 +75,7 @@ func Fill(rotation string, energy, skill, party []string, how Filler) string {
 // "<char> <action>, <action>...;".
 var actionRe = regexp.MustCompile(`^(\s*)(\w+)\s+([^;{}()=\s][^;{}()]*);`)
 
-func fillStatement(char, items string, energy, skill bool, party []string, how Filler, n *int) string {
+func fillStatement(char, items string, energy, skill bool, party []string, forms map[string]string, how Filler, n *int) string {
 	var out, run []string
 	flush := func() {
 		if len(run) > 0 {
@@ -92,7 +93,7 @@ func fillStatement(char, items string, energy, skill bool, party []string, how F
 		case energy && action[0] == "burst":
 			flush()
 			*n++
-			out = append(out, energyFiller(char, party, how, fmt.Sprintf("gs_fill%d", *n)))
+			out = append(out, energyFiller(char, party, forms, how, fmt.Sprintf("gs_fill%d", *n)))
 		case skill && action[0] == "skill":
 			flush()
 			*n++
@@ -105,16 +106,58 @@ func fillStatement(char, items string, energy, skill bool, party []string, how F
 	return strings.Join(out, " ")
 }
 
-func energyFiller(char string, party []string, how Filler, v string) string {
+func energyFiller(char string, party []string, forms map[string]string, how Filler, v string) string {
 	var body strings.Builder
-	fmt.Fprintf(&body, "if .%s.skill.ready { %s skill; }", char, char)
+	fmt.Fprintf(&body, "if .%s.skill.ready { %s %s; }", char, char, forms[char])
 	if how == FillParty {
 		for _, m := range party {
 			if m != char {
-				fmt.Fprintf(&body, " else if .%s.skill.ready { %s skill; }", m, m)
+				fmt.Fprintf(&body, " else if .%s.skill.ready { %s %s; }", m, m, forms[m])
 			}
 		}
 	}
 	fmt.Fprintf(&body, " else { %s attack; }", char)
 	return fmt.Sprintf("let %s = 0; while !.%s.burst.ready && %s < 20 { %s %s = %s + 1; }", v, char, v, body.String(), v, v)
+}
+
+var (
+	anyActionRe = regexp.MustCompile(`(?m)(?:^|[;{}])\s*(\w+)\s+([^;{}()=\s][^;{}()]*);`)
+	plungeRe    = regexp.MustCompile(`^(high|low)_plunge\b`)
+)
+
+// skillForms returns, per member, its skill as the rotation first uses
+// it: with its parameters (a hold, for example) and the plunges that
+// follow it, as Kazuha's and Xianyun's skills are written. A member
+// whose skill the rotation never uses gets a plain "skill".
+func skillForms(rotation string, party []string) map[string]string {
+	forms := map[string]string{}
+	for _, m := range anyActionRe.FindAllStringSubmatch(rotation, -1) {
+		char := m[1]
+		if !slices.Contains(party, char) || forms[char] != "" {
+			continue
+		}
+		items := strings.Split(m[2], ",")
+		for i, item := range items {
+			item = strings.TrimSpace(item)
+			if item != "skill" && !strings.HasPrefix(item, "skill[") {
+				continue
+			}
+			form := []string{item}
+			for _, next := range items[i+1:] {
+				next = strings.TrimSpace(next)
+				if !plungeRe.MatchString(next) {
+					break
+				}
+				form = append(form, next)
+			}
+			forms[char] = strings.Join(form, ", ")
+			break
+		}
+	}
+	for _, m := range party {
+		if forms[m] == "" {
+			forms[m] = "skill"
+		}
+	}
+	return forms
 }

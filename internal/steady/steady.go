@@ -10,6 +10,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"slices"
 	"strings"
 
 	"github.com/cenoda/gscouter/internal/config"
@@ -20,6 +21,9 @@ import (
 // minWait is how long, in seconds per minute, a character must stand
 // still before it gets a filler.
 const minWait = 1.0
+
+// maxRounds bounds how many times Score widens the fillers.
+const maxRounds = 3
 
 type Outcome struct {
 	Result *score.Result
@@ -45,46 +49,60 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 	}
 	best := &Outcome{Result: res}
 
+	// Filling one wait can expose another (a member now short of
+	// energy), so each round adds the characters still standing still in
+	// the best run so far.
 	var energy, skill []string
+	for range maxRounds {
+		e, sk := addStarved(best.Result, members, energy, skill)
+		if len(e) == len(energy) && len(sk) == len(skill) {
+			break
+		}
+		energy, skill = e, sk
+		fillers := []config.Filler{config.FillSelf, config.FillParty}
+		if len(energy) == 0 {
+			fillers = fillers[:1] // skill waits fill the same way either way
+		}
+		for _, f := range fillers {
+			looped, err := config.Loop(config.Fill(rotation, energy, skill, members, f))
+			if err != nil {
+				return nil, err
+			}
+			res, err := run(looped)
+			if err != nil {
+				if isFatal(err) {
+					return nil, err
+				}
+				// A filler can lead a rotation into actions gcsim rejects;
+				// that filler is then not an option.
+				continue
+			}
+			if res.DPS > best.Result.DPS {
+				best = &Outcome{Result: res, Filled: true, How: f, Energy: energy, Skill: skill}
+			}
+		}
+	}
+	return best, nil
+}
+
+// addStarved returns energy and skill extended with the members that
+// stand still in res for burst energy or a skill cooldown.
+func addStarved(res *score.Result, members, energy, skill []string) ([]string, []string) {
+	energy, skill = slices.Clone(energy), slices.Clone(skill)
 	for _, c := range res.Characters {
 		for _, m := range members {
 			if library.Canonical(m) != library.Canonical(c.Name) {
 				continue
 			}
-			if c.Waits["insufficient_energy"] >= minWait {
+			if c.Waits["insufficient_energy"] >= minWait && !slices.Contains(energy, m) {
 				energy = append(energy, m)
 			}
-			if c.Waits["skill_cd"] >= minWait {
+			if c.Waits["skill_cd"] >= minWait && !slices.Contains(skill, m) {
 				skill = append(skill, m)
 			}
 		}
 	}
-	if len(energy) == 0 && len(skill) == 0 {
-		return best, nil
-	}
-	fillers := []config.Filler{config.FillSelf, config.FillParty}
-	if len(energy) == 0 {
-		fillers = fillers[:1] // skill waits fill the same way either way
-	}
-	for _, f := range fillers {
-		looped, err := config.Loop(config.Fill(rotation, energy, skill, members, f))
-		if err != nil {
-			return nil, err
-		}
-		res, err := run(looped)
-		if err != nil {
-			if isFatal(err) {
-				return nil, err
-			}
-			// A filler can lead a rotation into actions gcsim rejects;
-			// that filler is then not an option.
-			continue
-		}
-		if res.DPS > best.Result.DPS {
-			best = &Outcome{Result: res, Filled: true, How: f, Energy: energy, Skill: skill}
-		}
-	}
-	return best, nil
+	return energy, skill
 }
 
 // String describes the fillers in English, "" when there are none.

@@ -42,3 +42,17 @@ func TestFillLeavesOthers(t *testing.T) {
 		t.Errorf("changed a rotation without bursts of a:\n%s", got)
 	}
 }
+
+func TestFillUsesSkillAsWritten(t *testing.T) {
+	rot := "active bennett;\nxianyun skill, low_plunge, burst;\nkazuha burst;\nkazuha skill[hold=1], high_plunge[collision=1], dash;\n"
+	got := Fill(rot, []string{"kazuha"}, nil, []string{"bennett", "xianyun", "kazuha"}, FillParty)
+	for _, s := range []string{
+		"if .kazuha.skill.ready { kazuha skill[hold=1], high_plunge[collision=1]; }",
+		"else if .xianyun.skill.ready { xianyun skill, low_plunge; }",
+		"else if .bennett.skill.ready { bennett skill; }",
+	} {
+		if !strings.Contains(got, s) {
+			t.Errorf("missing %q in:\n%s", s, got)
+		}
+	}
+}
