@@ -33,6 +33,8 @@ type Outcome struct {
 	Filled        bool
 	How           config.Filler
 	Energy, Skill []string
+	// Looped is the rotation that scored best, as run.
+	Looped string
 }
 
 // Score loops rotation and scores it with run, which assembles and
@@ -47,7 +49,7 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 	if err != nil {
 		return nil, err
 	}
-	best := &Outcome{Result: res}
+	best := &Outcome{Result: res, Looped: looped}
 
 	// Filling one wait can expose another (a member now short of
 	// energy), so each round adds the characters still standing still in
@@ -78,7 +80,7 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 				continue
 			}
 			if res.DPS > best.Result.DPS {
-				best = &Outcome{Result: res, Filled: true, How: f, Energy: energy, Skill: skill}
+				best = &Outcome{Result: res, Filled: true, How: f, Energy: energy, Skill: skill, Looped: looped}
 			}
 		}
 	}

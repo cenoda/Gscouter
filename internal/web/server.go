@@ -23,6 +23,7 @@ import (
 	"github.com/cenoda/gscouter/internal/library"
 	"github.com/cenoda/gscouter/internal/score"
 	"github.com/cenoda/gscouter/internal/steady"
+	"github.com/cenoda/gscouter/internal/timeline"
 )
 
 //go:embed templates/*.html
@@ -60,10 +61,11 @@ type Server struct {
 	settings Settings
 	tmpl     *template.Template
 
-	sem     chan struct{}
-	waiting atomic.Int32
-	results *cache[string, *score.Result]
-	cards   *cache[string, []byte] // link preview PNGs by URL
+	sem       chan struct{}
+	waiting   atomic.Int32
+	results   *cache[string, *score.Result]
+	timelines *cache[string, *timeline.Timeline]
+	cards     *cache[string, []byte] // link preview PNGs by URL
 }
 
 func New(lib *library.Library, profiles ProfileSource, settings Settings) (*Server, error) {
@@ -72,13 +74,14 @@ func New(lib *library.Library, profiles ProfileSource, settings Settings) (*Serv
 		return nil, err
 	}
 	return &Server{
-		lib:      lib,
-		profiles: profiles,
-		settings: settings,
-		tmpl:     tmpl,
-		sem:      make(chan struct{}, max(settings.MaxConcurrent, 1)),
-		results:  newCache[string, *score.Result](1000),
-		cards:    newCache[string, []byte](200),
+		lib:       lib,
+		profiles:  profiles,
+		settings:  settings,
+		tmpl:      tmpl,
+		sem:       make(chan struct{}, max(settings.MaxConcurrent, 1)),
+		results:   newCache[string, *score.Result](1000),
+		timelines: newCache[string, *timeline.Timeline](200),
+		cards:     newCache[string, []byte](200),
 	}, nil
 }
 
@@ -153,6 +156,14 @@ type teamResult struct {
 	// still, "" when it doesn't.
 	Filler   string
 	Warnings []string
+	// Timelines show one run of the rotation: the one pass, then the
+	// looped fight in the scoring window. Empty when they failed; the
+	// score stands without them.
+	Timelines []*timelineView
+	// Rotation is the library rotation as run for this player.
+	Rotation string
+	// ID tells the teams on one page apart, for element ids.
+	ID string
 	// Problem explains why there is no score: unsupported team, blocked
 	// team, Enka error, and so on.
 	Problem string
@@ -232,6 +243,8 @@ func (s *Server) evaluate(ctx context.Context, sel selection) teamResult {
 	tr.Result = res
 	tr.OneRotation = oneRes
 	tr.Warnings = warnings(tr.Team, res)
+	tr.Rotation = rotation
+	tr.Timelines = s.cycleViews(ctx, sel, tr.Team, once, config.Assemble(config.Conditions{Iterations: 1, Duration: s.settings.Duration}, build.String(), out.Looped), out.Filled)
 	for _, c := range tr.Chars {
 		if c.UnknownSets > 0 {
 			tr.Warnings = append(tr.Warnings, fmt.Sprintf("%s: 계산 엔진이 아직 지원하지 않는 성유물 세트가 %d개 있어, 그 세트 효과는 빠졌습니다.", c.Key, c.UnknownSets))
@@ -272,6 +285,34 @@ func (s *Server) score(ctx context.Context, cfg string, warmup float64) (*score.
 	slog.Info("scored", "dps", int(res.DPS), "took", time.Since(start).Round(time.Millisecond))
 	s.results.put(key, res, 24*time.Hour)
 	return res, nil
+}
+
+// cycleViews lays out one run of the one pass and of the looped fight
+// from the warmup on, for as long as one pass takes.
+func (s *Server) cycleViews(ctx context.Context, sel selection, team *library.Team, once, looped string, filled bool) []*timelineView {
+	cycle, err := s.timeline(ctx, once, 0, maxCycle)
+	if err != nil {
+		slog.Warn("timeline failed", "team", team.ID, "uid", sel.UID, "err", err)
+		return nil
+	}
+	note := "에너지가 가득한 상태에서 로테이션을 한 번 돌린 기록입니다."
+	if cycle.End >= maxCycle {
+		note = fmt.Sprintf("에너지가 가득한 상태에서 로테이션을 한 번 돌린 기록의 처음 %.0f초입니다.", maxCycle)
+	}
+	views := []*timelineView{layoutTimeline("cycle", "로테이션 1회", note, cycle)}
+
+	from := s.settings.Warmup
+	to := from + min(max(cycle.End, minSteady), maxSteady)
+	steady, err := s.timeline(ctx, looped, from, to)
+	if err != nil {
+		slog.Warn("timeline failed", "team", team.ID, "uid", sel.UID, "err", err)
+		return views
+	}
+	note = fmt.Sprintf("점수를 매기는 반복 구간(%.0f초부터) 중 %.0f초입니다. 캐릭터가 에너지·쿨타임·스태미나를 기다리며 서 있는 시간이 빗금으로 보입니다.", from, to-from)
+	if filled {
+		note += " 기다리는 시간을 스킬·평타로 채운 로테이션입니다."
+	}
+	return append(views, layoutTimeline("steady", "점수 구간", note, steady))
 }
 
 // knownIssues are notes shown on every team with the character, keyed

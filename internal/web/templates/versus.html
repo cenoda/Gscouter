@@ -15,4 +15,6 @@
 <div class="card">{{template "team" .A}}</div>
 <div class="card">{{template "team" .B}}</div>
 </div>
+{{if .A.Timelines}}<h2 class="section">왼쪽 파티</h2>{{template "timeline" .A}}{{end}}
+{{if .B.Timelines}}<h2 class="section">오른쪽 파티</h2>{{template "timeline" .B}}{{end}}
 {{template "foot"}}
