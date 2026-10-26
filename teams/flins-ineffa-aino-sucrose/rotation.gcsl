@@ -1,0 +1,17 @@
+active ineffa;
+for let i=0; i<6; i=i+1 {
+  ineffa skill;
+  if !is_even(i) {
+    ineffa burst;
+  } else {
+    ineffa attack;
+  }
+  aino skill, burst;
+  if .sucrose.burst.ready {
+    sucrose burst;
+  } else {
+    sucrose swap; wait(6);  
+  }
+  sucrose skill, dash, attack;
+  flins skill, attack, skill, burst, attack:4, dash, attack:4, dash, attack:3, skill, burst, attack:4, dash, attack:4;
+}

@@ -160,55 +160,69 @@ One directory per team.
 
 ```
 teams/
-  hutao-yelan-xingqiu-zhongli/
+  hutao-xingqiu-zhongli-yelan/
     team.yaml        # metadata, character params, source and its DPS
     rotation.gcsl    # rotation from the source config (actions only)
     build.txt        # the source config's build, used for validation
 ```
 
-Example `team.yaml` (written by `cmd/import`):
+Example `team.yaml` (written by `cmd/harvest`; `cmd/import` writes the same fields, with the share's gcsim version):
 
 ```yaml
-id: hutao-yelan-xingqiu-zhongli
-name: Hutao / Yelan / Xingqiu / Zhongli
-members: [hutao, yelan, xingqiu, zhongli]
-archetype: Pyro vaporize hypercarry
+id: hutao-xingqiu-zhongli-yelan
+name: Hutao / Xingqiu / Zhongli / Yelan
+members: [hutao, xingqiu, zhongli, yelan]
 status: draft            # supported | draft | blocked
 rotation_version: 1
 gcsim_commit: 2350be9    # gcsim version used for validation
 sources:
-  - https://gcsim.app/db/fjPG7F9FpwDQ
-  - https://gcsim.app/sh/bKtD798PKDfW
-notes: Imported from a gcsim share.
-params:
+  - https://db.kqm.gg/db/B7cTMcwpmp7F
+notes: 'Harvested from the KQM gcsim database: ...'
+params:                  # if the source sets any, e.g.
   hutao: start_hp=1      # added to the player's character line
 reference:
-  dps: 103157            # what the source reported with its own build
-  gcsim_version: 4ed9d50
+  dps: 68025             # what the source reported with its own build
+  computed: "2026-10-02" # when the database last ran it
 ```
 
 ### 5.2 Rotation authoring rules
 
 - The rotation is the source config's action list. Gscouter loops it for the score and runs it once for validation, so the source must not loop forever itself.
+  - When looping, the setup at the start of the rotation (`active`, `let`, `fn` and `set_*` statements) runs once, and the remaining statements repeat.
 - Character params the rotation assumes (e.g. Hu Tao `start_hp=1`) are stored in `team.yaml` and added to the player's build.
 - One rotation is used regardless of the user's build.
   - If an action can't be performed due to insufficient ER, rely on gcsim's wait/delay behavior and surface the delay as a warning.
 - Aim for a near-optimal standard rotation for the team. Uneven rotation quality across teams is itself unfairness.
 
-### 5.3 Addition workflow (semi-automated)
+### 5.3 Addition workflow (automated)
+
+The library is filled from the community gcsim database at db.kqm.gg, the list gcsim.app links to. Every entry is a full gcsim config, and the database reruns all of them on recent gcsim versions. In October 2026 it held 6,020 entries, all rerun between 2026-09-24 and 10-02.
+
+`cmd/harvest` does the following:
+
+1. **Download** every entry (`/api/db`, 100 per page).
+2. **Filter** to entries that run under our conditions:
+   - accepted by gcsim (tag 1) or from a KQM guide (tag 9);
+   - no random-delay (6) or action-priority-list (8) entries;
+   - TTK mode;
+   - one Lv.100 target with 10% resistance;
+   - four characters;
+   - a rotation with an `active` setup that does not loop forever.
+3. **Rank** teams (sets of four characters) by how many entries use them. This is the popularity measure: what the community simulates most, not our choice.
+4. **Pick** per team the entry with the lowest total constellations and refinements, closest to an ordinary account.
+5. **Validate** it as `cmd/validate` does. If it fails, for example by being more than 5% from the database's DPS, try the next entry, up to three per team.
 
 | Step | Mode | Description |
 |---|---|---|
-| 1. Candidate selection | Automated | Tally "unsupported" requests per 4-character set into a priority list |
-| 2. Import | Automated | `cmd/import <gcsim share link>`; never write rotations from scratch |
-| 3. Validation | Automated | Check the items below |
-| 4. Approval | Manual | After PR review, set `status: supported` |
-| 5. Regression tests | Automated | Re-run everything on gcsim updates or game patches; flag teams whose DPS shifts more than ±N% for review |
+| 1. Harvest | Automated | `cmd/harvest -n <teams>`; rerun to refresh. `cmd/import` adds a single gcsim share link by hand. Rotations are never written from scratch |
+| 2. Validation | Automated | `cmd/validate`, also run by CI |
+| 3. Approval | Manual | After review, set `status: supported` |
+| 4. Regression tests | Automated | Re-run everything on gcsim updates or game patches; flag teams whose DPS shifts more than ±N% for review |
 
-Step 3 automated checks:
+Validation checks:
 - The team reproduces the source's DPS with the source's build within 5%
 - The rotation finishes
-- No failed actions or burst delays with the reference build
+- Action waits and members with almost no damage in the looped rotation are reported as warnings
 
 ## 6. Initial Library
 
@@ -227,25 +241,9 @@ Step 3 automated checks:
   2. Implement it ourselves and contribute to gcsim. Requires frame data and multiplier validation; substantial work.
 - This team also serves as the first test case for "teams the engine does not support yet": matched, but reported as `blocked`.
 
-### 6.2 First library batch (8 teams)
+### 6.2 First library batch
 
-All characters confirmed supported in gcsim (commit `2350be9`).
-
-| # | Team | Reaction / archetype |
-|---|---|---|
-| 1 | Neuvillette / Furina / Kazuha / Zhongli | Hydro hypercarry |
-| 2 | Nahida / Raiden / Xingqiu / Kuki Shinobu | Hyperbloom |
-| 3 | Tighnari / Nahida / Yae Miko / Zhongli | Spread / Aggravate |
-| 4 | Clorinde / Nahida / Fischl / Zhongli | Aggravate |
-| 5 | Mavuika / Citlali / Xilonen / Bennett | Pyro hypercarry / Overloaded |
-| 6 | Arlecchino / Yelan / Bennett / Kazuha | Vaporize |
-| 7 | Ayaka / Shenhe / Kazuha / Kokomi | Freeze |
-| 8 | Raiden / Xiangling / Xingqiu / Bennett (Raiden National) | Overloaded / Vaporize mix. Baseline for engine validation |
-
-### 6.3 Second batch (later)
-
-- Add teams with 6.x–7.x characters. Select them after checking usage stats (YShelper, Teyvat Assistant, etc.) and gcsim support.
-- Factor in the ranking from the "unsupported" request tally in §5.3.
+The first batch holds the 64 teams with the most entries in the community database (§5.3). The selection is reproducible by rerunning `cmd/harvest`.
 
 ## 7. Accuracy and Limitations
 
@@ -275,6 +273,10 @@ All characters confirmed supported in gcsim (commit `2350be9`).
 - [ ] Enemy energy particle drops
   - The prototype uses `energy every interval=480,720 amount=1`, as many community gcsim configs do.
   - This directly affects ER requirements, so the same value must apply across the whole library. Confirm before the first library batch.
+- [ ] What a character does when its burst lacks energy in the looped rotation
+  - gcsim waits until the burst is ready. A rotation that spends more energy than it gains lives off its starting energy, then stalls; the stall also stops particle generation.
+  - Of the 64 harvested teams, 46 lose 5% or less when looped, 12 lose 5–20%, and 6 lose more. Flins / Ineffa / Aino / Sucrose falls from 111k (one pass) to 31k.
+  - Skipping unready bursts instead keeps that team at 108k, but drops Mavuika / Kaeya / Xilonen / Bennett from 91k to 36k, since Mavuika's damage needs her burst. Neither rule fits every team.
 - [ ] Whether to support additional rulesets such as an AoE league or a short-fight league (out of scope for now)
 - [ ] How to share results (versus card image, link, etc.)
 
@@ -284,5 +286,5 @@ All characters confirmed supported in gcsim (commit `2350be9`).
 2. ~~Enka UID → gcsim config converter~~ Done (`internal/enka`). Artifact substats come from Enka's rounded display values; crit rate differs from Enka's final stats by under 0.1%p.
 3. ~~Website with versus view~~ Done (`cmd/server`, `internal/web`), deployed at https://gscouter.altsky.info (§4.6).
 4. ~~Library format, import and validation~~ Done: `cmd/import` adds a team from a gcsim share link; `cmd/validate` checks that each team reproduces its source's DPS (§5.3). CI runs it. The `add-team` skill describes the workflow.
-5. First library batch from gcsim share links. A batch of 64 agent-written rotations was removed: written without sources, they scored a third of the community numbers.
+5. ~~First library batch~~ Done: `cmd/harvest` takes the 64 most simulated teams from the community gcsim database (§5.3). An earlier batch of 64 agent-written rotations was removed: written without sources, they scored a third of the community numbers.
 6. Display names (Korean character and weapon names instead of gcsim keys)

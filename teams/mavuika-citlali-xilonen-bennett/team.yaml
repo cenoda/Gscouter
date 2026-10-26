@@ -1,0 +1,17 @@
+id: mavuika-citlali-xilonen-bennett
+name: Mavuika / Citlali / Xilonen / Bennett
+members:
+    - mavuika
+    - citlali
+    - xilonen
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/cdz8FgbKf7wk
+notes: 'Harvested from the KQM gcsim database: 10 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 133752
+    computed: "2026-10-02"

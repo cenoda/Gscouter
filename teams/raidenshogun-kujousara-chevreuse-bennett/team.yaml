@@ -1,0 +1,17 @@
+id: raidenshogun-kujousara-chevreuse-bennett
+name: Raidenshogun / Kujousara / Chevreuse / Bennett
+members:
+    - raiden
+    - sara
+    - chevreuse
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/gNpw6T7zb7Fk
+notes: 'Harvested from the KQM gcsim database: 4 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 55207
+    computed: "2026-10-02"

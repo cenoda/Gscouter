@@ -11,21 +11,14 @@ package main
 
 import (
 	"context"
-	"errors"
 	"flag"
 	"fmt"
 	"os"
-	"path/filepath"
-	"strings"
 	"time"
 
 	"github.com/cenoda/gscouter/internal/library"
 	"github.com/cenoda/gscouter/internal/share"
-	"gopkg.in/yaml.v3"
 )
-
-// gcsimCommit is the gcsim version in go.mod, recorded on each team.
-const gcsimCommit = "2350be9"
 
 func main() {
 	root := flag.String("root", "teams", "team library directory")
@@ -49,59 +42,19 @@ func run(link, root string, force bool) error {
 		return err
 	}
 	sp := share.SplitConfig(res.Config)
-	if len(sp.Members) != 4 {
-		return fmt.Errorf("the config has %d characters, not 4: %v", len(sp.Members), sp.Members)
-	}
-
-	var ids, names []string
-	for _, m := range sp.Members {
-		key := library.Canonical(m)
-		ids = append(ids, key)
-		names = append(names, displayName(key))
-	}
-	id := strings.Join(ids, "-")
-	dir := filepath.Join(root, id)
-	if _, err := os.Stat(dir); err == nil && !force {
-		return fmt.Errorf("%s already exists; use -force to replace it", dir)
-	} else if err != nil && !errors.Is(err, os.ErrNotExist) {
-		return err
-	}
-
 	source := "https://gcsim.app/sh/" + res.Key
-	team := library.Team{
-		ID:              id,
-		Name:            strings.Join(names, " / "),
-		Members:         sp.Members,
-		Status:          library.StatusDraft,
-		RotationVersion: 1,
-		GcsimCommit:     gcsimCommit,
-		Sources:         []string{source},
-		Notes:           "Imported from a gcsim share.",
-		Reference:       &library.Reference{DPS: round(res.DPS), GcsimVersion: short(res.SimVersion)},
-	}
-	if len(sp.Params) > 0 {
-		team.Params = sp.Params
-	}
+	sources := []string{source}
 	if link != source {
-		team.Sources = append([]string{link}, team.Sources...)
+		sources = append([]string{link}, sources...)
 	}
-	meta, err := yaml.Marshal(team)
+	ref := &library.Reference{DPS: round(res.DPS), GcsimVersion: short(res.SimVersion)}
+	team, err := sp.Team(sources, ref, "Imported from a gcsim share.")
 	if err != nil {
 		return err
 	}
-
-	if err := os.MkdirAll(dir, 0o755); err != nil {
+	dir, err := sp.Write(root, team, force)
+	if err != nil {
 		return err
-	}
-	files := map[string]string{
-		"team.yaml":     string(meta),
-		"rotation.gcsl": sp.Rotation,
-		"build.txt":     "# Build from the source config, used to validate the rotation.\n\n" + sp.Build,
-	}
-	for name, content := range files {
-		if err := os.WriteFile(filepath.Join(dir, name), []byte(content), 0o644); err != nil {
-			return err
-		}
 	}
 
 	fmt.Printf("Wrote %s (%s)\n", dir, team.Name)
@@ -115,14 +68,6 @@ func run(link, root string, force bool) error {
 	}
 	fmt.Println("Next: set archetype in team.yaml, then run: go run ./cmd/validate -v " + dir)
 	return nil
-}
-
-// displayName turns a gcsim key into a readable name ("hutao" -> "Hutao").
-func displayName(key string) string {
-	if key == "" {
-		return key
-	}
-	return strings.ToUpper(key[:1]) + key[1:]
 }
 
 func round(v float64) float64 { return float64(int64(v + 0.5)) }

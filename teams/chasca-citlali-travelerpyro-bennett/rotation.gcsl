@@ -1,0 +1,11 @@
+active travelerpyro;
+for let i=0; i<4; i=i+1 {
+  travelerpyro skill[hold=1], burst;
+  bennett skill, burst;
+  citlali skill, burst;
+  chasca skill, aim:4, aim[bullets=4];
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  }
+}
+wait(82);

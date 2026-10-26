@@ -89,7 +89,7 @@ func TestIndexSuggestsTeams(t *testing.T) {
 	if code != http.StatusOK {
 		t.Fatalf("status %d", code)
 	}
-	mustContain(t, body, "Strong", "바로 계산할 수 있는 파티", "Hutao / Yelan / Xingqiu / Zhongli", "amber")
+	mustContain(t, body, "Strong", "바로 계산할 수 있는 파티", "Hutao / Xingqiu / Zhongli / Yelan", "amber")
 }
 
 func TestIndexUnknownUID(t *testing.T) {

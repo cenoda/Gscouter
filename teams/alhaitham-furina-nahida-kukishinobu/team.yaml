@@ -1,0 +1,19 @@
+id: alhaitham-furina-nahida-kukishinobu
+name: Alhaitham / Furina / Nahida / Kukishinobu
+members:
+    - alhaitham
+    - furina
+    - nahida
+    - kuki
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/MtL6LdtBgNn6
+notes: 'Harvested from the KQM gcsim database: 5 accepted entries use this team; this one has the lowest constellations and refinements.'
+params:
+    kuki: start_hp=5000
+reference:
+    dps: 82477
+    computed: "2026-10-02"

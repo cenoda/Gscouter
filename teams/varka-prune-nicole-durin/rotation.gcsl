@@ -1,0 +1,37 @@
+active varka; 
+let walk_cancel=true; 
+fn walk_or_not() {
+  if walk_cancel {
+    varka walk;
+  }
+}
+for let i=0; i<6; i=i+1 {
+  durin skill:2, burst;
+  prune skill, burst;
+  nicole skill, burst;
+  varka skill;
+  varka attack;  
+  if .varka.cons == 0 {
+    varka charge;  walk_or_not();
+  } else {
+    varka skill;
+  }
+  varka attack:4, skill;
+  varka attack:4, skill;
+  varka attack;
+  varka charge;  walk_or_not();
+  if .nicole.weapon == .keys.weapon.ttds { 
+    varka attack:2;
+    varka charge;
+    if .varka.cons != 0 {
+      delay(3); 
+    }
+    if .varka.weapon == .keys.weapon.gestofthemightywolf {
+      if walk_cancel==true {
+        delay(5);
+      }
+    }
+  } else {
+    varka attack;
+  }
+}

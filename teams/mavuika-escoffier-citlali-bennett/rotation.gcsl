@@ -1,0 +1,17 @@
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  mavuika skill;
+  escoffier attack, skill, attack;
+  bennett skill, attack, burst;
+  citlali skill, burst, attack;
+  if !.mavuika.burst.ready {
+    mavuika swap;
+    wait(9); 
+    mavuika attack:2; 
+  }
+  mavuika burst, charge, dash, attack,
+             charge, dash, attack, 
+             charge, dash, attack,
+             charge, dash, attack,
+             charge, dash, attack, charge, dash;
+}

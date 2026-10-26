@@ -1,0 +1,17 @@
+id: sangonomiyakokomi-yelan-kaedeharakazuha-furina
+name: Sangonomiyakokomi / Yelan / Kaedeharakazuha / Furina
+members:
+    - kokomi
+    - yelan
+    - kazuha
+    - furina
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/jQhMB9mNhmff
+notes: 'Harvested from the KQM gcsim database: 5 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 58539
+    computed: "2026-10-02"

@@ -1,0 +1,17 @@
+id: yoimiya-furina-yelan-bennett
+name: Yoimiya / Furina / Yelan / Bennett
+members:
+    - yoimiya
+    - furina
+    - yelan
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/7bKHdpJ6HFMw
+notes: 'Harvested from the KQM gcsim database: 4 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 63406
+    computed: "2026-10-02"

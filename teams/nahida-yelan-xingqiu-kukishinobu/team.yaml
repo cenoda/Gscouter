@@ -1,0 +1,17 @@
+id: nahida-yelan-xingqiu-kukishinobu
+name: Nahida / Yelan / Xingqiu / Kukishinobu
+members:
+    - nahida
+    - yelan
+    - xingqiu
+    - kuki
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/J98FpNwLWQDG
+notes: 'Harvested from the KQM gcsim database: 26 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 77875
+    computed: "2026-10-02"

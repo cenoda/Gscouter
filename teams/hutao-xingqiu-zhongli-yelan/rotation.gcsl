@@ -1,0 +1,43 @@
+active zhongli;
+for let r = 0; r < 4; r = r + 1 {
+  zhongli skill[hold=1];
+  
+  yelan skill;
+  if .yelan.burst.ready {
+    yelan burst, attack;
+  }
+  
+  if .xingqiu.burst.ready {
+    xingqiu burst;
+  }
+  while !.xingqiu.skill.ready {
+    xingqiu attack;
+  }
+  xingqiu skill;
+  if .xingqiu.skill.ready {
+    xingqiu skill;
+  }
+  if .xingqiu.burst.ready {
+    xingqiu burst;
+  }
+  
+  if .yelan.burst.ready {
+    yelan burst, attack;
+  }
+
+  hutao skill,
+    attack, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash;
+  
+  if .hutao.burst.ready {
+    hutao burst;
+  }
+}

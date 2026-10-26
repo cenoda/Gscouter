@@ -1,0 +1,17 @@
+id: wriothesley-xiangling-furina-bennett
+name: Wriothesley / Xiangling / Furina / Bennett
+members:
+    - wrio
+    - xiangling
+    - furina
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Hcj9G7mzcghQ
+notes: 'Harvested from the KQM gcsim database: 4 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 65767
+    computed: "2026-10-02"

@@ -1,0 +1,24 @@
+active wrio;
+wrio attack;
+for let i=0; i<4; i=i+1 {
+  xilonen skill, attack:2;
+  bennett attack, burst, skill;
+  pick_up_crystallize("any");
+  xiangling burst, skill;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump, 
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3;
+  if .wrio.burst.ready  {
+    wrio burst, attack; 
+    bennett skill, attack;
+    wrio attack:3;
+  } else {
+    wrio charge; 
+    bennett skill, attack;
+    xiangling swap; wait(55); 
+  }
+}

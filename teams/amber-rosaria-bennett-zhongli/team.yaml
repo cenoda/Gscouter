@@ -1,0 +1,17 @@
+id: amber-rosaria-bennett-zhongli
+name: Amber / Rosaria / Bennett / Zhongli
+members:
+    - amber
+    - rosaria
+    - bennett
+    - zhongli
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/p8NCNnJkzJTK
+notes: 'Harvested from the KQM gcsim database: 4 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 34904
+    computed: "2026-10-01"

@@ -1,0 +1,36 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  
+  furina skill, burst;
+  if i > 0 {
+    furina attack;
+  }
+  
+  yelan burst;
+  
+  if i == 0 {
+    bennett skill, burst;
+  } else {
+    bennett burst, attack, skill;
+  }
+  
+  if i > 0 {
+    yelan attack;
+  } 
+  yelan attack, skill;
+  
+  hutao skill,
+      attack:1, charge, jump,
+      attack:2, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump, attack;
+  
+  yelan skill, attack:2;
+  
+  bennett skill;
+}

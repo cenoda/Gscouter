@@ -1,0 +1,41 @@
+active furina;
+furina attack, skill, dash;
+citlali skill, attack;
+escoffier skill, attack;
+furina swap; wait(55);    
+skirk skill,
+      attack:5, dash,
+      
+      attack:5, burst,
+      attack:5, dash,
+      
+      attack:2, charge, dash,
+      
+      attack:5;
+furina swap;
+print("Skirk E cd (60 FPS) is ", .skirk.skill.cd);
+print("Skirk Q cd (60 FPS) is ", .skirk.burst.cd);
+for let i=0; i<4; i=i+1 { 
+  furina burst;
+  escoffier skill, burst, attack; 
+  furina skill, dash, attack;
+  citlali swap;
+  let StartFrame = f();
+  while !.element.t0.hydro && f()-StartFrame < 55 {
+    wait(1);
+  }
+
+  citlali skill;
+  skirk skill,
+        attack:2, burst,
+        
+        attack:5, dash,
+        attack:5, dash,
+        attack:5, dash,
+        
+        attack:2, charge, dash,
+        
+        attack:5, dash,
+        attack:2;
+  furina attack:2;  
+}

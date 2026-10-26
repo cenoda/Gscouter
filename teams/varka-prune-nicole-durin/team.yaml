@@ -1,0 +1,17 @@
+id: varka-prune-nicole-durin
+name: Varka / Prune / Nicole / Durin
+members:
+    - varka
+    - prune
+    - nicole
+    - durin
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/BFKQFG6JTNcF
+notes: 'Harvested from the KQM gcsim database: 7 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 136682
+    computed: "2026-10-02"

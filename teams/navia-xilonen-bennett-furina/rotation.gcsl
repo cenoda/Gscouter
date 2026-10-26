@@ -1,0 +1,22 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+    pick_up_crystallize("any"); 
+  }
+  return _execute_action(char_id, action_id, p);
+}
+active navia; 
+navia burst; 
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  xilonen skill, burst, attack:2;
+  bennett skill, burst;
+  if i {
+    navia burst; 
+  }
+  navia skill[hold=1], attack:2, dash, attack:2, dash, attack:2;
+  navia skill[hold=1], attack:2, dash, attack:2, dash, attack:2;
+  if i == 0 || i == 3 {
+    navia skill[hold=1], attack:2;
+  }
+}

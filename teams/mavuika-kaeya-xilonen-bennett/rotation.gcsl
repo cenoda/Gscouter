@@ -1,0 +1,16 @@
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  mavuika skill;
+  bennett burst, skill;
+  xilonen skill, attack:2;
+  kaeya skill, dash; pick_up_crystallize("pyro");
+  kaeya burst; 
+  mavuika burst;
+  delay(27);
+  mavuika charge:2, dash,
+          charge:2, dash,
+          charge:2, dash,
+          charge:2, dash,
+          charge;
+  mavuika charge, dash, charge:3, dash;
+}

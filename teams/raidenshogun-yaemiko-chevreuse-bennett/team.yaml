@@ -1,0 +1,17 @@
+id: raidenshogun-yaemiko-chevreuse-bennett
+name: Raidenshogun / Yaemiko / Chevreuse / Bennett
+members:
+    - raiden
+    - yaemiko
+    - chevreuse
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/gb76MtDkwRKR
+notes: 'Harvested from the KQM gcsim database: 4 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 61022
+    computed: "2026-10-02"

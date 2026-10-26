@@ -1,0 +1,19 @@
+id: skirk-furina-mona-escoffier
+name: Skirk / Furina / Mona / Escoffier
+members:
+    - skirk
+    - furina
+    - mona
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/9k8qm7Kb7THj
+notes: 'Harvested from the KQM gcsim database: 5 accepted entries use this team; this one has the lowest constellations and refinements.'
+params:
+    skirk: start_serpents_subtlety=100
+reference:
+    dps: 97505
+    computed: "2026-10-02"

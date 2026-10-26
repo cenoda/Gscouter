@@ -1,0 +1,17 @@
+id: mavuika-citlali-rosaria-bennett
+name: Mavuika / Citlali / Rosaria / Bennett
+members:
+    - mavuika
+    - citlali
+    - rosaria
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/N8LcbPCD6Wqg
+notes: 'Harvested from the KQM gcsim database: 5 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 119210
+    computed: "2026-10-01"

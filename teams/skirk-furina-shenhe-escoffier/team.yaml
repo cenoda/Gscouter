@@ -1,0 +1,22 @@
+id: skirk-furina-shenhe-escoffier
+name: Skirk / Furina / Shenhe / Escoffier
+members:
+    - skirk
+    - furina
+    - shenhe
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/6RhGdr9KRJwf
+notes: 'Harvested from the KQM gcsim database: 6 accepted entries use this team; this one has the lowest constellations and refinements.'
+params:
+    escoffier: start_energy=0
+    furina: start_energy=0
+    shenhe: start_energy=0
+    skirk: start_serpents_subtlety=0
+reference:
+    dps: 142253
+    computed: "2026-10-02"

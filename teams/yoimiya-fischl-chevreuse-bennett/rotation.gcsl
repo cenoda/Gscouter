@@ -1,0 +1,25 @@
+active fischl;
+fischl skill;
+for let i = 0; i < 2; i = i + 1 {
+  if .chevreuse.burst.ready { 
+    chevreuse burst, skill[hold=1]:3;
+  } else { 
+    chevreuse attack:2, skill[hold=1];
+  }
+  if .yoimiya.burst.ready {
+    yoimiya burst; 
+  }
+  bennett skill, burst;
+  fischl attack:2;
+  if .fischl.skill.ready {
+    fischl skill;
+  } else {
+    fischl burst;
+  }
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack:1, dash;
+  if .yoimiya.burst.ready { 
+    yoimiya attack, burst;
+  } else {
+    yoimiya attack:5;
+  }
+}

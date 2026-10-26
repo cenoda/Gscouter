@@ -1,0 +1,17 @@
+id: arlecchino-yelan-lanyan-bennett
+name: Arlecchino / Yelan / Lanyan / Bennett
+members:
+    - arle
+    - yelan
+    - lanyan
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/6ghwwhKgrJNL
+notes: 'Harvested from the KQM gcsim database: 8 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 76781
+    computed: "2026-10-02"

@@ -126,6 +126,7 @@ func SplitConfig(cfg string) Split {
 	var stmt strings.Builder
 	inSetup, inHeader := false, false
 	seen := map[string]bool{}
+	cfg = strings.ReplaceAll(cfg, "\r", "")
 
 	finish := func() {
 		text := strings.Join(strings.Fields(stmt.String()), " ") + ";"
@@ -154,6 +155,9 @@ func SplitConfig(cfg string) Split {
 
 	for _, line := range strings.Split(cfg, "\n") {
 		if i := strings.Index(line, "#"); i >= 0 {
+			line = line[:i]
+		}
+		if i := strings.Index(line, "//"); i >= 0 {
 			line = line[:i]
 		}
 		for line != "" {

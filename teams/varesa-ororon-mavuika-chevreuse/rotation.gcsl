@@ -1,0 +1,30 @@
+fn varesa_combo(amt) {
+  for let j = 0; j < amt; j = j + 1 {
+    if .varesa.skill.ready {
+      varesa skill, attack, high_plunge[collision=1]; 
+
+    } else {
+      varesa charge, high_plunge[collision=1]; 
+    }
+    if .varesa.energy >= 30 && .varesa.status.apex-drive {
+      varesa burst;
+    }
+  }
+}
+active varesa;
+varesa_combo(1);
+chevreuse burst, skill[hold=1];
+ororon skill, burst;
+mavuika burst, skill, dash;
+varesa_combo(6);
+for let i=0; i<3; i=i+1 {
+  chevreuse skill[hold=1];
+  if .chevreuse.burst.ready && .chevreuse.energy == .chevreuse.energymax {
+    chevreuse burst;
+  } else {
+    chevreuse attack;
+  }
+  ororon skill, burst;
+  mavuika burst, skill, dash;
+  varesa_combo(6);
+}

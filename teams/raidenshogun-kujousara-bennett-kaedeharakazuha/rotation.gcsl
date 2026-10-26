@@ -1,0 +1,11 @@
+active raiden;
+raiden skill;
+for let x = 0; x < 5; x = x + 1 {
+  kazuha skill, high_plunge;
+  sara skill, aim;
+  kazuha burst;
+  bennett skill, burst;
+  sara burst;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  bennett skill;
+}

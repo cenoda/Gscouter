@@ -1,0 +1,14 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  if is_even(i) {
+    furina skill, dash, attack:3;
+  } else {
+    furina burst;
+  }
+  escoffier skill, attack, burst;
+  mona skill, burst;
+  skirk skill[hold=1], burst;
+  escoffier attack:3;   
+  furina attack:3, dash;    
+  furina attack:2, dash;
+}

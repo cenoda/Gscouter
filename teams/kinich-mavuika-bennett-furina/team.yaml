@@ -1,0 +1,21 @@
+id: kinich-mavuika-bennett-furina
+name: Kinich / Mavuika / Bennett / Furina
+members:
+    - kinich
+    - mavuika
+    - bennett
+    - furina
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/brqnK8FrwQJL
+notes: 'Harvested from the KQM gcsim database: 4 accepted entries use this team; this one has the lowest constellations and refinements.'
+params:
+    bennett: start_energy=0
+    furina: start_energy=0
+    kinich: start_energy=0
+reference:
+    dps: 55684
+    computed: "2026-10-01"

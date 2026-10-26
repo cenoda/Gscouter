@@ -1,0 +1,16 @@
+active amber;
+for let i=0; i<4; i=i+1 {
+  amber aim[weakspot=1];
+  zhongli attack, skill[hold=1], dash;
+  bennett skill, burst;
+  rosaria skill, burst;
+  
+  amber skill,
+  aim [weakspot=1], dash,
+  aim [weakspot=1], dash,
+  aim [weakspot=1], dash,
+  dash, aim[weakspot=1];
+  
+  rosaria skill;
+  bennett skill;
+}

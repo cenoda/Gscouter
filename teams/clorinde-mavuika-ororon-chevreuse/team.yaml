@@ -1,0 +1,17 @@
+id: clorinde-mavuika-ororon-chevreuse
+name: Clorinde / Mavuika / Ororon / Chevreuse
+members:
+    - clorinde
+    - mavuika
+    - ororon
+    - chevreuse
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/MjnNK8gfdPnL
+notes: 'Harvested from the KQM gcsim database: 4 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 101523
+    computed: "2026-10-02"

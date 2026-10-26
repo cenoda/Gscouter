@@ -1,0 +1,17 @@
+id: varesa-ororon-mavuika-chevreuse
+name: Varesa / Ororon / Mavuika / Chevreuse
+members:
+    - varesa
+    - ororon
+    - mavuika
+    - chevreuse
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/dJhWTPMdf7m9
+notes: 'Harvested from the KQM gcsim database: 5 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 98604
+    computed: "2026-10-01"

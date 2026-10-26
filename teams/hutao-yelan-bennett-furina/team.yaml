@@ -1,0 +1,19 @@
+id: hutao-yelan-bennett-furina
+name: Hutao / Yelan / Bennett / Furina
+members:
+    - hutao
+    - yelan
+    - bennett
+    - furina
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/hPwmK6bFbb8w
+notes: 'Harvested from the KQM gcsim database: 4 accepted entries use this team; this one has the lowest constellations and refinements.'
+params:
+    hutao: start_hp=1
+reference:
+    dps: 76910
+    computed: "2026-10-01"

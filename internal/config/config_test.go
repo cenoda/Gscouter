@@ -36,3 +36,49 @@ func TestLoop(t *testing.T) {
 		t.Error("expected an error without an active statement")
 	}
 }
+
+func TestLoopKeepsSetupOutside(t *testing.T) {
+	rot := `set_particle_delay("bennett", 100);
+active varka; // stacks
+let walk = true;
+fn step() {
+  if walk { varka walk; }
+}
+while .varka.energy < 60 { varka attack; }
+if walk {
+  step();
+} else {
+  varka dash;
+}
+varka burst;
+`
+	got, err := Loop(rot)
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := `set_particle_delay("bennett", 100);
+active varka;
+let walk = true;
+fn step() {
+  if walk { varka walk; }
+}
+while 1 {
+while .varka.energy < 60 { varka attack; }
+if walk {
+  step();
+} else {
+  varka dash;
+}
+varka burst;
+}
+`
+	if got != want {
+		t.Errorf("got:\n%s\nwant:\n%s", got, want)
+	}
+	if _, err := Loop(`active varka; varka walk; print("open`); err != nil {
+		t.Errorf("unterminated string: %v", err)
+	}
+	if _, err := Loop("active varka; let x = 1;"); err == nil {
+		t.Error("expected an error without actions")
+	}
+}

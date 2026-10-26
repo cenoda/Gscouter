@@ -1,0 +1,11 @@
+set_particle_delay("bennett", 100);
+active raiden;
+raiden skill;
+for let x=0; x<5; x=x+1 {
+  xingqiu skill, dash, burst, attack;
+  bennett burst, attack, skill;
+  xiangling attack, burst, attack, skill, dash;
+  bennett attack, skill;
+  raiden attack, burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:5;
+  bennett skill;
+}

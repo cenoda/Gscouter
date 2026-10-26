@@ -1,0 +1,17 @@
+id: mavuika-chasca-citlali-bennett
+name: Mavuika / Chasca / Citlali / Bennett
+members:
+    - mavuika
+    - chasca
+    - citlali
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/d7FnTmM8DKCz
+notes: 'Harvested from the KQM gcsim database: 4 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 97719
+    computed: "2026-10-01"

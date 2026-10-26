@@ -1,0 +1,17 @@
+id: raidenshogun-xingqiu-bennett-xiangling
+name: Raidenshogun / Xingqiu / Bennett / Xiangling
+members:
+    - raiden
+    - xingqiu
+    - bennett
+    - xiangling
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/b7CnHmHjqKmD
+notes: 'Harvested from the KQM gcsim database: 5 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 81608
+    computed: "2026-10-01"

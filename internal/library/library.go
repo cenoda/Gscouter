@@ -45,8 +45,9 @@ type Team struct {
 }
 
 type Reference struct {
-	DPS          float64 `yaml:"dps"`           // mean team DPS reported by the source
-	GcsimVersion string  `yaml:"gcsim_version"` // gcsim commit the source ran on
+	DPS          float64 `yaml:"dps"`                     // mean team DPS reported by the source
+	GcsimVersion string  `yaml:"gcsim_version,omitempty"` // gcsim commit the source ran on, if known
+	Computed     string  `yaml:"computed,omitempty"`      // date the source last ran, if known
 }
 
 // Load reads team.yaml and rotation.gcsl from dir on disk.

@@ -1,0 +1,11 @@
+active gaming; 
+for let i = 0; i < 3; i = i + 1 {
+  xingqiu attack, skill, dash, burst, attack;
+  xianyun skill, high_plunge, burst, attack;
+  bennett burst, skill, attack;
+  gaming burst, attack:2;
+  for let i=0; i<6; i=i+1 {
+    gaming skill, high_plunge, attack;
+  }
+  gaming skill, high_plunge, dash;
+}

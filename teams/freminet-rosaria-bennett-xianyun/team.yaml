@@ -1,0 +1,17 @@
+id: freminet-rosaria-bennett-xianyun
+name: Freminet / Rosaria / Bennett / Xianyun
+members:
+    - freminet
+    - rosaria
+    - bennett
+    - xianyun
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/hzBMkFGNfhwc
+notes: 'Harvested from the KQM gcsim database: 4 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 75050
+    computed: "2026-10-02"

@@ -1,0 +1,17 @@
+id: xiao-faruzan-zhongli-bennett
+name: Xiao / Faruzan / Zhongli / Bennett
+members:
+    - xiao
+    - faruzan
+    - zhongli
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Ft9h77m9PjNk
+notes: 'Harvested from the KQM gcsim database: 4 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 53616
+    computed: "2026-10-02"

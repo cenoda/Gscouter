@@ -1,0 +1,17 @@
+id: lyney-xiangling-zhongli-bennett
+name: Lyney / Xiangling / Zhongli / Bennett
+members:
+    - lyney
+    - xiangling
+    - zhongli
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/RRRBNMgbCbMb
+notes: 'Harvested from the KQM gcsim database: 4 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 73154
+    computed: "2026-10-02"

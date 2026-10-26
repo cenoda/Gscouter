@@ -1,0 +1,17 @@
+id: nahida-xingqiu-yelan-raidenshogun
+name: Nahida / Xingqiu / Yelan / Raidenshogun
+members:
+    - nahida
+    - xingqiu
+    - yelan
+    - raiden
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/GQHGLq9kGzRB
+notes: 'Harvested from the KQM gcsim database: 6 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 95508
+    computed: "2026-10-01"

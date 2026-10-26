@@ -2,7 +2,7 @@
 //
 // Usage:
 //
-//	gscouter -team teams/hutao-yelan-xingqiu-zhongli -build teams/hutao-yelan-xingqiu-zhongli/build.txt
+//	gscouter -team teams/hutao-xingqiu-zhongli-yelan -build teams/hutao-xingqiu-zhongli-yelan/build.txt
 package main
 
 import (

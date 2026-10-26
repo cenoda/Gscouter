@@ -1,0 +1,17 @@
+id: kaedeharakazuha-yaemiko-fischl-nahida
+name: Kaedeharakazuha / Yaemiko / Fischl / Nahida
+members:
+    - kazuha
+    - yae
+    - fischl
+    - nahida
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/zMHWTRtw7hNL
+notes: 'Harvested from the KQM gcsim database: 5 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 76916
+    computed: "2026-09-30"

@@ -1,0 +1,17 @@
+id: kaedeharakazuha-yaemiko-fischl-baizhu
+name: Kaedeharakazuha / Yaemiko / Fischl / Baizhu
+members:
+    - kazuha
+    - yae
+    - fischl
+    - baizhu
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/G8DTHkFJ68bB
+notes: 'Harvested from the KQM gcsim database: 4 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 71616
+    computed: "2026-10-01"

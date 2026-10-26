@@ -1,0 +1,17 @@
+id: raidenshogun-kujousara-bennett-kaedeharakazuha
+name: Raidenshogun / Kujousara / Bennett / Kaedeharakazuha
+members:
+    - raiden
+    - sara
+    - bennett
+    - kazuha
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/DHNHnFwKD89N
+notes: 'Harvested from the KQM gcsim database: 5 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 102692
+    computed: "2026-10-02"

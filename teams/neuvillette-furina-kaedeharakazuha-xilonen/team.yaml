@@ -1,0 +1,17 @@
+id: neuvillette-furina-kaedeharakazuha-xilonen
+name: Neuvillette / Furina / Kaedeharakazuha / Xilonen
+members:
+    - neuvillette
+    - furina
+    - kazuha
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/BwJqBTtHBcRd
+notes: 'Harvested from the KQM gcsim database: 7 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 94278
+    computed: "2026-10-02"

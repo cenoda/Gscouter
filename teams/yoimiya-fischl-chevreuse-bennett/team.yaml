@@ -1,0 +1,17 @@
+id: yoimiya-fischl-chevreuse-bennett
+name: Yoimiya / Fischl / Chevreuse / Bennett
+members:
+    - yoimiya
+    - fischl
+    - chevreuse
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/8tKtF77Tm8Gf
+notes: 'Harvested from the KQM gcsim database: 5 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 92119
+    computed: "2026-10-01"

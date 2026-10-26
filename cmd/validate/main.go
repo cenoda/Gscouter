@@ -13,35 +13,16 @@ package main
 
 import (
 	"cmp"
-	"context"
 	"flag"
 	"fmt"
 	"maps"
-	"math"
 	"os"
 	"path/filepath"
 	"slices"
 	"strings"
-	"time"
 
-	"github.com/cenoda/gscouter/internal/config"
-	"github.com/cenoda/gscouter/internal/library"
 	"github.com/cenoda/gscouter/internal/score"
-)
-
-// Thresholds. A failure means the team must not be served; a warning
-// means it should be looked at.
-const (
-	// The source ran on another gcsim version and its own options, so
-	// small differences are expected.
-	failReference = 0.05
-	warnReference = 0.02
-	warnWait      = 2.0 // seconds per minute an action is delayed, for any reason
-	warnShare     = 0.01
-	// A rotation that does not end within this time probably loops
-	// forever: with the enemy's infinite HP, gcsim stops only when the
-	// action list ends.
-	timeout = 2 * time.Minute
+	"github.com/cenoda/gscouter/internal/validate"
 )
 
 func main() {
@@ -69,19 +50,19 @@ func main() {
 		}
 	}
 
-	s := settings{iterations: *iterations, warmup: *warmup, duration: *duration}
+	s := validate.Settings{Iterations: *iterations, Warmup: *warmup, Duration: *duration}
 	var failed, warned int
 	for _, dir := range dirs {
-		r := checkWithTimeout(dir, s)
+		r := validate.Check(dir, s)
 		switch {
-		case len(r.failures) > 0:
+		case len(r.Failures) > 0:
 			failed++
-		case len(r.warnings) > 0:
+		case len(r.Warnings) > 0:
 			warned++
 		}
-		r.print(*verbose)
-		if *detail && r.cfg != "" {
-			printDetail(r.cfg)
+		printReport(r, *verbose)
+		if *detail && r.Cfg != "" {
+			printDetail(r.Cfg)
 		}
 	}
 	fmt.Printf("\n%d teams, %d failed, %d with warnings\n", len(dirs), failed, warned)
@@ -90,151 +71,37 @@ func main() {
 	}
 }
 
-type settings struct {
-	iterations       int
-	warmup, duration float64
-}
-
-type report struct {
-	dir      string
-	team     *library.Team
-	once     *score.Result // one pass, compared with the source
-	res      *score.Result // looped, the score
-	cfg      string        // the looped config
-	skipped  string
-	failures []string
-	warnings []string
-}
-
-func checkWithTimeout(dir string, s settings) *report {
-	done := make(chan *report, 1)
-	go func() { done <- check(dir, s) }()
-	select {
-	case r := <-done:
-		return r
-	case <-time.After(timeout):
-		// The simulation cannot be interrupted; the process exits at the end.
-		return &report{dir: dir, failures: []string{fmt.Sprintf("no result after %v: the rotation probably never ends (an unconditional loop?)", timeout)}}
-	}
-}
-
-func check(dir string, s settings) *report {
-	r := &report{dir: dir}
-	team, err := library.Load(dir)
-	if err != nil {
-		r.failures = append(r.failures, err.Error())
-		return r
-	}
-	r.team = team
-	if team.ID != filepath.Base(dir) {
-		r.failures = append(r.failures, fmt.Sprintf("id %q does not match directory", team.ID))
-	}
-	if team.Status == library.StatusBlocked {
-		r.skipped = "blocked: " + team.Notes
-		return r
-	}
-	if len(team.Sources) == 0 {
-		r.failures = append(r.failures, "no source: rotations must come from a community config")
-	}
-
-	raw, err := os.ReadFile(filepath.Join(dir, "build.txt"))
-	if err != nil {
-		r.failures = append(r.failures, "reference build: "+err.Error())
-		return r
-	}
-	build := string(raw)
-	for _, m := range slices.Sorted(maps.Keys(team.Params)) {
-		build = config.AddParams(build, m, team.Params[m])
-	}
-	once := config.Assemble(config.Conditions{Iterations: s.iterations}, build, team.Rotation)
-	chars, err := config.Characters(once)
-	if err != nil {
-		r.failures = append(r.failures, "config: "+err.Error())
-		return r
-	}
-	if !team.Matches(chars) {
-		r.failures = append(r.failures, fmt.Sprintf("build characters %v do not match members %v", chars, team.Members))
-		return r
-	}
-
-	onceRes, err := score.Run(context.Background(), once, score.Options{Iterations: s.iterations, Seed: 1})
-	if err != nil {
-		r.failures = append(r.failures, "simulation: "+err.Error())
-		return r
-	}
-	r.once = onceRes
-	if ref := team.Reference; ref != nil && ref.DPS > 0 {
-		diff := (onceRes.DPS - ref.DPS) / ref.DPS
-		msg := fmt.Sprintf("%+.1f%% from the source's %.0f DPS (gcsim %s)", diff*100, ref.DPS, ref.GcsimVersion)
-		switch d := math.Abs(diff); {
-		case d > failReference:
-			r.failures = append(r.failures, msg)
-		case d > warnReference:
-			r.warnings = append(r.warnings, msg)
-		}
-	} else {
-		r.warnings = append(r.warnings, "no reference DPS to compare with")
-	}
-
-	looped, err := config.Loop(team.Rotation)
-	if err != nil {
-		r.failures = append(r.failures, err.Error())
-		return r
-	}
-	r.cfg = config.Assemble(config.Conditions{Iterations: s.iterations, Duration: s.duration}, build, looped)
-	res, err := score.Run(context.Background(), r.cfg, score.Options{Iterations: s.iterations, Warmup: s.warmup, Seed: 1})
-	if err != nil {
-		r.failures = append(r.failures, "looped simulation: "+err.Error())
-		return r
-	}
-	r.res = res
-	for _, c := range res.Characters {
-		switch {
-		case c.DPS <= 0:
-			r.warnings = append(r.warnings, c.Name+" deals no damage")
-		case c.Share < warnShare:
-			r.warnings = append(r.warnings, fmt.Sprintf("%s deals only %.1f%% of the damage", c.Name, c.Share*100))
-		}
-		for _, reason := range slices.Sorted(maps.Keys(c.Waits)) {
-			if w := c.Waits[reason]; w >= warnWait {
-				r.warnings = append(r.warnings, fmt.Sprintf("%s waits %.1fs/min (%s)", c.Name, w, reason))
-			}
-		}
-	}
-	return r
-}
-
-func (r *report) print(verbose bool) {
+func printReport(r *validate.Report, verbose bool) {
 	verdict := "OK"
 	switch {
-	case len(r.failures) > 0:
+	case len(r.Failures) > 0:
 		verdict = "FAIL"
-	case r.skipped != "":
+	case r.Skipped != "":
 		verdict = "SKIP"
-	case len(r.warnings) > 0:
+	case len(r.Warnings) > 0:
 		verdict = "WARN"
 	}
-	name := filepath.Base(r.dir)
-	if r.res != nil {
+	name := filepath.Base(r.Dir)
+	if r.Res != nil {
 		ref := "      -"
-		if r.team.Reference != nil {
-			ref = fmt.Sprintf("%7.0f", r.team.Reference.DPS)
+		if r.Team.Reference != nil {
+			ref = fmt.Sprintf("%7.0f", r.Team.Reference.DPS)
 		}
-		fmt.Printf("%-4s %-46s looped %7.0f  one rotation %7.0f (%4.1fs, source %s)\n", verdict, name, r.res.DPS, r.once.DPS, r.once.Window, ref)
+		fmt.Printf("%-4s %-46s looped %7.0f  one rotation %7.0f (%4.1fs, source %s)\n", verdict, name, r.Res.DPS, r.Once.DPS, r.Once.Window, ref)
 	} else {
 		fmt.Printf("%-4s %s\n", verdict, name)
 	}
-	if r.skipped != "" {
-		fmt.Printf("       %s\n", r.skipped)
+	if r.Skipped != "" {
+		fmt.Printf("       %s\n", r.Skipped)
 	}
-	for _, msg := range r.failures {
+	for _, msg := range r.Failures {
 		fmt.Printf("       fail: %s\n", msg)
 	}
-	for _, msg := range r.warnings {
+	for _, msg := range r.Warnings {
 		fmt.Printf("       warn: %s\n", msg)
 	}
-	if verbose && r.res != nil {
-		for _, c := range r.res.Characters {
+	if verbose && r.Res != nil {
+		for _, c := range r.Res.Characters {
 			var waits []string
 			for _, reason := range slices.Sorted(maps.Keys(c.Waits)) {
 				waits = append(waits, fmt.Sprintf("%s %.2fs/min", reason, c.Waits[reason]))

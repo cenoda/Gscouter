@@ -1,0 +1,16 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  furina attack, skill, dash, attack;
+  kazuha skill, high_plunge, burst;
+  baizhu skill;
+  if !.baizhu.mods.favonius-cd {
+    baizhu attack;
+  }
+  baizhu burst;
+  furina burst; 
+  neuvillette charge, skill, charge, burst;
+  kazuha skill, high_plunge;
+  neuvillette charge, charge;
+}
+ wait(173);

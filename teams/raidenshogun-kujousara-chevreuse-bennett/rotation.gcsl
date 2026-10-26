@@ -1,0 +1,11 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 4; i = i + 1 {
+  bennett skill, burst;
+  sara skill, aim;
+  chevreuse burst, skill[hold=1]; 
+  sara burst;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  bennett skill, attack:2;
+  chevreuse attack:4; 
+}

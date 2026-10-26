@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"regexp"
 	"strings"
+	"unicode"
 
 	"github.com/genshinsim/gcsim/pkg/gcs/ast"
 	"github.com/genshinsim/gcsim/pkg/gcs/parser"
@@ -94,13 +95,85 @@ func AddParams(build, key, params string) string {
 	return re.ReplaceAllString(build, "${1} +params=["+params+"];")
 }
 
-// Loop turns a one-pass rotation into an endless one: the first statement
-// (the "active <char>;" line) runs once and the rest repeats, so energy
-// shortfalls show up as they would over a long fight.
+// Loop turns a one-pass rotation into an endless one. The setup at its
+// start (the active character, variables, functions and set_* calls) runs
+// once; the rest repeats, so energy shortfalls show up as they would over
+// a long fight. The setup must choose the active character.
 func Loop(rotation string) (string, error) {
-	head, body, ok := strings.Cut(strings.TrimSpace(rotation), ";")
-	if !ok || !strings.HasPrefix(strings.TrimSpace(head), "active ") {
-		return "", errors.New("rotation must start with an active statement")
+	stmts := statements(rotation)
+	setup, active := 0, false
+	for ; setup < len(stmts); setup++ {
+		word := firstWord(stmts[setup])
+		if word == "active" {
+			active = true
+		} else if word != "let" && word != "fn" && !strings.HasPrefix(word, "set_") {
+			break
+		}
 	}
-	return head + ";\nwhile 1 {\n" + strings.TrimSpace(body) + "\n}\n", nil
+	if !active {
+		return "", errors.New("rotation must start with an active statement (after any let, fn or set_ statements)")
+	}
+	if setup == len(stmts) {
+		return "", errors.New("rotation has no actions after its setup")
+	}
+	return strings.Join(stmts[:setup], "\n") + "\nwhile 1 {\n" + strings.Join(stmts[setup:], "\n") + "\n}\n", nil
+}
+
+// statements splits gcsl source into its top-level statements: each ends
+// at a semicolon or at the brace closing its block, outside strings and
+// comments, which are dropped.
+func statements(src string) []string {
+	var out []string
+	var cur strings.Builder
+	depth := 0
+	flush := func() {
+		if s := strings.TrimSpace(cur.String()); s != "" && s != ";" {
+			out = append(out, s)
+		}
+		cur.Reset()
+	}
+	for i := 0; i < len(src); i++ {
+		c := src[i]
+		switch {
+		case c == '#' || c == '/' && i+1 < len(src) && src[i+1] == '/':
+			for i < len(src) && src[i] != '\n' {
+				i++
+			}
+			cur.WriteByte('\n')
+			continue
+		case c == '"':
+			end := len(src) // an unterminated string runs to the end
+			if j := strings.IndexByte(src[i+1:], '"'); j >= 0 {
+				end = i + j + 2
+			}
+			cur.WriteString(src[i:end])
+			i = end - 1
+			continue
+		}
+		cur.WriteByte(c)
+		switch c {
+		case '{':
+			depth++
+		case '}':
+			depth--
+			// A block ends the statement unless "else" follows.
+			if depth == 0 && !strings.HasPrefix(strings.TrimSpace(src[i+1:]), "else") {
+				flush()
+			}
+		case ';':
+			if depth == 0 {
+				flush()
+			}
+		}
+	}
+	flush()
+	return out
+}
+
+func firstWord(stmt string) string {
+	end := strings.IndexFunc(stmt, func(r rune) bool { return !(r == '_' || unicode.IsLetter(r) || unicode.IsDigit(r)) })
+	if end < 0 {
+		return stmt
+	}
+	return stmt[:end]
 }

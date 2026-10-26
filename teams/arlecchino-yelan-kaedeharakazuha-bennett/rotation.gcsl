@@ -1,0 +1,23 @@
+active arlecchino;
+  arlecchino skill;
+  yelan skill, burst, attack;
+  bennett burst, attack;
+  while !.yelan.mods.favonius-cd {
+    yelan attack;
+  }
+  kazuha attack, skill, high_plunge;
+  arlecchino attack:3, charge,
+             attack:15;
+for let i=0; i<3; i=i+1 {
+  arlecchino skill;
+  bennett skill;
+  yelan skill, burst, attack;
+  while !.yelan.mods.favonius-cd {
+    yelan attack;
+  }
+  bennett burst, attack;
+  kazuha attack, skill, high_plunge;
+  arlecchino attack:3, charge,
+             attack:15;
+  
+}

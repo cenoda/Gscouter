@@ -1,0 +1,26 @@
+active gorou;
+  gorou skill;
+  zhongli skill[hold=1],dash;
+  aethergeo skill[short_hold=1], burst;
+  gorou attack, burst;
+  
+  itto attack, burst[prestack=1],
+       attack, skill,
+       attack:2, charge:5,
+       attack:4, charge:5, skill[travel=0], charge;
+       sleep(21); 
+
+   for let i=0; i<4; i=i+1 {
+   
+   zhongli skill, dash, attack; 
+   gorou attack, skill;
+   aethergeo skill[short_hold=1], burst;
+   zhongli skill[hold=1], dash;
+   gorou attack, burst;
+   
+   itto attack, burst[prestack=1],
+        attack, skill, charge:4,
+        attack:3, charge:4,
+        attack:3, skill, charge:4; 
+
+   }

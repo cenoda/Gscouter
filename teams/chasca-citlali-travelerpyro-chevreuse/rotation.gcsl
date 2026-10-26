@@ -1,0 +1,14 @@
+active travelerpyro;
+for let i=0; i<4; i=i+1 {
+  travelerpyro skill, burst;
+  chevreuse burst, skill[hold=1];
+  citlali skill, burst;
+  chasca skill;
+  set_player_pos(0,-3);  
+  chasca aim:4, aim[bullets=4];
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  }
+  set_player_pos(0,0);
+}
+wait(82);

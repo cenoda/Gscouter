@@ -1,0 +1,36 @@
+active lyney;
+for let r = 4; r > 0; r = r - 1 {
+  
+  lyney aim;
+  
+  zhongli skill[hold=1], dash;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  
+  if !.bennett.burst.ready {
+    bennett skill;
+  }
+  bennett burst;
+  
+  if .xiangling.burst.ready {
+    xiangling burst, skill, dash;
+  }
+  else {
+    xiangling attack, skill, dash, attack;
+  }
+  pick_up_crystallize("pyro");
+  
+  lyney aim[weakspot=1], aim;
+  
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(11); 
+    lyney skill;
+  }
+  else {
+    lyney aim;
+  }
+  lyney aim, aim[weakspot=1], skill;
+  
+}

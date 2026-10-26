@@ -1,0 +1,22 @@
+active kuki;
+for let i=0; i<4; i=i+1 {
+    if (i == 0) {
+      kuki skill;} else {
+      kuki attack,skill; }
+nahida skill, burst, charge;
+furina skill, burst;
+alhaitham skill[hold=1], low_plunge[short=1], 
+            attack:2, charge, dash, 
+            attack:3, charge;
+ kuki burst;
+ alhaitham burst;
+ kuki attack, skill;
+ alhaitham attack:3, dash,
+           attack:3, charge, 
+           attack:3, dash, 
+           attack:3, dash, 
+           attack:2, charge, dash,
+           attack:3, charge, dash,
+           attack:3, charge, dash;
+ 
+}

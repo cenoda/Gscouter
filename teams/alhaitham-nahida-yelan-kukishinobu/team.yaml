@@ -1,0 +1,19 @@
+id: alhaitham-nahida-yelan-kukishinobu
+name: Alhaitham / Nahida / Yelan / Kukishinobu
+members:
+    - alhaitham
+    - nahida
+    - yelan
+    - kuki
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/tBdNDWbGhfFM
+notes: 'Harvested from the KQM gcsim database: 4 accepted entries use this team; this one has the lowest constellations and refinements.'
+params:
+    kuki: start_hp=7000
+reference:
+    dps: 75716
+    computed: "2026-10-01"

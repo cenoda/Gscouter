@@ -1,0 +1,22 @@
+active kokomi;
+kokomi attack;
+for let i = 0; i < 4; i = i + 1 {
+  kazuha skill;
+  if .kokomi.skill.ready {
+  kokomi skill; }
+  furina burst, skill;
+  yelan burst,attack,skill,attack,skill;
+  if.kazuha.burst.ready {
+    kazuha burst;}
+  kazuha skill;
+  kokomi burst,
+  attack:3,dash,
+  attack:3,dash,
+  attack:3,dash,
+  attack:3,dash,
+  attack:3,dash;
+  if.kokomi.skill.ready {
+    if .kokomi.mods.kazuha-a4-hydro {
+      kokomi skill;}}
+  print("done");
+  }

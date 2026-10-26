@@ -1,0 +1,17 @@
+id: chongyun-shenhe-furina-escoffier
+name: Chongyun / Shenhe / Furina / Escoffier
+members:
+    - chongyun
+    - shenhe
+    - furina
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/BFNfb7hKLjkB
+notes: 'Harvested from the KQM gcsim database: 4 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 64885
+    computed: "2026-10-02"

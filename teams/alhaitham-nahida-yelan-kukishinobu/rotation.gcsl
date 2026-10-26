@@ -1,0 +1,19 @@
+active nahida;
+ 
+  for let r = 0; r < 4; r = r + 1 {
+  nahida skill, burst;
+  if .kuki.burst.ready {kuki burst;}
+  yelan burst,skill,attack; 
+  alhaitham burst;
+  kuki attack, skill;
+  alhaitham attack:3,dash,
+            attack:3,dash,
+            attack:3,dash,
+            attack:3;
+  if .kuki.burst.ready {kuki attack,burst;}
+  yelan  attack,skill, attack;
+  alhaitham skill[hold=1], low_plunge[short=1], 
+            attack:2, charge, dash, 
+            attack:3, charge;
+  
+            }

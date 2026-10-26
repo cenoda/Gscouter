@@ -1,0 +1,17 @@
+id: navia-xilonen-bennett-furina
+name: Navia / Xilonen / Bennett / Furina
+members:
+    - navia
+    - xilonen
+    - bennett
+    - furina
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/tHb7mDcpmtKk
+notes: 'Harvested from the KQM gcsim database: 4 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 70278
+    computed: "2026-10-01"

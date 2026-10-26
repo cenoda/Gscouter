@@ -1,0 +1,13 @@
+active mavuika; 
+for let i = 0; i < 2; i = i + 1 {
+  furina skill;
+  escoffier skill;
+  mavuika skill;
+  chasca skill, aim:4;
+  
+  furina burst;
+  escoffier skill, burst;
+  mavuika burst, charge, skill;
+  chasca skill, burst, aim:4;
+}
+wait(126);

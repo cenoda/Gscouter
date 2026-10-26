@@ -1,0 +1,16 @@
+active yelan;
+for let i = 0; i < 4; i = i + 1 { 
+  yelan skill, attack, burst, attack;
+  while !.yelan.mods.favonius-cd {
+    yelan attack;
+  }
+  arle skill; delay(11);
+  bennett skill, burst;
+  sucrose attack:3, skill, dash;
+  arle attack:3, charge, 
+       attack:3, charge, 
+       attack:3, charge, 
+       attack:3, charge, 
+       attack:3, charge, 
+       attack:3;
+}

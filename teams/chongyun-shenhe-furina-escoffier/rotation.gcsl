@@ -1,0 +1,15 @@
+active chong;
+for let i = 0; i<4; i=i+1 { 
+  shenhe skill, attack, burst;
+  furina skill, dash, burst;
+  esco skill, burst;
+  chong burst, skill;
+  shenhe skill, dash, attack;
+  chong attack:2, dash,
+        attack:2, dash,
+        attack:2, dash,
+        attack:2, dash,
+        attack:2, dash,
+        attack:2;
+  
+}

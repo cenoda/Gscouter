@@ -1,0 +1,12 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill; delay(11);
+  bennett skill, burst;
+  sucrose attack, skill, dash;
+  citlali skill, burst;
+  arle charge[early_cancel=1], dash; 
+  arle attack:6;
+  arle attack:6;
+  delay(10);
+  arle attack:3;
+}

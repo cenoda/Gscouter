@@ -1,0 +1,17 @@
+id: flins-fischl-aino-sucrose
+name: Flins / Fischl / Aino / Sucrose
+members:
+    - flins
+    - fischl
+    - aino
+    - sucrose
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/c9gqgNtRBfND
+notes: 'Harvested from the KQM gcsim database: 4 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 89786
+    computed: "2026-10-02"

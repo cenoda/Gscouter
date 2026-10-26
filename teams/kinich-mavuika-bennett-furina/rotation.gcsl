@@ -1,0 +1,46 @@
+fn kinich_combo() {
+  kinich skill;
+  while .kinich.nightsoul.state {
+    switch .kinich.nightsoul.points {
+      case 20:
+        kinich skill[hold=1];
+      default:
+        if .kinich.blind_spot {
+          kinich attack[direction=.kinich.blind_spot];
+        } else {
+          kinich attack;
+        }
+    }
+  }
+}
+active kinich;
+for let i=0; i<2; i=i+1{
+  mav attack,skill;
+  bennett skill, attack:3;
+  furina attack,skill;
+  if .furina.burst.ready {
+    furina burst;
+  }
+  bennett skill,burst;
+  kinich_combo();
+  
+  kinich attack:2;
+  
+  mav attack,skill;
+  bennett skill, attack:3;
+  furina attack,skill;
+  if .furina.burst.ready {
+    furina burst;
+  }
+  bennett skill,burst;
+  
+  mavuika burst;
+  mavuika charge:2, dash;
+  mavuika charge:2, dash;
+  mavuika charge:2, dash;
+  mavuika charge:2, dash;
+  mavuika charge:2, dash;
+  mavuika charge:2, dash;
+  mavuika charge:2, dash;
+  
+}

@@ -1,0 +1,17 @@
+id: arlecchino-citlali-sucrose-bennett
+name: Arlecchino / Citlali / Sucrose / Bennett
+members:
+    - arle
+    - citlali
+    - sucrose
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/ktgD7R9QLgzL
+notes: 'Harvested from the KQM gcsim database: 6 accepted entries use this team; this one has the lowest constellations and refinements.'
+reference:
+    dps: 93387
+    computed: "2026-10-02"

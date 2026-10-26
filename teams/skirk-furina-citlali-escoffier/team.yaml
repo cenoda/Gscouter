@@ -1,0 +1,22 @@
+id: skirk-furina-citlali-escoffier
+name: Skirk / Furina / Citlali / Escoffier
+members:
+    - skirk
+    - furina
+    - citlali
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/jbPPNgPdzBWk
+notes: 'Harvested from the KQM gcsim database: 8 accepted entries use this team; this one has the lowest constellations and refinements.'
+params:
+    citlali: start_energy=0
+    escoffier: start_energy=0
+    furina: start_energy=0
+    skirk: start_serpents_subtlety=0
+reference:
+    dps: 144222
+    computed: "2026-10-01"
