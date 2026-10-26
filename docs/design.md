@@ -1,6 +1,6 @@
 # Gscouter Design Document
 
-> Status: Draft (pre-implementation)
+> Status: Draft (prototype in progress)
 > Last updated: 2026-10-26 · Game version baseline: 7.1
 
 ## 1. Overview
@@ -48,19 +48,32 @@ A user submits the builds of their party members, and Gscouter computes the team
 score = average DPS over the interval after the opener (first cycle)
 ```
 
-gcsim runs fixed-duration simulations, so infinite cycles are approximated.
+gcsim runs fixed-duration simulations, so infinite cycles are approximated by a long fight with the start cut off.
 
-- **Difference method (default)**
-  - Run the same config with two durations, T1 and T2 (T1 < T2).
-  - Use `(total_damage(T2) − total_damage(T1)) / (T2 − T1)` as the score.
-  - Example: T1 = 60 s, T2 = 360 s
-  - The opener cancels out between the two runs, so this does not depend on gcsim internals.
-- **Alternative**
-  - Sum only the damage after the first cycle from gcsim's damage event log.
-  - Gives exact cycle boundaries, but depends on the log format.
-- Randomness such as crits is handled by averaging gcsim iterations. Store the standard deviation with the result.
+- **Window slicing (adopted)**
+  - Run each iteration for T2 seconds and count only the damage dealt from T1 onwards.
+  - gcsim records each iteration's damage in 0.5 s buckets, plus each character's cumulative share per bucket. Gscouter uses gcsim as a Go library and reads these directly, so one run per iteration is enough.
+  - Defaults: **T1 = 300 s, T2 = 900 s** (a 600 s window).
+- **Difference method (equivalent, not used)**
+  - `(total_damage(T2) − total_damage(T1)) / (T2 − T1)`, with the same seed for both runs.
+  - Gives the same value as window slicing (verified per seed by a unit test), but needs two runs.
+- Each iteration `i` uses seed `base + i`, so the same build always gets the same score. This is required for caching and for repeatable comparisons.
+- Randomness such as crits is handled by averaging iterations. The result stores the standard deviation and the standard error.
 
-> To verify: how large the error gets when T1/T2 fall mid-cycle in the difference method. Measure with representative library teams, then finalize the T values.
+**Measurements** (Skirk / Yelan / Furina / Escoffier, prototype rotation, sample build, 1000 iterations):
+
+| Window | DPS | Note |
+|---|---|---|
+| 0–360 s | 100.4k | Includes the opener |
+| 60–360 s | 98.9k | The original proposal; still 2.5% above steady state |
+| 150–450 s | 96.8k | Settled |
+| 300–900 s | 96.6k | Default |
+| 360–660 s ... 1560–1860 s | 96.3k–96.5k | Flat, within ±1 s.e. |
+
+- The transient is longer than the opener. Every character starts with full energy, and an energy deficit builds up over several cycles before the rotation becomes energy-limited. In this team it settles after about 150 s.
+- Mid-cycle truncation is small with a 600 s window (about 27 cycles of ~22 s).
+- Cost: 1000 iterations × 900 s take about 12 s on 4 CPU cores. The standard error is about 0.1%.
+- Teams that take longer to settle are caught by the drift check (§5.3).
 
 ### 3.2 Common simulation conditions
 
@@ -70,14 +83,17 @@ gcsim runs fixed-duration simulations, so infinite cycles are approximated.
 | Enemy resistance | 10% for all elements + physical |
 | Number of targets | 1 |
 | Enemy HP | Infinite (time-based termination) |
-| Iterations | TBD (e.g. 1000), based on precision vs. cost |
-| Enemy energy particle drops | TBD (see §9) |
+| Fight duration | 900 s, of which the first 300 s are excluded (§3.1) |
+| Iterations | 1000 (standard error about 0.1%) |
+| Energy | 1 clear particle every 8–12 s (`energy every interval=480,720 amount=1`). Provisional, see §9 |
+| Swap delay | 12 frames |
 
 As a gcsim config, roughly:
 
 ```
-options iteration=1000 duration=360 swap_delay=12;
+options iteration=1000 duration=900 swap_delay=12;
 target lvl=100 resist=0.1;
+energy every interval=480,720 amount=1;
 ```
 
 ## 4. System Architecture
@@ -119,7 +135,7 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
 ### 4.4 Config assembly and execution
 
 - Combine the common conditions (§3.2) + the user's build (§4.2) + the library rotation (§5) into a gcsim config.
-- Run the same config at both durations, T1 and T2.
+- Run the config once for T2 per iteration and score the window from T1 (§3.1).
 - **Cache key** = build hash + team ID + rotation version + gcsim version. Never recompute the same build.
 
 ### 4.5 Results
@@ -127,7 +143,7 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
 - **Score**: steady-state DPS
 - **Per-character contribution**: DPS and share
 - **Warnings**
-  - Insufficient ER (e.g. "Furina's burst delayed by N s per cycle on average")
+  - Insufficient ER: time each character spent waiting for energy, in seconds per minute of the scoring window
   - Failed actions
 - **Metadata**: rotation version, gcsim version, simulation conditions
 - **Versus view**: two UIDs/teams side by side with score, contributions, and warnings.
@@ -179,7 +195,7 @@ notes: ""
 | 5. Regression tests | Automated | Re-run everything on gcsim updates or game patches; flag teams whose DPS shifts more than ±N% for review |
 
 Step 3 automated checks:
-- The cycle actually repeats (variance of per-cycle damage)
+- The team reaches a steady state: **drift** (second-half vs. first-half DPS of the window) within ±1%
 - No failed actions or burst delays with the reference build
 - The result falls within the expected range in `reference.yaml` (compared against public calcs such as KQM)
 
@@ -244,16 +260,18 @@ All characters confirmed supported in gcsim (commit `2350be9`).
 ## 9. Open Questions
 
 - [ ] Where to run: server-side in Go vs. in-browser via WASM (server-side is better if we need match history and rankings)
-- [ ] Iteration count and T1/T2 values (after the §3.1 verification)
-- [ ] Whether to include enemy energy particle drops
-  - Community gcsim configs commonly include settings like `energy every`.
-  - It directly affects ER requirements, so the same value must apply across the whole library.
+- [x] Iteration count and T1/T2 values: 1000 iterations, T1 = 300 s, T2 = 900 s (§3.1)
+- [ ] Enemy energy particle drops
+  - The prototype uses `energy every interval=480,720 amount=1`, as many community gcsim configs do.
+  - gcsim's HP-based particle drops (`particle_threshold`) need a finite enemy HP, which conflicts with time-based infinite cycles.
+  - This directly affects ER requirements, so the same value must apply across the whole library. Confirm before the first library batch.
 - [ ] Whether to support additional rulesets such as an AoE league or a short-fight league (out of scope for now)
 - [ ] How to share results (versus card image, link, etc.)
 
 ## 10. Next Steps
 
-1. gcsim execution prototype: compute the T1/T2 difference score for Skirk / Yelan / Furina / Escoffier with a hardcoded build.
+1. ~~gcsim execution prototype~~ Done: `cmd/gscouter` scores a build file against a library team (see README). Remaining for this step:
+   - Validate the Skirk team rotation against community calcs and set it to `supported`.
 2. Enka UID → gcsim config converter
 3. Library format and automated validation script
 4. Author the 8 teams of the first library batch

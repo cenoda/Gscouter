@@ -1,0 +1,12 @@
+active escoffier;
+
+while 1 {
+  escoffier skill;
+  furina skill, burst;
+  yelan burst, skill;
+  escoffier burst;
+  skirk skill, burst;
+  while .skirk.status.seven-phase-flash > 0 {
+    skirk attack;
+  }
+}

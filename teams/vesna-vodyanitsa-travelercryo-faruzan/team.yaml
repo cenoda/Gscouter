@@ -1,0 +1,9 @@
+id: vesna-vodyanitsa-travelercryo-faruzan
+name: Vesna / Vodyanitsa / Cryo Traveler / Faruzan
+members: [vesna, vodyanitsa, travelercryo, faruzan]
+archetype: Anemo (Cryo Swirl to Stellar Swirl)
+status: blocked
+rotation_version: 0
+gcsim_commit: 2350be9
+sources: []
+notes: "Vesna and Vodyanitsa are not implemented in gcsim yet."
