@@ -17,7 +17,7 @@ Gscouter runs on one small Linux VM with Docker. Pushing to `main` builds `ghcr.
 2. Point the domain to the VM: add a DNS `A` record for the domain with the VM's public IP.
 3. Wait a few minutes, then open `https://<domain>`.
 
-The image must be public so the VM can pull it without credentials: on GitHub, open the `gscouter` package settings and set the visibility to public (one time).
+The VM pulls the image without credentials, so the `gscouter` package on GitHub must stay public. It inherited public visibility from the repository; if the repository is made private, pulls will fail.
 
 ## Operations
 
