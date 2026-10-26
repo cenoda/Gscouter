@@ -1,14 +1,14 @@
-{{template "head" "지원하는 파티 · Gscouter"}}
+{{template "head" (t "teams.title")}}
 <div class="card">
-<h1>지원하는 파티</h1>
+<h1>{{t "index.supported"}}</h1>
 <form class="inline" action="/teams" method="get">
-<input type="search" name="q" id="team-q" placeholder="캐릭터 이름 (예: hutao, furina)" value="{{.Query}}" autocomplete="off">
-<button type="submit">찾기</button>
+<input type="search" name="q" id="team-q" placeholder="{{t "teams.placeholder"}}" value="{{.Query}}" autocomplete="off">
+<button type="submit">{{t "teams.search"}}</button>
 </form>
-<p class="muted" id="team-count">{{if .Query}}"{{.Query}}"이(가) 들어간 파티 {{len .Teams}}개 (전체 {{.Total}}개){{else}}전체 {{.Total}}개{{end}}</p>
-<p class="muted">gcsim 키 이름으로 찾습니다. 여러 캐릭터를 띄어 쓰면 모두 들어간 파티만 보여 줍니다.</p>
+<p class="muted" id="team-count">{{if .Query}}{{t "teams.matching" .Query (len .Teams) .Total}}{{else}}{{t "teams.total" .Total}}{{end}}</p>
+<p class="muted">{{t "teams.hint"}}</p>
 <ul class="teams" id="team-list">
-{{range .Teams}}<li data-m="{{members .}}">{{.Name}}{{if eq .Status "supported"}} <span class="muted">· 지원</span>{{else if eq .Status "blocked"}} <span class="muted">· 엔진 미지원</span>{{end}}</li>{{end}}
+{{range .Teams}}<li data-m="{{members .}}">{{teamName .}}{{if eq .Status "supported"}} <span class="muted">· {{t "teams.supported"}}</span>{{else if eq .Status "blocked"}} <span class="muted">· {{t "teams.blocked"}}</span>{{end}}</li>{{end}}
 </ul>
 </div>
 <script>
@@ -16,6 +16,7 @@
   // Filters the list as you type; the form does the same on the server.
   var q = document.getElementById("team-q"), items = document.querySelectorAll("#team-list li");
   var count = document.getElementById("team-count"), total = {{.Total}};
+  var found = {{t "teams.found"}}, all = {{t "teams.total"}};
   q.addEventListener("input", function () {
     var words = q.value.toLowerCase().split(/\s+/).filter(Boolean), n = 0;
     items.forEach(function (li) {
@@ -23,7 +24,7 @@
       li.hidden = !show;
       if (show) n++;
     });
-    count.textContent = words.length ? "찾은 파티 " + n + "개 (전체 " + total + "개)" : "전체 " + total + "개";
+    count.textContent = words.length ? found.replace("%d", n).replace("%d", total) : all.replace("%d", total);
   });
 })();
 </script>

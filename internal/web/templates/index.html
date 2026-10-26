@@ -1,25 +1,25 @@
-{{template "head" "Gscouter · 원신 파티 DPS 계산"}}
+{{template "head" (t "site.title")}}
 {{if .VS}}
-<div class="card"><h1>비교할 상대 고르기</h1><p class="muted">상대방의 UID를 불러와 파티를 고르면, 같은 조건에서 두 파티의 DPS를 나란히 계산합니다.</p></div>
+<div class="card"><h1>{{t "index.vs_heading"}}</h1><p class="muted">{{t "index.vs_lead"}}</p></div>
 {{else if not .Profile}}
 <div class="card">
-<h1>쇼케이스 캐릭터로 파티 DPS 계산</h1>
-<p>UID를 입력하고 캐릭터 4명을 고르면, 모든 파티를 같은 적·같은 로테이션 기준으로 계산합니다. 결과 링크를 공유하거나 다른 플레이어의 파티와 비교할 수 있습니다.</p>
+<h1>{{t "index.heading"}}</h1>
+<p>{{t "index.lead"}}</p>
 <ol class="steps">
-<li><b>1</b>UID 입력</li>
-<li><b>2</b>캐릭터 4명 선택</li>
-<li><b>3</b>결과 공유 · 비교</li>
+<li><b>1</b>{{t "index.step1"}}</li>
+<li><b>2</b>{{t "index.step2"}}</li>
+<li><b>3</b>{{t "index.step3"}}</li>
 </ol>
 </div>
 {{end}}
 <div class="card">
 <form class="inline" action="/" method="get" id="uid-form">
-<input type="text" name="uid" inputmode="numeric" pattern="[0-9]{9,10}" title="9–10자리 숫자" placeholder="UID (예: 800000000)" value="{{.UID}}" required autofocus>
+<input type="text" name="uid" inputmode="numeric" pattern="[0-9]{9,10}" title="{{t "index.uid_title"}}" placeholder="{{t "index.uid_placeholder"}}" value="{{.UID}}" required autofocus>
 {{if .VS}}<input type="hidden" name="vs" value="{{.VS}}">{{end}}
-<button type="submit">불러오기</button>
+<button type="submit">{{t "index.load"}}</button>
 </form>
 <div class="chips" id="recent" hidden></div>
-<p class="muted">게임 프로필의 캐릭터 쇼케이스에 넣어 둔 캐릭터만 불러올 수 있습니다. "캐릭터 상세 정보 표시"를 켜 주세요.</p>
+<p class="muted">{{t "index.showcase_hint"}}</p>
 </div>
 
 {{if .Problem}}<div class="bad">{{.Problem}}</div>{{end}}
@@ -28,37 +28,37 @@
 <div class="card">
 <h2>{{.Nickname}} <span class="muted">UID {{.UID}}</span></h2>
 {{if $.Suggested}}
-<h3>바로 계산할 수 있는 파티 <span class="muted">{{len $.Suggested}}개</span></h3>
+<h3>{{t "index.suggested"}} <span class="muted">{{t "index.suggested_count" (len $.Suggested)}}</span></h3>
 <ul class="suggest">
 {{range $.Suggested}}
-<li><a href="{{if $.VS}}/versus?a={{$.VS}}&amp;b={{.Selection.String}}{{else}}/score?a={{.Selection.String}}{{end}}">{{template "faces" .Selection.Chars}}<span>{{.Team.Name}}</span></a></li>
+<li><a href="{{if $.VS}}/versus?a={{$.VS}}&amp;b={{.Selection.String}}{{else}}/score?a={{.Selection.String}}{{end}}">{{template "faces" .Selection.Chars}}<span>{{teamName .Team}}</span></a></li>
 {{end}}
 </ul>
 {{else}}
-<p class="muted">쇼케이스 캐릭터로 만들 수 있는 라이브러리 파티가 없습니다. 아래에서 직접 골라 보세요.</p>
+<p class="muted">{{t "index.no_suggested"}}</p>
 {{end}}
-<h3>직접 고르기</h3>
+<h3>{{t "index.pick"}}</h3>
 <form action="{{if $.VS}}/versus{{else}}/score{{end}}" method="get" id="picker">
 <input type="hidden" name="uid" value="{{.UID}}">
 {{if $.VS}}<input type="hidden" name="a" value="{{$.VS}}">{{end}}
 <div class="chars">
 {{range .Characters}}
-<label><input type="checkbox" name="c" value="{{.Key}}">{{template "face" .Key}}<span><span class="name">{{template "el" (element .Key)}}{{.Key}}</span><span class="muted">Lv.{{.Level}} C{{.Cons}} · {{.Weapon.Key}} R{{.Weapon.Refine}}</span></span></label>
+<label><input type="checkbox" name="c" value="{{.Key}}">{{template "face" .Key}}<span><span class="name">{{template "el" (element .Key)}}{{name .Key}}</span><span class="muted">Lv.{{.Level}} C{{.Cons}} · {{weapon .Weapon.Key}} R{{.Weapon.Refine}}</span></span></label>
 {{end}}
 </div>
 <div class="picker-bar">
-<button type="submit" id="pick-submit">{{if $.VS}}비교하기{{else}}계산하기{{end}}</button>
-<button type="button" class="secondary" id="pick-clear">선택 해제</button>
-<span class="muted count" id="pick-count">0 / 4명 선택</span>
+<button type="submit" id="pick-submit">{{if $.VS}}{{t "index.compare"}}{{else}}{{t "index.calculate"}}{{end}}</button>
+<button type="button" class="secondary" id="pick-clear">{{t "index.clear"}}</button>
+<span class="muted count" id="pick-count">{{t "index.picked" 0}}</span>
 </div>
 </form>
-{{range .Skipped}}<p class="muted">불러오지 못한 캐릭터 (ID {{.AvatarID}}): {{.Reason}}</p>{{end}}
+{{range .Skipped}}<p class="muted">{{t "index.skipped" .AvatarID .Reason}}</p>{{end}}
 </div>
 {{end}}
 
 <div class="card">
-<h3>지원하는 파티</h3>
-<p>커뮤니티 gcsim 데이터베이스에서 가져온 파티 {{.TeamCount}}개를 계산할 수 있습니다. <a href="/teams">캐릭터로 찾기</a></p>
+<h3>{{t "index.supported"}}</h3>
+<p>{{t "index.supported_lead" .TeamCount}} <a href="/teams">{{t "index.find"}}</a></p>
 </div>
 <script>
 (function () {
@@ -84,11 +84,12 @@
   if (!form) return;
   var boxes = form.querySelectorAll("input[name=c]");
   var submit = document.getElementById("pick-submit"), count = document.getElementById("pick-count");
+  var picked = {{t "index.picked"}};
   function update() {
     var n = form.querySelectorAll("input[name=c]:checked").length;
     boxes.forEach(function (b) { b.disabled = !b.checked && n >= 4; });
     submit.disabled = n !== 4;
-    count.textContent = n + " / 4명 선택";
+    count.textContent = picked.replace("%d", n);
   }
   boxes.forEach(function (b) { b.addEventListener("change", update); });
   document.getElementById("pick-clear").addEventListener("click", function () {

@@ -59,7 +59,7 @@ type Server struct {
 	lib      *library.Library
 	profiles ProfileSource
 	settings Settings
-	tmpl     *template.Template
+	tmpl     map[localizer]*template.Template // by language
 
 	sem       chan struct{}
 	waiting   atomic.Int32
@@ -69,15 +69,22 @@ type Server struct {
 }
 
 func New(lib *library.Library, profiles ProfileSource, settings Settings) (*Server, error) {
-	tmpl, err := template.New("").Funcs(funcs).ParseFS(templateFS, "templates/*.html")
-	if err != nil {
-		return nil, err
+	tmpls := map[localizer]*template.Template{}
+	for code := range catalog {
+		for _, auto := range []bool{false, true} {
+			l := localizer{Lang: code, Auto: auto}
+			tmpl, err := template.New("").Funcs(funcs).Funcs(localeFuncs(l)).ParseFS(templateFS, "templates/*.html")
+			if err != nil {
+				return nil, err
+			}
+			tmpls[l] = tmpl
+		}
 	}
 	return &Server{
 		lib:       lib,
 		profiles:  profiles,
 		settings:  settings,
-		tmpl:      tmpl,
+		tmpl:      tmpls,
 		sem:       make(chan struct{}, max(settings.MaxConcurrent, 1)),
 		results:   newCache[string, *score.Result](1000),
 		timelines: newCache[string, *timeline.Timeline](200),
@@ -91,6 +98,7 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("GET /teams", s.handleTeams)
 	mux.HandleFunc("GET /score", s.handleScore)
 	mux.HandleFunc("GET /versus", s.handleVersus)
+	mux.HandleFunc("POST /lang", s.handleLang)
 	mux.HandleFunc("GET /card/score.png", s.handleScoreCard)
 	mux.HandleFunc("GET /card/versus.png", s.handleVersusCard)
 	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, r *http.Request) {
@@ -110,22 +118,39 @@ func (sel selection) String() string {
 	return sel.UID + ":" + strings.Join(sel.Chars, ",")
 }
 
+// inputError is a problem with a request, told to the visitor in their
+// language by its catalog key.
+type inputError struct {
+	key  string
+	args []any
+}
+
+func (e inputError) Error() string { return english.T(e.key, e.args...) }
+
+// message is err for the visitor in l's language.
+func (l localizer) message(err error) string {
+	if e, ok := err.(inputError); ok {
+		return l.T(e.key, e.args...)
+	}
+	return err.Error()
+}
+
 func parseSelection(s string) (selection, error) {
 	uid, chars, ok := strings.Cut(s, ":")
 	if !ok {
-		return selection{}, fmt.Errorf("잘못된 선택: %q", s)
+		return selection{}, inputError{"err.selection", []any{s}}
 	}
 	return newSelection(uid, strings.Split(chars, ","))
 }
 
 func newSelection(uid string, chars []string) (selection, error) {
 	if len(chars) != 4 {
-		return selection{}, fmt.Errorf("캐릭터를 정확히 4명 골라 주세요 (%d명 선택됨)", len(chars))
+		return selection{}, inputError{"err.count", []any{len(chars)}}
 	}
 	seen := map[string]bool{}
 	for _, c := range chars {
 		if c == "" || seen[c] {
-			return selection{}, fmt.Errorf("캐릭터 선택이 올바르지 않습니다")
+			return selection{}, inputError{key: "err.chars"}
 		}
 		seen[c] = true
 	}
@@ -169,18 +194,18 @@ type teamResult struct {
 	Problem string
 }
 
-func (s *Server) evaluate(ctx context.Context, sel selection) teamResult {
+func (s *Server) evaluate(ctx context.Context, l localizer, sel selection) teamResult {
 	tr := teamResult{Selection: sel}
 	p, err := s.profiles.Profile(ctx, sel.UID)
 	if err != nil {
-		tr.Problem = enkaMessage(err)
+		tr.Problem = enkaMessage(l, err)
 		return tr
 	}
 	tr.Nickname = p.Nickname
 	for _, want := range sel.Chars {
 		i := slices.IndexFunc(p.Characters, func(c enka.Character) bool { return c.Key == want })
 		if i < 0 {
-			tr.Problem = fmt.Sprintf("%s 캐릭터가 쇼케이스에 없습니다. 쇼케이스를 갱신한 뒤 다시 시도해 주세요.", want)
+			tr.Problem = l.T("problem.missing", l.charName(want))
 			return tr
 		}
 		tr.Chars = append(tr.Chars, p.Characters[i])
@@ -190,10 +215,10 @@ func (s *Server) evaluate(ctx context.Context, sel selection) teamResult {
 	switch {
 	case tr.Team == nil:
 		slog.Info("unsupported team", "members", strings.Join(sorted(sel.Chars), ","))
-		tr.Problem = "아직 지원하지 않는 파티입니다. 라이브러리에 있는 파티만 계산할 수 있습니다."
+		tr.Problem = l.T("problem.unsupported")
 		return tr
 	case tr.Team.Status == library.StatusBlocked:
-		tr.Problem = "계산 엔진이 아직 이 파티의 캐릭터를 지원하지 않습니다. (" + tr.Team.Notes + ")"
+		tr.Problem = l.T("problem.blocked", tr.Team.Notes)
 		return tr
 	}
 
@@ -231,23 +256,23 @@ func (s *Server) evaluate(ctx context.Context, sel selection) teamResult {
 	}
 	if err != nil {
 		if errors.Is(err, errBusy) {
-			tr.Problem = "지금 계산 요청이 많습니다. 잠시 후 다시 시도해 주세요."
+			tr.Problem = l.T("problem.busy")
 		} else {
 			slog.Error("score failed", "team", tr.Team.ID, "uid", sel.UID, "err", err)
-			tr.Problem = "계산 중 오류가 발생했습니다."
+			tr.Problem = l.T("problem.failed")
 		}
 		return tr
 	}
 	res := out.Result
-	tr.Filler = fillerNote(out)
+	tr.Filler = fillerNote(l, out)
 	tr.Result = res
 	tr.OneRotation = oneRes
-	tr.Warnings = warnings(tr.Team, res)
+	tr.Warnings = warnings(l, tr.Team, res)
 	tr.Rotation = rotation
-	tr.Timelines = s.cycleViews(ctx, sel, tr.Team, once, config.Assemble(config.Conditions{Iterations: 1, Duration: s.settings.Duration}, build.String(), out.Looped), out.Filled)
+	tr.Timelines = s.cycleViews(ctx, l, sel, tr.Team, once, config.Assemble(config.Conditions{Iterations: 1, Duration: s.settings.Duration}, build.String(), out.Looped), out.Filled)
 	for _, c := range tr.Chars {
 		if c.UnknownSets > 0 {
-			tr.Warnings = append(tr.Warnings, fmt.Sprintf("%s: 계산 엔진이 아직 지원하지 않는 성유물 세트가 %d개 있어, 그 세트 효과는 빠졌습니다.", c.Key, c.UnknownSets))
+			tr.Warnings = append(tr.Warnings, l.T("warn.unknown_sets", l.charName(c.Key), c.UnknownSets))
 		}
 	}
 	return tr
@@ -289,17 +314,17 @@ func (s *Server) score(ctx context.Context, cfg string, warmup float64) (*score.
 
 // cycleViews lays out one run of the one pass and of the looped fight
 // from the warmup on, for as long as one pass takes.
-func (s *Server) cycleViews(ctx context.Context, sel selection, team *library.Team, once, looped string, filled bool) []*timelineView {
+func (s *Server) cycleViews(ctx context.Context, l localizer, sel selection, team *library.Team, once, looped string, filled bool) []*timelineView {
 	cycle, err := s.timeline(ctx, once, 0, maxCycle)
 	if err != nil {
 		slog.Warn("timeline failed", "team", team.ID, "uid", sel.UID, "err", err)
 		return nil
 	}
-	note := "에너지가 가득한 상태에서 로테이션을 한 번 돌린 기록입니다."
+	note := l.T("tl.note_cycle")
 	if cycle.End >= maxCycle {
-		note = fmt.Sprintf("에너지가 가득한 상태에서 로테이션을 한 번 돌린 기록의 처음 %.0f초입니다.", maxCycle)
+		note = l.T("tl.note_cycle_to", maxCycle)
 	}
-	views := []*timelineView{layoutTimeline("cycle", "로테이션 1회", note, cycle)}
+	views := []*timelineView{layoutTimeline(l, "cycle", l.T("tl.label_cycle"), note, cycle)}
 
 	from := s.settings.Warmup
 	to := from + min(max(cycle.End, minSteady), maxSteady)
@@ -308,50 +333,50 @@ func (s *Server) cycleViews(ctx context.Context, sel selection, team *library.Te
 		slog.Warn("timeline failed", "team", team.ID, "uid", sel.UID, "err", err)
 		return views
 	}
-	note = fmt.Sprintf("점수를 매기는 반복 구간(%.0f초부터) 중 %.0f초입니다. 캐릭터가 에너지·쿨타임·스태미나를 기다리며 서 있는 시간이 빗금으로 보입니다.", from, to-from)
+	note = l.T("tl.note_steady", from, to-from)
 	if filled {
-		note += " 기다리는 시간을 스킬·평타로 채운 로테이션입니다."
+		note += l.T("tl.note_filled")
 	}
-	return append(views, layoutTimeline("steady", "점수 구간", note, steady))
+	return append(views, layoutTimeline(l, "steady", l.T("tl.label_steady"), note, steady))
 }
 
-// knownIssues are notes shown on every team with the character, keyed
-// by canonical name.
+// knownIssues are the catalog keys of notes shown on every team with the
+// character, keyed by canonical name.
 var knownIssues = map[string]string{
-	"arlecchino": "알려진 문제: 아를레키노의 피해가 실제보다 낮게 계산되는 버그가 있어 원인을 조사 중입니다. 현재 결과에 약 20%를 더하면 실제와 비슷합니다.",
+	"arlecchino": "issue.arlecchino",
 }
 
-func warnings(team *library.Team, res *score.Result) []string {
+func warnings(l localizer, team *library.Team, res *score.Result) []string {
 	var out []string
 	if team.Status == library.StatusDraft {
-		out = append(out, "이 파티의 로테이션은 아직 검증 전입니다. 점수가 바뀔 수 있습니다.")
+		out = append(out, l.T("warn.draft"))
 	}
 	for _, m := range team.Members {
-		if note, ok := knownIssues[library.Canonical(m)]; ok {
-			out = append(out, note)
+		if key, ok := knownIssues[library.Canonical(m)]; ok {
+			out = append(out, l.T(key))
 		}
 	}
 	for _, c := range res.Characters {
 		if c.EnergyWait >= 1 {
-			out = append(out, fmt.Sprintf("%s: 원소 에너지가 부족해 분당 %.1f초를 기다립니다. 원소 충전 효율을 올리면 점수가 오릅니다.", c.Name, c.EnergyWait))
+			out = append(out, l.T("warn.energy", l.charName(c.Name), c.EnergyWait))
 		}
 	}
 	return out
 }
 
-func enkaMessage(err error) string {
+func enkaMessage(l localizer, err error) string {
 	switch {
 	case errors.Is(err, enka.ErrInvalidUID):
-		return "UID 형식이 올바르지 않습니다."
+		return l.T("enka.invalid")
 	case errors.Is(err, enka.ErrNotFound):
-		return "해당 UID의 플레이어를 찾을 수 없습니다."
+		return l.T("enka.not_found")
 	case errors.Is(err, enka.ErrMaintenance):
-		return "게임 점검 중이라 정보를 가져올 수 없습니다."
+		return l.T("enka.maintenance")
 	case errors.Is(err, enka.ErrRateLimited):
-		return "Enka.Network 요청이 너무 많습니다. 잠시 후 다시 시도해 주세요."
+		return l.T("enka.rate_limited")
 	default:
 		slog.Error("enka fetch failed", "err", err)
-		return "Enka.Network에서 정보를 가져오지 못했습니다."
+		return l.T("enka.failed")
 	}
 }
 
@@ -361,25 +386,25 @@ func sorted(s []string) []string {
 	return out
 }
 
-// fillerNote explains in Korean how the score fills the rotation's waits.
-func fillerNote(o *steady.Outcome) string {
+// fillerNote explains how the score fills the rotation's waits.
+func fillerNote(l localizer, o *steady.Outcome) string {
 	if !o.Filled {
 		return ""
 	}
 	var parts []string
 	for _, g := range o.ByFiller() {
-		chars := strings.Join(g.Chars, ", ")
+		chars := l.charNames(g.Chars)
 		switch g.How {
 		case config.FillSkip:
-			parts = append(parts, fmt.Sprintf("%s의 원소폭발은 에너지가 모자라면 건너뛰었습니다", chars))
+			parts = append(parts, l.T("filler.skip", chars))
 		case config.FillParty:
-			parts = append(parts, fmt.Sprintf("%s의 원소폭발 에너지가 모자라 기다리는 동안 원소전투 스킬(쿨타임이면 다른 파티원으로 교체해 스킬을 쓰고 바로 복귀)이나 평타로 채웠습니다", chars))
+			parts = append(parts, l.T("filler.party", chars))
 		default:
-			parts = append(parts, fmt.Sprintf("%s의 원소폭발 에너지가 모자라 기다리는 동안 자기 원소전투 스킬이나 평타로 채웠습니다", chars))
+			parts = append(parts, l.T("filler.self", chars))
 		}
 	}
 	if len(o.Skill) > 0 {
-		parts = append(parts, fmt.Sprintf("%s의 원소전투 스킬 쿨타임을 기다리는 동안 평타로 채웠습니다", strings.Join(o.Skill, ", ")))
+		parts = append(parts, l.T("filler.skill", l.charNames(o.Skill)))
 	}
-	return "반복 로테이션에서 " + strings.Join(parts, ". ") + "."
+	return l.T("filler.wrap", strings.Join(parts, l.T("filler.sep")))
 }

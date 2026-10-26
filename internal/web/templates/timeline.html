@@ -1,7 +1,7 @@
 {{define "timeline"}}{{if .Timelines}}{{$id := .ID}}
 <section class="card cycle" id="cycle-{{$id}}">
 <div class="cycle-head">
-<h2>로테이션 타임라인</h2>
+<h2>{{t "tl.heading"}}</h2>
 <div class="tabs" role="tablist">{{range $i, $v := .Timelines}}
 <input type="radio" name="tl-{{$id}}" id="tl-{{$id}}-{{$v.ID}}" value="{{$v.ID}}"{{if eq $i 0}} checked{{end}}><label for="tl-{{$id}}-{{$v.ID}}">{{$v.Label}}</label>{{end}}
 </div>
@@ -10,18 +10,18 @@
 <div class="tl-panel" data-v="{{.ID}}">
 <p class="muted">{{.Note}}</p>
 <div class="tl-stats">
-<div><span class="muted">구간</span><b>{{oneDecimal .Seconds}}초</b></div>
-<div><span class="muted">총 피해</span><b>{{thousands .Damage}}</b></div>
-<div><span class="muted">구간 DPS</span><b>{{thousands .DPS}}</b></div>
-<div><span class="muted">교체</span><b>{{len .Stints}}회</b></div>
+<div><span class="muted">{{t "tl.span"}}</span><b>{{t "tl.seconds" (oneDecimal .Seconds)}}</b></div>
+<div><span class="muted">{{t "tl.damage"}}</span><b>{{thousands .Damage}}</b></div>
+<div><span class="muted">{{t "tl.dps"}}</span><b>{{thousands .DPS}}</b></div>
+<div><span class="muted">{{t "tl.swaps"}}</span><b>{{t "tl.count" (len .Stints)}}</b></div>
 </div>
 <div class="tl">
 <div class="tl-labels" style="padding-top: {{px .ChartTop 0}}px">
-<div class="tl-chart-label" style="height: {{px .LaneTop (neg .ChartTop)}}px">피해</div>
-{{range .Lanes}}<div class="tl-lane-label" title="{{.Name}}"><i class="sw s{{.Slot}}"></i>{{template "face" .Name}}</div>{{end}}
+<div class="tl-chart-label" style="height: {{px .LaneTop (neg .ChartTop)}}px">{{t "tl.chart"}}</div>
+{{range .Lanes}}<div class="tl-lane-label" title="{{name .Name}}"><i class="sw s{{.Slot}}"></i>{{template "face" .Name}}</div>{{end}}
 </div>
 <div class="tl-scroll">
-<svg class="tl-svg" width="{{px .Width 0}}" height="{{px .Height 0}}" viewBox="0 0 {{px .Width 0}} {{px .Height 0}}" role="img" aria-label="{{.Label}} 타임라인: 위는 초당 피해, 아래는 캐릭터별 필드 시간과 행동">
+<svg class="tl-svg" width="{{px .Width 0}}" height="{{px .Height 0}}" viewBox="0 0 {{px .Width 0}} {{px .Height 0}}" role="img" aria-label="{{t "tl.aria" .Label}}">
 <defs><pattern id="hatch-{{$id}}-{{.ID}}" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" class="wait-bg"/><line x1="0" y1="0" x2="0" y2="6" class="wait-line"/></pattern></defs>
 {{range .Ticks}}<line class="grid" x1="{{px .X 0}}" x2="{{px .X 0}}" y1="{{px $v.ChartTop -4}}" y2="{{px $v.Height 0}}"/><text class="tick" x="{{px .X 3}}" y="14">{{.Label}}</text>{{end}}
 <line class="axis" x1="0" x2="{{px .Width 0}}" y1="{{px .ChartBot 0.5}}" y2="{{px .ChartBot 0.5}}"/>
@@ -36,40 +36,40 @@
 </div>
 </div>
 <div class="tl-legend muted">
-{{range .Lanes}}<span><i class="sw s{{.Slot}}"></i>{{.Name}}</span>{{end}}
-<span><svg viewBox="0 0 20 20"><circle class="key" cx="10" cy="10" r="7.5"/><text x="10" y="13.5">E</text></svg>원소전투 스킬</span>
-<span><svg viewBox="0 0 20 20"><rect class="key" x="2" y="2" width="16" height="16" rx="4"/><text x="10" y="13.5">Q</text></svg>원소폭발</span>
-<span><svg viewBox="0 0 20 20"><rect class="key-fill" x="9" y="5" width="2" height="10" rx="1"/></svg>평타 · <svg viewBox="0 0 20 20"><rect class="key-fill" x="9" y="2" width="2" height="16" rx="1"/></svg>강공격 · 낙하 · 조준</span>
-<span><svg viewBox="0 0 20 20"><rect class="key-field" x="1" y="5" width="18" height="10" rx="4"/></svg>필드에 있는 시간</span>
-<span><svg viewBox="0 0 20 20"><rect x="1" y="3" width="18" height="14" rx="3" fill="url(#hatch-{{$id}}-{{.ID}})"/></svg>대기 (에너지 · 쿨타임 · 스태미나)</span>
+{{range .Lanes}}<span><i class="sw s{{.Slot}}"></i>{{name .Name}}</span>{{end}}
+<span><svg viewBox="0 0 20 20"><circle class="key" cx="10" cy="10" r="7.5"/><text x="10" y="13.5">E</text></svg>{{t "tl.skill"}}</span>
+<span><svg viewBox="0 0 20 20"><rect class="key" x="2" y="2" width="16" height="16" rx="4"/><text x="10" y="13.5">Q</text></svg>{{t "tl.burst"}}</span>
+<span><svg viewBox="0 0 20 20"><rect class="key-fill" x="9" y="5" width="2" height="10" rx="1"/></svg>{{t "tl.normal"}} · <svg viewBox="0 0 20 20"><rect class="key-fill" x="9" y="2" width="2" height="16" rx="1"/></svg>{{t "tl.heavy"}}</span>
+<span><svg viewBox="0 0 20 20"><rect class="key-field" x="1" y="5" width="18" height="10" rx="4"/></svg>{{t "tl.field"}}</span>
+<span><svg viewBox="0 0 20 20"><rect x="1" y="3" width="18" height="14" rx="3" fill="url(#hatch-{{$id}}-{{.ID}})"/></svg>{{t "tl.wait"}}</span>
 </div>
 
-<h3>교체 순서와 구간별 피해</h3>
-<p class="muted">필드 캐릭터가 바뀔 때마다 한 줄입니다. 막대는 그 구간에 나간 피해로, 가장 큰 구간을 기준으로 한 길이이고 색은 피해를 준 캐릭터입니다. 뒤에서 도는 원소폭발·소환물 피해도 포함됩니다.</p>
+<h3>{{t "tl.stints"}}</h3>
+<p class="muted">{{t "tl.stints_lead"}}</p>
 <ol class="stints">
 {{range .Stints}}<li>
 <span class="when">{{oneDecimal .Start}}<small>s</small></span>
 <span class="who"><i class="sw s{{.Slot}}"></i>{{template "face" .Name}}</span>
 <div class="body">
-<div class="top"><b>{{.Name}}</b><span class="muted">{{oneDecimal .Duration}}초</span><span class="acts">{{range .Actions}}<span class="chip">{{.}}</span>{{end}}</span></div>
+<div class="top"><b>{{name .Name}}</b><span class="muted">{{t "tl.seconds" (oneDecimal .Duration)}}</span><span class="acts">{{range .Actions}}<span class="chip">{{.}}</span>{{end}}</span></div>
 <div class="dmg"><span class="stack-wrap"><span class="stack" style="width: {{printf "%.1f" .Scale}}%">{{range .Parts}}<i class="f{{.Slot}}" style="width: {{printf "%.1f" .Width}}%" data-tip="{{.Tip}}"></i>{{end}}</span></span><span class="num">{{thousands .Total}} <span class="muted">· {{percent .Share}}</span></span></div>
 </div>
 </li>{{end}}
 </ol>
 
-<h3>능력별 피해</h3>
+<h3>{{t "tl.sources"}}</h3>
 <div class="sources">
 {{range .Sources}}<div class="src">
-<div class="src-head"><i class="sw s{{.Slot}}"></i>{{template "face" .Name}}<b>{{.Name}}</b><span class="num">{{thousands .Damage}} <span class="muted">· {{percent .Share}}</span></span></div>
+<div class="src-head"><i class="sw s{{.Slot}}"></i>{{template "face" .Name}}<b>{{name .Name}}</b><span class="num">{{thousands .Damage}} <span class="muted">· {{percent .Share}}</span></span></div>
 {{if .Sources}}<table>
-<thead><tr><th>능력</th><th class="num">횟수</th><th class="num">치명</th><th class="num">피해</th></tr></thead>
+<thead><tr><th>{{t "tl.ability"}}</th><th class="num">{{t "tl.hits"}}</th><th class="num">{{t "tl.crit"}}</th><th class="num">{{t "tl.dmg"}}</th></tr></thead>
 <tbody>{{range .Sources}}<tr><td>{{.Name}}<span class="bar"><i style="width: {{width .Share}}%"></i></span></td><td class="num">{{.Hits}}</td><td class="num">{{percent .CritRate}}</td><td class="num">{{thousands .Damage}}<br><span class="muted">{{percent .Share}}</span></td></tr>{{end}}</tbody>
-</table>{{else}}<p class="muted">이 구간에 준 피해가 없습니다.</p>{{end}}
+</table>{{else}}<p class="muted">{{t "tl.no_damage"}}</p>{{end}}
 </div>{{end}}
 </div>
 </div>
 {{end}}
-<p class="muted">시뮬레이션 1회(시드 1)의 기록이라 치명타 결과가 평균과 조금 다를 수 있습니다. 점수는 여러 번 돌린 평균입니다.</p>
-{{with .Rotation}}<details class="rotation"><summary>로테이션 스크립트 (gcsim)</summary><pre>{{.}}</pre></details>{{end}}
+<p class="muted">{{t "tl.one_run"}}</p>
+{{with .Rotation}}<details class="rotation"><summary>{{t "tl.script"}}</summary><pre>{{.}}</pre></details>{{end}}
 </section>
 {{end}}{{end}}

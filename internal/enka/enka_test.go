@@ -71,3 +71,18 @@ func TestFetchRejectsInvalidUID(t *testing.T) {
 		}
 	}
 }
+
+func TestNames(t *testing.T) {
+	for _, c := range []struct{ got, want string }{
+		{CharacterName("hutao", "ko"), "호두"},
+		{CharacterName("hutao", "en"), "Hu Tao"},
+		{CharacterName("hutao", "xx"), "Hu Tao"},
+		{CharacterName("luminecryo", "fr"), "Voyageuse"},
+		{CharacterName("nobody", "en"), ""},
+		{WeaponName("staffofhoma", "ja"), "護摩の杖"},
+	} {
+		if c.got != c.want {
+			t.Errorf("got %q, want %q", c.got, c.want)
+		}
+	}
+}

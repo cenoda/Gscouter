@@ -159,52 +159,10 @@ type sourceView struct {
 	Share    float64 // of the character's damage
 }
 
-// actionNames are short Korean names of gcsim actions.
-var actionNames = map[string]string{
-	"attack":      "평타",
-	"charge":      "강공격",
-	"skill":       "E",
-	"burst":       "Q",
-	"dash":        "대시",
-	"jump":        "점프",
-	"walk":        "걷기",
-	"aim":         "조준",
-	"high_plunge": "낙하",
-	"low_plunge":  "낙하",
-}
-
-// actionLong names an action in a tooltip.
-var actionLong = map[string]string{
-	"attack":      "일반 공격",
-	"charge":      "강공격",
-	"skill":       "원소전투 스킬",
-	"burst":       "원소폭발",
-	"dash":        "대시",
-	"jump":        "점프",
-	"walk":        "걷기",
-	"aim":         "조준 사격",
-	"high_plunge": "낙하 공격",
-	"low_plunge":  "낙하 공격",
-}
-
-var waitNames = map[string]string{
-	"insufficient_energy":  "원소 에너지 부족",
-	"skill_cd":             "원소전투 스킬 쿨타임",
-	"burst_cd":             "원소폭발 쿨타임",
-	"insufficient_stamina": "스태미나 부족",
-}
-
-func or(m map[string]string, k string) string {
-	if v, ok := m[k]; ok {
-		return v
-	}
-	return k
-}
-
-func seconds(v float64) string { return fmt.Sprintf("%.1f초", v) }
-
-// layoutTimeline lays t out. Characters are colored by party slot.
-func layoutTimeline(id, label, note string, t *timeline.Timeline) *timelineView {
+// layoutTimeline lays t out in l's language. Characters are colored by
+// party slot.
+func layoutTimeline(l localizer, id, label, note string, t *timeline.Timeline) *timelineView {
+	seconds := func(v float64) string { return l.T("tl.sec", v) }
 	span := t.End - t.Start
 	v := &timelineView{
 		ID: id, Label: label, Note: note,
@@ -258,7 +216,7 @@ func layoutTimeline(id, label, note string, t *timeline.Timeline) *timelineView 
 		start := t.Start + float64(i)*timeline.BucketSeconds
 		b := bar{X: x(start), W: bw}
 		var tip strings.Builder
-		fmt.Fprintf(&tip, "%.0f–%.0f초 · 피해 %s", start, start+timeline.BucketSeconds, thousands(total))
+		tip.WriteString(l.T("tl.tip_bucket", start, start+timeline.BucketSeconds, thousands(total)))
 		base := v.ChartBot
 		for slot, c := range t.Characters {
 			if i >= len(c.Buckets) || c.Buckets[i] <= 0 {
@@ -266,7 +224,7 @@ func layoutTimeline(id, label, note string, t *timeline.Timeline) *timelineView 
 			}
 			h := c.Buckets[i] / peak * (chartH - chartInset)
 			if c.Buckets[i] >= 0.5 {
-				fmt.Fprintf(&tip, "\n%s %s", c.Name, thousands(c.Buckets[i]))
+				fmt.Fprintf(&tip, "\n%s %s", l.charName(c.Name), thousands(c.Buckets[i]))
 			}
 			// A 1px surface gap between stacked segments.
 			drawn := math.Max(h-1, 0.5)
@@ -281,18 +239,19 @@ func layoutTimeline(id, label, note string, t *timeline.Timeline) *timelineView 
 	}
 
 	for slot, c := range t.Characters {
-		l := lane{Slot: slot, Name: c.Name, Y: v.LaneTop + float64(slot*laneH)}
-		l.Mid = l.Y + laneH/2
+		name := l.charName(c.Name)
+		ln := lane{Slot: slot, Name: c.Name, Y: v.LaneTop + float64(slot*laneH)}
+		ln.Mid = ln.Y + laneH/2
 		for _, f := range c.Field {
-			l.Field = append(l.Field, rect{X: x(f.Start), W: (f.End - f.Start) * pxPerSec,
-				Tip: fmt.Sprintf("%s 필드 %.1f–%.1f초 (%s)", c.Name, f.Start, f.End, seconds(f.End-f.Start))})
+			ln.Field = append(ln.Field, rect{X: x(f.Start), W: (f.End - f.Start) * pxPerSec,
+				Tip: l.T("tl.tip_field", name, f.Start, f.End, seconds(f.End-f.Start))})
 		}
 		for _, w := range c.Waits {
-			l.Waits = append(l.Waits, rect{X: x(w.Start), W: math.Max((w.End-w.Start)*pxPerSec, 2),
-				Tip: fmt.Sprintf("%s 대기 %s · %s", c.Name, seconds(w.End-w.Start), or(waitNames, w.Reason))})
+			ln.Waits = append(ln.Waits, rect{X: x(w.Start), W: math.Max((w.End-w.Start)*pxPerSec, 2),
+				Tip: l.T("tl.tip_wait", name, seconds(w.End-w.Start), l.name("wait.", w.Reason))})
 		}
 		for _, a := range c.Actions {
-			m := mark{X: x(a.Time), Kind: "minor", Tip: fmt.Sprintf("%.1f초 · %s %s", a.Time, c.Name, or(actionLong, a.Kind))}
+			m := mark{X: x(a.Time), Kind: "minor", Tip: l.T("tl.tip_action", a.Time, name, l.name("action_long.", a.Kind))}
 			switch a.Kind {
 			case "skill":
 				m.Kind, m.Label = "skill", "E"
@@ -301,9 +260,9 @@ func layoutTimeline(id, label, note string, t *timeline.Timeline) *timelineView 
 			case "charge", "aim", "high_plunge", "low_plunge":
 				m.Kind = "heavy"
 			}
-			l.Actions = append(l.Actions, m)
+			ln.Actions = append(ln.Actions, m)
 		}
-		v.Lanes = append(v.Lanes, l)
+		v.Lanes = append(v.Lanes, ln)
 	}
 
 	var top float64
@@ -318,11 +277,11 @@ func layoutTimeline(id, label, note string, t *timeline.Timeline) *timelineView 
 		if top > 0 {
 			sv.Scale = s.Total / top * 100
 		}
-		sv.Actions = actionChips(s.Actions)
+		sv.Actions = actionChips(l, s.Actions)
 		for slot, d := range s.Damage {
 			if d > 0 && s.Total > 0 {
 				sv.Parts = append(sv.Parts, part{Slot: slot, Name: t.Characters[slot].Name, Width: d / s.Total * 100,
-					Tip: fmt.Sprintf("%s %s (%.0f%%)", t.Characters[slot].Name, thousands(d), d/s.Total*100)})
+					Tip: fmt.Sprintf("%s %s (%.0f%%)", l.charName(t.Characters[slot].Name), thousands(d), d/s.Total*100)})
 			}
 		}
 		v.Stints = append(v.Stints, sv)
@@ -349,11 +308,11 @@ func layoutTimeline(id, label, note string, t *timeline.Timeline) *timelineView 
 }
 
 // actionChips names a stint's actions, folding a repeated pattern into
-// one chip: "평타×2 · 강공격 · 대시" seven times becomes
-// "(평타×2 · 강공격 · 대시) ×7".
-func actionChips(runs []timeline.Run) []string {
+// one chip: "NA×2 · CA · Dash" seven times becomes
+// "(NA×2 · CA · Dash) ×7".
+func actionChips(l localizer, runs []timeline.Run) []string {
 	name := func(r timeline.Run) string {
-		n := or(actionNames, r.Kind)
+		n := l.name("action.", r.Kind)
 		if r.Count > 1 {
 			n += fmt.Sprintf("×%d", r.Count)
 		}

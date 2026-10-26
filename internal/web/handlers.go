@@ -1,6 +1,7 @@
 package web
 
 import (
+	"cmp"
 	"context"
 	"fmt"
 	"html/template"
@@ -38,7 +39,6 @@ var funcs = template.FuncMap{
 	"px":      func(a, b float64) string { return strconv.FormatFloat(a+b, 'f', 1, 64) },
 	"element": element,
 	"face":    face,
-	"meta":    metaOf,
 	"keys": func(chars []enka.Character) []string {
 		out := make([]string, len(chars))
 		for i, c := range chars {
@@ -46,8 +46,6 @@ var funcs = template.FuncMap{
 		}
 		return out
 	},
-	// members lists a team's member names and canonical names, for search.
-	"members": func(t *library.Team) string { return strings.Join(searchNames(t), " ") },
 }
 
 // thousands formats a number rounded to an integer with thousands
@@ -82,33 +80,67 @@ func element(name string) string {
 	return e
 }
 
-var faceCache sync.Map // name -> icon URL
+var enkaKeys sync.Map // name -> Enka data key
 
-// face returns the URL of a character's face icon, or "". The Traveler
-// of a library team ("travelercryo") is shown as Aether.
-func face(name string) string {
-	if v, ok := faceCache.Load(name); ok {
+// enkaKey returns the gcsim key Enka's data knows a character by: a
+// showcase or result name as is, a library member name by its canonical
+// key. The Traveler of a library team ("travelercryo") is Aether.
+func enkaKey(name string) string {
+	if v, ok := enkaKeys.Load(name); ok {
 		return v.(string)
 	}
 	key := strings.ToLower(name)
-	u := enka.IconURL(key)
-	if u == "" {
+	if enka.IconURL(key) == "" {
 		key = library.Canonical(name)
 		if elem, ok := strings.CutPrefix(key, "traveler"); ok {
 			key = "aether" + elem
 		}
-		u = enka.IconURL(key)
 	}
-	faceCache.Store(name, u)
-	return u
+	enkaKeys.Store(name, key)
+	return key
 }
 
-func searchNames(t *library.Team) []string {
+// face returns the URL of a character's face icon, or "".
+func face(name string) string { return enka.IconURL(enkaKey(name)) }
+
+// charName returns a character's in-game name in l's language, or name
+// itself when the game data doesn't know it.
+func (l localizer) charName(name string) string {
+	return cmp.Or(enka.CharacterName(enkaKey(name), l.Lang), name)
+}
+
+// charNames is charName of each name, joined by ", ".
+func (l localizer) charNames(names []string) string {
+	out := make([]string, len(names))
+	for i, n := range names {
+		out[i] = l.charName(n)
+	}
+	return strings.Join(out, ", ")
+}
+
+// weaponName is charName for a weapon's gcsim key.
+func (l localizer) weaponName(key string) string {
+	return cmp.Or(enka.WeaponName(key, l.Lang), key)
+}
+
+// teamName names a library team by its members' in-game names.
+func (l localizer) teamName(t *library.Team) string {
+	out := make([]string, len(t.Members))
+	for i, m := range t.Members {
+		out[i] = l.charName(m)
+	}
+	return strings.Join(out, " / ")
+}
+
+// searchNames lists what finds a team's members: gcsim names, canonical
+// keys, and in-game names in l's language and in English.
+func (l localizer) searchNames(t *library.Team) []string {
 	var out []string
 	for _, m := range t.Members {
-		out = append(out, strings.ToLower(m))
-		if c := library.Canonical(m); c != strings.ToLower(m) {
-			out = append(out, c)
+		for _, n := range []string{m, library.Canonical(m), l.charName(m), english.charName(m)} {
+			if n = strings.ToLower(n); !slices.Contains(out, n) {
+				out = append(out, n)
+			}
 		}
 	}
 	return out
@@ -129,6 +161,7 @@ type indexData struct {
 }
 
 func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
+	l := localizerFor(r)
 	q := r.URL.Query()
 	data := indexData{
 		UID:       strings.TrimSpace(q.Get("uid")),
@@ -140,13 +173,13 @@ func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 		defer cancel()
 		p, err := s.profiles.Profile(ctx, data.UID)
 		if err != nil {
-			data.Problem = enkaMessage(err)
+			data.Problem = enkaMessage(l, err)
 		} else {
 			data.Profile = p
 			data.Suggested = s.suggest(p)
 		}
 	}
-	s.render(w, "index.html", data)
+	s.render(w, l, "index.html", data)
 }
 
 // suggest lists the library teams that can be built from a showcase.
@@ -181,18 +214,23 @@ type teamsData struct {
 // handleTeams lists the library, or the teams that have, for every word
 // of the query, a character whose name contains it.
 func (s *Server) handleTeams(w http.ResponseWriter, r *http.Request) {
+	l := localizerFor(r)
 	data := teamsData{Query: strings.TrimSpace(r.URL.Query().Get("q")), Total: len(s.lib.Teams)}
 	words := strings.Fields(strings.ToLower(data.Query))
 	for _, t := range s.lib.Teams {
-		names := searchNames(t)
+		names := l.searchNames(t)
 		if !slices.ContainsFunc(words, func(w string) bool {
 			return !slices.ContainsFunc(names, func(n string) bool { return strings.Contains(n, w) })
 		}) {
 			data.Teams = append(data.Teams, t)
 		}
 	}
-	slices.SortFunc(data.Teams, func(a, b *library.Team) int { return strings.Compare(a.Name, b.Name) })
-	s.render(w, "teams.html", data)
+	names := map[*library.Team]string{}
+	for _, t := range data.Teams {
+		names[t] = l.teamName(t)
+	}
+	slices.SortFunc(data.Teams, func(a, b *library.Team) int { return strings.Compare(names[a], names[b]) })
+	s.render(w, l, "teams.html", data)
 }
 
 type scoreData struct {
@@ -201,9 +239,10 @@ type scoreData struct {
 }
 
 func (s *Server) handleScore(w http.ResponseWriter, r *http.Request) {
+	l := localizerFor(r)
 	sel, err := selectionFromQuery(r, "a")
 	if err != nil {
-		s.renderProblem(w, err.Error())
+		s.renderProblem(w, l, l.message(err))
 		return
 	}
 	// Normalize the URL so results can be shared as /score?a=UID:...
@@ -213,9 +252,9 @@ func (s *Server) handleScore(w http.ResponseWriter, r *http.Request) {
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 90*time.Second)
 	defer cancel()
-	tr := s.evaluate(ctx, sel)
+	tr := s.evaluate(ctx, l, sel)
 	tr.ID = "a"
-	s.render(w, "score.html", scoreData{Team: tr, Meta: scoreMeta(tr, baseURL(r))})
+	s.render(w, l, "score.html", scoreData{Team: tr, Meta: scoreMeta(l, tr, baseURL(r))})
 }
 
 type versusData struct {
@@ -232,14 +271,15 @@ type versusData struct {
 const tieThreshold = 0.02
 
 func (s *Server) handleVersus(w http.ResponseWriter, r *http.Request) {
+	l := localizerFor(r)
 	a, err := parseSelection(r.URL.Query().Get("a"))
 	if err != nil {
-		s.renderProblem(w, err.Error())
+		s.renderProblem(w, l, l.message(err))
 		return
 	}
 	b, err := selectionFromQuery(r, "b")
 	if err != nil {
-		s.renderProblem(w, err.Error())
+		s.renderProblem(w, l, l.message(err))
 		return
 	}
 	if r.URL.Query().Get("b") == "" {
@@ -249,13 +289,13 @@ func (s *Server) handleVersus(w http.ResponseWriter, r *http.Request) {
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 120*time.Second)
 	defer cancel()
-	data := s.versus(ctx, a, b)
-	data.Meta = versusMeta(data, baseURL(r))
-	s.render(w, "versus.html", data)
+	data := s.versus(ctx, l, a, b)
+	data.Meta = versusMeta(l, data, baseURL(r))
+	s.render(w, l, "versus.html", data)
 }
 
-func (s *Server) versus(ctx context.Context, a, b selection) versusData {
-	data := versusData{A: s.evaluate(ctx, a), B: s.evaluate(ctx, b)}
+func (s *Server) versus(ctx context.Context, l localizer, a, b selection) versusData {
+	data := versusData{A: s.evaluate(ctx, l, a), B: s.evaluate(ctx, l, b)}
 	data.A.ID, data.B.ID = "a", "b"
 	if data.A.Result != nil && data.B.Result != nil && data.B.Result.DPS > 0 {
 		data.Scored = true
@@ -265,14 +305,23 @@ func (s *Server) versus(ctx context.Context, a, b selection) versusData {
 	return data
 }
 
-func (s *Server) renderProblem(w http.ResponseWriter, msg string) {
+func (s *Server) renderProblem(w http.ResponseWriter, l localizer, msg string) {
+	s.writeHeader(w, l)
 	w.WriteHeader(http.StatusBadRequest)
-	s.render(w, "problem.html", msg)
+	s.render(w, l, "problem.html", msg)
 }
 
-func (s *Server) render(w http.ResponseWriter, name string, data any) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	if err := s.tmpl.ExecuteTemplate(w, name, data); err != nil {
+// writeHeader sets the headers of a page in l's language.
+func (s *Server) writeHeader(w http.ResponseWriter, l localizer) {
+	h := w.Header()
+	h.Set("Content-Type", "text/html; charset=utf-8")
+	h.Set("Content-Language", l.Lang)
+	h.Set("Vary", "Accept-Language, Cookie")
+}
+
+func (s *Server) render(w http.ResponseWriter, l localizer, name string, data any) {
+	s.writeHeader(w, l)
+	if err := s.tmpl[l].ExecuteTemplate(w, name, data); err != nil {
 		slog.Error("render", "template", name, "err", err)
 	}
 }

@@ -7,3 +7,5 @@ for f in character.dm.json weapon.dm.json artifact.dm.json artifact_main_gen.jso
 	cp "$src/$f" "data/$f"
 	chmod 644 "data/$f"
 done
+# In-game names in every game language, from Enka.Network's store data.
+go run ./gennames
