@@ -30,6 +30,7 @@ A user submits the builds of their party members, and Gscouter computes the team
 | Fight duration | Infinite cycles of the community rotation (steady state after the opener) | Shows how well a build's Energy Recharge sustains the rotation; the one-pass community number is shown alongside |
 | Rotation | A fixed rotation per team, taken from a community gcsim config | Removes player control from the equation; community configs are the accepted standard |
 | Teams not in the library | Marked "unsupported" and not computed | Early on, library quality comes first |
+| Characters gcsim lacks | Proposed: scored in an "experimental" tier on a Gscouter fork of gcsim, with a badge (§5.4) | A public site needs every released character; upstream takes months per character |
 | Library management | Manual authoring/approval + automated validation | Rotation quality *is* fairness |
 | Simulation engine | [gcsim](https://github.com/genshinsim/gcsim) (MIT license) | Frame-level simulator, community standard, fast to add new characters |
 | Build input | Enka.Network UID (primary), GOOD JSON (secondary) | Manual stat entry tends to go unused |
@@ -243,6 +244,35 @@ Validation checks:
 - The rotation finishes, and one fight of the looped rotation ends within 20 s. A loop that takes no action, such as `while rotations { ... }` with the counter set once in the setup, spins inside gcsim without time passing once the counter is spent; gcsim cannot cancel it, so `cmd/validate` checks each team in its own process and such teams are removed
 - Action waits and members with almost no damage in the looped rotation are reported as warnings
 
+### 5.4 Experimental tier (proposed)
+
+Goal: every released character can be scored, including the ones upstream gcsim lacks (§6.3). Waiting for upstream leaves new characters, the ones players most want to try, unscored for months: Ineffa took about 5 months, Lauma and Flins about 5, Durin about 6, Aino about 8, and Nefer is still missing a year after release.
+
+| Tier | Engine | Rotation | Shown as |
+|---|---|---|---|
+| Verified | Upstream gcsim | A community database entry that reproduces its DPS (§5.3) | Score |
+| Experimental | Gscouter's gcsim fork: upstream plus the characters upstream lacks | A community entry if one exists, otherwise written by us under the rules below | Score with an "experimental" badge: values may change |
+| Unsupported | No implementation | — | "Unsupported" |
+
+**Fork**
+- A fork of gcsim under the project's GitHub account, used through a `replace` directive in `go.mod`. It is upstream `main` plus one commit per added character, so a gcsim update is a rebase of those commits.
+- Each added character comes, in order of preference, from an open upstream PR (Nefer, Linnea, Kachina have one) or from our own implementation. Multipliers come from gcsim's data pipeline either way.
+- Each added character records its source (PR or ours), where each action's frame data comes from (measured, taken from the PR, or estimated from a similar character) and its known gaps. The result page links them.
+- Our own implementations are also sent upstream as PRs. Review there improves accuracy, and every merge ends the fork's cost for that character.
+- When upstream merges a character, its fork commit is dropped and its teams move to the verified tier after revalidation. Scores may shift; results already record the gcsim version.
+- **Verified scores must not move.** The server and the browser build (§4.7) run both tiers on the same gcsim, so the fork must leave every verified team's score unchanged (the regression run in §5.3, step 4 of the table). Engine changes a new character needs, such as Vodyanitsa's Wandering Vortex, are switched on only when that character is in the team, the way gcsim already enables Stellar Swirl through `Flags.Custom`.
+
+**Rotations**
+- The community database has no entries for characters upstream lacks, so experimental teams are an exception to "rotations are never written from scratch" (§3.1, §5.2). The exception ends for a team once the database has an entry for it: `cmd/harvest` then replaces our rotation.
+- The removed agent-written batch scored a third of community numbers (§3.1), so a written rotation needs:
+  - a published community rotation guide (KQM or similar) for the team or its archetype, listed in `sources`;
+  - a cross-check against a public calculation or showcase DPS when one exists, recorded in `team.yaml`;
+  - the looped full check (§5.3), as for any team;
+  - review by a person before `status: supported`.
+
+**Display**
+- `team.yaml` gets `tier: experimental`. Team, result and versus pages show the badge, and a versus between tiers shows it on the experimental side.
+
 ## 6. Initial Library
 
 ### 6.1 Test teams (top priority)
@@ -254,11 +284,25 @@ Validation checks:
 
 **Vesna team status (checked 2026-10-26)**
 - As of the latest gcsim `main` commit (`2350be9`, 2026-10-23), the Cryo Traveler (`travelercryo`) and Faruzan are implemented. Vesna and Vodyanitsa are not in the character list.
-- Both characters were released in 7.1 (2026-09-23). Vesna has a new mechanic that converts Cryo Swirl into "Stellar Swirl", so the engine may need new reaction handling, not just new characters.
-- Options:
-  1. **Wait for upstream gcsim support** (recommended). Start testing with the Skirk team.
-  2. Implement it ourselves and contribute to gcsim. Requires frame data and multiplier validation; substantial work.
+- Both characters were released in 7.1 (2026-09-23). gcsim already has Stellar Swirl: the Stellar Vortex and the Radiance: Stellar Swirl state (`pkg/reactable/stellarswirl.go`), enabled by the Cryo Traveler and Odette. What is missing is the two characters and the Wandering Vortex, which Vodyanitsa's A1 turns Stellar Vortices into (it also drives her C2). Vesna changes how Stellar Swirl itself works, so she needs the most engine work.
+- No upstream PR exists for either. They are planned for the experimental tier (§5.4, §6.3).
 - This team also serves as the first test case for "teams the engine does not support yet": matched, but reported as `blocked`.
+
+### 6.3 Characters gcsim lacks (checked 2026-10-26)
+
+Enka.Network's character list compared with the characters in gcsim `2350be9`. The Manekin and Manekina (Miliastra Wonderland avatars) are left out.
+
+| Character | Upstream state | Plan (§5.4) |
+|---|---|---|
+| Kachina (4★ Geo, 5.0) | Open PR #2697 (2026-07-25) | Take the PR |
+| Nefer (5★ Dendro, 6.1) | Open PR #3045 (2026-09-20), no review yet; an earlier draft, #2587, was closed | Take the PR |
+| Linnea (5★ Geo) | Open PR #2596 (2026-04-19) | Take the PR |
+| Lohen (5★ Cryo) | None | Implement |
+| Sandrone (5★ Cryo) | None | Implement |
+| Vodyanitsa (5★ Hydro, 7.1) | None | Implement, with the Wandering Vortex |
+| Vesna (5★ Anemo, 7.1) | None | Implement last: changes Stellar Swirl |
+
+Order: the fork and the three characters with upstream PRs first (most coverage for the least work), then Vodyanitsa, Lohen and Sandrone, then Vesna.
 
 ### 6.2 Library from the community database
 
@@ -278,15 +322,16 @@ The first batch held the 64 teams with the most entries in the community databas
   - A rotation that is not optimal for the team
   - Implementation errors for new characters
 - **New character lag**: until gcsim supports a character, teams using it are `blocked`.
-  - Vesna and Vodyanitsa are still unsupported more than a month after release.
-  - Not supporting new meta teams right at launch is a structural limitation.
+  - Vesna and Vodyanitsa are still unsupported more than a month after release, and seven playable characters are missing in all (§6.3).
+  - The experimental tier (§5.4) is meant to close this gap, at the cost of less certain numbers for those teams.
 - **Fixed rotation limits**: the optimal rotation can vary with the build (e.g. high ER enables a more aggressive cycle). Initially we ignore this and use one standard rotation.
 
 ## 8. Risks
 
 | Risk | Impact | Mitigation |
 |---|---|---|
-| gcsim lags on new characters | Latest meta teams unsupported | Report as `blocked`, track upstream, contribute if needed |
+| gcsim lags on new characters | Latest meta teams unsupported | Experimental tier on a fork (§5.4), contribute upstream |
+| Fork upkeep and estimated frames | Rebase work on every gcsim update; experimental scores off | One commit per character, upstream PRs, badge on experimental scores, verified scores checked unchanged |
 | Enka API changes / blocking | No input | Caching, GOOD JSON fallback |
 | Uneven rotation quality | Fairness compromised | Automated validation + cross-checks with public calcs + PR review |
 | Game patches change numbers | Old scores not comparable | Record gcsim and rotation versions with results; consider seasons |
@@ -324,3 +369,4 @@ The first batch held the 64 teams with the most entries in the community databas
 4. ~~Library format, import and validation~~ Done: `cmd/import` adds a team from a gcsim share link; `cmd/validate` checks that each team reproduces its source's DPS (§5.3). CI runs it. The `add-team` skill describes the workflow.
 5. ~~First library batch~~ Done: `cmd/harvest` took the 64 most simulated teams from the community gcsim database (§5.3), then every usable team, 4,397 after validation (§6.2). An earlier batch of 64 agent-written rotations was removed: written without sources, they scored a third of the community numbers.
 6. ~~Display names~~ Done: in-game character and weapon names in every game language, instead of gcsim keys.
+7. Experimental tier (§5.4): the gcsim fork, `tier` in `team.yaml` and the badge, then the characters in §6.3 in the order given there.
