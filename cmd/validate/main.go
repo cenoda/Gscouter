@@ -1,7 +1,7 @@
-// Command validate runs every library team with its reference build and
-// checks the rotation: the config parses, the rotation finishes, every
-// member deals damage, and the team reproduces the DPS its source config
-// reported.
+// Command validate runs every library team with its reference build. It
+// checks that one pass of the rotation reproduces the DPS its source
+// config reported, then scores the looped rotation as the site does and
+// reports energy waits and members with almost no damage.
 //
 // Usage:
 //
@@ -48,6 +48,8 @@ func main() {
 	var (
 		root       = flag.String("root", "teams", "team library directory, used when no teams are given")
 		iterations = flag.Int("iter", 100, "number of iterations")
+		warmup     = flag.Float64("warmup", 150, "seconds of the looped fight excluded from the score")
+		duration   = flag.Float64("duration", 450, "length of the looped fight in seconds")
 		verbose    = flag.Bool("v", false, "print per-character results")
 		detail     = flag.Bool("detail", false, "print what each character did in one run: actions, damage by source, reactions")
 	)
@@ -67,11 +69,10 @@ func main() {
 		}
 	}
 
-	opts := score.Options{Iterations: *iterations, Seed: 1}
-	cond := config.Conditions{Iterations: *iterations}
+	s := settings{iterations: *iterations, warmup: *warmup, duration: *duration}
 	var failed, warned int
 	for _, dir := range dirs {
-		r := checkWithTimeout(dir, cond, opts)
+		r := checkWithTimeout(dir, s)
 		switch {
 		case len(r.failures) > 0:
 			failed++
@@ -89,19 +90,25 @@ func main() {
 	}
 }
 
+type settings struct {
+	iterations       int
+	warmup, duration float64
+}
+
 type report struct {
 	dir      string
 	team     *library.Team
-	res      *score.Result
-	cfg      string
+	once     *score.Result // one pass, compared with the source
+	res      *score.Result // looped, the score
+	cfg      string        // the looped config
 	skipped  string
 	failures []string
 	warnings []string
 }
 
-func checkWithTimeout(dir string, cond config.Conditions, opts score.Options) *report {
+func checkWithTimeout(dir string, s settings) *report {
 	done := make(chan *report, 1)
-	go func() { done <- check(dir, cond, opts) }()
+	go func() { done <- check(dir, s) }()
 	select {
 	case r := <-done:
 		return r
@@ -111,7 +118,7 @@ func checkWithTimeout(dir string, cond config.Conditions, opts score.Options) *r
 	}
 }
 
-func check(dir string, cond config.Conditions, opts score.Options) *report {
+func check(dir string, s settings) *report {
 	r := &report{dir: dir}
 	team, err := library.Load(dir)
 	if err != nil {
@@ -139,8 +146,8 @@ func check(dir string, cond config.Conditions, opts score.Options) *report {
 	for _, m := range slices.Sorted(maps.Keys(team.Params)) {
 		build = config.AddParams(build, m, team.Params[m])
 	}
-	cfg := config.Assemble(cond, build, team.Rotation)
-	chars, err := config.Characters(cfg)
+	once := config.Assemble(config.Conditions{Iterations: s.iterations}, build, team.Rotation)
+	chars, err := config.Characters(once)
 	if err != nil {
 		r.failures = append(r.failures, "config: "+err.Error())
 		return r
@@ -150,16 +157,14 @@ func check(dir string, cond config.Conditions, opts score.Options) *report {
 		return r
 	}
 
-	r.cfg = cfg
-	res, err := score.Run(context.Background(), cfg, opts)
+	onceRes, err := score.Run(context.Background(), once, score.Options{Iterations: s.iterations, Seed: 1})
 	if err != nil {
 		r.failures = append(r.failures, "simulation: "+err.Error())
 		return r
 	}
-	r.res = res
-
+	r.once = onceRes
 	if ref := team.Reference; ref != nil && ref.DPS > 0 {
-		diff := (res.DPS - ref.DPS) / ref.DPS
+		diff := (onceRes.DPS - ref.DPS) / ref.DPS
 		msg := fmt.Sprintf("%+.1f%% from the source's %.0f DPS (gcsim %s)", diff*100, ref.DPS, ref.GcsimVersion)
 		switch d := math.Abs(diff); {
 		case d > failReference:
@@ -170,6 +175,19 @@ func check(dir string, cond config.Conditions, opts score.Options) *report {
 	} else {
 		r.warnings = append(r.warnings, "no reference DPS to compare with")
 	}
+
+	looped, err := config.Loop(team.Rotation)
+	if err != nil {
+		r.failures = append(r.failures, err.Error())
+		return r
+	}
+	r.cfg = config.Assemble(config.Conditions{Iterations: s.iterations, Duration: s.duration}, build, looped)
+	res, err := score.Run(context.Background(), r.cfg, score.Options{Iterations: s.iterations, Warmup: s.warmup, Seed: 1})
+	if err != nil {
+		r.failures = append(r.failures, "looped simulation: "+err.Error())
+		return r
+	}
+	r.res = res
 	for _, c := range res.Characters {
 		switch {
 		case c.DPS <= 0:
@@ -198,11 +216,11 @@ func (r *report) print(verbose bool) {
 	}
 	name := filepath.Base(r.dir)
 	if r.res != nil {
-		ref := "        -"
+		ref := "      -"
 		if r.team.Reference != nil {
-			ref = fmt.Sprintf("%9.0f", r.team.Reference.DPS)
+			ref = fmt.Sprintf("%7.0f", r.team.Reference.DPS)
 		}
-		fmt.Printf("%-4s %-50s %8.0f DPS  source %s  rotation %4.1fs\n", verdict, name, r.res.DPS, ref, r.res.Window)
+		fmt.Printf("%-4s %-46s looped %7.0f  one rotation %7.0f (%4.1fs, source %s)\n", verdict, name, r.res.DPS, r.once.DPS, r.once.Window, ref)
 	} else {
 		fmt.Printf("%-4s %s\n", verdict, name)
 	}
@@ -226,8 +244,9 @@ func (r *report) print(verbose bool) {
 	}
 }
 
-// printDetail runs the config once and prints, per character, the actions
-// taken, damage by source and reactions triggered.
+// printDetail runs the looped config once and prints, per character, the
+// actions taken, damage by source and reactions triggered over the whole
+// fight.
 func printDetail(cfg string) {
 	res, err := score.Once(cfg, 1)
 	if err != nil {

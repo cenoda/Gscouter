@@ -29,14 +29,18 @@ var templateFS embed.FS
 // Settings control the simulation cost per score.
 type Settings struct {
 	Iterations    int
-	MaxConcurrent int // simulations running at once
-	MaxQueue      int // simulations waiting before requests are rejected
+	Warmup        float64 // seconds excluded from the score
+	Duration      float64 // seconds of the looped fight
+	MaxConcurrent int     // simulations running at once
+	MaxQueue      int     // simulations waiting before requests are rejected
 }
 
-// DefaultSettings: one rotation from full energy per iteration, as in
-// community gcsim configs (design §3.1).
+// DefaultSettings score the looped rotation over 150-450 s, after the
+// full starting energy has run out (design §3.1).
 var DefaultSettings = Settings{
 	Iterations:    100,
+	Warmup:        150,
+	Duration:      450,
 	MaxConcurrent: 1,
 	MaxQueue:      8,
 }
@@ -134,8 +138,11 @@ type teamResult struct {
 	Nickname  string
 	Chars     []enka.Character
 	Team      *library.Team
-	Result    *score.Result
-	Warnings  []string
+	Result    *score.Result // the looped rotation: the score
+	// OneRotation is a single pass from full energy, the number community
+	// gcsim configs report.
+	OneRotation *score.Result
+	Warnings    []string
 	// Problem explains why there is no score: unsupported team, blocked
 	// team, Enka error, and so on.
 	Problem string
@@ -183,9 +190,20 @@ func (s *Server) evaluate(ctx context.Context, sel selection) teamResult {
 		build.WriteString("\n")
 	}
 	rotation := config.RenameCharacters(tr.Team.Rotation, renames)
-	cfg := config.Assemble(config.Conditions{Iterations: s.settings.Iterations}, build.String(), rotation)
+	looped, err := config.Loop(rotation)
+	if err != nil {
+		slog.Error("library rotation", "team", tr.Team.ID, "err", err)
+		tr.Problem = "계산 중 오류가 발생했습니다."
+		return tr
+	}
+	cfg := config.Assemble(config.Conditions{Iterations: s.settings.Iterations, Duration: s.settings.Duration}, build.String(), looped)
+	once := config.Assemble(config.Conditions{Iterations: s.settings.Iterations}, build.String(), rotation)
 
-	res, err := s.score(ctx, cfg)
+	res, err := s.score(ctx, cfg, s.settings.Warmup)
+	var oneRes *score.Result
+	if err == nil {
+		oneRes, err = s.score(ctx, once, 0)
+	}
 	if err != nil {
 		if errors.Is(err, errBusy) {
 			tr.Problem = "지금 계산 요청이 많습니다. 잠시 후 다시 시도해 주세요."
@@ -196,6 +214,7 @@ func (s *Server) evaluate(ctx context.Context, sel selection) teamResult {
 		return tr
 	}
 	tr.Result = res
+	tr.OneRotation = oneRes
 	tr.Warnings = warnings(tr.Team, res)
 	for _, c := range tr.Chars {
 		if c.UnknownSets > 0 {
@@ -206,8 +225,8 @@ func (s *Server) evaluate(ctx context.Context, sel selection) teamResult {
 }
 
 // score runs a simulation, reusing the cached result for the same config.
-func (s *Server) score(ctx context.Context, cfg string) (*score.Result, error) {
-	sum := sha256.Sum256([]byte(cfg))
+func (s *Server) score(ctx context.Context, cfg string, warmup float64) (*score.Result, error) {
+	sum := sha256.Sum256(fmt.Appendf(nil, "%v\n%s", warmup, cfg))
 	key := hex.EncodeToString(sum[:])
 	if res, ok := s.results.get(key); ok {
 		return res, nil
@@ -228,6 +247,7 @@ func (s *Server) score(ctx context.Context, cfg string) (*score.Result, error) {
 	start := time.Now()
 	res, err := score.Run(ctx, cfg, score.Options{
 		Iterations: s.settings.Iterations,
+		Warmup:     warmup,
 		Seed:       1,
 	})
 	if err != nil {

@@ -93,3 +93,14 @@ func AddParams(build, key, params string) string {
 	re := regexp.MustCompile(`(?m)^(` + regexp.QuoteMeta(key) + ` char [^;+]*?)\s*;`)
 	return re.ReplaceAllString(build, "${1} +params=["+params+"];")
 }
+
+// Loop turns a one-pass rotation into an endless one: the first statement
+// (the "active <char>;" line) runs once and the rest repeats, so energy
+// shortfalls show up as they would over a long fight.
+func Loop(rotation string) (string, error) {
+	head, body, ok := strings.Cut(strings.TrimSpace(rotation), ";")
+	if !ok || !strings.HasPrefix(strings.TrimSpace(head), "active ") {
+		return "", errors.New("rotation must start with an active statement")
+	}
+	return head + ";\nwhile 1 {\n" + strings.TrimSpace(body) + "\n}\n", nil
+}

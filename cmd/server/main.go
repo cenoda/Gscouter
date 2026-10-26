@@ -22,6 +22,8 @@ func main() {
 	s := web.DefaultSettings
 	addr := flag.String("addr", ":"+cmp.Or(os.Getenv("PORT"), "8080"), "listen address")
 	flag.IntVar(&s.Iterations, "iter", s.Iterations, "iterations per score")
+	flag.Float64Var(&s.Warmup, "warmup", s.Warmup, "seconds excluded from the score")
+	flag.Float64Var(&s.Duration, "duration", s.Duration, "fight duration in seconds")
 	flag.IntVar(&s.MaxConcurrent, "concurrent", s.MaxConcurrent, "simulations running at once")
 	flag.IntVar(&s.MaxQueue, "queue", s.MaxQueue, "simulations waiting before requests are rejected")
 	flag.Parse()

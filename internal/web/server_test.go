@@ -54,7 +54,7 @@ func newTestServer(t *testing.T) *httptest.Server {
 		"800000001": {UID: "800000001", Nickname: "Strong", Characters: append(strong, char("amber", "skywardharp", "noblesseoblige", nil))},
 		"800000002": {UID: "800000002", Nickname: "Weak", Characters: weak},
 	}
-	srv, err := New(lib, profiles, Settings{Iterations: 4, MaxConcurrent: 1, MaxQueue: 4})
+	srv, err := New(lib, profiles, Settings{Iterations: 4, Warmup: 30, Duration: 90, MaxConcurrent: 1, MaxQueue: 4})
 	if err != nil {
 		t.Fatal(err)
 	}

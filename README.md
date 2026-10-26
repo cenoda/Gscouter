@@ -20,6 +20,8 @@ go run ./cmd/server          # http://localhost:8080
 |---|---|---|
 | `-addr` | `:8080` (or `$PORT`) | Listen address |
 | `-iter` | 100 | Iterations per score |
+| `-warmup` | 150 | Seconds of the looped fight excluded from the score |
+| `-duration` | 450 | Length of the looped fight in seconds |
 | `-concurrent` | 1 | Simulations running at once |
 | `-queue` | 8 | Simulations waiting before requests are rejected |
 
@@ -37,17 +39,19 @@ go run ./cmd/gscouter \
 
 ```
 Team:      Hutao / Yelan / Xingqiu / Zhongli (rotation v1, draft)
-Score:     103764 DPS ± 177 (1 s.e.; s.d. 5606)
-Rotation:  20.7s from full energy, 1000 iterations, 667ms
+Score:     85466 DPS ± 139 (1 s.e.; s.d. 4383)
+Window:    150s–450s of the looped rotation, 1000 iterations, 9.847s
+One pass:  103764 DPS over 20.7s from full energy (community gcsim measure)
 
 Character           DPS   Share    Energy wait
-hutao             56451   54.4%        0.00s/m
-yelan             36443   35.1%        0.00s/m
-xingqiu           10239    9.9%        0.00s/m
-zhongli             630    0.6%        0.00s/m
+hutao             45596   53.4%        0.00s/m
+yelan             29386   34.4%        3.08s/m
+xingqiu            9501   11.1%        0.10s/m
+zhongli             983    1.1%        0.00s/m
 ```
 
-- **Score**: team DPS over one rotation, starting with full energy, against a single enemy with infinite HP. This is how community gcsim configs and players on a training dummy measure.
+- **Score**: team DPS with the community rotation repeated endlessly, over 150–450 s once the starting energy has run out. Too little Energy Recharge shows up as energy waits and a lower score.
+- **One pass**: the rotation once from full energy, as community gcsim configs report it. Validation compares this with the source.
 - **Energy wait**: seconds per minute that a character's actions waited for energy. Too little Energy Recharge for the rotation lowers the score.
 
 Flags:
@@ -57,6 +61,8 @@ Flags:
 | `-team` | | Team library directory |
 | `-build` | | Build file |
 | `-iter` | 1000 | Iterations |
+| `-warmup` | 150 | Seconds of the looped fight excluded from the score |
+| `-duration` | 450 | Length of the looped fight in seconds |
 | `-seed` | 1 | Seed of the first iteration |
 | `-dump` | false | Print the assembled gcsim config and exit |
 
@@ -71,7 +77,7 @@ go run ./cmd/validate -v -detail teams/<id>      # one team, with a breakdown
 ```
 
 - `cmd/import` splits the shared config into the source's build (`build.txt`), character params such as Hu Tao's `start_hp=1` (`params` in `team.yaml`) and the rotation. The source's options, enemy and energy lines are replaced by the common conditions. It records the source's DPS as `reference`.
-- `cmd/validate` runs each team with its `build.txt` and fails a team that does not reproduce the source's DPS within 5%, has no source, or never finishes its rotation. It warns about action waits and members with almost no damage.
+- `cmd/validate` runs each team with its `build.txt`. One pass of the rotation must reproduce the source's DPS within 5%; then it scores the looped rotation as the site does and warns about energy and other waits and members with almost no damage. A team with no source, or whose rotation never finishes, fails.
 
 The `add-team` skill (`.claude/skills/add-team/SKILL.md`) describes the workflow.
 

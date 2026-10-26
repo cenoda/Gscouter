@@ -44,15 +44,18 @@ GOTOOLCHAIN=auto go run ./cmd/validate -v teams/<id>
 GOTOOLCHAIN=auto go run ./cmd/validate -detail teams/<id>   # actions, damage by source, reactions
 ```
 
-- `FAIL` when the team's DPS with `build.txt` is more than 5% from the
+- The validator runs the rotation once from full energy and compares it
+  with the source's `reference.dps`, then loops it (as the site scores
+  it) and reports energy and other waits.
+- `FAIL` when the one-pass DPS with `build.txt` is more than 5% from the
   source's `reference.dps`, when it has no source, or when the rotation
   never ends.
 - A gap usually means the source used other conditions (see the dropped
   lines) or another gcsim version (`reference.gcsim_version` vs. ours in
   `go.mod`). Explain it in `notes`, or find a source that matches.
-- The rotation must end. With the enemy's infinite HP, gcsim stops only
-  when the action list ends, so a source with an unconditional
-  `while 1` loop cannot be used as is.
+- The rotation must start with `active <char>;` and must end: Gscouter
+  loops it itself, so a source with its own unconditional `while 1` loop
+  cannot be used as is.
 - Warnings about action waits or a member with almost no damage are
   information; note anything a reviewer should know.
 

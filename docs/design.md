@@ -27,7 +27,7 @@ A user submits the builds of their party members, and Gscouter computes the team
 | Score | A single absolute DPS value | Team choice (meta) counts as skill. No score relative to a baseline build. |
 | Constellations / refinements | Included in the score | Investment is part of building |
 | Enemy | Lv. 100, 10% resistance to all elements and physical, single target | Matches the KQM standard, so results can be cross-checked against community calcs |
-| Fight duration | One rotation starting with full energy | How community gcsim configs and players on a training dummy measure team DPS, so scores match community numbers |
+| Fight duration | Infinite cycles of the community rotation (steady state after the opener) | Shows how well a build's Energy Recharge sustains the rotation; the one-pass community number is shown alongside |
 | Rotation | A fixed rotation per team, taken from a community gcsim config | Removes player control from the equation; community configs are the accepted standard |
 | Teams not in the library | Marked "unsupported" and not computed | Early on, library quality comes first |
 | Library management | Manual authoring/approval + automated validation | Rotation quality *is* fairness |
@@ -44,21 +44,31 @@ A user submits the builds of their party members, and Gscouter computes the team
 ### 3.1 Score
 
 ```
-score = team DPS over one pass of the team's rotation, starting with full energy
+score = average team DPS over 150–450 s, repeating the community rotation endlessly
 ```
 
-This is how community gcsim configs measure a team, and how players measure on a training dummy with infinite HP. The enemy is given practically infinite HP, which puts gcsim in damage mode: the run ends when the rotation's action list ends, and DPS is the damage over that time.
+- Rotations come from community gcsim configs (§5). Those configs run the rotation **once** from full energy, trusting that energy will be full again by the next rotation. Gscouter repeats it instead (`active` runs once, the rest loops), so a build whose Energy Recharge cannot sustain the rotation waits for energy and scores lower. That is the point of the infinite-cycle rule.
+- The first 150 s are excluded: every character starts with full energy, and the deficit takes a few cycles to show.
+- The single pass from full energy is still computed and shown as "one rotation". It is what community configs report, and validation checks it against the source (§5.3).
+- Each iteration `i` uses seed `base + i`, so the same build always gets the same score. Randomness such as crits is averaged over iterations; the result stores the standard deviation and the standard error.
+- Window slicing: gcsim records each iteration's damage in 0.5 s buckets, so one run per iteration gives the window's damage (verified equal to the difference method by a unit test).
 
-- Each iteration `i` uses seed `base + i`, so the same build always gets the same score. This is required for caching and for repeatable comparisons.
-- Randomness such as crits is handled by averaging iterations. The result stores the standard deviation and the standard error.
-- Check: the imported Hu Tao / Yelan / Xingqiu / Zhongli config scores 103.8k with 1000 iterations against the 103.2k its gcsim share reports.
+Hu Tao / Yelan / Xingqiu / Zhongli, imported from a gcsim share, source build:
+
+| Measure | DPS | Note |
+|---|---|---|
+| Source share (one rotation) | 103.2k | gcsim `4ed9d50` |
+| One rotation, Gscouter | 103.8k | Validation: within 5% of the source |
+| **Looped, 150–450 s (score)** | **85.5k** | Yelan waits about 3 s/min for energy |
+
+Hu Tao's `start_hp=1` param raises the one-rotation number by about 13% and has no effect on the looped score, since her skill drains her HP anyway.
 
 | Setting | Standard error | Time (4 cores) |
 |---|---|---|
-| 1000 iterations (CLI) | ±0.2% | 0.65 s |
-| **100 iterations (site default)** | ±0.5% | about 0.07 s |
+| 1000 iterations (CLI) | ±0.2% | 9.8 s |
+| **100 iterations (site default)** | ±0.5% | about 1 s |
 
-History: the prototype scored steady-state DPS over infinite looping rotations, then 90 s from full energy. Both scored community teams far below what players and community configs report, mainly because the looping rotations were not the community ones.
+History: a first library batch of 64 rotations written by agents without sources scored about a third of community numbers and was removed. Rotations now always come from community configs.
 
 ### 3.2 Common simulation conditions
 
@@ -67,8 +77,8 @@ History: the prototype scored steady-state DPS over infinite looping rotations, 
 | Enemy level | 100 |
 | Enemy resistance | 10% for all elements + physical |
 | Number of targets | 1 |
-| Enemy HP | Practically infinite (`hp=999999999`); the run ends with the rotation |
-| Fight duration | One rotation from full energy (§3.1) |
+| Enemy HP | Infinite (time-based end); the one-pass check gives the enemy `hp=999999999` so the run ends with the rotation |
+| Fight duration | 450 s with the rotation looped, first 150 s excluded; plus one pass from full energy (§3.1) |
 | Iterations | Site: 100 (±0.5%). CLI: 1000 (±0.2%) |
 | Energy | 1 clear particle every 8–12 s (`energy every interval=480,720 amount=1`). Provisional, see §9 |
 | Swap delay | 12 frames |
@@ -87,7 +97,7 @@ energy every interval=480,720 amount=1;
 [Input]               [Normalize]       [Match]               [Compute]           [Output]
 Enka UID ──┐
            ├─► build normalization ─► team matching ─┬─► config assembly ─► gcsim ×2 ─► score / report
-GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation)   (1 rotation)
+GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation)   (looped)    
                                                      └─► "unsupported" + request tally
 ```
 
@@ -120,13 +130,13 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
 ### 4.4 Config assembly and execution
 
 - Combine the common conditions (§3.2) + the user's build (§4.2) + the library rotation (§5) into a gcsim config.
-- Run the rotation once per iteration from full energy and average the team DPS (§3.1).
+- Loop the rotation for 450 s per iteration and average the team DPS from 150 s; also run it once from full energy (§3.1).
 - **Cache key** = hash of the assembled config. The config contains the build, the rotation and the conditions, and the gcsim version is fixed per deployment, so the same build is never recomputed.
 - Characters are compared by canonical name: gcsim aliases resolve to one key (`kazuha` = `kaedeharakazuha`), and both Traveler genders fold into `traveler<element>`. When the player's key differs from the library's (e.g. `aethercryo` vs. `travelercryo`), the rotation is rewritten to the player's key.
 
 ### 4.5 Results
 
-- **Score**: team DPS over one rotation from full energy
+- **Score**: team DPS with the rotation looped (150–450 s), plus the one-rotation number
 - **Per-character contribution**: DPS and share
 - **Warnings**
   - Insufficient ER: time each character spent waiting for energy, in seconds per minute of the scoring window
@@ -179,7 +189,7 @@ reference:
 
 ### 5.2 Rotation authoring rules
 
-- The rotation is the source config's action list, run once. It must not loop forever.
+- The rotation is the source config's action list. Gscouter loops it for the score and runs it once for validation, so the source must not loop forever itself.
 - Character params the rotation assumes (e.g. Hu Tao `start_hp=1`) are stored in `team.yaml` and added to the player's build.
 - One rotation is used regardless of the user's build.
   - If an action can't be performed due to insufficient ER, rely on gcsim's wait/delay behavior and surface the delay as a warning.
@@ -261,7 +271,7 @@ All characters confirmed supported in gcsim (commit `2350be9`).
 ## 9. Open Questions
 
 - [x] Where to run: server-side Go on one small VM (§4.6)
-- [x] Fight length: one rotation from full energy, as in community configs (§3.1)
+- [x] Fight length: community rotation looped, 150–450 s; one pass shown alongside (§3.1)
 - [ ] Enemy energy particle drops
   - The prototype uses `energy every interval=480,720 amount=1`, as many community gcsim configs do.
   - This directly affects ER requirements, so the same value must apply across the whole library. Confirm before the first library batch.

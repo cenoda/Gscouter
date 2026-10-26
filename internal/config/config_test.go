@@ -22,3 +22,17 @@ func TestAddParams(t *testing.T) {
 		t.Errorf("params added twice:\n%s", again)
 	}
 }
+
+func TestLoop(t *testing.T) {
+	got, err := Loop("active zhongli;\nzhongli skill[hold=1];\nhutao skill, attack:2, charge;\n")
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := "active zhongli;\nwhile 1 {\nzhongli skill[hold=1];\nhutao skill, attack:2, charge;\n}\n"
+	if got != want {
+		t.Errorf("got:\n%s\nwant:\n%s", got, want)
+	}
+	if _, err := Loop("zhongli skill;"); err == nil {
+		t.Error("expected an error without an active statement")
+	}
+}
