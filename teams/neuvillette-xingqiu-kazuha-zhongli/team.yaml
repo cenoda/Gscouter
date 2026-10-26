@@ -1,0 +1,9 @@
+id: neuvillette-xingqiu-kazuha-zhongli
+name: Neuvillette / Xingqiu / Kazuha / Zhongli
+members: [neuvillette, xingqiu, kazuha, zhongli]
+archetype: Hydro hypercarry (double Hydro, Kazuha swirl shred)
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Zhongli shield, Kazuha swirl shred, Xingqiu rain swords, then Neuvillette skill + burst and a Charged Attack loop."

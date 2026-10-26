@@ -1,0 +1,21 @@
+# Reference build used to validate the rotation.
+
+neuvillette char lvl=90/90 cons=0 talent=9,9,9;
+neuvillette add weapon="tomeoftheeternalflow" refine=1 lvl=90/90;
+neuvillette add set="marechausseehunter" count=4;
+neuvillette add stats hp=4780 atk=311 hp%=0.665 hydro%=0.466 cr=0.5 cd=0.85 er=0.5;
+
+furina char lvl=90/90 cons=0 talent=1,9,9;
+furina add weapon="festeringdesire" refine=5 lvl=90/90;
+furina add set="goldentroupe" count=4;
+furina add stats hp=4780 atk=311 hp%=1.082 cr=0.561 cd=0.7 er=0.5;
+
+yelan char lvl=90/90 cons=0 talent=1,9,9;
+yelan add weapon="favoniuswarbow" refine=5 lvl=90/90;
+yelan add set="emblemofseveredfate" count=4;
+yelan add stats hp=4780 atk=311 hp%=0.666 er=0.618 cr=0.561 cd=0.8;
+
+zhongli char lvl=90/90 cons=0 talent=1,9,9;
+zhongli add weapon="blacktassel" refine=5 lvl=90/90;
+zhongli add set="tenacityofthemillelith" count=4;
+zhongli add stats hp=4780 atk=311 hp%=0.9 geo%=0.466 cr=0.3 er=0.3;

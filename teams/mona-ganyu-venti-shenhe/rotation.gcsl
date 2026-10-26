@@ -1,0 +1,12 @@
+active venti;
+while 1 {
+  venti skill;
+  if .venti.burst.ready { venti burst; }
+  mona skill;
+  if .mona.burst.ready { mona burst; }
+  shenhe skill[hold=1];
+  if .shenhe.burst.ready { shenhe burst; }
+  ganyu skill;
+  if .ganyu.burst.ready { ganyu burst; }
+  ganyu aim:6;
+}

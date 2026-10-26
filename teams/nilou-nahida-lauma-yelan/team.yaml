@@ -1,0 +1,9 @@
+id: nilou-nahida-lauma-yelan
+name: Nilou / Nahida / Lauma / Yelan
+members: [nilou, nahida, lauma, yelan]
+archetype: Hydro bloom (Lauma Dendro RES shred, Bountiful Cores)
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Nahida marks, Lauma opens the Dendro RES shred, Yelan adds Hydro, then Nilou chains Dance of Haftkarsvar into the Tranquility Aura and burst."

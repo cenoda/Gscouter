@@ -1,0 +1,11 @@
+active zhongli;
+while 1 {
+  zhongli skill[hold=1];
+  kazuha skill;
+  if .kazuha.burst.ready { kazuha burst; }
+  xingqiu skill;
+  if .xingqiu.burst.ready { xingqiu burst; }
+  sigewinne skill[hold=2];
+  if .sigewinne.burst.ready { sigewinne burst; }
+  sigewinne aim[hold=2]:6;
+}

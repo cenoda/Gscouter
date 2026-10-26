@@ -1,0 +1,13 @@
+active bennett;
+while 1 {
+  if .bennett.burst.ready { bennett burst; }
+  bennett skill;
+  if .xiangling.burst.ready { xiangling burst; }
+  xiangling skill;
+  kokomi skill;
+  if .kokomi.burst.ready { kokomi burst; }
+  kokomi attack:3;
+  raiden skill;
+  if .raiden.burst.ready { raiden burst; }
+  raiden attack:20;
+}

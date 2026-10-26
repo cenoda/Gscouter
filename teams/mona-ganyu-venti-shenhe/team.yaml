@@ -1,0 +1,9 @@
+id: mona-ganyu-venti-shenhe
+name: Mona / Ganyu / Venti / Shenhe
+members: [mona, ganyu, venti, shenhe]
+archetype: Hydro freeze (Omen, Venti grouping, Shenhe Cryo buff)
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Freeze team. Venti groups, Mona applies Hydro and Omen, Shenhe buffs Cryo, then Ganyu skill, burst and Frostflake Arrows. Ganyu deals most of the damage; Mona leads as the Hydro enabler."

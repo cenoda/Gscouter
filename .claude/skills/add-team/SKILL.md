@@ -19,8 +19,9 @@ GCSIM=$(GOTOOLCHAIN=auto go list -m -f '{{.Dir}}' github.com/genshinsim/gcsim)
 
 ## 1. Check the characters
 
-- Implemented characters: `ls $GCSIM/internal/characters`. The Traveler
-  is `aether<element>` (e.g. `aetheranemo`).
+- Implemented characters: `ls $GCSIM/internal/characters`. All Traveler
+  elements live in the `traveler` directory; in configs the Traveler is
+  `aether<element>` (e.g. `aetheranemo`).
 - If a member is not implemented, the team is `blocked`: write only
   `team.yaml` with `rotation_version: 0` and a note naming the missing
   character, then stop.

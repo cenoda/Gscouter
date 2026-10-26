@@ -1,0 +1,15 @@
+active zhongli;
+while 1 {
+  zhongli skill[hold=1];
+  kazuha skill;
+  if .kazuha.burst.ready { kazuha burst; }
+  xingqiu skill;
+  if .xingqiu.burst.ready { xingqiu burst; }
+  neuvillette skill;
+  if .neuvillette.burst.ready { neuvillette burst; }
+  neuvillette attack, charge;
+  neuvillette attack, charge;
+  neuvillette attack, charge;
+  neuvillette attack, charge;
+  neuvillette attack, charge;
+}
