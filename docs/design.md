@@ -1,260 +1,260 @@
-# Gscouter 설계 문서
+# Gscouter Design Document
 
-> 상태: 초안 (구현 전)
-> 최종 수정: 2026-10-26 · 기준 게임 버전 7.1
+> Status: Draft (pre-implementation)
+> Last updated: 2026-10-26 · Game version baseline: 7.1
 
-## 1. 개요
+## 1. Overview
 
-Gscouter는 **"누구 파티가 더 잘 키운 파티인가"**를 가리는 원신 파티 DPS 계산기다.
-유저가 파티 캐릭터의 빌드를 넣으면, 고정된 조건과 고정된 로테이션에서 낸 **이론상 DPS**를 계산해 다른 파티와 비교한다.
+Gscouter is a Genshin Impact team DPS calculator that settles **"whose team is better built?"**
+A user submits the builds of their party members, and Gscouter computes the team's **theoretical DPS** under fixed conditions with a fixed rotation, so it can be compared against other teams.
 
-### 목표
+### Goals
 
-- 파티 선택(메타), 운명의 자리, 무기 재련, 레벨, 특성, 성유물을 모두 실력으로 보고 하나의 점수(DPS)로 낸다.
-- 어떤 파티든 같은 조건에서 계산해서, 서로 다른 파티끼리도 공정하게 비교한다.
-  - 예: "내 나히다 파티 vs 네 느비예트 파티"
+- Treat team choice (meta), constellations, weapon refinements, levels, talents, and artifacts all as part of "skill", and express them as a single score (DPS).
+- Compute every team under identical conditions so that even different teams can be compared fairly.
+  - Example: "my Nahida team vs. your Neuvillette team"
 
-### 비목표
+### Non-goals
 
-- 컨트롤(조작 실력) 평가. 로테이션은 시스템이 고정하고, 유저가 바꾸지 않는다.
-- 실제 콘텐츠(나선비경, 환상극 등)의 클리어 시간 예측
-- 빌드 추천이나 성유물 최적화
+- Evaluating player control/execution. Rotations are fixed by the system and cannot be changed by users.
+- Predicting clear times for actual content (Spiral Abyss, Imaginarium Theater, etc.)
+- Build recommendations or artifact optimization
 
-## 2. 핵심 결정 사항
+## 2. Key Decisions
 
-| 항목 | 결정 | 이유 |
+| Item | Decision | Rationale |
 |---|---|---|
-| 점수 | 절대 DPS 하나 | 파티 선택(메타)도 실력으로 본다. 기준 빌드 대비 점수는 쓰지 않는다. |
-| 운명의 자리 / 재련 | 점수에 포함 | 투자도 육성의 일부 |
-| 적 | Lv.100, 모든 원소·물리 내성 10%, 단일 대상 | KQM 표준과 같아 커뮤니티 계산과 대조할 수 있다 |
-| 전투 시간 | 무한 사이클 (오프너를 뺀 정상 상태 DPS) | 사이클 길이가 다른 파티끼리 비교 가능, 원소 충전 부족이 정직하게 드러남 |
-| 로테이션 | 파티별 표준 로테이션으로 고정 | 컨트롤을 배제하기 위해 |
-| 라이브러리에 없는 파티 | "미지원"으로 표기하고 계산하지 않음 | 초반에는 라이브러리 품질을 지키는 게 우선 |
-| 라이브러리 관리 | 수동 작성·승인 + 자동 검증 | 로테이션의 질이 곧 공정성 |
-| 계산 엔진 | [gcsim](https://github.com/genshinsim/gcsim) (MIT 라이선스) | 프레임 단위 시뮬레이터, 커뮤니티 표준, 신규 캐릭터 반영이 빠름 |
-| 빌드 입력 | Enka.Network UID (기본), GOOD JSON (보조) | 수동 입력은 쓰지 않는 기능이 되기 쉽다 |
+| Score | A single absolute DPS value | Team choice (meta) counts as skill. No score relative to a baseline build. |
+| Constellations / refinements | Included in the score | Investment is part of building |
+| Enemy | Lv. 100, 10% resistance to all elements and physical, single target | Matches the KQM standard, so results can be cross-checked against community calcs |
+| Fight duration | Infinite cycles (steady-state DPS excluding the opener) | Teams with different cycle lengths become comparable; insufficient Energy Recharge shows up honestly |
+| Rotation | A fixed standard rotation per team | Removes player control from the equation |
+| Teams not in the library | Marked "unsupported" and not computed | Early on, library quality comes first |
+| Library management | Manual authoring/approval + automated validation | Rotation quality *is* fairness |
+| Simulation engine | [gcsim](https://github.com/genshinsim/gcsim) (MIT license) | Frame-level simulator, community standard, fast to add new characters |
+| Build input | Enka.Network UID (primary), GOOD JSON (secondary) | Manual stat entry tends to go unused |
 
-### 이 결정들이 만드는 룰 (유저에게 공지할 것)
+### Rules these decisions create (to be communicated to users)
 
-- 무한 사이클 + 단일 대상 조건은 **하이퍼캐리 파티와 시간이 지날수록 강해지는 파티**에 유리하다. 예를 들어 푸리나의 기세 스택처럼 버프가 쌓여야 하는 파티다.
-  - 실전에서 체감하는 1등 파티와 Gscouter의 1등 파티가 다를 수 있다. 이건 버그가 아니라 룰이다.
-- 원소 충전이 부족해서 로테이션이 밀리면 그만큼 DPS가 떨어진다. 원소 충전을 챙기는 것도 육성이다.
+- Infinite cycles + single target favor **hypercarry teams and teams that ramp up over time**, e.g. teams that need buffs to stack, like Furina's Fanfare.
+  - The best team in Gscouter may differ from the team that feels strongest in real content. That is a rule, not a bug.
+- If insufficient Energy Recharge delays the rotation, DPS drops accordingly. Managing ER is part of building.
 
-## 3. 점수 정의
+## 3. Score Definition
 
-### 3.1 정상 상태 DPS
+### 3.1 Steady-state DPS
 
 ```
-점수 = 오프너(첫 사이클)를 뺀 구간에서의 평균 DPS
+score = average DPS over the interval after the opener (first cycle)
 ```
 
-gcsim은 시간이 정해진 시뮬레이션이라 무한 사이클을 근사해서 계산한다.
+gcsim runs fixed-duration simulations, so infinite cycles are approximated.
 
-- **차분 방식 (기본안)**
-  - 같은 설정으로 길이 T1, T2(T1 < T2)인 시뮬레이션을 돌린다.
-  - `(총피해(T2) − 총피해(T1)) / (T2 − T1)`을 점수로 쓴다.
-  - 예: T1 = 60초, T2 = 360초
-  - 오프너 구간이 양쪽에서 상쇄되기 때문에, gcsim 내부 구조에 의존하지 않는다.
-- **대안**
-  - gcsim의 피해 이벤트 로그에서 첫 사이클 이후 구간만 잘라 합산하는 방식
-  - 사이클 경계를 정확히 잡을 수 있지만, 로그 형식에 의존한다.
-- 치명타 같은 무작위 요소는 gcsim의 반복 실행(iteration) 평균으로 처리한다. 결과에는 표준편차도 함께 저장한다.
+- **Difference method (default)**
+  - Run the same config with two durations, T1 and T2 (T1 < T2).
+  - Use `(total_damage(T2) − total_damage(T1)) / (T2 − T1)` as the score.
+  - Example: T1 = 60 s, T2 = 360 s
+  - The opener cancels out between the two runs, so this does not depend on gcsim internals.
+- **Alternative**
+  - Sum only the damage after the first cycle from gcsim's damage event log.
+  - Gives exact cycle boundaries, but depends on the log format.
+- Randomness such as crits is handled by averaging gcsim iterations. Store the standard deviation with the result.
 
-> 검증 필요: 차분 방식에서 T1, T2 경계가 사이클 중간에 걸릴 때 생기는 오차의 크기. 라이브러리의 대표 파티로 측정한 뒤 T 값을 확정한다.
+> To verify: how large the error gets when T1/T2 fall mid-cycle in the difference method. Measure with representative library teams, then finalize the T values.
 
-### 3.2 시뮬레이션 공통 조건
+### 3.2 Common simulation conditions
 
-| 항목 | 값 |
+| Item | Value |
 |---|---|
-| 적 레벨 | 100 |
-| 적 내성 | 모든 원소 + 물리 10% |
-| 대상 수 | 1 |
-| 적 HP | 무한 (시간 기반 종료) |
-| 반복 횟수 | 미정 (예: 1000). 정밀도와 비용을 보고 결정 |
-| 적 원소 입자 드롭 | 미정 (§9 참고) |
+| Enemy level | 100 |
+| Enemy resistance | 10% for all elements + physical |
+| Number of targets | 1 |
+| Enemy HP | Infinite (time-based termination) |
+| Iterations | TBD (e.g. 1000), based on precision vs. cost |
+| Enemy energy particle drops | TBD (see §9) |
 
-gcsim 설정으로 쓰면 대략 다음과 같다.
+As a gcsim config, roughly:
 
 ```
 options iteration=1000 duration=360 swap_delay=12;
 target lvl=100 resist=0.1;
 ```
 
-## 4. 시스템 구조
+## 4. System Architecture
 
 ```
-[입력]                [정규화]          [매칭]                [계산]              [출력]
+[Input]               [Normalize]       [Match]               [Compute]           [Output]
 Enka UID ──┐
-           ├─► 빌드 정규화 ─► 파티 매칭 ─┬─► 설정 조립 ─► gcsim ×2 ─► 점수 / 리포트
-GOOD JSON ─┘   (gcsim 키로)   (라이브러리) │   (빌드+로테이션)  (T1, T2)
-                                         └─► 미지원 표기 + 요청 집계
+           ├─► build normalization ─► team matching ─┬─► config assembly ─► gcsim ×2 ─► score / report
+GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation)   (T1, T2)
+                                                     └─► "unsupported" + request tally
 ```
 
-### 4.1 입력 수집
+### 4.1 Input collection
 
 - **Enka.Network**
-  - UID로 프로필에 진열된 캐릭터(최대 8명)를 가져온다. 레벨, 운명의 자리, 특성, 무기, 재련, 성유물 주옵·부옵이 들어 있다.
-  - 이용 규칙: 고유 User-Agent 지정, 요청 속도 제한 준수, 응답 캐시(TTL)를 둔다.
-  - 제약: 파티 4명이 모두 진열장에 있어야 하고, "캐릭터 상세 표시"가 켜져 있어야 한다. 아니면 어떤 캐릭터가 빠졌는지 안내한다.
+  - Fetches the characters in the profile showcase (up to 8) by UID: level, constellations, talents, weapon, refinement, artifact main stats and substats.
+  - Terms of use: set a unique User-Agent, respect rate limits, keep a response cache (TTL).
+  - Constraint: all 4 party members must be in the showcase with "Show Character Details" enabled. Otherwise, tell the user which characters are missing.
 - **GOOD JSON**
-  - 인벤토리 스캐너의 공통 포맷으로, 진열장 밖의 캐릭터를 넣을 때 쓴다.
+  - The common format of inventory scanners; used for characters outside the showcase.
 
-### 4.2 빌드 정규화
+### 4.2 Build normalization
 
-- 캐릭터, 무기, 성유물 세트 ID를 gcsim 키로 바꾼다 (예: `nahida`, `travelercryo`).
-- **특성 레벨**: 운명의 자리 보너스(+3)를 뺀 기본 레벨로 넘긴다.
-  - gcsim이 운명의 자리 보너스를 스스로 더하기 때문이다.
-  - Enka 데이터에서 보너스가 포함된 값인지 확인해서 처리한다.
-- 성유물 주옵·부옵을 합산해서 gcsim의 `add stats` 줄로 만든다.
-- 매핑 테이블이 없는 항목(새 무기, 새 세트 등)이 있으면 계산하지 않고 "미지원 항목"으로 보고한다.
+- Map character, weapon, and artifact set IDs to gcsim keys (e.g. `nahida`, `travelercryo`).
+- **Talent levels**: pass base levels without the constellation bonus (+3).
+  - gcsim adds the constellation bonus itself.
+  - Check whether the Enka data includes the bonus and handle it accordingly.
+- Sum artifact main stats and substats into gcsim `add stats` lines.
+- If anything lacks a mapping (new weapon, new set, etc.), skip the calculation and report it as "unsupported item".
 
-### 4.3 파티 매칭
+### 4.3 Team matching
 
-- **4인 조합이 정확히 일치할 때만 매칭한다** (순서 무관).
-  - 서포터가 하나만 바뀌어도 로테이션이 달라지기 때문이다.
-  - 변형 조합은 라이브러리에 별도 항목으로 등록한다.
-- 여행자는 원소까지 포함해서 구분한다 (`travelercryo` ≠ `traveleranemo`).
-- 매칭에 실패하면 "미지원"으로 표기하고, 그 조합을 요청 집계에 기록한다 (§5.3).
+- **Match only when the 4-character set matches exactly** (order-independent).
+  - Changing even one support changes the rotation.
+  - Variants are registered as separate library entries.
+- The Traveler is distinguished by element (`travelercryo` ≠ `traveleranemo`).
+- On a failed match, mark the team "unsupported" and record the combination in the request tally (§5.3).
 
-### 4.4 설정 조립과 실행
+### 4.4 Config assembly and execution
 
-- 공통 조건(§3.2) + 유저 빌드(§4.2) + 라이브러리 로테이션(§5)을 합쳐서 gcsim 설정을 만든다.
-- 같은 설정을 T1, T2 두 길이로 실행한다.
-- **캐시 키** = 빌드 해시 + 파티 ID + 로테이션 버전 + gcsim 버전. 같은 빌드를 다시 계산하지 않는다.
+- Combine the common conditions (§3.2) + the user's build (§4.2) + the library rotation (§5) into a gcsim config.
+- Run the same config at both durations, T1 and T2.
+- **Cache key** = build hash + team ID + rotation version + gcsim version. Never recompute the same build.
 
-### 4.5 결과
+### 4.5 Results
 
-- **점수**: 정상 상태 DPS
-- **캐릭터별 기여도**: DPS와 비율
-- **경고**
-  - 원소 충전 부족 (예: "푸리나 원소폭발이 사이클당 평균 N초 지연")
-  - 행동 실패
-- **메타 정보**: 로테이션 버전, gcsim 버전, 시뮬레이션 조건
-- **대결 화면**: 두 UID/파티의 점수, 기여도, 경고를 나란히 보여준다.
+- **Score**: steady-state DPS
+- **Per-character contribution**: DPS and share
+- **Warnings**
+  - Insufficient ER (e.g. "Furina's burst delayed by N s per cycle on average")
+  - Failed actions
+- **Metadata**: rotation version, gcsim version, simulation conditions
+- **Versus view**: two UIDs/teams side by side with score, contributions, and warnings.
 
-## 5. 파티 라이브러리
+## 5. Team Library
 
-### 5.1 구조
+### 5.1 Structure
 
-파티 하나를 디렉터리 하나로 관리한다.
+One directory per team.
 
 ```
 teams/
   skirk-yelan-furina-escoffier/
-    team.yaml        # 메타데이터
-    rotation.gcsl    # 로테이션 (행동 부분만, 캐릭터 스탯 없음)
-    reference.yaml   # 검증용 기준 빌드와 기대 DPS 범위
+    team.yaml        # metadata
+    rotation.gcsl    # rotation (actions only, no character stats)
+    reference.yaml   # reference build and expected DPS range for validation
 ```
 
-`team.yaml` 예시:
+Example `team.yaml`:
 
 ```yaml
 id: skirk-yelan-furina-escoffier
-name_ko: 스커크 / 야란 / 푸리나 / 에스코피에
+name: Skirk / Yelan / Furina / Escoffier
 members: [skirk, yelan, furina, escoffier]
-archetype: 얼음 하이퍼캐리
+archetype: Cryo hypercarry
 status: supported        # supported | draft | blocked
 rotation_version: 1
-gcsim_commit: 2350be9    # 검증할 때 쓴 gcsim 버전
+gcsim_commit: 2350be9    # gcsim version used for validation
 sources:
-  - <참고한 커뮤니티 설정·계산 링크>
+  - <links to referenced community configs/calcs>
 notes: ""
 ```
 
-### 5.2 로테이션 작성 규칙
+### 5.2 Rotation authoring rules
 
-- 첫 사이클(오프너) 다음에는 **같은 사이클이 반복되도록** 작성한다. 정상 상태 DPS의 전제 조건이다.
-- 유저 빌드와 상관없이 하나의 로테이션을 쓴다.
-  - 원소 충전이 부족해서 행동을 못 하면 gcsim의 대기·지연 동작에 맡긴다. 지연은 경고로 표시한다.
-- 해당 파티의 "최적에 가까운 표준"을 목표로 한다. 로테이션의 질이 파티마다 다르면 그게 곧 불공정이다.
+- After the first cycle (opener), **the same cycle must repeat**. This is a precondition for steady-state DPS.
+- One rotation is used regardless of the user's build.
+  - If an action can't be performed due to insufficient ER, rely on gcsim's wait/delay behavior and surface the delay as a warning.
+- Aim for a near-optimal standard rotation for the team. Uneven rotation quality across teams is itself unfairness.
 
-### 5.3 추가 절차 (반자동)
+### 5.3 Addition workflow (semi-automated)
 
-| 단계 | 방식 | 내용 |
+| Step | Mode | Description |
 |---|---|---|
-| 1. 후보 선정 | 자동 | 미지원 요청을 4인 조합별로 집계해서 우선순위 목록을 만든다 |
-| 2. 초안 | 반자동 | gcsim 커뮤니티에 공유된 같은 조합의 설정을 가져와서 무한 사이클 형태로 다듬는다 |
-| 3. 검증 | 자동 | 아래 항목을 확인한다 |
-| 4. 승인 | 수동 | PR 리뷰를 거쳐 `status: supported`로 바꾼다 |
-| 5. 회귀 테스트 | 자동 | gcsim 업데이트나 게임 패치 때 전체를 다시 실행한다. DPS 변동이 ±N%를 넘으면 재점검 표시 |
+| 1. Candidate selection | Automated | Tally "unsupported" requests per 4-character set into a priority list |
+| 2. Draft | Semi-automated | Import shared gcsim community configs for the same set and refine them into infinite-cycle form |
+| 3. Validation | Automated | Check the items below |
+| 4. Approval | Manual | After PR review, set `status: supported` |
+| 5. Regression tests | Automated | Re-run everything on gcsim updates or game patches; flag teams whose DPS shifts more than ±N% for review |
 
-3단계 자동 검증 항목:
-- 사이클이 실제로 반복되는가 (사이클별 피해의 편차)
-- 기준 빌드에서 행동 실패나 원소폭발 지연이 없는가
-- 결과가 `reference.yaml`의 기대 범위 안에 있는가 (KQM 등 공개 계산과 비교)
+Step 3 automated checks:
+- The cycle actually repeats (variance of per-cycle damage)
+- No failed actions or burst delays with the reference build
+- The result falls within the expected range in `reference.yaml` (compared against public calcs such as KQM)
 
-## 6. 초기 라이브러리
+## 6. Initial Library
 
-### 6.1 테스트용 파티 (최우선)
+### 6.1 Test teams (top priority)
 
-| 파티 | 유형 | gcsim 지원 | 상태 |
+| Team | Archetype | gcsim support | Status |
 |---|---|---|---|
-| 스커크 / 야란 / 푸리나 / 에스코피에 | 얼음 하이퍼캐리 | ✅ 4명 모두 지원 | 첫 구현 대상 |
-| 베스나 / 보다니차 / 얼음 여행자 / 파루잔 | 바람 (얼음 확산 → 항성 확산) | ❌ 베스나, 보다니차 미지원 | `blocked` |
+| Skirk / Yelan / Furina / Escoffier | Cryo hypercarry | ✅ All 4 supported | First implementation target |
+| Vesna / Vodyanitsa / Cryo Traveler / Faruzan | Anemo (Cryo Swirl → Stellar Swirl) | ❌ Vesna and Vodyanitsa unsupported | `blocked` |
 
-**베스나 파티 상태 (2026-10-26 확인)**
-- gcsim `main` 최신 커밋(`2350be9`, 2026-10-23) 기준으로, 얼음 여행자(`travelercryo`)와 파루잔은 구현되어 있다. 베스나(Vesna)와 보다니차(Vodyanitsa)는 캐릭터 목록에 없다.
-- 두 캐릭터는 7.1(2026-09-23)에 출시됐다. 베스나는 얼음 확산을 "항성 확산(Stellar Swirl)"으로 바꾸는 새 메커니즘을 갖고 있어서, 캐릭터만이 아니라 반응 처리까지 엔진에 추가되어야 할 수 있다.
-- 선택지:
-  1. **gcsim 업스트림 반영을 기다린다** (권장). 테스트는 스커크 파티로 먼저 진행한다.
-  2. 직접 구현해서 gcsim에 기여한다. 프레임 데이터와 계수 검증이 필요해서 작업량이 크다.
-- 이 파티는 "엔진이 아직 지원하지 않는 파티"를 처리하는 흐름의 첫 테스트 케이스로도 쓴다. 매칭은 되지만 `blocked`로 안내하는 경우다.
+**Vesna team status (checked 2026-10-26)**
+- As of the latest gcsim `main` commit (`2350be9`, 2026-10-23), the Cryo Traveler (`travelercryo`) and Faruzan are implemented. Vesna and Vodyanitsa are not in the character list.
+- Both characters were released in 7.1 (2026-09-23). Vesna has a new mechanic that converts Cryo Swirl into "Stellar Swirl", so the engine may need new reaction handling, not just new characters.
+- Options:
+  1. **Wait for upstream gcsim support** (recommended). Start testing with the Skirk team.
+  2. Implement it ourselves and contribute to gcsim. Requires frame data and multiplier validation; substantial work.
+- This team also serves as the first test case for "teams the engine does not support yet": matched, but reported as `blocked`.
 
-### 6.2 1차 라이브러리 (8개)
+### 6.2 First library batch (8 teams)
 
-모든 캐릭터가 gcsim에서 지원되는 것을 확인했다 (커밋 `2350be9`).
+All characters confirmed supported in gcsim (commit `2350be9`).
 
-| # | 파티 | 반응 / 유형 |
+| # | Team | Reaction / archetype |
 |---|---|---|
-| 1 | 느비예트 / 푸리나 / 카즈하 / 종려 | 물 하이퍼캐리 |
-| 2 | 나히다 / 라이덴 / 행추 / 시노부 | 만개 (하이퍼블룸) |
-| 3 | 티나리 / 나히다 / 야에 / 종려 | 발산 / 촉진 |
-| 4 | 클로린드 / 나히다 / 피슬 / 종려 | 촉진 |
-| 5 | 마비카 / 시틀라리 / 실로닌 / 베넷 | 불 하이퍼캐리 / 과부하 |
-| 6 | 아를레키노 / 야란 / 베넷 / 카즈하 | 증발 |
-| 7 | 아야카 / 신학 / 카즈하 / 코코미 | 빙결 |
-| 8 | 라이덴 / 향릉 / 행추 / 베넷 (국가대표) | 과부하 / 증발 혼합. 엔진 검증의 기준점 |
+| 1 | Neuvillette / Furina / Kazuha / Zhongli | Hydro hypercarry |
+| 2 | Nahida / Raiden / Xingqiu / Kuki Shinobu | Hyperbloom |
+| 3 | Tighnari / Nahida / Yae Miko / Zhongli | Spread / Aggravate |
+| 4 | Clorinde / Nahida / Fischl / Zhongli | Aggravate |
+| 5 | Mavuika / Citlali / Xilonen / Bennett | Pyro hypercarry / Overloaded |
+| 6 | Arlecchino / Yelan / Bennett / Kazuha | Vaporize |
+| 7 | Ayaka / Shenhe / Kazuha / Kokomi | Freeze |
+| 8 | Raiden / Xiangling / Xingqiu / Bennett (Raiden National) | Overloaded / Vaporize mix. Baseline for engine validation |
 
-### 6.3 2차 (이후)
+### 6.3 Second batch (later)
 
-- 6.x~7.x 신규 캐릭터 파티를 추가한다. 사용률 통계(YShelper, Teyvat Assistant 등)와 gcsim 지원 여부를 확인한 뒤 선정한다.
-- §5.3의 미지원 요청 집계 순위를 반영한다.
+- Add teams with 6.x–7.x characters. Select them after checking usage stats (YShelper, Teyvat Assistant, etc.) and gcsim support.
+- Factor in the ranking from the "unsupported" request tally in §5.3.
 
-## 7. 정확도와 한계
+## 7. Accuracy and Limitations
 
-- 같은 로테이션 기준으로 gcsim은 실제 게임과 대체로 수 % 이내로 맞는다.
-- 오차는 주로 다음에서 생긴다.
-  - 로테이션이 그 파티에 최적이 아님
-  - 신규 캐릭터의 구현 오류
-- **신규 캐릭터 지연**: gcsim이 지원하기 전까지 해당 파티는 `blocked`다.
-  - 베스나와 보다니차는 출시 후 한 달이 넘었는데도 아직 미지원이다.
-  - 출시 직후 메타 파티를 바로 지원하지 못하는 것은 구조적인 한계다.
-- **로테이션 고정의 한계**: 빌드에 따라 최적 로테이션이 달라지는 경우가 있다 (예: 원소 충전이 높으면 더 공격적인 사이클이 가능). 초기에는 무시하고 표준 로테이션 하나만 쓴다.
+- With the same rotation, gcsim generally matches the actual game within a few percent.
+- Error mostly comes from:
+  - A rotation that is not optimal for the team
+  - Implementation errors for new characters
+- **New character lag**: until gcsim supports a character, teams using it are `blocked`.
+  - Vesna and Vodyanitsa are still unsupported more than a month after release.
+  - Not supporting new meta teams right at launch is a structural limitation.
+- **Fixed rotation limits**: the optimal rotation can vary with the build (e.g. high ER enables a more aggressive cycle). Initially we ignore this and use one standard rotation.
 
-## 8. 리스크
+## 8. Risks
 
-| 리스크 | 영향 | 대응 |
+| Risk | Impact | Mitigation |
 |---|---|---|
-| gcsim 신규 캐릭터 반영 지연 | 최신 메타 파티 미지원 | `blocked` 상태로 안내, 업스트림 추적, 필요하면 기여 |
-| Enka API 변경 / 차단 | 입력 불가 | 캐시, GOOD JSON 대체 경로 |
-| 로테이션 품질 편차 | 공정성 훼손 | 자동 검증 + 공개 계산과 대조 + PR 리뷰 |
-| 게임 패치로 수치 변경 | 과거 점수와 비교 불가 | 결과에 gcsim 버전과 로테이션 버전을 기록, 시즌 개념 검토 |
-| 시뮬레이션 비용 | 서버 부하 | 빌드 해시 캐시, 반복 횟수 조정 |
+| gcsim lags on new characters | Latest meta teams unsupported | Report as `blocked`, track upstream, contribute if needed |
+| Enka API changes / blocking | No input | Caching, GOOD JSON fallback |
+| Uneven rotation quality | Fairness compromised | Automated validation + cross-checks with public calcs + PR review |
+| Game patches change numbers | Old scores not comparable | Record gcsim and rotation versions with results; consider seasons |
+| Simulation cost | Server load | Build-hash cache, tune iteration count |
 
-## 9. 미결정 사항
+## 9. Open Questions
 
-- [ ] 실행 위치: 서버에서 Go로 실행 vs 브라우저에서 WASM으로 실행 (대결 기록과 랭킹이 필요하면 서버 쪽이 유리)
-- [ ] 반복 횟수와 T1/T2 값 (§3.1 검증 후)
-- [ ] 적 원소 입자 드롭 포함 여부
-  - gcsim 커뮤니티 설정에서는 `energy every` 같은 설정을 흔히 넣는다.
-  - 원소 충전 요구치에 직접 영향을 주므로 라이브러리 전체에 같은 값을 적용해야 한다.
-- [ ] 다수 대상 리그, 단기전 리그 등 추가 룰셋을 지원할지 (지금은 범위 밖)
-- [ ] 결과 공유 방식 (대결 카드 이미지, 링크 등)
+- [ ] Where to run: server-side in Go vs. in-browser via WASM (server-side is better if we need match history and rankings)
+- [ ] Iteration count and T1/T2 values (after the §3.1 verification)
+- [ ] Whether to include enemy energy particle drops
+  - Community gcsim configs commonly include settings like `energy every`.
+  - It directly affects ER requirements, so the same value must apply across the whole library.
+- [ ] Whether to support additional rulesets such as an AoE league or a short-fight league (out of scope for now)
+- [ ] How to share results (versus card image, link, etc.)
 
-## 10. 다음 단계
+## 10. Next Steps
 
-1. gcsim 실행 프로토타입: 스커크 / 야란 / 푸리나 / 에스코피에 파티를 하드코딩한 빌드로 T1/T2 차분 점수를 계산한다.
-2. Enka UID → gcsim 설정 변환기
-3. 라이브러리 포맷과 자동 검증 스크립트
-4. 1차 라이브러리 8개 작성
-5. 대결 화면
+1. gcsim execution prototype: compute the T1/T2 difference score for Skirk / Yelan / Furina / Escoffier with a hardcoded build.
+2. Enka UID → gcsim config converter
+3. Library format and automated validation script
+4. Author the 8 teams of the first library batch
+5. Versus view
