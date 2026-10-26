@@ -58,7 +58,7 @@ ul { padding-left: 20px; margin: 8px 0; }
 {{end}}
 
 {{define "foot"}}
-<p class="muted">조건: Lv.100 적 1명, 모든 내성 10%, 로테이션을 무한 반복한 평균 DPS(원소 충전 효율 부족이 반영됩니다). 로테이션은 커뮤니티 gcsim 설정에서 가져옵니다. 시뮬레이션: <a href="https://github.com/genshinsim/gcsim">gcsim</a> · 캐릭터 정보: <a href="https://enka.network">Enka.Network</a></p>
+<p class="muted">조건: Lv.100 적 1명, 모든 내성 10%, 로테이션을 무한 반복한 평균 DPS(원소 충전 효율 부족이 반영됩니다). 에너지나 쿨타임 때문에 서서 기다리게 되면, 그 시간을 원소전투 스킬·교체·평타로 채운 경우와 비교해 높은 쪽을 씁니다. 로테이션은 커뮤니티 gcsim 설정에서 가져옵니다. 시뮬레이션: <a href="https://github.com/genshinsim/gcsim">gcsim</a> · 캐릭터 정보: <a href="https://enka.network">Enka.Network</a></p>
 </main>
 </body>
 </html>
@@ -73,6 +73,7 @@ ul { padding-left: 20px; margin: 8px 0; }
 <div class="score">{{thousands .Result.DPS}} <span class="muted">DPS</span></div>
 <p class="muted">±{{thousands .Result.StdErr}} (표준오차) · {{.Team.Archetype}}</p>
 {{with .OneRotation}}<p class="muted">로테이션 1회(에너지 가득, 커뮤니티 gcsim 기준): {{thousands .DPS}} DPS</p>{{end}}
+{{with .Filler}}<p class="muted">{{.}}</p>{{end}}
 {{range .Warnings}}<div class="warn">{{.}}</div>{{end}}
 <div class="table-wrap">
 <table>

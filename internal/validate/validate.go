@@ -17,6 +17,7 @@ import (
 	"github.com/cenoda/gscouter/internal/config"
 	"github.com/cenoda/gscouter/internal/library"
 	"github.com/cenoda/gscouter/internal/score"
+	"github.com/cenoda/gscouter/internal/steady"
 )
 
 // Thresholds. A failure means the team must not be served; a warning
@@ -44,7 +45,8 @@ type Report struct {
 	Team     *library.Team
 	Once     *score.Result // one pass, compared with the source
 	Res      *score.Result // looped, the score
-	Cfg      string        // the looped config
+	Cfg      string        // the looped config of the score
+	Filler   string        // how the score fills waits, "" if it doesn't
 	Skipped  string
 	Failures []string
 	Warnings []string
@@ -121,17 +123,23 @@ func check(dir string, s Settings) *Report {
 		r.Warnings = append(r.Warnings, "no reference DPS to compare with")
 	}
 
-	looped, err := config.Loop(team.Rotation)
-	if err != nil {
-		r.Failures = append(r.Failures, err.Error())
-		return r
-	}
-	r.Cfg = config.Assemble(config.Conditions{Iterations: s.Iterations, Duration: s.Duration}, build, looped)
-	res, err := score.Run(context.Background(), r.Cfg, score.Options{Iterations: s.Iterations, Warmup: s.Warmup, Seed: 1})
+	out, err := steady.Score(team.Rotation, team.Members, func(looped string) (*score.Result, error) {
+		cfg := config.Assemble(config.Conditions{Iterations: s.Iterations, Duration: s.Duration}, build, looped)
+		res, err := score.Run(context.Background(), cfg, score.Options{Iterations: s.Iterations, Warmup: s.Warmup, Seed: 1})
+		if err == nil {
+			// The last run is not necessarily the best; keep the best's config.
+			if r.Res == nil || res.DPS > r.Res.DPS {
+				r.Res, r.Cfg = res, cfg
+			}
+		}
+		return res, err
+	})
 	if err != nil {
 		r.Failures = append(r.Failures, "looped simulation: "+err.Error())
 		return r
 	}
+	res := out.Result
+	r.Filler = out.String()
 	r.Res = res
 	for _, c := range res.Characters {
 		switch {

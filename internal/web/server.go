@@ -3,6 +3,7 @@
 package web
 
 import (
+	"cmp"
 	"context"
 	"crypto/sha256"
 	"embed"
@@ -21,6 +22,7 @@ import (
 	"github.com/cenoda/gscouter/internal/enka"
 	"github.com/cenoda/gscouter/internal/library"
 	"github.com/cenoda/gscouter/internal/score"
+	"github.com/cenoda/gscouter/internal/steady"
 )
 
 //go:embed templates/*.html
@@ -142,7 +144,10 @@ type teamResult struct {
 	// OneRotation is a single pass from full energy, the number community
 	// gcsim configs report.
 	OneRotation *score.Result
-	Warnings    []string
+	// Filler says how the score fills time the rotation would stand
+	// still, "" when it doesn't.
+	Filler   string
+	Warnings []string
 	// Problem explains why there is no score: unsupported team, blocked
 	// team, Enka error, and so on.
 	Problem string
@@ -190,16 +195,20 @@ func (s *Server) evaluate(ctx context.Context, sel selection) teamResult {
 		build.WriteString("\n")
 	}
 	rotation := config.RenameCharacters(tr.Team.Rotation, renames)
-	looped, err := config.Loop(rotation)
-	if err != nil {
-		slog.Error("library rotation", "team", tr.Team.ID, "err", err)
-		tr.Problem = "계산 중 오류가 발생했습니다."
-		return tr
+	var members []string
+	for _, m := range tr.Team.Members {
+		members = append(members, cmp.Or(renames[m], m))
 	}
-	cfg := config.Assemble(config.Conditions{Iterations: s.settings.Iterations, Duration: s.settings.Duration}, build.String(), looped)
 	once := config.Assemble(config.Conditions{Iterations: s.settings.Iterations}, build.String(), rotation)
 
-	res, err := s.score(ctx, cfg, s.settings.Warmup)
+	out, err := steady.Score(rotation, members, func(looped string) (*score.Result, error) {
+		cfg := config.Assemble(config.Conditions{Iterations: s.settings.Iterations, Duration: s.settings.Duration}, build.String(), looped)
+		res, err := s.score(ctx, cfg, s.settings.Warmup)
+		if errors.Is(err, errBusy) {
+			return nil, steady.Fatal(err)
+		}
+		return res, err
+	})
 	var oneRes *score.Result
 	if err == nil {
 		oneRes, err = s.score(ctx, once, 0)
@@ -213,6 +222,8 @@ func (s *Server) evaluate(ctx context.Context, sel selection) teamResult {
 		}
 		return tr
 	}
+	res := out.Result
+	tr.Filler = fillerNote(out)
 	tr.Result = res
 	tr.OneRotation = oneRes
 	tr.Warnings = warnings(tr.Team, res)
@@ -291,4 +302,23 @@ func sorted(s []string) []string {
 	out := slices.Clone(s)
 	slices.Sort(out)
 	return out
+}
+
+// fillerNote explains in Korean how the score fills the rotation's waits.
+func fillerNote(o *steady.Outcome) string {
+	if !o.Filled {
+		return ""
+	}
+	var parts []string
+	if len(o.Energy) > 0 {
+		how := "자기 원소전투 스킬이나 평타"
+		if o.How == config.FillParty {
+			how = "원소전투 스킬(쿨타임이면 다른 파티원으로 교체해 스킬을 쓰고 바로 복귀)이나 평타"
+		}
+		parts = append(parts, fmt.Sprintf("%s의 원소폭발 에너지가 모자라 기다리는 동안 %s로 채웠습니다", strings.Join(o.Energy, ", "), how))
+	}
+	if len(o.Skill) > 0 {
+		parts = append(parts, fmt.Sprintf("%s의 원소전투 스킬 쿨타임을 기다리는 동안 평타로 채웠습니다", strings.Join(o.Skill, ", ")))
+	}
+	return "반복 로테이션에서 " + strings.Join(parts, ". ") + "."
 }

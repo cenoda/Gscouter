@@ -273,10 +273,18 @@ The first batch holds the 64 teams with the most entries in the community databa
 - [ ] Enemy energy particle drops
   - The prototype uses `energy every interval=480,720 amount=1`, as many community gcsim configs do.
   - This directly affects ER requirements, so the same value must apply across the whole library. Confirm before the first library batch.
-- [ ] What a character does when its burst lacks energy in the looped rotation
-  - gcsim waits until the burst is ready. A rotation that spends more energy than it gains lives off its starting energy, then stalls; the stall also stops particle generation.
-  - Of the 64 harvested teams, 46 lose 5% or less when looped, 12 lose 5–20%, and 6 lose more. Flins / Ineffa / Aino / Sucrose falls from 111k (one pass) to 31k.
-  - Skipping unready bursts instead keeps that team at 108k, but drops Mavuika / Kaeya / Xilonen / Bennett from 91k to 36k, since Mavuika's damage needs her burst. Neither rule fits every team.
+- [x] What a character does when the looped rotation makes it stand still (internal/steady, config.Fill)
+  - gcsim makes a character wait until its burst has the energy or its skill is off cooldown. A rotation that spends more energy than it gains lives off its starting energy, then stalls; the stall also stops particle generation (Flins / Ineffa / Aino / Sucrose: 111k one pass, 31k looped).
+  - A player fills that time. The score therefore runs the looped rotation as written first. If a character waits 1 s/min or more for energy or for its skill, it runs the rotation again in two variants and keeps the best of all runs:
+    - **own skill**: before each burst of a character short of energy, the character uses its skill when ready, otherwise attacks, until the burst is ready (at most 20 actions);
+    - **party skills**: as above, but when its skill is on cooldown, another member whose skill is ready swaps in and uses it, and the character's next action swaps back to catch the particles.
+  - In both variants a character waiting for its skill's cooldown attacks meanwhile (at most 30 attacks).
+  - Filling every burst hurt teams that wait on purpose (Skirk / Furina / Mona / Escoffier went from −2% to −79%). That is why only characters that stood still are filled, and why the unfilled run stays a candidate.
+  - With fillers, 46 of 64 teams stay within 5% of one pass, 15 lose 5–20%, and 3 lose more:
+    - Kazuha C6 plunge −40%;
+    - Gaming −26%, where filling scored lower than waiting;
+    - Arlecchino / Furina / Kazuha / Bennett −21%.
+  - Scoring a team that stood still costs up to three simulations instead of one.
 - [ ] Whether to support additional rulesets such as an AoE league or a short-fight league (out of scope for now)
 - [ ] How to share results (versus card image, link, etc.)
 

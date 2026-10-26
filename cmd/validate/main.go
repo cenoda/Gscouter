@@ -91,6 +91,9 @@ func printReport(r *validate.Report, verbose bool) {
 	} else {
 		fmt.Printf("%-4s %s\n", verdict, name)
 	}
+	if r.Filler != "" {
+		fmt.Printf("       filled: %s\n", r.Filler)
+	}
 	if r.Skipped != "" {
 		fmt.Printf("       %s\n", r.Skipped)
 	}
