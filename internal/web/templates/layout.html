@@ -197,6 +197,11 @@ details.rotation pre { background: var(--bg); border-radius: 8px; padding: 12px;
 .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--text); color: var(--card);
   padding: 8px 14px; border-radius: 8px; font-size: .9rem; opacity: 0; transition: opacity .2s; pointer-events: none; }
 .toast.show { opacity: 1; }
+.busy { position: fixed; inset: 0; z-index: 20; display: none; place-items: center; background: rgba(0,0,0,.35); }
+.busy.show { display: grid; }
+.busy div { background: var(--card); color: var(--text); border-radius: 12px; padding: 18px 22px; display: flex; gap: 12px; align-items: center; max-width: calc(100% - 32px); }
+.busy i { width: 22px; height: 22px; flex: none; border: 3px solid var(--accent-soft); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -229,7 +234,7 @@ details.rotation pre { background: var(--bg); border-radius: 8px; padding: 12px;
 </header>
 {{end}}
 
-{{define "el"}}{{if .}}<svg class="el el-{{.}}" role="img" aria-label="{{.}}"><use href="#el-{{.}}"/></svg>{{end}}{{end}}
+{{define "el"}}{{if .}}<svg class="el el-{{.}}" aria-hidden="true"><use href="#el-{{.}}"/></svg>{{end}}{{end}}
 
 {{define "face"}}{{with face .}}<img class="face" src="{{.}}" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer">{{end}}{{end}}
 
@@ -250,7 +255,25 @@ details.rotation pre { background: var(--bg); border-radius: 8px; padding: 12px;
 </main>
 <div class="toast" id="toast" role="status"></div>
 <div class="tip" id="tip" role="tooltip"></div>
+<div class="busy" id="busy" role="status" aria-live="polite"><div><i></i><span>{{t "js.calculating"}}</span></div></div>
 <script>
+// Scores are calculated while the page loads, which can take a while:
+// say so instead of leaving the old page up with no sign of progress.
+(function () {
+  var busy = document.getElementById("busy");
+  function calculates(path) { return path === "/score" || path === "/versus"; }
+  document.addEventListener("submit", function (e) {
+    if (!e.defaultPrevented && calculates(new URL(e.target.action, location.href).pathname)) busy.classList.add("show");
+  });
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a[href]");
+    if (!a || e.defaultPrevented || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || a.target) return;
+    var u = new URL(a.href, location.href);
+    if (u.origin === location.origin && calculates(u.pathname)) busy.classList.add("show");
+  });
+  // Coming back with the back button restores the page as it was left.
+  addEventListener("pageshow", function () { busy.classList.remove("show"); });
+})();
 // Tooltips for chart marks: hover with a mouse, tap on touch screens.
 (function () {
   var tip = document.getElementById("tip"), current = null;

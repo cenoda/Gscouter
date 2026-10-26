@@ -111,6 +111,8 @@ func TestIndexSuggestsTeams(t *testing.T) {
 		t.Fatalf("status %d", code)
 	}
 	mustContain(t, body, "Strong", "바로 계산할 수 있는 파티", "호두 / 행추 / 종려 / 야란", "엠버", "호마의 지팡이")
+	// The picker only submits four that form a suggested team.
+	mustContain(t, body, `["hutao,xingqiu,yelan,zhongli"]`, "라이브러리에 있는 파티가 아니어서")
 }
 
 func TestTeamsFilter(t *testing.T) {

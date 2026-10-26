@@ -35,7 +35,7 @@
 {{end}}
 </ul>
 {{else}}
-<p class="muted">{{t "index.no_suggested"}}</p>
+<p class="muted">{{t "index.no_suggested"}} <a href="/teams">{{t "index.find"}}</a></p>
 {{end}}
 <h3>{{t "index.pick"}}</h3>
 <form action="{{if $.VS}}/versus{{else}}/score{{end}}" method="get" id="picker">
@@ -51,6 +51,7 @@
 <button type="button" class="secondary" id="pick-clear">{{t "index.clear"}}</button>
 <span class="muted count" id="pick-count">{{t "index.picked" 0}}</span>
 </div>
+<div class="warn" id="pick-unsupported" hidden>{{t "index.pick_unsupported"}}</div>
 </form>
 {{range .Skipped}}<p class="muted">{{t "index.skipped" .AvatarID .Reason}}</p>{{end}}
 </div>
@@ -84,11 +85,17 @@
   if (!form) return;
   var boxes = form.querySelectorAll("input[name=c]");
   var submit = document.getElementById("pick-submit"), count = document.getElementById("pick-count");
-  var picked = {{t "index.picked"}};
+  var picked = {{t "index.picked"}}, unsupported = document.getElementById("pick-unsupported");
+  // Every library team the showcase can build is suggested above, so four
+  // picks that are not one of them cannot be calculated.
+  var buildable = {{.Buildable}} || [];
   function update() {
-    var n = form.querySelectorAll("input[name=c]:checked").length;
+    var checked = form.querySelectorAll("input[name=c]:checked"), n = checked.length;
+    var keys = Array.prototype.map.call(checked, function (b) { return b.value; }).sort().join(",");
+    var ok = n === 4 && buildable.indexOf(keys) >= 0;
     boxes.forEach(function (b) { b.disabled = !b.checked && n >= 4; });
-    submit.disabled = n !== 4;
+    submit.disabled = !ok;
+    unsupported.hidden = n !== 4 || ok;
     count.textContent = picked.replace("%d", n);
   }
   boxes.forEach(function (b) { b.addEventListener("change", update); });

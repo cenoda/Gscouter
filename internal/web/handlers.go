@@ -157,6 +157,9 @@ type indexData struct {
 	Profile   *enka.Profile
 	Problem   string
 	Suggested []suggestion
+	// Buildable lists the suggestions' characters, sorted and joined by
+	// commas, so the picker can tell when four picks are not a team.
+	Buildable []string
 	TeamCount int
 }
 
@@ -177,6 +180,9 @@ func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 		} else {
 			data.Profile = p
 			data.Suggested = s.suggest(p)
+			for _, sg := range data.Suggested {
+				data.Buildable = append(data.Buildable, strings.Join(sorted(sg.Selection.Chars), ","))
+			}
 		}
 	}
 	s.render(w, l, "index.html", data)
