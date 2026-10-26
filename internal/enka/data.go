@@ -19,6 +19,7 @@ type charData struct {
 	SubID        int    `json:"sub_id"`
 	Key          string `json:"key"`
 	Element      string `json:"element"`
+	IconName     string `json:"icon_name"`
 	SkillDetails struct {
 		Attack int `json:"attack"`
 		Skill  int `json:"skill"`

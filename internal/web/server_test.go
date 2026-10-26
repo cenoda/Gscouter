@@ -118,7 +118,7 @@ func TestScoreFromPicker(t *testing.T) {
 	if code != http.StatusOK {
 		t.Fatalf("status %d: %s", code, body)
 	}
-	mustContain(t, body, "DPS", "hutao", "staffofhoma", "검증 전")
+	mustContain(t, body, "DPS", "hutao", "staffofhoma", "검증 전", "https://enka.network/ui/UI_AvatarIcon_Hutao.png")
 }
 
 func TestScoreUnsupportedTeam(t *testing.T) {

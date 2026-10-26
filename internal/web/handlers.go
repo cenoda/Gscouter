@@ -44,6 +44,14 @@ var funcs = template.FuncMap{
 	},
 	"neg":     func(v float64) float64 { return -v },
 	"element": element,
+	"face":    face,
+	"keys": func(chars []enka.Character) []string {
+		out := make([]string, len(chars))
+		for i, c := range chars {
+			out[i] = c.Key
+		}
+		return out
+	},
 	// members lists a team's member names and canonical names, for search.
 	"members": func(t *library.Team) string { return strings.Join(searchNames(t), " ") },
 }
@@ -64,6 +72,27 @@ func element(name string) string {
 	}
 	elementCache.Store(key, e)
 	return e
+}
+
+var faceCache sync.Map // name -> icon URL
+
+// face returns the URL of a character's face icon, or "". The Traveler
+// of a library team ("travelercryo") is shown as Aether.
+func face(name string) string {
+	if v, ok := faceCache.Load(name); ok {
+		return v.(string)
+	}
+	key := strings.ToLower(name)
+	u := enka.IconURL(key)
+	if u == "" {
+		key = library.Canonical(name)
+		if elem, ok := strings.CutPrefix(key, "traveler"); ok {
+			key = "aether" + elem
+		}
+		u = enka.IconURL(key)
+	}
+	faceCache.Store(name, u)
+	return u
 }
 
 func searchNames(t *library.Team) []string {

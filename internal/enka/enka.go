@@ -66,16 +66,33 @@ var elements = map[string]string{
 // Element returns the element of a character by gcsim key ("pyro",
 // "hydro", ...), or "" if the key is unknown.
 func Element(key string) string {
+	if c, ok := lookup(key); ok {
+		return elements[c.Element]
+	}
+	return ""
+}
+
+// IconURL returns the URL of a character's face icon on Enka.Network by
+// gcsim key, or "" if the key is unknown. The images are HoYoverse's;
+// Enka serves them for tools built on its API.
+func IconURL(key string) string {
+	if c, ok := lookup(key); ok && c.IconName != "" {
+		return "https://enka.network/ui/" + c.IconName + ".png"
+	}
+	return ""
+}
+
+func lookup(key string) (charData, bool) {
 	dataOnce.Do(func() { data, dataErr = loadGameData() })
 	if dataErr != nil {
-		return ""
+		return charData{}, false
 	}
 	for _, c := range data.chars {
 		if c.Key == key {
-			return elements[c.Element]
+			return c, true
 		}
 	}
-	return ""
+	return charData{}, false
 }
 
 // Parse converts an Enka /api/uid/<uid> response.

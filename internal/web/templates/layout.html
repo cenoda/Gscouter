@@ -50,6 +50,12 @@ button.secondary, .button.secondary { background: var(--accent-soft); color: var
 .el { width: 18px; height: 18px; flex: none; vertical-align: -3px; }
 .el-pyro { color: var(--pyro); } .el-hydro { color: var(--hydro); } .el-anemo { color: var(--anemo); }
 .el-electro { color: var(--electro); } .el-dendro { color: var(--dendro); } .el-cryo { color: var(--cryo); } .el-geo { color: var(--geo); }
+.face { width: 40px; height: 40px; border-radius: 50%; background: var(--accent-soft); object-fit: cover; flex: none; }
+.faces { display: inline-flex; flex: none; }
+.faces .face { width: 36px; height: 36px; border: 2px solid var(--card); }
+.faces .face + .face { margin-left: -8px; }
+.team-head .faces .face { width: 48px; height: 48px; }
+.team-head .faces .face + .face { margin-left: -10px; }
 .members { display: inline-flex; gap: 2px; vertical-align: -3px; }
 .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0 4px; padding: 0; list-style: none; }
 .steps li { display: flex; gap: 8px; align-items: center; font-size: .9rem; color: var(--muted); }
@@ -67,14 +73,17 @@ button.secondary, .button.secondary { background: var(--accent-soft); color: var
   border: 1px solid var(--line); border-radius: 8px; cursor: pointer; }
 .chars label:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
 .chars label:has(input:disabled) { opacity: .5; cursor: default; }
+.chars label > span { min-width: 0; overflow-wrap: anywhere; }
 .chars .name { display: flex; gap: 6px; align-items: center; font-weight: 600; }
 .score { font-size: 2.4rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.team-head { display: flex; flex-direction: column; gap: 8px; }
 .team-title { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 table { width: 100%; border-collapse: collapse; font-size: .95rem; }
 th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); }
 th { color: var(--muted); font-weight: 500; }
 td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
-td .who + .muted { display: block; font-size: .8rem; }
+td .who + .muted { display: block; font-size: .8rem; margin-left: 46px; }
+td .who .face { width: 40px; height: 40px; }
 td.num .bar { min-width: 64px; }
 td .who { display: flex; gap: 6px; align-items: center; font-weight: 600; }
 .bar { display: block; height: 6px; border-radius: 3px; background: var(--line); margin-top: 4px; overflow: hidden; }
@@ -125,6 +134,10 @@ footer p { margin: 6px 0; }
 
 {{define "el"}}{{if .}}<svg class="el el-{{.}}" role="img" aria-label="{{.}}"><use href="#el-{{.}}"/></svg>{{end}}{{end}}
 
+{{define "face"}}{{with face .}}<img class="face" src="{{.}}" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer">{{end}}{{end}}
+
+{{define "faces"}}<span class="faces">{{range .}}{{template "face" .}}{{end}}</span>{{end}}
+
 {{define "members"}}<span class="members">{{range .}}{{template "el" (element .)}}{{end}}</span>{{end}}
 
 {{define "foot"}}
@@ -135,7 +148,7 @@ footer p { margin: 6px 0; }
 <p>에너지나 쿨타임 때문에 캐릭터가 서서 기다리게 되면, 그 시간을 원소전투 스킬·교체·평타로 채운 경우와 비교해 높은 쪽을 씁니다. "로테이션 1회"는 에너지가 가득한 상태에서 한 번 돌린 값으로, 커뮤니티 gcsim 설정이 보고하는 숫자와 같은 기준입니다.</p>
 </details>
 <p class="muted">시뮬레이션 <a href="https://github.com/genshinsim/gcsim">gcsim</a> · 로테이션 <a href="https://db.kqm.gg">KQM gcsim DB</a> · 캐릭터 정보 <a href="https://enka.network">Enka.Network</a></p>
-<p class="muted">Gscouter는 비공식 팬 프로젝트로 HoYoverse와 관련이 없습니다. 원신 및 관련 명칭은 HoYoverse의 상표입니다.</p>
+<p class="muted">Gscouter는 광고·후원 없이 운영하는 비영리 비공식 팬 프로젝트로 HoYoverse와 관련이 없습니다. 원신 및 관련 명칭은 HoYoverse의 상표이며, 캐릭터 이미지는 © HoYoverse로 <a href="https://enka.network">Enka.Network</a>에서 불러옵니다.</p>
 </footer>
 </main>
 <div class="toast" id="toast" role="status"></div>
@@ -161,7 +174,7 @@ function copyLink(btn) {
 
 {{define "team"}}
 {{if .Nickname}}<p class="muted">{{.Nickname}} · UID {{.Selection.UID}}</p>{{else}}<p class="muted">UID {{.Selection.UID}}</p>{{end}}
-{{if .Team}}<h2 class="team-title">{{template "members" .Team.Members}} {{.Team.Name}}</h2>{{end}}
+{{if .Team}}<div class="team-head">{{if .Chars}}{{template "faces" (keys .Chars)}}{{end}}<h2 class="team-title">{{template "members" .Team.Members}} {{.Team.Name}}</h2></div>{{end}}
 {{if .Problem}}
 <div class="bad">{{.Problem}}</div>
 {{else}}
@@ -176,7 +189,7 @@ function copyLink(btn) {
 <tbody>
 {{range $i, $c := .Result.Characters}}{{$e := index $.Chars $i}}
 <tr>
-<td><span class="who">{{template "el" (element $c.Name)}}{{$c.Name}}</span><span class="muted">Lv.{{$e.Level}} C{{$e.Cons}} · {{$e.Weapon.Key}} R{{$e.Weapon.Refine}} · 특성 {{index $e.Talents 0}}/{{index $e.Talents 1}}/{{index $e.Talents 2}}</span></td>
+<td><span class="who">{{template "face" $c.Name}}{{template "el" (element $c.Name)}}{{$c.Name}}</span><span class="muted">Lv.{{$e.Level}} C{{$e.Cons}} · {{$e.Weapon.Key}} R{{$e.Weapon.Refine}} · 특성 {{index $e.Talents 0}}/{{index $e.Talents 1}}/{{index $e.Talents 2}}</span></td>
 <td class="num">{{thousands $c.DPS}}</td>
 <td class="num">{{percent $c.Share}}<span class="bar"><i style="width: {{width $c.Share}}%"></i></span></td>
 </tr>

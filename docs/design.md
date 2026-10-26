@@ -143,7 +143,7 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
   - Failed actions
 - **Metadata**: rotation version, gcsim version, simulation conditions
 - **Versus view**: two UIDs/teams side by side with score, contributions, and warnings. A difference under 2% is shown as a tie, since rotation error is larger than that.
-- **Site**: the front page loads a UID and lists the library teams its showcase can build; a picker takes exactly four characters. Result and versus pages have a copy-link button. `/teams` lists the library (thousands of teams) and filters it by character names. Recent UIDs are kept in the browser only. Characters are marked by element with icons drawn for Gscouter; the site uses no HoYoverse artwork and states that it is an unofficial fan project.
+- **Site**: the front page loads a UID and lists the library teams its showcase can build; a picker takes exactly four characters. Result and versus pages have a copy-link button. `/teams` lists the library (thousands of teams) and filters it by character names. Recent UIDs are kept in the browser only. Characters are shown with their face icons, HoYoverse's artwork loaded from Enka.Network (not stored in the repository), and element icons drawn for Gscouter. This relies on HoYoverse allowing non-commercial fan use of game images: the site carries no ads or donations, and its footer states that it is an unofficial, non-commercial fan project and that the images are © HoYoverse.
 
 ### 4.6 Deployment
 
