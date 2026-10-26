@@ -286,17 +286,18 @@ The first batch held the 64 teams with the most entries in the community databas
   - This directly affects ER requirements, so the same value must apply across the whole library. Confirm before the first library batch.
 - [x] What a character does when the looped rotation makes it stand still (internal/steady, config.Fill)
   - gcsim makes a character wait until its burst has the energy or its skill is off cooldown. A rotation that spends more energy than it gains lives off its starting energy, then stalls; the stall also stops particle generation (Flins / Ineffa / Aino / Sucrose: 111k one pass, 31k looped).
-  - A player fills that time. The score therefore runs the looped rotation as written first. If a character waits 1 s/min or more for energy or for its skill, it runs the rotation again in two variants and keeps the best of all runs:
-    - **own skill**: before each burst of a character short of energy, the character uses its skill when ready, otherwise attacks, until the burst is ready (at most 20 actions);
-    - **party skills**: as above, but when its skill is on cooldown, another member whose skill is ready swaps in and uses it, and the character's next action swaps back to catch the particles.
-  - In both variants a character waiting for its skill's cooldown attacks meanwhile (at most 30 attacks).
+  - A player fills that time, or passes the burst: Hu Tao teams often never use hers, and a rotation that waits for it loses half its damage (Hu Tao / Zhongli / Yelan / Furina, a player build with no Energy Recharge on Hu Tao: 19.8k waiting, 42.8k passing; one pass 36.1k). The score therefore runs the looped rotation as written first. If a character waits 1 s/min or more for energy or for its skill, it runs the rotation again with that wait handled and keeps the best of all runs. A character short of energy is handled one of three ways:
+    - **own skill**: before each burst, the character uses its skill when ready, otherwise attacks, until the burst is ready (at most 20 actions);
+    - **party skills**: as above, but when its skill is on cooldown, another member whose skill is ready swaps in and uses it, and the character's next action swaps back to catch the particles;
+    - **pass**: the character bursts only when the burst is ready, and the rotation moves on otherwise.
+  - In every variant a character waiting for its skill's cooldown attacks meanwhile (at most 30 attacks).
   - A filler uses each member's skill as the rotation first writes it: its parameters (hold or tap) and the plunges that follow it (Kazuha, Xianyun). Burst-reset skills such as Kazuha C1 come from gcsim.
-  - Filling one wait can expose another, for example a member now short of energy. Up to three rounds therefore add the characters still standing still in the best run so far.
+  - The right way differs per character and depends on the others: once Hu Tao passes, the rotation is shorter and Furina runs short of energy, a wait the run as written never showed. So every run that leaves characters standing still is followed by runs that handle them: all of them each way, and, when there are several, each one alone each way. Follow-ups of the better runs go first.
   - Filling every burst hurt teams that wait on purpose (Skirk / Furina / Mona / Escoffier went from −2% to −79%). That is why only characters that stood still are filled, and why the unfilled run stays a candidate.
   - With fillers, 46 of 64 teams stay within 5% of one pass, 16 lose 5–20%, and 2 lose more:
     - Kazuha C6 plunge −27%, down from −61% without fillers;
     - Arlecchino / Furina / Kazuha / Bennett −21%. The site shows a known-issue note on Arlecchino teams: their damage is calculated too low, by about 20%, and the cause is under investigation.
-  - Scoring a team that stood still costs up to seven simulations instead of one (one plus two per round).
+  - Scoring a team that stood still costs up to 16 simulations instead of one.
 - [ ] Whether to support additional rulesets such as an AoE league or a short-fight league (out of scope for now)
 - [ ] How to share results (versus card image, link, etc.)
 
