@@ -75,6 +75,16 @@ gcsim runs fixed-duration simulations, so infinite cycles are approximated by a 
 - Cost: 1000 iterations × 900 s take about 12 s on 4 CPU cores. The standard error is about 0.1%.
 - Teams that take longer to settle are caught by the drift check (§5.3).
 
+**Site settings.** A usable comparison needs an error well under 10%, and the rotation, not simulation noise, dominates that budget (§7). The site therefore trades precision for speed:
+
+| Setting | DPS | Standard error | Time (4 cores) |
+|---|---|---|---|
+| 1000 iterations, 300–900 s (validation) | 96.6k | ±0.1% | 11.9 s |
+| **100 iterations, 150–450 s (site default)** | 96.8k | ±0.4% | 0.68 s |
+| 30 iterations, 150–300 s | 96.3k | ±0.9% | 0.16 s |
+
+Library validation (§5.3) keeps the long setting, so a team whose transient outlasts 150 s is caught by the drift check before it reaches the site.
+
 ### 3.2 Common simulation conditions
 
 | Item | Value |
@@ -83,15 +93,15 @@ gcsim runs fixed-duration simulations, so infinite cycles are approximated by a 
 | Enemy resistance | 10% for all elements + physical |
 | Number of targets | 1 |
 | Enemy HP | Infinite (time-based termination) |
-| Fight duration | 900 s, of which the first 300 s are excluded (§3.1) |
-| Iterations | 1000 (standard error about 0.1%) |
+| Fight duration | Site: 450 s, first 150 s excluded. Validation: 900 s, first 300 s excluded (§3.1) |
+| Iterations | Site: 100 (±0.4%). Validation: 1000 (±0.1%) |
 | Energy | 1 clear particle every 8–12 s (`energy every interval=480,720 amount=1`). Provisional, see §9 |
 | Swap delay | 12 frames |
 
 As a gcsim config, roughly:
 
 ```
-options iteration=1000 duration=900 swap_delay=12;
+options iteration=100 duration=450 swap_delay=12;
 target lvl=100 resist=0.1;
 energy every interval=480,720 amount=1;
 ```
@@ -136,7 +146,8 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
 
 - Combine the common conditions (§3.2) + the user's build (§4.2) + the library rotation (§5) into a gcsim config.
 - Run the config once for T2 per iteration and score the window from T1 (§3.1).
-- **Cache key** = build hash + team ID + rotation version + gcsim version. Never recompute the same build.
+- **Cache key** = hash of the assembled config. The config contains the build, the rotation and the conditions, and the gcsim version is fixed per deployment, so the same build is never recomputed.
+- Characters are compared by canonical name: gcsim aliases resolve to one key (`kazuha` = `kaedeharakazuha`), and both Traveler genders fold into `traveler<element>`. When the player's key differs from the library's (e.g. `aethercryo` vs. `travelercryo`), the rotation is rewritten to the player's key.
 
 ### 4.5 Results
 
@@ -146,7 +157,15 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
   - Insufficient ER: time each character spent waiting for energy, in seconds per minute of the scoring window
   - Failed actions
 - **Metadata**: rotation version, gcsim version, simulation conditions
-- **Versus view**: two UIDs/teams side by side with score, contributions, and warnings.
+- **Versus view**: two UIDs/teams side by side with score, contributions, and warnings. A difference under 2% is shown as a tie, since rotation error is larger than that.
+
+### 4.6 Deployment
+
+- **One Go binary** (`cmd/server`) serves the site, calls Enka, runs gcsim in-process, and caches Enka responses (for Enka's TTL) and scores (24 h) in memory. The team library is embedded in the binary.
+- **Concurrency**: one simulation at a time, up to 8 waiting; beyond that the request gets a "busy" message. Peak memory per simulation is about 35 MB.
+- **Hosting**: a single Azure B2ats v2 VM (2 vCPU, 1 GB) with Docker. Caddy terminates HTTPS for the owner's domain. Expected cost is roughly KRW 15–20k per month.
+  - Alternatives considered: in-browser WASM on static hosting (works, about 1.5 s per score single-threaded, but Enka does not allow CORS, so a proxy is still needed); Cloud Run, Oracle Always Free, Hugging Face Spaces (ruled out by the owner's constraints or uncertain terms).
+- **Delivery**: pushing to `main` runs tests and publishes `ghcr.io/cenoda/gscouter:latest`. A systemd timer on the VM re-downloads `deploy/` from `main` and pulls the image every 5 minutes, so no deploy credentials live in GitHub. See `deploy/README.md`.
 
 ## 5. Team Library
 
@@ -259,8 +278,8 @@ All characters confirmed supported in gcsim (commit `2350be9`).
 
 ## 9. Open Questions
 
-- [ ] Where to run: server-side in Go vs. in-browser via WASM (server-side is better if we need match history and rankings)
-- [x] Iteration count and T1/T2 values: 1000 iterations, T1 = 300 s, T2 = 900 s (§3.1)
+- [x] Where to run: server-side Go on one small VM (§4.6)
+- [x] Iteration count and T1/T2 values: site 100 iterations, 150–450 s; validation 1000 iterations, 300–900 s (§3.1)
 - [ ] Enemy energy particle drops
   - The prototype uses `energy every interval=480,720 amount=1`, as many community gcsim configs do.
   - gcsim's HP-based particle drops (`particle_threshold`) need a finite enemy HP, which conflicts with time-based infinite cycles.
@@ -272,7 +291,8 @@ All characters confirmed supported in gcsim (commit `2350be9`).
 
 1. ~~gcsim execution prototype~~ Done: `cmd/gscouter` scores a build file against a library team (see README). Remaining for this step:
    - Validate the Skirk team rotation against community calcs and set it to `supported`.
-2. Enka UID → gcsim config converter
-3. Library format and automated validation script
-4. Author the 8 teams of the first library batch
-5. Versus view
+2. ~~Enka UID → gcsim config converter~~ Done (`internal/enka`). Artifact substats come from Enka's rounded display values; crit rate differs from Enka's final stats by under 0.1%p.
+3. ~~Website with versus view~~ Done (`cmd/server`, `internal/web`). Remaining: deploy to the VM (§4.6).
+4. Library format and automated validation script
+5. Author the 8 teams of the first library batch
+6. Display names (Korean character and weapon names instead of gcsim keys)

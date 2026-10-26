@@ -5,6 +5,7 @@ package config
 import (
 	"errors"
 	"fmt"
+	"regexp"
 	"strings"
 
 	"github.com/genshinsim/gcsim/pkg/gcs/ast"
@@ -56,4 +57,18 @@ func Characters(cfg string) ([]string, error) {
 		chars[i] = p.Base.Key.String()
 	}
 	return chars, nil
+}
+
+// RenameCharacters replaces whole-word character names in a rotation, for
+// example a library rotation written for "travelercryo" run by a player
+// whose Traveler is "aethercryo".
+func RenameCharacters(rotation string, names map[string]string) string {
+	for from, to := range names {
+		if from == to {
+			continue
+		}
+		re := regexp.MustCompile(`\b` + regexp.QuoteMeta(from) + `\b`)
+		rotation = re.ReplaceAllLiteralString(rotation, to)
+	}
+	return rotation
 }

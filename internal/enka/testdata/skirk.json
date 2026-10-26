@@ -1,0 +1,51 @@
+{
+  "uid": "800000000",
+  "ttl": 60,
+  "playerInfo": {"nickname": "Tester"},
+  "avatarInfoList": [
+    {
+      "avatarId": 10000114,
+      "skillDepotId": 11401,
+      "talentIdList": [1141, 1142],
+      "propMap": {"1002": {"val": "6"}, "4001": {"val": "90"}},
+      "skillLevelMap": {"11141": 9, "11142": 10, "11145": 8},
+      "equipList": [
+        {
+          "itemId": 81234,
+          "reliquary": {"level": 21},
+          "flat": {
+            "itemType": "ITEM_RELIQUARY", "rankLevel": 5, "setNameTextMapHash": "2177723555",
+            "reliquaryMainstat": {"mainPropId": "FIGHT_PROP_HP", "statValue": 4780},
+            "reliquarySubstats": [
+              {"appendPropId": "FIGHT_PROP_CRITICAL", "statValue": 10.5},
+              {"appendPropId": "FIGHT_PROP_CRITICAL_HURT", "statValue": 21}
+            ]
+          }
+        },
+        {
+          "itemId": 81235,
+          "reliquary": {"level": 21},
+          "flat": {
+            "itemType": "ITEM_RELIQUARY", "rankLevel": 5, "setNameTextMapHash": 2177723555,
+            "reliquaryMainstat": {"mainPropId": "FIGHT_PROP_ICE_ADD_HURT", "statValue": 46.6},
+            "reliquarySubstats": [
+              {"appendPropId": "FIGHT_PROP_CRITICAL", "statValue": 3.9},
+              {"appendPropId": "FIGHT_PROP_ATTACK", "statValue": 19}
+            ]
+          }
+        },
+        {
+          "itemId": 11517,
+          "weapon": {"level": 90, "promoteLevel": 6, "affixMap": {"111517": 0}},
+          "flat": {"itemType": "ITEM_WEAPON"}
+        }
+      ]
+    },
+    {
+      "avatarId": 10000999,
+      "skillDepotId": 1,
+      "propMap": {"4001": {"val": "90"}},
+      "equipList": []
+    }
+  ]
+}

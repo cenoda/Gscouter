@@ -2,7 +2,7 @@
 
 Genshin Impact team DPS calculator: settles "whose team is better built?" by scoring every team under the same conditions with a fixed rotation. See [docs/design.md](docs/design.md) for the design.
 
-Status: prototype. Builds are read from a file of gcsim character setup lines; Enka.Network input is not implemented yet.
+Status: prototype. The website looks up a UID on Enka.Network, lets you pick four showcase characters, and scores or compares teams.
 
 ## Requirements
 
@@ -10,7 +10,26 @@ Status: prototype. Builds are read from a file of gcsim character setup lines; E
 
 Gscouter uses [gcsim](https://github.com/genshinsim/gcsim) as a Go library, pinned in `go.mod`.
 
-## Usage
+## Website
+
+```sh
+go run ./cmd/server          # http://localhost:8080
+```
+
+| Flag | Default | Description |
+|---|---|---|
+| `-addr` | `:8080` (or `$PORT`) | Listen address |
+| `-iter` | 100 | Iterations per score |
+| `-warmup` | 150 | Seconds excluded from the score |
+| `-duration` | 450 | Fight duration in seconds |
+| `-concurrent` | 1 | Simulations running at once |
+| `-queue` | 8 | Simulations waiting before requests are rejected |
+
+Deployment: see [deploy/README.md](deploy/README.md).
+
+## Command line
+
+Scores a build file (gcsim character setup lines) against a library team, with the longer validation settings.
 
 ```sh
 go run ./cmd/gscouter \
@@ -51,11 +70,15 @@ Flags:
 
 ```
 cmd/gscouter/       CLI
+cmd/server/         website
 internal/config/    common simulation conditions and config assembly
+internal/enka/      Enka.Network client and converter to gcsim
+internal/web/       HTTP handlers and templates
 internal/library/   team library loading and matching
 internal/score/     steady-state DPS from gcsim runs
 teams/<id>/         team.yaml + rotation.gcsl per team
 examples/builds/    sample builds
+deploy/             VM setup and auto-update
 ```
 
 ## Tests

@@ -1,0 +1,13 @@
+{{template "head" "Gscouter 결과"}}
+<div class="card">{{template "team" .Team}}</div>
+{{if .Team.Result}}
+<div class="card">
+<h3>다른 파티와 비교하기</h3>
+<form class="inline" action="/" method="get">
+<input type="hidden" name="vs" value="{{.Team.Selection.String}}">
+<input type="text" name="uid" inputmode="numeric" placeholder="상대방 UID" required>
+<button type="submit">상대 불러오기</button>
+</form>
+</div>
+{{end}}
+{{template "foot"}}

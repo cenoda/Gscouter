@@ -1,0 +1,49 @@
+#cloud-config
+# Paste this into "Custom data" when creating an Ubuntu 24.04 VM.
+# Change the DOMAIN line below to your domain first.
+
+package_update: true
+packages:
+  - docker.io
+  - docker-compose-v2
+  - curl
+
+swap:
+  filename: /swapfile
+  size: 2G
+
+write_files:
+  - path: /opt/gscouter/.env
+    content: |
+      DOMAIN=gscouter.example.com
+
+  - path: /etc/systemd/system/gscouter-update.service
+    content: |
+      [Unit]
+      Description=Update Gscouter
+      After=docker.service network-online.target
+      Wants=network-online.target
+
+      [Service]
+      Type=oneshot
+      ExecStart=/opt/gscouter/update.sh
+
+  - path: /etc/systemd/system/gscouter-update.timer
+    content: |
+      [Unit]
+      Description=Update Gscouter every 5 minutes
+
+      [Timer]
+      OnBootSec=1min
+      OnUnitActiveSec=5min
+
+      [Install]
+      WantedBy=timers.target
+
+runcmd:
+  - curl -fsSL https://raw.githubusercontent.com/cenoda/gscouter/main/deploy/update.sh -o /opt/gscouter/update.sh
+  - chmod +x /opt/gscouter/update.sh
+  - systemctl enable --now docker
+  - systemctl daemon-reload
+  - systemctl enable --now gscouter-update.timer
+  - /opt/gscouter/update.sh

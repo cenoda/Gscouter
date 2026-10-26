@@ -1,0 +1,25 @@
+# Runs on the VM. The update timer (see cloud-init.yaml) re-downloads this
+# file from main, so changes here deploy themselves.
+services:
+  gscouter:
+    image: ghcr.io/cenoda/gscouter:latest
+    restart: unless-stopped
+    mem_limit: 600m
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

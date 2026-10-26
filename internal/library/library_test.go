@@ -4,27 +4,21 @@ import (
 	"os"
 	"path/filepath"
 	"testing"
+
+	"github.com/cenoda/gscouter/teams"
 )
 
 func TestLoadAllTeams(t *testing.T) {
-	dirs, err := filepath.Glob("../../teams/*")
+	lib, err := LoadLibrary(teams.FS)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(dirs) == 0 {
+	if len(lib.Teams) == 0 {
 		t.Fatal("no teams found")
 	}
-	for _, dir := range dirs {
-		team, err := Load(dir)
-		if err != nil {
-			t.Errorf("%s: %v", dir, err)
-			continue
-		}
-		if team.ID != filepath.Base(dir) {
-			t.Errorf("%s: id %q does not match directory name", dir, team.ID)
-		}
+	for _, team := range lib.Teams {
 		if team.Status != StatusBlocked && team.Rotation == "" {
-			t.Errorf("%s: %s team has no rotation", dir, team.Status)
+			t.Errorf("%s: %s team has no rotation", team.ID, team.Status)
 		}
 	}
 }
@@ -36,6 +30,29 @@ func TestMatchesIgnoresOrder(t *testing.T) {
 	}
 	if team.Matches([]string{"furina", "escoffier", "skirk", "xingqiu"}) {
 		t.Error("a different member should not match")
+	}
+}
+
+func TestMatchesAliasesAndTraveler(t *testing.T) {
+	team := &Team{Members: []string{"travelercryo", "kazuha", "furina", "raiden"}}
+	if !team.Matches([]string{"aethercryo", "kaedeharakazuha", "furina", "raidenshogun"}) {
+		t.Error("aliases and either Traveler gender should match")
+	}
+	if team.Matches([]string{"aetheranemo", "kaedeharakazuha", "furina", "raidenshogun"}) {
+		t.Error("a Traveler of another element should not match")
+	}
+}
+
+func TestFind(t *testing.T) {
+	lib, err := LoadLibrary(teams.FS)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if lib.Find([]string{"escoffier", "furina", "yelan", "skirk"}) == nil {
+		t.Error("Skirk team not found")
+	}
+	if lib.Find([]string{"amber", "furina", "yelan", "skirk"}) != nil {
+		t.Error("unexpected match")
 	}
 }
 

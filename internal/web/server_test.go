@@ -1,0 +1,147 @@
+package web
+
+import (
+	"context"
+	"io"
+	"net/http"
+	"net/http/httptest"
+	"net/url"
+	"strings"
+	"testing"
+
+	"github.com/cenoda/gscouter/internal/enka"
+	"github.com/cenoda/gscouter/internal/library"
+	"github.com/cenoda/gscouter/teams"
+)
+
+type fakeProfiles map[string]*enka.Profile
+
+func (f fakeProfiles) Profile(_ context.Context, uid string) (*enka.Profile, error) {
+	if p, ok := f[uid]; ok {
+		return p, nil
+	}
+	return nil, enka.ErrNotFound
+}
+
+func char(key, weapon string, set string, stats map[string]float64) enka.Character {
+	return enka.Character{
+		Key: key, Level: 90, MaxLevel: 90, Talents: [3]int{9, 9, 9},
+		Weapon: enka.Weapon{Key: weapon, Refine: 1, Level: 90, MaxLevel: 90},
+		Sets:   map[string]int{set: 4},
+		Stats:  stats,
+	}
+}
+
+func skirkTeam() []enka.Character {
+	return []enka.Character{
+		char("skirk", "azurelight", "finaleofthedeepgalleries", map[string]float64{"hp": 4780, "atk": 311, "atk%": 0.6, "cryo%": 0.466, "cr": 0.6, "cd": 1.2}),
+		char("yelan", "favoniuswarbow", "emblemofseveredfate", map[string]float64{"hp": 4780, "atk": 311, "hp%": 0.6, "er": 0.6, "cr": 0.6, "cd": 0.8}),
+		char("furina", "festeringdesire", "goldentroupe", map[string]float64{"hp": 4780, "atk": 311, "hp%": 1.0, "er": 0.2, "cr": 0.6, "cd": 0.8}),
+		char("escoffier", "favoniuslance", "goldentroupe", map[string]float64{"hp": 4780, "atk": 311, "atk%": 0.6, "cryo%": 0.466, "er": 0.4, "cr": 0.6, "cd": 0.8}),
+	}
+}
+
+func newTestServer(t *testing.T) *httptest.Server {
+	t.Helper()
+	lib, err := library.LoadLibrary(teams.FS)
+	if err != nil {
+		t.Fatal(err)
+	}
+	strong := skirkTeam()
+	weak := skirkTeam()
+	weak[0].Stats = map[string]float64{"hp": 4780, "atk": 311, "cr": 0.1, "cd": 0.3}
+	profiles := fakeProfiles{
+		"800000001": {UID: "800000001", Nickname: "Strong", Characters: append(strong, char("amber", "skywardharp", "noblesseoblige", nil))},
+		"800000002": {UID: "800000002", Nickname: "Weak", Characters: weak},
+	}
+	srv, err := New(lib, profiles, Settings{Iterations: 4, Warmup: 30, Duration: 90, MaxConcurrent: 1, MaxQueue: 4})
+	if err != nil {
+		t.Fatal(err)
+	}
+	ts := httptest.NewServer(srv.Handler())
+	t.Cleanup(ts.Close)
+	return ts
+}
+
+func get(t *testing.T, ts *httptest.Server, path string) (int, string) {
+	t.Helper()
+	resp, err := ts.Client().Get(ts.URL + path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer resp.Body.Close()
+	body, _ := io.ReadAll(resp.Body)
+	return resp.StatusCode, string(body)
+}
+
+func mustContain(t *testing.T, body string, want ...string) {
+	t.Helper()
+	for _, w := range want {
+		if !strings.Contains(body, w) {
+			t.Errorf("response does not contain %q", w)
+		}
+	}
+}
+
+func TestIndexSuggestsTeams(t *testing.T) {
+	ts := newTestServer(t)
+	code, body := get(t, ts, "/?uid=800000001")
+	if code != http.StatusOK {
+		t.Fatalf("status %d", code)
+	}
+	mustContain(t, body, "Strong", "바로 계산할 수 있는 파티", "Skirk / Yelan / Furina / Escoffier", "amber")
+}
+
+func TestIndexUnknownUID(t *testing.T) {
+	ts := newTestServer(t)
+	_, body := get(t, ts, "/?uid=800000009")
+	mustContain(t, body, "플레이어를 찾을 수 없습니다")
+}
+
+func TestScoreFromPicker(t *testing.T) {
+	ts := newTestServer(t)
+	// The picker form redirects to a shareable URL, which the client follows.
+	code, body := get(t, ts, "/score?uid=800000001&c=skirk&c=yelan&c=furina&c=escoffier")
+	if code != http.StatusOK {
+		t.Fatalf("status %d: %s", code, body)
+	}
+	mustContain(t, body, "DPS", "skirk", "azurelight", "검증 전")
+}
+
+func TestScoreUnsupportedTeam(t *testing.T) {
+	ts := newTestServer(t)
+	_, body := get(t, ts, "/score?a="+url.QueryEscape("800000001:skirk,yelan,furina,amber"))
+	mustContain(t, body, "아직 지원하지 않는 파티")
+}
+
+func TestScoreMissingCharacter(t *testing.T) {
+	ts := newTestServer(t)
+	_, body := get(t, ts, "/score?a="+url.QueryEscape("800000002:skirk,yelan,furina,amber"))
+	mustContain(t, body, "amber 캐릭터가 쇼케이스에 없습니다")
+}
+
+func TestScoreRejectsWrongCount(t *testing.T) {
+	ts := newTestServer(t)
+	code, body := get(t, ts, "/score?uid=800000001&c=skirk&c=yelan")
+	if code != http.StatusBadRequest {
+		t.Errorf("status %d, want 400", code)
+	}
+	mustContain(t, body, "정확히 4명")
+}
+
+func TestVersus(t *testing.T) {
+	ts := newTestServer(t)
+	v := url.Values{
+		"a": {"800000001:skirk,yelan,furina,escoffier"},
+		"b": {"800000002:escoffier,furina,yelan,skirk"},
+	}
+	code, body := get(t, ts, "/versus?"+v.Encode())
+	if code != http.StatusOK {
+		t.Fatalf("status %d", code)
+	}
+	mustContain(t, body, "왼쪽 파티 승리", "Strong", "Weak")
+
+	v.Set("b", v.Get("a"))
+	_, body = get(t, ts, "/versus?"+v.Encode())
+	mustContain(t, body, "무승부")
+}
