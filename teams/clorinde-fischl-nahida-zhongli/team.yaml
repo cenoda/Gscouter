@@ -1,0 +1,9 @@
+id: clorinde-fischl-nahida-zhongli
+name: Clorinde / Fischl / Nahida / Zhongli
+members: [clorinde, fischl, nahida, zhongli]
+archetype: Electro aggravate
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Zhongli shields, Nahida marks, Fischl's Oz triggers Electro for Aggravate. Clorinde enters Night Watch, bursts and spends the state on pistol shots and dashes, then attacks until her skill is ready again (16 s loop). Supports act only when their skills and bursts are ready."

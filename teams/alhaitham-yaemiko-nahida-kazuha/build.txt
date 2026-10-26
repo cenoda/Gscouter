@@ -1,0 +1,19 @@
+alhaitham char lvl=90/90 cons=0 talent=9,9,9;
+alhaitham add weapon="lightoffoliarincision" refine=1 lvl=90/90;
+alhaitham add set="gildeddreams" count=4;
+alhaitham add stats hp=4780 atk=311 atk%=0.2 dendro%=0.466 em=186 cr=0.33 cd=0.66 er=0.11;
+
+yaemiko char lvl=90/90 cons=0 talent=1,9,9;
+yaemiko add weapon="kagurasverity" refine=1 lvl=90/90;
+yaemiko add set="goldentroupe" count=4;
+yaemiko add stats hp=4780 atk=311 atk%=0.2 electro%=0.466 em=186 cr=0.33 cd=0.5 er=0.2;
+
+nahida char lvl=90/90 cons=0 talent=1,9,9;
+nahida add weapon="sacrificialfragments" refine=5 lvl=90/90;
+nahida add set="deepwoodmemories" count=4;
+nahida add stats hp=4780 atk=311 em=800 cr=0.2 cd=0.2 er=0.3;
+
+kazuha char lvl=90/90 cons=0 talent=1,9,9;
+kazuha add weapon="ironsting" refine=5 lvl=90/90;
+kazuha add set="viridescentvenerer" count=4;
+kazuha add stats hp=4780 atk=311 em=800 er=0.3 cr=0.1 cd=0.1;

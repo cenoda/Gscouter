@@ -1,0 +1,14 @@
+active zhongli;
+while 1 {
+  zhongli skill[hold=1];
+  nahida skill[hold=1];
+  if .nahida.burst.ready { nahida burst; }
+  if .yaemiko.burst.ready { yaemiko burst; }
+  yaemiko skill:3;
+  if .cyno.skill.ready { cyno skill; }
+  if .cyno.burst.ready { cyno burst; }
+  while .cyno.status.cyno-q > 0 {
+    cyno attack:3;
+    if .cyno.skill.ready { cyno skill; }
+  }
+}

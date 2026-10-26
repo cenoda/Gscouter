@@ -1,0 +1,19 @@
+tighnari char lvl=90/90 cons=0 talent=9,9,9;
+tighnari add weapon="hunterspath" refine=1 lvl=90/90;
+tighnari add set="gildeddreams" count=4;
+tighnari add stats hp=4780 atk=311 atk%=0.2 dendro%=0.466 em=186 cr=0.33 cd=0.66 er=0.11;
+
+raiden char lvl=90/90 cons=0 talent=9,9,9;
+raiden add weapon="favoniussword" refine=5 lvl=90/90;
+raiden add set="emblemofseveredfate" count=4;
+raiden add stats hp=4780 atk=311 atk%=0.248 er=0.9 electro%=0.466 cr=0.3 cd=0.5 em=40;
+
+nahida char lvl=90/90 cons=0 talent=1,9,9;
+nahida add weapon="sacrificialfragments" refine=5 lvl=90/90;
+nahida add set="deepwoodmemories" count=4;
+nahida add stats hp=4780 atk=311 em=800 cr=0.2 cd=0.2 er=0.3;
+
+xingqiu char lvl=90/90 cons=6 talent=1,9,9;
+xingqiu add weapon="sacrificialsword" refine=3 lvl=90/90;
+xingqiu add set="emblemofseveredfate" count=4;
+xingqiu add stats hp=4780 atk=311 atk%=0.4 hydro%=0.466 cr=0.5 cd=0.5 er=0.55;

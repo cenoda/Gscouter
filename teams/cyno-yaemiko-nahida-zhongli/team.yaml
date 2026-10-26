@@ -1,0 +1,9 @@
+id: cyno-yaemiko-nahida-zhongli
+name: Cyno / Yae Miko / Nahida / Zhongli
+members: [cyno, yaemiko, nahida, zhongli]
+archetype: Electro aggravate
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Zhongli shields, Nahida marks, Yae Miko's Sesshou Sakura apply Electro for Aggravate, then Cyno uses his skill, bursts when ready and chains N3 and skill (Duststalker Bolts, Mortuary Rite) while Pactsworn Pathclearer lasts."

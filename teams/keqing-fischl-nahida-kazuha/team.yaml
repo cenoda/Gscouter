@@ -1,0 +1,9 @@
+id: keqing-fischl-nahida-kazuha
+name: Keqing / Fischl / Nahida / Kazuha
+members: [keqing, fischl, nahida, kazuha]
+archetype: Electro aggravate
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Kazuha groups and swirls, Nahida marks with Seed of Skandha and Fischl's Oz triggers Electro on the Dendro-affected target for Aggravate. Keqing places the Stiletto, recasts it, bursts, then chains N3 into charged attacks for as long as the Electro infusion lasts. Fischl and the bursts are conditional on readiness."
