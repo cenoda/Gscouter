@@ -50,8 +50,9 @@ var energyFillers = []config.Filler{config.FillSelf, config.FillParty, config.Fi
 // others: once Hu Tao passes, the rotation is shorter and Furina runs
 // short. So every run that leaves members standing still is followed by
 // runs that handle them, each way: all of them one way, and, when there
-// are several, each one alone. Follow-ups of better runs go first, and
-// at most maxRuns rotations run in all.
+// are several, each one alone. Follow-ups that handle all of them go
+// first, then those of better runs, and at most maxRuns rotations run in
+// all.
 func Score(rotation string, members []string, run func(looped string) (*score.Result, error)) (*Outcome, error) {
 	looped, err := config.Loop(rotation)
 	if err != nil {
@@ -66,6 +67,7 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 	type candidate struct {
 		energy   map[string]config.Filler
 		skill    []string
+		single   bool    // handles one of several members
 		priority float64 // DPS of the run it follows up
 	}
 	var queue []candidate
@@ -87,16 +89,16 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 			return out
 		}
 		if len(added) == 0 {
-			queue = append(queue, candidate{energy, sk, res.DPS})
+			queue = append(queue, candidate{energy, sk, false, res.DPS})
 			return
 		}
 		for _, f := range energyFillers {
-			queue = append(queue, candidate{with(f, added...), sk, res.DPS})
+			queue = append(queue, candidate{with(f, added...), sk, false, res.DPS})
 		}
 		if len(added) > 1 {
 			for _, c := range added {
 				for _, f := range energyFillers {
-					queue = append(queue, candidate{with(f, c), sk, res.DPS})
+					queue = append(queue, candidate{with(f, c), sk, true, res.DPS})
 				}
 			}
 		}
@@ -107,7 +109,7 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 	for len(queue) > 0 && len(seen) < maxRuns {
 		i := 0
 		for j, c := range queue {
-			if c.priority > queue[i].priority {
+			if c.single != queue[i].single && !c.single || c.single == queue[i].single && c.priority > queue[i].priority {
 				i = j
 			}
 		}
