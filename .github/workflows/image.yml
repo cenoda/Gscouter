@@ -19,6 +19,7 @@ jobs:
           go-version-file: go.mod
       - run: go vet ./...
       - run: go test ./...
+      - run: go run ./cmd/validate -iter 20
 
   image:
     needs: test

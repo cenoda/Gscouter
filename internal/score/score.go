@@ -53,6 +53,9 @@ type Character struct {
 	// EnergyWait is the mean time, in seconds per minute of the scoring
 	// window, that this character's actions were delayed waiting for energy.
 	EnergyWait float64
+	// Waits is the same measure for every reason gcsim delays an action
+	// (e.g. "insufficient_energy", "insufficient_stamina", "skill_cd").
+	Waits map[string]float64
 }
 
 // iteration is the part of one gcsim run that the score needs.
@@ -61,7 +64,7 @@ type iteration struct {
 	firstHalf  float64 // DPS in the first half of the window
 	secondHalf float64 // DPS in the second half of the window
 	charDPS    []float64
-	energyWait []float64 // seconds within the window
+	waits      []map[string]float64 // seconds within the window, by reason
 	frames     int
 	names      []string
 }
@@ -153,6 +156,24 @@ func simulate(file *ast.File, simcfg *info.ActionList, gcsl ast.Node, seed int64
 	return sim.Run()
 }
 
+// Once runs cfg a single time and returns gcsim's full result, for
+// inspecting what a rotation does.
+func Once(cfg string, seed int64) (*stats.Result, error) {
+	file := ast.NewFile()
+	simcfg, gcsl, err := parser.New(file, cfg).Parse()
+	if err != nil {
+		return nil, fmt.Errorf("parse config: %w", err)
+	}
+	if len(simcfg.Errors) > 0 {
+		return nil, fmt.Errorf("invalid config: %w", errors.Join(simcfg.Errors...))
+	}
+	res, err := simulate(file, simcfg, gcsl, seed)
+	if err != nil {
+		return nil, err
+	}
+	return &res, nil
+}
+
 // summarize reduces one run to the damage dealt from startBucket onwards.
 func summarize(res *stats.Result, startBucket int) iteration {
 	startFrame := startBucket * bucketFrames
@@ -161,10 +182,10 @@ func summarize(res *stats.Result, startBucket int) iteration {
 	midFrame := midBucket * bucketFrames
 
 	it := iteration{
-		charDPS:    make([]float64, len(res.Characters)),
-		energyWait: make([]float64, len(res.Characters)),
-		frames:     res.Duration,
-		names:      make([]string, len(res.Characters)),
+		charDPS: make([]float64, len(res.Characters)),
+		waits:   make([]map[string]float64, len(res.Characters)),
+		frames:  res.Duration,
+		names:   make([]string, len(res.Characters)),
 	}
 
 	// cumulative[i] is the team damage dealt in buckets 0..i.
@@ -199,12 +220,10 @@ func summarize(res *stats.Result, startBucket int) iteration {
 		if last >= 0 {
 			it.charDPS[c] = (charCumulative(c, last) - charCumulative(c, startBucket-1)) / window
 		}
+		it.waits[c] = map[string]float64{}
 		for _, f := range res.Characters[c].FailedActions {
-			if f.Reason != action.InsufficientEnergy.String() {
-				continue
-			}
 			if overlap := min(f.End, res.Duration) - max(f.Start, startFrame); overlap > 0 {
-				it.energyWait[c] += float64(overlap) / 60
+				it.waits[c][f.Reason] += float64(overlap) / 60
 			}
 		}
 	}
@@ -241,13 +260,15 @@ func aggregate(its []iteration, startBucket int) *Result {
 
 	minutes := r.Window / 60
 	for c, name := range its[0].names {
-		ch := Character{Name: name}
+		ch := Character{Name: name, Waits: map[string]float64{}}
 		for _, it := range its {
 			ch.DPS += it.charDPS[c]
-			ch.EnergyWait += it.energyWait[c]
+			for reason, w := range it.waits[c] {
+				ch.Waits[reason] += w / (n * minutes)
+			}
 		}
 		ch.DPS /= n
-		ch.EnergyWait /= n * minutes
+		ch.EnergyWait = ch.Waits[action.InsufficientEnergy.String()]
 		if mean > 0 {
 			ch.Share = ch.DPS / mean
 		}

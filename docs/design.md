@@ -292,7 +292,7 @@ All characters confirmed supported in gcsim (commit `2350be9`).
 1. ~~gcsim execution prototype~~ Done: `cmd/gscouter` scores a build file against a library team (see README). Remaining for this step:
    - Validate the Skirk team rotation against community calcs and set it to `supported`.
 2. ~~Enka UID → gcsim config converter~~ Done (`internal/enka`). Artifact substats come from Enka's rounded display values; crit rate differs from Enka's final stats by under 0.1%p.
-3. ~~Website with versus view~~ Done (`cmd/server`, `internal/web`). Remaining: deploy to the VM (§4.6).
-4. Library format and automated validation script
-5. Author the 8 teams of the first library batch
+3. ~~Website with versus view~~ Done (`cmd/server`, `internal/web`), deployed at https://gscouter.altsky.info (§4.6).
+4. ~~Library format and automated validation script~~ Done: `cmd/validate` runs every team with its reference `build.txt` and reports failures (no parse, a member with no damage, drift over 10%) and warnings (drift, action waits by reason, members under 1% of damage); `-detail` shows actions, damage by source and reactions. CI runs it. The `add-team` skill describes how to add a team.
+5. Author the first library batch (64 common teams, all `draft`)
 6. Display names (Korean character and weapon names instead of gcsim keys)

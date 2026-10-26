@@ -13,7 +13,7 @@ import (
 
 func testConfig(t *testing.T, duration float64) string {
 	t.Helper()
-	build, err := os.ReadFile("../../examples/builds/skirk-yelan-furina-escoffier.txt")
+	build, err := os.ReadFile("../../teams/skirk-yelan-furina-escoffier/build.txt")
 	if err != nil {
 		t.Fatal(err)
 	}

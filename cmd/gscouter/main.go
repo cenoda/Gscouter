@@ -2,7 +2,7 @@
 //
 // Usage:
 //
-//	gscouter -team teams/skirk-yelan-furina-escoffier -build examples/builds/skirk-yelan-furina-escoffier.txt
+//	gscouter -team teams/skirk-yelan-furina-escoffier -build teams/skirk-yelan-furina-escoffier/build.txt
 package main
 
 import (

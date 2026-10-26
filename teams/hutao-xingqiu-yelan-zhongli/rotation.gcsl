@@ -1,0 +1,12 @@
+active xingqiu;
+while 1 {
+  xingqiu skill;
+  if .xingqiu.burst.ready { xingqiu burst; }
+  if .yelan.burst.ready { yelan burst; }
+  yelan skill;
+  zhongli skill[hold=1];
+  hutao skill;
+  while .hutao.status.paramita > 0 {
+    hutao attack, charge;
+  }
+}

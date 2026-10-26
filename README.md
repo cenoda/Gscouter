@@ -34,7 +34,7 @@ Scores a build file (gcsim character setup lines) against a library team, with t
 ```sh
 go run ./cmd/gscouter \
   -team teams/skirk-yelan-furina-escoffier \
-  -build examples/builds/skirk-yelan-furina-escoffier.txt
+  -build teams/skirk-yelan-furina-escoffier/build.txt
 ```
 
 ```
@@ -66,18 +66,29 @@ Flags:
 | `-seed` | 1 | Seed of the first iteration |
 | `-dump` | false | Print the assembled gcsim config and exit |
 
+## Team library
+
+Each team has a `team.yaml`, a `rotation.gcsl` and a reference `build.txt` used only for validation. `cmd/validate` runs every team with its reference build and fails a team whose config does not parse, whose member deals no damage, or whose rotation does not loop steadily. It warns about drift, energy waits and members with almost no damage.
+
+```sh
+go run ./cmd/validate                 # every team
+go run ./cmd/validate -v teams/<id>   # one team, per-character results
+```
+
+The `add-team` skill (`.claude/skills/add-team/SKILL.md`) describes how to add a team.
+
 ## Layout
 
 ```
 cmd/gscouter/       CLI
 cmd/server/         website
+cmd/validate/       team library checks
 internal/config/    common simulation conditions and config assembly
 internal/enka/      Enka.Network client and converter to gcsim
 internal/web/       HTTP handlers and templates
 internal/library/   team library loading and matching
 internal/score/     steady-state DPS from gcsim runs
-teams/<id>/         team.yaml + rotation.gcsl per team
-examples/builds/    sample builds
+teams/<id>/         team.yaml, rotation.gcsl and reference build.txt per team
 deploy/             VM setup and auto-update
 ```
 
