@@ -63,6 +63,7 @@ type Server struct {
 	sem     chan struct{}
 	waiting atomic.Int32
 	results *cache[string, *score.Result]
+	cards   *cache[string, []byte] // link preview PNGs by URL
 }
 
 func New(lib *library.Library, profiles ProfileSource, settings Settings) (*Server, error) {
@@ -77,6 +78,7 @@ func New(lib *library.Library, profiles ProfileSource, settings Settings) (*Serv
 		tmpl:     tmpl,
 		sem:      make(chan struct{}, max(settings.MaxConcurrent, 1)),
 		results:  newCache[string, *score.Result](1000),
+		cards:    newCache[string, []byte](200),
 	}, nil
 }
 
@@ -86,6 +88,8 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("GET /teams", s.handleTeams)
 	mux.HandleFunc("GET /score", s.handleScore)
 	mux.HandleFunc("GET /versus", s.handleVersus)
+	mux.HandleFunc("GET /card/score.png", s.handleScoreCard)
+	mux.HandleFunc("GET /card/versus.png", s.handleVersusCard)
 	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("ok"))
 	})

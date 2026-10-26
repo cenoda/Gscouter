@@ -121,7 +121,17 @@ func TestScoreFromPicker(t *testing.T) {
 	mustContain(t, body, "DPS", "hutao", "staffofhoma", "검증 전", "https://enka.network/ui/UI_AvatarIcon_Hutao.png")
 	// Link previews show the score and the members.
 	mustContain(t, body, `<meta property="og:title" content="Strong의 파티 `, `<meta property="og:description" content="hutao C0 `,
-		`<meta property="og:image" content="https://enka.network/ui/UI_AvatarIcon_Hutao.png">`)
+		`<meta property="og:image" content="http://127.0.0.1:`)
+	i := strings.Index(body, `og:image" content="`)
+	card := strings.ReplaceAll(body[i+len(`og:image" content="`):][:strings.Index(body[i+len(`og:image" content="`):], `"`)], "&amp;", "&")
+	resp, err := ts.Client().Get(card)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK || resp.Header.Get("Content-Type") != "image/png" {
+		t.Errorf("card %s: status %d, type %q", card, resp.StatusCode, resp.Header.Get("Content-Type"))
+	}
 }
 
 func TestScoreUnsupportedTeam(t *testing.T) {

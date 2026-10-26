@@ -211,7 +211,7 @@ func (s *Server) handleScore(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(r.Context(), 90*time.Second)
 	defer cancel()
 	tr := s.evaluate(ctx, sel)
-	s.render(w, "score.html", scoreData{Team: tr, Meta: scoreMeta(tr)})
+	s.render(w, "score.html", scoreData{Team: tr, Meta: scoreMeta(tr, baseURL(r))})
 }
 
 type versusData struct {
@@ -245,14 +245,19 @@ func (s *Server) handleVersus(w http.ResponseWriter, r *http.Request) {
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 120*time.Second)
 	defer cancel()
+	data := s.versus(ctx, a, b)
+	data.Meta = versusMeta(data, baseURL(r))
+	s.render(w, "versus.html", data)
+}
+
+func (s *Server) versus(ctx context.Context, a, b selection) versusData {
 	data := versusData{A: s.evaluate(ctx, a), B: s.evaluate(ctx, b)}
 	if data.A.Result != nil && data.B.Result != nil && data.B.Result.DPS > 0 {
 		data.Scored = true
 		data.Diff = (data.A.Result.DPS - data.B.Result.DPS) / data.B.Result.DPS
 		data.Tie = math.Abs(data.Diff) < tieThreshold
 	}
-	data.Meta = versusMeta(data)
-	s.render(w, "versus.html", data)
+	return data
 }
 
 func (s *Server) renderProblem(w http.ResponseWriter, msg string) {

@@ -3,6 +3,8 @@ package web
 import (
 	"cmp"
 	"fmt"
+	"net/http"
+	"net/url"
 	"slices"
 	"strings"
 
@@ -62,28 +64,25 @@ func (tr teamResult) summary() string {
 	return strings.Join(parts, " · ")
 }
 
-// carry is the face icon of the member dealing the most damage, or "".
-func (tr teamResult) carry() string {
-	if tr.Result == nil || len(tr.Result.Characters) == 0 {
-		return ""
+// baseURL is the site's scheme and host as the client sees it, for the
+// absolute URLs Open Graph needs. Caddy terminates TLS in production.
+func baseURL(r *http.Request) string {
+	scheme := "https"
+	if r.TLS == nil && r.Header.Get("X-Forwarded-Proto") != "https" {
+		scheme = "http"
 	}
-	top := tr.Result.Characters[0]
-	for _, c := range tr.Result.Characters[1:] {
-		if c.DPS > top.DPS {
-			top = c
-		}
-	}
-	return face(top.Name)
+	return scheme + "://" + r.Host
 }
 
-func scoreMeta(tr teamResult) pageMeta {
+// scoreMeta describes a result; base is the site's URL (see baseURL).
+func scoreMeta(tr teamResult, base string) pageMeta {
 	if tr.Result == nil {
 		return pageMeta{Title: "Gscouter 결과 · " + tr.owner(), Description: tr.Problem}
 	}
 	m := pageMeta{
 		Title:       fmt.Sprintf("%s의 파티 %s DPS · Gscouter", tr.owner(), thousands(tr.Result.DPS)),
 		Description: tr.summary(),
-		Image:       tr.carry(),
+		Image:       base + "/card/score.png?" + url.Values{"a": {tr.Selection.String()}}.Encode(),
 	}
 	if tr.OneRotation != nil {
 		m.Description += fmt.Sprintf(" | 로테이션 1회 %s DPS", thousands(tr.OneRotation.DPS))
@@ -91,24 +90,23 @@ func scoreMeta(tr teamResult) pageMeta {
 	return m
 }
 
-func versusMeta(d versusData) pageMeta {
+func versusMeta(d versusData, base string) pageMeta {
 	if !d.Scored {
 		return pageMeta{Title: fmt.Sprintf("%s vs %s · Gscouter", d.A.owner(), d.B.owner())}
 	}
-	verdict, image := "비슷합니다", d.A.carry()
+	verdict := "비슷합니다"
 	switch {
 	case d.Tie:
 	case d.Diff > 0:
 		verdict = fmt.Sprintf("%s 파티가 %.1f%% 높습니다", d.A.owner(), d.Diff*100)
 	default:
 		verdict = fmt.Sprintf("%s 파티가 %.1f%% 높습니다", d.B.owner(), -d.Diff*100)
-		image = d.B.carry()
 	}
 	return pageMeta{
 		Title: fmt.Sprintf("%s vs %s: %s · Gscouter", d.A.owner(), d.B.owner(), verdict),
 		Description: fmt.Sprintf("%s %s DPS (%s) vs %s %s DPS (%s)",
 			d.A.owner(), thousands(d.A.Result.DPS), d.A.summary(),
 			d.B.owner(), thousands(d.B.Result.DPS), d.B.summary()),
-		Image: image,
+		Image: base + "/card/versus.png?" + url.Values{"a": {d.A.Selection.String()}, "b": {d.B.Selection.String()}}.Encode(),
 	}
 }
