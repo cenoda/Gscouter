@@ -1,0 +1,9 @@
+id: zibai-illuga-columbina-zhongli
+name: Zibai / Illuga / Columbina / Zhongli
+members: [zibai, illuga, columbina, zhongli]
+archetype: Geo Lunar-Crystallize carry
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Columbina keeps Hydro on the enemy, Zhongli shields and shreds, Illuga buffs Geo and Lunar-Crystallize. Zibai enters Lunar Phase Shift, attacks to build Radiance and casts Spirit Steed's Stride whenever it has 70."

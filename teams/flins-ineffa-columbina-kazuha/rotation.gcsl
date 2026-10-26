@@ -1,0 +1,16 @@
+active columbina;
+while 1 {
+  columbina skill;
+  if .columbina.burst.ready { columbina burst; }
+  ineffa skill;
+  kazuha skill;
+  if .kazuha.burst.ready { kazuha burst; }
+  flins skill;
+  if .flins.burst.ready { flins burst; }
+  flins skill;
+  if .flins.burst.ready { flins burst; }
+  flins attack:5;
+  while !.columbina.skill.ready || !.flins.skill.ready || !.ineffa.skill.ready {
+    flins attack:5;
+  }
+}

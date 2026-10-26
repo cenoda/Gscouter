@@ -1,0 +1,15 @@
+active nahida;
+while 1 {
+  nahida skill[hold=1];
+  lauma skill;
+  if .lauma.burst.ready { lauma burst; }
+  sucrose skill;
+  if .sucrose.burst.ready { sucrose burst; }
+  columbina skill;
+  if .columbina.burst.ready { columbina burst; }
+  if .nahida.burst.ready { nahida burst; }
+  columbina attack:3;
+  while !.columbina.skill.ready || !.nahida.skill.ready || !.lauma.skill.ready {
+    columbina attack:3;
+  }
+}

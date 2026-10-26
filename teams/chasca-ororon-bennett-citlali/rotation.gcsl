@@ -1,0 +1,18 @@
+active citlali;
+while 1 {
+  citlali skill;
+  if .citlali.burst.ready { citlali burst; }
+  ororon skill;
+  if .ororon.burst.ready { ororon burst; }
+  if .bennett.burst.ready { bennett burst; }
+  bennett skill;
+  chasca skill;
+  if .chasca.burst.ready { chasca burst; }
+  while .chasca.nightsoul.state {
+    chasca aim;
+  }
+  chasca attack:3;
+  while !.citlali.skill.ready || !.ororon.skill.ready {
+    chasca attack:3;
+  }
+}
