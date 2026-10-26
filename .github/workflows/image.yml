@@ -39,7 +39,7 @@ jobs:
           platforms: linux/amd64
           labels: org.opencontainers.image.source=https://github.com/${{ github.repository }}
           tags: |
-            ghcr.io/${{ github.repository }}:latest
-            ghcr.io/${{ github.repository }}:${{ github.sha }}
+            ghcr.io/cenoda/gscouter:latest
+            ghcr.io/cenoda/gscouter:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
