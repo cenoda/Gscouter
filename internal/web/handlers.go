@@ -38,7 +38,6 @@ var funcs = template.FuncMap{
 	"px":      func(a, b float64) string { return strconv.FormatFloat(a+b, 'f', 1, 64) },
 	"element": element,
 	"face":    face,
-	"meta":    metaOf,
 	"keys": func(chars []enka.Character) []string {
 		out := make([]string, len(chars))
 		for i, c := range chars {
@@ -129,6 +128,7 @@ type indexData struct {
 }
 
 func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
+	l := localizerFor(r)
 	q := r.URL.Query()
 	data := indexData{
 		UID:       strings.TrimSpace(q.Get("uid")),
@@ -140,13 +140,13 @@ func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 		defer cancel()
 		p, err := s.profiles.Profile(ctx, data.UID)
 		if err != nil {
-			data.Problem = enkaMessage(err)
+			data.Problem = enkaMessage(l, err)
 		} else {
 			data.Profile = p
 			data.Suggested = s.suggest(p)
 		}
 	}
-	s.render(w, "index.html", data)
+	s.render(w, l, "index.html", data)
 }
 
 // suggest lists the library teams that can be built from a showcase.
@@ -192,7 +192,7 @@ func (s *Server) handleTeams(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	slices.SortFunc(data.Teams, func(a, b *library.Team) int { return strings.Compare(a.Name, b.Name) })
-	s.render(w, "teams.html", data)
+	s.render(w, localizerFor(r), "teams.html", data)
 }
 
 type scoreData struct {
@@ -201,9 +201,10 @@ type scoreData struct {
 }
 
 func (s *Server) handleScore(w http.ResponseWriter, r *http.Request) {
+	l := localizerFor(r)
 	sel, err := selectionFromQuery(r, "a")
 	if err != nil {
-		s.renderProblem(w, err.Error())
+		s.renderProblem(w, l, l.message(err))
 		return
 	}
 	// Normalize the URL so results can be shared as /score?a=UID:...
@@ -213,9 +214,9 @@ func (s *Server) handleScore(w http.ResponseWriter, r *http.Request) {
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 90*time.Second)
 	defer cancel()
-	tr := s.evaluate(ctx, sel)
+	tr := s.evaluate(ctx, l, sel)
 	tr.ID = "a"
-	s.render(w, "score.html", scoreData{Team: tr, Meta: scoreMeta(tr, baseURL(r))})
+	s.render(w, l, "score.html", scoreData{Team: tr, Meta: scoreMeta(l, tr, baseURL(r))})
 }
 
 type versusData struct {
@@ -232,14 +233,15 @@ type versusData struct {
 const tieThreshold = 0.02
 
 func (s *Server) handleVersus(w http.ResponseWriter, r *http.Request) {
+	l := localizerFor(r)
 	a, err := parseSelection(r.URL.Query().Get("a"))
 	if err != nil {
-		s.renderProblem(w, err.Error())
+		s.renderProblem(w, l, l.message(err))
 		return
 	}
 	b, err := selectionFromQuery(r, "b")
 	if err != nil {
-		s.renderProblem(w, err.Error())
+		s.renderProblem(w, l, l.message(err))
 		return
 	}
 	if r.URL.Query().Get("b") == "" {
@@ -249,13 +251,13 @@ func (s *Server) handleVersus(w http.ResponseWriter, r *http.Request) {
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 120*time.Second)
 	defer cancel()
-	data := s.versus(ctx, a, b)
-	data.Meta = versusMeta(data, baseURL(r))
-	s.render(w, "versus.html", data)
+	data := s.versus(ctx, l, a, b)
+	data.Meta = versusMeta(l, data, baseURL(r))
+	s.render(w, l, "versus.html", data)
 }
 
-func (s *Server) versus(ctx context.Context, a, b selection) versusData {
-	data := versusData{A: s.evaluate(ctx, a), B: s.evaluate(ctx, b)}
+func (s *Server) versus(ctx context.Context, l localizer, a, b selection) versusData {
+	data := versusData{A: s.evaluate(ctx, l, a), B: s.evaluate(ctx, l, b)}
 	data.A.ID, data.B.ID = "a", "b"
 	if data.A.Result != nil && data.B.Result != nil && data.B.Result.DPS > 0 {
 		data.Scored = true
@@ -265,14 +267,23 @@ func (s *Server) versus(ctx context.Context, a, b selection) versusData {
 	return data
 }
 
-func (s *Server) renderProblem(w http.ResponseWriter, msg string) {
+func (s *Server) renderProblem(w http.ResponseWriter, l localizer, msg string) {
+	s.writeHeader(w, l)
 	w.WriteHeader(http.StatusBadRequest)
-	s.render(w, "problem.html", msg)
+	s.render(w, l, "problem.html", msg)
 }
 
-func (s *Server) render(w http.ResponseWriter, name string, data any) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	if err := s.tmpl.ExecuteTemplate(w, name, data); err != nil {
+// writeHeader sets the headers of a page in l's language.
+func (s *Server) writeHeader(w http.ResponseWriter, l localizer) {
+	h := w.Header()
+	h.Set("Content-Type", "text/html; charset=utf-8")
+	h.Set("Content-Language", l.Lang)
+	h.Set("Vary", "Accept-Language, Cookie")
+}
+
+func (s *Server) render(w http.ResponseWriter, l localizer, name string, data any) {
+	s.writeHeader(w, l)
+	if err := s.tmpl[l].ExecuteTemplate(w, name, data); err != nil {
 		slog.Error("render", "template", name, "err", err)
 	}
 }

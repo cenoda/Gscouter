@@ -11,9 +11,6 @@ import (
 	"github.com/cenoda/gscouter/internal/score"
 )
 
-// siteDescription is the preview text of pages without their own.
-const siteDescription = "원신 UID로 쇼케이스 캐릭터 4명의 파티 DPS를 같은 적·같은 로테이션 기준으로 계산하고 다른 플레이어와 비교합니다."
-
 // pageMeta is what a page tells link previews (KakaoTalk, Discord, ...)
 // through Open Graph tags.
 type pageMeta struct {
@@ -23,14 +20,15 @@ type pageMeta struct {
 }
 
 // metaOf lets the head template take either a plain title or a pageMeta.
-func metaOf(v any) pageMeta {
+// Pages without their own preview text get the site's description.
+func metaOf(l localizer, v any) pageMeta {
 	switch v := v.(type) {
 	case pageMeta:
 		return v
 	case string:
-		return pageMeta{Title: v, Description: siteDescription}
+		return pageMeta{Title: v, Description: l.T("site.desc")}
 	}
-	return pageMeta{Title: "Gscouter", Description: siteDescription}
+	return pageMeta{Title: "Gscouter", Description: l.T("site.desc")}
 }
 
 // owner names whose team a result is.
@@ -75,32 +73,32 @@ func baseURL(r *http.Request) string {
 }
 
 // scoreMeta describes a result; base is the site's URL (see baseURL).
-func scoreMeta(tr teamResult, base string) pageMeta {
+func scoreMeta(l localizer, tr teamResult, base string) pageMeta {
 	if tr.Result == nil {
-		return pageMeta{Title: "Gscouter 결과 · " + tr.owner(), Description: tr.Problem}
+		return pageMeta{Title: l.T("meta.result_title", tr.owner()), Description: tr.Problem}
 	}
 	m := pageMeta{
-		Title:       fmt.Sprintf("%s의 파티 %s DPS · Gscouter", tr.owner(), thousands(tr.Result.DPS)),
+		Title:       l.T("meta.score_title", tr.owner(), thousands(tr.Result.DPS)),
 		Description: tr.summary(),
 		Image:       base + "/card/score.png?" + url.Values{"a": {tr.Selection.String()}}.Encode(),
 	}
 	if tr.OneRotation != nil {
-		m.Description += fmt.Sprintf(" | 로테이션 1회 %s DPS", thousands(tr.OneRotation.DPS))
+		m.Description += l.T("meta.one_rotation", thousands(tr.OneRotation.DPS))
 	}
 	return m
 }
 
-func versusMeta(d versusData, base string) pageMeta {
+func versusMeta(l localizer, d versusData, base string) pageMeta {
 	if !d.Scored {
 		return pageMeta{Title: fmt.Sprintf("%s vs %s · Gscouter", d.A.owner(), d.B.owner())}
 	}
-	verdict := "비슷합니다"
+	verdict := l.T("vs.tie")
 	switch {
 	case d.Tie:
 	case d.Diff > 0:
-		verdict = fmt.Sprintf("%s 파티가 %.1f%% 높습니다", d.A.owner(), d.Diff*100)
+		verdict = l.T("meta.team_higher", d.A.owner(), d.Diff*100)
 	default:
-		verdict = fmt.Sprintf("%s 파티가 %.1f%% 높습니다", d.B.owner(), -d.Diff*100)
+		verdict = l.T("meta.team_higher", d.B.owner(), -d.Diff*100)
 	}
 	return pageMeta{
 		Title: fmt.Sprintf("%s vs %s: %s · Gscouter", d.A.owner(), d.B.owner(), verdict),

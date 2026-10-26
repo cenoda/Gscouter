@@ -1,5 +1,5 @@
 {{define "head"}}<!doctype html>
-<html lang="ko">
+<html lang="{{lang}}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,6 +47,8 @@ header .logo svg { width: 28px; height: 28px; color: var(--accent); }
 header nav { margin-left: auto; display: flex; gap: 16px; }
 header nav a { color: var(--muted); text-decoration: none; font-size: .95rem; }
 header nav a:hover { color: var(--text); }
+header form.lang select { font: inherit; font-size: .9rem; color: var(--muted); background: transparent; border: 1px solid var(--line); border-radius: 6px; padding: 2px 4px; }
+header form.lang button { padding: 2px 8px; font-size: .85rem; }
 .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
 h1, h2, h3 { margin: 0 0 12px; line-height: 1.3; }
 h1 { font-size: 1.4rem; } h2 { font-size: 1.15rem; } h3 { font-size: 1rem; }
@@ -216,7 +218,14 @@ details.rotation pre { background: var(--bg); border-radius: 8px; padding: 12px;
 <main>
 <header>
 <a class="logo" href="/"><svg><use href="#logo"/></svg>Gscouter</a>
-<nav><a href="/">UID 조회</a><a href="/teams">파티 목록</a></nav>
+<nav><a href="/">{{t "nav.lookup"}}</a><a href="/teams">{{t "nav.teams"}}</a>
+<form class="lang" method="post" action="/lang">
+<select name="lang" aria-label="{{t "lang.label"}}" title="{{t "lang.label"}}" onchange="this.form.submit()">
+<option value=""{{if langAuto}} selected{{end}}>{{t "lang.auto"}}</option>
+{{range langs}}<option value="{{.Code}}" lang="{{.Code}}"{{if and (not langAuto) (eq .Code lang)}} selected{{end}}>{{.Name}}</option>{{end}}
+</select>
+<noscript><button type="submit" class="secondary">{{t "lang.apply"}}</button></noscript>
+</form></nav>
 </header>
 {{end}}
 
@@ -231,12 +240,12 @@ details.rotation pre { background: var(--bg); border-radius: 8px; padding: 12px;
 {{define "foot"}}
 <footer>
 <details class="muted">
-<summary>계산 방식</summary>
-<p>Lv.100 적 1명, 모든 내성 10%, 일정한 간격의 원소 입자 조건에서 커뮤니티 gcsim 로테이션을 끝없이 반복해, 시작 에너지가 바닥난 뒤인 150–450초 구간의 평균 DPS를 점수로 씁니다. 원소 충전 효율이 부족하면 점수가 내려갑니다.</p>
-<p>에너지나 쿨타임 때문에 캐릭터가 서서 기다리게 되면, 그 시간을 원소전투 스킬·교체·평타로 채운 경우와 비교해 높은 쪽을 씁니다. "로테이션 1회"는 에너지가 가득한 상태에서 한 번 돌린 값으로, 커뮤니티 gcsim 설정이 보고하는 숫자와 같은 기준입니다.</p>
+<summary>{{t "foot.method"}}</summary>
+<p>{{t "foot.method1"}}</p>
+<p>{{t "foot.method2"}}</p>
 </details>
-<p class="muted">시뮬레이션 <a href="https://github.com/genshinsim/gcsim">gcsim</a> · 로테이션 <a href="https://db.kqm.gg">KQM gcsim DB</a> · 캐릭터 정보 <a href="https://enka.network">Enka.Network</a></p>
-<p class="muted">Gscouter는 광고·후원 없이 운영하는 비영리 비공식 팬 프로젝트로 HoYoverse와 관련이 없습니다. 원신 및 관련 명칭은 HoYoverse의 상표이며, 캐릭터 이미지는 © HoYoverse로 <a href="https://enka.network">Enka.Network</a>에서 불러옵니다.</p>
+<p class="muted">{{th "foot.credits"}}</p>
+<p class="muted">{{th "foot.legal"}}</p>
 </footer>
 </main>
 <div class="toast" id="toast" role="status"></div>
@@ -270,14 +279,14 @@ function copyLink(btn) {
   var url = location.href;
   var done = function () {
     var t = document.getElementById("toast");
-    t.textContent = "링크를 복사했습니다";
+    t.textContent = {{t "js.copied"}};
     t.classList.add("show");
     setTimeout(function () { t.classList.remove("show"); }, 1500);
   };
   if (navigator.clipboard) {
-    navigator.clipboard.writeText(url).then(done, function () { prompt("링크", url); });
+    navigator.clipboard.writeText(url).then(done, function () { prompt({{t "js.link"}}, url); });
   } else {
-    prompt("링크", url);
+    prompt({{t "js.link"}}, url);
   }
 }
 </script>
@@ -292,17 +301,17 @@ function copyLink(btn) {
 <div class="bad">{{.Problem}}</div>
 {{else}}
 <div class="score">{{thousands .Result.DPS}} <span class="muted">DPS</span></div>
-<p class="muted">±{{thousands .Result.StdErr}} (표준오차){{with .Team.Archetype}} · {{.}}{{end}}</p>
-{{with .OneRotation}}<p class="muted">로테이션 1회(에너지 가득): {{thousands .DPS}} DPS</p>{{end}}
+<p class="muted">±{{thousands .Result.StdErr}} ({{t "team.stderr"}}){{with .Team.Archetype}} · {{.}}{{end}}</p>
+{{with .OneRotation}}<p class="muted">{{t "team.one_rotation" (thousands .DPS)}}</p>{{end}}
 {{with .Filler}}<p class="muted">{{.}}</p>{{end}}
 {{range .Warnings}}<div class="warn">{{.}}</div>{{end}}
 <div class="table-wrap">
 <table>
-<thead><tr><th>캐릭터</th><th class="num">DPS</th><th class="num">비중</th></tr></thead>
+<thead><tr><th>{{t "team.character"}}</th><th class="num">DPS</th><th class="num">{{t "team.share"}}</th></tr></thead>
 <tbody>
 {{range $i, $c := .Result.Characters}}{{$e := index $.Chars $i}}
 <tr>
-<td><span class="who">{{template "face" $c.Name}}{{template "el" (element $c.Name)}}{{$c.Name}}</span><span class="muted">Lv.{{$e.Level}} C{{$e.Cons}} · {{$e.Weapon.Key}} R{{$e.Weapon.Refine}} · 특성 {{index $e.Talents 0}}/{{index $e.Talents 1}}/{{index $e.Talents 2}}</span></td>
+<td><span class="who">{{template "face" $c.Name}}{{template "el" (element $c.Name)}}{{$c.Name}}</span><span class="muted">Lv.{{$e.Level}} C{{$e.Cons}} · {{$e.Weapon.Key}} R{{$e.Weapon.Refine}} · {{t "team.talents"}} {{index $e.Talents 0}}/{{index $e.Talents 1}}/{{index $e.Talents 2}}</span></td>
 <td class="num">{{thousands $c.DPS}}</td>
 <td class="num">{{percent $c.Share}}<span class="bar"><i style="width: {{width $c.Share}}%"></i></span></td>
 </tr>

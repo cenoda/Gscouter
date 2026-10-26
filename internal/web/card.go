@@ -55,7 +55,7 @@ func (s *Server) handleScoreCard(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	s.serveCard(w, r, func(ctx context.Context) (image.Image, bool) {
-		tr := s.evaluate(ctx, sel)
+		tr := s.evaluate(ctx, english, sel)
 		if tr.Result == nil {
 			return nil, false
 		}
@@ -71,7 +71,7 @@ func (s *Server) handleVersusCard(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	s.serveCard(w, r, func(ctx context.Context) (image.Image, bool) {
-		d := s.versus(ctx, a, b)
+		d := s.versus(ctx, english, a, b)
 		if !d.Scored {
 			return nil, false
 		}

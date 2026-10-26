@@ -64,9 +64,29 @@ func newTestServer(t *testing.T) *httptest.Server {
 	return ts
 }
 
+// get fetches path in English, the language of browsers the site does
+// not speak.
 func get(t *testing.T, ts *httptest.Server, path string) (int, string) {
 	t.Helper()
-	resp, err := ts.Client().Get(ts.URL + path)
+	return getLang(t, ts, path, "")
+}
+
+// getKo fetches path from a Korean browser.
+func getKo(t *testing.T, ts *httptest.Server, path string) (int, string) {
+	t.Helper()
+	return getLang(t, ts, path, "ko-KR,ko;q=0.9,en;q=0.8")
+}
+
+func getLang(t *testing.T, ts *httptest.Server, path, acceptLanguage string) (int, string) {
+	t.Helper()
+	req, err := http.NewRequest("GET", ts.URL+path, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if acceptLanguage != "" {
+		req.Header.Set("Accept-Language", acceptLanguage)
+	}
+	resp, err := ts.Client().Do(req)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -86,7 +106,7 @@ func mustContain(t *testing.T, body string, want ...string) {
 
 func TestIndexSuggestsTeams(t *testing.T) {
 	ts := newTestServer(t)
-	code, body := get(t, ts, "/?uid=800000001")
+	code, body := getKo(t, ts, "/?uid=800000001")
 	if code != http.StatusOK {
 		t.Fatalf("status %d", code)
 	}
@@ -108,13 +128,15 @@ func TestTeamsFilter(t *testing.T) {
 func TestIndexUnknownUID(t *testing.T) {
 	ts := newTestServer(t)
 	_, body := get(t, ts, "/?uid=800000009")
+	mustContain(t, body, "No player has this UID")
+	_, body = getKo(t, ts, "/?uid=800000009")
 	mustContain(t, body, "플레이어를 찾을 수 없습니다")
 }
 
 func TestScoreFromPicker(t *testing.T) {
 	ts := newTestServer(t)
 	// The picker form redirects to a shareable URL, which the client follows.
-	code, body := get(t, ts, "/score?uid=800000001&c=hutao&c=yelan&c=xingqiu&c=zhongli")
+	code, body := getKo(t, ts, "/score?uid=800000001&c=hutao&c=yelan&c=xingqiu&c=zhongli")
 	if code != http.StatusOK {
 		t.Fatalf("status %d: %s", code, body)
 	}
@@ -136,13 +158,13 @@ func TestScoreFromPicker(t *testing.T) {
 
 func TestScoreUnsupportedTeam(t *testing.T) {
 	ts := newTestServer(t)
-	_, body := get(t, ts, "/score?a="+url.QueryEscape("800000001:hutao,yelan,xingqiu,amber"))
+	_, body := getKo(t, ts, "/score?a="+url.QueryEscape("800000001:hutao,yelan,xingqiu,amber"))
 	mustContain(t, body, "아직 지원하지 않는 파티")
 }
 
 func TestScoreMissingCharacter(t *testing.T) {
 	ts := newTestServer(t)
-	_, body := get(t, ts, "/score?a="+url.QueryEscape("800000002:hutao,yelan,xingqiu,amber"))
+	_, body := getKo(t, ts, "/score?a="+url.QueryEscape("800000002:hutao,yelan,xingqiu,amber"))
 	mustContain(t, body, "amber 캐릭터가 쇼케이스에 없습니다")
 }
 
@@ -152,6 +174,8 @@ func TestScoreRejectsWrongCount(t *testing.T) {
 	if code != http.StatusBadRequest {
 		t.Errorf("status %d, want 400", code)
 	}
+	mustContain(t, body, "Pick exactly four characters (2 picked)")
+	_, body = getKo(t, ts, "/score?uid=800000001&c=skirk&c=yelan")
 	mustContain(t, body, "정확히 4명")
 }
 
@@ -161,7 +185,7 @@ func TestVersus(t *testing.T) {
 		"a": {"800000001:hutao,yelan,xingqiu,zhongli"},
 		"b": {"800000002:zhongli,xingqiu,yelan,hutao"},
 	}
-	code, body := get(t, ts, "/versus?"+v.Encode())
+	code, body := getKo(t, ts, "/versus?"+v.Encode())
 	if code != http.StatusOK {
 		t.Fatalf("status %d", code)
 	}
@@ -169,23 +193,28 @@ func TestVersus(t *testing.T) {
 		`<meta property="og:title" content="Strong vs Weak: Strong 파티가 `)
 
 	v.Set("b", v.Get("a"))
-	_, body = get(t, ts, "/versus?"+v.Encode())
+	_, body = getKo(t, ts, "/versus?"+v.Encode())
 	mustContain(t, body, "비슷합니다")
+	_, body = get(t, ts, "/versus?"+v.Encode())
+	mustContain(t, body, "About even", "Copy comparison link")
 }
 
 func TestWarningsKnownIssues(t *testing.T) {
-	got := strings.Join(warnings(&library.Team{Members: []string{"arlecchino", "bennett"}}, &score.Result{}), "\n")
+	got := strings.Join(warnings(localizer{Lang: langKorean}, &library.Team{Members: []string{"arlecchino", "bennett"}}, &score.Result{}), "\n")
 	if !strings.Contains(got, "아를레키노") || !strings.Contains(got, "20%") {
 		t.Errorf("no Arlecchino note in %q", got)
 	}
-	if got := warnings(&library.Team{Members: []string{"hutao"}}, &score.Result{}); len(got) != 0 {
+	if got := warnings(english, &library.Team{Members: []string{"hutao"}}, &score.Result{}); len(got) != 0 {
 		t.Errorf("unexpected warnings %q", got)
 	}
 }
 
 func TestScoreTimeline(t *testing.T) {
 	ts := newTestServer(t)
-	_, body := get(t, ts, "/score?a="+url.QueryEscape("800000001:hutao,yelan,xingqiu,zhongli"))
+	_, body := getKo(t, ts, "/score?a="+url.QueryEscape("800000001:hutao,yelan,xingqiu,zhongli"))
 	mustContain(t, body, "로테이션 타임라인", `id="tl-a-cycle"`, `id="tl-a-steady"`, "교체 순서와 구간별 피해",
 		"능력별 피해", "로테이션 스크립트", `class="tl-bar" data-tip=`, ">E</text>", ">Q</text>")
+	_, body = get(t, ts, "/score?a="+url.QueryEscape("800000001:hutao,yelan,xingqiu,zhongli"))
+	mustContain(t, body, "Rotation timeline", "Swaps and damage per stint", "Damage by ability", "Rotation script",
+		"One rotation (full energy):", `<meta property="og:title" content="Strong&#39;s team: `)
 }
