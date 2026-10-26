@@ -2,12 +2,29 @@
 <div class="card">
 <h1>지원하는 파티</h1>
 <form class="inline" action="/teams" method="get">
-<input type="text" name="q" placeholder="캐릭터 (예: hutao)" value="{{.Query}}">
+<input type="search" name="q" id="team-q" placeholder="캐릭터 이름 (예: hutao, furina)" value="{{.Query}}" autocomplete="off">
 <button type="submit">찾기</button>
 </form>
-<p class="muted">{{if .Query}}"{{.Query}}"이(가) 들어간 파티 {{len .Teams}}개 (전체 {{.Total}}개){{else}}전체 {{.Total}}개{{end}}</p>
-<ul>
-{{range .Teams}}<li>{{.Name}} <span class="muted">· {{if eq .Status "supported"}}지원{{else if eq .Status "draft"}}검증 전{{else}}엔진 미지원{{end}}</span></li>{{end}}
+<p class="muted" id="team-count">{{if .Query}}"{{.Query}}"이(가) 들어간 파티 {{len .Teams}}개 (전체 {{.Total}}개){{else}}전체 {{.Total}}개{{end}}</p>
+<p class="muted">gcsim 키 이름으로 찾습니다. 여러 캐릭터를 띄어 쓰면 모두 들어간 파티만 보여 줍니다.</p>
+<ul class="teams" id="team-list">
+{{range .Teams}}<li data-m="{{members .}}">{{.Name}}{{if eq .Status "supported"}} <span class="muted">· 지원</span>{{else if eq .Status "blocked"}} <span class="muted">· 엔진 미지원</span>{{end}}</li>{{end}}
 </ul>
 </div>
+<script>
+(function () {
+  // Filters the list as you type; the form does the same on the server.
+  var q = document.getElementById("team-q"), items = document.querySelectorAll("#team-list li");
+  var count = document.getElementById("team-count"), total = {{.Total}};
+  q.addEventListener("input", function () {
+    var words = q.value.toLowerCase().split(/\s+/).filter(Boolean), n = 0;
+    items.forEach(function (li) {
+      var m = li.dataset.m, show = words.every(function (w) { return m.indexOf(w) >= 0; });
+      li.hidden = !show;
+      if (show) n++;
+    });
+    count.textContent = words.length ? "찾은 파티 " + n + "개 (전체 " + total + "개)" : "전체 " + total + "개";
+  });
+})();
+</script>
 {{template "foot"}}

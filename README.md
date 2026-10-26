@@ -2,7 +2,7 @@
 
 Genshin Impact team DPS calculator: settles "whose team is better built?" by scoring every team under the same conditions with a fixed rotation. See [docs/design.md](docs/design.md) for the design.
 
-Status: prototype. The website looks up a UID on Enka.Network, lets you pick four showcase characters, and scores or compares teams.
+Status: prototype. The website looks up a UID on Enka.Network, lets you pick four showcase characters (or one of the library teams the showcase can build), and scores or compares teams. Results and comparisons have shareable links; `/teams` lists the library and finds teams by character. Element icons are drawn for the site; it uses no game artwork.
 
 ## Requirements
 
@@ -80,7 +80,7 @@ go run ./cmd/validate -v -detail teams/<id>      # one team, with a breakdown
 
 - `cmd/harvest` downloads the community gcsim database at db.kqm.gg and ranks teams by how many entries use them. Every entry with four characters and a rotation that ends (no unconditional `while 1`) is usable, whatever its enemies, energy or gcsim tags. For each team it tries the entries from the lowest constellations and refinements up and keeps the first whose one pass, under the entry's own conditions, is within 15% of the database's DPS (20 iterations). Flags: `-j` teams in parallel (default: one per CPU), `-cache <file>` saves the download and reuses it, `-min` least entries per team (1), `-tries` entries per team (0, all), `-force` replaces teams already in the library. Teams that fail every entry are listed in `teams/harvest-failed.txt` and skipped by later runs unless `-retry-failed` is set.
 - `cmd/import` splits one shared config into the source's build (`build.txt`), character params such as Hu Tao's `start_hp=1` (`params` in `team.yaml`) and the rotation. The source's options, enemy and energy lines go to `source.txt`; the site replaces them with the common conditions. It records the source's DPS as `reference`.
-- `cmd/validate` runs each team with its `build.txt`. One pass of the rotation under the source's conditions (`source.txt`; enemy count, level, resistance, energy) must reproduce the source's DPS within 15% (a warning above 5%). It then scores the looped rotation as the site does, and warns about energy and other waits and about members with almost no damage. A team with no source, or whose rotation never finishes, fails.
+- `cmd/validate` runs each team with its `build.txt`. One pass of the rotation under the source's conditions (`source.txt`; enemy count, level, resistance, energy) must reproduce the source's DPS within 15% (a warning above 5%). It then scores the looped rotation as the site does, and warns about energy and other waits and about members with almost no damage. A team with no source, whose rotation never finishes, or whose looped rotation stops advancing (a loop with no action, such as a counter set once before it) fails. With several teams, each is checked in its own process, `-j` at a time, because gcsim cannot cancel a stuck rotation.
 
 The `add-team` skill (`.claude/skills/add-team/SKILL.md`) describes the workflow.
 

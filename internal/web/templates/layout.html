@@ -4,87 +4,181 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{.}}</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%233b6fd8' stroke-width='2.5'/%3E%3Ccircle cx='12' cy='12' r='3' fill='%233b6fd8'/%3E%3C/svg%3E">
 <style>
 :root {
-  --bg: #f6f7f9; --card: #fff; --text: #1d2330; --muted: #667085;
-  --line: #e3e6eb; --accent: #3b6fd8; --warn-bg: #fff5e0; --warn: #8a5a00;
+  --bg: #f4f6f9; --card: #fff; --text: #1d2330; --muted: #667085;
+  --line: #e3e6eb; --accent: #3b6fd8; --accent-soft: #e8eefb; --warn-bg: #fff5e0; --warn: #8a5a00;
   --bad-bg: #fdecec; --bad: #a12626; --good: #18794e;
+  --pyro: #e2603c; --hydro: #3a8fd0; --anemo: #2fae8e; --electro: #9a5fd6;
+  --dendro: #5fa632; --cryo: #4fb3cc; --geo: #c9962a;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #12151b; --card: #1b2029; --text: #e6e9ef; --muted: #9aa3b2;
-    --line: #2c3340; --accent: #7aa2f7; --warn-bg: #3a2e12; --warn: #f0c36a;
+    --bg: #11141a; --card: #1a1f28; --text: #e6e9ef; --muted: #9aa3b2;
+    --line: #2c3340; --accent: #7aa2f7; --accent-soft: #232d44; --warn-bg: #3a2e12; --warn: #f0c36a;
     --bad-bg: #3b1d1d; --bad: #f19999; --good: #5fd39a;
+    --pyro: #f27f5c; --hydro: #5eaee8; --anemo: #55cfae; --electro: #b88af0;
+    --dendro: #86c75a; --cryo: #7fd3e6; --geo: #e0b452;
   }
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--text);
   font: 16px/1.5 system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; }
+a { color: var(--accent); }
 main { max-width: 960px; margin: 0 auto; padding: 16px; }
-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; }
-header a { color: inherit; text-decoration: none; font-weight: 700; font-size: 1.3rem; }
-header span { color: var(--muted); font-size: .9rem; }
-.card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+header .logo { display: flex; align-items: center; gap: 8px; color: inherit; text-decoration: none; font-weight: 700; font-size: 1.3rem; }
+header .logo svg { width: 28px; height: 28px; color: var(--accent); }
+header nav { margin-left: auto; display: flex; gap: 16px; }
+header nav a { color: var(--muted); text-decoration: none; font-size: .95rem; }
+header nav a:hover { color: var(--text); }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
 h1, h2, h3 { margin: 0 0 12px; line-height: 1.3; }
 h1 { font-size: 1.4rem; } h2 { font-size: 1.15rem; } h3 { font-size: 1rem; }
+p { margin: 8px 0; }
 .muted { color: var(--muted); font-size: .9rem; }
 form.inline { display: flex; gap: 8px; flex-wrap: wrap; }
-input[type=text] { flex: 1; min-width: 0; padding: 10px 12px; font-size: 1rem;
+input[type=text], input[type=search] { flex: 1; min-width: 0; padding: 10px 12px; font-size: 1rem;
   border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--text); }
-button, .button { padding: 10px 16px; font-size: 1rem; border: 0; border-radius: 8px;
-  background: var(--accent); color: #fff; cursor: pointer; text-decoration: none; display: inline-block; }
+button, .button { padding: 10px 16px; font-size: 1rem; border: 0; border-radius: 8px; font-family: inherit;
+  background: var(--accent); color: #fff; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+button:disabled { opacity: .45; cursor: default; }
+button.secondary, .button.secondary { background: var(--accent-soft); color: var(--accent); }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.icon { width: 18px; height: 18px; flex: none; }
+.el { width: 18px; height: 18px; flex: none; vertical-align: -3px; }
+.el-pyro { color: var(--pyro); } .el-hydro { color: var(--hydro); } .el-anemo { color: var(--anemo); }
+.el-electro { color: var(--electro); } .el-dendro { color: var(--dendro); } .el-cryo { color: var(--cryo); } .el-geo { color: var(--geo); }
+.members { display: inline-flex; gap: 2px; vertical-align: -3px; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0 4px; padding: 0; list-style: none; }
+.steps li { display: flex; gap: 8px; align-items: center; font-size: .9rem; color: var(--muted); }
+.steps b { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-size: .8rem; flex: none; }
+@media (max-width: 560px) { .steps { grid-template-columns: 1fr; } }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.chips a { font-size: .85rem; padding: 3px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); text-decoration: none; }
+.suggest { list-style: none; padding: 0 4px 0 0; margin: 8px 0; max-height: 300px; overflow-y: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 6px; }
+.suggest a { display: flex; gap: 8px; align-items: center; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; text-decoration: none; color: inherit; }
+.suggest a:hover { border-color: var(--accent); }
+.picker-bar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; position: sticky; bottom: 0; background: var(--card); padding: 8px 0; }
+.picker-bar .count { font-variant-numeric: tabular-nums; }
 .chars { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; margin: 12px 0; }
 .chars label { display: flex; gap: 8px; align-items: flex-start; padding: 10px;
   border: 1px solid var(--line); border-radius: 8px; cursor: pointer; }
-.chars label:has(input:checked) { border-color: var(--accent); }
-.score { font-size: 2.2rem; font-weight: 700; }
+.chars label:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+.chars label:has(input:disabled) { opacity: .5; cursor: default; }
+.chars .name { display: flex; gap: 6px; align-items: center; font-weight: 600; }
+.score { font-size: 2.4rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.team-title { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 table { width: 100%; border-collapse: collapse; font-size: .95rem; }
 th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); }
 th { color: var(--muted); font-weight: 500; }
 td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+td .who + .muted { display: block; font-size: .8rem; }
+td.num .bar { min-width: 64px; }
+td .who { display: flex; gap: 6px; align-items: center; font-weight: 600; }
+.bar { display: block; height: 6px; border-radius: 3px; background: var(--line); margin-top: 4px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); }
 .table-wrap { overflow-x: auto; }
 .warn { background: var(--warn-bg); color: var(--warn); border-radius: 8px; padding: 10px 12px; margin: 8px 0; }
 .bad { background: var(--bad-bg); color: var(--bad); border-radius: 8px; padding: 10px 12px; margin: 8px 0; }
 .versus { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 @media (max-width: 720px) { .versus { grid-template-columns: 1fr; } }
 .verdict { font-size: 1.2rem; font-weight: 700; }
+.verdict .compare { margin-top: 12px; display: grid; gap: 6px; font-size: .9rem; font-weight: 400; }
+.verdict .compare div { display: grid; grid-template-columns: 4em 1fr 6em; gap: 8px; align-items: center; }
+.verdict .compare .bar { height: 10px; margin: 0; border-radius: 5px; }
 .win { color: var(--good); }
 ul { padding-left: 20px; margin: 8px 0; }
+ul.teams { columns: 2 300px; }
+ul.teams li { break-inside: avoid; }
+details summary { cursor: pointer; }
+footer { margin-top: 24px; border-top: 1px solid var(--line); padding-top: 12px; }
+footer p { margin: 6px 0; }
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--text); color: var(--card);
+  padding: 8px 14px; border-radius: 8px; font-size: .9rem; opacity: 0; transition: opacity .2s; pointer-events: none; }
+.toast.show { opacity: 1; }
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<symbol id="logo" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 1v5M12 18v5M1 12h5M18 12h5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2.5" fill="currentColor"/></symbol>
+<symbol id="el-pyro" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2c.6 3.4 4.8 5.6 4.8 10.6A4.8 4.8 0 0 1 12 17.4a4.8 4.8 0 0 1-4.8-4.8c0-2.6 1.6-3.8 1.9-6.3 1.3.9 2 2.3 2 3.8 1-1.8 1.2-4.6.9-8.1zM6.5 18.5h11v2h-11z"/></symbol>
+<symbol id="el-hydro" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5C9 7 6 10.2 6 14.2a6 6 0 0 0 12 0c0-4-3-7.2-6-11.7zm-2.6 11.3a2.8 2.8 0 0 0 2.8 2.8v1.6a4.4 4.4 0 0 1-4.4-4.4z"/></symbol>
+<symbol id="el-anemo" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M3 9h11a3 3 0 1 0-3-3M3 13h15a3 3 0 1 1-3 3M3 17h7"/></symbol>
+<symbol id="el-electro" viewBox="0 0 24 24"><path fill="currentColor" d="M13.5 2 5 13.5h5.8L9.5 22 19 9.8h-6z"/></symbol>
+<symbol id="el-dendro" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4C10.5 4 4.5 9.5 4.5 18.2l1.6 1.4C7 13 11 9.4 15 8 11.5 10.6 8.7 14 7.6 19.8 16 19.6 20 13.5 20 4z"/></symbol>
+<symbol id="el-cryo" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v20M3.3 7l17.4 10M3.3 17 20.7 7M9 3.5l3 2.5 3-2.5M9 20.5l3-2.5 3 2.5"/></symbol>
+<symbol id="el-geo" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 20 12l-8 10-8-10zm0 4.2L7.4 12l4.6 5.8 4.6-5.8z"/></symbol>
+<symbol id="i-link" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+<symbol id="i-vs" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 7h13l-3-3M20 17H7l3 3"/></symbol>
+<symbol id="i-back" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 5l-7 7 7 7"/></symbol>
+</defs>
+</svg>
 <main>
-<header><a href="/">Gscouter</a><span>누가 더 잘 키운 파티일까?</span></header>
+<header>
+<a class="logo" href="/"><svg><use href="#logo"/></svg>Gscouter</a>
+<nav><a href="/">UID 조회</a><a href="/teams">파티 목록</a></nav>
+</header>
 {{end}}
 
+{{define "el"}}{{if .}}<svg class="el el-{{.}}" role="img" aria-label="{{.}}"><use href="#el-{{.}}"/></svg>{{end}}{{end}}
+
+{{define "members"}}<span class="members">{{range .}}{{template "el" (element .)}}{{end}}</span>{{end}}
+
 {{define "foot"}}
-<p class="muted">조건: Lv.100 적 1명, 모든 내성 10%, 로테이션을 무한 반복한 평균 DPS(원소 충전 효율 부족이 반영됩니다). 에너지나 쿨타임 때문에 서서 기다리게 되면, 그 시간을 원소전투 스킬·교체·평타로 채운 경우와 비교해 높은 쪽을 씁니다. 로테이션은 커뮤니티 gcsim 설정에서 가져옵니다. 시뮬레이션: <a href="https://github.com/genshinsim/gcsim">gcsim</a> · 캐릭터 정보: <a href="https://enka.network">Enka.Network</a></p>
+<footer>
+<details class="muted">
+<summary>계산 방식</summary>
+<p>Lv.100 적 1명, 모든 내성 10%, 일정한 간격의 원소 입자 조건에서 커뮤니티 gcsim 로테이션을 끝없이 반복해, 시작 에너지가 바닥난 뒤인 150–450초 구간의 평균 DPS를 점수로 씁니다. 원소 충전 효율이 부족하면 점수가 내려갑니다.</p>
+<p>에너지나 쿨타임 때문에 캐릭터가 서서 기다리게 되면, 그 시간을 원소전투 스킬·교체·평타로 채운 경우와 비교해 높은 쪽을 씁니다. "로테이션 1회"는 에너지가 가득한 상태에서 한 번 돌린 값으로, 커뮤니티 gcsim 설정이 보고하는 숫자와 같은 기준입니다.</p>
+</details>
+<p class="muted">시뮬레이션 <a href="https://github.com/genshinsim/gcsim">gcsim</a> · 로테이션 <a href="https://db.kqm.gg">KQM gcsim DB</a> · 캐릭터 정보 <a href="https://enka.network">Enka.Network</a></p>
+<p class="muted">Gscouter는 비공식 팬 프로젝트로 HoYoverse와 관련이 없습니다. 원신 및 관련 명칭은 HoYoverse의 상표입니다.</p>
+</footer>
 </main>
+<div class="toast" id="toast" role="status"></div>
+<script>
+function copyLink(btn) {
+  var url = location.href;
+  var done = function () {
+    var t = document.getElementById("toast");
+    t.textContent = "링크를 복사했습니다";
+    t.classList.add("show");
+    setTimeout(function () { t.classList.remove("show"); }, 1500);
+  };
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(done, function () { prompt("링크", url); });
+  } else {
+    prompt("링크", url);
+  }
+}
+</script>
 </body>
 </html>
 {{end}}
 
 {{define "team"}}
 {{if .Nickname}}<p class="muted">{{.Nickname}} · UID {{.Selection.UID}}</p>{{else}}<p class="muted">UID {{.Selection.UID}}</p>{{end}}
-{{if .Team}}<h2>{{.Team.Name}}</h2>{{end}}
+{{if .Team}}<h2 class="team-title">{{template "members" .Team.Members}} {{.Team.Name}}</h2>{{end}}
 {{if .Problem}}
 <div class="bad">{{.Problem}}</div>
 {{else}}
 <div class="score">{{thousands .Result.DPS}} <span class="muted">DPS</span></div>
-<p class="muted">±{{thousands .Result.StdErr}} (표준오차) · {{.Team.Archetype}}</p>
-{{with .OneRotation}}<p class="muted">로테이션 1회(에너지 가득, 커뮤니티 gcsim 기준): {{thousands .DPS}} DPS</p>{{end}}
+<p class="muted">±{{thousands .Result.StdErr}} (표준오차){{with .Team.Archetype}} · {{.}}{{end}}</p>
+{{with .OneRotation}}<p class="muted">로테이션 1회(에너지 가득): {{thousands .DPS}} DPS</p>{{end}}
 {{with .Filler}}<p class="muted">{{.}}</p>{{end}}
 {{range .Warnings}}<div class="warn">{{.}}</div>{{end}}
 <div class="table-wrap">
 <table>
-<thead><tr><th>캐릭터</th><th>빌드</th><th class="num">DPS</th><th class="num">비중</th></tr></thead>
+<thead><tr><th>캐릭터</th><th class="num">DPS</th><th class="num">비중</th></tr></thead>
 <tbody>
 {{range $i, $c := .Result.Characters}}{{$e := index $.Chars $i}}
 <tr>
-<td>{{$c.Name}}</td>
-<td class="muted">Lv.{{$e.Level}} C{{$e.Cons}} · {{$e.Weapon.Key}} R{{$e.Weapon.Refine}} · 특성 {{index $e.Talents 0}}/{{index $e.Talents 1}}/{{index $e.Talents 2}}</td>
+<td><span class="who">{{template "el" (element $c.Name)}}{{$c.Name}}</span><span class="muted">Lv.{{$e.Level}} C{{$e.Cons}} · {{$e.Weapon.Key}} R{{$e.Weapon.Refine}} · 특성 {{index $e.Talents 0}}/{{index $e.Talents 1}}/{{index $e.Talents 2}}</span></td>
 <td class="num">{{thousands $c.DPS}}</td>
-<td class="num">{{percent $c.Share}}</td>
+<td class="num">{{percent $c.Share}}<span class="bar"><i style="width: {{width $c.Share}}%"></i></span></td>
 </tr>
 {{end}}
 </tbody>

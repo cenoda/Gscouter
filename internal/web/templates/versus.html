@@ -1,9 +1,14 @@
-{{template "head" "Gscouter 대결"}}
+{{template "head" "Gscouter 비교"}}
 {{if .Scored}}
 <div class="card verdict">
-{{if .Tie}}무승부 <span class="muted">(차이 {{percent .Diff}}, 2% 미만)</span>
-{{else if gt .Diff 0.0}}<span class="win">왼쪽 파티 승리</span> <span class="muted">+{{percent .Diff}}</span>
-{{else}}<span class="win">오른쪽 파티 승리</span> <span class="muted">{{percent .Diff}}</span>{{end}}
+{{if .Tie}}비슷합니다 <span class="muted">(차이 {{percent .Diff}}, 2% 미만)</span>
+{{else if gt .Diff 0.0}}<span class="win">왼쪽 파티가 {{percent .Diff}} 높습니다</span>
+{{else}}<span class="win">오른쪽 파티가 {{percent (neg .Diff)}} 높습니다</span>{{end}}
+<div class="compare">
+<div><span>왼쪽</span><span class="bar"><i style="width: {{width (ratio .A.Result.DPS .B.Result.DPS)}}%"></i></span><span class="num">{{thousands .A.Result.DPS}}</span></div>
+<div><span>오른쪽</span><span class="bar"><i style="width: {{width (ratio .B.Result.DPS .A.Result.DPS)}}%"></i></span><span class="num">{{thousands .B.Result.DPS}}</span></div>
+</div>
+<div class="actions"><button type="button" class="secondary" onclick="copyLink(this)"><svg class="icon"><use href="#i-link"/></svg>비교 링크 복사</button></div>
 </div>
 {{end}}
 <div class="versus">

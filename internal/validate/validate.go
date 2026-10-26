@@ -36,6 +36,10 @@ const (
 	// forever: with the enemy's infinite HP, gcsim stops only when the
 	// action list ends.
 	timeout = 2 * time.Minute
+	// One fight of the looped rotation takes well under a second. One
+	// that runs longer is stuck: a loop whose body takes no action (for
+	// example a counter set once in the setup) spins without time passing.
+	probeTimeout = 20 * time.Second
 )
 
 type Settings struct {
@@ -175,6 +179,10 @@ func reference(ctx context.Context, dir string, s Settings) (*Report, string) {
 // warns about action waits and members with almost no damage.
 func looped(ctx context.Context, r *Report, build string, s Settings) {
 	team := r.Team
+	if msg := probe(ctx, build, team.Rotation, s); msg != "" {
+		r.Failures = append(r.Failures, msg)
+		return
+	}
 	out, err := steady.Score(team.Rotation, team.Members, func(looped string) (*score.Result, error) {
 		cfg := config.Assemble(config.Conditions{Iterations: s.Iterations, Duration: s.Duration}, build, looped)
 		res, err := score.Run(ctx, cfg, score.Options{Iterations: s.Iterations, Workers: s.Workers, Warmup: s.Warmup, Seed: 1})
@@ -205,5 +213,30 @@ func looped(ctx context.Context, r *Report, build string, s Settings) {
 				r.Warnings = append(r.Warnings, fmt.Sprintf("%s waits %.1fs/min (%s)", c.Name, w, reason))
 			}
 		}
+	}
+}
+
+// probe runs one fight of the looped rotation and says why it failed,
+// or "" if it finished. A stuck fight keeps running until the process
+// exits; cmd/validate checks each team in its own process.
+func probe(ctx context.Context, build, rotation string, s Settings) string {
+	rot, err := config.Loop(rotation)
+	if err != nil {
+		return "looped simulation: " + err.Error()
+	}
+	cfg := config.Assemble(config.Conditions{Iterations: 1, Duration: s.Duration}, build, rot)
+	done := make(chan error, 1)
+	go func() {
+		_, err := score.Run(ctx, cfg, score.Options{Iterations: 1, Workers: 1, Warmup: s.Warmup, Seed: 1})
+		done <- err
+	}()
+	select {
+	case err := <-done:
+		if err != nil {
+			return "looped simulation: " + err.Error()
+		}
+		return ""
+	case <-time.After(probeTimeout):
+		return fmt.Sprintf("the looped rotation does not advance: one fight did not end within %v (a loop that takes no action, such as a counter set once before it?)", probeTimeout)
 	}
 }

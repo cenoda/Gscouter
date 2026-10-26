@@ -143,6 +143,7 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
   - Failed actions
 - **Metadata**: rotation version, gcsim version, simulation conditions
 - **Versus view**: two UIDs/teams side by side with score, contributions, and warnings. A difference under 2% is shown as a tie, since rotation error is larger than that.
+- **Site**: the front page loads a UID and lists the library teams its showcase can build; a picker takes exactly four characters. Result and versus pages have a copy-link button. `/teams` lists the library (thousands of teams) and filters it by character names. Recent UIDs are kept in the browser only. Characters are marked by element with icons drawn for Gscouter; the site uses no HoYoverse artwork and states that it is an unofficial fan project.
 
 ### 4.6 Deployment
 
@@ -222,7 +223,7 @@ Each team stores the source's options, target, energy and hurt lines in `source.
 
 Validation checks:
 - The team reproduces the source's DPS with the source's build under the source's conditions within 15% (a warning above 5%). The tolerance allows for the source having run on another gcsim version
-- The rotation finishes
+- The rotation finishes, and one fight of the looped rotation ends within 20 s. A loop that takes no action, such as `while rotations { ... }` with the counter set once in the setup, spins inside gcsim without time passing once the counter is spent; gcsim cannot cancel it, so `cmd/validate` checks each team in its own process and such teams are removed
 - Action waits and members with almost no damage in the looped rotation are reported as warnings
 
 ## 6. Initial Library

@@ -10,6 +10,7 @@ import (
 	"net/url"
 	"slices"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/cenoda/gscouter/internal/enka"
@@ -32,6 +33,48 @@ var funcs = template.FuncMap{
 	"oneDecimal": func(v float64) string {
 		return fmt.Sprintf("%.1f", v)
 	},
+	// width is a fraction as a CSS percentage, for bars.
+	"width": func(v float64) string { return fmt.Sprintf("%.1f", math.Max(0, math.Min(v, 1))*100) },
+	// ratio is a over the larger of a and b.
+	"ratio": func(a, b float64) float64 {
+		if m := math.Max(a, b); m > 0 {
+			return a / m
+		}
+		return 0
+	},
+	"neg":     func(v float64) float64 { return -v },
+	"element": element,
+	// members lists a team's member names and canonical names, for search.
+	"members": func(t *library.Team) string { return strings.Join(searchNames(t), " ") },
+}
+
+var elementCache sync.Map // canonical name -> element
+
+// element returns a character's element ("pyro", ...), or "".
+func element(name string) string {
+	key := library.Canonical(name)
+	if v, ok := elementCache.Load(key); ok {
+		return v.(string)
+	}
+	e := ""
+	if elem, ok := strings.CutPrefix(key, "traveler"); ok {
+		e = elem
+	} else {
+		e = enka.Element(key)
+	}
+	elementCache.Store(key, e)
+	return e
+}
+
+func searchNames(t *library.Team) []string {
+	var out []string
+	for _, m := range t.Members {
+		out = append(out, strings.ToLower(m))
+		if c := library.Canonical(m); c != strings.ToLower(m) {
+			out = append(out, c)
+		}
+	}
+	return out
 }
 
 type suggestion struct {
@@ -51,8 +94,8 @@ type indexData struct {
 func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 	q := r.URL.Query()
 	data := indexData{
-		UID:   strings.TrimSpace(q.Get("uid")),
-		VS:    q.Get("vs"),
+		UID:       strings.TrimSpace(q.Get("uid")),
+		VS:        q.Get("vs"),
 		TeamCount: len(s.lib.Teams),
 	}
 	if data.UID != "" {
@@ -98,14 +141,15 @@ type teamsData struct {
 	Total int
 }
 
-// handleTeams lists the library, or the teams with a character whose
-// name contains the query.
+// handleTeams lists the library, or the teams that have, for every word
+// of the query, a character whose name contains it.
 func (s *Server) handleTeams(w http.ResponseWriter, r *http.Request) {
 	data := teamsData{Query: strings.TrimSpace(r.URL.Query().Get("q")), Total: len(s.lib.Teams)}
-	q := strings.ToLower(data.Query)
+	words := strings.Fields(strings.ToLower(data.Query))
 	for _, t := range s.lib.Teams {
-		if q == "" || slices.ContainsFunc(t.Members, func(m string) bool {
-			return strings.Contains(m, q) || strings.Contains(library.Canonical(m), q)
+		names := searchNames(t)
+		if !slices.ContainsFunc(words, func(w string) bool {
+			return !slices.ContainsFunc(names, func(n string) bool { return strings.Contains(n, w) })
 		}) {
 			data.Teams = append(data.Teams, t)
 		}

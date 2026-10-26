@@ -63,8 +63,12 @@ GOTOOLCHAIN=auto go run ./cmd/validate -detail teams/<id>   # actions, damage by
   it with the source's `reference.dps`, then loops it under the common
   conditions (as the site scores it) and reports energy and other waits.
 - `FAIL` when the one-pass DPS with `build.txt` is more than 15% from the
-  source's `reference.dps` (`WARN` above 5%), when it has no source, or
-  when the rotation never ends.
+  source's `reference.dps` (`WARN` above 5%), when it has no source, when
+  the rotation never ends, or when the looped rotation stops advancing
+  (e.g. `while rotations { ... }` with the counter set once in the
+  setup). Such a team cannot be served: remove it.
+- With several teams, `cmd/validate` checks each in its own process
+  (`-j 4` runs four at a time).
 - A gap usually means another gcsim version (`reference.gcsim_version`
   vs. ours in `go.mod`) or a random rotation. Explain it in `notes`, or
   find a source that matches.

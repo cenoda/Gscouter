@@ -9,18 +9,25 @@
 //	validate                      # every team under teams/
 //	validate teams/<id> ...       # selected teams
 //
-// It exits with status 1 if any team fails.
+// Several teams are checked one per child process (-j at a time), so a
+// rotation that never ends cannot slow down the others. It exits with
+// status 1 if any team fails.
 package main
 
 import (
+	"bytes"
 	"cmp"
+	"context"
+	"errors"
 	"flag"
 	"fmt"
 	"maps"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"slices"
 	"strings"
+	"time"
 
 	"github.com/cenoda/gscouter/internal/score"
 	"github.com/cenoda/gscouter/internal/validate"
@@ -34,6 +41,8 @@ func main() {
 		duration   = flag.Float64("duration", 450, "length of the looped fight in seconds")
 		verbose    = flag.Bool("v", false, "print per-character results")
 		detail     = flag.Bool("detail", false, "print what each character did in one run: actions, damage by source, reactions")
+		jobs       = flag.Int("j", 1, "teams checked in parallel when checking several")
+		child      = flag.Bool("child", false, "check the one team given and exit (used to isolate teams)")
 	)
 	flag.Parse()
 
@@ -52,23 +61,104 @@ func main() {
 	}
 
 	s := validate.Settings{Iterations: *iterations, Warmup: *warmup, Duration: *duration}
-	var failed, warned int
-	for _, dir := range dirs {
-		r := validate.Check(dir, s)
-		switch {
-		case len(r.Failures) > 0:
-			failed++
-		case len(r.Warnings) > 0:
-			warned++
-		}
+	if *child || len(dirs) == 1 {
+		r := validate.Check(dirs[0], s)
 		printReport(r, *verbose)
 		if *detail && r.Cfg != "" {
 			printDetail(r.Cfg)
 		}
+		os.Exit(exitCode(r))
+	}
+
+	// With several teams, each is checked in its own process. A rotation
+	// that never ends spins inside gcsim, which cannot be cancelled; the
+	// process exits after the check times out and takes it along.
+	args := []string{"-child", "-iter", fmt.Sprint(*iterations), "-warmup", fmt.Sprint(*warmup), "-duration", fmt.Sprint(*duration)}
+	if *verbose {
+		args = append(args, "-v")
+	}
+	if *detail {
+		args = append(args, "-detail")
+	}
+	outputs := make([]chan result, len(dirs))
+	for i := range outputs {
+		outputs[i] = make(chan result, 1)
+	}
+	next := make(chan int)
+	go func() {
+		for i := range dirs {
+			next <- i
+		}
+		close(next)
+	}()
+	for range max(*jobs, 1) {
+		go func() {
+			for i := range next {
+				outputs[i] <- checkIsolated(dirs[i], args)
+			}
+		}()
+	}
+	var failed, warned int
+	for _, ch := range outputs {
+		r := <-ch
+		switch r.code {
+		case 0:
+		case exitWarn:
+			warned++
+		default:
+			failed++
+		}
+		fmt.Print(r.out)
 	}
 	fmt.Printf("\n%d teams, %d failed, %d with warnings\n", len(dirs), failed, warned)
 	if failed > 0 {
 		os.Exit(1)
+	}
+}
+
+// Exit codes of a single check.
+const (
+	exitFail = 1
+	exitWarn = 3
+)
+
+func exitCode(r *validate.Report) int {
+	switch {
+	case len(r.Failures) > 0:
+		return exitFail
+	case len(r.Warnings) > 0 && r.Skipped == "":
+		return exitWarn
+	}
+	return 0
+}
+
+type result struct {
+	out  string
+	code int
+}
+
+// checkIsolated checks one team in a child process.
+func checkIsolated(dir string, args []string) result {
+	self, err := os.Executable()
+	if err != nil {
+		return result{fmt.Sprintf("FAIL %s\n       fail: %v\n", filepath.Base(dir), err), exitFail}
+	}
+	// The check's own timeout is 2 minutes; this only catches a child
+	// that does not exit after it.
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Minute)
+	defer cancel()
+	cmd := exec.CommandContext(ctx, self, append(slices.Clone(args), dir)...)
+	var out bytes.Buffer
+	cmd.Stdout, cmd.Stderr = &out, &out
+	err = cmd.Run()
+	var exit *exec.ExitError
+	switch {
+	case err == nil:
+		return result{out.String(), 0}
+	case errors.As(err, &exit) && (exit.ExitCode() == exitFail || exit.ExitCode() == exitWarn):
+		return result{out.String(), exit.ExitCode()}
+	default:
+		return result{fmt.Sprintf("FAIL %s\n       fail: check did not finish: %v\n%s", filepath.Base(dir), err, out.String()), exitFail}
 	}
 }
 

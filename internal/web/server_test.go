@@ -152,11 +152,11 @@ func TestVersus(t *testing.T) {
 	if code != http.StatusOK {
 		t.Fatalf("status %d", code)
 	}
-	mustContain(t, body, "왼쪽 파티 승리", "Strong", "Weak")
+	mustContain(t, body, "왼쪽 파티가", "높습니다", "Strong", "Weak", `href="#el-pyro"`)
 
 	v.Set("b", v.Get("a"))
 	_, body = get(t, ts, "/versus?"+v.Encode())
-	mustContain(t, body, "무승부")
+	mustContain(t, body, "비슷합니다")
 }
 
 func TestWarningsKnownIssues(t *testing.T) {

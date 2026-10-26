@@ -1,12 +1,18 @@
 {{template "head" "Gscouter 결과"}}
-<div class="card">{{template "team" .Team}}</div>
+<div class="card">{{template "team" .Team}}
+<div class="actions">
+{{if .Team.Result}}<button type="button" class="secondary" onclick="copyLink(this)"><svg class="icon"><use href="#i-link"/></svg>결과 링크 복사</button>{{end}}
+<a class="button secondary" href="/?uid={{.Team.Selection.UID}}"><svg class="icon"><use href="#i-back"/></svg>다른 캐릭터 고르기</a>
+</div>
+</div>
 {{if .Team.Result}}
 <div class="card">
 <h3>다른 파티와 비교하기</h3>
+<p class="muted">상대 UID를 불러와 파티를 고르면 두 파티를 같은 조건에서 나란히 계산합니다. 내 다른 파티와 비교하려면 내 UID를 넣으세요.</p>
 <form class="inline" action="/" method="get">
 <input type="hidden" name="vs" value="{{.Team.Selection.String}}">
-<input type="text" name="uid" inputmode="numeric" placeholder="상대방 UID" required>
-<button type="submit">상대 불러오기</button>
+<input type="text" name="uid" inputmode="numeric" pattern="[0-9]{9,10}" title="9–10자리 숫자" placeholder="상대 UID" required>
+<button type="submit"><svg class="icon"><use href="#i-vs"/></svg>상대 불러오기</button>
 </form>
 </div>
 {{end}}

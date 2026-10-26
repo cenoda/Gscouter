@@ -1,14 +1,25 @@
-{{template "head" "Gscouter"}}
+{{template "head" "Gscouter · 원신 파티 DPS 계산"}}
 {{if .VS}}
-<div class="card"><h1>비교할 상대 고르기</h1><p class="muted">상대방의 UID를 입력하고 파티를 고르세요.</p></div>
+<div class="card"><h1>비교할 상대 고르기</h1><p class="muted">상대방의 UID를 불러와 파티를 고르면, 같은 조건에서 두 파티의 DPS를 나란히 계산합니다.</p></div>
+{{else if not .Profile}}
+<div class="card">
+<h1>쇼케이스 캐릭터로 파티 DPS 계산</h1>
+<p>UID를 입력하고 캐릭터 4명을 고르면, 모든 파티를 같은 적·같은 로테이션 기준으로 계산합니다. 결과 링크를 공유하거나 다른 플레이어의 파티와 비교할 수 있습니다.</p>
+<ol class="steps">
+<li><b>1</b>UID 입력</li>
+<li><b>2</b>캐릭터 4명 선택</li>
+<li><b>3</b>결과 공유 · 비교</li>
+</ol>
+</div>
 {{end}}
 <div class="card">
-<form class="inline" action="/" method="get">
-<input type="text" name="uid" inputmode="numeric" placeholder="UID (예: 800000000)" value="{{.UID}}" required>
+<form class="inline" action="/" method="get" id="uid-form">
+<input type="text" name="uid" inputmode="numeric" pattern="[0-9]{9,10}" title="9–10자리 숫자" placeholder="UID (예: 800000000)" value="{{.UID}}" required autofocus>
 {{if .VS}}<input type="hidden" name="vs" value="{{.VS}}">{{end}}
 <button type="submit">불러오기</button>
 </form>
-<p class="muted">게임 내 프로필의 캐릭터 쇼케이스에 넣어 둔 캐릭터만 불러올 수 있습니다. "캐릭터 상세 정보 표시"를 켜 주세요.</p>
+<div class="chips" id="recent" hidden></div>
+<p class="muted">게임 프로필의 캐릭터 쇼케이스에 넣어 둔 캐릭터만 불러올 수 있습니다. "캐릭터 상세 정보 표시"를 켜 주세요.</p>
 </div>
 
 {{if .Problem}}<div class="bad">{{.Problem}}</div>{{end}}
@@ -17,23 +28,29 @@
 <div class="card">
 <h2>{{.Nickname}} <span class="muted">UID {{.UID}}</span></h2>
 {{if $.Suggested}}
-<h3>바로 계산할 수 있는 파티</h3>
-<ul>
+<h3>바로 계산할 수 있는 파티 <span class="muted">{{len $.Suggested}}개</span></h3>
+<ul class="suggest">
 {{range $.Suggested}}
-<li>{{if $.VS}}<a href="/versus?a={{$.VS}}&amp;b={{.Selection.String}}">{{.Team.Name}}</a>{{else}}<a href="/score?a={{.Selection.String}}">{{.Team.Name}}</a>{{end}}{{if eq .Team.Status "draft"}} <span class="muted">(검증 전)</span>{{end}}</li>
+<li><a href="{{if $.VS}}/versus?a={{$.VS}}&amp;b={{.Selection.String}}{{else}}/score?a={{.Selection.String}}{{end}}">{{template "members" .Team.Members}}<span>{{.Team.Name}}</span></a></li>
 {{end}}
 </ul>
+{{else}}
+<p class="muted">쇼케이스 캐릭터로 만들 수 있는 라이브러리 파티가 없습니다. 아래에서 직접 골라 보세요.</p>
 {{end}}
-<h3>직접 고르기 (4명)</h3>
-<form action="{{if $.VS}}/versus{{else}}/score{{end}}" method="get">
+<h3>직접 고르기</h3>
+<form action="{{if $.VS}}/versus{{else}}/score{{end}}" method="get" id="picker">
 <input type="hidden" name="uid" value="{{.UID}}">
 {{if $.VS}}<input type="hidden" name="a" value="{{$.VS}}">{{end}}
 <div class="chars">
 {{range .Characters}}
-<label><input type="checkbox" name="c" value="{{.Key}}"><span>{{.Key}}<br><span class="muted">Lv.{{.Level}} C{{.Cons}} · {{.Weapon.Key}} R{{.Weapon.Refine}}</span></span></label>
+<label><input type="checkbox" name="c" value="{{.Key}}"><span><span class="name">{{template "el" (element .Key)}}{{.Key}}</span><span class="muted">Lv.{{.Level}} C{{.Cons}} · {{.Weapon.Key}} R{{.Weapon.Refine}}</span></span></label>
 {{end}}
 </div>
-<button type="submit">{{if $.VS}}비교하기{{else}}계산하기{{end}}</button>
+<div class="picker-bar">
+<button type="submit" id="pick-submit">{{if $.VS}}비교하기{{else}}계산하기{{end}}</button>
+<button type="button" class="secondary" id="pick-clear">선택 해제</button>
+<span class="muted count" id="pick-count">0 / 4명 선택</span>
+</div>
 </form>
 {{range .Skipped}}<p class="muted">불러오지 못한 캐릭터 (ID {{.AvatarID}}): {{.Reason}}</p>{{end}}
 </div>
@@ -41,6 +58,44 @@
 
 <div class="card">
 <h3>지원하는 파티</h3>
-<p>라이브러리에 파티 {{.TeamCount}}개가 있습니다. <a href="/teams">전체 목록 · 캐릭터로 찾기</a></p>
+<p>커뮤니티 gcsim 데이터베이스에서 가져온 파티 {{.TeamCount}}개를 계산할 수 있습니다. <a href="/teams">캐릭터로 찾기</a></p>
 </div>
+<script>
+(function () {
+  // Recent UIDs, kept only in this browser.
+  var key = "gscouter.recentUIDs", list = [];
+  try { list = JSON.parse(localStorage.getItem(key) || "[]"); } catch (e) {}
+  var current = {{.UID}}, loaded = {{if .Profile}}true{{else}}false{{end}};
+  if (loaded && current) {
+    list = [current].concat(list.filter(function (u) { return u !== current; })).slice(0, 5);
+    try { localStorage.setItem(key, JSON.stringify(list)); } catch (e) {}
+  }
+  var box = document.getElementById("recent"), vs = {{.VS}};
+  list.filter(function (u) { return u !== current; }).forEach(function (u) {
+    var a = document.createElement("a");
+    a.href = "/?uid=" + encodeURIComponent(u) + (vs ? "&vs=" + encodeURIComponent(vs) : "");
+    a.textContent = u;
+    box.appendChild(a);
+    box.hidden = false;
+  });
+
+  // The picker takes exactly four characters.
+  var form = document.getElementById("picker");
+  if (!form) return;
+  var boxes = form.querySelectorAll("input[name=c]");
+  var submit = document.getElementById("pick-submit"), count = document.getElementById("pick-count");
+  function update() {
+    var n = form.querySelectorAll("input[name=c]:checked").length;
+    boxes.forEach(function (b) { b.disabled = !b.checked && n >= 4; });
+    submit.disabled = n !== 4;
+    count.textContent = n + " / 4명 선택";
+  }
+  boxes.forEach(function (b) { b.addEventListener("change", update); });
+  document.getElementById("pick-clear").addEventListener("click", function () {
+    boxes.forEach(function (b) { b.checked = false; });
+    update();
+  });
+  update();
+})();
+</script>
 {{template "foot"}}

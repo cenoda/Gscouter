@@ -57,6 +57,27 @@ var (
 	dataErr  error
 )
 
+// elements maps Enka's element names to gcsim's.
+var elements = map[string]string{
+	"Fire": "pyro", "Water": "hydro", "Wind": "anemo", "Electric": "electro",
+	"Grass": "dendro", "Ice": "cryo", "Rock": "geo",
+}
+
+// Element returns the element of a character by gcsim key ("pyro",
+// "hydro", ...), or "" if the key is unknown.
+func Element(key string) string {
+	dataOnce.Do(func() { data, dataErr = loadGameData() })
+	if dataErr != nil {
+		return ""
+	}
+	for _, c := range data.chars {
+		if c.Key == key {
+			return elements[c.Element]
+		}
+	}
+	return ""
+}
+
 // Parse converts an Enka /api/uid/<uid> response.
 func Parse(raw []byte) (*Profile, error) {
 	dataOnce.Do(func() { data, dataErr = loadGameData() })
