@@ -199,6 +199,11 @@ func (s *Server) evaluate(ctx context.Context, sel selection) teamResult {
 	}
 	tr.Result = res
 	tr.Warnings = warnings(tr.Team, res)
+	for _, c := range tr.Chars {
+		if c.UnknownSets > 0 {
+			tr.Warnings = append(tr.Warnings, fmt.Sprintf("%s: 계산 엔진이 아직 지원하지 않는 성유물 세트가 %d개 있어, 그 세트 효과는 빠졌습니다.", c.Key, c.UnknownSets))
+		}
+	}
 	return tr
 }
 

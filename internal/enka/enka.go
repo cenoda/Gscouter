@@ -25,6 +25,9 @@ type Character struct {
 	Weapon  Weapon
 	Sets    map[string]int     // artifact set key -> pieces
 	Stats   map[string]float64 // gcsim stat name -> artifact total
+	// UnknownSets counts artifacts whose set gcsim does not have. Their
+	// stats are kept; only the set bonus is missing.
+	UnknownSets int
 }
 
 type Weapon struct {
@@ -117,11 +120,11 @@ func (g *gameData) convert(a avatar) (Character, error) {
 			}
 			hasWeapon = true
 		case "ITEM_RELIQUARY":
-			set, ok := g.artifacts[e.Flat.SetNameTextMapHash.String()]
-			if !ok {
-				return Character{}, fmt.Errorf("artifact set %s is not supported by gcsim yet", e.Flat.SetNameTextMapHash)
+			if set, ok := g.artifacts[e.Flat.SetNameTextMapHash.String()]; ok {
+				c.Sets[set]++
+			} else {
+				c.UnknownSets++
 			}
-			c.Sets[set]++
 			if err := g.addMainStat(c.Stats, e); err != nil {
 				return Character{}, err
 			}
