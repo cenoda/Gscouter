@@ -9,7 +9,11 @@
 // of the rotation under the entry's own conditions and comparing the DPS
 // with the database's (validate.CheckReference). For each team it tries
 // the entries from the lowest constellations and refinements up, closest
-// to an ordinary account, and keeps the first that passes.
+// to an ordinary account. An entry must pass that check and the full one
+// (validate.Check: the looped rotation must not stall); of the first
+// -choose entries that pass, it keeps the one whose looped score keeps
+// most of its one pass under the same conditions. Checks run in child
+// processes, because gcsim cannot cancel a rotation stuck in a loop.
 //
 // Teams that fail every entry are recorded in <root>/harvest-failed.txt
 // and skipped by the next run unless -retry-failed is set.
@@ -35,6 +39,7 @@ import (
 	"regexp"
 	"runtime"
 	"slices"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -54,6 +59,7 @@ type options struct {
 	n           int
 	minEntries  int
 	tries       int
+	choose      int
 	iterations  int
 	jobs        int
 	cache       string
@@ -62,11 +68,13 @@ type options struct {
 }
 
 func main() {
+	validate.ServeChild()
 	var o options
 	flag.StringVar(&o.root, "root", "teams", "team library directory")
 	flag.IntVar(&o.n, "n", 64, "number of teams the library should hold")
 	flag.IntVar(&o.minEntries, "min", 1, "least database entries a team needs")
 	flag.IntVar(&o.tries, "tries", 0, "entries to try per team before giving up; 0 tries all")
+	flag.IntVar(&o.choose, "choose", 5, "entries that pass validation to compare per team; 0 compares all")
 	flag.IntVar(&o.iterations, "iter", 20, "iterations per validation run")
 	flag.IntVar(&o.jobs, "j", runtime.NumCPU(), "teams harvested in parallel")
 	flag.StringVar(&o.cache, "cache", "", "file to save the database download to, and to read it from when it exists")
@@ -171,7 +179,7 @@ func run(o options) error {
 	}
 	fmt.Printf("%d teams kept, %d skipped as failed before (-retry-failed), %d to harvest with %d jobs\n", held, skippedFailed, len(todo), o.jobs)
 
-	settings := validate.Settings{Iterations: o.iterations}
+	settings := validate.Settings{Iterations: o.iterations, Warmup: 150, Duration: 450}
 	if o.jobs > 1 {
 		// Teams run in parallel; each simulation runs on one CPU.
 		settings.Workers = 1
@@ -197,7 +205,7 @@ func run(o options) error {
 				next++
 				mu.Unlock()
 
-				ok, reason, log := harvest(o.root, g, o.tries, settings)
+				ok, reason, log := harvest(o.root, g, o.tries, o.choose, settings)
 				mu.Lock()
 				fmt.Print(log)
 				if ok {
@@ -216,14 +224,17 @@ func run(o options) error {
 	}
 	fmt.Printf("\nharvested %d of %d teams in %v; the library holds %d teams. %d failed teams are listed in %s.\n",
 		added, len(todo), time.Since(harvestStart).Round(time.Second), held+added, len(failed), filepath.Join(o.root, failedFile))
-	fmt.Println("Run go run ./cmd/validate for the full check, including the looped rotation.")
 	return nil
 }
 
-// harvest imports the team's best candidate that passes the reference
-// check. It returns, for a team that fails, the reason the first entry
-// failed, and what to print.
-func harvest(root string, g *group, tries int, s validate.Settings) (bool, string, string) {
+// harvest imports the team's entry that loops best. It tries the
+// entries from the lowest investment up: an entry must pass the
+// reference check and then the full check (the looped rotation must
+// not stall), and of the first choose entries that pass both it keeps
+// the one whose score keeps most of its one pass (validate.Report.Kept,
+// counted up to 100%; a lower investment wins within 2%). It returns, for a team that
+// fails, the reason the first entry failed, and what to print.
+func harvest(root string, g *group, tries, choose int, s validate.Settings) (bool, string, string) {
 	cs := slices.Clone(g.candidates)
 	slices.SortFunc(cs, func(a, b candidate) int {
 		return cmp.Or(
@@ -235,29 +246,59 @@ func harvest(root string, g *group, tries int, s validate.Settings) (bool, strin
 	if tries > 0 {
 		cs = cs[:min(tries, len(cs))]
 	}
+	tmp, err := os.MkdirTemp("", "harvest-")
+	if err != nil {
+		return false, err.Error(), "error: " + err.Error() + "\n"
+	}
+	defer os.RemoveAll(tmp)
+
+	type pick struct {
+		split share.Split
+		team  *library.Team
+		entry *kqm.Entry
+		r     *validate.Report
+	}
+	var best *pick
 	var failures []string
-	for _, c := range cs {
+	passed := 0
+	for i, c := range cs {
+		if choose > 0 && passed >= choose {
+			break
+		}
 		e := c.entry
-		notes := fmt.Sprintf("Harvested from the KQM gcsim database: %d entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.", len(g.candidates))
+		notes := fmt.Sprintf("Harvested from the KQM gcsim database: %d entries use this team; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest constellations and refinements.", len(g.candidates))
 		team, err := c.split.Team([]string{e.Link()}, reference(e), notes)
 		if err != nil {
 			failures = append(failures, e.ID+": "+err.Error())
 			continue
 		}
-		dir, err := c.split.Write(root, team, true)
+		dir, err := c.split.Write(filepath.Join(tmp, strconv.Itoa(i)), team, true)
 		if err != nil {
 			failures = append(failures, e.ID+": "+err.Error())
 			continue
 		}
-		r := validate.CheckReference(dir, s)
+		r := validate.CheckReferenceIsolated(dir, s)
 		if len(r.Failures) == 0 {
-			return true, "", fmt.Sprintf("add  %-46s one rotation %8.0f (source %8.0f, %d entries, %s)\n",
-				team.ID, r.Once.DPS, team.Reference.DPS, len(g.candidates), e.ID)
+			r = validate.CheckIsolated(dir, s)
 		}
-		failures = append(failures, e.ID+": "+strings.Join(r.Failures, "; "))
-		if err := os.RemoveAll(dir); err != nil {
-			failures = append(failures, "error: "+err.Error())
+		if len(r.Failures) > 0 {
+			failures = append(failures, e.ID+": "+strings.Join(r.Failures, "; "))
+			continue
 		}
+		passed++
+		// Keeping all of the one pass is enough; beyond that, the lower
+		// investment wins.
+		if best == nil || min(r.Kept(), 1) > min(best.r.Kept(), 1)+0.02 {
+			best = &pick{c.split, team, e, r}
+		}
+	}
+	if best != nil {
+		if _, err := best.split.Write(root, best.team, true); err != nil {
+			return false, err.Error(), "error: " + err.Error() + "\n"
+		}
+		r := best.r
+		return true, "", fmt.Sprintf("add  %-46s looped %8.0f  one rotation %8.0f  kept %3.0f%% (source %8.0f, %d of %d entries passed, %s)\n",
+			best.team.ID, r.Res.DPS, r.Once.DPS, r.Kept()*100, best.team.Reference.DPS, passed, len(g.candidates), best.entry.ID)
 	}
 	var b strings.Builder
 	fmt.Fprintf(&b, "fail %-46s (%d entries)\n", g.key, len(g.candidates))

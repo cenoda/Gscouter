@@ -20,7 +20,10 @@ const (
 	// next action swaps back, in time to catch the particles.
 	FillParty
 	// FillSkip: the character passes its burst when it lacks the energy
-	// and the rotation moves on, as teams that rarely burst play it.
+	// and the rotation moves on, as Hu Tao teams play. It is also the
+	// only way out for a rotation that waits for a burst it cannot
+	// charge, such as Skirk's opening burst, written for her full
+	// starting Serpent's Subtlety, when the rotation loops.
 	FillSkip
 )
 
