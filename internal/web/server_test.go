@@ -93,6 +93,18 @@ func TestIndexSuggestsTeams(t *testing.T) {
 	mustContain(t, body, "Strong", "바로 계산할 수 있는 파티", "Hutao / Xingqiu / Zhongli / Yelan", "amber")
 }
 
+func TestTeamsFilter(t *testing.T) {
+	ts := newTestServer(t)
+	code, body := get(t, ts, "/teams?q=hutao")
+	if code != http.StatusOK {
+		t.Fatalf("status %d", code)
+	}
+	mustContain(t, body, "Hutao / Xingqiu / Zhongli / Yelan")
+	if strings.Contains(body, "Skirk") {
+		t.Error("team without the character listed")
+	}
+}
+
 func TestIndexUnknownUID(t *testing.T) {
 	ts := newTestServer(t)
 	_, body := get(t, ts, "/?uid=800000009")

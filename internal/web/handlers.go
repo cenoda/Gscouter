@@ -45,7 +45,7 @@ type indexData struct {
 	Profile   *enka.Profile
 	Problem   string
 	Suggested []suggestion
-	Teams     []*library.Team
+	TeamCount int
 }
 
 func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
@@ -53,7 +53,7 @@ func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 	data := indexData{
 		UID:   strings.TrimSpace(q.Get("uid")),
 		VS:    q.Get("vs"),
-		Teams: s.lib.Teams,
+		TeamCount: len(s.lib.Teams),
 	}
 	if data.UID != "" {
 		ctx, cancel := context.WithTimeout(r.Context(), 20*time.Second)
@@ -71,23 +71,47 @@ func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 
 // suggest lists the library teams that can be built from a showcase.
 func (s *Server) suggest(p *enka.Profile) []suggestion {
+	have := map[string]string{} // canonical name -> showcase key
+	for _, c := range p.Characters {
+		have[library.Canonical(c.Key)] = c.Key
+	}
 	var out []suggestion
 	for _, t := range s.lib.Teams {
 		var chars []string
 		for _, m := range t.Members {
-			i := slices.IndexFunc(p.Characters, func(c enka.Character) bool {
-				return library.Canonical(c.Key) == library.Canonical(m)
-			})
-			if i < 0 {
+			key, ok := have[library.Canonical(m)]
+			if !ok {
 				break
 			}
-			chars = append(chars, p.Characters[i].Key)
+			chars = append(chars, key)
 		}
 		if len(chars) == 4 {
 			out = append(out, suggestion{Team: t, Selection: selection{UID: p.UID, Chars: chars}})
 		}
 	}
 	return out
+}
+
+type teamsData struct {
+	Query string
+	Teams []*library.Team // matching the query, by name
+	Total int
+}
+
+// handleTeams lists the library, or the teams with a character whose
+// name contains the query.
+func (s *Server) handleTeams(w http.ResponseWriter, r *http.Request) {
+	data := teamsData{Query: strings.TrimSpace(r.URL.Query().Get("q")), Total: len(s.lib.Teams)}
+	q := strings.ToLower(data.Query)
+	for _, t := range s.lib.Teams {
+		if q == "" || slices.ContainsFunc(t.Members, func(m string) bool {
+			return strings.Contains(m, q) || strings.Contains(library.Canonical(m), q)
+		}) {
+			data.Teams = append(data.Teams, t)
+		}
+	}
+	slices.SortFunc(data.Teams, func(a, b *library.Team) int { return strings.Compare(a.Name, b.Name) })
+	s.render(w, "teams.html", data)
 }
 
 type scoreData struct {

@@ -1,0 +1,13 @@
+{{template "head" "지원하는 파티 · Gscouter"}}
+<div class="card">
+<h1>지원하는 파티</h1>
+<form class="inline" action="/teams" method="get">
+<input type="text" name="q" placeholder="캐릭터 (예: hutao)" value="{{.Query}}">
+<button type="submit">찾기</button>
+</form>
+<p class="muted">{{if .Query}}"{{.Query}}"이(가) 들어간 파티 {{len .Teams}}개 (전체 {{.Total}}개){{else}}전체 {{.Total}}개{{end}}</p>
+<ul>
+{{range .Teams}}<li>{{.Name}} <span class="muted">· {{if eq .Status "supported"}}지원{{else if eq .Status "draft"}}검증 전{{else}}엔진 미지원{{end}}</span></li>{{end}}
+</ul>
+</div>
+{{template "foot"}}

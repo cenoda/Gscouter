@@ -41,8 +41,6 @@
 
 <div class="card">
 <h3>지원하는 파티</h3>
-<ul>
-{{range .Teams}}<li>{{.Name}} <span class="muted">· {{if eq .Status "supported"}}지원{{else if eq .Status "draft"}}검증 전{{else}}엔진 미지원{{end}}</span></li>{{end}}
-</ul>
+<p>라이브러리에 파티 {{.TeamCount}}개가 있습니다. <a href="/teams">전체 목록 · 캐릭터로 찾기</a></p>
 </div>
 {{template "foot"}}

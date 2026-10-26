@@ -85,6 +85,7 @@ func LoadFS(fsys fs.FS, dir string) (*Team, error) {
 // Library is a set of teams indexed by their member set.
 type Library struct {
 	Teams []*Team
+	byKey map[string]*Team // by Key of the members
 }
 
 // LoadLibrary loads every team directory at the root of fsys.
@@ -93,7 +94,7 @@ func LoadLibrary(fsys fs.FS) (*Library, error) {
 	if err != nil {
 		return nil, err
 	}
-	lib := &Library{}
+	lib := &Library{byKey: map[string]*Team{}}
 	for _, e := range entries {
 		if !e.IsDir() {
 			continue
@@ -105,6 +106,11 @@ func LoadLibrary(fsys fs.FS) (*Library, error) {
 		if t.ID != e.Name() {
 			return nil, fmt.Errorf("team %q is in directory %q", t.ID, e.Name())
 		}
+		k := Key(t.Members)
+		if other := lib.byKey[k]; other != nil {
+			return nil, fmt.Errorf("teams %q and %q have the same members", other.ID, t.ID)
+		}
+		lib.byKey[k] = t
 		lib.Teams = append(lib.Teams, t)
 	}
 	return lib, nil
@@ -112,12 +118,13 @@ func LoadLibrary(fsys fs.FS) (*Library, error) {
 
 // Find returns the team whose members are exactly chars, or nil.
 func (l *Library) Find(chars []string) *Team {
-	for _, t := range l.Teams {
-		if t.Matches(chars) {
-			return t
-		}
-	}
-	return nil
+	return l.byKey[Key(chars)]
+}
+
+// Key identifies a set of characters in any order and under any alias:
+// their canonical names, sorted and joined by spaces.
+func Key(chars []string) string {
+	return strings.Join(canonicalSet(chars), " ")
 }
 
 // Canonical returns the name used to compare characters: gcsim's key for
