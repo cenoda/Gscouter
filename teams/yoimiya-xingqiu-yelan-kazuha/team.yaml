@@ -1,9 +1,0 @@
-id: yoimiya-xingqiu-yelan-kazuha
-name: Yoimiya / Xingqiu / Yelan / Kazuha
-members: [yoimiya, xingqiu, yelan, kazuha]
-archetype: Pyro vaporize hypercarry
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Double Hydro vaporize with Kazuha Pyro swirl shred. Hydro buffs first, then Yoimiya skill and burst, then Yoimiya normals while Niwabi Fire-Dance is up."

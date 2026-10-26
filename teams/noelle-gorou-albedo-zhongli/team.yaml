@@ -1,9 +1,0 @@
-id: noelle-gorou-albedo-zhongli
-name: Noelle / Gorou / Albedo / Zhongli
-members: [noelle, gorou, albedo, zhongli]
-archetype: Mono Geo
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "C6 Noelle (extended burst, 25s) with Gorou, Albedo and Zhongli set up first, then Noelle skill, burst and N4 strings while the burst lasts. WARN: drift +7.4% at default settings is a long-cycle artifact; it is +0.2% with -iter 1000 -warmup 300 -duration 900."

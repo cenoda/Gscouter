@@ -1,9 +1,0 @@
-id: kuki-xingqiu-nahida-kazuha
-name: Kuki Shinobu / Xingqiu / Nahida / Kazuha
-members: [kuki, xingqiu, nahida, kazuha]
-archetype: Dendro hyperbloom
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Hyperbloom: Xingqiu and Nahida apply Hydro and Dendro for Bloom cores and Kuki's Sanctifying Ring triggers Electro on them (Hyperbloom is credited to Kuki), with Kazuha for swirl and resistance shred. Kuki has almost no direct damage by design, so damage is mostly Hyperbloom plus Nahida's Spread. Bursts are conditional on readiness."

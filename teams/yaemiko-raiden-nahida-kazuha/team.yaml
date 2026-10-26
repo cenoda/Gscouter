@@ -1,9 +1,0 @@
-id: yaemiko-raiden-nahida-kazuha
-name: Yae Miko / Raiden Shogun / Nahida / Kazuha
-members: [yaemiko, raiden, nahida, kazuha]
-archetype: Electro aggravate
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Kazuha groups and shreds, Nahida marks, Raiden's Eye of Stormy Judgment and burst support Yae Miko, who places Sesshou Sakura (Aggravate on Quicken) and bursts when ready. Yae stays on field between supports and attacks until the next loop."

@@ -1,9 +1,0 @@
-id: yanfei-xingqiu-bennett-kazuha
-name: Yanfei / Xingqiu / Bennett / Kazuha
-members: [yanfei, xingqiu, bennett, kazuha]
-archetype: Yanfei Pyro vaporize charged-attack carry
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Xingqiu, Bennett and Kazuha set up first, then Yanfei skill, burst and attack plus charged attack strings (seals) until Xingqiu's skill is ready again."

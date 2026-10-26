@@ -1,9 +1,0 @@
-id: alhaitham-yaemiko-nahida-kazuha
-name: Alhaitham / Yae Miko / Nahida / Kazuha
-members: [alhaitham, yaemiko, nahida, kazuha]
-archetype: Dendro spread / aggravate
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Kazuha groups and shreds resistance, Nahida marks, Yae Miko's Sesshou Sakura apply Electro for Quicken, then Alhaitham (skill every other loop, as its cooldown is longer than the loop) bursts when ready and spends the mirrors on Dendro normal and charged attacks (Spread and Aggravate)."

@@ -1,9 +1,0 @@
-id: emilie-nahida-xiangling-bennett
-name: Emilie / Nahida / Xiangling / Bennett
-members: [emilie, nahida, xiangling, bennett]
-archetype: Dendro burning
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Burning team: Nahida marks and adds Dendro, Xiangling and Bennett keep Pyro on the enemy, Emilie places her Lumidouce Case, uses her burst and attacks while the cases tick."

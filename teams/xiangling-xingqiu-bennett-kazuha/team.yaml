@@ -1,9 +1,0 @@
-id: xiangling-xingqiu-bennett-kazuha
-name: Xiangling / Xingqiu / Bennett / Kazuha
-members: [xiangling, xingqiu, bennett, kazuha]
-archetype: National with Kazuha (Pyro vaporize / Swirl)
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Every support action is guarded with ready so nobody waits on cooldowns or energy; Xiangling attacks between Pyronado casts while Xingqiu and Bennett recover (Xingqiu skill and burst about every 23 s)."

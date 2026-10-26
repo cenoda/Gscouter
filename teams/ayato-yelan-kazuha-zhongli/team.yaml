@@ -1,9 +1,0 @@
-id: ayato-yelan-kazuha-zhongli
-name: Ayato / Yelan / Kazuha / Zhongli
-members: [ayato, yelan, kazuha, zhongli]
-archetype: Hydro on-field hypercarry (Hydro resonance, Swirl shred)
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Kazuha, Zhongli and Yelan set up first (Zhongli hold shield, Yelan burst), then Ayato skill, burst and normal attack strings with dash cancels."

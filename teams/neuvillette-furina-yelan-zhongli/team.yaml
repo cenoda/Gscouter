@@ -1,9 +1,0 @@
-id: neuvillette-furina-yelan-zhongli
-name: Neuvillette / Furina / Yelan / Zhongli
-members: [neuvillette, furina, yelan, zhongli]
-archetype: Hydro hypercarry (Furina Fanfare, Yelan damage bonus)
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Zhongli shield, Furina and Yelan buffs, then Neuvillette skill + burst and a Charged Attack loop. Mono-element Hydro, so no swirl shred."

@@ -1,9 +1,0 @@
-id: itto-gorou-albedo-zhongli
-name: Arataki Itto / Gorou / Albedo / Zhongli
-members: [itto, gorou, albedo, zhongli]
-archetype: Mono Geo
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Mono Geo. Albedo, Gorou and Zhongli set up first, then Itto skill and burst and N3 plus charge attack strings (N1C strings add a swap-cooldown wait for Albedo above the warning limit). Albedo blossom ticks are a large share of team damage."

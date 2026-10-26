@@ -1,9 +1,0 @@
-id: nilou-nahida-yelan-collei
-name: Nilou / Nahida / Yelan / Collei
-members: [nilou, nahida, yelan, collei]
-archetype: Hydro bloom (Bountiful Cores)
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Nahida marks, Collei and Yelan set up Dendro and Hydro, then Nilou chains Dance of Haftkarsvar into the Tranquility Aura and burst. Cores are the main damage source."

@@ -1,9 +1,0 @@
-id: skirk-xingqiu-furina-escoffier
-name: Skirk / Xingqiu / Furina / Escoffier
-members: [skirk, xingqiu, furina, escoffier]
-archetype: Cryo hypercarry (mono Hydro/Cryo)
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Skirk variant with Xingqiu instead of Yelan; all four members are Hydro or Cryo so Skirk keeps her party bonus. Escoffier and Furina set up, Xingqiu rain swords, then Skirk enters Seven-Phase Flash and bursts."

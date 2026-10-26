@@ -1,9 +1,0 @@
-id: ayato-xiangling-bennett-kazuha
-name: Ayato / Xiangling / Bennett / Kazuha
-members: [ayato, xiangling, bennett, kazuha]
-archetype: Hydro on-field vaporize
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Kazuha, Bennett and Xiangling set up first, then Ayato skill, burst and normal attack strings with dash cancels while the burst is up."

@@ -1,9 +1,0 @@
-id: tighnari-raiden-nahida-xingqiu
-name: Tighnari / Raiden Shogun / Nahida / Xingqiu
-members: [tighnari, raiden, nahida, xingqiu]
-archetype: Dendro hyperbloom
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Hyperbloom: Xingqiu and Nahida apply Hydro and Dendro, Raiden's Eye of Stormy Judgment triggers Electro on the Bloom cores (most Hyperbloom damage is credited to Raiden) while Tighnari's Wreath Arrows spread and seed more cores. Tighnari enters Vijnana-Suffusion and fires Wreath Arrows. Raiden and Xingqiu bursts are conditional because Energy limits them."

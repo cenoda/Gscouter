@@ -1,9 +1,0 @@
-id: kokomi-raiden-xiangling-bennett
-name: Kokomi / Raiden / Xiangling / Bennett
-members: [kokomi, raiden, xiangling, bennett]
-archetype: Kokomi taser (Hydro, Electro and Pyro reactions)
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Bennett and Xiangling set up Pyro, Kokomi skill + burst for Hydro and healing, Raiden burst, then Kokomi and Raiden attack in the burst window. Raiden deals most of the damage; Kokomi leads as the support carry."

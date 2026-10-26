@@ -1,9 +1,0 @@
-id: raiden-xiangling-bennett-kazuha
-name: Raiden / Xiangling / Bennett / Kazuha
-members: [raiden, xiangling, bennett, kazuha]
-archetype: Raiden Overloaded (Pyro / Electro / Swirl)
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Kazuha, Bennett and Xiangling set up first, then Raiden skill, burst and an attack string while the burst lasts."

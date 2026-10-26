@@ -1,9 +1,0 @@
-id: razor-bennett-fischl-kazuha
-name: Razor / Bennett / Fischl / Kazuha
-members: [razor, bennett, fischl, kazuha]
-archetype: Razor physical carry (Bennett buff, Electro off-field)
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Fischl summons Oz, Bennett and Kazuha buff and shred, then Razor skill, burst and normal attack strings until Fischl's skill is ready again. Drift warning (+5.9% at the default 150-450 s window) is a start-up transient: -1.4% with -warmup 300 -duration 900."

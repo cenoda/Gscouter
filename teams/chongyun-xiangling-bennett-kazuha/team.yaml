@@ -1,9 +1,0 @@
-id: chongyun-xiangling-bennett-kazuha
-name: Chongyun / Xiangling / Bennett / Kazuha
-members: [chongyun, xiangling, bennett, kazuha]
-archetype: Cryo melt (Cryo infusion)
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Chongyun melt: Bennett and Xiangling provide Pyro, Kazuha shreds and buffs, Chongyun field then burst and infused normal attacks."

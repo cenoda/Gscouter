@@ -1,9 +1,0 @@
-id: columbina-lauma-nahida-sucrose
-name: Columbina / Lauma / Nahida / Sucrose
-members: [columbina, lauma, nahida, sucrose]
-archetype: Hydro Lunar-Bloom carry
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Nahida and Lauma keep Dendro on the enemy and Columbina's Gravity Ripple turns it into Lunar-Bloom; Sucrose adds Elemental Mastery and swirl. Columbina attacks between skill cooldowns. WARN is inherent: Sucrose is a pure EM and swirl support (about 0.5% of the damage)."

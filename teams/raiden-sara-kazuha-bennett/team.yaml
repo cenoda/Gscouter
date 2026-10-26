@@ -1,9 +1,0 @@
-id: raiden-sara-kazuha-bennett
-name: Raiden / Sara / Kazuha / Bennett
-members: [raiden, sara, kazuha, bennett]
-archetype: Electro hypercarry
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Raiden hypercarry: Kazuha, Sara and Bennett set up buffs, then Raiden skill, burst and an attack string while the burst lasts."

@@ -1,9 +1,0 @@
-id: tartaglia-xiangling-bennett-kazuha
-name: Tartaglia / Xiangling / Bennett / Kazuha
-members: [tartaglia, xiangling, bennett, kazuha]
-archetype: Childe International (Hydro / Pyro vaporize)
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Support skills and bursts are guarded with ready. Tartaglia enters melee stance when his skill is ready, attacks with normal and charge attacks, bursts when ready and leaves melee with skill; Xiangling attacks while his skill recovers. Tartaglia has about a third of team damage because he is on field only part of the cycle."

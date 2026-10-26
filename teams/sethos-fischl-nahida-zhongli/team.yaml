@@ -1,9 +1,0 @@
-id: sethos-fischl-nahida-zhongli
-name: Sethos / Fischl / Nahida / Zhongli
-members: [sethos, fischl, nahida, zhongli]
-archetype: Electro aggravate
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Zhongli shields, Nahida marks, Fischl's Oz triggers Electro for Aggravate. Sethos uses his skill, bursts when ready and uses the Electro-infused normals, then fires Shadowpiercing Shots (aim). A1 spends his Energy to speed up aiming, so the burst is only available occasionally and most damage is Shadowpiercing Shots; Fischl (C6) deals a similar share. Drift is +5.4% at the default 450 s window and +2.8% with 1000 iterations and a 900 s window (energy-limited burst timing), so the verdict is WARN at default settings."

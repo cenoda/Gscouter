@@ -1,9 +1,0 @@
-id: heizou-xingqiu-xiangling-bennett
-name: Heizou / Xingqiu / Xiangling / Bennett
-members: [heizou, xingqiu, xiangling, bennett]
-archetype: Anemo swirl carry
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Xingqiu and Xiangling set up vaporize, Bennett buffs, Heizou skill, burst and N4 strings swirl pyro and hydro. Heizou is a swirl enabler here, so Xiangling and Xingqiu deal a larger share of the damage than the carry."

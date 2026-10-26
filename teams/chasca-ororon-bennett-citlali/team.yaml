@@ -1,9 +1,0 @@
-id: chasca-ororon-bennett-citlali
-name: Chasca / Ororon / Bennett / Citlali
-members: [chasca, ororon, bennett, citlali]
-archetype: Anemo Nightsoul hypercarry
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Bennett (Pyro), Ororon (Electro) and Citlali (Cryo) give Chasca's Shadowhunt Shells three different elements. Supports first, then Chasca enters Nightsoul Blessing and fires full six-bullet volleys until it ends. WARN is inherent: Bennett is a pure buffer and healer (about 1% of the damage)."

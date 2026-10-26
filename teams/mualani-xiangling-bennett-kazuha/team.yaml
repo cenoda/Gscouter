@@ -1,9 +1,0 @@
-id: mualani-xiangling-bennett-kazuha
-name: Mualani / Xiangling / Bennett / Kazuha
-members: [mualani, xiangling, bennett, kazuha]
-archetype: Hydro vaporize hypercarry
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Xiangling and Bennett keep Pyro on the enemy for reverse vaporize on Mualani's Sharky's Bites and Kazuha shreds and buffs. Mualani enters Nightsoul Blessing, uses her burst, walks into the enemy for Momentum and bites with every available charge until the blessing ends. Walking inside the Nightsoul Blessing builds the three Momentum stacks for the Surging Bite (dashing costs Nightsoul points). The default window shows drift +5% (still settling); with -iter 1000 -warmup 300 -duration 900 it is +1.7%."

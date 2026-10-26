@@ -1,9 +1,0 @@
-id: kaveh-nahida-xingqiu-yelan
-name: Kaveh / Nahida / Xingqiu / Yelan
-members: [kaveh, nahida, xingqiu, yelan]
-archetype: Kaveh Dendro bloom (Bountiful Cores)
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Nahida marks, Xingqiu and Yelan apply Hydro, then Kaveh skill, burst and attacks while Painted Dome lasts; Dendro Cores from Kaveh's hits are the main damage source."

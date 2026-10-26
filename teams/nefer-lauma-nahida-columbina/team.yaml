@@ -1,9 +1,0 @@
-id: nefer-lauma-nahida-columbina
-name: Nefer / Lauma / Nahida / Columbina
-members: [nefer, lauma, nahida, columbina]
-archetype: Dendro Lunar-Bloom carry
-status: blocked
-rotation_version: 0
-gcsim_commit: 2350be9
-sources: []
-notes: "Blocked: nefer is not implemented in gcsim at the pinned commit (no internal/characters/nefer). Lunar-Bloom team with Lauma, Nahida and Columbina; write the rotation and build once gcsim adds Nefer."

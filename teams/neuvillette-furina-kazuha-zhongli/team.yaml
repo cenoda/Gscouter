@@ -1,9 +1,0 @@
-id: neuvillette-furina-kazuha-zhongli
-name: Neuvillette / Furina / Kazuha / Zhongli
-members: [neuvillette, furina, kazuha, zhongli]
-archetype: Hydro hypercarry (Furina Fanfare, Kazuha swirl shred)
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Zhongli shield, Kazuha skill/burst swirl for Hydro RES shred, Furina skill + burst, then Neuvillette skill + burst and Charged Attack loop."

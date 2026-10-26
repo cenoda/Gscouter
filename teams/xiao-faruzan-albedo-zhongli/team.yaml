@@ -1,9 +1,0 @@
-id: xiao-faruzan-albedo-zhongli
-name: Xiao / Faruzan / Albedo / Zhongli
-members: [xiao, faruzan, albedo, zhongli]
-archetype: Anemo plunge hypercarry
-status: draft
-rotation_version: 1
-gcsim_commit: 2350be9
-sources: []
-notes: "Albedo, Zhongli and Faruzan act whenever ready, then Xiao bursts and chains jump plus high plunge for the whole burst, with N5 strings while his burst is down. Xiao has about 130% ER so the burst is up most of the time."
