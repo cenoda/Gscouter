@@ -217,7 +217,7 @@ Each team stores the source's options, target, energy and hurt lines in `source.
 | Step | Mode | Description |
 |---|---|---|
 | 1. Harvest | Automated | `cmd/harvest -n <teams>`; rerun to refresh. `cmd/import` adds a single gcsim share link by hand. Rotations are never written from scratch |
-| 2. Validation | Automated | `cmd/validate`. CI validates fully the team directories a push or pull request changes, or 10 random teams when it changes none |
+| 2. Validation | Automated | `cmd/validate`. CI validates fully the team directories a push or pull request changes (30 of them, chosen at random, when it changes more), or 10 random teams when it changes none |
 | 3. Approval | Manual | After review, set `status: supported` |
 | 4. Regression tests | Automated | Re-run everything on gcsim updates or game patches; flag teams whose DPS shifts more than ±N% for review |
 

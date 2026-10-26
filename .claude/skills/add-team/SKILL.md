@@ -72,8 +72,9 @@ GOTOOLCHAIN=auto go run ./cmd/validate -detail teams/<id>   # actions, damage by
 - A gap usually means another gcsim version (`reference.gcsim_version`
   vs. ours in `go.mod`) or a random rotation. Explain it in `notes`, or
   find a source that matches.
-- CI fully validates the team directories a push changes, or 10 random
-  teams when it changes none.
+- CI fully validates the team directories a push changes (a random 30
+  of them when it changes more, so validate a harvest in full locally),
+  or 10 random teams when it changes none.
 - The rotation must choose `active <char>;` in its setup and must end.
   Gscouter loops it itself: the setup (`active`, `let`, `fn`, `set_*`)
   runs once and the rest repeats. A source with its own unconditional
