@@ -20,8 +20,8 @@ go run ./cmd/server          # http://localhost:8080
 |---|---|---|
 | `-addr` | `:8080` (or `$PORT`) | Listen address |
 | `-iter` | 100 | Iterations per score |
-| `-warmup` | 150 | Seconds excluded from the score |
-| `-duration` | 450 | Fight duration in seconds |
+| `-warmup` | 0 | Seconds excluded from the score |
+| `-duration` | 90 | Fight duration in seconds |
 | `-concurrent` | 1 | Simulations running at once |
 | `-queue` | 8 | Simulations waiting before requests are rejected |
 
@@ -29,7 +29,7 @@ Deployment: see [deploy/README.md](deploy/README.md).
 
 ## Command line
 
-Scores a build file (gcsim character setup lines) against a library team, with the longer validation settings.
+Scores a build file (gcsim character setup lines) against a library team, with 1000 iterations.
 
 ```sh
 go run ./cmd/gscouter \
@@ -39,20 +39,20 @@ go run ./cmd/gscouter \
 
 ```
 Team:      Skirk / Yelan / Furina / Escoffier (rotation v1, draft)
-Score:     96611 DPS ± 89 (1 s.e.; s.d. 2815)
-Window:    300s–900s, 1000 iterations, 11.972s
-Drift:     -0.34% (second half vs. first half of the window)
+Score:     107372 DPS ± 76 (1 s.e.; s.d. 2390)
+Window:    0s–90s, 1000 iterations, 1.719s
+Drift:     -1.80% (second half vs. first half of the window)
 
 Character           DPS   Share    Energy wait
-skirk             56014   58.0%        0.00s/m
-yelan             10516   10.9%        0.00s/m
-furina            17457   18.1%        0.01s/m
-escoffier         12624   13.1%        8.25s/m
+skirk             61269   57.1%        0.00s/m
+yelan             14150   13.2%        0.00s/m
+furina            19374   18.0%        0.28s/m
+escoffier         12579   11.7%        0.18s/m
 ```
 
-- **Score**: steady-state team DPS over the window, excluding the opener.
-- **Drift**: how much the DPS still changes within the window. Near 0 means the team has settled.
-- **Energy wait**: seconds per minute that a character's actions waited for energy. Here the sample Escoffier lacks Energy Recharge for the rotation, which lowers the score.
+- **Score**: team DPS over 90 s, starting with full energy, as players measure on a training dummy.
+- **Drift**: second-half vs. first-half DPS. Slightly negative is normal; far below means the rotation stalls.
+- **Energy wait**: seconds per minute that a character's actions waited for energy. Too little Energy Recharge for the rotation lowers the score.
 
 Flags:
 
@@ -61,14 +61,14 @@ Flags:
 | `-team` | | Team library directory |
 | `-build` | | Build file |
 | `-iter` | 1000 | Iterations |
-| `-warmup` | 300 | Seconds excluded from the score |
-| `-duration` | 900 | Fight duration in seconds |
+| `-warmup` | 0 | Seconds excluded from the score |
+| `-duration` | 90 | Fight duration in seconds |
 | `-seed` | 1 | Seed of the first iteration |
 | `-dump` | false | Print the assembled gcsim config and exit |
 
 ## Team library
 
-Each team has a `team.yaml`, a `rotation.gcsl` and a reference `build.txt` used only for validation. `cmd/validate` runs every team with its reference build and fails a team whose config does not parse, whose member deals no damage, or whose rotation does not loop steadily. It warns about drift, energy waits and members with almost no damage.
+Each team has a `team.yaml`, a `rotation.gcsl` and a reference `build.txt` used only for validation. `cmd/validate` runs every team with its reference build and fails a team whose config does not parse, whose member deals no damage, whose character stands idle 10 s/min or more, or whose rotation stalls. It warns about action waits and members with almost no damage.
 
 ```sh
 go run ./cmd/validate                 # every team
@@ -87,7 +87,7 @@ internal/config/    common simulation conditions and config assembly
 internal/enka/      Enka.Network client and converter to gcsim
 internal/web/       HTTP handlers and templates
 internal/library/   team library loading and matching
-internal/score/     steady-state DPS from gcsim runs
+internal/score/     team DPS from gcsim runs
 teams/<id>/         team.yaml, rotation.gcsl and reference build.txt per team
 deploy/             VM setup and auto-update
 ```

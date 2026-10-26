@@ -35,12 +35,12 @@ type Settings struct {
 	MaxQueue      int     // simulations waiting before requests are rejected
 }
 
-// DefaultSettings trade a little precision for speed: about ±0.4% at
-// 1 standard error (design §3.1).
+// DefaultSettings measure 90 s from full energy, as players measure on a
+// training dummy (design §3.1).
 var DefaultSettings = Settings{
 	Iterations:    100,
-	Warmup:        150,
-	Duration:      450,
+	Warmup:        0,
+	Duration:      90,
 	MaxConcurrent: 1,
 	MaxQueue:      8,
 }

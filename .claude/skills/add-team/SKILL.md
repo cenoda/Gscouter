@@ -52,8 +52,8 @@ notes: "One line on the rotation and anything a reviewer should know."
 
 - `status` is always `draft` for new rotations. Only the maintainer
   promotes a team to `supported`.
-- `sources`: URLs of community rotations or gcsim configs you based the
-  rotation on, if any.
+- `sources`: URLs of the community rotations or gcsim configs the
+  rotation comes from. Required.
 
 ## 4. rotation.gcsl
 
@@ -77,8 +77,12 @@ while 1 {
 }
 ```
 
-Write the rotation real players use for the team (the standard community
-rotation), not one tuned to the simulator. Keep it simple and robust:
+Base the rotation on a real source: a community gcsim config (share link
+or config text), a KQM or other community guide, or one the maintainer
+gives you. Put the link in `sources`. Never write a rotation from your
+own idea of the team; a rotation without a source is not added. Keep the
+source's action order and cancels (jump/dash cancels, attack strings) and
+change only what the library format needs:
 
 - gcsim waits until an action is ready. A fixed sequence that waits for
   burst energy stalls the whole team, so use
@@ -134,11 +138,8 @@ hutao add stats hp=4780 atk=311 hp%=0.565 pyro%=0.466 cd=0.886 cr=0.33 em=79 er=
   heal 0.359). Substats about 20 useful rolls: cr 0.033, cd 0.066,
   atk%/hp% 0.0496, def% 0.062, er 0.0551, em 19.82 per roll.
 - Give each character enough Energy Recharge for the rotation, as
-  players would, up to what players actually build (about 200-280% for
-  burst-reliant supports such as Xiangling). The enemy drops one neutral
-  particle every 8-12 s, so energy is tighter than in short gcsim sims
-  that start with full energy; it is fine for a burst to come every other
-  loop when that is what the energy allows.
+  players would. The fight is 90 s from full energy and the enemy drops
+  one neutral particle every 8-12 s, as in most community gcsim configs.
 - Weapon and set keys: the shortcut tables in `$GCSIM/pkg/shortcut/`
   (`weapons.go`, `artifacts.go`) map every accepted name to its key. Long
   names are often shortened (Ayato's signature is `haran`).
@@ -155,23 +156,18 @@ damage by source and reactions per minute. Use it to find a stalled loop
 nothing.
 
 - `FAIL` must be fixed: the config does not parse, a member deals no
-  damage, a character waits 10 s/min or more, or the rotation does not
-  loop steadily (drift over 10%).
-- Drift compares the two halves of the window, which can be off by a few
-  percent when the rotation cycle is long. A drift warning under 10% that
-  falls below 2% with `-iter 1000 -warmup 300 -duration 900` is not a
-  problem; note it.
+  damage, a character waits 10 s/min or more, or the rotation stalls
+  (second-half DPS under half of the first half).
 - `WARN` should be fixed. Waits are listed by reason:
   `insufficient_energy` (add ER to the build or make the burst
   conditional), `insufficient_stamina` (use jump or dash cancels as
   players do), `skill_cd`/`burst_cd` (the loop is shorter than the
   cooldown; reorder or make it conditional). If a warning is inherent to the team (for example a
   support with almost no personal damage), say so in `notes`.
-- Sanity-check the numbers: the main damage dealer should have the
-  largest share in a hypercarry, and team DPS should be plausible next
-  to similar teams already in the library (`go run ./cmd/validate`
-  prints them all). A team far below its peers usually has idle time:
-  check actions per minute in `-detail`.
+- Check the result against the source: with a similar build, team DPS
+  should be close to the number the source reports. A large gap means
+  the rotation or build differs from the source; find out why before
+  adding the team.
 - Simulation errors name the line and the character; check the action
   against the legal actions and the character's source.
 

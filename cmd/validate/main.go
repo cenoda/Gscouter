@@ -17,7 +17,6 @@ import (
 	"flag"
 	"fmt"
 	"maps"
-	"math"
 	"os"
 	"path/filepath"
 	"slices"
@@ -31,8 +30,9 @@ import (
 // Thresholds. A failure means the rotation is broken; a warning means it
 // runs but should be looked at.
 const (
-	failDrift = 0.10 // the rotation stops or ramps instead of looping
-	warnDrift = 0.05
+	// The fight starts with full energy, so the second half is normally a
+	// little weaker than the first. Much weaker means the rotation stalls.
+	failDrift = -0.5
 	warnWait  = 2.0  // seconds per minute an action is delayed, for any reason
 	failWait  = 10.0 // seconds per minute a character's actions are delayed in total
 	warnShare = 0.01
@@ -42,8 +42,8 @@ func main() {
 	var (
 		root       = flag.String("root", "teams", "team library directory, used when no teams are given")
 		iterations = flag.Int("iter", 100, "number of iterations")
-		warmup     = flag.Float64("warmup", 150, "seconds excluded from the score")
-		duration   = flag.Float64("duration", 450, "fight duration in seconds")
+		warmup     = flag.Float64("warmup", 0, "seconds excluded from the score")
+		duration   = flag.Float64("duration", 90, "fight duration in seconds")
 		verbose    = flag.Bool("v", false, "print per-character results")
 		detail     = flag.Bool("detail", false, "print what each character did in one run: actions, damage by source, reactions")
 	)
@@ -135,11 +135,8 @@ func check(dir string, cond config.Conditions, opts score.Options) *report {
 	}
 	r.res = res
 
-	switch d := math.Abs(res.Drift); {
-	case d > failDrift:
-		r.failures = append(r.failures, fmt.Sprintf("drift %+.1f%%: the rotation does not loop steadily", res.Drift*100))
-	case d > warnDrift:
-		r.warnings = append(r.warnings, fmt.Sprintf("drift %+.1f%%", res.Drift*100))
+	if res.Drift < failDrift {
+		r.failures = append(r.failures, fmt.Sprintf("drift %+.1f%%: the rotation stalls in the second half", res.Drift*100))
 	}
 	for _, c := range res.Characters {
 		switch {

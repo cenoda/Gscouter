@@ -27,7 +27,7 @@ A user submits the builds of their party members, and Gscouter computes the team
 | Score | A single absolute DPS value | Team choice (meta) counts as skill. No score relative to a baseline build. |
 | Constellations / refinements | Included in the score | Investment is part of building |
 | Enemy | Lv. 100, 10% resistance to all elements and physical, single target | Matches the KQM standard, so results can be cross-checked against community calcs |
-| Fight duration | Infinite cycles (steady-state DPS excluding the opener) | Teams with different cycle lengths become comparable; insufficient Energy Recharge shows up honestly |
+| Fight duration | 90 s starting with full energy | How players measure team DPS on a training dummy, and the gcsim community default, so scores can be checked against community numbers |
 | Rotation | A fixed standard rotation per team | Removes player control from the equation |
 | Teams not in the library | Marked "unsupported" and not computed | Early on, library quality comes first |
 | Library management | Manual authoring/approval + automated validation | Rotation quality *is* fairness |
@@ -36,54 +36,31 @@ A user submits the builds of their party members, and Gscouter computes the team
 
 ### Rules these decisions create (to be communicated to users)
 
-- Infinite cycles + single target favor **hypercarry teams and teams that ramp up over time**, e.g. teams that need buffs to stack, like Furina's Fanfare.
-  - The best team in Gscouter may differ from the team that feels strongest in real content. That is a rule, not a bug.
-- If insufficient Energy Recharge delays the rotation, DPS drops accordingly. Managing ER is part of building.
+- A single target favors **hypercarry teams**. The best team in Gscouter may differ from the team that feels strongest in multi-target content. That is a rule, not a bug.
+- If insufficient Energy Recharge delays the rotation within 90 s, DPS drops accordingly. Managing ER is part of building.
 
 ## 3. Score Definition
 
-### 3.1 Steady-state DPS
+### 3.1 Score
 
 ```
-score = average DPS over the interval after the opener (first cycle)
+score = average team DPS over the first 90 s, starting with full energy
 ```
 
-gcsim runs fixed-duration simulations, so infinite cycles are approximated by a long fight with the start cut off.
+This is how players measure team DPS on a training dummy with infinite HP: start with full energy and measure for a minute or two. It is also the default length of community gcsim configs, so scores can be checked against them.
 
-- **Window slicing (adopted)**
-  - Run each iteration for T2 seconds and count only the damage dealt from T1 onwards.
-  - gcsim records each iteration's damage in 0.5 s buckets, plus each character's cumulative share per bucket. Gscouter uses gcsim as a Go library and reads these directly, so one run per iteration is enough.
-  - Defaults: **T1 = 300 s, T2 = 900 s** (a 600 s window).
-- **Difference method (equivalent, not used)**
-  - `(total_damage(T2) − total_damage(T1)) / (T2 − T1)`, with the same seed for both runs.
-  - Gives the same value as window slicing (verified per seed by a unit test), but needs two runs.
 - Each iteration `i` uses seed `base + i`, so the same build always gets the same score. This is required for caching and for repeatable comparisons.
 - Randomness such as crits is handled by averaging iterations. The result stores the standard deviation and the standard error.
+- The score package can still exclude an opening interval (`Warmup`), measured by window slicing over gcsim's 0.5 s damage buckets; the site does not use it.
 
-**Measurements** (Skirk / Yelan / Furina / Escoffier, prototype rotation, sample build, 1000 iterations):
-
-| Window | DPS | Note |
-|---|---|---|
-| 0–360 s | 100.4k | Includes the opener |
-| 60–360 s | 98.9k | The original proposal; still 2.5% above steady state |
-| 150–450 s | 96.8k | Settled |
-| 300–900 s | 96.6k | Default |
-| 360–660 s ... 1560–1860 s | 96.3k–96.5k | Flat, within ±1 s.e. |
-
-- The transient is longer than the opener. Every character starts with full energy, and an energy deficit builds up over several cycles before the rotation becomes energy-limited. In this team it settles after about 150 s.
-- Mid-cycle truncation is small with a 600 s window (about 27 cycles of ~22 s).
-- Cost: 1000 iterations × 900 s take about 12 s on 4 CPU cores. The standard error is about 0.1%.
-- Teams that take longer to settle are caught by the drift check (§5.3).
-
-**Site settings.** A usable comparison needs an error well under 10%, and the rotation, not simulation noise, dominates that budget (§7). The site therefore trades precision for speed:
+Measurements (Skirk / Yelan / Furina / Escoffier, prototype rotation, reference build):
 
 | Setting | DPS | Standard error | Time (4 cores) |
 |---|---|---|---|
-| 1000 iterations, 300–900 s (validation) | 96.6k | ±0.1% | 11.9 s |
-| **100 iterations, 150–450 s (site default)** | 96.8k | ±0.4% | 0.68 s |
-| 30 iterations, 150–300 s | 96.3k | ±0.9% | 0.16 s |
+| 1000 iterations (validation) | 107.4k | ±0.07% | 1.6 s |
+| **100 iterations (site default)** | 107.4k | ±0.2% | 0.18 s |
 
-Library validation (§5.3) keeps the long setting, so a team whose transient outlasts 150 s is caught by the drift check before it reaches the site.
+History: the prototype scored steady-state DPS over infinite cycles (the window after 150–300 s). It was dropped because it does not match how players measure, and it hid how much a team gains from starting with full energy.
 
 ### 3.2 Common simulation conditions
 
@@ -93,8 +70,8 @@ Library validation (§5.3) keeps the long setting, so a team whose transient out
 | Enemy resistance | 10% for all elements + physical |
 | Number of targets | 1 |
 | Enemy HP | Infinite (time-based termination) |
-| Fight duration | Site: 450 s, first 150 s excluded. Validation: 900 s, first 300 s excluded (§3.1) |
-| Iterations | Site: 100 (±0.4%). Validation: 1000 (±0.1%) |
+| Fight duration | 90 s from full energy (§3.1) |
+| Iterations | Site: 100 (±0.2%). Validation: 1000 (±0.07%) |
 | Energy | 1 clear particle every 8–12 s (`energy every interval=480,720 amount=1`). Provisional, see §9 |
 | Swap delay | 12 frames |
 
@@ -112,7 +89,7 @@ energy every interval=480,720 amount=1;
 [Input]               [Normalize]       [Match]               [Compute]           [Output]
 Enka UID ──┐
            ├─► build normalization ─► team matching ─┬─► config assembly ─► gcsim ×2 ─► score / report
-GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation)   (T1, T2)
+GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation)   (90 s)  
                                                      └─► "unsupported" + request tally
 ```
 
@@ -145,13 +122,13 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
 ### 4.4 Config assembly and execution
 
 - Combine the common conditions (§3.2) + the user's build (§4.2) + the library rotation (§5) into a gcsim config.
-- Run the config once for T2 per iteration and score the window from T1 (§3.1).
+- Run the config for 90 s per iteration and average the team DPS (§3.1).
 - **Cache key** = hash of the assembled config. The config contains the build, the rotation and the conditions, and the gcsim version is fixed per deployment, so the same build is never recomputed.
 - Characters are compared by canonical name: gcsim aliases resolve to one key (`kazuha` = `kaedeharakazuha`), and both Traveler genders fold into `traveler<element>`. When the player's key differs from the library's (e.g. `aethercryo` vs. `travelercryo`), the rotation is rewritten to the player's key.
 
 ### 4.5 Results
 
-- **Score**: steady-state DPS
+- **Score**: team DPS over 90 s from full energy
 - **Per-character contribution**: DPS and share
 - **Warnings**
   - Insufficient ER: time each character spent waiting for energy, in seconds per minute of the scoring window
@@ -198,7 +175,7 @@ notes: ""
 
 ### 5.2 Rotation authoring rules
 
-- After the first cycle (opener), **the same cycle must repeat**. This is a precondition for steady-state DPS.
+- The rotation loops for the whole fight, and must not stall.
 - One rotation is used regardless of the user's build.
   - If an action can't be performed due to insufficient ER, rely on gcsim's wait/delay behavior and surface the delay as a warning.
 - Aim for a near-optimal standard rotation for the team. Uneven rotation quality across teams is itself unfairness.
@@ -208,13 +185,13 @@ notes: ""
 | Step | Mode | Description |
 |---|---|---|
 | 1. Candidate selection | Automated | Tally "unsupported" requests per 4-character set into a priority list |
-| 2. Draft | Semi-automated | Import shared gcsim community configs for the same set and refine them into infinite-cycle form |
+| 2. Draft | Semi-automated | Import shared gcsim community configs for the same set; never write rotations from scratch without a source |
 | 3. Validation | Automated | Check the items below |
 | 4. Approval | Manual | After PR review, set `status: supported` |
 | 5. Regression tests | Automated | Re-run everything on gcsim updates or game patches; flag teams whose DPS shifts more than ±N% for review |
 
 Step 3 automated checks:
-- The team reaches a steady state: **drift** (second-half vs. first-half DPS of the window) within ±1%
+- The rotation does not stall: second-half DPS is at least half of the first half
 - No failed actions or burst delays with the reference build
 - The result falls within the expected range in `reference.yaml` (compared against public calcs such as KQM)
 
@@ -279,10 +256,9 @@ All characters confirmed supported in gcsim (commit `2350be9`).
 ## 9. Open Questions
 
 - [x] Where to run: server-side Go on one small VM (§4.6)
-- [x] Iteration count and T1/T2 values: site 100 iterations, 150–450 s; validation 1000 iterations, 300–900 s (§3.1)
+- [x] Fight length: 90 s from full energy; site 100 iterations, validation 1000 (§3.1)
 - [ ] Enemy energy particle drops
   - The prototype uses `energy every interval=480,720 amount=1`, as many community gcsim configs do.
-  - gcsim's HP-based particle drops (`particle_threshold`) need a finite enemy HP, which conflicts with time-based infinite cycles.
   - This directly affects ER requirements, so the same value must apply across the whole library. Confirm before the first library batch.
 - [ ] Whether to support additional rulesets such as an AoE league or a short-fight league (out of scope for now)
 - [ ] How to share results (versus card image, link, etc.)
