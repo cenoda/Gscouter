@@ -1,0 +1,14 @@
+active kazuha;
+while 1 {
+  if .kazuha.skill.ready { kazuha skill; }
+  if .kazuha.burst.ready { kazuha burst; }
+  if .xingqiu.skill.ready {
+    xingqiu skill;
+    if .xingqiu.burst.ready { xingqiu burst; }
+  }
+  if .bennett.skill.ready { bennett skill; }
+  if .bennett.burst.ready { bennett burst; }
+  if .xiangling.skill.ready { xiangling skill; }
+  if .xiangling.burst.ready { xiangling burst; }
+  xiangling attack:5;
+}
