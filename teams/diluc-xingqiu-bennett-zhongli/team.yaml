@@ -1,0 +1,9 @@
+id: diluc-xingqiu-bennett-zhongli
+name: Diluc / Xingqiu / Bennett / Zhongli
+members: [diluc, xingqiu, bennett, zhongli]
+archetype: Pyro vaporize carry
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Xingqiu vaporize, Bennett buff, Zhongli shield. Supports first, then Diluc burst, three skills and Normal Attacks while the burst infusion lasts."

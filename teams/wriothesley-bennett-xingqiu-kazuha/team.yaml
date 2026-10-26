@@ -1,0 +1,9 @@
+id: wriothesley-bennett-xingqiu-kazuha
+name: Wriothesley / Bennett / Xingqiu / Kazuha
+members: [wriothesley, bennett, xingqiu, kazuha]
+archetype: Cryo hypercarry (Pyro and Hydro reactions)
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Wriothesley with Bennett ATK buff, Xingqiu Hydro and Kazuha shred and swirl; Wriothesley skill, burst, then attack and charged attack loop."

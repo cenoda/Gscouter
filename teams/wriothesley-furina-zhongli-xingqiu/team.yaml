@@ -1,0 +1,9 @@
+id: wriothesley-furina-zhongli-xingqiu
+name: Wriothesley / Furina / Zhongli / Xingqiu
+members: [wriothesley, furina, zhongli, xingqiu]
+archetype: Cryo freeze hypercarry
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Wriothesley freeze with Furina and Xingqiu Hydro, Zhongli shield and resistance shred; Wriothesley skill, burst, then attack and charged attack loop."

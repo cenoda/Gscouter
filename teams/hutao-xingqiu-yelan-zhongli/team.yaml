@@ -3,7 +3,7 @@ name: Hu Tao / Xingqiu / Yelan / Zhongli
 members: [hutao, xingqiu, yelan, zhongli]
 archetype: Pyro vaporize hypercarry
 status: draft
-rotation_version: 1
+rotation_version: 2
 gcsim_commit: 2350be9
 sources: []
-notes: "Double Hydro vaporize with Zhongli shield. Skill example for the add-team skill."
+notes: "Double Hydro vaporize with Zhongli shield. Hu Tao uses N1 charge attacks while stamina allows and plain normals otherwise, then attacks until Xingqiu skill is ready so the loop lasts at least one Xingqiu cooldown. Xingqiu and Yelan bursts are conditional because Energy limits them to about 1.4 per minute."

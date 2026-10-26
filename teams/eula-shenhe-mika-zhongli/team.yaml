@@ -1,0 +1,9 @@
+id: eula-shenhe-mika-zhongli
+name: Eula / Shenhe / Mika / Zhongli
+members: [eula, shenhe, mika, zhongli]
+archetype: Physical hypercarry
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Standard Eula physical: Zhongli shield and physical resistance shred, Mika and Shenhe buffs, Eula hold skill then burst and attacks while the burst lasts. Mika is a pure support with almost no damage (validator WARN is inherent); Eula is energy-limited and bursts about every other cycle."

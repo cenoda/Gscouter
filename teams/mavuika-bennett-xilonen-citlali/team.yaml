@@ -1,0 +1,9 @@
+id: mavuika-bennett-xilonen-citlali
+name: Mavuika / Bennett / Xilonen / Citlali
+members: [mavuika, bennett, xilonen, citlali]
+archetype: Pyro hypercarry
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Citlali and Xilonen support Mavuika; Bennett buffs. Rotation starts with set_player_pos(0, -3) because the biked charge attack needs the enemy inside the Flamestrider hitbox. WARN is inherent: Xilonen is a pure shred/heal support (about 0.6% of the damage). The default 150 s warmup is shorter than the transient (drift -5%); it is +0.1% with 1000 iterations and a 300 s warmup."

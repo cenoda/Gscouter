@@ -1,0 +1,9 @@
+id: ayaka-shenhe-kokomi-kazuha
+name: Ayaka / Shenhe / Kokomi / Kazuha
+members: [ayaka, shenhe, kokomi, kazuha]
+archetype: Cryo freeze hypercarry
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Standard Ayaka freeze: Kokomi and Kazuha set up Hydro and group up, Shenhe buffs, Ayaka burst with normal/charge attacks and dash cancels."

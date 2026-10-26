@@ -1,0 +1,21 @@
+# Reference build used to validate the rotation.
+
+skirk char lvl=90/90 cons=0 talent=9,9,9;
+skirk add weapon="azurelight" refine=1 lvl=90/90;
+skirk add set="finaleofthedeepgalleries" count=4;
+skirk add stats hp=5280 atk=351 atk%=0.616 cryo%=0.466 cr=0.35 cd=1.122 er=0.11;
+
+furina char lvl=90/90 cons=0 talent=1,9,9;
+furina add weapon="festeringdesire" refine=5 lvl=90/90;
+furina add set="goldentroupe" count=4;
+furina add stats hp=5280 atk=331 hp%=1.082 cr=0.561 cd=0.7 er=0.2;
+
+escoffier char lvl=90/90 cons=0 talent=1,9,9;
+escoffier add weapon="favoniuslance" refine=5 lvl=90/90;
+escoffier add set="goldentroupe" count=4;
+escoffier add stats hp=5280 atk=351 atk%=0.616 cryo%=0.466 cr=0.429 cd=0.7 er=0.53;
+
+xingqiu char lvl=90/90 cons=6 talent=9,9,9;
+xingqiu add weapon="sacrificialsword" refine=5 lvl=90/90;
+xingqiu add set="emblemofseveredfate" count=4;
+xingqiu add stats hp=4780 atk=311 atk%=0.3 er=0.9 hydro%=0.466 cr=0.4 cd=0.8;

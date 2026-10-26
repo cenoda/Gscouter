@@ -1,0 +1,9 @@
+id: raiden-xiangling-xingqiu-bennett
+name: Raiden / Xiangling / Xingqiu / Bennett
+members: [raiden, xiangling, xingqiu, bennett]
+archetype: Raiden National (Overloaded / Vaporize)
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Standard National cycle: Xingqiu, Bennett, Xiangling bursts, then Raiden skill, burst and attack strings. Bursts are unconditional so the loop waits for energy. WARN is drift of about -4% at the default 150 s warmup: the team energy deficit takes longer than 150 s to settle; with -duration 900 -warmup 300 it is OK (+1.0%). Xiangling uses The Catch R5 (4-star) for ER."

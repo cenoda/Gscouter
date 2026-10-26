@@ -1,0 +1,16 @@
+active xingqiu;
+while 1 {
+  xingqiu skill;
+  if .xingqiu.burst.ready { xingqiu burst; }
+  if .bennett.burst.ready { bennett burst; }
+  bennett skill;
+  kazuha skill;
+  if .gaming.burst.ready { gaming burst; }
+  while !.xingqiu.skill.ready {
+    if .gaming.skill.ready {
+      gaming skill, low_plunge;
+    } else {
+      gaming attack;
+    }
+  }
+}

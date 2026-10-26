@@ -87,7 +87,17 @@ rotation), not one tuned to the simulator. Keep it simple and robust:
 - Loop on the carry's state where it is natural, as above or the Skirk
   rotation (`while .skirk.status.seven-phase-flash > 0 { skirk attack; }`).
   Status names are in the character's source (`AddStatus("<name>", ...)`
-  or the key constants).
+  or the key constants). A status added to the character is
+  `.<char>.status.<name>`; one added to the core (`c.Core.Status.Add`) is
+  `.status.<name>` (e.g. Eula's `.status.eula-q`).
+- Never let the on-field character stand idle waiting for a cooldown. If
+  a support's skill is not ready when the loop comes back, guard it with
+  `if .<char>.skill.ready { ... }` or let the carry keep attacking. The
+  validator fails a character that waits 10 s/min or more.
+- A guarded burst can miss every other loop when the loop is a little
+  shorter than the burst cooldown. If `-detail` shows bursts at half the
+  loop rate while energy is full, lengthen the carry's segment rather
+  than padding with idle actions.
 - Prefer `<char> attack:4;` style repeats where they read better.
 
 Reference for syntax, actions, params and fields:
@@ -124,10 +134,14 @@ hutao add stats hp=4780 atk=311 hp%=0.565 pyro%=0.466 cd=0.886 cr=0.33 em=79 er=
   heal 0.359). Substats about 20 useful rolls: cr 0.033, cd 0.066,
   atk%/hp% 0.0496, def% 0.062, er 0.0551, em 19.82 per roll.
 - Give each character enough Energy Recharge for the rotation, as
-  players would: the validator warns at 2 s/min of energy wait.
-- Weapon and set keys: `$GCSIM/internal/weapons/` and
-  `$GCSIM/internal/artifacts/` directory names, or the shortcut tables in
-  `$GCSIM/pkg/shortcut/`.
+  players would, up to what players actually build (about 200-280% for
+  burst-reliant supports such as Xiangling). The enemy drops one neutral
+  particle every 8-12 s, so energy is tighter than in short gcsim sims
+  that start with full energy; it is fine for a burst to come every other
+  loop when that is what the energy allows.
+- Weapon and set keys: the shortcut tables in `$GCSIM/pkg/shortcut/`
+  (`weapons.go`, `artifacts.go`) map every accepted name to its key. Long
+  names are often shortened (Ayato's signature is `haran`).
 
 ## 6. Validate
 
@@ -141,7 +155,12 @@ damage by source and reactions per minute. Use it to find a stalled loop
 nothing.
 
 - `FAIL` must be fixed: the config does not parse, a member deals no
-  damage, or the rotation does not loop steadily (drift over 10%).
+  damage, a character waits 10 s/min or more, or the rotation does not
+  loop steadily (drift over 10%).
+- Drift compares the two halves of the window, which can be off by a few
+  percent when the rotation cycle is long. A drift warning under 10% that
+  falls below 2% with `-iter 1000 -warmup 300 -duration 900` is not a
+  problem; note it.
 - `WARN` should be fixed. Waits are listed by reason:
   `insufficient_energy` (add ER to the build or make the burst
   conditional), `insufficient_stamina` (use jump or dash cancels as
@@ -150,7 +169,9 @@ nothing.
   support with almost no personal damage), say so in `notes`.
 - Sanity-check the numbers: the main damage dealer should have the
   largest share in a hypercarry, and team DPS should be plausible next
-  to similar teams already in the library.
+  to similar teams already in the library (`go run ./cmd/validate`
+  prints them all). A team far below its peers usually has idle time:
+  check actions per minute in `-detail`.
 - Simulation errors name the line and the character; check the action
   against the legal actions and the character's source.
 

@@ -1,0 +1,9 @@
+id: lyney-furina-bennett-kazuha
+name: Lyney / Furina / Bennett / Kazuha
+members: [lyney, furina, bennett, kazuha]
+archetype: Pyro vaporize hypercarry
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Furina Hydro for vaporize and Fanfare, Bennett buff, Kazuha swirl shred. Supports first, then Lyney burst, skill and Prop Arrows. WARN is inherent: Bennett deals under 1% of damage (pure buffer), and the default 150 s warmup is shorter than this team's transient (drift +8%), which is -0.6% with 1000 iterations and a 300 s warmup."

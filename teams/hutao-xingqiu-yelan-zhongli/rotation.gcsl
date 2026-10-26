@@ -7,6 +7,13 @@ while 1 {
   zhongli skill[hold=1];
   hutao skill;
   while .hutao.status.paramita > 0 {
-    hutao attack, charge;
+    if .stam >= 25 {
+      hutao attack, charge;
+    } else {
+      hutao attack:2;
+    }
+  }
+  while !.xingqiu.skill.ready {
+    hutao attack;
   }
 }

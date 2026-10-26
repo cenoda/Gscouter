@@ -1,0 +1,15 @@
+active escoffier;
+while 1 {
+  escoffier skill;
+  furina skill;
+  if .furina.burst.ready { furina burst; }
+  xingqiu skill;
+  if .xingqiu.burst.ready { xingqiu burst; }
+  xingqiu attack:5;
+  if .escoffier.burst.ready { escoffier burst; }
+  skirk skill;
+  if .skirk.burst.ready { skirk burst; }
+  while .skirk.status.seven-phase-flash > 0 {
+    skirk attack;
+  }
+}

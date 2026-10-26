@@ -1,0 +1,21 @@
+# Reference build used to validate the rotation.
+
+ganyu char lvl=90/90 cons=0 talent=9,9,9;
+ganyu add weapon="amosbow" refine=1 lvl=90/90;
+ganyu add set="blizzardstrayer" count=4;
+ganyu add stats hp=4780 atk=311 atk%=0.3 cryo%=0.466 cr=0.2 cd=1.15 em=40 er=0.4;
+
+mona char lvl=90/90 cons=0 talent=9,9,9;
+mona add weapon="sacrificialfragments" refine=5 lvl=90/90;
+mona add set="emblemofseveredfate" count=4;
+mona add stats hp=4780 atk=311 atk%=0.1 er=0.9 hydro%=0.466 cr=0.2 cd=0.6 em=80;
+
+venti char lvl=90/90 cons=0 talent=9,9,9;
+venti add weapon="favoniuswarbow" refine=5 lvl=90/90;
+venti add set="viridescentvenerer" count=4;
+venti add stats hp=4780 atk=311 em=600 er=0.4 cr=0.1 cd=0.2;
+
+diona char lvl=90/90 cons=6 talent=9,9,9;
+diona add weapon="sacrificialbow" refine=5 lvl=90/90;
+diona add set="noblesseoblige" count=4;
+diona add stats hp=4780 atk=311 hp%=0.9 er=0.5 heal=0.359 cr=0.1;

@@ -1,0 +1,13 @@
+active kazuha;
+while 1 {
+  kazuha skill;
+  if .kazuha.burst.ready { kazuha burst; }
+  zhongli skill[hold=1];
+  yelan skill;
+  if .yelan.burst.ready { yelan burst; }
+  ayato skill;
+  if .ayato.burst.ready { ayato burst; }
+  ayato attack:5, dash;
+  ayato attack:5, dash;
+  ayato attack:5, dash;
+}

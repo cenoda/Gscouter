@@ -1,0 +1,11 @@
+active bennett;
+while 1 {
+  bennett skill;
+  if .bennett.burst.ready { bennett burst; }
+  if .xiangling.burst.ready { xiangling burst; }
+  xiangling skill;
+  zhongli skill[hold=1];
+  ganyu skill;
+  if .ganyu.burst.ready { ganyu burst; }
+  ganyu aim:8;
+}

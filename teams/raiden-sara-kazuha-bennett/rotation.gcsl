@@ -1,0 +1,13 @@
+active kazuha;
+while 1 {
+  kazuha skill;
+  if .kazuha.burst.ready { kazuha burst; }
+  sara skill;
+  if .sara.burst.ready { sara burst; }
+  bennett burst, skill;
+  raiden skill, burst;
+  while .raiden.status.raidenburst > 0 {
+    raiden attack:3;
+    raiden dash;
+  }
+}

@@ -1,0 +1,19 @@
+active xingqiu;
+while 1 {
+  xingqiu skill;
+  if .xingqiu.burst.ready { xingqiu burst; }
+  furina skill;
+  if .furina.burst.ready { furina burst; }
+  zhongli skill[hold=1];
+  hutao skill;
+  while .hutao.status.paramita > 0 {
+    if .stam >= 25 {
+      hutao attack, charge;
+    } else {
+      hutao attack:2;
+    }
+  }
+  while !.xingqiu.skill.ready || !.furina.skill.ready {
+    hutao attack;
+  }
+}

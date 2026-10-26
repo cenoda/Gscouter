@@ -1,0 +1,9 @@
+id: gaming-xingqiu-bennett-kazuha
+name: Gaming / Xingqiu / Bennett / Kazuha
+members: [gaming, xingqiu, bennett, kazuha]
+archetype: Pyro vaporize plunge carry
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Xingqiu vaporize, Bennett buff and healing for Gaming HP loss, Kazuha swirl shred. Supports first, then Gaming burst and repeated skill plus plunge."

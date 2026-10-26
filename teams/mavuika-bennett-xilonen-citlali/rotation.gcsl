@@ -1,0 +1,19 @@
+active citlali;
+set_player_pos(0, -3);
+while 1 {
+  citlali skill;
+  if .citlali.burst.ready { citlali burst; }
+  xilonen skill;
+  if .xilonen.burst.ready { xilonen burst; }
+  if .bennett.burst.ready { bennett burst; }
+  bennett skill;
+  mavuika skill[hold=1];
+  while .mavuika.nightsoul.state {
+    mavuika charge;
+  }
+  if .mavuika.burst.ready { mavuika burst; }
+  mavuika attack:3;
+  while !.mavuika.skill.ready || !.citlali.skill.ready {
+    mavuika attack:3;
+  }
+}

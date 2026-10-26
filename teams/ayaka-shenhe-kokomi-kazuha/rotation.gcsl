@@ -1,0 +1,12 @@
+active kokomi;
+while 1 {
+  kokomi skill;
+  if .kokomi.burst.ready { kokomi burst; }
+  kazuha skill;
+  if .kazuha.burst.ready { kazuha burst; }
+  shenhe skill;
+  if .shenhe.burst.ready { shenhe burst; }
+  ayaka skill;
+  if .ayaka.burst.ready { ayaka burst; }
+  ayaka attack:3, dash, attack:3, dash, attack:3, dash, attack:3, dash, attack:3, dash, attack:3, dash, attack:3, dash;
+}

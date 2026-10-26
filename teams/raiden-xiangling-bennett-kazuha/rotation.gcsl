@@ -1,0 +1,15 @@
+active kazuha;
+while 1 {
+  kazuha skill;
+  if .kazuha.burst.ready { kazuha burst; }
+  bennett skill;
+  if .bennett.burst.ready { bennett burst; }
+  if .xiangling.skill.ready { xiangling skill; }
+  if .xiangling.burst.ready { xiangling burst; }
+  if .raiden.skill.ready { raiden skill; }
+  if .raiden.burst.ready { raiden burst; }
+  while .raiden.status.raidenburst > 0 {
+    raiden attack:3;
+    raiden dash;
+  }
+}

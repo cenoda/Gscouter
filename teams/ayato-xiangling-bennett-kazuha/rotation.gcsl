@@ -1,0 +1,14 @@
+active kazuha;
+while 1 {
+  kazuha skill;
+  if .kazuha.burst.ready { kazuha burst; }
+  bennett skill;
+  if .bennett.burst.ready { bennett burst; }
+  xiangling skill;
+  if .xiangling.burst.ready { xiangling burst; }
+  ayato skill;
+  if .ayato.burst.ready { ayato burst; }
+  ayato attack:5, dash;
+  ayato attack:5, dash;
+  ayato attack:5, dash;
+}

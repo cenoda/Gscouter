@@ -32,8 +32,9 @@ import (
 // runs but should be looked at.
 const (
 	failDrift = 0.10 // the rotation stops or ramps instead of looping
-	warnDrift = 0.02
-	warnWait  = 2.0 // seconds per minute an action is delayed, for any reason
+	warnDrift = 0.05
+	warnWait  = 2.0  // seconds per minute an action is delayed, for any reason
+	failWait  = 10.0 // seconds per minute a character's actions are delayed in total
 	warnShare = 0.01
 )
 
@@ -146,6 +147,13 @@ func check(dir string, cond config.Conditions, opts score.Options) *report {
 			r.failures = append(r.failures, c.Name+" deals no damage")
 		case c.Share < warnShare:
 			r.warnings = append(r.warnings, fmt.Sprintf("%s deals only %.1f%% of the damage", c.Name, c.Share*100))
+		}
+		var total float64
+		for _, w := range c.Waits {
+			total += w
+		}
+		if total >= failWait {
+			r.failures = append(r.failures, fmt.Sprintf("%s waits %.1fs/min in total: the rotation stands idle", c.Name, total))
 		}
 		for _, reason := range slices.Sorted(maps.Keys(c.Waits)) {
 			if w := c.Waits[reason]; w >= warnWait {

@@ -1,0 +1,14 @@
+active furina;
+while 1 {
+  furina skill;
+  if .furina.burst.ready { furina burst; }
+  if .bennett.burst.ready { bennett burst; }
+  bennett skill;
+  kazuha skill;
+  if .lyney.burst.ready { lyney burst; }
+  lyney skill;
+  lyney aim:6;
+  while !.furina.skill.ready {
+    lyney aim;
+  }
+}

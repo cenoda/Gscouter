@@ -1,0 +1,9 @@
+id: arlecchino-xingqiu-furina-zhongli
+name: Arlecchino / Xingqiu / Furina / Zhongli
+members: [arlecchino, xingqiu, furina, zhongli]
+archetype: Pyro vaporize hypercarry
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources: []
+notes: "Xingqiu and Furina Hydro for vaporize and Fanfare, Zhongli shield and resistance shred. Supports first, then Arlecchino skill, burst and Normal Attack strings."

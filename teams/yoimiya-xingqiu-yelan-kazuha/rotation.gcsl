@@ -1,0 +1,16 @@
+active xingqiu;
+while 1 {
+  xingqiu skill;
+  if .xingqiu.burst.ready { xingqiu burst; }
+  if .yelan.burst.ready { yelan burst; }
+  yelan skill;
+  kazuha skill;
+  if .yoimiya.burst.ready { yoimiya burst; }
+  yoimiya skill;
+  while .yoimiya.status.yoimiyaskill > 0 {
+    yoimiya attack;
+  }
+  while !.xingqiu.skill.ready || !.yoimiya.skill.ready {
+    yoimiya attack;
+  }
+}

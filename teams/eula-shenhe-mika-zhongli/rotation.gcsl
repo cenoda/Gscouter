@@ -1,0 +1,15 @@
+active zhongli;
+while 1 {
+  zhongli skill[hold=1];
+  mika skill;
+  if .mika.burst.ready { mika burst; }
+  shenhe skill;
+  if .shenhe.burst.ready { shenhe burst; }
+  eula skill[hold=1];
+  if .eula.burst.ready { eula burst; }
+  let i = 0;
+  while i < 4 || .status.eula-q > 0 {
+    eula attack:5, dash;
+    i = i + 1;
+  }
+}
