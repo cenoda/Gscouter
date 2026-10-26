@@ -10,6 +10,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"maps"
 	"slices"
 	"strings"
 
@@ -22,22 +23,36 @@ import (
 // still before it gets a filler.
 const minWait = 1.0
 
-// maxRounds bounds how many times Score widens the fillers.
-const maxRounds = 3
+// maxRuns bounds how many rotations Score simulates.
+const maxRuns = 16
 
 type Outcome struct {
 	Result *score.Result
 	// Filled is false when the rotation as written scored best.
-	// Otherwise Energy and Skill list the characters whose energy waits
-	// and skill cooldowns were filled, energy waits as How says.
-	Filled        bool
-	How           config.Filler
-	Energy, Skill []string
+	// Otherwise Energy maps the characters whose energy waits were
+	// handled to how, and Skill lists those whose skill cooldowns were
+	// filled.
+	Filled bool
+	Energy map[string]config.Filler
+	Skill  []string
 }
+
+// energyFillers are the ways Score tries for each character that waits
+// for burst energy: fill the wait, or pass the burst.
+var energyFillers = []config.Filler{config.FillSelf, config.FillParty, config.FillSkip}
 
 // Score loops rotation and scores it with run, which assembles and
 // simulates a looped rotation. members are the characters as the
 // rotation names them.
+//
+// Whether to fill a wait for burst energy or pass the burst differs per
+// member (Hu Tao passes hers, Yelan fills for hers) and depends on the
+// others: once Hu Tao passes, the rotation is shorter and Furina runs
+// short. So every run that leaves members standing still is followed by
+// runs that handle them, each way: all of them one way, and, when there
+// are several, each one alone. Follow-ups that handle all of them go
+// first, then those of better runs, and at most maxRuns rotations run in
+// all.
 func Score(rotation string, members []string, run func(looped string) (*score.Result, error)) (*Outcome, error) {
 	looped, err := config.Loop(rotation)
 	if err != nil {
@@ -49,38 +64,79 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 	}
 	best := &Outcome{Result: res}
 
-	// Filling one wait can expose another (a member now short of
-	// energy), so each round adds the characters still standing still in
-	// the best run so far.
-	var energy, skill []string
-	for range maxRounds {
-		e, sk := addStarved(best.Result, members, energy, skill)
-		if len(e) == len(energy) && len(sk) == len(skill) {
-			break
+	type candidate struct {
+		energy   map[string]config.Filler
+		skill    []string
+		single   bool    // handles one of several members
+		priority float64 // DPS of the run it follows up
+	}
+	var queue []candidate
+	followUp := func(energy map[string]config.Filler, skill []string, res *score.Result) {
+		handled := slices.Sorted(maps.Keys(energy))
+		e, sk := addStarved(res, members, handled, skill)
+		added := e[len(handled):]
+		if len(added) == 0 && len(sk) == len(skill) {
+			return
 		}
-		energy, skill = e, sk
-		fillers := []config.Filler{config.FillSelf, config.FillParty, config.FillSkip}
-		if len(energy) == 0 {
-			fillers = fillers[:1] // skill waits fill the same way either way
+		with := func(f config.Filler, chars ...string) map[string]config.Filler {
+			out := maps.Clone(energy)
+			if out == nil {
+				out = map[string]config.Filler{}
+			}
+			for _, c := range chars {
+				out[c] = f
+			}
+			return out
 		}
-		for _, f := range fillers {
-			looped, err := config.Loop(config.Fill(rotation, energy, skill, members, f))
-			if err != nil {
+		if len(added) == 0 {
+			queue = append(queue, candidate{energy, sk, false, res.DPS})
+			return
+		}
+		for _, f := range energyFillers {
+			queue = append(queue, candidate{with(f, added...), sk, false, res.DPS})
+		}
+		if len(added) > 1 {
+			for _, c := range added {
+				for _, f := range energyFillers {
+					queue = append(queue, candidate{with(f, c), sk, true, res.DPS})
+				}
+			}
+		}
+	}
+	followUp(nil, nil, res)
+
+	seen := map[string]bool{rotation: true}
+	for len(queue) > 0 && len(seen) < maxRuns {
+		i := 0
+		for j, c := range queue {
+			if c.single != queue[i].single && !c.single || c.single == queue[i].single && c.priority > queue[i].priority {
+				i = j
+			}
+		}
+		c := queue[i]
+		queue = slices.Delete(queue, i, i+1)
+		filled := config.Fill(rotation, c.energy, c.skill, members)
+		if seen[filled] {
+			continue
+		}
+		seen[filled] = true
+		looped, err := config.Loop(filled)
+		if err != nil {
+			return nil, err
+		}
+		res, err := run(looped)
+		if err != nil {
+			if isFatal(err) {
 				return nil, err
 			}
-			res, err := run(looped)
-			if err != nil {
-				if isFatal(err) {
-					return nil, err
-				}
-				// A filler can lead a rotation into actions gcsim rejects;
-				// that filler is then not an option.
-				continue
-			}
-			if res.DPS > best.Result.DPS {
-				best = &Outcome{Result: res, Filled: true, How: f, Energy: energy, Skill: skill}
-			}
+			// A filler can lead a rotation into actions gcsim rejects;
+			// that filler is then not an option.
+			continue
 		}
+		if res.DPS > best.Result.DPS {
+			best = &Outcome{Result: res, Filled: true, Energy: c.energy, Skill: c.skill}
+		}
+		followUp(c.energy, c.skill, res)
 	}
 	return best, nil
 }
@@ -111,13 +167,41 @@ func (o *Outcome) String() string {
 		return ""
 	}
 	var parts []string
-	if len(o.Energy) > 0 {
-		parts = append(parts, fmt.Sprintf("energy waits of %s filled with %s", strings.Join(o.Energy, ", "), o.How))
+	for _, g := range o.ByFiller() {
+		if g.How == config.FillSkip {
+			parts = append(parts, fmt.Sprintf("bursts of %s skipped when short of energy", strings.Join(g.Chars, ", ")))
+		} else {
+			parts = append(parts, fmt.Sprintf("energy waits of %s filled with %s", strings.Join(g.Chars, ", "), g.How))
+		}
 	}
 	if len(o.Skill) > 0 {
 		parts = append(parts, fmt.Sprintf("skill cooldowns of %s filled with attacks", strings.Join(o.Skill, ", ")))
 	}
 	return strings.Join(parts, "; ")
+}
+
+// Group lists the characters whose energy waits are handled one way.
+type Group struct {
+	How   config.Filler
+	Chars []string
+}
+
+// ByFiller groups o.Energy by filler, in filler order, characters sorted.
+func (o *Outcome) ByFiller() []Group {
+	var groups []Group
+	for _, f := range energyFillers {
+		var chars []string
+		for c, how := range o.Energy {
+			if how == f {
+				chars = append(chars, c)
+			}
+		}
+		if len(chars) > 0 {
+			slices.Sort(chars)
+			groups = append(groups, Group{How: f, Chars: chars})
+		}
+	}
+	return groups
 }
 
 // Fatal marks an error from run that must stop Score, such as a full

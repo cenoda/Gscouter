@@ -19,11 +19,11 @@ const (
 	// member whose skill is ready swaps in and uses it; the character's
 	// next action swaps back, in time to catch the particles.
 	FillParty
-	// FillSkip: the character skips a burst whose energy is not there,
-	// and the rotation goes on. This is the only way out for a rotation
-	// that waits for a burst it cannot charge, such as Skirk's opening
-	// burst, written for her full starting Serpent's Subtlety, when the
-	// rotation loops.
+	// FillSkip: the character passes its burst when it lacks the energy
+	// and the rotation moves on, as Hu Tao teams play. It is also the
+	// only way out for a rotation that waits for a burst it cannot
+	// charge, such as Skirk's opening burst, written for her full
+	// starting Serpent's Subtlety, when the rotation loops.
 	FillSkip
 )
 
@@ -40,14 +40,15 @@ func (f Filler) String() string {
 // Fill rewrites a rotation so that characters stop standing still:
 //
 //   - before each burst of a character in energy, it fills until the
-//     burst is ready, or skips the burst if it is not (see Filler);
+//     burst is ready, or skips the burst when it is not ready, as
+//     energy maps the character (see Filler);
 //   - before each skill of a character in skill, it attacks until the
 //     skill is ready.
 //
 // Either filler gives up after a fixed number of actions, and the
 // rotation then waits as before. Names are as the rotation writes them;
 // party lists every member.
-func Fill(rotation string, energy, skill, party []string, how Filler) string {
+func Fill(rotation string, energy map[string]Filler, skill, party []string) string {
 	forms := skillForms(rotation, party)
 	var b strings.Builder
 	n := 0
@@ -58,9 +59,10 @@ func Fill(rotation string, energy, skill, party []string, how Filler) string {
 				lead := rotation[i+m[2] : i+m[3]]
 				char := rotation[i+m[4] : i+m[5]]
 				items := rotation[i+m[6] : i+m[7]]
-				if slices.Contains(energy, char) || slices.Contains(skill, char) {
+				how, inEnergy := energy[char]
+				if inEnergy || slices.Contains(skill, char) {
 					b.WriteString(lead)
-					b.WriteString(fillStatement(char, items, slices.Contains(energy, char), slices.Contains(skill, char), party, forms, how, &n))
+					b.WriteString(fillStatement(char, items, inEnergy, slices.Contains(skill, char), party, forms, how, &n))
 					i += m[1]
 					continue
 				}
@@ -100,8 +102,11 @@ func fillStatement(char, items string, energy, skill bool, party []string, forms
 		}
 		switch {
 		case energy && action[0] == "burst" && how == FillSkip:
+			// The frame waited keeps time passing in a loop whose only
+			// actions are skipped bursts; gcsim cannot stop a loop that
+			// takes no time.
 			flush()
-			out = append(out, fmt.Sprintf("if .%s.burst.ready { %s %s; }", char, char, item))
+			out = append(out, fmt.Sprintf("if .%s.burst.ready { %s %s; } else { wait(1); }", char, char, item))
 			continue
 		case energy && action[0] == "burst":
 			flush()

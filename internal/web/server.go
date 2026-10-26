@@ -326,15 +326,16 @@ func fillerNote(o *steady.Outcome) string {
 		return ""
 	}
 	var parts []string
-	switch {
-	case len(o.Energy) > 0 && o.How == config.FillSkip:
-		parts = append(parts, fmt.Sprintf("%s의 원소폭발 에너지가 모자라면 기다리지 않고 그 원소폭발을 건너뛰었습니다", strings.Join(o.Energy, ", ")))
-	case len(o.Energy) > 0:
-		how := "자기 원소전투 스킬이나 평타"
-		if o.How == config.FillParty {
-			how = "원소전투 스킬(쿨타임이면 다른 파티원으로 교체해 스킬을 쓰고 바로 복귀)이나 평타"
+	for _, g := range o.ByFiller() {
+		chars := strings.Join(g.Chars, ", ")
+		switch g.How {
+		case config.FillSkip:
+			parts = append(parts, fmt.Sprintf("%s의 원소폭발은 에너지가 모자라면 건너뛰었습니다", chars))
+		case config.FillParty:
+			parts = append(parts, fmt.Sprintf("%s의 원소폭발 에너지가 모자라 기다리는 동안 원소전투 스킬(쿨타임이면 다른 파티원으로 교체해 스킬을 쓰고 바로 복귀)이나 평타로 채웠습니다", chars))
+		default:
+			parts = append(parts, fmt.Sprintf("%s의 원소폭발 에너지가 모자라 기다리는 동안 자기 원소전투 스킬이나 평타로 채웠습니다", chars))
 		}
-		parts = append(parts, fmt.Sprintf("%s의 원소폭발 에너지가 모자라 기다리는 동안 %s로 채웠습니다", strings.Join(o.Energy, ", "), how))
 	}
 	if len(o.Skill) > 0 {
 		parts = append(parts, fmt.Sprintf("%s의 원소전투 스킬 쿨타임을 기다리는 동안 평타로 채웠습니다", strings.Join(o.Skill, ", ")))
