@@ -1,0 +1,15 @@
+active ganyu;
+for let x=0; x<6;x=x+1 {
+	ganyu aim[weakspot=1];
+	if .kazuha.burst.ready {
+	kazuha burst;
+	} else {
+	kazuha skill, high_plunge;
+	}
+	layla burst, skill;
+	rosaria skill, burst;
+	ganyu skill, burst;
+	kazuha skill, high_plunge;
+	ganyu aim[weakspot=1]; 
+	rosaria skill;
+}

@@ -1,0 +1,38 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active thoma;
+thoma skill, burst;
+sara skill, attack;
+chev burst, skill[hold=1];
+sara burst;
+clorinde_combo();
+for let i=0; i<5; i=i+1 { 
+  
+  if .chev.burst.ready { 
+    chev burst, skill[hold=1];
+  } else {
+    chev skill[hold=1], attack;
+  }
+  sara aim;
+  if .clorinde.burst.ready { 
+    clorinde burst;
+  } else {
+    clorinde attack:3, charge;
+  }
+  thoma skill, attack, burst;
+  if .sara.burst.ready { 
+    sara skill, burst;
+  } else {
+    sara attack, skill, attack;
+  }
+  clorinde_combo();
+  
+}

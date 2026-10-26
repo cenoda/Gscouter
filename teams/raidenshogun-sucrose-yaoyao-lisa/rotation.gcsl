@@ -1,0 +1,14 @@
+active herexcellencythealmightynarukamiogoshogodofthunder;
+herexcellencythealmightynarukamiogoshogodofthunder skill;
+for let i=0; i<4; i=i+1 {
+  sucrose attack, skill, dash;
+  yaoyao burst, attack, skill;
+  lisa attack, burst;
+  if .sucrose.skill.ready {
+    sucrose attack, skill, dash, burst, attack:2;
+  } else {
+    sucrose attack, burst, attack:2;
+  }
+  herexcellencythealmightynarukamiogoshogodofthunder burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  lisa attack, skill[hold=1]; 
+}

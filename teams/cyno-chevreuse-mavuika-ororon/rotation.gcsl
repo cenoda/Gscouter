@@ -1,0 +1,33 @@
+active cyno;
+cyno skill;
+for let i=0; i<4; i=i+1 {
+  
+  if .chev.sets.no > 4 {
+    chev burst, skill[hold=1]:3;
+  } else {
+    if .chev.burst.ready {
+      chev burst, skill[hold=1];
+    } else {
+      chev attack:1, skill[hold=1];
+    }
+  }
+  
+  ororon skill, burst;
+  
+  if .mav.burst.ready {
+    mav burst, skill, dash;
+  } else {
+    mav dash, skill;
+  }
+  
+  cyno skill, burst;
+  while .cyno.mods.cyno-q > 240 {
+    if .cyno.skill.ready { 
+      cyno skill;
+    } else if .cyno.normal == 4 && .stam > 18 {
+      cyno dash;
+    } else {
+      cyno attack;
+    }
+  }
+}

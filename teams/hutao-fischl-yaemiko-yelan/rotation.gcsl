@@ -1,0 +1,32 @@
+active yae;
+for let i=0; i<4; i=i+1 {
+  yae skill:3;
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  if .fischl.burst.ready {
+    fischl attack:2, burst;
+  } else {
+    fischl skill, attack;
+  }
+  
+  if .previous-action == .action.burst {
+    hutao attack;
+  }
+  hutao skill,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:2, charge, dash;
+    
+  print("done");
+}

@@ -1,0 +1,16 @@
+active nahida;
+    
+for let i=0; i<4; i=i+1 {
+    nahida skill,burst;
+    bennett burst,skill;
+    xiangling burst,skill;
+    if .luminehydro.burst.ready
+    {
+      luminehydro burst;
+    }
+    luminehydro skill[hold=1],attack:3;
+    bennett attack:2,skill;
+    xiangling attack:3;
+    nahida attack:2;
+	
+}

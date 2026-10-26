@@ -1,0 +1,21 @@
+active arle;
+for let i=0; i<4; i=i+1 {
+  
+  arle skill;
+  bennett skill, burst;
+  if is_even(i) {
+    fischl attack:2, burst;
+  } else {
+    fischl attack, skill;
+  }
+  mona burst, attack;
+  arle charge, attack:3;
+  mona skill, attack;
+  arle attack:2, walk,
+       attack:3, dash,
+       attack:3, charge,
+       attack:3;
+  mona attack:2;
+  arle attack:2;
+  
+}

@@ -1,0 +1,17 @@
+id: kamisatoayaka-xilonen-citlali-furina
+name: Kamisatoayaka / Xilonen / Citlali / Furina
+members:
+    - ayaka
+    - xilonen
+    - citlali
+    - furina
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/kM979bzgmpwM
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 65599
+    computed: "2026-10-02"

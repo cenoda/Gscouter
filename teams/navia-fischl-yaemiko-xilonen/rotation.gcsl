@@ -1,0 +1,32 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || ( char_id == .keys.char.xilonen && action_id == .action.skill ) || ( char_id == .keys.char.fischl && action_id == .action.burst ) || ( char_id == .keys.char.yae && action_id == .action.skill ) {
+    pick_up_crystallize("any");
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+active navia;
+for let i=0; i<4; i=i+1 {
+  yae skill:3;
+  
+  xilonen skill, attack:2;
+  
+  navia burst;
+  
+  if .fischl.burst.ready {
+    fischl attack:2, burst;
+  } else {
+    fischl attack, skill;
+  }
+  
+  navia skill[hold=0], attack:2, dash, attack:2, dash, attack:2;
+  if is_even(i) {
+    navia skill[hold=0], attack:2, dash, attack:2, dash, attack:2;
+  } else {
+    navia skill[hold=0], attack:3, dash, attack:2;
+  }
+  if !is_even(i) {
+    xilonen burst;
+  }
+}

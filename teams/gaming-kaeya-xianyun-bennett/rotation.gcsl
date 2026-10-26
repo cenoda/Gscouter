@@ -1,0 +1,16 @@
+active gaming;
+gaming skill, high_plunge;
+for let i=0; i<4; i=i+1 {
+  xianyun skill, high_plunge, burst;
+  bennett skill, burst;
+  kaeya skill, burst;
+  gaming burst;
+  sleep(45);
+  for let p = 0; p < 7; p = p + 1 {
+    gaming skill;
+	  sleep(20);
+	  gaming high_plunge;
+  }
+  gaming dash;
+  bennett skill;
+}

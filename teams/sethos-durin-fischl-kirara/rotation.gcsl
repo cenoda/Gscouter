@@ -1,0 +1,29 @@
+active durin;
+for let i=0; i<4; i=i+1 {
+  durin skill:2, burst;
+  
+  if is_even(i) {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  
+  kirara skill[short_hold=1];
+  
+  sethos skill, burst,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk, 
+         skill;
+  
+  sethos aim[hold=2]:2;
+  
+  if .kirara.burst.ready {
+    kirara burst;
+  }
+}

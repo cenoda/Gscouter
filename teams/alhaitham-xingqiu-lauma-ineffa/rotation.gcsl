@@ -1,0 +1,26 @@
+active lauma;
+for let i = 0; i < 5; i = i + 1 {
+  if i > 0 {
+    lauma burst, skill[hold=.dew>0];
+  } else {
+    lauma skill;
+  }
+  
+  xingqiu burst, attack;
+  
+  alhaitham burst, attack;
+  
+  ineffa skill;
+  
+  alhaitham attack:3, dash,
+            attack:3, dash,
+            attack:3, dash,
+            attack:3;
+  
+  xingqiu attack, skill, dash, attack;
+  
+  alhaitham skill[hold=1], low_plunge[short=1], 
+           attack:3, dash,
+           attack:3, dash,
+           attack:3, dash;
+}

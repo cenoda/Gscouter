@@ -1,0 +1,7 @@
+active xingqiu;
+for let i=0; i<4; i=i+1 {
+xingqiu skill, dash, burst, attack;
+kuki skill; 
+chongyun attack:2,skill,attack:2,burst,attack:5;
+kirara burst, skill[hold=1], attack:9, skill;
+}

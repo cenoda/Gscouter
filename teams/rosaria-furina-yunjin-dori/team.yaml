@@ -1,0 +1,17 @@
+id: rosaria-furina-yunjin-dori
+name: Rosaria / Furina / Yunjin / Dori
+members:
+    - rosaria
+    - furina
+    - yunjin
+    - dori
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/RWkwW7gzjRcT
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 42808
+    computed: "2026-10-02"

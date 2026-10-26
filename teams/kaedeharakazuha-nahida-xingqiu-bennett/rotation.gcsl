@@ -1,0 +1,20 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill, burst;
+  
+  xq skill, dash, burst, attack;
+  
+  bennett skill, attack, burst, attack;
+  
+  while .status.bennettburst || .kazuha.infusion.bennett-fire-weapon {
+    if .kazuha.skill.ready {
+      kazuha skill, high_plunge[collision=rand()>0.5];
+    } else if .kazuha.burst.ready {
+      kazuha attack, burst;
+    } else {
+      kazuha attack;
+    }
+  }
+  
+  bennett skill, attack;
+}

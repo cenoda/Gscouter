@@ -1,0 +1,39 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  xl skill, dash, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  while .klee.skill.ready {
+    klee skill[bounce=3, mine=8];
+  }
+  if .klee.burst.ready {
+    klee burst;
+  }
+  while .xianyun.status.xianyun-airborne-buff {
+    if .klee.status.xianyun-airborne-buff {
+      klee jump;
+      if .airborne{
+        klee high_plunge[collision=rand()>0.5];
+      }
+    }
+    
+    if .klee.status.a1-spark {
+      klee attack;
+      klee charge;
+    } else if .stam > 50 {
+      klee attack;
+      klee charge;
+    } else if .stam > 36 {
+      klee attack;
+    } else {
+      klee attack;
+    }
+  }
+}

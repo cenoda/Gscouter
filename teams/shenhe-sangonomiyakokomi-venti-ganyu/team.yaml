@@ -1,0 +1,17 @@
+id: shenhe-sangonomiyakokomi-venti-ganyu
+name: Shenhe / Sangonomiyakokomi / Venti / Ganyu
+members:
+    - shenhe
+    - kokomi
+    - venti
+    - ganyu
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/kbGJGzRF7RCW
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 40613
+    computed: "2026-10-02"

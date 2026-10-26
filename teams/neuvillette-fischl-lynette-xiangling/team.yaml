@@ -1,0 +1,17 @@
+id: neuvillette-fischl-lynette-xiangling
+name: Neuvillette / Fischl / Lynette / Xiangling
+members:
+    - neuvillette
+    - fischl
+    - lynette
+    - xiangling
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/pDGGLFNbb6bF
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 69186
+    computed: "2026-09-30"

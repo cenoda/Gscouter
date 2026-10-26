@@ -1,0 +1,17 @@
+id: hutao-fischl-yelan-kaedeharakazuha
+name: Hutao / Fischl / Yelan / Kaedeharakazuha
+members:
+    - hutao
+    - fischl
+    - yelan
+    - kazuha
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/K9JmCJ9fB8pG
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 58445
+    computed: "2026-10-02"

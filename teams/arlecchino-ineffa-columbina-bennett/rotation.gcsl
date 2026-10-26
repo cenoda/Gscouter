@@ -1,0 +1,26 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  bennett skill;        wait(24);  
+  if is_even(i) {
+    columbina attack:2, skill;
+  } else {
+    columbina burst, skill;
+  }
+  bennett swap;         wait(6);  
+  bennett burst;
+  ineffa skill;
+  if .ineffa.burst.ready && .ineffa.energy == .ineffa.energymax {
+    ineffa burst;
+  } else {
+    ineffa attack;
+  }
+  arle attack, charge,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3;
+}

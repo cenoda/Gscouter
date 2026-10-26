@@ -1,0 +1,17 @@
+id: razor-emilie-durin-nicole
+name: Razor / Emilie / Durin / Nicole
+members:
+    - razor
+    - emilie
+    - durin
+    - nicole
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/PffqTWdgnhwR
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 101537
+    computed: "2026-10-02"

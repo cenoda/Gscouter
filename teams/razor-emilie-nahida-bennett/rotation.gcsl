@@ -1,0 +1,36 @@
+active razor; 
+razor skill, dash; 
+for let i=0; i<4; i=i+1 {
+  nahida skill, attack;
+  if i > 0 && .nahida.burst.ready && .nahida.energy == .nahida.energymax {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  if .emilie.burst.ready  && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie attack, skill;
+  }
+  
+  bennett skill, dash, burst;
+  
+  if i == 0 {
+    razor skill[hold=0];
+  } else {
+    razor skill[hold=1];
+  }
+  razor dash, attack, burst;
+  razor attack:1, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+  
+  bennett skill;
+  
+  print("done");
+}

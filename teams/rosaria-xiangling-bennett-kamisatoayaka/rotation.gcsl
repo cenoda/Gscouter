@@ -1,0 +1,14 @@
+active rosaria;
+for let x=0; x<4; x=x+1 {
+    rosaria skill;
+    bennett burst, skill;
+    rosaria burst;
+    xiangling burst, skill;
+    rosaria skill;
+    ayaka skill, dash, burst;
+    bennett skill;
+    xiangling attack:2;
+    rosaria skill;
+    bennett skill, attack;
+    ayaka dash, attack:2, skill, attack:2, charge;
+}

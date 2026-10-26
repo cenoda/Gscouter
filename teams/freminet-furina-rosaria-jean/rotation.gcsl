@@ -1,0 +1,17 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  rosaria skill, burst;
+  
+  jean skill, burst;
+  
+  freminet attack, skill, burst, skill;
+  freminet skill:2,attack:2;
+  freminet skill:2,attack:2;
+  freminet skill:2,attack:2;
+  freminet skill:2,attack:2;
+  freminet skill:2;
+  
+  jean skill;
+}

@@ -1,0 +1,27 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+	pick_up_crystallize("any"); 
+  }
+	
+  return _execute_action(char_id, action_id, p);
+}
+active furina;
+for let x=0; x<4; x=x+1 {
+  furina skill, dash, attack, burst;
+  if !.furina.mods.favonius-cd {
+    furina attack;
+  }
+  navia burst;
+  albedo skill, attack; 
+  bennett burst, skill;
+  print(.navia.shrapnel);
+  navia skill[hold=1], attack:3, dash, attack:2;
+  bennett skill, attack;
+  print(.navia.shrapnel);
+  navia skill[hold=1], attack:3, dash, attack:2;
+  if .navia.skill.ready {
+    navia skill[hold=1], attack;
+  }
+  bennett skill, attack;
+}

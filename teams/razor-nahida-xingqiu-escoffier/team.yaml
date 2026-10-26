@@ -1,0 +1,17 @@
+id: razor-nahida-xingqiu-escoffier
+name: Razor / Nahida / Xingqiu / Escoffier
+members:
+    - razor
+    - nahida
+    - xingqiu
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/7FT6dHGzgNTq
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 68176
+    computed: "2026-10-01"

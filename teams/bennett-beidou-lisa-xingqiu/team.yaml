@@ -1,0 +1,17 @@
+id: bennett-beidou-lisa-xingqiu
+name: Bennett / Beidou / Lisa / Xingqiu
+members:
+    - bennett
+    - beidou
+    - lisa
+    - xingqiu
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/9mQCLnBkdMq6
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 82880
+    computed: "2026-10-02"

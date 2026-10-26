@@ -1,0 +1,17 @@
+id: xiangling-yelan-bennett-xingqiu
+name: Xiangling / Yelan / Bennett / Xingqiu
+members:
+    - xiangling
+    - yelan
+    - bennett
+    - xingqiu
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/jkJ7qJ7LDdMw
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 52612
+    computed: "2026-10-02"

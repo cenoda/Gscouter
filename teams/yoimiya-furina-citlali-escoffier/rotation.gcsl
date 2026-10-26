@@ -1,0 +1,23 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  esco skill, burst;
+  
+  citlali skill, burst;
+  
+  yoimiya skill,
+    attack:5, dash,
+    attack:5, dash,
+    attack:5, dash,
+    attack;
+  if .yoimiya.burst.ready {
+    yoimiya burst;
+  } else {
+    yoimiya attack:3;
+  }
+}

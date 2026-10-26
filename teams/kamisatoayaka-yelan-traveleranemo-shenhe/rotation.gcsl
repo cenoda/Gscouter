@@ -1,0 +1,13 @@
+active ayaka;
+ayaka dash, skill;
+for let i=0; i<5; i=i+1 {
+  yelan burst, attack, skill, attack;
+  shenhe skill, attack, burst;
+  traveleranemo attack, skill[hold=1,hold_ticks=1], burst, attack;
+  ayaka attack, skill, dash, attack, burst;
+  yelan attack, skill;
+  shenhe attack, skill, attack;
+  ayaka dash, attack, charge;
+  traveleranemo skill[hold=1];
+  ayaka attack, skill, dash, attack:2, charge;
+}

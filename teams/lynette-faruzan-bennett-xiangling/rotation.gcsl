@@ -1,0 +1,15 @@
+active bennett;
+for let i = 0; i < 4; i = i + 1 {
+  
+  bennett burst, skill;
+  xiangling burst, skill, dash;
+  faruzan skill, burst;
+  lynette burst, skill, 
+          attack:2, charge, 
+          attack:2, charge,
+          attack:2, charge,
+          attack:2, charge;
+  bennett skill;
+  faruzan skill, aim;
+  lynette skill, attack, charge;
+}

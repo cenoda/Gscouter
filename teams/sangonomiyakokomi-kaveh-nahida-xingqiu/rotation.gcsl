@@ -1,0 +1,19 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  kokomi skill;
+  nahida skill,burst;
+  xingqiu skill,burst,attack;
+  kaveh skill,attack;
+  kokomi burst;
+  kaveh burst;
+  while .kaveh.burst.cd > 540 {
+    if .kaveh.skill.ready {
+      kaveh skill;
+    } else if .kaveh.normal == 3 {
+      kaveh walk;
+    } else {
+        kaveh attack;
+    }
+  }
+  nahida attack:2,charge;
+}

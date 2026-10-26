@@ -1,0 +1,42 @@
+active nahida;
+for let i=0; i<4; i=i + 1 {
+  
+  nahida skill, attack;
+  if .nahida.burst.ready && .nahida.energy == .nahida.energymax {
+    nahida burst;
+  }  else {
+    nahida charge;
+  }
+  
+  xingqiu skill, dash, burst, attack;
+  
+  zhongli skill[hold=1], dash, attack:2;
+
+  razor attack;
+  
+  while !.razor.mods.razor-q {
+    if .razor.burst.ready && .razor.skill.ready && .razor.energy == .razor.energymax {
+      razor skill, dash, attack, burst;
+    } else if .razor.burst.ready {
+      razor burst;
+    } else if .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+  
+  while .xingqiu.mods.xingqiuburst { 
+    if .razor.normal > 3 && .razor.skill.ready {
+        razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+  razor skill, dash;
+
+}

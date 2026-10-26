@@ -1,0 +1,19 @@
+id: neuvillette-raidenshogun-nahida-dehya
+name: Neuvillette / Raidenshogun / Nahida / Dehya
+members:
+    - neuvillette
+    - raiden
+    - nahida
+    - dehya
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/RrDp6Lb7PzGF
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    neuvillette: start_hp=30000
+reference:
+    dps: 68698
+    computed: "2026-10-01"

@@ -1,0 +1,32 @@
+active bennett;
+for let i=0; i<4; i=i+1 {
+  bennett skill, burst;
+
+  amy attack;
+  if !.amy.skill.ready {
+    amy attack, burst;
+  } else {
+    amy skill;
+  }
+
+  if .chev.burst.ready {
+    chev burst, skill[hold=1]:2;
+  } else {
+    chev skill[hold=1], attack:1;
+  }
+
+  while .thoma.mods.bennett-field || .status.bennettburst { 
+    switch {
+      case .thoma.skill.ready:
+        thoma skill;
+      case .thoma.burst.ready:
+        thoma burst;
+      case .thoma.normal > 4 && .thoma.dash.ready && .stam > 18:
+        thoma dash;
+      default:
+        thoma attack;
+    }
+  }
+  
+  print("done");
+}

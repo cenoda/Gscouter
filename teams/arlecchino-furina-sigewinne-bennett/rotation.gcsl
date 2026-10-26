@@ -1,0 +1,10 @@
+active arle;
+arle skill;
+for let i = 0; i < 4; i = i + 1 {
+  sigewinne attack:2,skill;
+  furina burst,skill;
+  bennett skill,burst;
+  arle charge;
+  arle attack:16,skill;
+  bennett skill,attack:2;
+}

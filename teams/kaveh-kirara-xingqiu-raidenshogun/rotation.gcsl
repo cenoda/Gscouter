@@ -1,0 +1,7 @@
+active xq;
+for let i=0; i<6; i=i+1 {
+  xingqiu skill, dash, burst, attack;
+  kirara skill, attack, burst, attack;
+  raiden attack, skill, attack;
+  kaveh skill, burst, attack:7, walk, attack:4, skill, attack:5;
+}

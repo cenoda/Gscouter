@@ -1,0 +1,17 @@
+id: yaemiko-nahida-fischl-tighnari
+name: Yaemiko / Nahida / Fischl / Tighnari
+members:
+    - yae
+    - nahida
+    - amy
+    - tighnari
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/mKhmJFBb9GDL
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 62585
+    computed: "2026-10-02"

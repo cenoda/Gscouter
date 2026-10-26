@@ -1,0 +1,17 @@
+id: chasca-citlali-shenhe-bennett
+name: Chasca / Citlali / Shenhe / Bennett
+members:
+    - chasca
+    - citlali
+    - shenhe
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/WCkNMTGzKNG7
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 57672
+    computed: "2026-10-02"

@@ -1,0 +1,17 @@
+id: raidenshogun-kaedeharakazuha-nahida-lisa
+name: Raidenshogun / Kaedeharakazuha / Nahida / Lisa
+members:
+    - raiden
+    - kazuha
+    - nahida
+    - lisa
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/zcjLH8mM7qFB
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 55854
+    computed: "2026-10-01"

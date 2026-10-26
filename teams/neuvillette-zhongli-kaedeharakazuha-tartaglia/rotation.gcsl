@@ -1,0 +1,14 @@
+active neuv;
+for let i = 0; i < 4; i = i + 1 {
+  neuv skill;
+  neuv attack:3;
+  kazuha skill,high_plunge,burst;
+  zhongli attack,skill[hold=1],dash;
+  wait (30); pick_up_crystallize("hydro"); 
+  neuv charge, burst, skill,charge;
+  kazuha skill,high_plunge;
+  zhongli attack,skill;
+  wait (30); pick_up_crystallize("hydro"); 
+  neuv charge:2;
+}
+wait(173);

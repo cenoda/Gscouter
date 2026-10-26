@@ -1,0 +1,31 @@
+active emilie;
+for let i = 0; i < 4; i = i + 1 {
+	if is_even(i) {
+	  emilie skill, attack;
+	} else {
+	  emilie burst;
+	}
+	nicole burst, skill;
+	durin skill, burst, skill;
+	yanfei swap;
+	let StartFrame = f();
+  yanfei skill, attack;
+  if is_even(i) {
+    yanfei burst;
+  }
+  let a=0;
+  if is_even(i) {
+    a=690;
+  } else {
+    a=720;
+  }
+  while f() - StartFrame < a {
+    if .yanfei.skill.cd < 30 && .yanfei.mods.yanfei-a1 {
+      yanfei skill;
+    } else if .yanfei.mods.yanfei-seal && .stam > 25 {
+      yanfei charge;
+    } else {
+      yanfei attack;
+    }
+  }
+}

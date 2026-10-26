@@ -1,0 +1,36 @@
+active emilie;
+fn mualani_combo() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+}
+for let i=0; i<2; i=i+1 {
+  emilie skill, attack;
+  zhongli skill[hold=1], dash, attack;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  dehya skill:2;
+  mualani skill;
+  mualani_combo();
+  mualani walk[f=1];
+  if .mualani.nightsoul.state {
+    mualani skill; 
+  }
+  emilie burst;
+  zhongli skill[hold=1], dash, attack;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  dehya attack:2, skill:2;
+  mualani skill;
+  mualani_combo();
+  mualani burst;
+}

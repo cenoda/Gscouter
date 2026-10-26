@@ -1,0 +1,28 @@
+active furina;
+fn mualani_combo() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+}
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  baizhu attack, skill, burst;
+  xiangling attack:2, burst, skill, dash;
+  mualani skill;
+  mualani_combo();
+  if .mualani.burst.ready && .mualani.energy == .mualani.energymax {
+    mualani burst;
+    wait(70);   
+  } else {
+    mualani skill; 
+    mualani attack:4;
+    delay(33);  
+  }
+}

@@ -1,0 +1,20 @@
+active bennett;
+bennett skill, attack:3;
+for let x=0; x<4; x=x+1 {
+  xilonen skill, attack:2;
+  if !.xilonen.mods.favonius-cd {
+    xilonen attack;
+  }
+  bennett burst, skill;
+  pick_up_crystallize("pyro");
+	chiori attack, skill:2;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack:1;
+  if .yoimiya.burst.ready && .yoimiya.energy == .yoimiya.energymax {
+    yoimiya burst;
+  } else if .chiori.burst.ready && .chiori.energy == .chiori.energymax {
+    chiori burst;
+  } else {
+    chiori attack:3;
+  }
+  bennett skill, attack:3;
+}

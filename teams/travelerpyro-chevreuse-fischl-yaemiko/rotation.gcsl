@@ -1,0 +1,33 @@
+active yae;
+for let i=0; i<4; i=i+1 {
+  yae skill:3;
+
+  if .chev.burst.ready || .chev.sets.no >= 4 {
+    chev burst, skill[hold=1]:1;
+  } else {
+    chev skill[hold=1], attack;
+  }
+
+  if .amy.skill.ready {
+    amy attack, skill;
+  } else {
+    amy attack:2, burst;
+  }
+  
+  while .fischl.oz { 
+    switch {
+      case .aetherpyro.skill.ready:
+        aetherpyro skill[hold=1];
+      case .aetherpyro.burst.ready:
+        aetherpyro burst;
+      case .aetherpyro.normal > 2 && .stam > 25: 
+        aetherpyro charge;
+      case .aetherpyro.normal > 3 && .aetherpyro.dash.ready && .stam > 18: 
+        aetherpyro dash;
+      default:
+        aetherpyro attack;
+    }
+  }
+  
+  print("done");
+}

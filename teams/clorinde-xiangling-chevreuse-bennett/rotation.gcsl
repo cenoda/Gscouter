@@ -1,0 +1,24 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active bennett;
+for let i=0; i<4; i=i+1 {
+  bennett skill, burst;
+  chev burst, skill[hold=1]:2;
+  if .xl.burst.ready { 
+    xiangling burst, skill, dash;
+  } else {
+    xl attack:2, skill, dash;
+  }
+  clorinde_combo();
+  if .clorinde.burst.ready {
+    clorinde burst;
+  }
+}

@@ -1,0 +1,17 @@
+id: raidenshogun-kaedeharakazuha-kirara-fischl
+name: Raidenshogun / Kaedeharakazuha / Kirara / Fischl
+members:
+    - raidenshogun
+    - kazuha
+    - kirara
+    - fischl
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/tNrMfdNwPzfQ
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 59806
+    computed: "2026-10-01"

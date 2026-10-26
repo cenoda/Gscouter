@@ -1,0 +1,33 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill, burst;
+  mona attack, skill, burst, attack;
+  fischl skill, attack;
+  mona attack:3;
+  sethos aim[hold=2], skill, burst,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack,
+         skill;
+  nahida skill, attack;
+  mona skill, burst, attack;
+  fischl attack:2, burst;
+  mona attack:3;
+  sethos aim[hold=2], skill, burst,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack,
+         skill;
+}

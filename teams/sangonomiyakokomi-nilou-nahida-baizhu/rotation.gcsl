@@ -1,0 +1,20 @@
+active nahida;
+for let x = 5; x; x = x - 1 {
+  nahida skill,burst;
+  kokomi attack,skill;
+  nilou skill:3, skill;
+  baizhu attack, skill, attack, burst, attack;
+  nahida attack, skill, attack, charge;
+  kokomi attack, burst;
+  kokomi attack:2, charge;
+  kokomi attack:2, charge;
+  nahida attack, skill, attack;
+  kokomi attack:2, charge;
+  baizhu attack, skill, attack:2; 
+  if .nilou.burst.ready {
+    nilou burst;
+  } else {
+    kokomi attack:2,charge;
+  } 
+  print("rotation done");
+}

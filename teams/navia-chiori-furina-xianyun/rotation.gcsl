@@ -1,0 +1,55 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+	pick_up_crystallize("any"); 
+  }
+	
+  return _execute_action(char_id, action_id, p);
+}
+active navia;
+for let x = 0; x < 4; x = x + 1 {
+  navia burst;
+  chiori skill:2;
+  furina skill, dash, burst;
+  
+  while !.furina.mods.favonius-cd {
+    furina attack;
+  }
+  
+  xianyun skill, low_plunge, burst; 
+  pick_up_crystallize("any"); 
+  navia skill[hold=1];
+  
+  for let h = 4; h > 0; h = h - 1 {
+    let col = rand();
+    navia jump;
+    if .airborne {
+      if col > 0.5 {
+        navia high_plunge[collision=1], dash;
+      } else {
+        navia high_plunge, dash;
+      }
+    }
+  }
+  
+  furina attack:2, dash; 
+  navia skill[hold=1];
+  
+  for let h = 4; h > 0; h = h - 1 {
+    let col = rand();
+    navia jump;
+    if .airborne {
+      if col > 0.5 {
+        navia high_plunge[collision=1], dash;
+      } else {
+        navia high_plunge, dash;
+      }
+    }
+  }
+  
+  if .chiori.burst.ready {
+    chiori burst;
+  } else {
+    navia attack:2;
+  }
+}

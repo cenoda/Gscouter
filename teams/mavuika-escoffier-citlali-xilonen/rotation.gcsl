@@ -1,0 +1,20 @@
+active mavuika; 
+for let i=0; i<4; i=i+1 {
+  mavuika skill;
+  
+  xilonen skill, attack:2;
+  
+  esco skill;
+  
+  citlali skill, attack, burst;
+  
+  mavuika burst;
+  mavuika charge:2, dash;
+  mavuika charge:2, dash;
+  mavuika charge:2, dash;
+  mavuika charge:2, dash;
+  mavuika charge:2, dash;
+  mavuika charge:2, dash;
+  
+  mavuika charge:1, dash, attack:1;
+}

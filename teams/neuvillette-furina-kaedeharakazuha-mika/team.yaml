@@ -1,0 +1,17 @@
+id: neuvillette-furina-kaedeharakazuha-mika
+name: Neuvillette / Furina / Kaedeharakazuha / Mika
+members:
+    - neuvillette
+    - furina
+    - kazuha
+    - mika
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/C7D8gLBwW7Wt
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 76038
+    computed: "2026-10-02"

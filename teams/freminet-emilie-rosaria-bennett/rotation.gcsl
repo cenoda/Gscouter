@@ -1,0 +1,18 @@
+active freminet; 
+for let x = 0; x < 4; x = x + 1 {
+  if x && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie attack, skill;
+  }
+  
+  bennett skill, burst;
+  
+  rosaria skill, burst;
+  
+  freminet skill, burst,
+         attack:2, skill, skill,
+         attack:2, skill, attack, skill,  
+         attack:2, skill, attack, skill,
+         attack:2, skill;
+}

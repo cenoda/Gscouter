@@ -1,0 +1,19 @@
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  if i==0 {
+    mavuika skill;
+    bennett skill, burst;
+    eula skill[hold=1];
+  }
+  else{
+    mavuika attack, skill, attack, dash;
+    bennett attack, skill, burst;
+    eula skill[hold=1];
+  }
+  citlali skill, burst, attack;
+  mavuika burst;
+  wait(18); 
+  mavuika charge:3, charge[hold=6], charge[final=1], dash;
+  mavuika charge:3, charge[hold=6], charge[final=1], dash; 
+  mavuika charge:2, charge[final=1];
+}

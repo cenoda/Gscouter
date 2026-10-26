@@ -1,0 +1,14 @@
+active ororon;
+for let i=0; i<4; i=i+1 {
+  ororon skill, burst;
+  
+  furina skill, dash, burst;
+  
+  mika burst, skill[hold=1];
+  
+  freminet skill, attack, burst,
+           attack:2, skill, skill,
+           attack:2, skill, attack:2, skill,  
+           attack:2, skill, attack:2, skill,
+           attack:3, skill;
+}

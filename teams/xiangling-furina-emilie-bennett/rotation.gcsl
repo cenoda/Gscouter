@@ -1,0 +1,10 @@
+active emilie;
+emilie skill;
+for let i = 0; i < 7; i = i + 1{
+  furina attack:2, skill, burst;
+  bennett burst, skill;
+  xiangling burst, skill;
+  bennett attack, skill;
+  emilie burst, attack:4, dash, attack:3, dash, attack:3;
+  bennett skill;
+}

@@ -1,0 +1,17 @@
+id: clorinde-nahida-fischl-mavuika
+name: Clorinde / Nahida / Fischl / Mavuika
+members:
+    - clorinde
+    - nahida
+    - fischl
+    - mav
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/dQzgT9qPWwDf
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 82924
+    computed: "2026-10-01"

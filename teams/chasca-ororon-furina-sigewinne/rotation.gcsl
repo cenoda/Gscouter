@@ -1,0 +1,14 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  if is_even(i) {
+    furina skill, dash, burst;
+  }
+  ororon attack, skill, burst;
+  sigewinne skill, dash;
+  chasca skill;
+  chasca aim:4;
+  chasca aim[bullets=4];
+  if is_even(i) {
+    chasca burst;
+  } 
+}

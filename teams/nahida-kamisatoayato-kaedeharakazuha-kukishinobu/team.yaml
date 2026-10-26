@@ -1,0 +1,17 @@
+id: nahida-kamisatoayato-kaedeharakazuha-kukishinobu
+name: Nahida / Kamisatoayato / Kaedeharakazuha / Kukishinobu
+members:
+    - nahida
+    - ayato
+    - kazuha
+    - kuki
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/MJCLD7dPhDtz
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 99315
+    computed: "2026-10-02"

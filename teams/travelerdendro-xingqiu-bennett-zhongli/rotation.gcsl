@@ -1,0 +1,21 @@
+active zhongli;
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], dash, attack;
+  luminedendro skill, burst;
+  xingqiu burst, attack;
+  bennett skill, attack, burst;
+  luminedendro attack;
+  
+  while .status.bennettburst {
+    switch {
+    case .luminedendro.skill.ready:
+      luminedendro skill;
+    case .luminedendro.normal == 4:
+      luminedendro dash;
+    default:
+      luminedendro attack;
+    }
+  }
+  xingqiu skill, dash, attack:2;
+  bennett skill, attack:3;
+}

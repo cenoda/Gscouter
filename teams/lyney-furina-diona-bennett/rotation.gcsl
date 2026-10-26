@@ -1,0 +1,24 @@
+active furina;
+for let i=0; i<3; i=i+1 {
+  if i {
+    lyney aim;
+  }
+  
+  furina skill, dash, burst; 
+  
+  if i {
+    furina attack;
+  }
+  
+  bennett skill, burst;
+  
+  diona skill[hold=1];
+  if !.diona.mods.favonius-cd && !.diona.burst.ready {
+    diona attack;
+  }
+  diona burst;
+  
+  lyney aim:4, burst;
+  delay(11); 
+  lyney skill, aim, skill;
+}

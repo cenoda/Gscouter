@@ -1,0 +1,15 @@
+active chongyun;
+	
+for let i=0; i<4; i=i+1 {
+  chongyun skill;
+  bennett burst, skill;
+  rosaria skill, attack, burst;
+  xiangling attack, burst, skill;
+  rosaria skill;
+  bennett skill;
+  xiangling attack:2;
+  chongyun burst;
+  rosaria attack, skill;
+  bennett skill;
+  xiangling attack:2;
+}

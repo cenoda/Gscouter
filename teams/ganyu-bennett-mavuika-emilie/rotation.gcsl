@@ -1,0 +1,29 @@
+active ganyu;
+for let i=0; i<6; i=i+1 {
+  if .ganyu.burst.ready {
+    ganyu skill, burst;
+  } else {
+    ganyu skill;
+  }
+  
+  if i > 1 && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie attack, skill;
+  }
+  
+  if .mavuika.burst.ready {
+    mavuika burst, skill;
+  } else {
+    mavuika skill, attack;
+  }
+  
+  bennett burst, skill;
+  
+  if .ganyu.weapon == .keys.weapon.crescent {
+    ganyu aim[weakspot=1];
+    ganyu aim[weakspot=1]:5;
+  } else {
+    ganyu aim[weakspot=0]:6;
+  }
+}

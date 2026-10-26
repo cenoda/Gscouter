@@ -1,0 +1,5 @@
+# Conditions of the source config, used to validate the rotation.
+
+options swap_delay=1 iteration=1000 ignore_burst_energy=false;
+target lvl=100 resist=0.1 hp=99999999 radius=1 pos=0,1.5 particle_threshold=242650 particle_drop_count=1;
+target lvl=100 resist=0.1 hp=99999999 radius=1 pos=4,0.5 particle_threshold=242650 particle_drop_count=1;

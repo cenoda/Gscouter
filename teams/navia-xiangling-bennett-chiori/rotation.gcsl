@@ -1,0 +1,41 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+	pick_up_crystallize("any"); 
+  }
+	
+  return _execute_action(char_id, action_id, p);
+}
+active bennett;
+for let x=0; x<4; x=x+1 {
+  bennett skill, burst;
+  if.navia.burst.ready{
+    navia burst;  
+  }
+  if.xiangling.burst.ready{
+    xiangling burst, skill, dash;
+  } else {
+    xiangling attack, skill, dash, attack;
+  }
+  while !.xl.mods.favonius-cd {
+    xl attack;
+  }
+  if!.chiori.skill.ready&&.chiori.burst.ready{
+    chiori burst;
+  } else { 
+    chiori attack;
+  }
+  chiori skill:2;
+  if.navia.burst.ready{
+    navia burst;  
+  }
+  navia skill[hold=1], attack:3, dash, attack:2;
+  if.navia.burst.ready{
+    navia burst;  
+  } 
+  navia skill[hold=1], attack:3, dash, attack:2;
+  if.navia.skill.ready {
+    navia skill[hold=1], attack:3, dash, attack:2;
+  } 
+   
+}

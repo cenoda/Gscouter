@@ -1,0 +1,17 @@
+id: xiao-jean-venti-traveleranemo
+name: Xiao / Jean / Venti / Traveleranemo
+members:
+    - xiao
+    - jean
+    - venti
+    - lumineanemo
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/K9Pr8PjrnJfn
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 24414
+    computed: "2026-10-02"

@@ -1,0 +1,41 @@
+active fischl;
+for let i = 0; i < 4; i = i + 1 {
+  if .fischl.skill.ready {
+    
+    fischl attack, skill;
+    
+  } else {
+    
+    fischl attack:2, burst;
+    
+  }
+  
+  if .chiori.burst.ready {
+    
+    chiori burst, skill:2;
+    albedo attack, skill;
+    itto attack;
+    
+  } else {
+    
+    chiori skill:2;
+    albedo attack, skill, burst;
+    itto attack:2;
+    
+  }
+  
+  if i == 0 {
+    itto burst[prestack=1],
+         attack, skill,
+         attack:2, charge:5,
+         attack:4, charge:5, skill[travel=0], charge;
+         sleep(21); 
+
+  } else {
+    itto burst[prestack=1],
+         attack, skill, charge:4,
+         attack:3, charge:4,
+         attack:3, skill, charge:4; 
+
+  }
+}

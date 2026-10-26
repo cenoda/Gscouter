@@ -1,0 +1,16 @@
+active shenhe;
+for let i=0; i<4; i=i+1 {
+  shenhe skill, burst;
+  bennett burst, skill;
+  rosaria skill, attack, burst;
+  tighnari burst, skill;
+  shenhe attack, skill, attack:2;
+  bennett attack, skill;
+  rosaria skill, attack;
+  tighnari aim, attack:2;
+  bennett skill, attack;
+  tighnari aim:2;
+  rosaria attack, skill;
+  shenhe attack:2;
+  print("end");
+}

@@ -1,0 +1,11 @@
+active bennett;
+for let i=0; i<4; i=i+1 {
+  bennett burst, skill;
+  rosaria skill, attack, burst;
+  xinyan skill, burst;
+  ayaka attack, skill, dash, burst, attack:2, charge;
+  bennett attack:2, skill;
+  rosaria skill;
+  bennett attack, skill;
+  ayaka dash, attack:2, skill, attack:2, charge;
+}

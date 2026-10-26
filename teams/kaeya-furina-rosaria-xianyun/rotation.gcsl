@@ -1,0 +1,30 @@
+fn KaeyaPlunge() {
+  kaeya jump;
+  if .airborne {
+    kaeya high_plunge[collision=rand()>0.5];
+  }
+}
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash;
+  
+    furina attack;
+  
+  furina burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  rosaria skill, burst;
+  
+  kaeya skill, burst;
+  KaeyaPlunge(); kaeya dash;
+  KaeyaPlunge(); kaeya dash;
+  KaeyaPlunge(); kaeya dash;
+  KaeyaPlunge(); kaeya dash;
+  KaeyaPlunge(); kaeya skill;
+  KaeyaPlunge(); kaeya dash;
+  KaeyaPlunge(); kaeya dash;
+  KaeyaPlunge();
+  
+  rosaria skill;
+}

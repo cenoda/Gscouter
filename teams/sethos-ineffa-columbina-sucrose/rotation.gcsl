@@ -1,0 +1,36 @@
+active ineffa;
+for let i=0; i<5; i=i+1 {
+  if is_even(i) {
+    ineffa skill;
+    bina burst, skill;
+  } else {
+    ineffa skill, burst;
+    bina attack, skill;
+  }
+  if .sucrose.burst.ready && .sucrose.skill.ready {
+    sucrose skill, dash, burst;
+  } else if .sucrose.skill.ready {
+    sucrose skill, dash, attack;
+  } else {
+    sucrose attack:2;
+  }
+  sethos skill, burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         skill;
+  if .sucrose.burst.ready && .sucrose.skill.ready {
+    sucrose skill, dash, burst;
+  } else if .sucrose.skill.ready {
+    sucrose skill, dash, attack;
+  } else {
+    sucrose attack:2;
+  }
+  sethos aim[hold=2]:2;
+}

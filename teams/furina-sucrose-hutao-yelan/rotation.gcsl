@@ -1,0 +1,26 @@
+active furina;
+for let x=0; x<3; x=x+1 {
+    furina skill, burst;
+    yelan burst;
+    sucrose skill,attack,burst,attack; 
+    if .sucrose.skill.ready {
+    sucrose skill,dash;}
+    yelan attack, skill,attack;
+    hutao skill,
+    attack:2, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge,jump,
+    attack:2,charge,jump;
+    if .hutao.burst.ready {
+    hutao attack,burst;
+  } else {
+    hutao attack;
+  }
+    yelan skill, attack;
+    sucrose attack;
+}

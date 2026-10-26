@@ -1,0 +1,52 @@
+fn mualani_combo2() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<2; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+  mualani walk[f=1];
+}
+fn mualani_combo3() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+  mualani walk[f=1];
+}
+active mualani;
+for let i=0; i<3; i=i+1 {
+  if i {
+    mualani charge;
+  }
+  mualani attack;
+  xilonen skill, attack:2;
+  sucrose skill, dash, burst;
+  luminepyro burst, dash; pick_up_crystallize("hydro");
+  mualani skill;
+  if .mualani.burst.ready {
+    mualani walk[f=1], burst;
+    mualani_combo2();
+  } else {
+    mualani_combo3();
+  }
+  mualani skill;
+  
+  mualani charge;
+  xilonen burst, skill, attack:2;
+  sucrose skill, dash, attack;
+  luminepyro dash, skill; pick_up_crystallize("hydro");
+  mualani skill;
+  mualani_combo3();
+  mualani skill;
+}

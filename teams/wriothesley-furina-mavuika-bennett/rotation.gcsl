@@ -1,0 +1,18 @@
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  bennett jump, burst;
+  mavuika burst, skill;
+  wrio skill;
+  wrio attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump;
+  if is_even(i) {
+    wrio burst;
+  } else {
+    wrio attack:3;
+  }
+  bennett skill, attack:2;
+}

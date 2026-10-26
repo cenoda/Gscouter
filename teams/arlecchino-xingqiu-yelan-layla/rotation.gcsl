@@ -1,0 +1,18 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle attack, skill;
+  xingqiu burst, attack; wait(15); 
+  yelan burst, attack;
+  xingqiu skill, dash, attack:2;
+  layla burst, attack, skill;
+  while !.layla.mods.favonius-cd {
+    layla attack; 
+  }
+  yelan attack, skill, attack;
+  arle charge[early_cancel=1], dash, 
+       attack:5, dash, 
+       attack:5, dash,
+       attack:5, dash,
+       attack;
+  yelan skill, attack;
+}

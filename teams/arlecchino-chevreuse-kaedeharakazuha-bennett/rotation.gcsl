@@ -1,0 +1,41 @@
+active arlecchino;
+  arlecchino skill;
+  kazuha skill, high_plunge;
+  bennett burst;
+  chevreuse skill, burst;
+  
+  kazuha burst;
+  
+  arlecchino charge,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash, 
+             attack:3, dash,
+             attack:3, dash, 
+             attack:3;
+ for let i=0; i<3; i=i+1 {
+  
+  arlecchino skill;
+  
+  bennett burst;
+
+  if .kazuha.burst.ready{
+    kazuha burst;
+  } else {
+    kazuha skill, high_plunge;
+  }
+  
+  if .chev.burst.ready{
+    chev burst;
+  } 
+  chev skill[hold=1];
+  
+  arlecchino charge,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash, 
+             attack:3, dash,
+             attack:3, dash, 
+             attack:3;
+
+}

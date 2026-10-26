@@ -1,0 +1,20 @@
+active yae;
+for let i = 0; i < 2; i = i + 1 {
+  yae skill, skill, skill;
+  nahida skill, burst, attack,charge;
+  kuki burst;
+  alhaitham skill[hold=1], low_plunge, attack:4, charge,dash,attack:3;
+  yae attack, burst, skill, skill, attack, skill;
+  alhaitham burst;
+  kuki attack,skill;
+  alhaitham attack:3, dash, attack:3, charge,dash, attack:3, dash, attack:3, dash, attack:3;
+  
+  yae skill, skill, skill;
+  nahida skill, burst, attack;
+  kuki burst;
+  alhaitham skill[hold=1], low_plunge, attack:4, charge, dash, attack:3, dash, attack:3;
+  yae skill, skill, skill;
+  alhaitham burst;
+  kuki attack, skill;
+  alhaitham attack:3, dash, attack:3, charge, dash, attack:3, dash, attack:3, dash, attack:3;
+}

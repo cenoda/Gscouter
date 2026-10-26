@@ -1,0 +1,35 @@
+active sara;
+for let i=0; i<4; i=i+1 {
+  sara skill;
+  
+  if i == 0 {
+    fischl attack;
+  }
+  fischl attack:1, skill;
+  
+  nahida skill, attack, burst;
+  
+  sara aim;
+  
+  tighnari skill, aim, burst, aim:2;
+  
+  nahida attack, skill, 
+         attack:2, charge, dash, 
+         attack:2, charge; 
+
+  sara skill;
+  if .sara.burst.ready {
+    sara burst;
+  }
+  
+  fischl attack:2, burst;
+  
+  sara aim;
+  
+  tighnari skill, aim, burst, aim:2;
+  
+  nahida attack, skill, 
+         attack:2, charge, dash, 
+         attack:2, charge, dash,
+         attack:1, charge;
+}

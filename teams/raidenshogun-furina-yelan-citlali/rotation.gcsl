@@ -1,0 +1,21 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  citlali skill, burst;
+  
+  yelan burst, attack;
+  if !.yelan.skill.ready && .yelan.breakthrough {
+    yelan aim;
+  }
+  yelan skill, attack;
+  
+  raiden burst, 
+        attack:4, skill, 
+        attack:4, dash, 
+        attack:4, dash, 
+        attack:4;
+  
+  yelan skill, attack:4;
+}

@@ -1,0 +1,28 @@
+active razor; 
+fischl skill, attack;
+for let i=0; i<4; i=i+1 { 
+  if .mav.burst.ready {
+    mav burst, skill;
+  } else {
+    mav skill, attack;
+  }
+  
+  if i == 0 {
+    kirara burst;
+  }
+  kirara skill[short_hold=1];
+  if .amy.burst.ready {
+    amy attack:2, burst;
+  } else {
+    amy attack:1, skill;
+  }
+  
+  razor skill, dash, attack, burst;
+  razor attack:1, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3;
+}

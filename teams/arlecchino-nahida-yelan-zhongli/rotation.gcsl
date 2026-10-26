@@ -1,0 +1,28 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  
+  zhongli skill[hold=1], dash, attack;
+  if !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  if .zhongli.sets.ap == 4 {
+    zhongli dash; pick_up_crystallize("any"); 
+  }
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  nahida skill, attack;
+  
+  arle charge, 
+       attack:5, dash, 
+       attack:5, dash,
+       attack:5, dash,
+       attack:3;
+}

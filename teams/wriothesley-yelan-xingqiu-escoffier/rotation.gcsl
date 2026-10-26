@@ -1,0 +1,18 @@
+active xingqiu;
+for let i=0; i<4; i=i+1 {
+  xingqiu skill, dash, burst, attack;
+  yelan skill, attack, burst, attack;
+  escoffier skill, attack, burst, attack;
+  wrio skill, 
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:4;
+  if .wrio.burst.ready && .wrio.energy == .wrio.energymax {
+    wrio burst;
+  } else {
+    wrio charge;
+  }
+}

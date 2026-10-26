@@ -1,0 +1,17 @@
+id: dori-nahida-furina-xianyun
+name: Dori / Nahida / Furina / Xianyun
+members:
+    - dori
+    - nahida
+    - furina
+    - xianyun
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/6ngrBDjCtpF9
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 54869
+    computed: "2026-10-02"

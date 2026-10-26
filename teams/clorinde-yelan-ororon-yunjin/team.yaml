@@ -1,0 +1,17 @@
+id: clorinde-yelan-ororon-yunjin
+name: Clorinde / Yelan / Ororon / Yunjin
+members:
+    - clorinde
+    - yelan
+    - ororon
+    - yunjin
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Dc7zH6RF97Qw
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 57696
+    computed: "2026-10-02"

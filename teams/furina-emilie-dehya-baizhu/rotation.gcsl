@@ -1,0 +1,8 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, burst;
+  emilie burst;
+  baizhu skill, burst;
+  dehya skill:2, burst, skill:10;
+  baizhu skill, attack:7;
+}

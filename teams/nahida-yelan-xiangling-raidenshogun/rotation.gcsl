@@ -1,0 +1,16 @@
+active raiden;
+raiden skill;
+for let r = 0; r < 4; r = r + 1 {
+  nahida skill, burst, attack;
+  yelan skill;
+  while !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  xiangling skill, attack;
+  while !.xiangling.burst.ready {
+    xiangling attack;
+  }
+  xiangling burst, attack;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+}

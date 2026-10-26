@@ -1,0 +1,12 @@
+active xingqiu;
+for let x=0; x<4; x=x+1 {
+  xingqiu attack, skill, dash, burst, attack;
+  thoma skill, attack, burst;
+  kazuha burst, attack, skill, high_plunge;
+  yoimiya skill, 
+          attack:5, dash, 
+          attack:5, dash, 
+          attack:5, dash, 
+          attack;
+  kazuha skill, high_plunge, attack:3;
+}

@@ -1,0 +1,15 @@
+active nicole;
+for let i = 0; i < 5; i = i + 1 {
+  nicole skill, burst;
+  durin skill, attack, burst;
+  xilonen skill, attack:2;
+  tartaglia burst, skill,
+            attack, charge, dash,
+            attack:2, charge, dash,
+            attack:2, charge, dash,
+            attack, charge, dash,
+            attack:2, charge, dash,
+            attack, charge, skill;
+  xilo skill, attack:2;
+  childe aim;
+}

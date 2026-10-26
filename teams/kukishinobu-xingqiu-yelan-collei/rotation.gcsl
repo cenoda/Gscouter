@@ -1,0 +1,11 @@
+active yelan;
+for let i=0; i<4; i=i+1 {
+ 
+  yelan skill, burst, attack:2;
+  xingqiu skill, burst, attack:1;
+  collei skill, burst;
+  kuki skill;
+  xingqiu attack: 5, dash, attack:5;
+  collei skill;
+  xingqiu attack: 5, dash, attack: 5;
+}

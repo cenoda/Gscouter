@@ -1,0 +1,36 @@
+active razor; 
+amy skill;
+for let i=0; i<4; i=i+1 {
+  
+  nahida skill;
+  if i > 0 && .nahida.burst.ready && .nahida.energy == .nahida.energymax {
+    nahida burst;
+  } else {
+    nahida attack, charge;
+  } 
+  if .bennett.skill.cd {
+    nahida attack, charge;
+  }
+  bennett skill, burst;
+
+  if .amy.burst.ready {
+    amy attack:2, burst;
+  } else {
+    amy attack:1, skill;
+  }
+  
+  razor skill, dash, attack, burst;
+  
+  while .razor.infusion.bennett-fire-weapon { 
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+  razor attack:1, dash;
+  razor attack:2;
+  print("done");
+}

@@ -1,0 +1,14 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  citlali attack, skill;
+  if !.citlali.mods.favonius-cd {
+    citlali attack;
+  }
+  escoffier skill, burst;
+  ayato skill, attack:15;
+  ayato burst;
+  citlali attack:3;
+  escoffier attack:3;
+  ayato skill, attack:15;
+}

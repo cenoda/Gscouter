@@ -1,0 +1,5 @@
+# Conditions of the source config, used to validate the rotation.
+
+options iteration=1000 swap_delay=12 workers=30 mode=sl;
+target lvl=100 resist=0.1 hp=200000000000;
+energy every interval=480,720 amount=1;

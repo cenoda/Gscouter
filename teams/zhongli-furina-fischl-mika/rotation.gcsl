@@ -1,0 +1,30 @@
+active fischl;
+fischl skill;
+for let x=0; x<4; x=x+1 {
+  furina skill, dash;
+  if !.furina.burst.ready {
+    furina attack;
+  }
+  furina burst;
+  
+  mika burst;
+  
+  fischl attack;
+  if .fischl.burst.ready {
+    fischl attack, burst;
+  } else {
+    fischl skill;
+  }
+  
+  mika attack, skill;
+  
+  zhongli skill[hold=1], dash;
+  zhongli attack:5, dash, 
+          attack:5, dash, 
+          attack:5, dash, 
+          attack:5, dash, 
+          attack:5, dash,
+          attack:5, dash,
+          attack:3;
+  
+}

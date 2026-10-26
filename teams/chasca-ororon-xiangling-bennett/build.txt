@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+chasca char lvl=90/90 cons=0 talent=9,9,9;
+chasca add weapon="hamayumi" refine=5 lvl=90/90;
+chasca add set="obsidiancodex" count=4;
+chasca add stats hp=4780 atk=311 atk%=0.466 pyro%=0.466 cd=0.622;
+chasca add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*5 er=0.0551*2 em=19.82*2 cr=0.0331*11 cd=0.0662*10;
+
+ororon char lvl=90/90 cons=6 talent=9,9,9;
+ororon add weapon="favbow" refine=4 lvl=90/90;
+ororon add set="scroll" count=4;
+ororon add stats hp=4780 atk=311 em=187 em=187 cr=0.311;
+ororon add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*12 em=19.82*4 cr=0.0331*10 cd=0.0662*2;
+
+xiangling char lvl=90/90 cons=6 talent=9,9,9;
+xiangling add weapon="deathmatch" refine=1 lvl=90/90;
+xiangling add set="eosf" count=4;
+xiangling add stats hp=4780 atk=311 er=0.518 pyro%=0.466 cd=0.622;
+xiangling add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*3 er=0.0551*3 em=19.82*2 cr=0.0331*12 cd=0.0662*10;
+
+bennett char lvl=90/90 cons=6 talent=9,9,9;
+bennett add weapon="alleyflash" refine=1 lvl=90/90;
+bennett add set="no" count=4;
+bennett add stats hp=4780 atk=311 er=0.518 pyro%=0.466 cr=0.311;
+bennett add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*9 em=19.82*2 cr=0.0331*7 cd=0.0662*10;

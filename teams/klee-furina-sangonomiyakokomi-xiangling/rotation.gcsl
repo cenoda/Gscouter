@@ -1,0 +1,23 @@
+active furina;
+furina skill, dash, burst;
+xiangling burst, skill, dash;
+kokomi attack, burst, attack:2, walk, attack:2, walk, attack:2, skill;
+klee attack, burst, walk, attack[travel=6], charge;
+klee attack[travel=6], charge, attack, skill[bounce=3, mine=8], jump, attack[travel=6], charge;
+klee attack, skill[bounce=3, mine=8], jump, attack[travel=6], charge, attack[travel=6], charge;
+klee attack, walk, attack;
+  
+for let i=0; i<2; i=i+1 {
+furina skill, dash, burst;
+xiangling burst, skill, dash;
+kokomi attack, burst, attack:2, walk, attack:2, walk, attack:2, skill;
+ klee attack, burst, walk, attack[travel=6], charge;
+ klee attack[travel=6], charge, attack, skill[bounce=3, mine=8], jump, attack[travel=6], charge;
+ if .klee.skill.ready {
+      klee attack, skill[bounce=3, mine=8], jump;
+    } else {
+      klee attack[travel=6], charge;
+    }
+ klee attack[travel=6], charge, attack[travel=6], charge;
+ klee attack, walk, attack, walk, attack;
+  }

@@ -1,0 +1,36 @@
+active chongyun; 
+for let i=0; i<4; i=i+1 {
+  if i > 0 && .esco.burst.ready && .esco.energy == .esco.energymax {
+    esco burst;
+  }
+  esco skill;
+  
+  shenhe skill, burst;
+  
+  chongyun burst, skill;
+  
+  rosaria skill, burst;
+  
+  rosaria attack;
+  while .shenhe.skill.cd {
+    if .rosaria.skill.ready {
+      rosaria skill;
+    } else if .rosaria.normal > 3 && .stam > 43 {
+      rosaria charge, dash;
+    } else {
+      rosaria attack;
+    }
+  }
+  
+  shenhe skill, attack;
+  
+  while .status.chongyunfield || .rosaria.infusion.chongyun-ice-weapon {
+    if .rosaria.skill.ready {
+      rosaria skill;
+    } else if .rosaria.normal > 3 && .stam > 43 {
+      rosaria charge, dash;
+    } else {
+      rosaria attack;
+    }
+  }
+}

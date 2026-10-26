@@ -1,0 +1,16 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill, burst, attack;
+  fischl skill, attack;
+  beidou skill[counter=1], burst;
+  kazuha attack, skill[hold=1], high_plunge, burst, attack;
+  fischl attack:2, burst;
+  nahida attack:2, skill,
+    attack:3, dash,
+    attack:3, dash,
+    attack:3, dash,
+    attack:3, dash,
+    attack:2, charge;
+  beidou skill, attack:2;
+  kazuha skill, high_plunge, attack:2;
+}

@@ -1,0 +1,38 @@
+fn lanyanDrivingCombo() {
+  switch {
+    case .lanyan.normal > 1 && .lanyan.burst.ready && .lanyan.energy == .lanyan.energymax:
+      lanyan burst;
+    case .lanyan.normal > 1 && .lanyan.skill.ready:
+      set_player_pos(0, 0); 
+      lanyan skill; set_player_pos(0, -3); 
+      lanyan skill; 
+    case .lanyan.normal > 1 && .previous-action == .action.skill && .stam > 18:
+      lanyan dash; set_player_pos(0, 0); 
+    case .lanyan.normal > 2 && .stam > 18:
+      lanyan dash; set_player_pos(0, 0); 
+    default:
+      lanyan attack;
+  }
+}
+active ineffa;
+for let i=0; i<4; i=i+1 {
+  if i > 0 && .ineffa.burst.ready {
+    ineffa skill, burst;
+  } else if i > 0 {
+    ineffa skill, attack;
+  } else {
+    ineffa skill;
+  }
+  
+  if .columbina.burst.ready {
+    columbina skill, burst;
+  } else {
+    columbina attack:0, skill, attack:1;
+  }
+  
+  ororon skill, burst;
+  
+  while .ineffa.mods.birgitta > 210 {
+    lanyanDrivingCombo();
+  }
+}

@@ -1,0 +1,12 @@
+active fischl;
+for let i = 0; i < 5; i = i + 1 {
+  ayato burst;
+  fischl skill;
+  nahida skill, burst;
+  xiangling burst, skill;
+  ayato skill, attack:15;
+  fischl attack, burst;
+  nahida attack:3, skill, attack:3;
+  xiangling attack, skill;
+  ayato skill, attack:15;
+}

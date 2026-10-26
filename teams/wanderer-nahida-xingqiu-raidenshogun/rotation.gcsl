@@ -1,0 +1,9 @@
+active nahida;
+for let i=0; i<4; i=i+1 { 
+  nahida skill,burst, attack;
+  xingqiu burst, attack, skill, attack:2;
+  raiden skill, attack;
+  nahida attack:2, skill;
+  scara skill, attack:3, attack:3, attack:3, skill;
+  nahida attack:3, dash, attack:3, dash, attack:3, dash, attack:3;
+}

@@ -1,0 +1,20 @@
+active gaming; 
+for let i=0; i<4; i=i+1 {
+  chev burst, skill[hold=1]:2;
+  
+  diona skill[hold=1], burst;
+  
+  rosaria skill, burst;
+  
+  gaming burst, attack:2;
+  for let p=1; p<5; p=p+1 { 
+    gaming skill, low_plunge; print(p);
+    wait(40);
+  }
+  gaming skill, low_plunge; print("5");
+  gaming skill, low_plunge; print("6");
+  
+  rosaria skill;
+  
+  gaming skill, low_plunge, dash; print("7");
+}

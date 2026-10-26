@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+chasca char lvl=90/90 cons=0 talent=9,9,9;
+chasca add weapon="chainbreaker" refine=5 lvl=90/90;
+chasca add set="obsidiancodex" count=4;
+chasca add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cd=0.622;
+chasca add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.2976 er=0.1102 em=39.64 cr=0.331 cd=0.662;
+
+durin char lvl=90/90 cons=0 talent=9,9,9;
+durin add weapon="wolffang" refine=1 lvl=90/90;
+durin add set="cg" count=4;
+durin add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cd=0.622;
+durin add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.4408 em=118.92 cr=0.3972 cd=0.1324;
+
+ineffa char lvl=90/90 cons=0 talent=9,9,9;
+ineffa add weapon="fjords" refine=1 lvl=90/90;
+ineffa add set="totm" count=4;
+ineffa add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cd=0.622;
+ineffa add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=79.28 cr=0.3972 cd=0.662;
+
+mona char lvl=90/90 cons=2 talent=9,9,9;
+mona add weapon="favcodex" refine=3 lvl=90/90;
+mona add set="no" count=4;
+mona add stats hp=4780 atk=311 er=0.518 atk%=0.466 cr=0.311;
+mona add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.551 em=39.64 cr=0.331 cd=0.3972;

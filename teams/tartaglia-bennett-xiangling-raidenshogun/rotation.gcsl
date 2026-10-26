@@ -1,0 +1,16 @@
+active raiden;
+  raiden skill;
+for let i=0; i<4; i=i+1 {
+  bennett burst, skill;
+  xiangling burst, skill;
+  tartaglia burst, walk[f=12], skill,
+            attack:2, charge, dash,
+            attack:2, charge, dash,
+            attack:2, charge, dash,
+            attack:2, charge, dash,
+            attack:3, charge, dash,
+            attack:3, charge, dash;
+  xiangling attack:3, skill;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4;
+  print("end");
+}

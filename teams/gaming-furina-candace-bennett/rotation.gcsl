@@ -1,0 +1,14 @@
+active gaming; 
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, attack, burst;
+  
+  candace skill, burst;
+  
+  bennett burst, skill;
+  
+  gaming burst, attack:2;
+  for let i=0; i<6; i=i+1 {
+    gaming skill, high_plunge, attack;
+  }
+  gaming skill, high_plunge;
+}

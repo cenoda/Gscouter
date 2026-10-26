@@ -1,0 +1,14 @@
+active ayato;
+for let x = 5; x; x = x - 1 {
+  nahida skill,burst;
+  ayato burst;
+  nilou skill:3, skill;
+  yaoyao burst;
+  yaoyao attack:2,dash;
+  yaoyao attack:2,dash;
+  yaoyao attack:2,dash;
+  yaoyao skill;
+  nahida skill, attack, charge;
+  ayato skill, attack:14;  
+  print("rotation done");
+}

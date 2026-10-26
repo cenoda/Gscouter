@@ -1,0 +1,19 @@
+active bennett;
+for let x = 0; x<6; x=x+1 {
+  yelan skill,burst,attack;
+  bennett burst ,skill[hold=1];
+  wait (11); 
+  sucrose attack:3,skill,jump,attack;
+  hutao skill,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:2, charge, jump;
+  bennett attack, skill, attack:2;
+  print ("done");
+}

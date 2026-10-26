@@ -1,0 +1,26 @@
+active emilie;
+for let i = 0; i < 4; i = i + 1 {
+  if i && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  
+  bennett skill, burst;
+  
+  faruzan skill, burst;
+  
+  kazuha skill, high_plunge[collision=1], burst;
+  
+  faruzan aim:2, skill;
+  
+  kazuha skill, high_plunge[collision=1], attack, charge, attack;
+  
+  faruzan aim:2, skill; 
+  
+  kazuha skill, high_plunge[collision=1]; 
+  
+  bennett skill; 
+  
+  faruzan aim:2;
+}

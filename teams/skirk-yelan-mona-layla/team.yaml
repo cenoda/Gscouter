@@ -1,0 +1,19 @@
+id: skirk-yelan-mona-layla
+name: Skirk / Yelan / Mona / Layla
+members:
+    - skirk
+    - yelan
+    - mona
+    - layla
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/jfrj8njGDCh6
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    skirk: start_serpents_subtlety=100
+reference:
+    dps: 84131
+    computed: "2026-10-02"

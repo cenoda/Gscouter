@@ -1,0 +1,23 @@
+let first_heal_frames = 1.9 * 60;
+let heal_tick_frames = 2 * 60; 
+fn human_error_frames() { 
+  return (0.5 + rand()) * 0.25 * 60 ;
+}
+active chevreuse;
+chevreuse skill[hold=41]; 
+let chev_skill_ref = f(); 
+set_player_pos(0, 1000); 
+ayaka swap; 
+sleep(first_heal_frames - (f() - chev_skill_ref) + human_error_frames());
+gaming swap; 
+sleep(first_heal_frames + heal_tick_frames - (f() - chev_skill_ref) + human_error_frames());
+ayaka swap;
+ayaka dash[f = human_error_frames()]; 
+gaming swap; 
+charlotte swap; 
+gaming skill, high_plunge; 
+delay(4 * 60 + human_error_frames()); 
+ayaka dash[f = human_error_frames()];
+gaming swap;
+delay(human_error_frames() + rand() * 1 * 60);
+gaming skill, high_plunge;

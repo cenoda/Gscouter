@@ -1,0 +1,18 @@
+active durin;
+for let i=0; i<6; i=i+1 {
+  durin skill, skill, burst;
+  ineffa skill;
+  if .ineffa.burst.ready && .ineffa.energy == .ineffa.energymax && is_even(i) {
+    ineffa burst;
+  } else {
+    ineffa attack;
+  }
+  mona attack:2, burst, attack, skill, attack;
+  chasca skill, aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}
+wait(82);

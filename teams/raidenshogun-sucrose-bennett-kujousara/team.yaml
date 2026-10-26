@@ -1,0 +1,17 @@
+id: raidenshogun-sucrose-bennett-kujousara
+name: Raidenshogun / Sucrose / Bennett / Kujousara
+members:
+    - herexcellencythealmightynarukamiogoshogodofthunder
+    - sucrose
+    - bennett
+    - sara
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/zwfTcWGMRMTL
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 43095
+    computed: "2026-10-01"

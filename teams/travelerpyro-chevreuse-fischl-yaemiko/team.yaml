@@ -1,0 +1,19 @@
+id: travelerpyro-chevreuse-fischl-yaemiko
+name: Travelerpyro / Chevreuse / Fischl / Yaemiko
+members:
+    - aetherpyro
+    - chev
+    - fischl
+    - yae
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/JpJ7RhJ9tNCf
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    aetherpyro: base_atk_buff=1, skirk_story_buff=1, true_moon_story_buff=1
+reference:
+    dps: 61607
+    computed: "2026-10-01"

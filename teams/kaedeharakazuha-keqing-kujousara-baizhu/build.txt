@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+kazuha char lvl=90/90 cons=0 talent=9,9,9;
+kazuha add weapon="xiphos" refine=1 lvl=90/90;
+kazuha add set="viridescentvenerer" count=5;
+kazuha add stats hp=4780 atk=311 em=187 em=187 em=187;
+kazuha add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.2204 em=118.92 cr=0.3641 cd=0.4634;
+
+keqing char lvl=90/90 cons=0 talent=9,9,9;
+keqing add weapon="harbinger" refine=5 lvl=90/90;
+keqing add set="thunderingfury" count=5;
+keqing add stats hp=4780 atk=311 em=187 electro%=0.466 cr=0.311;
+keqing add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.331 cd=0.7944;
+
+sara char lvl=90/90 cons=6 talent=9,9,9;
+sara add weapon="fadingtwilight" refine=5 lvl=90/90;
+sara add set="no" count=5;
+sara add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cr=0.311;
+sara add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.2755 em=39.64 cr=0.331 cd=0.7282;
+
+baizhu char lvl=90/90 cons=0 talent=9,9,9;
+baizhu add weapon="favcodex" refine=3 lvl=90/90;
+baizhu add set="ohc" count=4;
+baizhu add stats hp=4780 atk=311 er=0.518 dendro%=0.466 cr=0.311;
+baizhu add stats def=39.36 def%=0.124 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.551 em=39.64 cr=0.2648 cd=0.5296;

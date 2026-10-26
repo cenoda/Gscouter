@@ -1,0 +1,25 @@
+active shenhe;
+for let x=0; x<4; x=x+1 {
+  shenhe skill[hold=1], attack;
+  if .shenhe.burst.ready {
+    shenhe burst;
+  } else {
+    shenhe attack;
+  }
+  xilonen skill, attack:2;
+  yunjin skill, burst;
+  if .yunjin.sets.ap >= 4 {
+    yunjin dash; pick_up_crystallize("cryo");
+  }
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump;
+  if .wrio.burst.ready {
+    wrio burst;
+  } else {
+    wrio attack:3;
+  }
+}

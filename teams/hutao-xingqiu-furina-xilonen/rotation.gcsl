@@ -1,0 +1,36 @@
+active furina;
+furina skill, burst;
+xilonen burst, skill, attack:2;
+xingqiu burst, attack, skill, dash, attack:2;
+hutao skill,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:2, charge, jump, attack, burst;
+        
+for let i = 0; i < 4; i = i + 1 {
+ 
+  xilonen skill, attack:2, burst;
+  furina burst, attack, skill, attack;
+  xingqiu burst, attack, skill, dash, attack:2;
+  xilonen skill, attack:2;
+  hutao skill,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:2, charge, jump, attack;
+  if .hutao.burst.ready {
+    hutao burst;
+  }
+  
+}

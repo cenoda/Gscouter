@@ -1,0 +1,20 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  yelan attack, skill, burst, attack;
+  while !.yelan.mods.favonius-cd {
+    yelan attack; 
+  }
+  bennett skill, burst, attack;
+  layla burst, attack, skill;
+  if !.layla.mods.favonius-cd {
+    layla attack;
+  }
+  arle attack, charge[early_cancel=1], dash, 
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3;
+}

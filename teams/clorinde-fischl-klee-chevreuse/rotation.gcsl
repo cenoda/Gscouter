@@ -1,0 +1,29 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active fischl;
+fischl burst; 
+for let i = 0; i <5 ; i = i + 1 {
+  if .chev.burst.ready {
+    chev burst, skill[hold=1];
+  } else {
+    chev attack, skill[hold=1], attack;
+  }
+  if .fischl.skill.ready { 
+    fischl attack, skill, attack;
+  } else if i {
+    fischl attack:2, burst;
+  }
+  klee attack, skill[bounce=3, mine=8], jump;
+  clorinde_combo();
+  klee attack, charge, jump; 
+  clorinde burst;
+  
+}

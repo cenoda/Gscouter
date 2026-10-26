@@ -1,0 +1,27 @@
+active wrio;
+wrio attack;
+for let i=0; i<4; i=i+1 {
+  nahida skill;
+  if is_even(i) {
+    nahida burst;
+  } else {
+    nahida attack;
+  }
+  luminepyro skill, attack, burst, attack;
+  bennett skill, burst;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump, 
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:4;
+  if .wrio.burst.ready && .wrio.energy == .wrio.energymax  {
+    wrio burst;
+  } else {
+    wrio charge, jump;
+    while !.element.t0.cryo {
+      wrio attack;
+    }
+  }
+}

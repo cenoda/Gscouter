@@ -1,0 +1,12 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  furina skill, dash, burst;
+  jean skill, burst;
+  kirara skill[short_hold=1];
+  neuvillette charge, burst, skill, charge;
+  jean skill, attack;
+  kirara skill[short_hold=1];
+  neuvillette charge, charge;
+}
+wait(173);

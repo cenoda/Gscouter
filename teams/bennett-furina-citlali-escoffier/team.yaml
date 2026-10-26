@@ -1,0 +1,17 @@
+id: bennett-furina-citlali-escoffier
+name: Bennett / Furina / Citlali / Escoffier
+members:
+    - bennett
+    - furina
+    - citlali
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/DNfWJK6zdpDW
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 62018
+    computed: "2026-10-02"

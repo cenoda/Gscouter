@@ -1,0 +1,13 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  bennett skill, burst;
+  xilonen skill, attack:2;
+  mona attack, burst, skill;
+  arle charge[early_cancel=1], dash, 
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash, 
+       attack:3, dash, attack:3;
+}

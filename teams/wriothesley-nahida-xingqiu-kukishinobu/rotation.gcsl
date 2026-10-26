@@ -1,0 +1,22 @@
+active xingqiu;
+for let i=0; i<4; i=i+1 {
+  xingqiu skill, burst, attack;
+  nahida skill, attack, burst, attack;
+  kuki skill, attack;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3;
+
+    wrio jump, attack:3;
+  
+  if is_even(i) {
+    kuki attack, burst;
+  } else {
+    kuki attack:4;
+  }
+  print("Rotation Done");
+}

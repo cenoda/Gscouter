@@ -1,0 +1,12 @@
+active nicole;
+for let i=0; i<4; i=i+1 {
+  nicole skill, burst;
+  durin skill, attack, burst;
+  xilonen skill, attack:2;
+  ayaka skill, dash, attack, burst,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge;
+  xilonen skill, attack:2;
+  ayaka skill, dash, attack:2, charge;
+}

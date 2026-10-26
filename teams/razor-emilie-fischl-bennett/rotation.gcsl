@@ -1,0 +1,39 @@
+active razor; 
+fischl skill, attack;
+for let i=0; i<4; i=i+1 {
+  
+  if i > 0 && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack; 
+  }
+
+  if i > 0 {
+    bennett attack, charge;
+  }
+  bennett skill, burst;
+
+  amy attack;
+  if .amy.burst.ready {
+    amy attack, burst; 
+  } else {
+    amy skill;
+  }
+  
+  razor skill, dash, attack, burst, attack:1, skill, dash; 
+  
+  while .razor.infusion.bennett-fire-weapon { 
+    if .razor.normal > 3 {
+      if .razor.skill.ready {
+        razor skill, dash;
+      } else {
+        razor dash;
+      }
+    } else {
+      razor attack;
+    }
+  }
+  
+  bennett skill;
+  print("done");
+}

@@ -1,0 +1,15 @@
+active yae;
+yae skill:3;
+for let i = 1; i <= 5; i = i + 1 {
+  kazuha skill, high_plunge, burst;
+  nahida skill, burst;
+  sara skill, aim, burst;
+  yae burst, skill:3;
+  kazuha skill, high_plunge;
+  yae attack, charge, dash;
+  sara skill, aim;
+  yae attack, charge, dash,
+      attack, charge, dash,
+      attack, charge, dash;
+  yae skill, attack, skill, attack, skill;
+}

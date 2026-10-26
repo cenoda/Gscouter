@@ -1,0 +1,23 @@
+active xingqiu;
+for let i=0; i<4; i=i+1 {
+	xingqiu burst, attack, skill, dash, attack:2;
+	thoma attack, skill, attack, burst;
+	kazuha burst;
+	set_player_pos(1.5,0);
+	kazuha attack, skill, high_plunge;
+	set_player_pos(0,0);
+	kazuha attack;
+	hutao skill, attack:2, charge, jump,
+	attack:2, charge, jump,
+	attack:2, charge, jump,
+	attack:2, charge, jump,
+	attack:2, charge, jump,
+	attack:2, charge, jump,
+	attack:2, charge, jump,
+	attack:2, charge, jump,
+	attack:2;
+	kazuha skill, high_plunge;
+	wait (10);
+	
+	print("done");
+}

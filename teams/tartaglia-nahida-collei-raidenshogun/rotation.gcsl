@@ -1,0 +1,23 @@
+active tartaglia;
+tartaglia walk, skill, attack;
+for let i=0; i<4; i=i+1 { 
+  nahida skill, burst;
+  raiden skill, attack;
+  collei skill;
+  tartaglia burst;
+  collei burst;
+  tartaglia walk, skill, 
+    attack:1, charge, dash,
+    attack:2, charge, dash,
+    attack:1, charge, dash,
+    attack:2, charge, dash,
+    attack:3, charge, dash,
+    attack:2, charge, dash,
+    attack:2;
+  collei skill;
+  tartaglia aim;
+  nahida skill, attack, charge;
+  tartaglia aim;
+  nahida attack:2, charge;
+  tartaglia aim;
+}

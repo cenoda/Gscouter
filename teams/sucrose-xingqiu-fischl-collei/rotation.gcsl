@@ -1,0 +1,26 @@
+active collei;
+let t = 0;
+for let i=0; i<4; i=i+1 {
+    t = f();
+    collei skill;
+    xingqiu burst, attack;
+    fischl skill, attack;
+    sucrose attack:3, dash,
+            attack:2, skill, dash,
+            attack:3, dash,
+            attack:2, burst;
+    fischl attack, burst;
+    collei burst, skill;
+    xingqiu skill, dash, attack:2;
+    sucrose attack:2, skill, dash;
+    while f() - t <= 24.3*60 {
+        if .sucrose.skill.charge >= 2 {
+            sucrose skill, dash;
+        }
+        if .sucrose.normal > 3 {
+            sucrose dash;
+        }
+        sucrose attack;
+    }
+    print("done");
+}

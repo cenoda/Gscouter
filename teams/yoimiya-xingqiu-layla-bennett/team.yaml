@@ -1,0 +1,17 @@
+id: yoimiya-xingqiu-layla-bennett
+name: Yoimiya / Xingqiu / Layla / Bennett
+members:
+    - yoimiya
+    - xingqiu
+    - layla
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/n6NgMJtK9CKj
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 43962
+    computed: "2026-10-02"

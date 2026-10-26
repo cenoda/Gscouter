@@ -1,0 +1,27 @@
+active yelan;
+yelan aim;
+for let i=0; i<4; i=i+1 { 
+  xilonen skill, attack:2, burst;
+  
+  furina skill, dash, burst;
+  
+  yelan skill;
+  if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  xilonen skill, attack:2;
+  
+  cyno skill, burst;
+  while .furina.skill.cd > 60 {
+    if .cyno.skill.ready {
+      cyno skill;
+    } else if .cyno.normal == 5 {
+      cyno dash;
+    } else {
+      cyno attack;
+    }
+  }
+  
+}

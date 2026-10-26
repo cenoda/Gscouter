@@ -1,0 +1,9 @@
+active yelan;
+for let x=0; x<4; x=x+1 {
+  yelan skill, burst, attack; 
+  kazuha burst;
+  thoma burst, skill;
+  kazuha skill, high_plunge;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5;
+  kazuha skill, high_plunge, attack, dash;
+}

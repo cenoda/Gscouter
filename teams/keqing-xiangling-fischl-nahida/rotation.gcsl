@@ -1,0 +1,30 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill, burst;
+  xl burst, skill, dash;
+  fischl attack:2, burst;
+  keqing skill, burst, skill,
+         attack, charge, 
+         attack, charge, 
+         attack, charge,
+         attack, charge,
+         attack, charge,
+         skill:2,
+         attack, charge,
+         attack;
+  xl attack:2, skill, dash;
+  fischl skill, attack;
+  if .keqing.sets.tf >= 4 {
+    keqing skill, burst, skill,
+           attack, charge,
+           attack, charge,
+           skill,
+           attack, charge;
+  } else {
+    keqing burst, skill:2,
+           attack, charge,
+           attack, charge,
+           attack, charge,
+           attack, charge;
+  }
+}

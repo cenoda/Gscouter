@@ -1,0 +1,18 @@
+active yae;
+  
+for let i=0; i<5; i=i+1 {
+  if !i {
+    yae skill:3;
+  } else {
+    yae skill, attack, skill, attack, skill;
+  }
+  sucrose burst, attack:2;
+  fischl attack, burst;
+  tighnari skill, aim, burst, aim:2;
+  yae attack, burst, skill, attack, skill, attack, skill;
+  sucrose attack, skill, dash, attack:3, charge;
+  fischl attack, skill;
+  tighnari skill, aim:3;
+  yae attack:2, dash, attack;
+  sucrose attack, skill, jump, attack:2, charge, attack:2;
+  }

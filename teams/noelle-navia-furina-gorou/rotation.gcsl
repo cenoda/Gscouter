@@ -1,0 +1,20 @@
+active gorou;
+for let i=0; i<5; i=i+1 {
+  
+  gorou attack, skill, burst;
+  navia burst;
+  furina skill, burst;
+    pick_up_crystallize("any");
+  navia skill, attack;
+    pick_up_crystallize("any");
+  noelle skill, burst, attack:3;
+    pick_up_crystallize("any");
+  gorou attack, skill, attack;
+    pick_up_crystallize("any");
+  noelle attack:3, dash;
+    pick_up_crystallize("any");
+  noelle attack:3,dash,attack:3;
+    pick_up_crystallize("any");
+  navia skill, attack;
+    pick_up_crystallize("any");
+}

@@ -1,0 +1,21 @@
+active nahida;
+nahida skill, burst;
+for let i=0; i<4; i=i+1 {
+  if i > 0 {
+    nahida attack, skill, attack, charge;
+  }
+	
+  furina skill, dash, burst;
+	
+	xq skill, dash, burst, attack;
+	
+	bennett burst, attack; 
+  while .status.bennettburst || .bennett.infusion.bennett-fire-weapon {
+    if .bennett.skill.ready {
+      bennett skill;
+    } else {
+      bennett attack;
+    }
+  }
+  print("done");
+}

@@ -1,0 +1,11 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  xingqiu skill, dash, burst, attack;
+  escoffier skill, attack, burst, attack;
+  rosaria skill, attack, burst;
+  rosaria attack:5;
+  rosaria attack, skill;
+  rosaria attack:5;
+  rosaria attack:4, skill, attack:2;
+}

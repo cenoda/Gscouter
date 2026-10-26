@@ -1,0 +1,25 @@
+active emilie;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  bennett skill, burst;
+
+  if i && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie attack, skill;
+  }
+  
+  yaoyao skill, burst;
+  while .yaoyao.infusion.bennett-fire-weapon { 
+    if .yaoyao.normal > 3 {
+      yaoyao dash;
+    } else {
+      yaoyao attack;
+    }
+  }
+  
+  bennett skill;
+  
+  print("done");
+}

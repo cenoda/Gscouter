@@ -1,0 +1,25 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if !.furina.burst.ready || !.furina.mods.favonius-cd {
+    furina attack;
+  }
+  furina burst;
+  
+  dori skill, burst, attack;
+  
+  yunjin skill, burst;
+
+  rosaria skill, burst;
+  while .rosaria.mods.yunjin-c6 {
+  
+    if .rosaria.skill.ready {
+      rosaria skill;
+    } else if .rosaria.normal > 3 && .stam > 43 {
+      rosaria charge, dash;
+    } else {
+      rosaria attack;
+    }
+  }
+  
+}

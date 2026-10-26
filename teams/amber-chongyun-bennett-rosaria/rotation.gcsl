@@ -1,0 +1,20 @@
+active rosaria;
+for let i=0; i<4; i=i+1 {
+  rosaria skill;
+  bennett burst, skill;
+  amber attack, skill, dash, burst;
+  chongyun burst, skill;
+  rosaria skill, burst;
+  amber aim[bunny=1], skill, dash, aim[bunny=1], attack:2;
+  
+  for let x = 0; x< 3; x=x+1 {
+    let weak = rand();
+    if weak > 0.3 {
+      amber aim[weakspot=1], dash;
+    }
+    else {
+      amber aim, dash;
+      
+    }
+  }
+}

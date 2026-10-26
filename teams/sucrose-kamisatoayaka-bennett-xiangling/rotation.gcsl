@@ -1,0 +1,9 @@
+active xiangling;
+for let i = 0; i < 5; i = i + 1 {
+    xiangling skill,attack;
+    bennett burst,skill;
+    ayaka burst;
+    sucrose attack:2,skill,dash;
+    xiangling burst;
+    ayaka skill,dash,attack:2,charge,attack:2,charge,dash,attack:2,charge,attack:2,charge,dash,attack:2,charge,skill,dash,attack;
+}

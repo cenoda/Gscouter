@@ -1,0 +1,23 @@
+active navia; 
+for let i = 0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  if !i {
+    navia skill;
+  }
+  navia burst;
+  yelan burst, attack, skill; pick_up_crystallize("any");
+  if .qiqi.skill.ready {
+    qiqi attack, skill;
+  }
+  qiqi attack, burst, attack;
+  navia skill, attack:3, dash, attack:2; pick_up_crystallize("any");
+  qiqi attack:3;
+  if .qiqi.skill.cd < 900 {
+    qiqi dash; pick_up_crystallize("any");
+    while .yelan.skill.cd > 40 {
+      qiqi attack;
+    }
+  }
+  yelan attack, skill; pick_up_crystallize("any");
+  navia attack, skill, attack:3;
+}

@@ -1,0 +1,14 @@
+active furina;
+furina skill, dash, burst;
+for let i=0; i<4; i=i+1 {
+  ororon skill, attack, burst, attack:2;
+  if i {
+    furina skill, dash, attack;
+  } 
+  mav burst, charge:3, skill, charge, dash;
+  chasca skill, aim:4;
+  chasca aim[bullets=4];
+  if .chasca.burst.ready {
+    chasca burst;
+  }
+}

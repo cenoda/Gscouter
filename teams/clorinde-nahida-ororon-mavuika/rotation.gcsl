@@ -1,0 +1,33 @@
+active nahida;
+nahida skill;
+for let i=0; i<4; i=i+1 {
+  
+  if !is_even(i) {
+    nahida skill, attack, burst;
+  } else if i > 0 {
+    nahida skill, attack, charge;
+  }
+
+  if i == 0 {
+    mav skill, burst;
+  } else if .mav.burst.ready {
+    mav burst, charge:1, skill, dash;
+  } else {
+    mav skill, attack;
+  }
+  
+  ororon burst, skill;
+  
+  if .clorinde.skill.cd {
+    clorinde attack:2;
+  }
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+  clorinde burst;
+}

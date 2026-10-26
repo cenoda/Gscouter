@@ -1,0 +1,21 @@
+active xingqiu;
+for let i=0; i<4; i=i+1 {
+set_particle_delay("bennett", 100);
+xingqiu burst, attack;
+yelan burst, attack;
+bennett burst, attack, skill;
+yelan attack, skill;
+hutao  skill,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:2, charge, jump;
+yelan attack, skill;
+xingqiu attack, skill, dash, attack:2;
+bennett attack, skill;
+}

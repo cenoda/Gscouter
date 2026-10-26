@@ -1,0 +1,15 @@
+active tartaglia;
+for let i = 0; i < 1; i = i + 1 {
+  tartaglia walk, skill, attack;
+  bennett burst;
+  kazuha skill, high_plunge, burst;
+  xiangling burst, skill, dash;
+  tartaglia walk, burst, walk[f=11],skill,
+    attack:2, charge, jump,
+    attack:2, charge, dash,
+    attack:1, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack,charge;
+  print("end");
+}

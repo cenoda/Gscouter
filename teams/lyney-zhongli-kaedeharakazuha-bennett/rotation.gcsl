@@ -1,0 +1,26 @@
+active lyney;
+lyney aim[weakspot=1];
+for let r = 4; r > 0; r = r - 1 {
+  while !.zhongli.mods.favonius-cd && !.bennett.burst.ready {
+      zhongli attack;
+  }
+  
+  zhongli skill[hold=1], dash;
+  if .kazuha.burst.ready {
+    kazuha burst;
+  }
+  bennett skill, burst;
+  kazuha skill, high_plunge;
+  lyney aim[weakspot=1], aim;
+  
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(11); 
+    lyney skill;
+  } else {
+    lyney aim;
+  }
+  
+  lyney aim, skill, aim, aim;
+}
+sleep(9);

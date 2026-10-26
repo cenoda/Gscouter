@@ -1,0 +1,22 @@
+active sucrose;
+sucrose skill,dash;
+for let j = 0; j < 5; j = j + 1 {
+    sucrose burst;
+    sara skill, burst,aim;
+    nahida attack,skill;
+    beidou skill,burst;
+    sucrose attack:2, dash,attack:2;
+    sara skill,attack:2,aim;
+    sucrose attack,charge;
+    beidou attack:3;
+    sucrose charge;
+    for let i = 0; i < 7; i = i + 1 {
+        if (i==3 || i==6)&&.sucrose.skill.ready {
+            sucrose skill,dash;
+        }else {
+            sucrose attack:2,dash;
+        }
+    }
+    sucrose attack;
+}
+wait(4);

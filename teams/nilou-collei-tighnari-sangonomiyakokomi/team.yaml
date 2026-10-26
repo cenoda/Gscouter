@@ -1,0 +1,17 @@
+id: nilou-collei-tighnari-sangonomiyakokomi
+name: Nilou / Collei / Tighnari / Sangonomiyakokomi
+members:
+    - nilou
+    - collei
+    - tighnari
+    - kokomi
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/CfT8zqJkpDJM
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 37225
+    computed: "2026-10-02"

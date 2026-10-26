@@ -1,0 +1,40 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  esco skill, burst;
+  
+  yelan burst, attack;
+  if !.yelan.skill.ready && .yelan.breakthrough {
+    yelan aim;
+  }
+  yelan skill, attack;
+  
+  while .yelan.skill.cd {
+    if .chongyun.skill.ready {
+      chongyun skill, attack;
+    } else if .chongyun.burst.ready {
+      chongyun burst;
+    } else if .chongyun.normal > 3 {
+      chongyun attack, dash;
+    } else {
+      chongyun attack;
+    }
+  }
+  
+  yelan skill, attack;
+  
+  while .furina.skill.cd { 
+    if .chongyun.burst.ready {
+      chongyun burst;
+    } else if .chongyun.normal > 2 {
+      chongyun dash;
+    } else {
+      chongyun attack;
+    }
+  }
+}

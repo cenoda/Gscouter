@@ -1,0 +1,10 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, attack, burst;
+  bennett burst, skill;
+  xiangling burst, skill, dash;
+  xiao skill:2, burst;
+  for let x = 1; x <= 9; x = x + 1 {
+    xiao jump, high_plunge[collision=1];
+  }
+}

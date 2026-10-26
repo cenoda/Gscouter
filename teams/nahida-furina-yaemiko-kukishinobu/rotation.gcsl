@@ -1,0 +1,41 @@
+active yae;
+for let x = 0; x < 1; x = x + 1 {
+  yae skill:3;
+  nahida skill, burst, charge;
+  furina skill, burst;
+  kuki skill, attack;
+  yae attack, burst, 
+      skill:3,
+      attack, charge, jump;
+  kuki burst;    
+  nahida attack:2, skill, attack:2, charge;
+  
+  nahida attack:2, charge, jump,
+         attack:2, charge, jump, attack:2, charge;
+  kuki skill, attack;
+
+  yae skill:3;
+  nahida skill, burst, charge;
+  furina skill, burst;
+  kuki burst; 
+  yae attack, charge, jump, 
+      skill:3,
+      attack, charge, jump;
+  nahida attack:2, skill, attack:2, charge;
+  kuki skill, attack;
+  nahida attack:2, charge, jump,
+         attack:2, charge, jump, attack:2, charge;
+
+  yae skill:3;
+  nahida skill, burst, charge;
+  furina skill, burst;
+  kuki burst;
+  yae attack, burst, 
+      skill:3,
+      attack, charge, jump;
+  nahida attack:2, skill, attack:2, charge;
+  kuki skill;
+  nahida attack:2, charge, jump,
+         attack:2, charge, jump, attack:2, charge;
+  
+}

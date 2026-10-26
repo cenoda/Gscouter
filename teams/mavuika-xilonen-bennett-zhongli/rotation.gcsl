@@ -1,0 +1,19 @@
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  mavuika skill, attack; 
+  
+  xilonen skill, attack:2; 
+  
+  zhongli attack, skill[hold=1], dash; pick_up_crystallize("pyro");
+  
+  bennett skill, burst;
+  
+  mavuika burst;
+  mavuika charge:2, dash;
+  mavuika charge:2, dash;
+  mavuika charge:2, dash;
+  mavuika charge:2, dash;
+  mavuika charge:2, dash;
+  mavuika charge:2, dash;
+  mavuika charge:2, dash;
+}

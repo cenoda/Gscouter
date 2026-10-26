@@ -1,0 +1,11 @@
+active raiden;
+  raiden skill;
+for let i=0; i<4; i=i+1 {
+  aetheranemo skill[hold=1,hold_ticks=1];
+  baizhu skill,burst, attack:2,charge;
+  sara skill, aim;
+  wait(11);
+  aetheranemo skill[hold=1], burst;
+  sara burst;
+  raidenshogun burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+}

@@ -1,0 +1,25 @@
+active bennett;
+bennett skill;
+for let i=0; i<4; i=i+1 {
+  if i > 0 && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie skill;
+  }
+	
+	zhongli skill[hold=1];
+	while .zhongli.mods.favonius-cd == 0 {
+		zhongli attack;
+	}
+	
+	if i > 0 {
+		bennett skill;
+  }
+	bennett burst;
+  hutao skill;
+  for let n2c = 0; n2c < 8; n2c = n2c + 1 {
+    hutao attack:2, charge, jump;
+  }
+  
+  hutao attack:4; 
+}

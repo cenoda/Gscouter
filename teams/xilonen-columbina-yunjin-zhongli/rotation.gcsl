@@ -1,0 +1,26 @@
+active zhongli;
+for let i=0; i<5; i=i+1 {
+  zhongli skill[hold=1], dash;
+  if i > 0 && .zhongli.burst.ready {
+    zhongli burst;
+  }
+  
+  if .columbina.skill.cd { 
+    columbina attack;
+  }
+  if i > 0 && .columbina.burst.ready {
+    columbina skill, burst;
+  } else {
+    columbina skill, attack;
+  }
+  
+  yunjin skill[hold=1], burst;
+  
+  xilonen skill;
+  while .xilonen.nightsoul.state{
+    xilonen attack;
+    if .xilonen.burst.ready { 
+      xilonen burst;
+    }
+  }
+}

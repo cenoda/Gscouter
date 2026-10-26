@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+clorinde char lvl=90/90 cons=6 talent=10,10,10;
+clorinde add weapon="absolution" refine=5 lvl=90/90;
+clorinde add set="echoes" count=4;
+clorinde add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cd=0.622;
+clorinde add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*12 cd=0.0662*10;
+
+citlali char lvl=90/90 cons=6 talent=10,10,10;
+citlali add weapon="starcallerswatch" refine=5 lvl=90/90;
+citlali add set="scroll" count=4;
+citlali add stats hp=4780 atk=311 em=187 em=187 em=187;
+citlali add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*7 em=19.82*6 cr=0.0331*11 cd=0.0662*4;
+
+mavuika char lvl=90/90 cons=6 talent=10,10,10;
+mavuika add weapon="tbs" refine=5 lvl=90/90;
+mavuika add set="oc" count=4;
+mavuika add stats hp=4780 atk=311 atk%=0.466 pyro%=0.466 cd=0.622;
+mavuika add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*2 em=19.82*4 cr=0.0331*12 cd=0.0662*10;
+
+chevreuse char lvl=90/90 cons=6 talent=10,10,10;
+chevreuse add weapon="symphonistofscents" refine=5 lvl=90/90;
+chevreuse add set="no" count=4;
+chevreuse add stats hp=4780 atk=311 er=0.518 hp%=0.466 cr=0.311;
+chevreuse add stats def%=0.062*2 def=19.68*2 hp=253.94*10 hp%=0.0496*10 atk=16.54*2 atk%=0.0496*2 er=0.0551*2 em=19.82*2 cr=0.0331*6 cd=0.0662*2;

@@ -1,0 +1,24 @@
+active eula; 
+eula skill; 
+for let i = 0; i < 4; i = i + 1 {
+  xilonen skill, attack:2;
+  
+  chongyun burst, skill;
+  
+  xianyun skill, low_plunge, burst;
+
+  while .eula.status.xianyun-airborne-buff {
+    if .eula.skill.ready {
+      eula skill[hold=1]; 
+    } else {
+      eula jump;
+      if .airborne {
+        eula high_plunge[collision=rand()>0.5];
+      }
+      if .eula.status.xianyun-airborne-buff { 
+        eula dash;
+      }
+    }
+  }
+  eula attack, skill;
+}

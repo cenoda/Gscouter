@@ -1,0 +1,15 @@
+active zhongli;
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], dash;
+  yelan skill, burst, attack;
+  kuki skill, dash, attack;
+  alhaitham skill,
+            attack:2, charge,
+            attack:3, charge,
+            attack:3, charge;
+  yelan attack, skill;
+  alhaitham burst,
+            attack:2, charge,
+            attack:3, charge,
+            attack:3, charge;
+}

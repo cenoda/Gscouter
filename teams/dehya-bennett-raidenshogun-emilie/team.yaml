@@ -1,0 +1,17 @@
+id: dehya-bennett-raidenshogun-emilie
+name: Dehya / Bennett / Raidenshogun / Emilie
+members:
+    - dehya
+    - bennett
+    - raiden
+    - emilie
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/th6QJLgt77Hf
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 50171
+    computed: "2026-09-30"

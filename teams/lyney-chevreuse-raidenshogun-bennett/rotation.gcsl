@@ -1,0 +1,26 @@
+active raiden;
+for let r = 6; r > 0; r = r - 1 {
+  raiden skill, attack;
+  
+  if !.bennett.burst.ready {
+    bennett skill;
+  }
+  bennett burst;
+  chevreuse skill[hold=1], burst;
+  lyney aim[weakspot=1], aim;
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(11);   
+    lyney skill; 
+  } else {
+    lyney aim;
+  }
+  
+  if r == 1 {
+    
+    lyney aim, aim[weakspot=1], skill;
+  } else {
+    
+    lyney aim, skill, aim[weakspot=1];
+  }
+}

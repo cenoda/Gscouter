@@ -1,0 +1,14 @@
+active xq;
+for let i=0; i<4; i=i+1 {
+  xingqiu skill, dash, burst, attack;
+  
+  aetherdendro skill, attack, burst, attack;
+  
+  yaoyao attack, skill;
+  
+  lisa attack, burst;
+  lisa attack:3, dash, attack:3, dash;
+  lisa attack:3, dash, attack:3, dash;
+  lisa attack:3, dash, attack:3, dash;
+  lisa attack:2, skill[hold=1], attack:3;
+}

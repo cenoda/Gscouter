@@ -1,0 +1,27 @@
+active keqing;
+keqing skill:1;
+xilonen skill, attack:2;
+  
+for let i=0; i<4; i=i+1 {
+  xilonen burst;
+  nahida skill, attack, burst;
+  
+  furina skill, dash, burst;
+  
+  xilonen skill, attack:2;
+  
+  keqing skill, burst, skill;
+  keqing attack, charge,
+         attack, charge,
+         attack, charge,
+         attack, charge,
+         attack, charge;
+
+  xilonen skill, attack:2;
+  
+  keqing skill:2;
+  keqing attack, charge,
+         attack, charge,
+         attack, charge,
+         attack, charge;
+}

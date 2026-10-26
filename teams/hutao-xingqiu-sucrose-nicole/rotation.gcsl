@@ -1,0 +1,28 @@
+active xingqiu;
+for let i = 0; i < 4; i = i + 1 {
+  xingqiu skill, dash, attack, burst, attack;
+  nicole skill, burst, attack;
+  sucrose skill, dash;
+  if .sucrose.burst.ready {
+    sucrose burst;
+  } else {
+    sucrose attack;
+  }
+  hutao skill,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash, 
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash, 
+    attack:3, charge;       
+  if .tao.burst.ready && .tao.energy == .tao.energymax  {
+    tao burst, attack:2;
+  } else {
+    tao attack:2;
+  }
+  xingqiu attack:4;
+}

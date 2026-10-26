@@ -1,0 +1,16 @@
+active faruzan;
+let c_favbow = 40;
+for let i=0; i<4; i=i+1 {
+  
+  faruzan skill, attack, burst;
+  bennett skill, burst;
+  heizou attack:3, skill;
+  bennett skill;
+  xiangling attack, burst, skill;
+  bennett skill;
+  xiangling attack:3;
+  heizou attack, charge, burst, skill, attack, charge;
+  bennett skill;
+  xiangling attack:2;
+  print("end");
+}

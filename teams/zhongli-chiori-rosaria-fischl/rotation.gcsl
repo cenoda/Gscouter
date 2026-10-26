@@ -1,0 +1,26 @@
+active zhongli;
+zhongli skill[hold=1], dash;
+for let i=0; i<4; i=i+1 {
+  
+  chiori skill:2;
+  
+  rosaria skill, burst;
+  
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  
+  zhongli attack:5, dash, attack:5, dash, attack:5;
+  
+  rosaria skill;
+  
+  zhongli attack:5, skill[hold=1], dash;
+  
+  if .chiori.burst.ready {
+    chiori burst;
+  } else {
+    zhongli attack:4;
+  }
+}

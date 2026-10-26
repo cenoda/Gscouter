@@ -1,0 +1,28 @@
+active fischl;
+for let i=0; i<4; i=i+1 {
+  fischl burst;
+  luminedendro skill, burst;
+  sucrose attack, skill, dash, attack, burst, attack;
+  keqing skill, burst, skill, 
+    attack, charge, 
+    attack, charge, 
+    attack, skill;
+  
+    wait(22);
+  keqing attack, charge;
+    wait(16);
+  keqing attack, charge;
+  fischl skill, attack:2;
+  
+  luminedendro skill, attack:2;
+  sucrose attack, skill, dash;
+  keqing skill, burst, skill, 
+    attack, charge, 
+    attack, charge, 
+    attack, skill;
+    wait(22);
+  keqing attack, charge;
+    wait(16);
+  
+  keqing attack;
+}

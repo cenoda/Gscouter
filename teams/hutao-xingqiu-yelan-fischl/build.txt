@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+hutao char lvl=90/90 cons=0 talent=9,9,9;
+hutao add weapon="balladofthefjords" refine=1 lvl=90/90;
+hutao add set="shimenawasreminiscence" count=4;
+hutao add stats hp=4780 atk=311 em=187 cr=0.311 pyro%=0.466;
+hutao add stats def=39.36 def%=0.124 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=79.28 cr=0.331 cd=0.7944;
+
+xingqiu char lvl=90/90 cons=6 talent=9,9,9;
+xingqiu add weapon="wolffang" refine=1 lvl=90/90;
+xingqiu add set="no" count=4;
+xq add stats hp=4780 atk=311 atk%=0.466 hydro%=0.466 cr=0.311;
+xq add stats def=39.36 def%=0.124 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.3857 em=39.64 cr=0.2317 cd=0.7944;
+
+yelan char lvl=90/90 cons=0 talent=9,9,9;
+yelan add weapon="favoniuswarbow" lvl=90/90 refine=3;
+yelan add set="emblemofseveredfate" count=4;
+yelan add stats hp=4780 atk=311 hp%=0.466 hydro%=0.466 cr=0.311;
+yelan add stats def=39.36 def%=0.124 hp=507.88 hp%=0.1984 atk=33.08 atk%=0.0992 er=0.1102 em=39.64 cr=0.331 cd=0.7944;
+
+fischl char lvl=90/90 cons=6 talent=9,9,9;
+fischl add weapon="alleyhunter" refine=1 lvl=90/90 +params=[stacks=10];
+fischl add set="gt" count=4;
+fischl add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cr=0.311;
+fischl add stats def=39.36 def%=0.124 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.331 cd=0.7944;

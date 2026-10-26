@@ -1,0 +1,23 @@
+active furina;
+for let i = 0; i < 3; i = i + 1{
+  furina attack, skill;
+  navia burst;
+  if .navia.skill.ready {navia skill;}
+  if .navia.skill.ready {navia skill;}
+  itto attack, burst[prestack=1],
+       attack, skill, attack:2, charge:5,
+       attack:4, charge:5, skill, charge;
+       
+  furina skill, burst;     
+  noelle skill, attack, burst, attack:3,dash;  
+  pick_up_crystallize("any");
+  if.navia.skill.ready {navia skill[hold=1];}
+  noelle attack:3,dash;
+  pick_up_crystallize("any");
+  if.navia.skill.ready {navia skill[hold=1];}
+  noelle attack:3,dash;
+  pick_up_crystallize("any");
+  if.navia.skill.ready {navia skill[hold=1];}
+  noelle attack:3,dash;
+  pick_up_crystallize("any");
+}

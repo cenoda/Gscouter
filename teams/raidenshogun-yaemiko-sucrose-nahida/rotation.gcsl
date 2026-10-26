@@ -1,0 +1,20 @@
+active herexcellencythealmightynarukamiogoshogodofthunder ;
+herexcellencythealmightynarukamiogoshogodofthunder skill;
+for let i=0; i<4; i=i+1 {
+  yae skill, skill, skill;
+   if .sucrose.skill.ready {
+    sucrose attack, skill, dash;
+  } else {
+    sucrose attack, charge;
+}
+  nahida skill, burst;
+  
+  yae attack, burst, skill:3;
+  
+ if .sucrose.skill.ready {
+    sucrose attack, skill, dash, burst, attack:2, charge;
+  } else {
+    sucrose attack, charge, burst, attack:2, charge;
+}
+  herexcellencythealmightynarukamiogoshogodofthunder burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;                                
+}

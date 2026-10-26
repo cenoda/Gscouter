@@ -1,0 +1,14 @@
+active neuvillette;
+for let x=0; x<4; x=x+1 {
+  neuvillette burst;
+  kazuha burst;
+  beidou skill, burst, dash;
+  kazuha skill[hold=1], high_plunge;
+  fischl attack, skill;
+  neuvillette skill, charge, charge, attack;
+  kazuha skill[hold=1], high_plunge;
+  fischl attack:2, burst;
+  beidou skill, attack;
+  neuvillette skill, charge;
+}
+wait(173);

@@ -1,0 +1,39 @@
+let farColl = 0.5; 
+let closeColl = 0.3; 
+fn alhaitham_plunge(collision) {
+  haitham jump;
+  if .airborne {
+    haitham high_plunge[collision=rand()>collision];
+  }
+}
+active raiden;
+raiden skill;
+for let x = 0; x < 4; x = x + 1 {
+  furina skill, dash, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  haitham skill[hold=1], low_plunge[short=1];
+  haitham attack:2; alhaitham_plunge(closeColl);
+  haitham attack:2; alhaitham_plunge(closeColl);
+  haitham attack:2; alhaitham_plunge(closeColl);
+  haitham attack:2; alhaitham_plunge(closeColl);
+  haitham attack:1, burst;
+  
+  raiden attack, skill; 
+  
+  haitham attack:2; alhaitham_plunge(farColl);
+  haitham attack:2; alhaitham_plunge(farColl);
+  haitham attack:2; alhaitham_plunge(farColl);
+  while .haitham.mirrors {
+    if .haitham.normal > 3 && .stam > 25 {
+      haitham charge;
+    } else if .haitham.normal > 3 && .stam > 18 {
+      haitham dash;
+    } else {
+      haitham attack;
+    }
+  }
+
+  print("done");
+}

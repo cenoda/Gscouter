@@ -1,0 +1,17 @@
+active nahida;
+for let x = 5; x; x = x - 1 {
+  nahida skill,burst;
+  nilou skill:3, skill;
+  baizhu burst,skill,attack:3;
+  luminehydro skill[hold=1],attack:2;
+  if .luminehydro.burst.ready
+  {
+    luminehydro burst;
+  }
+  baizhu skill, attack:3;
+  if .nilou.burst.ready
+  {
+    nilou burst;  
+  }
+  print("rotation done");
+}

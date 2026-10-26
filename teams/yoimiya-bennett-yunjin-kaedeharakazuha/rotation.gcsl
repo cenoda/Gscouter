@@ -1,0 +1,11 @@
+active bennett;
+for let x = 0; x < 4; x = x + 1 {
+  bennett skill;
+  kazuha skill, high_plunge, burst;
+  bennett skill, burst; 
+  yunjin skill, burst, attack;
+  kazuha skill, high_plunge;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5;
+  yunjin skill, attack:2;
+  print("end");
+}

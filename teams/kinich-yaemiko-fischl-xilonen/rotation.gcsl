@@ -1,0 +1,30 @@
+fn kinich_combo() {
+  kinich skill;
+  while .kinich.nightsoul.state {
+    switch .kinich.nightsoul.points {
+      case 20:
+        kinich skill[hold=1];
+      default:
+        if .kinich.blind_spot {
+          kinich attack[direction=.kinich.blind_spot];
+        } else {
+          kinich attack;
+        }
+    }
+  }
+}
+active yae;
+for let i=0; i<4; i=i+1 {
+  yae skill:3;
+  
+  amy attack;
+  if .amy.burst.ready && .amy.energy == .amy.energymax {
+    amy attack:1, burst;
+  } else {
+    amy skill;
+  }
+  
+  xilonen skill, attack:2;
+  
+  kinich_combo();
+}

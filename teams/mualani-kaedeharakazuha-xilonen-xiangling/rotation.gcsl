@@ -1,0 +1,55 @@
+active mualani;
+fn mualani_combo2() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<2; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+}
+fn mualani_combo3() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+}
+for let i=0; i<4; i=i+1 {
+  mualani attack;
+  
+  if .xiangling.burst.ready {
+    
+    kazuha skill, high_plunge;
+    
+    xilonen skill, attack:2;
+    
+    xiangling burst, attack, skill, dash, attack;
+    pick_up_crystallize("hydro");
+    
+    mualani skill;
+    mualani_combo2();
+    mualani skill, burst[travel=10];
+    
+  } else {
+   
+    xilonen skill, attack:2;
+    
+    kazuha skill[glide_cancel=1];
+    
+    xiangling skill, dash, attack;
+    pick_up_crystallize("hydro");
+    
+    mualani skill;
+    mualani_combo3();
+    mualani skill;
+  }
+}

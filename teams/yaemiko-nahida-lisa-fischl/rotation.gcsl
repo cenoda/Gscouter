@@ -1,0 +1,13 @@
+active yae;
+for let i=0; i<4; i=i+1 {
+  yae attack, skill, attack, skill, attack, skill, attack;
+  nahida skill, burst;
+  fischl attack:2, burst;
+  lisa attack, skill, burst;
+  yae attack, charge, dash, burst, attack, skill, attack, skill, attack, skill, attack:2;
+  nahida attack, charge, skill;
+  fischl attack:2, skill;
+  yae attack:2, charge, jump;
+  yae attack:2, charge, jump;
+  yae attack:2, charge, jump;
+}

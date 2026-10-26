@@ -1,0 +1,30 @@
+active tighnari;
+  tighnari skill;
+  yaemiko skill, attack, skill:2;
+  albedo skill, attack;
+  fischl attack, skill;
+  tighnari aim, attack;
+  wait(9);
+  tighnari aim, attack;
+  wait(9);
+  tighnari aim, burst;
+  yaemiko attack, burst, attack, skill, attack, skill, attack, skill;
+for let i=0; i<3; i=i+1 {
+  albedo burst;
+  fischl attack, burst;
+  tighnari skill, aim, attack;
+  wait(9);
+  tighnari aim, attack;
+  wait(9);
+  tighnari aim, burst;
+  yaemiko skill, attack:2, skill, attack:2, skill, attack:2, dash, attack:2;
+  
+  albedo skill, attack;
+  fischl attack, skill;
+  tighnari skill, aim, attack;
+  wait(9);
+  tighnari aim, attack;
+  wait(9);
+  tighnari aim, burst;
+  yaemiko attack, burst, skill, attack, skill, attack, skill;
+}

@@ -1,0 +1,11 @@
+active ganyu;
+for let i=0; i < 6; i=i+1 {
+    ganyu aim, skill;
+    shenhe attack, skill[hold=1], burst;
+    bennett burst;
+    jean skill, burst;
+    ganyu aim:4;
+    bennett attack, skill;
+    jean attack, skill;
+    bennett skill;
+}

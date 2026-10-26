@@ -1,0 +1,19 @@
+active dori;
+for let i=0; i<4; i=i+1 {
+  dori burst;
+  
+  xingqiu skill, dash, burst, attack;
+  
+  yelan skill, attack, burst, attack;
+  
+  collei skill, attack, burst, attack;
+  
+  dori skill, attack:2, dash, attack:2;
+  dori skill, attack:2, dash, attack:2;
+  
+  yelan skill, attack;
+  
+  collei skill, attack;
+  
+  dori skill, attack:2, dash, attack:2;
+}

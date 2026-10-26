@@ -1,0 +1,30 @@
+active xianyun;
+for let i = 0; i < 4; i = i + 1 {
+  xianyun skill, low_plunge, burst;
+  
+  bennett skill, burst;
+
+  citlali skill, burst;
+  
+  kaeya attack, skill;
+  while .kaeya.status.xianyun-airborne-buff {
+    if .kaeya.burst.ready {
+      kaeya burst;
+    } else if .kaeya.skill.ready {
+      kaeya skill;
+    } else {
+      kaeya jump;
+      if .airborne {
+        kaeya high_plunge[collision=rand()>0.5];
+      }
+      if .kaeya.status.xianyun-airborne-buff { 
+        kaeya dash;
+      }
+    }
+  }
+  
+  bennett skill;
+  while !.bennett.mods.favonius-cd && .bennett.weapon == .keys.weapon.favsword{ 
+    bennett attack;
+  }
+}

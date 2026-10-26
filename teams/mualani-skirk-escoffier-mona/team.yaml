@@ -1,0 +1,19 @@
+id: mualani-skirk-escoffier-mona
+name: Mualani / Skirk / Escoffier / Mona
+members:
+    - mualani
+    - skirk
+    - escoffier
+    - mona
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/QM6wQWpqkJ6q
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    skirk: start_serpents_subtlety=100
+reference:
+    dps: 84513
+    computed: "2026-10-01"

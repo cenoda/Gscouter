@@ -1,0 +1,12 @@
+active yelan;
+for let x=0; x<4; x=x+1 {
+  yelan attack, skill, burst, attack;
+  thoma attack, skill, burst;
+  sucrose attack:3, skill, dash;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  if .yoimiya.burst.ready && .yoimiya.energy == .yoimiya.energymax {
+    yoimiya burst;
+  } else {
+    yoimiya attack:2;
+  }
+}

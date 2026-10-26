@@ -1,0 +1,15 @@
+active xingqiu;
+for let x = 0; x < 5; x = x + 1 {
+xingqiu burst, attack;
+yelan burst, attack:2;
+bennett burst, attack, skill;
+yelan attack, skill;
+klee attack, skill[bounce=3, mine=8];
+for let r = 0; r < 6; r = r + 1 {
+  klee attack[travel=6], charge;
+}
+klee attack:2;
+yelan attack, skill;
+xingqiu attack, skill, dash, attack:2;
+bennett attack, skill;
+}

@@ -1,0 +1,12 @@
+active bennett;
+bennett skill;
+for let i=0; i<4; i=i+1 {
+  xilonen skill, attack:2;
+  pick_up_crystallize("pyro");
+  citlali skill, burst;
+  kaeya skill, dash,  burst;
+  bennett burst, skill, attack:2, charge, skill,
+          attack:3, skill, 
+          attack, charge, attack, skill,
+          attack:3, skill;
+}

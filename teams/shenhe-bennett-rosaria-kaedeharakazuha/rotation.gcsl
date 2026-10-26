@@ -1,0 +1,15 @@
+active shenhe;
+for let i=0; i<4; i=i+1 {
+  shenhe  burst, skill, attack;
+  kazuha  skill, high_plunge;
+  bennett burst, skill;
+  rosaria skill, attack, burst;
+  kazuha burst;
+  shenhe  attack:2, skill, attack:2;
+  rosaria  skill;
+  bennett attack:2, skill;
+  kazuha skill, high_plunge;
+  bennett attack:2, skill;
+  rosaria attack, skill;
+  shenhe attack;
+}

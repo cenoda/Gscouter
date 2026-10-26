@@ -1,0 +1,20 @@
+active mavuika;
+for let i = 0; i < 4; i = i + 1 {
+  mavuika skill;
+  xilonen skill, attack:2;
+  if i && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst, skill;
+  } else {
+    emilie attack, skill;
+  }
+  bennett skill, dash;
+  pick_up_crystallize("pyro");
+  bennett burst;
+  mavuika burst, charge:2, dash,
+                 charge:2, dash,
+                 charge:2, dash,
+                 charge:2, dash,
+                 charge:2, dash,
+                 charge:2, dash,
+                 charge:2, charge[final=1];
+}

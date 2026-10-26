@@ -1,0 +1,23 @@
+active furina;	
+for let i=0; i<4; i=i+1 {
+	furina skill, dash;
+	if !.furina.burst.ready {
+	  furina attack;
+	} 
+	furina burst;
+    zhongli skill[hold=1], dash;
+    while !.zhongli.mods.favonius-cd { 
+        zhongli attack;
+        pick_up_crystallize("any");
+    }
+    navia burst;
+    pick_up_crystallize("any");
+    kokomi skill, dash, attack:2;
+    pick_up_crystallize("any");
+    navia attack, skill, attack:3, dash, attack:2;
+    kokomi burst, attack:2, dash;delay(2);pick_up_crystallize("any");kokomi attack:2, dash;delay(2);pick_up_crystallize("any"); kokomi attack;
+    pick_up_crystallize("any");
+    zhongli attack, skill, attack;
+    pick_up_crystallize("any");
+    navia skill, attack:3, dash, attack;
+}

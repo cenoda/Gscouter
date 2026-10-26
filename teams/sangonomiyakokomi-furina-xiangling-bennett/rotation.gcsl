@@ -1,0 +1,23 @@
+active furina;
+for let x=0; x<4; x=x+1 {
+ furina  skill, burst;
+ bennett burst, skill;
+ kokomi skill;
+ xiangling burst, skill;
+ bennett skill,attack;
+ kokomi burst,
+ attack:2,dash,
+ attack:2,dash,
+ attack:2,walk, 
+ attack:2,dash,
+ attack:2,dash,
+ attack:2,walk, 
+ attack:2,dash,
+ attack:2,dash,
+ attack:2,walk, 
+ attack:2,dash;
+ 
+  kokomi attack;
+  bennett skill;
+  xiangling attack:3;
+}

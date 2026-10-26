@@ -1,0 +1,23 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  esco skill;
+  if i > 0 && .esco.burst.ready && .esco.energy == .esco.energymax {
+    esco burst;
+  }
+  
+  bennett burst, skill;
+  
+  chongyun burst, skill;
+  
+  while .furina.skill.cd {
+    if .bennett.skill.ready {
+      bennett skill;
+    } else if .bennett.normal > 1 {
+      bennett charge;
+    } else {
+      bennett attack;
+    }
+  }
+}

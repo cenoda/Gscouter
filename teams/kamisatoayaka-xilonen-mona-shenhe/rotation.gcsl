@@ -1,0 +1,20 @@
+active ayaka;
+for let x = 0; x < 5; x = x + 1 {
+  ayaka dash, attack:2;
+  xilonen skill, attack:2;
+  shenhe burst, skill;
+  for let j=0; j<2; j=j+1 {
+    if !.shenhe.mods.favonius-cd && .shenhe.weapon == .keys.weapon.favlance {
+      shenhe attack;
+    }
+  }
+  
+  mona burst,skill;
+  
+  ayaka dash, attack, skill, burst, dash, attack:2, charge, attack:2, charge;
+  
+  xilonen skill, attack:2;
+  shenhe skill, attack:2;
+  
+  ayaka skill, dash, attack:2, charge, attack:2, charge;
+}

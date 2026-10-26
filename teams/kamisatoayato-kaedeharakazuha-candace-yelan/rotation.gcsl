@@ -1,0 +1,14 @@
+active candace;
+candace skill;
+for let x = 5; x; x = x - 1 {
+kazuha skill, high_plunge;
+ayato burst;
+yelan skill, burst, attack;
+kazuha skill, high_plunge, burst;
+ayato attack, skill, attack:15;
+kazuha skill, high_plunge;
+candace attack, skill, attack, burst, attack;
+yelan skill, attack:2;
+ayato attack, skill, attack:15;
+candace skill, attack;
+}

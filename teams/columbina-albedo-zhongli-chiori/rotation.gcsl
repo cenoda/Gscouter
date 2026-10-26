@@ -1,0 +1,24 @@
+active zhongli;
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], dash;
+  columbina skill;
+  if is_even(i) {
+    columbina burst;
+    
+    albedo skill, burst;
+    
+    chiori skill:2;
+  } else {
+    albedo skill, attack;
+    
+    chiori burst:1, skill:2;
+  }
+  
+  columbina attack:3, dash;
+  columbina attack:3, dash;
+  columbina attack:3, dash;
+  columbina attack:3, dash;
+  columbina attack:3, dash;
+  columbina attack:3, dash;
+  columbina attack:1; 
+}

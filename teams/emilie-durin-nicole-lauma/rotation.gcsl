@@ -1,0 +1,25 @@
+active emilie; 
+emilie skill;
+for let i=0; i<4; i=i+1 {
+  nicole burst, skill;
+  
+  durin skill:2, burst;
+  
+  lauma attack, skill[hold=0];
+  
+  while .lauma.skill.cd {
+    if .emilie.normal > 1 && .emilie.skill.ready {
+      emilie skill;
+    } else if .emilie.burst.ready {
+      emilie burst;
+    } else if .emilie.normal > 1 && .stam > 25 {
+      emilie charge;
+    } else if .emilie.normal > 3 && .stam > 18 {
+      emilie attack, dash;
+    } else {
+      emilie attack;
+    }
+  }
+  
+  lauma attack:2;
+}

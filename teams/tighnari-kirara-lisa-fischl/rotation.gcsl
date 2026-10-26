@@ -1,0 +1,15 @@
+active tighnari;
+for let i=0; i<4; i=i+1 {
+  tighnari skill, attack;
+  fischl attack, skill;
+  kirara skill[hold=20], burst;
+  lisa attack, burst;
+  tighnari aim:3, burst;
+  lisa attack:2, skill;
+  tighnari attack:2, skill;
+  fischl attack:2, burst;
+  kirara skill[hold=20], attack;
+  tighnari aim:3;
+  lisa attack:3, skill, attack:3, dash, attack:3, skill, attack:3, skill;
+	print("done");
+}

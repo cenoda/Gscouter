@@ -1,0 +1,38 @@
+active diona;
+for let i=0; i<4; i=i+1 {
+  
+  if i{
+    diona skill[hold=1], aim, burst;
+  } else {
+    diona skill[hold=1], burst;
+  }
+
+  mavuika skill[hold=1], attack;
+  xilonen skill, attack:2;
+  charlotte skill[hold=1]; pick_up_crystallize("pyro");
+  if !is_even(i){
+    charlotte burst;
+  } else {
+    charlotte attack:3;
+  }
+  
+  mavuika burst;
+  
+  if !is_even(i){
+    mavuika charge, dash, attack;
+    mavuika charge, dash, attack;
+    mavuika charge, dash, attack;
+    mavuika charge, dash, attack;
+    mavuika charge, dash, attack;
+    mavuika charge, dash, attack;
+  } else{
+    
+    mavuika charge:2, dash;
+    mavuika charge, dash, attack;
+    mavuika skill[recast=1], attack, skill[recast=1];
+    mavuika charge, dash, attack;
+    mavuika charge, dash, attack;
+    mavuika charge, dash, attack;
+    mavuika charge, dash, attack;
+  }
+}

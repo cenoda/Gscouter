@@ -1,0 +1,17 @@
+id: varesa-fischl-xiangling-chevreuse
+name: Varesa / Fischl / Xiangling / Chevreuse
+members:
+    - varesa
+    - fischl
+    - xiangling
+    - chevreuse
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/tQDD8qcqp7RW
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 84203
+    computed: "2026-10-01"

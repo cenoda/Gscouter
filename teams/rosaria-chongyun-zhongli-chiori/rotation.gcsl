@@ -1,0 +1,27 @@
+active chongyun; 
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], dash;
+  
+  chongyun burst, skill;
+  
+  if .chongyun.skill.ready {
+    chongyun skill;
+  }
+  
+  chiori skill:2;
+  
+  rosaria skill, burst;
+  while .chiori.skill.cd > 120 {
+    if .rosaria.skill.ready {
+      rosaria skill;
+    } else if .rosaria.normal > 1 && .stam > 43 {
+      rosaria charge, dash;
+    } else if .rosaria.normal > 2 && .stam > 18 {
+      rosaria dash;
+    } else {
+      rosaria attack;
+    }
+  }
+  
+  print("done");
+}

@@ -1,0 +1,14 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  columbina burst, skill;
+  ineffa skill, attack;           wait(15);  
+  xilonen burst, skill, attack:2;
+  neuvillette charge, burst, skill, charge;
+  if is_even(i) {
+    ineffa burst;
+  }
+  xilonen skill, attack:2;
+  neuvillette charge:2;
+}
+wait(173);

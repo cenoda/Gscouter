@@ -1,0 +1,10 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  furina skill, dash, attack, burst;
+  yelan skill, attack, burst, attack;
+  baizhu skill, attack, burst, attack;
+  arle charge,
+       attack:15;
+
+}

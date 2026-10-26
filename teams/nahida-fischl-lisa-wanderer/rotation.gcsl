@@ -1,0 +1,10 @@
+active nahida;
+for let i=0; i<4; i=i+1 { 
+  nahida skill, burst;
+  fischl skill;
+  lisa attack, burst;
+  wanderer attack, skill, charge:7, attack, skill, low_plunge, attack;  
+  fischl attack:2, burst;
+  lisa skill[hold=1];
+  wanderer attack, burst, attack, skill, charge:8, attack, skill, low_plunge;
+}

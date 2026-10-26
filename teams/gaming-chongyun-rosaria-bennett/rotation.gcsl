@@ -1,0 +1,14 @@
+active gaming; 
+for let x = 0; x < 4; x = x + 1 {
+  bennett skill, burst;
+  
+  chongyun burst, skill;
+  
+  rosaria skill, burst;
+  gaming burst, attack:2;
+  for let p=1; p<5; p=p+1 { 
+    gaming skill, low_plunge; print(p);
+    wait(40);
+  }
+  gaming skill, low_plunge; print("5");
+}

@@ -1,0 +1,31 @@
+active ineffa;
+for let i=0; i<6; i=i+1 {
+  ineffa skill;
+  if .ineffa.burst.ready {
+    ineffa burst;
+  }
+  yelan skill;
+  yelan burst;
+  yelan attack;
+  yelan skill;
+  if !is_even(i) && .sucrose.burst.ready {
+    sucrose attack, burst;
+  } else if .sucrose.skill.ready {
+    sucrose swap; wait(8); 
+    sucrose attack, skill, dash;
+  } else {
+    sucrose attack, charge;
+  }
+  flins skill, attack, 
+        skill, attack, burst, 
+        attack:3, dash, attack:3, 
+        skill, attack, burst, 
+        attack:3, dash, attack:3, 
+        skill, burst, attack;
+  
+  if .sucrose.skill.ready {
+    sucrose attack, skill, dash;
+  } else {
+    sucrose attack, charge;
+  }
+}

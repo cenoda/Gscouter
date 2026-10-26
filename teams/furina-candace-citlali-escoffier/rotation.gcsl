@@ -1,0 +1,20 @@
+active esco;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  citlali skill, attack;
+  
+  esco skill, burst;
+  
+  candace skill, burst;
+  
+  while .furina.skill.cd || .status.candaceburst {
+    if .candace.skill.ready {
+      candace skill, attack;
+    } else if .furina.normal > 3 {
+      furina dash;
+    } else {
+      furina attack;
+    }
+  }
+}

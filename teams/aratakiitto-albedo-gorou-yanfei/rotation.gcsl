@@ -1,0 +1,21 @@
+active gorou;
+  yanfei skill, charge, burst;
+  gorou skill, burst;
+  albedo attack, skill;
+  itto attack, burst[prestack=1],
+    attack, skill[travel=0],
+    attack:2, charge:5,
+    attack:4, charge:5,
+    skill[travel=0],charge;
+  wait(20); 
+
+for let i=0; i<4; i=i+1 {
+  yanfei attack, charge, skill, charge, burst;
+  gorou attack:2, skill, burst;
+  albedo attack, skill;
+  itto attack, burst[prestack=1],
+    attack, skill[travel=0], charge:4,
+    attack:3, charge:4,
+    attack:3, skill[travel=0], charge:4; 
+  
+}

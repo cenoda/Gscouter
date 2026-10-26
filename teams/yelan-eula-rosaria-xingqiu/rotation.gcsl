@@ -1,0 +1,13 @@
+let t = 0;
+active eula;
+for let i=0; i<4; i=i+1 {
+  xingqiu skill, dash, burst, attack;
+  rosaria attack, skill, attack;
+  eula skill, attack;
+  yelan skill, attack, burst, attack;
+  rosaria burst;
+  eula burst, walk, attack:4, skill[hold=1], attack:4;
+  wait(32);
+  rosaria attack, skill, attack;
+  eula attack:3;
+}

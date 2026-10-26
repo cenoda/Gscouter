@@ -1,0 +1,19 @@
+active faruzan;
+for let i=0; i<4; i=i+1 { 
+  faruzan skill, aim[weakspot=1], burst;
+  bennett skill, burst;
+  mika skill,burst,attack;
+  wanderer charge, skill;  
+   while .wanderer.skydweller-points > 3 {
+    switch {
+    case .wanderer.normal < 3:
+      wanderer attack;
+    case .wanderer.mods.wanderer-a4:
+      wanderer dash;
+    default:
+      wanderer charge;
+    }
+  }
+  wanderer skill;
+  bennett skill;
+}

@@ -1,0 +1,23 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 4; i = i + 1 {
+  sara skill, aim;
+  
+  sara attack; 
+  bennett skill; 
+  
+  bennett burst; 
+  
+  emilie swap;
+  if .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie attack, burst;
+  } else {
+    emilie skill, attack;
+  }
+  
+  sara burst; 
+  
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  
+  bennett skill, attack:2, charge;
+}

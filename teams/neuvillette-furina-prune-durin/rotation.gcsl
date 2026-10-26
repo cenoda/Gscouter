@@ -1,0 +1,13 @@
+active neuv;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill, attack;
+  furina attack, skill, dash, attack;
+  durin skill, attack, burst;
+  prune skill, burst;
+  furina burst;
+  neuvillette charge, skill, charge, burst;
+  durin skill, attack;
+  prune attack:2;
+  neuvillette charge:2;
+}
+wait(173);

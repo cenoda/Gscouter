@@ -1,0 +1,28 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, attack;
+  
+  zhongli skill[hold=1], dash, attack;
+  
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  
+  furina burst;
+  
+  bennett burst, attack, skill;
+  
+  if .yoimiya.burst.ready {
+  yoimiya dash, skill, 
+          attack:5, dash, 
+          attack:5, dash, 
+          attack:5, dash, attack, burst;
+  } else {
+  yoimiya attack:3, dash, skill,
+          attack:5, dash, 
+          attack:5, dash, 
+          attack:5, dash, attack;
+  }
+  
+  bennett skill, dash;
+}

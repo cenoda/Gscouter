@@ -1,0 +1,15 @@
+active gorou;
+for let x=0; x<4; x=x+1 {
+ gorou  burst, skill;
+ noelle skill, burst;
+ yelan  skill, burst, attack;
+ yunjin skill, burst;
+ while !.yunjin.mods.favonius-cd { yunjin attack; }
+ noelle attack:3;
+ gorou  skill;
+ while !.gorou.mods.favonius-cd { gorou attack; }
+ noelle attack:3;
+ yelan  attack, skill, attack;
+ noelle attack:3, dash;
+ noelle attack:3;
+}

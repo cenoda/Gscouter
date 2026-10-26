@@ -1,0 +1,17 @@
+id: wriothesley-rosaria-xingqiu-lanyan
+name: Wriothesley / Rosaria / Xingqiu / Lanyan
+members:
+    - wrio
+    - rosaria
+    - xingqiu
+    - lanyan
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/8zHwJFjqWzqg
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 35575
+    computed: "2026-10-02"

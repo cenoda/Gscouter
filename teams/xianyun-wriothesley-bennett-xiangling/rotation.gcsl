@@ -1,0 +1,49 @@
+active xianyun;
+  
+for let i=0; i<4; i=i+1 {
+  xianyun attack, skill, high_plunge, burst;
+  if !.xianyun.mods.favonius-cd {
+    xianyun attack;
+  }
+  while !.bennett.burst.ready {
+    bennett attack;
+  }
+  bennett burst,skill;
+  while !.xiangling.burst.ready {
+    xiangling attack;
+  }
+  xiangling burst, attack, skill;
+  
+  wriothesley skill;
+  for let p=0; p<2; p=p+1 {
+    wriothesley attack:3, charge, jump;
+    if .airborne {
+      wriothesley high_plunge;
+    } else {
+      wriothesley attack, charge;
+      break;
+    }
+    
+    wriothesley dash, jump;
+    if .airborne {
+      wriothesley high_plunge;
+    } else {
+      wriothesley attack, charge;
+      break;
+    }
+  }
+  
+  wriothesley attack:3, charge, jump;
+  if .airborne {
+    wriothesley high_plunge;
+  } else {
+    wriothesley attack, charge;
+    break;
+  }
+    
+  if .wriothesley.burst.ready {
+    wriothesley burst;
+  }
+  bennett skill;
+  xiangling attack:3;
+}

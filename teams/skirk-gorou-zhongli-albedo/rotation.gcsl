@@ -1,0 +1,52 @@
+let First_Rot_Nuke = false;  
+active zhongli;
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], dash, attack;
+  if i > 0 && .zhongli.burst.ready {
+    zhongli burst;
+  }
+  if !.zhongli.mods.favnoius-cd {
+    zhongli attack;
+  }
+
+  gorou skill;
+  if .gorou.burst.ready && .skirk.skill.cd {
+    gorou burst;
+  } else {
+    gorou attack;
+  }
+  if !.gorou.mods.favonius-cd {
+    gorou attack;
+  }
+  albedo attack, skill;
+  if i > 0 && .albedo.burst.ready {
+    albedo burst;
+  } 
+  
+  if i == 0 && First_Rot_Nuke == true {
+    skirk burst;
+    skirk skill,
+          attack:5, dash,
+          
+          attack:2, charge, dash,
+    
+          attack:5, dash,
+          attack:5, dash,
+          
+          attack:2, charge, dash,
+          
+          attack:4;
+  } else {
+    skirk skill,
+          attack, burst,
+          
+          attack:5, dash,
+          attack:5, dash,
+          
+          attack:2, charge, dash,
+          
+          attack:5, dash,
+          attack:5, dash;
+    skirk attack:2;
+  }
+}

@@ -1,0 +1,27 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, attack, burst; 
+  
+  if .fischl.skill.ready { 
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  
+  mona burst, attack:1, skill, attack:1;
+  
+  hutao skill,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump;
+  if .hutao.burst.ready {
+    hutao attack:1, burst;
+  } else {
+    hutao attack:2, charge, jump;
+  }
+}

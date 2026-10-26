@@ -1,0 +1,17 @@
+id: noelle-albedo-zhongli-gorou
+name: Noelle / Albedo / Zhongli / Gorou
+members:
+    - noelle
+    - albedo
+    - zhongli
+    - gorou
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/KCfNCN66BbPF
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 38034
+    computed: "2026-10-02"

@@ -1,0 +1,16 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  
+ furina skill, attack, burst;
+ shenhe skill[hold=1], burst;
+ lynette burst, skill;
+ 
+  wrio  skill,
+        attack:5, charge, dash,
+        attack:5, charge, dash,
+        attack:5, charge, dash;
+  if .wrio.burst.ready && .wrio.energy == .wrio.energymax  {
+    wrio burst;
+  }
+  lynette skill;
+}

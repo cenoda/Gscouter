@@ -1,0 +1,44 @@
+active arle;
+for let i = 0; i < 6; i = i + 1 {
+  if i==0 {
+    arle skill;
+    xilo skill, attack:2;
+    nicole skill, attack:3; pick_up_crystallize("pyro");
+    citlali skill, attack;
+    arle swap; delay(36);
+    arle charge[early_cancel=1], dash; 
+    arle attack, walk,
+         attack:3, dash,
+         attack:3, dash,
+         attack:2; delay(28); arle attack;
+    citlali attack;
+    arle attack, walk,
+         attack:3, dash,
+         attack:3, dash,
+         attack:3;
+  }
+  else {
+    arle skill;
+    xilo skill, attack:2;
+    nicole skill, attack:3; pick_up_crystallize("pyro");
+    citlali skill, attack;
+    arle swap; delay(36);
+    arle charge[early_cancel=1], dash; 
+    arle attack, walk,
+         attack:3, dash,
+         attack:3, dash,
+         attack:2; delay(28); arle attack;
+    citlali attack;
+    arle attack, walk;
+         
+    if i > 4 {
+      arle burst; 
+    }
+    else {
+      arle attack:3, dash, 
+           attack:3, dash,
+           attack, charge;
+    }
+  }
+  
+}

@@ -1,0 +1,14 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  bennett skill, burst;
+  nahida skill,attack:2;
+  kazuha skill[hold=1],high_plunge;
+  if .kazuha.burst.ready {
+    kazuha burst;
+  }
+  arle charge, 
+       attack:5,dash,
+       attack:5,dash,
+       attack:5;
+}

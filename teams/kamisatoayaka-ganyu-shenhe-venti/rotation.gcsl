@@ -1,0 +1,14 @@
+active ganyu;
+for let i=0; i<4; i=i+1 {
+  ganyu aim[weakspot=1];
+  shenhe skill, burst;
+  ganyu skill, burst;
+  venti skill, burst;
+  ayaka dash, attack, skill, burst;
+  shenhe skill, attack;
+  ganyu aim[weakspot=1], skill;
+  venti skill, attack;
+  ganyu aim;
+  ayaka dash, attack, skill;
+  print("rota done");
+}

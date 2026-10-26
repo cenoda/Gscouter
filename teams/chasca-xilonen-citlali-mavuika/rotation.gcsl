@@ -1,0 +1,22 @@
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  mavuika swap;         wait(9); 
+  
+  mavuika skill[hold=1], dash;
+  xilonen skill, attack:2;  pick_up_crystallize("pyro");
+  citlali skill, attack;
+  mavuika burst, charge:3, charge[final=1], dash;
+  chasca skill;
+  chasca aim[bullets=2];  print("this aim is: ", 1);  
+  chasca aim;             print("this aim is: ", 2);  
+  chasca aim[bullets=5];  print("this aim is: ", 3);  
+  chasca aim[bullets=3];  print("this aim is: ", 4);  
+  chasca aim[bullets=2];  print("this aim is: ", 5);  
+  chasca aim;             print("this aim is: ", 6);  
+  chasca aim[bullets=5];  print("this aim is: ", 7);  
+  chasca aim[bullets=3];  print("this aim is: ", 8);  
+  chasca aim[bullets=2];  print("this aim is: ", 9);  
+  chasca aim;             print("this aim is: ", 10); 
+  chasca aim[bullets=4];  print("this aim is: ", 11); 
+}
+wait(66);

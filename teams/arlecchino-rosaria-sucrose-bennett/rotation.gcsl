@@ -1,0 +1,42 @@
+active arle;
+fn sucr_combo() {
+  arle charge[early_cancel=1], dash;
+  wait(20);
+  arle attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash;
+  wait(5);
+  arle attack:2;
+}
+fn base_combo() {
+  arle charge[early_cancel=1], dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash;
+  delay(22);
+  arle attack;
+  rosaria skill;
+  arle attack:2, dash,
+       attack:2, dash,
+       attack:3;
+}
+for let i=0; i<6; i=i+1 {
+  let q_was = false;
+  
+  arle skill;
+  bennett skill, burst;
+  sucrose attack, skill;
+  if .sucrose.burst.ready {
+    sucrose burst;
+    q_was = true;
+  }
+  rosaria skill, burst, dash;
+  
+  if q_was {
+    sucr_combo();
+  } else {
+    base_combo();
+  }
+}

@@ -1,0 +1,12 @@
+active rosaria;
+for let i=0; i<4; i=i+1 {
+  rosaria skill, attack;
+  shenhe skill[hold=1], attack, burst;
+  bennett skill, burst;
+  rosaria skill, burst;
+  chasca skill;
+  chasca aim:4;
+  chasca aim[bullets=4];
+
+}
+wait(82);

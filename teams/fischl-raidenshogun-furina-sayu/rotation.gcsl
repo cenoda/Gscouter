@@ -1,0 +1,14 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 { 
+    if i > 0 {furina attack:2;}
+	furina skill,attack, burst;
+	fischl attack:2, burst;
+	sayu burst,skill;
+	raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+	sayu skill;
+	if .fischl.skill.ready {
+    fischl attack, skill;
+    }
+	print("rota done");
+}

@@ -1,0 +1,20 @@
+active furina;
+furina skill, burst;
+for let i=0; i<4; i=i+1 {
+if i > 0 {furina burst, skill, attack;}
+yelan burst;
+jean burst, skill;
+yelan attack:2, skill;
+hutao skill,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:2, charge, jump, attack;
+yelan skill, attack:2;
+jean skill;
+}

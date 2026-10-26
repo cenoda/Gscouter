@@ -1,0 +1,26 @@
+active furina;
+for let i = 0; i<4; i=i+1 { 
+  furina skill, dash, burst;
+  baizhu skill, burst;
+  yelan burst, attack;
+  if i && .hutao.burst.ready{  
+    hutao burst;
+  } else {
+    hutao attack:4;
+  }
+  yelan attack, skill, attack;
+  hutao skill,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:2, charge, jump, attack; 
+  yelan skill, attack:2;
+  if !i {
+    furina attack:1; 
+  }	
+}

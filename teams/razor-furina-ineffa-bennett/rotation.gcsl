@@ -1,0 +1,31 @@
+active razor; 
+razor skill, dash;
+for let i=0; i<4; i=i+1 {
+  if i > 0  && .ineffa.burst.ready {
+    ineffa skill, burst;
+  } else {
+    ineffa skill, attack:1;
+  }
+  
+  furina skill, dash, attack, burst;
+  
+  bennett skill, dash, burst;
+  
+  if i == 0 {
+    razor skill;
+  } else {
+    razor skill[hold=1];
+  }
+  razor dash, attack, burst, attack, skill, dash;
+  
+  while .razor.infusion.bennett-fire-weapon { 
+  
+    if .razor.normal > 3  && .razor.skill.ready {
+       razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+}

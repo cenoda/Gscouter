@@ -1,0 +1,17 @@
+id: charlotte-navia-rosaria-travelergeo
+name: Charlotte / Navia / Rosaria / Travelergeo
+members:
+    - charlotte
+    - navia
+    - rosaria
+    - luminegeo
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/ptt9NMPTfFkL
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 38669
+    computed: "2026-09-30"

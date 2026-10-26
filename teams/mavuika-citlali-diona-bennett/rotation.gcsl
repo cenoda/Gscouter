@@ -1,0 +1,23 @@
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  mavuika skill;          
+  bennett attack, skill;
+  diona skill[hold=1], burst;
+  bennett burst;
+  citlali skill, burst, attack:2;
+  
+  mavuika burst;
+  mavuika charge, dash, attack,
+          charge, dash, attack,
+          charge, dash, attack,
+          charge, dash, attack,
+          charge, dash, attack,
+          charge, dash, attack;         
+          
+  mavuika charge:2, charge[final=1], dash;
+  if .mavuika.cons == 0 { 
+    mavuika attack, jump; 
+  } else {
+    mavuika charge, dash, attack;
+  }
+}

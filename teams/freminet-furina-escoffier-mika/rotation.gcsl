@@ -1,0 +1,21 @@
+active freminet; 
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  
+  esco skill;
+  if !is_even(i) {
+    esco burst;
+  }
+  
+  if is_even(i) {
+    mika burst, attack, skill;
+  } else {
+    mika attack, skill[hold=1];
+  }
+
+  freminet skill, burst,
+           attack:2, skill, skill,
+           attack:2, skill, attack:2, skill,  
+           attack:2, skill, attack:2, skill,
+           attack:3, skill;
+}

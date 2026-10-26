@@ -1,0 +1,34 @@
+active dori; 
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  bennett skill, burst, attack;
+
+  while .dori.mods.bennett-field || .status.bennettburst { 
+    switch {
+      case .yelan.skill.ready:
+        yelan skill, attack;
+      case .dori.skill.ready:
+        dori skill;
+      case .dori.burst.ready: 
+        dori burst;
+      case .dori.normal > 2 && .dori.dash.ready && .stam > 18:
+        dori dash;
+      default:
+        dori attack;
+    }
+  }
+  
+}

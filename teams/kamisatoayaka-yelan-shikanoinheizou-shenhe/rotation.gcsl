@@ -1,0 +1,13 @@
+active ayaka;
+ayaka dash, skill;
+for let i=0; i<5; i=i+1 {
+  yelan burst, attack, skill, attack;
+  shenhe skill, attack, burst;
+  heizou attack:3, burst, attack, skill;
+  ayaka attack, skill, dash, attack, burst;
+  yelan attack, skill;
+  shenhe attack, skill, attack;
+  ayaka dash, attack, charge;
+  heizou attack, charge, skill;
+  ayaka attack, skill, dash, attack:2, charge;
+}

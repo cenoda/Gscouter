@@ -1,0 +1,41 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || ( char_id == .keys.char.xilonen && action_id == .action.skill ) {
+    pick_up_crystallize("any");
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+active mavuika;
+mavuika skill; 
+for let i = 0; i < 4; i = i + 1 {
+  
+  xilonen skill, attack:2, burst;
+  furina skill, dash, burst;
+  
+  if i > 0 {
+    
+    mavuika skill;
+    
+  }
+  
+  mavuika burst, charge, dash;
+  xilonen skill, attack:2;
+  
+  if i == 0 {
+
+    itto attack, burst[prestack=1],
+         attack, skill,
+         attack:2, charge:5, dash,
+         attack:4, charge:5, skill[travel=0], charge;
+         sleep(21); 
+    
+  } else {
+
+    itto attack, burst[prestack=1],
+         attack, skill, charge:4,
+         attack:3, charge:4, dash,
+         attack:3, skill, charge:4; 
+    
+  }
+}

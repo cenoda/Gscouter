@@ -1,0 +1,18 @@
+active yae;
+for let x = 0; x < 3; x = x + 1 {
+  yae skill:3;
+  nahida skill, burst;
+  furina skill, dash, burst;
+  dori skill, burst, attack:2;
+  yae attack,
+      burst, skill:3,
+      attack, charge, dash;
+  nahida skill, attack, charge;    
+  dori skill, attack;
+  yae attack:2, charge, jump;
+  nahida skill, attack, charge;
+  yae attack:2, charge, jump;
+  dori skill, attack;
+  print("Rotation Done");
+}
+yae attack;

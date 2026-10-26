@@ -1,0 +1,17 @@
+id: neuvillette-columbina-lauma-ineffa
+name: Neuvillette / Columbina / Lauma / Ineffa
+members:
+    - neuv
+    - columbina
+    - lauma
+    - ineffa
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/7R9m8pHqdNGP
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 113861
+    computed: "2026-10-02"

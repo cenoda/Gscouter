@@ -1,0 +1,24 @@
+active diluc; 
+for let r = 0; r < 4; r = r + 1 {
+  xilonen skill, attack:2;
+  
+  furina skill, dash, burst;
+  
+  xianyun skill, low_plunge, attack, burst;
+  
+  diluc skill:2, burst;
+  
+  xilonen skill, attack:2;
+  
+  while .xianyun.status.xianyun-airborne-buff {
+    diluc jump;
+    wait(10);
+    if .airborne {
+      diluc high_plunge[collision=rand()>0.5];
+    }
+    if .xianyun.status.xianyun-airborne-buff { 
+      diluc dash;
+    }
+  }
+  diluc skill:3;
+}

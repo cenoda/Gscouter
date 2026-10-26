@@ -1,0 +1,28 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  furina skill, dash, burst;
+  zhongli skill[hold=1], dash;
+      
+  for let j=0; j<60; j=j+1 { 
+    if pick_up_crystallize("hydro") {
+      break;
+    }
+    wait(1);
+  }
+  
+  xianyun skill, high_plunge, burst;
+  neuvillette charge, burst, skill, charge;
+  zhongli skill[hold=1], dash;
+          
+  for let j=0; j<60; j=j+1 { 
+    if pick_up_crystallize("hydro") {
+      break;
+    }
+    wait(1);
+  }
+  
+  xianyun skill, high_plunge;
+  neuvillette charge, charge;
+}
+wait(173);

@@ -1,0 +1,20 @@
+active furina;
+furina skill, dash;
+for let i=0; i<3; i=i+1 {
+  if i {
+    yelan attack:2;
+  }
+  xilonen skill, attack:2;
+  xilonen burst;
+  if i {
+    furina skill, dash;
+  }
+  furina burst;
+  
+  xingqiu burst, attack, dash; pick_up_crystallize("any");
+  yelan burst, attack, skill, attack:4;
+  xilonen skill, attack:2;
+  xingqiu attack, skill, dash; 
+  xingqiu attack:2; pick_up_crystallize("any");
+  yelan attack:10, skill, attack:2;
+}

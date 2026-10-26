@@ -1,0 +1,18 @@
+active bennett;
+for let i = 0; i < 6; i = i + 1 {
+  bennett burst, skill;
+  if ( i / 2 ) * 2 !=i {
+    emilie burst;
+    kazuha skill, high_plunge;
+  } else {
+    emilie skill, attack;
+    kazuha burst;
+  }
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  bennett skill, attack:2;
+  if ( i / 2 ) * 2 !=i {
+    yoimiya burst;
+  } else {
+    kazuha skill, high_plunge, attack:2;
+  }
+}

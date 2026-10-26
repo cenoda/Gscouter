@@ -1,0 +1,17 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if ( char_id == .keys.char.noelle && action_id == .action.attack ) {
+    pick_up_crystallize("any");
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+active furina;
+for let i=0; i<4; i=i+1 {
+furina skill, dash, burst;
+xingqiu burst, attack, skill, dash;
+yelan  attack, burst, attack, skill, attack;
+noelle skill, attack, burst, attack:3, dash, attack:3, dash, attack:3;
+yelan attack, skill;
+noelle attack:3;
+}

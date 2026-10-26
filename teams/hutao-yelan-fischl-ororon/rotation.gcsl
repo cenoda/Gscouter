@@ -1,0 +1,29 @@
+active yelan;
+for let i=0; i<4; i=i+1 {
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  ororon skill, attack, burst, attack;
+  
+  if .fischl.burst.ready {
+    fischl attack:2, burst;
+  } else {
+    fischl attack, skill;
+  }
+  
+  hutao skill,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:2, charge, dash;
+  
+  print("done");
+}

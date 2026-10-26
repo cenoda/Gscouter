@@ -1,0 +1,12 @@
+active yaemiko;
+raiden skill;
+for let i=0; i<4; i=i+1 { 
+	yaemiko skill:3;
+	kuki skill, attack, burst;
+	sara skill, aim;
+	delay(2); 
+	yaemiko burst, skill:3;
+	sara burst;
+	raidenshogun burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+	print("rota done");
+}

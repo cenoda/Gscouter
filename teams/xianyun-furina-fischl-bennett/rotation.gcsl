@@ -1,0 +1,36 @@
+active fischl;
+fischl skill;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  
+  bennett skill, burst;
+  if .amy.skill.ready {
+    amy attack:1, skill;
+  } else {
+    amy attack:2, burst;
+  }
+  
+  xianyun skill:3, high_plunge, burst;
+  
+  while .xianyun.status.xianyun-airborne-buff {
+    if .xianyun.skill.ready {
+      xianyun skill:3, high_plunge;
+    } else if .xianyun.status.xianyun-airborne-buff {
+      xianyun jump;
+      if .airborne {
+        xianyun high_plunge[collision=rand()>0.5];
+      }
+      if .xianyun.status.xianyun-airborne-buff {
+        xianyun dash;
+      }
+    }
+  }
+  while .furina.skill.cd {
+    if .xianyun.normal > 2 {
+      xianyun dash;
+    } else {
+      xianyun attack;
+    }
+  }
+  print("done");
+}

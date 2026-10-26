@@ -1,0 +1,22 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  if .furina.skill.ready {
+    furina skill, dash, burst;
+  }
+  ororon skill, burst;
+  if !.ororon.mods.favonius-cd {
+    ororon attack;
+  }
+  yunjin skill[hold=2], burst;
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+  if is_even(i) {
+    clorinde burst;
+  }
+}

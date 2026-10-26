@@ -1,0 +1,20 @@
+active raiden;
+    raiden skill;
+for let i=0; i<4; i=i+1 {
+	yelan burst;
+	bennett attack;
+	bennett burst;
+	kazuha attack, skill, high_plunge, attack, burst, attack;
+	yelan attack, skill;
+	raiden burst, attack:4, dash, attack:4, dash, attack:4, skill, attack:3;
+	yelan skill;
+	if .yelan.tags.yelan_breakthrough {
+		yelan aim;
+	} else  {
+		yelan attack;
+	}
+	kazuha skill, high_plunge;
+	bennett attack, skill;
+	yelan swap;
+	print("done");
+}

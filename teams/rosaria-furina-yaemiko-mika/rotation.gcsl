@@ -1,0 +1,25 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && ( !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  yae skill:3;
+  
+  mika burst;
+  mika skill[hold=0];
+  
+  rosaria skill, burst;
+  
+  while .rosaria.mods.mika-c6 {
+    if .rosaria.skill.ready {
+      rosaria skill;
+    } else if .rosaria.normal > 3 && .stam > 43 {
+      rosaria charge, dash;
+    } else {
+      rosaria attack;
+    }
+  } 
+}

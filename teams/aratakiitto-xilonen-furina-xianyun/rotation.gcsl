@@ -1,0 +1,31 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || ( char_id == .keys.char.xilonen && action_id == .action.skill ) || ( char_id == .keys.char.itto && action_id == .action.high_plunge ) {
+    pick_up_crystallize("any");
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  if i > 0 {
+    
+    xilonen skill, attack:2, skill, burst;
+    
+  }
+  
+  furina skill, dash, burst;
+  xianyun skill, low_plunge, burst;
+  xilonen skill, attack:2;
+  
+  itto burst, skill;
+  
+  for let p = 8; p > 0; p = p - 1 {
+    itto jump;
+    if .airborne {
+    itto high_plunge[collision=rand()>0.5], dash;
+    }
+  }
+  
+  itto charge:3, skill, charge;
+}

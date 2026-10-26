@@ -1,0 +1,18 @@
+active yelan;
+for let i=0; i<4; i=i+1 {
+  yelan skill;
+  fischl skill, attack;
+  kazuha skill, high_plunge, attack;
+  kokomi attack, skill;
+  yelan attack, burst, attack;
+  kazuha burst, attack, skill, high_plunge;
+  fischl attack:2, burst;
+  yelan attack, skill, attack;
+  kokomi attack, burst;
+  let kokomi_n2w_sequences = 10;
+  while kokomi_n2w_sequences {
+    kokomi attack:2, walk;
+    kokomi_n2w_sequences = kokomi_n2w_sequences - 1;
+  }
+  print("done");
+}

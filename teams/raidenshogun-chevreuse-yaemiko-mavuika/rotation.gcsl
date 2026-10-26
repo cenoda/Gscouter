@@ -1,0 +1,24 @@
+active mav; 
+raiden skill;
+for let i = 0; i < 4; i = i + 1 {
+  yae skill:3;
+  
+  chev burst, skill[hold=1]:3;
+  
+  if .mav.burst.ready {
+    mav burst,
+      charge:2, dash,
+      charge:2, dash,
+      charge:2, dash,
+      charge, charge[final=1], dash, skill, dash;
+  } else {
+    yae attack:2, charge, dash;
+    yae attack:2, charge, dash;
+    
+    mav attack, skill;
+  }
+  
+  yae burst, attack, skill:3;
+  
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:3;
+}

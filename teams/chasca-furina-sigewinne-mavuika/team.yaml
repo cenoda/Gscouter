@@ -1,0 +1,17 @@
+id: chasca-furina-sigewinne-mavuika
+name: Chasca / Furina / Sigewinne / Mavuika
+members:
+    - chasca
+    - furina
+    - sigewinne
+    - mavuika
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/wNpd8KBQhGNW
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 77104
+    computed: "2026-10-01"

@@ -1,0 +1,13 @@
+active furina;
+for let i=0; i<5; i=i+1 {
+ furina skill, dash, burst;
+ yunjin skill, burst;
+ pick_up_crystallize("any");
+ jean skill, burst;
+ ayato skill, attack:17;
+ yunjin skill, attack;
+ pick_up_crystallize("any");
+ jean attack, skill;
+ ayato burst, skill, attack:13;
+ 
+}

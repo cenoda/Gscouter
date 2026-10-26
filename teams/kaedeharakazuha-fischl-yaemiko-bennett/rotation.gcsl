@@ -1,0 +1,33 @@
+fn TFCombo() {
+  
+  if .kazuha.skill.ready {
+    kazuha skill, high_plunge[collision=rand()>0.3];
+  } else if .kazuha.burst.ready {
+    kazuha attack, burst;
+  } else {
+    kazuha attack;
+  }
+}
+active yae;
+for let i=0; i<4; i=i+1 {
+  if i == 0 {
+    yae skill:3;
+  } else {
+    yae attack, skill:3;
+  }
+  
+  bennett skill, burst;
+
+  amy attack;
+  if .amy.burst.ready && .amy.energy == .amy.energymax {
+    amy attack:1, burst;
+  } else {
+    amy skill;
+  }
+
+  while .status.bennettburst {
+  
+    TFCombo();
+  }
+  print("done");
+}

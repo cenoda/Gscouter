@@ -1,0 +1,17 @@
+id: chevreuse-fischl-bennett-yanfei
+name: Chevreuse / Fischl / Bennett / Yanfei
+members:
+    - chevreuse
+    - fischl
+    - bennett
+    - yanfei
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/jMqkzqQFCCJh
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 57623
+    computed: "2026-10-02"

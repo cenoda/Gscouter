@@ -1,0 +1,18 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  xingqiu attack, skill, dash, burst, attack;
+  bennett skill, burst, attack;
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  arle charge,
+       attack:5, dash,
+       attack:5, dash,
+       attack:5, dash,
+       attack;
+  bennett attack:3, skill;
+  arle attack:4; 
+}

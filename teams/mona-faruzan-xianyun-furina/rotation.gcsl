@@ -1,0 +1,19 @@
+active furina;	
+for let i = 0; i<4; i=i+1 { 
+ furina skill, dash, burst; 
+ faruzan skill, dash, burst; 
+ mona skill, dash, burst;  
+ 
+ xianyun skill:1, high_plunge, burst,
+       jump, high_plunge, dash,
+       jump, high_plunge, dash,
+       jump, high_plunge, dash,
+       jump, high_plunge, dash,
+       jump, high_plunge, dash,
+       jump, high_plunge, dash,
+       jump, high_plunge, dash,
+       jump, high_plunge;
+       
+ faruzan attack:3;    
+       
+}

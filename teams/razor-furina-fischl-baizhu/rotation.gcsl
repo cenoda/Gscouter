@@ -1,0 +1,19 @@
+active razor; 
+for let i=0; i<4; i=i+1 {
+  amy skill, attack;
+  
+  furina skill, dash, attack, burst;
+  
+  baizhu skill, attack, burst;
+ 
+  amy attack:2, burst; 
+  razor skill, dash, attack, burst;
+  razor attack:1, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+  razor attack:1;
+}

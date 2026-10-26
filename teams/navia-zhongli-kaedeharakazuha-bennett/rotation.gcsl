@@ -1,0 +1,17 @@
+active zhongli;
+for let x=0; x<4; x=x+1 {
+ zhongli skill[hold=1], dash;
+ if x > 0 {
+  while !.zhongli.mods.favonius-cd { zhongli attack; }
+ } else {
+  navia  skill;
+ }
+ navia   burst;
+ bennett skill, burst;
+ kazuha  skill,high_plunge,burst;
+ navia   skill[hold=1], attack:3, dash; pick_up_crystallize("any");
+ navia   attack:2;
+ kazuha  skill, high_plunge;
+ navia   skill[hold=1], attack:3, dash; pick_up_crystallize("any");
+ bennett skill;
+}

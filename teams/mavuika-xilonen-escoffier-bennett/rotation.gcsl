@@ -1,0 +1,14 @@
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  mavuika skill;
+  bennett  burst;
+  xilonen skill, attack:2;
+  escoffier skill, dash; pick_up_crystallize("pyro");
+  escoffier burst; 
+  mavuika burst;
+  delay(62); 
+  mavuika charge:3, charge[hold=6], charge[final=1], dash;
+  mavuika charge:3, charge[hold=6], charge[final=1], dash; 
+  mavuika charge:1, charge[hold=6], charge[final=1]; 
+  delay(20); 
+}

@@ -1,0 +1,22 @@
+active nahida;
+nahida skill;
+for let i=0; i<4; i=i+1 {
+  furina skill, burst; 
+  
+  dori skill, attack:1, burst;
+  
+  yelan burst, attack, skill, attack;
+  
+  nahida attack:2, skill, 
+         attack:2, charge, dash,
+         attack:2, charge, dash, 
+         attack:2, charge, dash,
+         attack:2, skill,
+         attack:3, walk,
+         attack:2, charge; 
+  
+  yelan attack, skill, attack;
+  
+  nahida attack:2, skill;
+  nahida attack:2;
+}

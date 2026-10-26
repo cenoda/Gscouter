@@ -1,0 +1,10 @@
+active bennett;
+for let i=0; i<4; i=i+1 {
+  bennett skill, burst;
+  kazuha skill, high_plunge;
+  rosaria skill, burst;
+  
+  amber aim[weakspot=1], aim[weakspot=1]:3, skill, aim[weakspot=1]:2;
+ 
+  print("end");
+}

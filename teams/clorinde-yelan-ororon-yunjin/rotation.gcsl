@@ -1,0 +1,18 @@
+active yelan;
+for let i=0; i<4; i=i+1 {
+  yelan skill, attack, burst, attack;
+  yunjin skill, attack, burst;
+  ororon attack, skill, burst;
+  if !.ororon.mods.favonius-cd {
+    ororon attack;
+  }
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+  clorinde burst;
+}

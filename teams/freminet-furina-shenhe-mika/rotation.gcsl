@@ -1,0 +1,21 @@
+active freminet; 
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd && !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  mika burst;
+  
+  shenhe skill[hold=1], burst;
+  
+  mika attack, skill[hold=0];
+  
+  freminet skill, burst, skill;
+  freminet skill:2, attack:2;
+  freminet skill:2, attack:2;
+  freminet skill:2, attack:2;
+  freminet skill:2, attack:2;
+  freminet skill:2;
+}

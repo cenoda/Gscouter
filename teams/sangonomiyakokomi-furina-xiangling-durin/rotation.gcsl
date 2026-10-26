@@ -1,0 +1,20 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+ 
+  kokomi attack, skill, dash;
+ 
+  furina attack, burst;
+ 
+  durin skill, attack, burst;
+ 
+  xiangling attack, burst, skill, dash;
+ 
+  kokomi attack, burst,
+         attack:3, dash,
+         attack:3, dash,
+         attack:3, walk,
+         attack:3, dash,
+         attack:3, dash,
+         attack:2;
+}

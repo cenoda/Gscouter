@@ -1,0 +1,19 @@
+active dahlia;
+for let i=0; i<4; i=i+1 {
+  dahlia skill, attack:2;
+  furina skill, burst;
+  escoffier skill, attack, burst;
+  dahlia attack, burst;
+  wrio skill, 
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3;
+  if .wrio.burst.ready && .wrio.energy == .wrio.energymax {
+    wrio burst;
+  } else {
+    wrio attack, charge, jump, attack;
+  }
+}

@@ -1,0 +1,33 @@
+active emilie;
+for let i=0; i<4; i=i+1 {
+  if i > 0 && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill;
+  }
+  
+  xianyun attack, skill, low_plunge, attack, burst;
+  
+  bennett skill, burst;
+  
+  haitham skill[hold=1], low_plunge[short=1], attack;
+  
+  while .haitham.status.xianyun-airborne-buff {
+    if .haitham.mirrors < 3 && .haitham.burst.ready {
+      haitham burst;
+    } else {
+      haitham jump;
+      if .airborne {
+        haitham high_plunge[collision=rand()>0.4];
+      } 
+      haitham attack:1;
+    }
+  }
+  if .haitham.burst.ready {
+    haitham burst;
+  }
+  
+  bennett skill;
+  
+  print("done");
+}

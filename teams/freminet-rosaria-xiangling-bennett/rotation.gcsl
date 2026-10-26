@@ -1,0 +1,13 @@
+active bennett;
+for let i=0; i<4; i=i+1 {
+  bennett burst, skill;
+  xiangling burst, skill, dash;
+  rosaria burst, skill;
+  while!.rosa.mods.favonius-cd {rosa attack;}
+  bennett skill;
+  freminet skill, burst,
+           attack:2, skill, skill,
+           attack:2, skill, attack:2, skill,  
+           attack:2, skill;
+  rosa skill;
+ }

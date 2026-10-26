@@ -1,0 +1,15 @@
+active freminet; 
+for let i=0; i<4; i=i+1 {
+  lisa skill[hold=1], burst;
+  sleep(20);
+  
+  xq skill, dash, burst, attack;
+  
+  mika burst, skill[hold=1];
+  
+  freminet skill, attack, burst,
+           attack:2, skill, skill,
+           attack:2, skill, attack:2, skill,  
+           attack:2, skill, attack:2, skill,
+           attack:3, skill;
+}

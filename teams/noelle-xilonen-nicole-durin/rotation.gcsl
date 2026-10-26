@@ -1,0 +1,19 @@
+active noelle;  
+for let i = 0; i < 4; i = i + 1 {
+  
+  if .nicole.burst.ready {
+    nicole burst;
+  }
+  nicole skill;
+  
+  durin skill, skill, burst;
+  
+  xilonen skill, attack:2;
+  
+  noelle skill, burst, attack:3, dash, attack:3, dash, attack:2;
+  
+  xilonen skill, attack:2;
+  
+  noelle attack:3, dash, attack:2;
+  
+}

@@ -1,0 +1,24 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  if !i {
+    furina burst, skill, dash;
+    xianyun skill, low_plunge, burst;
+    xingqiu burst, attack, skill, dash, attack:3;
+  } else {
+    furina burst, attack, skill, dash;
+    xianyun attack, skill, low_plunge, burst;
+    xingqiu burst, attack, skill, dash, attack:3;
+  }
+  hutao skill;
+  for let p = 6; p > 0; p = p - 1 {
+    hutao attack, charge, jump;
+    if .airborne {
+      hutao low_plunge[collision=rand()>0.5];
+    }
+  }
+  hutao attack;
+  xianyun attack:3;
+  if !i {
+    furina attack;
+  } 
+}

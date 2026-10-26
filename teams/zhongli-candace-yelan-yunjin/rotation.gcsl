@@ -1,0 +1,12 @@
+active candace;
+for let i=0; i<4; i=i+1 {
+  candace skill,attack;
+  zhongli skill[hold=1];
+  yelan burst,attack,skill,attack:2;
+  yunjin skill[perfect=1],burst;
+  candace skill,burst;
+  zhongli attack:5,dash;
+  zhongli attack:5, dash,attack:2;
+  yelan attack,skill,attack;
+  zhongli attack:5, dash, attack:5;
+}

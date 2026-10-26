@@ -1,0 +1,13 @@
+active xingqiu;
+for let x=0; x<4; x=x+1 {
+  xingqiu attack, skill, dash, burst, attack;
+  thoma attack, skill, burst;
+  sucrose attack:3, skill, dash;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  if .yoimiya.burst.ready {
+    yoimiya burst;
+    thoma attack:4, dash, attack;
+  } else {
+    thoma attack:4, dash, attack:4, dash;
+  }
+}

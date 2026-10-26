@@ -1,0 +1,10 @@
+active ganyu;
+for let i=0; i<4; i=i+1 {
+  ganyu skill, burst;
+  venti skill, burst;
+  kokomi skill, dash;
+  ayaka dash, attack, skill, attack, burst, attack;
+  ganyu skill, attack;
+  venti skill, attack;
+  ayaka dash, attack:2, charge, attack:2, charge, skill, dash, attack:3, charge;
+}

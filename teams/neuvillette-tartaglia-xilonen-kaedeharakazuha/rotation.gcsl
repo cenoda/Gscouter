@@ -1,0 +1,13 @@
+active neuvillette;
+ for let i=0; i<4; i=i+1 {
+ neuvillette skill, attack;
+ childe attack:2, burst;
+ xilonen skill, burst, attack:2;
+ kazuha skill[hold=1], high_plunge, burst;
+ 
+ neuvillette charge, skill, charge, burst;
+ xilonen skill, attack:2;
+ kazuha skill, high_plunge;
+ neuvillette charge, charge;
+}
+wait(173);

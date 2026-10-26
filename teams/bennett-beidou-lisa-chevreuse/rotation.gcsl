@@ -1,0 +1,20 @@
+active lisa;
+for let x = 0; x < 4; x = x + 1 {
+  
+  lisa burst;
+  chevreuse skill[hold=1], attack, burst;
+  bennett skill, burst;
+  beidou skill[counter=2], burst;
+  bennett attack:3, skill,
+          attack, skill,
+          attack:2, skill,
+          attack, skill,
+          attack:2, skill,
+          attack, skill,
+          attack:2, skill,
+          attack, skill,
+          attack:2, skill;
+  lisa skill[hold=1];
+  beidou skill[counter=2], attack;
+  bennett skill;
+}

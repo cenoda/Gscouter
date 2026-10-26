@@ -1,0 +1,30 @@
+active fischl;
+fischl skill;
+for let i=0; i<4; i=i+1 {
+  
+  arlecchino skill;
+  durin skill, skill, burst;
+  let q=0;
+  if i && .emilie.burst.ready {
+    emilie burst;
+    let q=1;
+  } else {
+    emilie skill, attack;
+  }
+  if !is_even(i) {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  } 
+  arlecchino attack, charge,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack;
+  if q==0 {
+    arle attack:2, dash;
+  }
+}

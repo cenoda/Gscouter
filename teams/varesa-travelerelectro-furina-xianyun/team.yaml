@@ -1,0 +1,17 @@
+id: varesa-travelerelectro-furina-xianyun
+name: Varesa / Travelerelectro / Furina / Xianyun
+members:
+    - varesa
+    - lumineelectro
+    - furina
+    - xianyun
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/7T6RHqFN6Ltf
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 68443
+    computed: "2026-10-01"

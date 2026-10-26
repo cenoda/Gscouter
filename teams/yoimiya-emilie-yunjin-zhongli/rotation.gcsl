@@ -1,0 +1,23 @@
+active yoimiya;
+yoimiya aim;
+for let i = 0; i < 6; i = i + 1 {
+  if i && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  zhongli skill[hold=1], dash, attack;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  yunjin skill, attack, burst;
+  if !.yunjin.mods.favonius-cd && .yunjin.weapon == .keys.weapon.favoniuslance {
+    yunjin attack;
+  }
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack:3;
+  if .yoimiya.burst.ready {
+    yoimiya burst;
+  } else {
+    yoimiya attack:2, dash, attack;
+  }
+}

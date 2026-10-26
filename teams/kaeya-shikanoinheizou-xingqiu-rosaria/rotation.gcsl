@@ -1,0 +1,12 @@
+active xingqiu;
+for let i=0; i<4; i=i+1 {
+  xingqiu skill, dash, burst, attack;
+  rosaria skill, attack, burst;
+  heizou attack, charge, attack, burst, attack, skill, attack;
+  rosaria skill, attack;
+  kaeya skill, attack, burst;
+  heizou attack:4, charge, attack;
+  rosaria skill, attack;
+  heizou skill, attack;
+  kaeya skill, attack;  
+}

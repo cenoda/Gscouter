@@ -1,0 +1,12 @@
+active escoffier;
+for let i = 0; i < 4; i = i + 1 {
+  escoffier skill, attack, dash;
+  bennett burst, skill, attack, dash;
+  citlali skill, burst;
+  yoimiya skill;
+  yoimiya attack:5, dash;
+  yoimiya attack:5, dash;
+  yoimiya attack:5, dash;
+  yoimiya attack;
+  bennett skill, attack:3;
+}

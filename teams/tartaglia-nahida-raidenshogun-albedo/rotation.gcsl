@@ -1,0 +1,14 @@
+active nahida;
+nahida skill;
+for {
+  switch {
+    case !.debuff.res.t0.nahida-e && .nahida.swap.ready:
+      nahida skill, attack, charge;
+    case !.tartaglia.mods.raiden-e && .raiden.skill.ready && .raiden.swap.ready:
+      raiden skill, attack;
+    case !.albedo.elevator && .albedo.swap.ready:
+     albedo skill, attack;
+    default:
+      tartaglia aim;
+  }
+}

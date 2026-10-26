@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+ayato char lvl=90/90 cons=0 talent=9,9,9;
+ayato add weapon="harbinger" refine=5 lvl=90/90;
+ayato add set="nymph" count=4;
+ayato add stats hp=4780 atk=311 atk%=0.466 hydro%=0.466 cr=0.311;
+ayato add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.331 cd=0.7944;
+
+charlotte char lvl=90/90 cons=6 talent=9,9,9;
+charlotte add weapon="ttds" refine=5 lvl=90/90;
+charlotte add set="clam" count=4;
+charlotte add stats hp=4780 atk=311 er=0.518 atk%=0.466 atk%=0.466;
+charlotte add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.3968 er=0.1102 em=237.84 cr=0.1986 cd=0.1324;
+
+beidou char lvl=90/90 cons=6 talent=9,9,9;
+beidou add weapon="melusineclaymore" refine=5 lvl=90/90 +params=[stacks=6];
+beidou add set="eosf" count=4;
+beidou add stats hp=4780 atk=311 er=0.518 electro%=0.466 cr=0.311;
+beidou add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.331 cd=0.7944;
+
+xingqiu char lvl=90/90 cons=6 talent=9,9,9;
+xingqiu add weapon="favsword" refine=3 lvl=90/90;
+xingqiu add set="noblesse" count=4;
+xingqiu add stats hp=4780 atk=311 atk%=0.466 hydro%=0.466 cr=0.311;
+xingqiu add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.331 cd=0.7944;

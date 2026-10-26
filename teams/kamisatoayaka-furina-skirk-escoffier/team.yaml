@@ -1,0 +1,19 @@
+id: kamisatoayaka-furina-skirk-escoffier
+name: Kamisatoayaka / Furina / Skirk / Escoffier
+members:
+    - ayaka
+    - furina
+    - skirk
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/j9qR8fRHrHwQ
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    skirk: start_serpents_subtlety=100
+reference:
+    dps: 103033
+    computed: "2026-10-02"

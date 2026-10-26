@@ -1,0 +1,11 @@
+active neuvillette;
+for let x=0; x<4; x=x+1 {
+  neuv skill, attack:3;
+  sucrose attack, skill, dash;
+  dehya skill:2;
+  xiangling burst, skill, dash;
+  neuv attack, charge, burst, skill, charge;
+  sucrose attack, skill, dash, burst;
+  xiangling attack:2, skill, dash;
+  neuv charge, charge;
+}

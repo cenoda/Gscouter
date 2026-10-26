@@ -1,0 +1,25 @@
+active wrio;
+wrio attack; 
+for let r=0; r<4; r=r+1 {
+  
+  lynette attack, skill;
+  mavuika burst, skill;
+  bennett burst, skill;
+  if .lynette.burst.ready && .lynette.energy == .lynette.energymax {
+    lynette attack, burst;
+  } else {
+    lynette attack, skill;
+  }
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump, 
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3;
+  if .wrio.burst.ready && .wrio.energy == .wrio.energymax {
+    wrio attack, burst;
+  } else {
+    wrio charge, jump, attack;
+  }
+}

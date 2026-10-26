@@ -1,0 +1,9 @@
+active gorou;
+for let i=0; i<5; i=i+1 {
+    gorou skill, burst;
+    albedo attack, skill;
+    furina skill, burst;
+    noelle skill, burst, attack:3, dash, attack:3;
+    gorou skill,attack;
+    noelle attack:3, dash, attack:3, dash, attack:3, dash, attack:2;    
+}

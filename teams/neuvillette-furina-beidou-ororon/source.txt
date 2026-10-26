@@ -1,0 +1,6 @@
+# Conditions of the source config, used to validate the rotation.
+
+target lvl=100 resist=0.1 hp=10000000 radius=1.5 pos=0,1.9;
+target lvl=100 resist=0.1 hp=10000000 radius=1.5 pos=0,5;
+options swap_delay=12;
+energy every interval=480,720 amount=1;

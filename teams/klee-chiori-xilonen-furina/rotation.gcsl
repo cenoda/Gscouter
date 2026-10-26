@@ -1,0 +1,30 @@
+fn klee_combo(x) {
+  klee attack, charge, burst, walk;
+  klee attack[travel=6]:2, skill[bounce=3, mine=8], jump;
+  if .klee.skill.ready {
+    klee attack, skill[bounce=3, mine=8], jump;
+  } else {
+    klee attack[travel=6], charge;
+  }
+  for let x = 4; x > 0; x = x - 1 {
+    klee attack[travel=6], charge; 
+  }
+  klee attack, walk, attack;
+}
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || ( char_id == .keys.char.xilonen && action_id == .action.skill ) || ( char_id == .keys.char.chiori && action_id == .action.skill ) {
+    pick_up_crystallize("any");
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+active klee;
+klee attack; 
+for let i=0; i<4; i=i+1 {
+  xilonen skill, attack:2, burst;
+  furina skill, dash, burst;
+  chiori burst, skill:2;
+  xilonen skill, attack:2;
+  klee_combo(0);
+}

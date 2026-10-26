@@ -1,0 +1,17 @@
+id: arlecchino-fischl-mona-bennett
+name: Arlecchino / Fischl / Mona / Bennett
+members:
+    - arle
+    - fischl
+    - mona
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/dhwF6tF6cjMQ
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 140127
+    computed: "2026-10-02"

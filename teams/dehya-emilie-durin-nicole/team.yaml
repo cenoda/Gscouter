@@ -1,0 +1,17 @@
+id: dehya-emilie-durin-nicole
+name: Dehya / Emilie / Durin / Nicole
+members:
+    - dehya
+    - emilie
+    - durin
+    - nicole
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/hwgNdmhbQ8dW
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 76425
+    computed: "2026-10-01"

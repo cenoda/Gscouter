@@ -1,0 +1,17 @@
+id: yoimiya-emilie-mavuika-bennett
+name: Yoimiya / Emilie / Mavuika / Bennett
+members:
+    - yoimiya
+    - emilie
+    - mav
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/WjDj8LbNNnzf
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 54809
+    computed: "2026-10-02"

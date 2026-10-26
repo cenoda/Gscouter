@@ -1,0 +1,18 @@
+active kokomi;
+for let i = 0; i < 5; i = i + 1 {
+  kokomi skill;
+  luminedendro skill, burst;
+  nahida skill, attack:2, burst;
+  xiangling skill, burst;
+  luminedendro skill;
+  kokomi burst;
+  for let i = 9; i; i = i - 1 { 
+    kokomi attack:2, dash, walk[f=2]; 
+  }
+  luminedendro skill, attack:2;
+  xiangling skill, attack;
+  nahida skill, attack:2;
+  xiangling attack:3, dash;
+  kokomi attack:2, dash, attack:2;
+  print("rotation done");
+}

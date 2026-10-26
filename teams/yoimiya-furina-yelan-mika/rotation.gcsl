@@ -1,0 +1,28 @@
+active furina;
+for let x=0; x<4; x=x+1 {
+  furina skill, dash, burst;
+  
+  yelan burst, attack;
+  
+  mika burst, attack, skill;
+  
+  yelan attack, skill;
+
+  yoimiya skill, attack:5, attack:5, attack:5, attack:3; 
+  
+  yelan attack, skill, attack:2;
+  
+  if .yoimiya.burst.ready {
+    yoimiya burst;
+  } else {
+    if .yelan.breakthrough {
+      yelan aim[hold=1];
+      
+      furina attack, dash; 
+    } else {
+      yelan attack;
+    }
+  }
+  
+  print("done");
+}

@@ -1,0 +1,22 @@
+active fischl;
+for let i=0; i<4; i=i+1 {
+  fischl skill;
+  xingqiu burst, attack:2;
+  kazuha attack, burst, attack, skill, high_plunge;
+  keqing attack, skill, skill,
+         attack, charge,
+         attack, charge,
+         attack, charge;    
+  kazuha attack, skill, high_plunge;
+  fischl attack:2, burst;
+  xingqiu attack, skill, dash, attack:2;
+  keqing attack, skill, skill,
+         attack, charge,
+         attack, charge,
+         attack, charge,
+         attack, charge,
+         attack, charge, attack;
+  kazuha skill, high_plunge;
+  fischl attack:2;
+    print("done");
+}

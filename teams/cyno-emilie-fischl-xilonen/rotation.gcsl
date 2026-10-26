@@ -1,0 +1,27 @@
+active fischl;
+for let i=0; i<4; i=i+1 {
+  fischl skill, attack;
+  
+  xilonen skill, attack:2, burst;
+  
+  emilie skill;
+  if .emilie.sets.ap {
+    emilie dash;
+    pick_up_crystallize("electro");
+  } else {
+    emilie attack;
+  }
+  
+  fischl attack:2, burst;
+  
+  cyno burst, attack:2, skill;
+  while .fischl.skill.cd > 30 {
+    if .cyno.mods.cyno-a1 && .cyno.skill.ready {
+      cyno skill;
+    } else if .cyno.normal == 4 && .stam > 20 {
+      cyno dash;
+    } else {
+      cyno attack;
+    }
+  }
+}

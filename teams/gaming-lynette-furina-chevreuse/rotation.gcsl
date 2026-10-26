@@ -1,0 +1,21 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  lynette burst, attack;
+  chevreuse burst, skill[hold=1];
+  lynette skill, attack;
+  gaming burst, attack:2,
+   skill, low_plunge;
+   wait(40);
+   gaming skill, low_plunge;
+   wait(40);
+   gaming skill, low_plunge;
+   wait(40);
+   gaming skill, low_plunge;
+   wait(40);
+   gaming skill, low_plunge,
+   skill, low_plunge,
+   skill, low_plunge;
+  lynette skill, attack;
+
+}

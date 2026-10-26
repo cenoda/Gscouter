@@ -1,0 +1,42 @@
+fn sethosCombo() {
+  sethos burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, skill;
+}
+active nahida;
+nahida skill;
+for let i=0; i<4; i=i+1 {
+  
+  if !is_even(i) {
+    nahida skill, attack, burst, charge;
+  } else if i > 0 {
+    nahida skill, attack:2, charge;
+  }
+  
+  kuki skill, attack;
+  if i > 0 && .kuki.burst.ready  {
+    kuki burst;
+  }
+  if i > 0 && .mav.burst.ready {
+    mav burst, skill;
+    if i > 1 { 
+      while .sethos.skill.cd {
+        mav charge;
+      }
+      mav dash;
+    }
+  } else {
+    mav skill, attack;
+  }
+  
+  sethos skill; 
+  sethosCombo();
+  sethos aim[hold=2]:1;
+  sethos aim[hold=1]:1;
+}

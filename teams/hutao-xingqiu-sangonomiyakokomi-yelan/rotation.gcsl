@@ -1,0 +1,25 @@
+active yelan;
+let t = 0;
+for let i=0; i<4; i=i+1 {
+  t = f();
+  yelan burst, attack;
+  xingqiu burst, attack, skill, dash, attack:2;
+  kokomi attack, skill, attack;
+  yelan attack, skill;
+  hutao skill,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump;
+  yelan skill;
+  if .yelan.tags.yelan_breakthrough {
+  		yelan aim;
+  	} else  {
+  		yelan attack;
+  	}
+  kokomi attack, walk, attack, walk, attack, walk, attack, walk;
+}

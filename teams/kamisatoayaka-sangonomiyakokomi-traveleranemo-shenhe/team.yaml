@@ -1,0 +1,17 @@
+id: kamisatoayaka-sangonomiyakokomi-traveleranemo-shenhe
+name: Kamisatoayaka / Sangonomiyakokomi / Traveleranemo / Shenhe
+members:
+    - ayaka
+    - kokomi
+    - lumineanemo
+    - shenhe
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/JkgDBqqDtPpG
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 54286
+    computed: "2026-10-02"

@@ -1,0 +1,27 @@
+active fischl;
+fischl skill, attack;
+for let i=0; i<4; i=i+1 {
+	furina skill, dash, burst;
+	
+	candace attack, skill, burst;
+	
+	bennett burst, attack, skill;
+	
+	if .fischl.burst.ready {
+	  fischl attack:2, burst;
+	} else {
+	  fischl attack, skill;
+	}
+	
+	bennett attack;
+	while .status.bennettburst {
+      if .bennett.skill.ready {
+        bennett skill;
+      } else {
+        bennett attack;
+      }
+	}
+	bennett attack:3, skill;
+	
+	print("done");
+}

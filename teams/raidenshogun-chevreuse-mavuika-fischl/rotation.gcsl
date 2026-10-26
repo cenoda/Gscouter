@@ -1,0 +1,24 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 4; i = i + 1 {
+  
+  if i > 0 && .mav.burst.ready {
+    mav burst, charge:2, dash,
+               charge:2, dash,
+               skill, dash;
+  } else {
+    mav attack, skill;
+  }
+  
+  chevreuse burst, skill[hold=1]:3;
+  fischl attack:2, burst;
+
+  while .raiden.burst.cd {
+    raiden attack;
+  }
+  raiden burst, attack:4, dash, attack:4, skill, attack:4, dash, attack:4;
+  
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  }
+}

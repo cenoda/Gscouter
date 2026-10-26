@@ -1,0 +1,14 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  escoffier skill;
+  if i && .escoffier.burst.ready {
+    escoffier burst;
+  } else {
+    escoffier attack;
+  }
+  mika burst;
+  ayato skill, attack:15;
+  mika attack:3, skill;
+  ayato attack:3, burst, skill, attack:15;
+}

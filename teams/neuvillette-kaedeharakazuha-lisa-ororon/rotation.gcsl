@@ -1,0 +1,19 @@
+active neuvillette;
+for let x=0; x<4; x=x+1 {
+  neuvillette skill;
+  kazuha burst;
+  lisa burst;
+  ororon skill, burst;
+  while !.ororon.mods.favonius-cd {
+    ororon attack;
+  }
+  kazuha skill, high_plunge;
+  neuvillette charge, burst, skill, charge;
+  kazuha skill, high_plunge;
+  ororon attack:3;
+  while !.ororon.mods.favonius-cd {
+    ororon attack;
+  }
+  neuvillette charge:2;
+}
+wait(173);

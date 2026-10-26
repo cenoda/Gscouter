@@ -1,0 +1,25 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  citlali skill, attack, burst, attack;
+  
+  bennett burst, attack, skill;
+  while .yelan.mods.yelanburst {
+
+    if .bennett.skill.ready {
+      bennett skill;
+    } else {
+      bennett attack;
+    }
+  }
+	
+}

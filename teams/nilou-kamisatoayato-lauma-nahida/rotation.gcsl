@@ -1,0 +1,10 @@
+active nilou;
+for let i=0; i<4; i=i+1 {
+  nilou skill, attack:2, skill;
+  nahida skill, attack, burst;
+  lauma skill[hold=1], burst;
+  ayato skill, attack:15, burst;
+  nilou burst;
+  lauma skill[hold=1], attack;
+  ayato skill, attack:13;
+}

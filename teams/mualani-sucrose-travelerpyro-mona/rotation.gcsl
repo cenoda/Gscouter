@@ -1,0 +1,34 @@
+fn mualani_combo(attacks_number) {
+  while .mualani.nightsoul.state {
+    for let k=0; k<attacks_number; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+  mualani walk[f=1];
+}
+active mona;
+for let i=0; i<4; i=i+1 {
+  
+  mona skill, burst, attack:4;
+  if !.aetherpyro.skill.ready && .aetherpyro.burst.ready { 
+    aetherpyro burst; 
+  }
+  while .aetherpyro.skill.cd > 27 {
+    aetherpyro attack;  
+  }
+  aetherpyro skill, attack;
+  wait(35); 
+  sucrose attack, dash, skill;
+  mualani skill;
+  if .mualani.burst.ready {
+    mualani walk[f=1]; 
+    mualani burst;
+    mualani_combo(2);
+  } else {
+    mualani_combo(3);
+  }
+}

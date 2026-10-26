@@ -1,0 +1,16 @@
+active yelan;
+for let x=0; x<5; x=x+1 {
+  yelan skill;
+  while !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  bennett attack, skill,attack, burst;
+  kazuha attack, skill[hold=1], high_plunge,attack;
+  dehya attack:2, skill, attack;
+  yelan skill, attack;
+  dehya attack:4, skill;
+  dehya attack:3;
+  kazuha skill, high_plunge;
+  bennett skill;
+}

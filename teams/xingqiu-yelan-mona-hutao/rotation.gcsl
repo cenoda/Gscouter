@@ -1,0 +1,18 @@
+active yelan;
+for let i=0; i<4; i=i+1 { 
+  yelan skill, attack:2;
+  xingqiu burst, attack, skill, dash, attack:2;
+  yelan burst, attack:3;
+  mona attack, skill, attack, burst, attack;
+  yelan attack, skill, attack;
+  hutao skill,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:2, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump;
+}

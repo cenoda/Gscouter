@@ -1,0 +1,22 @@
+active furina;
+fischl skill, attack;
+for let r = 0; r < 4; r = r + 1 {
+  furina skill, dash, burst;
+  
+  dori skill, burst;
+
+  alhaitham burst;
+
+  amy attack;
+  if .amy.burst.ready {
+    amy attack, burst;
+  } else {
+    amy skill;
+  }
+  alhaitham attack:3, dash, 
+            attack:3, charge, dash,
+            attack:3, charge, dash,
+            attack:1, skill[hold=1], low_plunge[short=1];
+  alhaitham attack:4, charge, dash,
+            attack:4;
+}

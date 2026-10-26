@@ -1,0 +1,25 @@
+let i=1;
+active raiden; 
+raiden skill;
+for let r=0; r<4; r=r+1 { 
+  if .fischl.skill.ready {
+    fischl skill, attack;
+    i=0;
+  } else {
+    i=1;
+  }
+  prune skill:2;
+  nahida burst, skill;
+  if i == 0 {
+    fischl attack:2, burst;
+  }
+  if i == 1 {
+    fischl burst, attack, skill[recast=1];
+  }
+  prune burst;
+  raiden burst, 
+         attack:4, skill, 
+         attack:4, dash, 
+         attack:4, dash, 
+         attack:4;
+}

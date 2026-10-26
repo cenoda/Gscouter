@@ -1,0 +1,17 @@
+active albedo;
+for let x=0; x< 4; x=x+1 {
+  albedo skill, attack;
+  rosaria skill;
+  bennett burst, skill;
+  rosaria burst;
+  xiangling burst, attack, skill;
+  rosaria skill;
+  bennett attack, skill;
+  xiangling attack:3;
+  bennett skill;
+  xiangling attack:2;
+  rosaria skill;
+  albedo burst;
+  bennett skill;
+  xiangling attack:2;
+}

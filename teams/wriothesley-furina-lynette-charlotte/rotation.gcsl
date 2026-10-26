@@ -1,0 +1,22 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina attack, skill, dash, burst;
+  lynette skill, attack; 
+  charlotte skill, burst;
+  if .lynette.skill.ready {
+    lynette skill, burst;
+  } else {
+    lynette burst, attack;
+  }
+  wrio skill,
+  attack:3, charge, jump,
+  attack:3, charge, jump,
+  attack:3, charge, jump,
+  attack:3, charge, jump,
+  attack:3, charge, jump;
+  if .wrio.burst.ready && .wrio.energy == .wrio.energymax {
+    wrio burst;
+  } else {
+    wrio attack:3, charge;
+  } 
+}

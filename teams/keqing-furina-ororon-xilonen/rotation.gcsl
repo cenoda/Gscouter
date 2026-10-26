@@ -1,0 +1,31 @@
+active xilonen;
+for let i=0; i<4; i=i+1 { 
+  xilonen burst;
+  
+  ororon burst, skill;
+  
+  furina skill, dash, burst;
+  
+  xilonen skill, attack:2; pick_up_crystallize("any");
+  
+  keqing skill, burst, skill;
+  keqing attack, charge,
+         attack, charge,
+         attack, charge,
+         attack, charge,
+         attack, charge, skill;
+  
+  xilonen skill, attack:2; pick_up_crystallize("any");
+  
+  while .furina.skill.cd > 120 {
+    if .keq.skill.ready {
+      keq skill;
+    } else if .keq.normal > 1 && .stam > 25 {
+      keq charge;
+    } else if .keq.normal > 3 && .stam > 18 {
+      keq dash;
+    } else {
+      keq attack;
+    }
+  }
+}

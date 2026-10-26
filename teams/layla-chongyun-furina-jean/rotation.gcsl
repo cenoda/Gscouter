@@ -1,0 +1,9 @@
+active layla;
+layla skill, burst;
+for let i=0; i<4; i=i+1 {
+	chongyun burst, skill;
+	furina skill, dash, burst;
+	jean attack, burst, skill, attack;
+	layla burst, skill, attack:2, charge, attack:2, charge, attack:2;
+	jean skill, attack:2;
+}

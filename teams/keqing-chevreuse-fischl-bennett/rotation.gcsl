@@ -1,0 +1,25 @@
+active keqing;
+keqing skill; 
+for let i=0; i<4; i=i+1 {
+  bennett burst, skill;
+  chev burst, skill[hold=1]:3;
+  amy attack;
+  if !.amy.skill.ready {
+    amy attack, burst;
+  } else {
+    amy skill;
+  }
+  
+  bennett skill;
+  
+  keqing skill, burst;
+  
+  bennett skill;
+  
+  keqing skill,
+        attack, charge,
+        attack, charge,
+        attack, charge,
+        attack, charge,
+        attack, charge;
+}

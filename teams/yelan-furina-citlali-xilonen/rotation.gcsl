@@ -1,0 +1,14 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack;
+  xilonen skill, attack:2;  pick_up_crystallize("hydro");
+  furina burst, attack:2;
+  citlali skill, attack;
+  yelan burst, attack, skill, attack, skill;
+  yelan attack:4;
+  xilonen skill, attack:2;  pick_up_crystallize("hydro");
+  yelan attack:4;
+  yelan attack:4;
+  yelan attack:4;
+  yelan dash, attack:2;
+}

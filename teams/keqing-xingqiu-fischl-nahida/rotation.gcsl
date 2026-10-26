@@ -1,0 +1,9 @@
+active nahida;
+for let i = 0; i < 5; i = i + 1 {
+  nahida attack, skill, burst;
+  fischl attack, skill;
+  xingqiu skill, dash, burst, attack;
+  keqing attack, skill, skill, attack, charge, attack, charge, attack, charge, attack, charge, attack, charge;
+  fischl attack, attack, burst;
+  keqing skill, skill, attack, charge, attack, charge, attack, charge, attack, charge, attack, charge, burst;
+}

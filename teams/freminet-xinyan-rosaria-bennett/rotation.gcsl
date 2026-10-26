@@ -1,0 +1,14 @@
+active freminet; 
+for let x = 0; x < 4; x = x + 1 {
+  bennett skill, burst;
+  
+  rosaria skill, burst;
+  
+  xinyan skill, burst;
+  
+  freminet skill, burst,
+         attack:2, skill, skill,
+         attack:2, skill, attack, skill,  
+         attack:2, skill, attack, skill,
+         attack:2, skill;
+}

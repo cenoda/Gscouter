@@ -1,0 +1,23 @@
+active kuki;
+for let r = 0; r < 4; r = r + 1 {
+  if .kuki.burst.ready { kuki burst; }
+  xingqiu burst, attack;
+  kaveh attack, skill;
+  alhaitham attack, burst;
+  kuki attack, skill;
+  
+  alhaitham attack:3, dash,
+            attack:3, dash,
+            attack:3, dash,
+            attack:3;
+            
+  xingqiu skill, dash, attack:2;
+  kaveh skill;
+  
+  alhaitham skill[hold=1], low_plunge[short=1],
+            attack:3, dash,
+            attack:3, dash,
+            attack:3, dash,
+            attack:3;
+         
+}

@@ -1,0 +1,35 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  esco skill;
+  if .esco.burst.ready && .esco.energy == .esco.energymax && i > 0 {
+    esco burst;
+  }
+  
+  shenhe skill, burst;
+  
+  charlotte skill[hold=1];
+  
+  while .shenhe.skill.cd {
+    if .charlotte.burst.ready {
+      charlotte burst;
+    } else if .charlotte.normal > 3 && .stam > 18 {
+      charlotte dash;
+    } else {
+      charlotte attack;
+    }
+  }
+  
+  shenhe skill, attack;
+  
+  while .furina.skill.cd { 
+    if .charlotte.burst.ready {
+      charlotte burst;
+    } else if .charlotte.normal > 3 && .stam > 18 {
+      charlotte dash;
+    } else {
+      charlotte attack;
+    }
+  }
+}

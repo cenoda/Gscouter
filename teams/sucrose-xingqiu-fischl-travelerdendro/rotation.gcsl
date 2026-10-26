@@ -1,0 +1,24 @@
+active luminedendro;
+let t = 0;
+for let i=0; i<4; i=i+1 {
+    t = f();
+    luminedendro skill, burst;
+    fischl skill, attack;
+    xingqiu burst, attack, skill, dash, attack:2;
+    sucrose attack:2, skill, dash,
+            attack:3, dash,
+            attack:3, burst;
+    luminedendro attack, skill;
+    fischl attack, burst;
+    sucrose attack:2, skill, dash;
+    while f() - t <= 23.3*60 {
+        if .sucrose.skill.charge > 1 && .sucrose.normal > 3 {
+            sucrose skill, dash;
+        }
+        if .sucrose.normal > 3 {
+            sucrose dash;
+        }
+        sucrose attack;
+    }
+    print("done");
+}

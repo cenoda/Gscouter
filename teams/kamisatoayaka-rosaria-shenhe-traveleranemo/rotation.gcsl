@@ -1,0 +1,11 @@
+active ayaka;
+for let x=0; x<5; x=x+1 {
+  ayaka dash, attack:2, skill, attack:2; 
+  aetheranemo skill[hold=1, hold_ticks=1], burst;
+  shenhe skill, burst;
+  rosaria skill, burst;
+  ayaka dash, attack, skill, burst, attack:2, charge;
+  shenhe skill, attack;
+  aetheranemo skill[hold=1,hold_ticks=1];
+  rosaria skill, attack;
+}

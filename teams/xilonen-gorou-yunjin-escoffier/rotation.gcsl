@@ -1,0 +1,32 @@
+active escoffier;
+for let i=0; i<4; i=i+1 {
+  escoffier skill;
+  if i && .escoffier.burst.ready {
+    escoffier burst;
+  } else {
+    escoffier attack;
+  }
+  
+  gorou skill;
+  if .gorou.burst.ready {
+    gorou burst;
+  }
+  if !.gorou.mods.favonius-cd {
+    gorou attack;
+  }
+  
+  yunjin skill[hold=2], burst;
+  
+  if .gorou.burst.ready {
+    gorou burst;
+  }
+  pick_up_crystallize("any");
+  
+  xilonen skill;
+  while .xilonen.nightsoul.state {
+    xilonen attack;
+    if .xilonen.burst.ready {
+      xilonen burst;
+    }
+  }
+}

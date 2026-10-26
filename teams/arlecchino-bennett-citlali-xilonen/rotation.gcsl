@@ -1,0 +1,18 @@
+active arlecchino;
+for let i = 0; i < 4; i = i + 1 {
+  
+  arlecchino skill;
+  bennett skill, burst;
+  xilonen skill, attack:2; pick_up_crystallize("pyro");
+  citlali attack, skill, burst;
+  arlecchino charge, 
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash;
+  delay(6);
+  arlecchino attack:3, dash;
+  delay(32);
+  arlecchino attack:2;
+  
+}

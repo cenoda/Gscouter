@@ -1,0 +1,21 @@
+active furina;
+for let x =0 ; x<4; x=x+1 {
+  furina skill, attack;
+  escoffier skill, attack;
+  shenhe skill, burst, attack;
+  while .layla.burst.cd{
+    layla attack;
+  }
+  layla burst, skill;
+  furina burst;
+  escoffier burst;
+  shenhe attack, skill, attack;
+  
+  while .layla.burst.cd {
+    layla attack;
+  }
+  if x!=3{
+    layla burst, skill;
+    sleep(150);
+  }
+}

@@ -1,0 +1,11 @@
+active yelan ;
+for let i=0; i<4; i=i+1 {
+  yelan skill, burst, attack;
+  bennett burst, attack, skill;
+  faruzan attack, burst;
+  heizou attack, charge, attack, burst, attack, skill;
+  yelan skill, attack:2;
+  heizou attack, charge, attack:2, charge, attack:2;
+  bennett skill, attack:2;
+  heizou attack:3, charge, attack, skill;
+}

@@ -1,0 +1,19 @@
+active fischl;
+for let i=0; i<3; i=i+1 {
+  fischl attack,skill;
+  yelan skill,burst,attack;
+  kuki skill,attack;
+  alhaitham skill[hold=1], low_plunge[short=1],
+            attack:3, dash,
+            attack:3, charge, 
+            attack:4;
+  fischl attack,burst;
+  yelan skill,attack;   
+  alhaitham burst;
+  kuki attack,burst;
+  alhaitham attack:3, dash,
+            attack:3, charge, dash, 
+            attack:2, dash,
+            attack:2, charge,dash,
+            attack:3;  
+}

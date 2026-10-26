@@ -1,0 +1,19 @@
+active raiden;
+raiden skill;
+for let r=0; r<5; r=r+1 {
+  if r == 0 {
+    yae skill:3;
+  } else {
+    yae attack, skill, attack, skill, attack, skill;
+  }
+  chevreuse burst;
+  if r > 0 {
+	  chevreuse attack:2;
+  }
+  chevreuse skill[hold=1];
+  sara skill, aim;
+  yae burst, attack, skill, attack, skill, attack, skill;
+  sara burst;
+  chevreuse skill[hold=1];
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+}

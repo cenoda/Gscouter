@@ -1,0 +1,36 @@
+fn YaePlunge() {
+  yae jump;
+  if .airborne {
+    yae high_plunge[collision=rand()>0.5];
+  }
+}
+active sara;
+for let i = 0; i < 4; i = i + 1 {
+  sara skill, attack;
+  
+  yae skill:3;
+  xilonen skill, attack:2;
+  
+  xianyun skill, low_plunge, burst;
+  
+  sara aim;
+  
+  YaePlunge(); yae dash;
+  YaePlunge(); yae dash; 
+  YaePlunge(); yae dash; 
+  YaePlunge(); yae dash;
+  YaePlunge();
+  
+  xilonen skill, attack:2;
+  
+  xianyun attack:2; sleep(20); 
+  
+  sara burst; 
+  
+  YaePlunge(); yae dash;
+  YaePlunge(); yae dash;
+  YaePlunge();
+  if .yae.burst.ready {
+    yae burst;
+  }
+}

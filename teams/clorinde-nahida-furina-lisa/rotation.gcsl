@@ -1,0 +1,26 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill; 
+  if .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida attack, charge;
+  }
+  
+  furina skill, dash, burst;
+  
+  lisa burst, skill[hold=1], attack:3;
+  
+  clorinde_combo();
+  clorinde burst; 
+}

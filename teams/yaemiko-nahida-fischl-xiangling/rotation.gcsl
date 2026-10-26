@@ -1,0 +1,28 @@
+active yae;
+for let i = 0; i < 4; i = i + 1 {
+  if i == 0 {
+    yae skill:3;
+  } else {
+    yae skill, attack, skill, attack, skill;
+  }
+
+  nahida skill, attack, burst;
+  
+  fischl attack, skill;
+  
+  xl burst, skill, dash;
+  
+  yae attack:1, charge, dash;
+  yae attack:1, charge, dash;
+  yae attack:1, charge, dash;
+  yae burst, attack, skill:3; 
+  
+  fischl attack:2, burst;
+  
+  yae attack:2, charge, jump;
+  
+  xl skill; 
+  
+  yae attack:2, charge, jump;
+  yae attack:2, charge, jump;
+}

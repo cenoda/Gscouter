@@ -1,0 +1,17 @@
+active candace;
+for let x = 0; x < 5; x = x + 1 {
+  candace attack, skill;
+  xingqiu burst, attack, skill, dash, attack:2;
+  yelan burst, attack, skill, attack;
+  candace attack, skill, burst, attack;
+  jean skill;
+  jean attack:3, charge;
+  jean attack:3, charge;
+  jean attack:3, charge;
+  yelan attack, skill, attack;
+  
+  jean attack:3, charge;
+  jean attack;
+  jean skill;
+  print("rotation done");
+}

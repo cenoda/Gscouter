@@ -1,0 +1,21 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  nicole skill, attack, burst;
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  durin skill, attack, attack, burst, attack; 
+
+  raiden burst, 
+         attack:4, skill,
+         attack:4, dash, 
+         attack:4, dash,
+         attack:3;
+}

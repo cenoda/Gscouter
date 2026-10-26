@@ -1,0 +1,20 @@
+active yae;
+for let i=0; i<4; i=i+1 {
+ 
+  yae skill:3;
+  chevreuse burst, skill[hold=1];
+  if .yae.burst.ready {
+    yae burst, skill:3;
+  }
+  if .fischl.skill.ready {
+    fischl attack,skill;
+  } else {
+    fischl attack, burst;
+  }
+  klee attack, burst, walk;
+  klee attack, skill[bounce=3, mine=8], jump;
+  for let i=0; i<6; i=i+1 {
+      klee attack, charge;
+  }
+}
+wait(25);

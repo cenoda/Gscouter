@@ -1,0 +1,19 @@
+active albedo;
+for let i=0; i<4; i=i+1 {
+  albedo skill, burst, attack;
+  klee attack, skill[bounce=3, mine=8];
+  jean skill;
+  if .jean.burst.ready && .jean.energy == .jean.energymax {
+    jean burst;
+  }
+  jean attack;
+  if .lisa.burst.ready && .lisa.energy == .lisa.energymax {
+    lisa burst;
+  }
+  klee attack, burst;
+  for let c=0; c<6; c=c+1 {
+    klee attack, charge;
+  }
+  klee attack, walk, attack, charge;
+}
+wait(25);

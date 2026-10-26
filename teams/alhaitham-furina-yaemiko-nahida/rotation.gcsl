@@ -1,0 +1,15 @@
+active yae;
+for let i=0; i<4; i=i+1 {
+  yae skill:3;
+  furina skill, dash, burst, attack;
+  nahida skill, burst;
+  
+  alhaitham burst;
+  yae attack, skill:2;
+  alhaitham attack:3, dash,
+            attack:3, skill,
+            attack:3, dash,
+            attack:3, charge, dash,
+            attack:3, dash,
+            attack:3, charge;
+}

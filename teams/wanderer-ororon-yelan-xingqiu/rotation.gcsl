@@ -1,0 +1,26 @@
+active xq;
+for let i=0; i<4; i=i+1 { 
+  xingqiu skill, dash, burst, attack;
+  
+  ororon skill, attack, burst, attack;
+  
+  yelan skill, attack, burst, attack;
+  
+  wanderer skill, attack;
+  while .wanderer.skydweller-points > 3 {
+    switch {
+      case .wanderer.normal < 3:
+        wanderer attack;
+      case .wanderer.mods.wanderer-a4:
+        wanderer dash;
+      default:
+        wanderer attack;
+    }
+  } 
+  if .wanderer.burst.ready && .wanderer.energy == .wanderer.energymax {
+    wanderer burst, attack;
+  } else {
+    
+    wanderer low_plunge, dash, attack;
+  }
+}

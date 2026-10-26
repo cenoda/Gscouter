@@ -1,0 +1,31 @@
+active kuki;	
+kuki skill;
+for let i = 0; i<4; i=i+1 { 
+ furina skill, dash, burst;
+	
+ if i{ kuki skill;}
+    
+	yelan burst, attack;
+ if i {furina attack:2;}
+ 
+ if .kuki.burst.ready {kuki burst; } 
+ else yelan attack;
+	
+	yelan attack, skill, attack;
+	
+	hutao skill,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:2, charge, jump, attack;
+    
+	yelan skill, attack:2;
+	
+	if !i {furina attack:2;}
+	
+}

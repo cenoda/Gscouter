@@ -1,0 +1,36 @@
+active emilie;
+for let i=0; i<4; i=i+1 { 
+  if i > 0 {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  baizhu skill, attack, burst;
+  
+  while .furina.skill.cd > 120 {
+    switch {
+      case .klee.burst.ready && .klee.energy == .klee.energymax && .previous-action == .action.attack:
+        klee burst;
+      case (.previous-action == .action.charge || .previous-action == .action.skill) && .stam > 18:
+        klee dash;
+      case .klee.skill.ready:
+        klee attack, skill[bounce=3, mine=8];
+      case .klee.mods.a1-spark && .previous-action == .action.walk:
+        klee attack, charge, jump;
+      case .stam > 50 && .previous-action == .action.walk:
+        klee attack, charge, jump;
+      case .previous-action == .action.attack:
+        klee walk;
+      default:
+        klee attack;
+    }
+  }
+  
+}

@@ -1,0 +1,14 @@
+active kuki;
+for let i=0; i<6; i=i+1 {
+  collei burst, skill;
+  kuki skill, dash, burst;
+  kazuha skill, high_plunge, burst;
+  keqing skill, burst, skill, dash,
+    attack, charge,
+    attack, charge,
+    attack, skill,
+    attack, charge,
+    attack;
+  kazuha skill, high_plunge;
+  print("end");
+}

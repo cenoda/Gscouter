@@ -1,0 +1,53 @@
+let waitForCA = 0;
+active klee;
+klee attack;
+for let x = 0; x < 5; x = x + 1 {
+  waitForCA = 0;
+  
+  albedo skill, attack;
+  
+  zhongli skill[hold=1], dash, attack;
+  while !pick_up_crystallize("pyro") { 
+    if !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    } else {
+      wait(1);
+    }
+  }
+  
+  if !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  
+  bennett skill, burst;
+  
+  if .klee.skill.ready{
+    klee attack, skill[bounce=3, mine=8];
+    if .klee.burst.ready && .klee.energy == .klee.energymax {
+      klee burst, walk;
+    } else {
+      klee jump;
+    }
+  } else if .klee.burst.ready && .klee.energy == .klee.energymax {
+    klee attack, burst, walk;
+  }
+  for let n1c = 0; n1c < 3; n1c = n1c + 1 {
+    klee attack[travel=6], charge; 
+  }
+  for let n2c = 0; n2c < 4; n2c = n2c + 1 {
+    klee attack, walk, attack[travel=6];
+     if .stam >= 50 || .status.kleespark {
+       klee charge;
+     } else {
+       klee walk, attack, walk;
+     }
+  }
+  
+  if .previous-action == .action.charge {
+    klee attack;
+    waitForCA = 1;
+  }
+}
+if waitForCA {
+    wait(25); 
+}

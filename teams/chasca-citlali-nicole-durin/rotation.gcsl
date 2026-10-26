@@ -1,0 +1,27 @@
+active nicole;
+for let i=0; i<4; i=i+1 {
+  if is_even(i) {
+    nicole attack:2, skill;
+    for let j=0; j<2; j=j+1 {
+      if !.nicole.mods.favonius-cd {
+        nicole attack;
+      }
+    }
+  } else {
+    nicole burst, attack:2, skill;
+    for let j=0; j<2; j=j+1 {
+      if !.nicole.mods.favonius-cd {
+        nicole attack;
+      }
+    }
+  }
+  durin skill, attack, burst;
+  citlali skill, burst;
+  chasca skill, aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}
+wait(82);

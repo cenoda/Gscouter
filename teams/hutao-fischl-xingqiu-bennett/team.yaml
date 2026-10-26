@@ -1,0 +1,19 @@
+id: hutao-fischl-xingqiu-bennett
+name: Hutao / Fischl / Xingqiu / Bennett
+members:
+    - hutao
+    - fischl
+    - xingqiu
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/rzC97jCmBkLM
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    hutao: start_hp=1
+reference:
+    dps: 48457
+    computed: "2026-09-30"

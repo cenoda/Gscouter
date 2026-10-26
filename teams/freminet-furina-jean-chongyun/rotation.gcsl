@@ -1,0 +1,16 @@
+active chongyun;
+for let i=0; i<4; i=i+1 {
+  chongyun burst,skill;
+  
+  furina skill, dash, burst;
+  
+  jean attack, skill, burst;
+  
+  freminet attack;
+  freminet skill,burst,skill;
+  freminet skill:2,attack:1;
+  freminet skill:2,attack:1;
+  freminet skill:2,attack:2;
+  freminet skill:2,attack:2;
+  freminet skill:2;
+}

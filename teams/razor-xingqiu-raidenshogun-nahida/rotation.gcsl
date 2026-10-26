@@ -1,0 +1,30 @@
+active raiden;
+for let i=0; i<5; i=i + 1 {
+if i {nahida attack;}
+  nahida burst, skill;
+while !.nahida.mods.favonius-cd && 
+  !.xingqiu.burst.ready {
+     nahida attack;
+    }
+    
+if i {raiden attack;}
+  raiden skill, dash;  
+  xingqiu skill, dash, burst, attack;
+while !.xingqiu.mods.favonius-cd && 
+  !.razor.burst.ready {
+     xingqiu attack;
+    }
+  razor skill, dash, burst;
+while .razor.mods.razor-q > 60 {
+    if .razor.normal > 3 {
+      if .razor.skill.ready {
+        razor skill, dash;
+      } else {
+        razor dash;
+      }
+    } else {
+      razor attack;
+    }
+  }
+  
+}

@@ -1,0 +1,45 @@
+let farColl = 0.5; 
+let closeColl = 0.3; 
+fn alhaitham_plunge(collision) {
+  haitham jump;
+  if .airborne {
+    haitham high_plunge[collision=rand()>collision];
+  }
+}
+  
+active fischl;
+for let i = 0; i < 4; i = i + 1 {
+  fischl attack, skill;  
+  
+  nahida skill, attack;
+  if .nahida.burst.ready && .nahida.energy == .nahida.energymax {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  xianyun skill, low_plunge, burst;
+  
+  haitham skill[hold=1], low_plunge[short=1];
+  haitham attack:2; alhaitham_plunge(closeColl);
+  haitham attack:2; alhaitham_plunge(closeColl);
+  haitham attack:2; alhaitham_plunge(closeColl);
+  haitham attack:2; alhaitham_plunge(closeColl);
+  haitham attack:2, burst;
+  
+  amy attack:2, burst;
+  haitham attack:2; alhaitham_plunge(farColl);
+  haitham attack:2; alhaitham_plunge(farColl);
+  haitham attack:2; alhaitham_plunge(farColl);
+  
+  while .debuff.res.t0.nahida-e {
+    if .haitham.normal > 3 && .stam > 25 {
+      haitham charge;
+    } else if .haitham.normal > 3 && .stam > 18 {
+      haitham dash;
+    } else {
+      haitham attack;
+    }
+  }
+  
+}

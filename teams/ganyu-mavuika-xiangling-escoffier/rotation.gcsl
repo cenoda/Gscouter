@@ -1,0 +1,39 @@
+fn ganyuAim() {
+  if .ganyu.weapon == .keys.weapon.crescent { 
+    ganyu aim[hold=2, weakspot=rand()>0.3];
+  } else { 
+    ganyu aim[hold=2];
+  }
+}
+active mavuika; 
+for let i = 0; i < 4; i = i + 1 {
+  if is_even(i) {
+    esco burst;
+  }
+  esco skill;
+  ganyu skill;
+  if .ganyu.burst.ready {
+    ganyu burst;
+  } else {
+    ganyuAim();
+  }
+  
+  if .mav.burst.ready {
+    mav burst, skill, dash;
+  } else {
+    mav skill, dash;
+  }
+  
+  xl burst, skill, dash;
+  
+  ganyuAim();
+  ganyuAim();
+  ganyu skill;
+  ganyuAim();
+  ganyuAim();
+  ganyuAim();
+  ganyuAim();
+  if is_even(i) {
+    ganyu aim;
+  }
+}

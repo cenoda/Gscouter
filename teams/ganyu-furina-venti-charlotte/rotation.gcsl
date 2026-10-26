@@ -1,0 +1,18 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+	furina skill, dash, burst;
+	
+	charlotte skill, burst;
+	
+	ganyu aim[hold=2, weakspot=rand()>0.2], burst, skill;
+	
+	venti skill, burst;
+	
+	ganyu aim[hold=2, weakspot=rand()>0.2],
+	      aim[hold=2, weakspot=rand()>0.2],
+	      aim[hold=2, weakspot=rand()>0.2],
+	      aim[hold=2, weakspot=rand()>0.2],
+	      skill;
+	
+	venti skill, attack; 
+}

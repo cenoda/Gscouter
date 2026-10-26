@@ -1,0 +1,25 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  candace skill, burst, attack:2; 
+
+  bennett skill, burst;
+  
+  arle attack, charge,
+       attack:2, charge, 
+       attack:2, charge, 
+       attack:2, charge, 
+       attack:2, charge,
+       attack:2, charge, 
+       attack:2, charge, 
+       attack:2, charge; 
+}

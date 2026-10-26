@@ -1,0 +1,15 @@
+set_particle_delay("chevreuse", 80);                              
+active dehya;
+dehya skill;
+for let x = 0; x < 5; x = x + 1{
+	fischl attack:2, burst;
+  chevreuse attack, skill[hold=1], walk, attack;
+  dehya attack, skill;
+  yae attack, skill, attack, skill, attack, skill, attack;
+	dehya burst, skill:10;
+	fischl skill, attack;
+	yae burst, attack:2, skill, attack, skill, attack, skill, attack;
+  chevreuse burst, attack, skill[hold=1], walk;
+  dehya skill, attack;
+	yae attack:2, dash, attack:2;
+}

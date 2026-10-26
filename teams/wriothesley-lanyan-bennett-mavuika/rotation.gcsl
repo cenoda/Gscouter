@@ -1,0 +1,16 @@
+active wrio;
+wrio attack:1;
+for let i=0; i<4; i=i+1 {
+  mavuika burst, skill, jump;
+  bennett skill, burst;
+  lanyan jump, skill:2;
+  wrio skill,
+       attack:5, charge, dash,
+       attack:5, charge, dash,
+       attack:5, charge, dash;
+  if is_even(i) {
+    wrio burst;
+  } else {
+    wrio attack:3, charge, dash;
+  }
+}

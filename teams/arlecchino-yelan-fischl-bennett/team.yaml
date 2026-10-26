@@ -1,0 +1,17 @@
+id: arlecchino-yelan-fischl-bennett
+name: Arlecchino / Yelan / Fischl / Bennett
+members:
+    - arle
+    - yelan
+    - fischl
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/pdLgb8jQpzc7
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 79726
+    computed: "2026-09-30"

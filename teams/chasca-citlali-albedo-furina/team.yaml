@@ -1,0 +1,17 @@
+id: chasca-citlali-albedo-furina
+name: Chasca / Citlali / Albedo / Furina
+members:
+    - chasca
+    - citlali
+    - albedo
+    - furina
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/bCFhhGbcNh9f
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 53215
+    computed: "2026-10-02"

@@ -1,0 +1,29 @@
+fn kinich_combo() {
+  kinich skill;
+  kinich attack;
+  while .kinich.nightsoul.state {
+    if .kinich.nightsoul.points == 20 {
+      kinich skill[hold=1];
+      continue;
+    }
+    kinich attack;
+  }
+}
+active yae;
+for let i=0; i<4; i=i+1 {
+  yae skill:3;
+  kazuha skill, high_plunge;
+  
+  fischl attack, skill;
+  
+  kinich_combo();
+  yae burst, skill:3;
+  kazuha skill, high_plunge, burst;
+  
+  fischl attack:2, burst;
+  
+  kinich_combo();
+  kinich burst;
+  
+  yae attack:2;
+}

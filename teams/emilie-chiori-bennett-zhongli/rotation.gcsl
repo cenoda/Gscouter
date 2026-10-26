@@ -1,0 +1,23 @@
+active emilie;
+emilie skill;
+for let i = 0; i < 5; i = i + 1 {
+  zhongli skill[hold=1], dash, attack;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  chiori skill:2;
+  bennett skill,burst;
+  if .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill;
+  }
+  
+  emilie attack:2,charge;
+  emilie attack:2,charge;
+  emilie attack:2,charge;
+  emilie attack:2,charge;
+  emilie attack;
+  
+  bennett skill,attack:2;
+}

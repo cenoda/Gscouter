@@ -1,0 +1,23 @@
+active faruzan;
+for {
+  switch {
+    case !.fischl.oz && .fischl.burst.ready && .fischl.swap.ready:
+      fischl attack:2, burst;
+    case !.fischl.oz && .fischl.skill.ready && .fischl.swap.ready:
+      fischl attack, skill;
+    case .faruzan.hurricane-count && .faruzan.swap.ready:
+      faruzan aim;
+    case .kazuha.skill.ready && .kazuha.swap.ready:
+      kazuha skill, high_plunge;
+    case .kazuha.burst.ready && .kazuha.swap.ready:
+      kazuha burst;
+    case .yaoyao.skill.ready && .yaoyao.swap.ready:
+      yaoyao skill, attack;
+    case .faruzan.burst.ready && .faruzan.swap.ready:
+      faruzan burst;
+    case .faruzan.skill.ready && .faruzan.swap.ready:
+      faruzan skill;
+    default:
+      faruzan attack;
+  }
+}

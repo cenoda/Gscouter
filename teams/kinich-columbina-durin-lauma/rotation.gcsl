@@ -1,0 +1,23 @@
+active lauma; 
+lauma attack:2; 
+for let i=0; i<4; i=i+1 {
+  if .bina.burst.ready{
+    bina skill, attack, burst;
+  } else{
+    bina skill, attack;
+  }
+  lauma attack, skill[hold=.dew], burst;
+  durin skill, burst, skill;
+  kinich skill;
+  for let j=0; j < 1; {
+    if .kinich.nightsoul.points == 20 {
+      kinich skill[hold=1];
+      j = j + 1;
+    }
+    kinich attack;
+  }
+  kinich burst;
+  bina attack, charge, dash, charge, dash,
+       attack, charge, dash, charge;
+}
+bina dash, attack;

@@ -1,0 +1,38 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  bennett skill, burst;
+  
+  faruzan skill, burst;
+  
+  lanyan attack;
+  
+  while .lanyan.skill.ready {
+    lanyan skill:2;
+  }
+  if .lanyan.burst.ready {
+    lanyan burst;
+  }
+  
+  faruzan aim:2, skill, aim:2;
+
+  while .furina.skill.cd {
+    switch {
+      case .faruzan.hurricane-count && .faruzan.swap.ready || (.faruzan.hurricane-count && .faruzan.onfield):
+        faruzan aim;
+      case .faruzan.skill.ready && .faruzan.swap.ready:
+        faruzan skill;
+      case .bennett.skill.ready && .bennett.swap.ready:
+        bennett skill;
+      case .bennett.attack.ready && .bennett.onfield:
+        bennett attack;
+      default:
+        faruzan attack;
+    }
+  }
+}

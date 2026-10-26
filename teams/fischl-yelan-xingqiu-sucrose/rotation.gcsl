@@ -1,0 +1,20 @@
+active  fischl;
+for let i=0; i<4; i=i+1 {
+  fischl  attack:2, burst;
+  if .sucrose.skill.ready {
+    sucrose skill, attack, burst, attack;
+  } else {
+    sucrose attack:2, burst, attack:2;
+  }
+  yelan skill, burst, attack;
+  xingqiu attack, burst, attack, skill, attack:2;
+  if .sucrose.skill.ready {
+    sucrose attack:2, skill, dash, attack;
+  } else {
+    sucrose attack:2, attack:2;
+  }
+  fischl attack:2, dash, attack:2, skill;
+  yelan attack, skill, attack:4;
+  fischl attack:2, dash, attack:2;
+  sucrose attack:2, dash, attack:2, charge;
+}

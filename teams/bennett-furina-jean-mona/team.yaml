@@ -1,0 +1,22 @@
+id: bennett-furina-jean-mona
+name: Bennett / Furina / Jean / Mona
+members:
+    - bennett
+    - furina
+    - jean
+    - mona
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/hdfncKLWBccL
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    bennett: start_hp%=50
+    furina: start_hp%=50
+    jean: start_hp%=50
+    mona: start_hp%=50
+reference:
+    dps: 234379
+    computed: "2026-10-01"

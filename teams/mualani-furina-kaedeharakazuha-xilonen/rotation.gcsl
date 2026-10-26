@@ -1,0 +1,29 @@
+fn mualani_combo() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+}
+active xilonen;
+for let i=0; i<3; i=i+1 {
+  xilonen burst;
+  furina skill, dash, burst;
+  xilonen skill, attack:2;
+  kazuha skill, high_plunge;
+  mualani skill;
+  mualani_combo();
+  mualani skill; 
+  mualani burst;
+  kazuha skill, high_plunge; 
+  xilonen skill, attack:2;
+  kazuha burst;
+  mualani skill;
+  mualani_combo();
+  mualani walk[f=1];
+}

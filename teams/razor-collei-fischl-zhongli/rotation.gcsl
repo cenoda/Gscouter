@@ -1,0 +1,30 @@
+active razor;
+razor skill, dash;
+for let i=0; i<4; i=i+1 {
+  if .amy.skill.ready && .amy.burst.ready {
+    amy attack, skill;
+  }
+  
+  zhongli skill[hold=1], dash; 
+  collei skill, burst;
+  
+  if .gadgets.crystallizeshard.electro {
+    pick_up_crystallize("electro"); 
+  }
+  
+  if .amy.burst.ready {
+    amy attack:2, burst;
+  } else {
+    amy attack:1, skill;
+  }
+
+  razor skill, dash, attack, burst, attack, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash; 
+  razor attack:3;
+  
+  print("done");
+}

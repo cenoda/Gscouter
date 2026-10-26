@@ -1,0 +1,20 @@
+set_particle_delay("candace", 80); 
+active mavuika;
+  mav skill;
+for let i = 0; i<4 ; i=i+1 {
+  xilonen skill, attack:2;
+  if i {
+    candace attack;
+  }
+  candace skill, attack, burst;
+  bennett burst, attack;
+  mav burst, charge, dash, attack,
+    charge, dash, attack,
+    charge, dash, attack,
+    charge, dash, attack,
+    charge, dash, attack,
+    charge, dash, attack,
+    charge, dash, attack,
+    charge, skill;
+  bennett skill, attack;
+}

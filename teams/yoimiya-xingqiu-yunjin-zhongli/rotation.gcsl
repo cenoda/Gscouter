@@ -1,0 +1,9 @@
+active xingqiu;
+for let x=0; x<4; x=x+1 {
+  xingqiu burst, attack, skill, dash, attack:2;
+  zhongli attack, skill[hold=1], dash, attack:2;
+  yunjin attack, skill, attack, burst, attack;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack:2;
+  yunjin skill, attack:3;
+  
+}

@@ -1,0 +1,11 @@
+active raiden;
+  raiden skill;
+for let i=0; i<4; i=i+1 {
+  baizhu attack,skill,burst;
+  kazuha skill,high_plunge,burst;
+  fischl burst;
+  raidenshogun burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  kazuha skill,high_plunge;
+  fischl skill;
+  baizhu attack:3,dash,attack:2,charge;
+}

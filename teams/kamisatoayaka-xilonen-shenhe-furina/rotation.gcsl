@@ -1,0 +1,11 @@
+active xilonen;
+for let x=0; x<4; x=x+1 {
+  xilonen burst;
+  furina skill, dash, burst; 
+  shenhe skill, burst;
+  xilonen skill, attack:2;
+  ayaka skill, dash, burst, attack:2, charge, dash, attack:2, charge;
+  shenhe attack, skill;
+  xilonen skill, attack:2;
+  ayaka dash, attack:2, charge, skill, dash, attack:2, charge;
+}

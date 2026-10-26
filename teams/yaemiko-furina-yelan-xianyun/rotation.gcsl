@@ -1,0 +1,25 @@
+fn yae_n1jlp() {
+  yae attack, jump;
+  if .airborne {
+    yae low_plunge[collision=rand()>0.5];
+  }
+}
+active furina;
+for let i = 0; i < 5; i = i + 1 {
+  furina skill, dash, burst;
+  xianyun attack, skill, low_plunge, burst;
+  yae skill:3;
+  yelan burst, attack, skill, attack:4;
+  yae_n1jlp();
+  xianyun attack:2, walk, attack:2;
+  if .yae.burst.ready && .yae.energy == .yae.energymax {
+    yae burst;
+  } else {
+    yae attack;
+    yae_n1jlp();
+  }
+  yae attack, skill:2, attack, skill;
+  yae_n1jlp();
+  yelan attack, skill, attack:4;
+  xianyun attack:2, walk, attack:2;
+}

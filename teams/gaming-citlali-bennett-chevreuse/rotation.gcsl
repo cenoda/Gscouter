@@ -1,0 +1,21 @@
+active gaming; 
+gaming skill, low_plunge, dash; 
+for let i=0; i<4; i=i+1 {
+  chev burst, skill[hold=1]:3; 
+  
+  bennett skill, burst;
+  
+  citlali skill, burst;
+  
+  gaming burst;
+  let plungeCount = 0;
+  for let j = 0; j < 6; j = j + 1 {
+    
+    sleep(42); 
+    gaming skill, high_plunge;
+    plungeCount = plungeCount + 1; print(plungeCount);
+  }
+  sleep(30); 
+  gaming skill, high_plunge; print(plungeCount + 1); 
+  gaming dash; 
+}

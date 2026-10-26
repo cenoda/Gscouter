@@ -1,0 +1,20 @@
+active gaming; 
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, attack;
+  chev attack, skill[hold=1];
+	
+	furina burst;
+  
+	bennett burst;
+  
+  gaming swap;
+	gaming burst;
+	gaming skill;
+  sleep(42);
+	gaming low_plunge;
+  for let j = 0; j < 7; j = j + 1 {
+    gaming skill;
+    sleep(17);
+    gaming high_plunge;
+  }
+}

@@ -1,0 +1,19 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  shenhe skill, burst;
+  
+  kazuha skill, high_plunge[collision=rand()>0.2];
+  
+  charlotte burst, skill[hold=1];
+  kazuha burst, skill, high_plunge[collision=rand()>0.2];
+  
+  shenhe attack, skill;
+  
+  charlotte attack:3, dash, attack:3, dash, attack:2;
+  
+  kazuha skill, high_plunge[collision=rand()>0.2];
+  
+  charlotte attack:2, dash, attack;
+}

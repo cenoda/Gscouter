@@ -1,0 +1,19 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill; delay(11);
+  bennett skill, burst;
+  ineffa skill;
+  if .ineffa.burst.ready && .ineffa.energy == .ineffa.energymax {
+    ineffa burst;
+  } else {
+    ineffa attack;
+  }
+  aino skill, burst;
+  arle attack, charge,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3;
+}

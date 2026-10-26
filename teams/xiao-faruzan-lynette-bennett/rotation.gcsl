@@ -1,0 +1,22 @@
+active faruzan;
+for let i=0; i<4; i=i+1 {
+  faruzan burst;
+  if !.faruzan.mods.favonius-cd {
+     faruzan skill;}
+  while !.faru.mods.favonius-cd {
+    faruzan attack;}
+  lynette skill, burst;
+  bennett skill, burst;
+  if .lynette.skill.ready && !.xiao.burst.ready {
+     lynette skill;}
+  xiao skill:2, burst;
+  for let h = 12; h > 0; h = h - 1 {
+    let col = rand();
+    if col > 0.5 {
+      xiao jump, high_plunge[collision=1];
+    } else {
+      xiao jump, high_plunge;
+    }
+  }
+}
+  print("end");

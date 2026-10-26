@@ -1,0 +1,36 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || ( char_id == .keys.char.yelan && action_id == .action.skill ) || ( char_id == .keys.char.bennett && action_id == .action.burst ) {
+    pick_up_crystallize("any"); 
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+active navia; 
+emilie skill;
+bennett skill;
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], dash;
+  if i > 0 {
+    while .zhongli.mods.favonius-cd == 0 {
+      zhongli attack;
+      if .zhongli.normal == 4 {
+        zhongli dash;
+      }
+    }
+  } else {
+    navia skill;
+  }
+  if .navia.burst.ready && .navia.energy == .navia.energymax {
+    navia burst; 
+  }
+  bennett skill, burst;
+  if .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie skill, dash;
+  }
+  navia skill[hold=1], attack:3, dash, attack:2;
+  bennett skill, dash;
+  navia skill[hold=1], attack:3, dash, attack:2;
+}

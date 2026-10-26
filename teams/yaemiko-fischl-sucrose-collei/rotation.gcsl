@@ -1,0 +1,20 @@
+active yae;
+set_particle_delay("sucrose", 60);
+for let i=0; i<4; i=i+1 {
+	if i == 0 {
+		yae attack, skill:3;
+	} else {
+		yae skill, attack, skill,  skill, attack;
+	}
+	sucrose attack, burst, attack;
+	collei burst, attack, skill;
+    fischl attack:2, burst;
+    sucrose attack:2, charge;
+    yae attack, burst, attack, skill, attack, skill, skill;
+    yae attack, charge, dash, attack;
+	sucrose attack, skill, dash, attack, charge;
+	collei skill;
+    fischl attack:2, skill;
+	sucrose attack, skill, dash, attack;
+    yae attack, charge, dash, attack, charge, dash, attack:2;
+}

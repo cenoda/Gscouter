@@ -1,0 +1,42 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+	pick_up_crystallize("any"); 
+  }
+	
+  return _execute_action(char_id, action_id, p);
+}
+active zhongli;
+for let x = 0; x < 4; x = x + 1 {
+  zhongli skill[hold_nostele=1], dash;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  navia burst;
+  furina skill, dash, burst;
+  while !.furina.mods.favonius-cd {
+    furina attack;
+  }
+  xianyun skill, low_plunge, burst;
+  pick_up_crystallize("any"); 
+  navia skill[hold=1];
+  for let h = 4; h > 0; h = h - 1 {
+    navia jump;
+    if .airborne {
+      navia high_plunge[collision=rand()>0.5], dash;
+    }
+  }
+  zhongli attack:3;
+  for let n=0; n<2; n=n+1 {
+    if !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    }
+  }
+  navia skill[hold=1];
+  for let h = 4; h > 0; h = h - 1 {
+    navia jump;
+    if .airborne {
+      navia high_plunge[collision=rand()>0.5], dash;
+    }
+  }
+}

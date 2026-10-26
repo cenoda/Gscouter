@@ -1,0 +1,17 @@
+id: arlecchino-xingqiu-sucrose-bennett
+name: Arlecchino / Xingqiu / Sucrose / Bennett
+members:
+    - arlecchino
+    - xingqiu
+    - sucrose
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/BQC9hMTwLLzc
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 79103
+    computed: "2026-10-02"

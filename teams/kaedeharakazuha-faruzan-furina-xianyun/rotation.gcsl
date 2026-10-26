@@ -1,0 +1,31 @@
+fn XianyunPlunge() {
+  xianyun jump;
+  if .airborne {
+    xianyun high_plunge[collision=rand()>0.5];
+  }
+}
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash;
+  if !.furina.mods.favonius-cd {
+    furina attack;
+  }
+  furina burst;
+  
+  faruzan skill, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  kazuha skill, high_plunge[collision=1], burst;
+  
+  faruzan aim:2, skill;
+  
+  kazuha skill, high_plunge[collision=1];
+  
+  XianyunPlunge(); xianyun dash;
+  XianyunPlunge();
+  
+  faruzan aim:2; 
+  
+  kazuha skill, high_plunge[collision=1];
+}

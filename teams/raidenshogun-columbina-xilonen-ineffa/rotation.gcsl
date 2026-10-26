@@ -1,0 +1,13 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  columbina skill, burst;
+  ineffa skill, burst;
+  xilonen skill, attack:2;
+  raiden burst, attack:4, skill;
+  for let c = 0; c < 3; c = c + 1 {
+    raiden attack, charge, dash;
+  }
+  xilonen skill, attack:2;
+  columbina attack:3;
+}

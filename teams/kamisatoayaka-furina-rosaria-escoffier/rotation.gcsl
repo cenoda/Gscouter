@@ -1,0 +1,16 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  if !.furina.mods.favonius-cd && .furina.weapon == .keys.weapon.favsword {
+    furina attack;
+  }
+  escoffier skill, burst;
+  rosaria burst, skill;
+  ayaka skill, dash, attack, burst,
+        attack, charge, dash,
+        attack:2, charge,
+        attack:2, charge;
+  rosaria skill, attack;
+  ayaka skill, dash, 
+        attack, charge;
+}

@@ -1,0 +1,35 @@
+fn kinich_Burst_Support() {
+  kinich skill;
+  kinich attack;
+  while .kinich.nightsoul.points < 20 {
+    kinich attack;
+  }
+  kinich skill;
+  while !.kinich.burst.ready {
+    kinich attack;
+  }
+  kinich burst;
+}
+active kinich;
+for let i=0; i<4; i=i+1 {
+  fischl skill, attack;
+
+  xilonen skill, attack:2; pick_up_crystallize("electro");
+  
+  kinich_Burst_Support();
+  
+  fischl attack:2, burst;
+  
+  xilonen skill, attack:2; pick_up_crystallize("electro");
+  
+  cyno burst, attack:2, skill;
+  while .fischl.skill.cd > 30 {
+    if .cyno.mods.cyno-a1 && .cyno.skill.ready {
+      cyno skill;
+    } else if .cyno.normal == 4 && .stam > 20 {
+      cyno dash;
+    } else {
+      cyno attack;
+    }
+  }
+}

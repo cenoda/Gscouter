@@ -1,0 +1,17 @@
+id: chasca-furina-emilie-mavuika
+name: Chasca / Furina / Emilie / Mavuika
+members:
+    - chasca
+    - furina
+    - emilie
+    - mavuika
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/hmzq6Pdh9BCH
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 67282
+    computed: "2026-10-02"

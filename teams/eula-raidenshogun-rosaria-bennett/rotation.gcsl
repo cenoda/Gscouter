@@ -1,0 +1,17 @@
+active eula; 
+raiden skill;
+for let i = 0; i < 4; i = i + 1 { 
+  rosaria skill;
+  while !.rosaria.mods.favonius-cd {
+    rosaria attack;
+  }
+  eula skill, attack;
+  bennett skill, burst;
+  rosaria burst;
+  eula burst, walk, attack:4, skill[hold=1], walk[f=10], attack:4;
+  rosaria skill;
+  while !.rosaria.mods.favonius-cd {
+    rosaria attack;
+  }
+  raiden burst, attack:4, skill, dash, attack:4, dash, attack:2; 
+}

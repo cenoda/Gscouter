@@ -1,0 +1,14 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  dori skill, attack:2, burst;
+  
+  yelan burst, attack, skill;
+  
+  eula skill, attack, burst, walk, attack:4, skill[hold=1], walk[f=11], attack:4, dash, attack;
+  
+  yelan skill, attack;
+  
+  eula attack:2;
+}

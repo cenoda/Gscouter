@@ -1,0 +1,20 @@
+active kaeya;
+for {
+  if .mona.skill.ready {
+    mona skill;
+  } else if .kaeya.skill.ready {
+    kaeya skill, dash;
+  } else if .kaeya.burst.ready {
+    kaeya burst;
+  } else if .collei.skill.ready {
+    collei skill;
+  } else if .collei.burst.ready {
+    collei burst;
+  } else if .xinyan.skill.ready {
+    xinyan skill;
+  } else if .xinyan.burst.ready {
+    xinyan burst;
+  } else {
+    mona dash;
+  }
+}

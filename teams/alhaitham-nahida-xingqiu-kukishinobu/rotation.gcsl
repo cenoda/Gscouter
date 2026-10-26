@@ -1,0 +1,22 @@
+active xingqiu;
+for let r = 0; r < 5; r = r + 1 {
+  xingqiu skill, dash, burst, attack;
+  let e = .kuki.burst.ready;
+  if e {kuki burst, attack;}
+  nahida skill, attack;
+  alhaitham burst;
+  kuki attack, skill;
+  alhaitham attack:3, dash,
+            attack:3, dash,
+            attack, skill,
+            attack:3, dash,
+            attack:3, charge,
+            attack:3, dash,
+            attack:3, dash,
+            attack:3, dash,
+            attack:3;
+  if !e {alhaitham charge;}
+  
+  print("rotation done");
+         
+}

@@ -1,0 +1,17 @@
+id: arlecchino-escoffier-emilie-bennett
+name: Arlecchino / Escoffier / Emilie / Bennett
+members:
+    - arle
+    - escoffier
+    - emilie
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/KWLDdJLTd8Fr
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 65394
+    computed: "2026-09-30"

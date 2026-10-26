@@ -1,0 +1,50 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || ( char_id == .keys.char.xilonen && action_id == .action.skill ) || ( char_id == .keys.char.shenhe && action_id == .action.skill ) {
+    pick_up_crystallize("any");
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+fn naviaSkill() {
+  if .navia.shrapnel < 3 || .navia.sets.ap >= 4 { 
+    navia skill[hold=1]; pick_up_crystallize("any"); 
+  } else {
+    navia skill;
+  }
+}
+active navia; 
+for let i = 0; i < 4; i = i + 1 {
+  if !is_even(i) {
+    xilonen burst;
+  }
+  xilonen skill, attack:2;
+  
+  navia burst;
+  
+  shenhe skill, burst;
+  
+  ayaka skill, dash, attack, burst;
+  
+  naviaSkill();
+  navia attack:2, dash, attack:2, dash, attack:2;
+  if i == 0 {
+    shenhe skill, attack;
+  } else {
+    shenhe skill, attack;
+  }
+  
+  if i == 0 || i == 3 {
+    ayaka dash, skill;
+  } else {
+    ayaka dash, skill, attack:2;
+  }
+  
+  if i == 0 || i == 3 {
+    naviaSkill();
+    navia attack:2, dash, attack:2, skill;
+  } else {
+    naviaSkill();
+    navia attack:2, dash, attack:3;
+  }
+}

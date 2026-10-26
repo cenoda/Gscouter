@@ -1,0 +1,30 @@
+active nahida;
+let cnt = 0;
+for {
+  if .tartaglia.mods.tartagliamelee && cnt < 3 {
+    tartaglia attack:2, charge, dash;
+    cnt = cnt + 1;
+    continue;
+  }
+  switch {
+  case !.debuff.res.t0.nahida-e && .nahida.swap.ready:
+    nahida skill, attack;
+  case .nahida.burst.ready && .nahida.swap.ready:
+    nahida burst;
+  case .kuki.burst.ready && .kuki.swap.ready:
+    kuki burst;
+  case .kuki.skill.ready && .kuki.swap.ready:
+    kuki skill, dash;
+  case !.fischl.oz && .fischl.burst.ready && .fischl.swap.ready:
+    fischl attack:2, burst;
+  case !.fischl.oz && .fischl.skill.ready && .fischl.swap.ready:
+    fischl skill, dash, attack;
+  case .tartaglia.burst.ready && .tartaglia.swap.ready:
+    tartaglia burst;
+  case .tartaglia.skill.ready && .tartaglia.swap.ready:
+    tartaglia walk, skill;
+    cnt = 0;
+  default:
+    tartaglia aim;
+  }
+}

@@ -1,0 +1,29 @@
+active fischl;
+for let i=0; i<4; i=i+1 {
+  fischl attack, skill;
+  collei burst;
+  if .sucrose.burst.ready {
+    sucrose burst, attack;
+  } else if .sucrose.skill.ready {
+    sucrose attack, skill, dash;
+  }
+  sucrose attack;
+  cyno burst;
+  while .cyno.burst.cd > 720 {
+    if .cyno.skill.ready {
+      cyno skill;
+    } else {
+      cyno attack;
+    }
+  }
+  fischl attack:2, burst;
+  collei skill;
+  while .fischl.oz {
+    if .sucrose.skill.ready {
+      sucrose attack, skill, dash; 
+    } else {
+      sucrose attack;
+    }
+  }
+  print("rotation done");
+}

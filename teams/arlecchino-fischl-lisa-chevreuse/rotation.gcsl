@@ -1,0 +1,24 @@
+active arle;
+arle skill;
+for let i = 0; i < 4; i = i + 1 {
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  chevreuse burst, skill[hold=1], attack:2; 
+  lisa attack:4;
+  if .lisa.burst.ready {
+    lisa burst;
+  }
+  arle charge,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack,
+       skill; 
+  lisa attack:5;
+}

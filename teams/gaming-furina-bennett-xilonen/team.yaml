@@ -1,0 +1,17 @@
+id: gaming-furina-bennett-xilonen
+name: Gaming / Furina / Bennett / Xilonen
+members:
+    - gaming
+    - furina
+    - bennett
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/pMGGJCBwMDGH
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 82166
+    computed: "2026-09-30"

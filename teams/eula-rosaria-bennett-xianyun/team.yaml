@@ -1,0 +1,17 @@
+id: eula-rosaria-bennett-xianyun
+name: Eula / Rosaria / Bennett / Xianyun
+members:
+    - eula
+    - rosaria
+    - bennett
+    - xianyun
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/7jcppQCRB7PQ
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 78296
+    computed: "2026-10-02"

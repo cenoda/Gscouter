@@ -1,0 +1,12 @@
+active faruzan;
+for let i=0; i<4; i=i+1 {
+faruzan burst;
+zhongli skill[hold=1], dash;
+bennett skill, burst;
+venti aim[weakspot=1], skill, burst;
+bennett skill;
+while !.faruzan.burst.ready {
+  if .venti.skill.ready { venti skill; }
+  else { venti aim; }
+}
+}

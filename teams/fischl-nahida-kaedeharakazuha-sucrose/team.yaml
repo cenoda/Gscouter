@@ -1,0 +1,17 @@
+id: fischl-nahida-kaedeharakazuha-sucrose
+name: Fischl / Nahida / Kaedeharakazuha / Sucrose
+members:
+    - fischl
+    - nahida
+    - kazuha
+    - sucrose
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/QWhTrbmr66pD
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 56694
+    computed: "2026-10-02"

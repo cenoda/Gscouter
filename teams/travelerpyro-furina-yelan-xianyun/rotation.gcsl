@@ -1,0 +1,28 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  xianyun skill, low_plunge, attack, burst;
+  
+  luminepyro attack, skill[hold=1];
+  while .xianyun.status.xianyun-airborne-buff {
+    luminepyro jump;
+    if .airborne {
+      luminepyro low_plunge[collision=rand()>0.5];
+      
+    }
+    if .xianyun.status.xianyun-airborne-buff { 
+      luminepyro attack;
+    }
+    if .luminepyro.burst.ready {
+      luminepyro burst, attack;
+    }
+  }
+}

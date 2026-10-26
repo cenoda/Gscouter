@@ -1,0 +1,17 @@
+id: noelle-furina-albedo-fischl
+name: Noelle / Furina / Albedo / Fischl
+members:
+    - noelle
+    - furina
+    - albedo
+    - fischl
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/FwLMbmggrRgR
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 67030
+    computed: "2026-10-02"

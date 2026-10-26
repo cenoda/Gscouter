@@ -1,0 +1,11 @@
+active ganyu;
+for let x=0; x<4;x=x+1 {
+  ganyu skill;
+  furina skill, dash, attack, burst;
+  escoffier skill, burst;
+  shenhe skill, burst;
+  ganyu aim, skill, burst, aim:2;
+  shenhe skill, attack:3;
+  ganyu aim;
+}
+wait(27);

@@ -1,0 +1,19 @@
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  ineffa skill;
+  if is_even(i) {
+    ineffa burst;
+  } else {
+    ineffa attack;
+  }
+  aino skill, burst;
+  mavuika skill, burst, charge, dash;
+  chasca skill;
+  chasca aim:4;
+  chasca aim[bullets=4];
+  if is_even(i) {
+    chasca burst;
+  } else {
+  }
+}
+wait(82);

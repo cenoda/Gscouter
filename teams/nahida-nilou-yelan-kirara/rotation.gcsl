@@ -1,0 +1,26 @@
+active nahida;
+nahida skill;
+for let i = 0; i < 3; i = i + 1 {
+  
+  if i {
+    nahida dash, attack:1, charge;
+  }
+  
+	nilou skill, attack:2, skill;
+	
+	kirara burst, skill;
+	
+	yelan skill, burst, attack;
+	
+	nahida skill, attack:3, dash, attack:3, dash, attack:3, skill, attack, charge;
+	kirara skill, attack;
+	
+	yelan skill, attack;
+	if .yelan.breakthrough {
+	  yelan aim;
+	}
+	yelan attack:3;
+	
+	nahida attack, skill, attack, charge, dash, attack:2;
+	
+}

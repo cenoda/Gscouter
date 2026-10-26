@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+alhaitham char lvl=90/90 cons=0 talent=9,9,9;
+alhaitham add set="gilded" count=4;
+alhaitham add weapon="wolffang" refine=1 lvl=90/90;
+alhaitham add stats hp=4780 atk=311 em=186.5 dendro%=0.466 cd=0.622;
+alhaitham add stats hp=507.88 hp%=0.0991 atk=33.07 atk%=0.0991 def=39.35 def%=0.1239 er=0.1101 em=79.26 cr=0.3966 cd=0.6605;
+
+sara char lvl=90/90 cons=6 talent=9,9,9;
+sara add weapon="scionoftheblazingsun" refine=1 lvl=90/90;
+sara add set="instructor" count=4;
+sara add stats hp=3571 atk=232 atk%=0.348 electro%=0.466 cr=0.232;
+sara add stats hp=406.3 hp%=0.07925 atk=26.45 atk%=0.07925 def=31.485 def%=0.0991 er=0.220125 em=31.71 cr=0.07935 cd=0.5813;
+
+fischl char lvl=90/90 cons=6 talent=9,9,9;
+fischl add weapon="stringless" refine=3 lvl=90/90;
+fischl add set="goldentroupe" count=4;
+fischl add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cr=0.311;
+fischl add stats hp=507.88 hp%=0.0991 atk=33.07 atk%=0.1982 def=39.35 def%=0.1239 er=0.1101 em=39.63 cr=0.3305 cd=0.7926;
+
+kirara char lvl=90/90 cons=6 talent=9,9,9;
+kirara add set="deepwood" count=4;
+kirara add weapon="harbingerofdawn" refine=5 lvl=90/90;
+kirara add stats hp=4780 atk=311 em=186.5 dendro%=0.466 cr=0.311;
+kirara add stats hp=507.88 hp%=0.0991 atk=33.07 atk%=0.1982 def=39.35 def%=0.1239 er=0.1101 em=39.63 cr=0.3305 cd=0.7926;

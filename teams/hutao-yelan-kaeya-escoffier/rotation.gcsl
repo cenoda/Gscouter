@@ -1,0 +1,34 @@
+active esco;
+for let i=0; i<4; i=i+1 {
+  if !is_even(i) {
+    esco burst;
+  }
+  esco skill;
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } 
+  while !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  kaeya skill, burst;
+  
+  hutao skill,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:2, charge, jump, attack;
+  if .hutao.burst.ready {
+    hutao burst;
+  } else {
+    hutao attack:1;
+  }
+}

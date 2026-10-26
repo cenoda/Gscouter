@@ -1,0 +1,29 @@
+fn varesa_combo(amt) {
+  for let j = 0; j < amt; j = j + 1 {
+    if .varesa.skill.ready {
+      varesa skill, attack, high_plunge[collision=1]; 
+    } else if .xianyun.status.xianyun-airborne-buff { 
+      varesa jump;
+      if .airborne {
+        varesa high_plunge[collision=1]; 
+      }
+    } else {
+      varesa charge, high_plunge[collision=1]; 
+    }
+    if .varesa.energy >= 30 && .varesa.status.apex-drive {
+      varesa burst;
+    }
+  }
+}
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  varesa attack;
+  
+  xilonen skill, attack:2;
+  
+  varesa_combo(7);
+}

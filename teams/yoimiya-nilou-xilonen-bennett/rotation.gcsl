@@ -1,0 +1,12 @@
+active bennett;
+for let i = 0; i < 4; i = i + 1 {
+  bennett skill, burst;
+  xilonen skill, attack:2;
+  nilou skill, attack:2, skill; pick_up_crystallize("pyro");
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  if .yoimiya.burst.ready {
+    yoi burst;
+  } else {
+    yoi attack:4;
+  }
+}

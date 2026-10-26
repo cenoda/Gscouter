@@ -1,0 +1,17 @@
+id: mona-kaedeharakazuha-ganyu-kamisatoayaka
+name: Mona / Kaedeharakazuha / Ganyu / Kamisatoayaka
+members:
+    - mona
+    - kazuha
+    - ganyu
+    - ayaka
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/p6Cm9NMHd8BM
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 52130
+    computed: "2026-10-01"

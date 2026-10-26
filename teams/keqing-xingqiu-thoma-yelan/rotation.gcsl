@@ -1,0 +1,21 @@
+active xingqiu;
+for let x=0; x<4; x=x+1 {
+  xingqiu skill,burst,attack;
+  yelan burst,attack,skill,attack;
+  thoma skill,attack,burst;
+  
+  keqing skill,skill;
+  keqing attack,charge;
+  keqing attack,charge;
+  keqing attack,charge;
+  keqing attack,charge;
+  keqing attack,charge;
+  
+  yelan attack,skill,attack;
+  
+  keqing skill,skill;
+  keqing attack,charge;
+  keqing attack,charge;  
+  keqing attack,charge;  
+  keqing attack,charge;  
+}

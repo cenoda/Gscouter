@@ -1,0 +1,30 @@
+active gaming; 
+for let i=0; i<4; i=i+1 {
+  
+  chev attack, skill[hold=1];
+  while .chev.mods.favonius-cd == 0 {
+    chev attack;
+  }
+  sucrose skill, dash, attack;
+  if .sucrose.burst.ready {
+    sucrose burst;
+  }
+  rosaria skill,burst;
+  while .rosaria.mods.favonius-cd == 0 {
+    rosaria attack;
+  }
+  gaming burst;
+  wait(45);
+  for let p=0; p<4; p=p+1 {
+    gaming skill;
+    wait(20);
+    gaming low_plunge;
+  } 
+  for let p=0; p<2; p=p+1 {
+    gaming skill;
+    wait(40);
+    gaming high_plunge;
+  }
+  gaming skill, high_plunge, dash;
+  
+}

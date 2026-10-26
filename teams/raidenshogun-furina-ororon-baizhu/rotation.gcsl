@@ -1,0 +1,19 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  baizhu skill, attack, burst;
+  
+  ororon skill, burst;
+  
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  
+  while .furina.skill.cd {
+    if .baizhu.normal > 3 {
+      baizhu dash;
+    } else {
+      baizhu attack;
+    }
+  }
+}

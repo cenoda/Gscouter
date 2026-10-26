@@ -1,0 +1,16 @@
+active kuki;
+for let i=0; i<3; i=i+1 {
+    
+    if !.kuki.skill.ready {kuki attack:2;}
+    kuki skill, dash, attack;
+	nahida skill, burst;
+	furina skill, dash, burst;
+	tighnari skill, aim, burst, aim:2;
+	nahida attack:2, skill, attack:2, charge, dash, attack:2, charge;
+	if !.kuki.skill.ready {kuki attack:2;}
+	kuki skill, dash, attack, burst;
+	nahida attack, skill, attack:2, charge;
+	tighnari skill, aim, burst, aim:2;
+	nahida attack:2, skill, attack:2, charge, dash, attack:2, charge, dash, attack:2, charge;
+	
+}

@@ -1,0 +1,30 @@
+active fischl;
+fischl burst;
+for let i = 0; i < 5; i = i + 1 {
+  chevreuse burst, skill[hold=1]:2;
+
+  if .xl.burst.ready { 
+    xl burst, skill, dash;
+  } else {
+    xl attack:2, skill, dash;
+  }
+
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else if i {
+    fischl attack:2, burst;
+  }
+  
+  sethos skill, attack:2;
+  sethos burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack; 
+  sethos aim[hold=2];
+}

@@ -1,0 +1,20 @@
+active yelan;
+for let x=0; x < 5; x = x + 1 { 
+  yelan skill;
+  while !.yelan.burst.ready {
+    yelan attack;
+  } 
+  yelan burst, attack;
+  zhongli skill[hold=1], dash, attack;
+  yaemiko skill, attack, skill, attack, skill, attack:2;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5;
+  if .yaemiko.burst.ready {
+    yaemiko burst;
+  }
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  while !.yelan.skill.ready {
+    yelan attack;
+  }
+}

@@ -1,0 +1,22 @@
+id: alhaitham-furina-sucrose-kukishinobu
+name: Alhaitham / Furina / Sucrose / Kukishinobu
+members:
+    - alhaitham
+    - furina
+    - sucrose
+    - kuki
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/9CGrQkjc6k7W
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    alhaitham: start_hp%=90
+    furina: start_hp%=70
+    kuki: start_hp%=60
+    sucrose: start_hp%=70
+reference:
+    dps: 62719
+    computed: "2026-10-01"

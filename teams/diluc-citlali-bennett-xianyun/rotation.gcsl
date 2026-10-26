@@ -1,0 +1,27 @@
+fn DilucPlunge() {
+  diluc jump;
+  if .airborne {
+    diluc high_plunge[collision=rand()>0.5];
+  }
+}
+active diluc; 
+for let i=0; i<4; i=i+1 {
+
+    diluc skill;
+
+  xianyun skill, high_plunge, burst;
+  
+  bennett skill, burst;
+  
+  citlali skill, burst, attack; 
+  
+  DilucPlunge();
+  DilucPlunge();
+  DilucPlunge();
+  DilucPlunge();
+  DilucPlunge(); diluc dash; wait(60); 
+  DilucPlunge(); diluc dash;
+  DilucPlunge(); diluc dash;
+  DilucPlunge(); 
+  diluc skill;
+}

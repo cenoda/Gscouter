@@ -1,0 +1,8 @@
+active diona;
+for let i=0; i<4; i=i+1 {
+  print("done");
+  diona skill, attack:2;
+  sayu skill[short_hold=1];
+  barbara skill, attack;
+  qiqi skill, attack:39; 
+}

@@ -1,0 +1,28 @@
+active nahida;
+for let i=0; i<4; i=i+1 { 
+  let src = f();
+  if .nahida.skill.ready {
+    nahida skill;
+  }
+  nahida attack, burst;
+  xingqiu skill, burst, attack;
+  yelan skill, attack, burst, attack;
+  while f() - src <= 22 * 60 {
+    if .nahida.swap.ready {
+      if .nahida.skill.ready && .nahida.normal > 2 {
+        nahida skill;
+      } else {
+        nahida attack;
+      }
+    }
+    if .yanfei.swap.ready {
+      if .yanfei.burst.ready {
+        yanfei burst;
+      } else if .yanfei.skill.ready {
+        yanfei skill, attack;
+      } else {
+        yanfei attack, charge;
+      }
+    }
+  }
+}

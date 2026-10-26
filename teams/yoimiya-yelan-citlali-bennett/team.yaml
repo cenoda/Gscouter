@@ -1,0 +1,17 @@
+id: yoimiya-yelan-citlali-bennett
+name: Yoimiya / Yelan / Citlali / Bennett
+members:
+    - yoimiya
+    - yelan
+    - citlali
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/kQtF9HdGdgGR
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 61426
+    computed: "2026-10-02"

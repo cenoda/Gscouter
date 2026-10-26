@@ -1,0 +1,41 @@
+fn lyneyAim() {
+  if .lyney.weapon == .keys.weapon.crescent { 
+    lyney aim[hold=2, weakspot=rand()>0.5];
+  } else { 
+    lyney aim[hold=2];
+  }
+}
+fn WaitForCryo() {
+  let StartFrame = f();
+  if !.element.t0.pyro {      
+    while !.element.t0.cryo && f() - StartFrame < 120 {   
+      wait(1);
+    }
+  }
+}
+active bennett;
+for let i=0; i<5; i=i+1 { 
+  
+  bennett skill, burst;
+  
+  xilonen skill, attack:2; pick_up_crystallize("pyro");
+  
+  citlali skill, burst;
+  
+  lyneyAim();
+  WaitForCryo();
+  lyneyAim();
+  if .lyney.burst.ready {
+    WaitForCryo();
+    lyney burst; delay(11); 
+    lyney skill;
+  } else {
+    lyneyAim();
+  }
+  lyneyAim();
+  WaitForCryo();
+  lyneyAim();
+  WaitForCryo();
+  lyney skill;
+  lyneyAim();
+}

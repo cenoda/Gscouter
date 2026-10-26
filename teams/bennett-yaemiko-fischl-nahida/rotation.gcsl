@@ -1,0 +1,21 @@
+active yae;
+for let i=0; i<4; i=i+1 {
+    if !i {
+      yae skill:3;
+    } else {
+      yae skill, attack, skill, attack, skill; 
+    }
+    if i {
+      nahida attack;
+    }
+    nahida skill, burst;
+    bennett skill, burst;
+    fischl attack, skill;
+    yae attack, charge, dash, burst, skill, attack, skill, attack, skill;
+    bennett attack, skill;
+    yae attack:2, charge, dash, attack:2, charge, dash;
+    fischl attack:2, burst;
+    bennett skill;
+    yae attack:2, charge, dash, attack:2, charge, dash;
+}
+yae attack;

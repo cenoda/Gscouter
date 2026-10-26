@@ -1,0 +1,24 @@
+active zhongli;
+zhongli skill[hold=1];
+for let i=0; i<4; i=i+1 {
+  columbina skill, burst;
+  
+  xilonen skill, attack:2;
+  xilonen burst;
+  
+  furina skill, dash, attack:0, burst;
+  
+  if i == 0 {
+    columbina attack:4;
+  }
+  
+  zhongli skill[hold=1], burst;
+  
+  columbina attack:3;
+  
+  xilonen skill, attack:2;
+  
+  columbina attack:3, dash;
+  columbina attack:3, dash;
+  columbina attack:3; 
+}

@@ -1,0 +1,39 @@
+active razor; 
+for let i=0; i<4; i=i+1 {
+  
+  if i > 0 && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  
+  nicole skill, burst;
+  
+  durin skill:2, burst;
+  
+  if .razor.sets.tf >= 4 {
+    razor skill[hold=0], dash, attack:1, burst;
+    razor attack:0, skill, dash;
+    razor attack:3, dash;
+    razor attack:3, skill, dash;
+    razor attack:3, dash;
+    razor attack:3, skill, dash;
+    razor attack:3, dash;
+    razor attack:2, skill, dash;
+  } else {
+    razor skill, dash, attack, burst, attack:1, skill, dash;
+    
+    while .razor.mods.razor-q > 240 { 
+      if .razor.normal > 3 {
+        if .razor.skill.ready {
+          razor skill, dash;
+        } else {
+          razor dash;
+        }
+      } else {
+        razor attack;
+      }
+    }
+    razor skill, dash;
+  }
+}

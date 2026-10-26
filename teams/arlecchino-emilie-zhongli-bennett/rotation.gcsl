@@ -1,0 +1,30 @@
+active arle;
+arle skill;
+for let i = 0; i < 4; i = i + 1 {
+  bennett skill, burst;
+  if ( i / 2 ) * 2 == i {
+    emilie skill, attack;
+  } else {
+    emilie burst;
+  }
+  zhongli skill[hold=1], dash, attack;
+  let startFrame = f();
+  while f() - startFrame < 45 {
+    if !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    }
+    if pick_up_crystallize("pyro") {
+      break;
+    }
+    wait(1);
+  }
+  arle charge, 
+       attack:3, dash,
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack,
+       skill;
+}

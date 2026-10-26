@@ -1,0 +1,19 @@
+active mona;
+for let i=0; i<4; i=i+1 {
+  mona attack, skill, attack:3;
+  while !.mona.mods.favonius-cd {
+    mona attack;
+  }
+  bennett burst, skill;
+  xiangling burst, skill, dash;
+  mona burst;
+  chasca skill;
+  chasca aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+  bennett skill, attack;
+  
+}

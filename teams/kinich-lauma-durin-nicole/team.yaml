@@ -1,0 +1,17 @@
+id: kinich-lauma-durin-nicole
+name: Kinich / Lauma / Durin / Nicole
+members:
+    - kinich
+    - lauma
+    - durin
+    - nicole
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/mP8qrFkWcbN9
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 108562
+    computed: "2026-10-01"

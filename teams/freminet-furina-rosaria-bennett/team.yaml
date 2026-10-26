@@ -1,0 +1,17 @@
+id: freminet-furina-rosaria-bennett
+name: Freminet / Furina / Rosaria / Bennett
+members:
+    - freminet
+    - furina
+    - rosaria
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Jgg6gGhL9g6q
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 47101
+    computed: "2026-10-02"

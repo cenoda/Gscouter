@@ -1,0 +1,41 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active columbina;
+for let i=0; i<4; i=i+1 { 
+  if is_even(i) {
+    columbina skill;
+    ineffa skill, burst;
+  } else {
+    sucrose attack:3;
+    columbina skill, burst;
+    ineffa skill, attack;
+  }
+  
+  if .sucrose.burst.ready {
+    sucrose attack, burst;
+  } else if .sucrose.skill.ready {
+    sucrose swap; wait(6);
+    sucrose attack, skill, dash;
+  } else {
+    sucrose attack, charge;
+  }
+  
+  clorinde_combo();
+  
+  if .sucrose.skill.ready {
+    sucrose swap; wait(6);
+    sucrose attack, skill, dash;
+  } else {
+    sucrose attack, charge;
+  }
+  
+  clorinde burst;
+}

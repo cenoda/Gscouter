@@ -1,0 +1,17 @@
+id: tartaglia-fischl-beidou-bennett
+name: Tartaglia / Fischl / Beidou / Bennett
+members:
+    - tartaglia
+    - fischl
+    - beidou
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/z6fpnLpf6rnM
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 76085
+    computed: "2026-10-01"

@@ -1,0 +1,28 @@
+active fischl;
+fischl skill;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  if .qiqi.skill.ready {
+    qiqi skill, attack:2;
+  } else if .qiqi.burst.ready {
+    qiqi burst;
+  }
+  
+  amy attack;
+  if .amy.skill.ready { 
+    amy skill; 
+  } else { 
+    amy attack, burst; 
+  }
+  
+  yelan skill, burst, attack;
+  
+  while .furina.skill.cd { 
+    if .qiqi.normal > 4 {
+      qiqi dash;
+    } else {
+      qiqi attack;
+    }
+  }
+}

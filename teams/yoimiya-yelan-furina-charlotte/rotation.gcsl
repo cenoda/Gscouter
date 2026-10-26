@@ -1,0 +1,18 @@
+active furina;
+for let x=0; x<4; x=x+1 {
+  furina skill, dash, attack, burst;
+  while !.furina.mods.favonius-cd {
+    furina attack;
+  }
+  yelan attack, skill, burst, attack;
+  while !.yelan.mods.favonius-cd {
+    yelan attack;
+  }
+  charlotte skill[hold=1], burst, attack:2; 
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  if is_even(x) {
+    yoimiya burst;
+  } else {
+    yoimiya attack:2;
+  }
+}

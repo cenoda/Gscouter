@@ -1,0 +1,11 @@
+active xilonen;
+for let x=0; x<5; x=x+1 {
+  xilonen burst;
+  furina skill, dash, burst; 
+  shenhe skill, burst;
+  xilonen skill, attack:2;
+  ganyu skill, aim[weakspot=1], burst, aim;
+  shenhe attack, skill, attack;
+  xilonen skill, attack:2;
+  ganyu aim[weakspot=1], skill, aim;
+}

@@ -1,0 +1,18 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  arlecchino attack, skill;
+  xianyun skill, low_plunge, burst;
+  yelan burst, attack, skill;
+  arlecchino charge, attack;
+  for let p = 8; p > 0; p = p - 1 {
+    arlecchino jump;
+    if .airborne {
+      arlecchino high_plunge[collision=rand()<0.5], attack;
+    } else {
+      arlecchino attack:3;
+      break;
+    }
+  }
+  yelan skill, attack:2;
+}

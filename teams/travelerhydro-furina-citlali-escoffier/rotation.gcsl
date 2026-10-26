@@ -1,0 +1,7 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  citlali skill, attack:2;
+  escoffier skill, attack, burst;
+  travelerhydro skill[hold=1], dash[pickup_droplets=4], attack:2, charge, burst, attack:3, charge;
+}

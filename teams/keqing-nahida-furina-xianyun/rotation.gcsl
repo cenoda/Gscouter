@@ -1,0 +1,33 @@
+fn KeqingPlunge() {
+  keqing jump;
+  if .airborne {
+    keqing high_plunge[collision=rand()>0.5];
+  }
+}
+active keqing;
+for let x = 0; x < 4; x = x + 1 {
+  nahida skill;
+  if .nahida.burst.ready {
+    nahida burst, charge;
+  } else {
+    nahida attack, charge;
+  }
+  
+  furina skill, dash, attack, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  keq skill:2;
+  KeqingPlunge(); keq dash;
+  KeqingPlunge(); keq dash;
+  KeqingPlunge(); keq dash;
+  KeqingPlunge(); keq attack, burst;
+  
+  xianyun attack:2; xianyun charge;
+  
+  keq skill:2;
+  KeqingPlunge(); keq dash;
+  KeqingPlunge(); keq dash;
+  KeqingPlunge(); keq dash;
+  KeqingPlunge(); keq attack, charge;
+}

@@ -1,0 +1,18 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina attack, skill, burst;
+  escoffier skill, attack, burst;
+  layla burst, attack, skill;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:4;
+  if is_even(i) {
+    wrio burst;
+  } else {
+    wrio charge, jump;
+  }
+}

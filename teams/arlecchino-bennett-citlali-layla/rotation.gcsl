@@ -1,0 +1,9 @@
+active layla;
+for let i = 0; i < 4; i = i + 1 {
+  layla skill, burst;
+  arle skill;
+  wait(5); 
+  bennett skill, burst;
+  citlali attack, skill, burst;
+  arle charge, attack:14;
+}

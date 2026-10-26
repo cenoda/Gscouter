@@ -1,0 +1,19 @@
+active xingqiu;
+for let i=0; i<4; i=i+1 {
+  fischl attack, skill, attack;
+  xingqiu burst, attack, skill, dash, attack:2;
+  qiqi attack:2;
+  if .qiqi.skill.ready {
+    qiqi skill, dash;
+  }
+  qiqi attack:4;
+  beidou skill[counter=1], attack, burst;
+  
+  if .qiqi.burst.ready {
+  qiqi burst;
+  }
+  fischl attack, burst;
+  qiqi attack:15;
+  beidou skill[counter=1], attack:2;
+  print("Rotation done");
+}

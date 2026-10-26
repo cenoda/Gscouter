@@ -1,0 +1,13 @@
+active xingqiu;
+for let i=0; i<4; i=i+1 {
+  xingqiu skill, dash, burst, attack;
+  bennett burst, attack, skill, attack;
+  xiangling burst, attack, skill, attack;
+  razor skill, dash, attack, burst,
+    attack:3, skill, dash,
+    attack:3, dash,
+    attack:3, dash,
+    attack:3, skill;
+  bennett skill;
+  xiangling attack:2;
+}

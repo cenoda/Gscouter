@@ -1,0 +1,11 @@
+active eula;
+raiden skill, attack;
+for let x=0; x<4; x=x+1{
+	eula skill, attack;
+	layla burst, skill;
+	shenhe attack, skill, burst;
+	eula burst, walk, attack:4, skill[hold=1], attack:4;
+	shenhe skill, attack;
+	layla burst, skill;
+	raiden burst, attack:4, skill, attack:4, dash, attack:4;
+}

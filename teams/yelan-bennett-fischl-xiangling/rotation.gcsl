@@ -1,0 +1,16 @@
+active fischl;
+for let x=0; x<5; x=x+1 {
+fischl skill,attack;
+yelan attack,burst,attack;
+bennett burst,attack,skill;
+xiangling attack,burst,attack,skill;
+bennett attack:2,skill,attack:3,skill;
+yelan skill;
+bennett attack,skill;
+fischl attack,burst;
+bennett attack,skill,attack:3,skill,attack;
+xiangling attack:3,skill;
+bennett attack:3,skill;
+yelan skill;
+fischl attack;									
+  }

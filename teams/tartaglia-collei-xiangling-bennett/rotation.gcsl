@@ -1,0 +1,21 @@
+active bennett;
+for let i=0; i<4; i=i+1 { 
+bennett burst,skill;
+xiangling burst,skill;
+collei skill,burst;
+tartaglia burst;
+tartaglia walk[f=6], skill,
+	attack:2, charge, dash,
+	attack:2, charge, dash,
+	attack:2, charge, dash,
+	attack:2, charge, dash,
+	attack:1, charge, dash;
+bennett attack,skill;
+xiangling attack:3, skill;
+collei attack,skill;
+tartaglia aim;
+bennett skill;
+xiangling attack:2;
+tartaglia aim:2;
+print("end");
+}

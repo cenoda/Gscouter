@@ -1,0 +1,13 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  sucrose attack, skill, dash, burst, attack, charge;
+  fischl attack:2, burst;
+  nahida skill, attack, burst;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4;
+  sucrose attack, charge, attack:3;
+  fischl attack, skill, attack;
+  sucrose attack, skill, dash, attack:3;
+  nahida attack, charge, attack:3;
+  raiden attack, skill, attack;
+}

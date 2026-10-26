@@ -1,0 +1,10 @@
+active bennett;
+bennett skill;
+for let i=0; i<4; i=i+1 {
+  kazuha skill, high_plunge, burst;
+  bennett burst, skill;
+  xiangling burst, skill, dash;
+  diluc attack, skill, attack, skill, attack, skill;
+  kazuha skill, high_plunge;
+  diluc attack, burst, attack:2, skill, skill, skill;
+}

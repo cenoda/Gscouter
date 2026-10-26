@@ -1,0 +1,17 @@
+id: hutao-xingqiu-yelan-fischl
+name: Hutao / Xingqiu / Yelan / Fischl
+members:
+    - hutao
+    - xingqiu
+    - yelan
+    - fischl
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/wPN8zr7CMCfH
+notes: 'Harvested from the KQM gcsim database: 4 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 69559
+    computed: "2026-10-01"

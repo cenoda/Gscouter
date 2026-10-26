@@ -1,0 +1,25 @@
+active lyney;
+for let i=0; i<4; i=i+1 {
+  lyney aim[weakspot=1];
+  if i && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  zhongli skill[hold=1], dash, attack;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  bennett skill, burst, dash;
+  pick_up_crystallize("pyro");
+  lyney aim[weakspot=1], aim, aim;
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(11); 
+    lyney skill;
+  } else {
+    lyney aim:2;
+  }
+  lyney skill;
+  
+}

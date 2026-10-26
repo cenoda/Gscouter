@@ -1,0 +1,17 @@
+id: qiqi-bennett-xianyun-furina
+name: Qiqi / Bennett / Xianyun / Furina
+members:
+    - qiqi
+    - bennett
+    - xianyun
+    - furina
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/kzFCw8jHCqb9
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 56020
+    computed: "2026-10-01"

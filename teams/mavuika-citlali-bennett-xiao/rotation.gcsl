@@ -1,0 +1,15 @@
+active mavuika;
+for let i=0;i<5;i=i+1 {
+  mavuika skill;
+  bennett skill, burst;
+  xiao skill;
+  if(.xiao.skill.ready) {
+    xiao skill;
+  }
+  citlali skill, burst;
+  mavuika burst;
+  wait(31);
+  mavuika charge:3, charge[hold=6], charge[final=1], dash;
+  mavuika charge:3, charge[hold=6], charge[final=1], dash;
+  mavuika charge, charge[final=1], dash;
+}

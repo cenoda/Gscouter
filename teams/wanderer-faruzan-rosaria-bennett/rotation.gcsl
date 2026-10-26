@@ -1,0 +1,32 @@
+active faruzan;
+for let i = 0; i < 4; i = i + 1  {
+  faruzan burst;
+  if !.faruzan.mods.favonius-cd {
+    faruzan skill;
+  }
+  while !.faruzan.mods.favonius-cd {
+    faruzan attack;
+  }
+  
+  bennett skill, burst;
+  
+  rosaria skill, burst;
+  
+  wanderer skill, attack;
+  while .wanderer.skydweller-points > 3 {
+    switch {
+      case .wanderer.normal < 3:
+        wanderer attack;
+      case .wanderer.mods.wanderer-a4:
+        wanderer dash;
+      default:
+        wanderer charge;
+    }
+  } 
+  if .wanderer.burst.ready && .wanderer.energy == .wanderer.energymax {
+    wanderer burst, attack:2;
+  } else {
+    
+    wanderer low_plunge, dash;
+  }
+}

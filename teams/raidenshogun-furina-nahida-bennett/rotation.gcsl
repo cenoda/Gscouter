@@ -1,0 +1,70 @@
+active raiden;
+fn doActionList() {
+  raiden skill;
+  for let i=0; i<4; i=i+1 {
+    furina skill, dash, burst;
+    nahida skill[hold=6], burst, attack;
+    bennett burst, skill;
+    nahida attack:2, charge;
+    raiden burst,
+           attack:4, skill,
+           attack:4, dash,
+           attack:4, dash,
+           attack:4;
+    bennett skill;
+  }
+}
+fn randy(mean, standardDeviation, min, max) {
+  let value = randnorm() * standardDeviation + mean;
+  if value < min {
+    value = min;
+  } else if value > max {
+    value = max;
+  }
+  return value;
+}
+let prev_char_id = -1;
+switch {
+  case .raiden.onfield:
+    prev_char_id = .keys.char.raiden;
+  case .furina.onfield:
+    prev_char_id = .keys.char.furina;
+  case .nahida.onfield:
+    prev_char_id = .keys.char.nahida;
+  default:
+    prev_char_id = .keys.char.bennett;
+} 
+let prev_action_id = -1;
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if prev_char_id != char_id && action_id != .action.swap {
+    execute_action(char_id, .action.swap, []);
+  }
+  if action_id == .action.burst {
+    while .raiden.onfield && !.raiden.burst.ready {
+      raiden attack;
+    }
+    while .furina.onfield && !.furina.burst.ready {
+      furina attack;
+    }
+    while .nahida.onfield && !.nahida.burst.ready {
+      nahida attack;
+    }
+    while .bennett.onfield && !.bennett.burst.ready {
+      bennett attack;
+    }
+  }
+  if action_id == .action.swap {
+    delay(randy(9.5, 1.5, 8, 17)); 
+
+  } else if prev_action_id == .action.attack && action_id != .action.attack && action_id != .action.charge {
+    delay(randy(3, 1, 0, 6)); 
+    
+  } else if prev_action_id != .action.attack {
+    delay(randy(3, 1, 0, 6)); 
+  }
+  prev_char_id = char_id;
+  prev_action_id = action_id;
+  return _execute_action(char_id, action_id, p);
+}
+doActionList();

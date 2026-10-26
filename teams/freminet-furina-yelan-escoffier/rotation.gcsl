@@ -1,0 +1,20 @@
+active freminet; 
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  esco skill, burst;
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  freminet skill, burst, skill;
+  freminet skill:2, attack:2;
+  freminet skill:2, attack:2;
+  freminet skill:2, attack:2;
+  freminet skill:2, attack:2;
+  freminet skill:2;
+}

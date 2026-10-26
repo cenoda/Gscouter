@@ -1,0 +1,23 @@
+active ineffa;
+for let i = 0; i < 4; i = i + 1 {
+  if is_even(i) {
+    ineffa burst;
+  }
+  
+  xingqiu skill, dash, burst, attack;
+  
+  aino burst, skill;
+  
+  haitham burst;
+  
+  ineffa attack, skill;
+  
+  haitham attack:3, dash,
+          attack:3, skill,
+          attack:3, charge, dash,
+          attack:3, dash,
+          attack:3, dash,
+          attack:3, dash,
+          attack:3, dash,
+          attack:3;
+}

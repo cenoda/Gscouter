@@ -1,0 +1,25 @@
+active klee;
+klee attack;
+for let i=0; i<5; i=i+1 {
+  lisa burst, attack;
+  chevreuse burst, skill[hold=1]:2;
+  while !.chev.mods.favonius-cd {
+    chevreuse attack;
+  }
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  klee attack, skill[bounce=3, mine=8], burst, walk;
+  if .klee.skill.ready {
+    klee attack, skill[bounce=3, mine=8], jump;
+  } else {
+    klee attack[travel=6], charge; 
+  }
+  for let i=0; i<3; i=i+1 {
+    klee attack[travel=6], charge, 
+         attack, walk, attack[travel=6], charge; 
+  }
+}
+wait(20);

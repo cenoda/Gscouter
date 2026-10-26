@@ -1,0 +1,16 @@
+active collei;
+for let i=0; i<4; i=i+1 {
+    collei skill;
+    fischl skill;
+    kokomi skill;
+    sucrose attack:3, dash,
+            attack:2, skill, dash,
+            attack:3, dash,
+            attack:2, burst;
+    fischl burst;
+    collei burst, skill;
+    kokomi burst;
+    for let c = 10; c; c = c - 1 { kokomi attack:2, dash, walk[f=2]; }
+    
+    sucrose attack, skill, attack:3, dash;
+}

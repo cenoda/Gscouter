@@ -1,0 +1,31 @@
+fn KaeyaPlunge() {
+  kaeya jump;
+  if !.element.t0.cryo {
+    wait(7);
+  }
+  if .airborne {
+    kaeya high_plunge[collision=rand()>0.5];
+  }
+}
+active xianyun;
+for let i = 0; i < 4; i = i + 1 {
+  xianyun skill, low_plunge, burst;
+  
+  bennett skill, burst;
+  
+  kazuha skill, high_plunge;
+  
+  kaeya skill, burst;
+  KaeyaPlunge(); kaeya dash;
+  KaeyaPlunge(); kaeya dash;
+  KaeyaPlunge(); kaeya dash;
+  KaeyaPlunge(); kaeya dash;
+  KaeyaPlunge(); kaeya skill, dash;
+  KaeyaPlunge(); kaeya dash;
+  
+  KaeyaPlunge(); 
+  
+  kazuha skill, high_plunge;
+  
+  bennett skill;
+}

@@ -1,0 +1,20 @@
+active nicole;
+for let i=0; i<4; i=i+1 {
+  nicole burst, skill;
+  
+  bennett burst, skill, dash;
+  
+  xilonen skill, attack:2;
+  
+  durin skill, burst, skill;
+  
+  while .status.bennettburst || .durin.infusion.bennett-fire-weapon {
+    if .durin.normal > 1 && .stam > 43 {
+      durin charge, dash;
+    } else if .durin.normal > 3 && .stam > 18 {
+      durin dash;
+    } else {
+      durin attack;
+    }
+  }
+}

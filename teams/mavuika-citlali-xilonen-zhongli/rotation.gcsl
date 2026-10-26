@@ -1,0 +1,18 @@
+let UseXilonenDash = false;  
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  mavuika skill, attack;
+  zhongli skill[hold=1], dash;
+  xilonen skill, attack:2;
+  if UseXilonenDash == true {
+    xilonen dash;   
+  }
+  pick_up_crystallize("pyro");
+  citlali skill, burst, attack;
+  mavuika burst;
+  delay(18); 
+  mavuika charge:3, charge[hold=6], charge[final=1], dash;
+  mavuika charge:3, charge[hold=6], charge[final=1], dash; 
+  mavuika charge:2, charge[final=1];
+  delay(5);
+}

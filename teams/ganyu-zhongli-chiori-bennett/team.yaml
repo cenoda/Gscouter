@@ -1,0 +1,17 @@
+id: ganyu-zhongli-chiori-bennett
+name: Ganyu / Zhongli / Chiori / Bennett
+members:
+    - ganyu
+    - zhongli
+    - chiori
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/r9m6tQRBN8mk
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 44589
+    computed: "2026-09-25"

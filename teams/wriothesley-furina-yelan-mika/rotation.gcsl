@@ -1,0 +1,25 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  mika burst, attack, skill;
+  
+  wrio attack, skill,
+    attack:5, charge, dash,
+    attack:5, charge, dash,
+    attack:5, charge, dash, 
+    attack:1;
+  if .wrio.burst.ready {
+    wrio burst;
+  } else {
+    wrio attack:2, charge;
+  }
+}

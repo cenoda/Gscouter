@@ -1,0 +1,17 @@
+id: raidenshogun-kujousara-xiangling-chevreuse
+name: Raidenshogun / Kujousara / Xiangling / Chevreuse
+members:
+    - raiden
+    - sara
+    - xiangling
+    - chevreuse
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/TBwkdpKKdNNq
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 70936
+    computed: "2026-10-01"

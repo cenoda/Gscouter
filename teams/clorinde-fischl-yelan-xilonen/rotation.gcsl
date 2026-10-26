@@ -1,0 +1,35 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active yelan;
+for let r=0; r<4; r=r+1 { 
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+
+  if .fischl.burst.ready {
+    fischl attack:2, burst;
+  } else {
+    fischl attack, skill;
+  }
+  
+  xilonen skill, attack:2;
+
+  clorinde_combo();
+  
+  xilonen skill, attack:2;
+
+  clorinde burst;
+  
+}

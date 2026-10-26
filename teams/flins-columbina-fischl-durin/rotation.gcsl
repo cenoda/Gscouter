@@ -1,0 +1,27 @@
+active fischl;
+for let i=0; i<5; i=i+1 {
+  if i && .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl skill;
+  }
+  
+  columbina skill;
+  if is_even(i) {
+    columbina burst;
+  } else {
+    columbina attack:2;
+  }
+  
+  if i != 0 && 5 {
+    durin skill:2, burst;
+  } else {
+    durin skill, burst, skill;
+  }
+  
+  fischl attack:2, burst;
+  
+  flins skill, attack, skill, burst,
+               attack:4, dash, attack:4, dash, attack:4, skill, burst,
+               attack:4, dash, attack:4;
+}

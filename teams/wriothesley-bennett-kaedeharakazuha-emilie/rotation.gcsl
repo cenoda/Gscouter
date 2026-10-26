@@ -1,0 +1,27 @@
+active wrio;
+wrio attack; 
+for let r=0; r<4; r=r+1 {
+  if r && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  kazuha skill, high_plunge, attack:2; 
+  bennett skill, burst;
+  kazuha burst, attack, skill, high_plunge;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump, 
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:4;
+  if .wrio.burst.ready && .wrio.energy == .wrio.energymax  {
+    wrio burst;
+  } else {
+    wrio charge, jump;
+  }
+  while !.element.t0.cryo { 
+    wrio attack;
+  }
+}

@@ -1,0 +1,17 @@
+id: kinich-nahida-raidenshogun-xingqiu
+name: Kinich / Nahida / Raidenshogun / Xingqiu
+members:
+    - kinich
+    - nahida
+    - raiden
+    - xingqiu
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/k9QCq9HG6QDG
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 77411
+    computed: "2026-10-01"

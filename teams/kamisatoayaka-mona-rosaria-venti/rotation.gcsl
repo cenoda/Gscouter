@@ -1,0 +1,11 @@
+active ayaka;
+for let x = 0; x < 5; x = x + 1{
+  ayaka skill, dash, attack:2,charge;
+  rosaria skill, burst;
+  venti skill, burst;
+  mona burst, skill;
+  ayaka dash, skill, attack, burst;
+  venti skill, attack;
+  rosaria skill;
+  ayaka dash, attack:2,charge, attack:2,charge;
+}

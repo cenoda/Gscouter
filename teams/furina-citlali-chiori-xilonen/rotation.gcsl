@@ -1,0 +1,33 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+	  pick_up_crystallize("any"); 
+  }
+	
+  return _execute_action(char_id, action_id, p);
+}
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst, attack:3;
+  chiori skill:2;
+  xilo skill, attack:2;
+  citlali skill, attack;
+  if .chiori.burst.ready {
+    chiori burst;
+  }
+  while .furina.skill.cd  {
+    if .chiori.skill.ready {
+      if .xilo.skill.ready {
+        chiori skill:2;
+        xilo skill, attack:2;
+        chiori swap;
+      } else {
+        chiori skill, attack;
+      }
+    } else if .chiori.normal > 3 {
+      chiori dash;
+    } else {
+      chiori attack;
+    }
+  }
+}

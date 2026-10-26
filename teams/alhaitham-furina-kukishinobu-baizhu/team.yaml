@@ -1,0 +1,22 @@
+id: alhaitham-furina-kukishinobu-baizhu
+name: Alhaitham / Furina / Kukishinobu / Baizhu
+members:
+    - alhaitham
+    - furina
+    - kuki
+    - baizhu
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/HPMLf6jgKnTT
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    alhaitham: start_hp%=90
+    baizhu: start_hp%=80
+    furina: start_hp%=80
+    kuki: start_hp%=70
+reference:
+    dps: 70406
+    computed: "2026-10-01"

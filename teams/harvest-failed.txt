@@ -1,0 +1,159 @@
+# Teams cmd/harvest could not import: no database entry reproduced its DPS,
+# or the imported team failed the full validation (cmd/validate) and was removed.
+# The next harvest skips them unless run with -retry-failed.
+albedo bennett tartaglia xiangling	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+albedo tartaglia yelan yunjin	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+aloy escoffier furina skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+amber bennett rosaria traveleranemo	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+amber chongyun diona kaedeharakazuha	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+beidou collei fischl sucrose	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+beidou fischl kirara sucrose	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+beidou fischl sucrose yaoyao	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+beidou nahida xingqiu yoimiya	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+bennett chevreuse fischl klee	removed after full validation: the looped rotation stalls: klee waits 50.4s/min (insufficient_energy)
+bennett dehya ganyu kaedeharakazuha	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+bennett dehya tartaglia xiangling	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+bennett eula mika raidenshogun	removed after full validation: the looped rotation stalls: raidenshogun waits 54.5s/min (skill_cd)
+bennett fischl xiangling xingqiu	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+bennett furina kaedeharakazuha klee	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+bennett furina kamisatoayato xiangling	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+bennett ganyu shenhe venti	removed after full validation: looped simulation: iteration 0 (seed 1): ln38:19: index for set_default_target is invalid, should be between 1 and 1, got 2
+bennett kaedeharakazuha kamisatoayato xiangling	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+bennett kamisatoayato sucrose xiangling	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+bennett layla rosaria xiangling	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+bennett lisa xiangling xingqiu	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+bennett raidenshogun rosaria xiangling	removed after full validation: the looped rotation stalls: raidenshogun waits 56.3s/min (skill_cd)
+candace charlotte chongyun skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+candace charlotte dahlia skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+candace charlotte furina skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+candace charlotte skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+candace chongyun layla skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+candace citlali skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+candace dahlia escoffier skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+candace dahlia layla skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+candace dahlia rosaria skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+candace escoffier furina skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+candace escoffier skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+candace escoffier skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+candace furina qiqi skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+candace layla rosaria skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+candace layla skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+candace layla skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+candace sangonomiyakokomi xingqiu yelan	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+charlotte chongyun furina skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte chongyun skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte chongyun skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte citlali furina skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte dahlia furina skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte dahlia skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte dahlia skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte escoffier furina skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte escoffier skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte escoffier skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte furina layla skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte furina mona skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte furina mualani skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte furina rosaria skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte furina shenhe skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte furina skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte furina skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte layla skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte layla skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte mualani skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte rosaria skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte rosaria skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte shenhe skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte shenhe skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+charlotte skirk xingqiu yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+chongyun citlali skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+chongyun dahlia mona skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+chongyun dahlia skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+chongyun dahlia skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+chongyun escoffier skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+chongyun escoffier skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+chongyun kaedeharakazuha layla shenhe	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+chongyun kaedeharakazuha xingqiu yelan	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+chongyun layla skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+chongyun layla skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+chongyun shenhe xingqiu yelan	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+citlali dahlia furina skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+citlali dahlia skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+citlali dahlia skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+citlali escoffier skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+citlali escoffier skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+citlali furina mika skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+citlali furina qiqi skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+citlali furina shenhe skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+citlali furina sigewinne skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+citlali furina skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+citlali layla skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+citlali mona skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+citlali mualani skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+citlali rosaria skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+citlali shenhe skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+citlali skirk xingqiu yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+collei nahida sangonomiyakokomi xiangling	removed after full validation: looped simulation: iteration 0 (seed 1): ln35:23: index for set_default_target is invalid, should be between 1 and 1, got 2
+columbina escoffier furina skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+dahlia escoffier furina skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+dahlia escoffier skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+dahlia escoffier skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+dahlia furina mika skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+dahlia furina qiqi skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+dahlia layla skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+dahlia layla skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+dahlia rosaria skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+dahlia rosaria skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+dahlia shenhe skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+dahlia shenhe skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+diona escoffier furina skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+diona furina skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+durin furina nicole skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+emilie furina klee xianyun	removed after full validation: looped simulation: parse config: ln34:1: no prefix parse function for active
+escoffier eula furina skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+escoffier furina ganyu skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+escoffier furina layla skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+escoffier furina mika skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+escoffier furina qiqi skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+escoffier furina rosaria skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+escoffier furina sigewinne skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+escoffier furina skirk tartaglia	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+escoffier furina skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+escoffier layla skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+escoffier layla skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+escoffier mika skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+escoffier mika skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+escoffier mona skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+escoffier mona skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+escoffier mualani skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+escoffier rosaria skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+escoffier rosaria skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+escoffier shenhe skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+escoffier shenhe skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+escoffier skirk xingqiu yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+eula lisa raidenshogun rosaria	removed after full validation: the looped rotation stalls: raidenshogun waits 56.3s/min (skill_cd)
+eula mika nahida raidenshogun	removed after full validation: the looped rotation stalls: raidenshogun waits 54.4s/min (skill_cd)
+faruzan fischl lanyan nahida	removed after full validation: looped simulation: iteration 0 (seed 1): panic occured: runtime error: index out of range [1] with length 1
+faruzan furina venti xiao	removed after full validation: the looped rotation stalls: xiao waits 50.8s/min (skill_cd)
+furina mika shenhe skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+furina mika skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+furina mona qiqi skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+furina mualani shenhe skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+furina qiqi shenhe skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+furina qiqi skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+furina qiqi skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+furina sangonomiyakokomi shenhe skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+furina shenhe sigewinne skirk	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+hutao lisa xiangling xingqiu	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+keqing kukishinobu nahida yelan	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+kukishinobu nahida nilou yelan	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+kukishinobu nahida razor yelan	removed after full validation: looped simulation: parse config: ln34:1: no prefix parse function for active
+layla mona skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+layla rosaria skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+layla rosaria skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+layla shenhe skirk xingqiu	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+layla shenhe skirk yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+layla skirk xingqiu yelan	removed after full validation: the looped rotation deals no damage in the scoring window: it stalls
+lisa nahida xingqiu yaoyao	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+lisa nahida yaoyao yelan	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+nahida thoma xingqiu yaoyao	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+raidenshogun travelerdendro xingqiu yaoyao	removed after full validation: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)

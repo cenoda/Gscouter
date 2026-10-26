@@ -1,0 +1,17 @@
+id: kaedeharakazuha-chongyun-escoffier-xianyun
+name: Kaedeharakazuha / Chongyun / Escoffier / Xianyun
+members:
+    - kazuha
+    - chongyun
+    - escoffier
+    - xianyun
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/RLGzfQpddBtD
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 52500
+    computed: "2026-10-01"

@@ -1,0 +1,20 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 4; i = i + 1 {
+  rosaria skill, burst;
+  
+  if i > 0  {
+    xinyan attack;
+  }
+  xinyan skill, burst;
+  
+  fischl attack:2, burst;
+  
+  rosaria skill;
+  
+  raiden burst, attack:4, dash, attack:4, skill, attack:4, dash, attack:4;
+  
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  }
+}

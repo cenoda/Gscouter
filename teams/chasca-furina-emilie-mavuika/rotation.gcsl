@@ -1,0 +1,15 @@
+active emilie;
+for let i = 0; i < 2; i = i + 1 {
+  emilie skill, attack;
+  if !i {
+    furina burst;
+  }
+  furina skill, dash, attack;
+  mavuika burst, skill, dash;
+  chasca skill, aim:5, burst;
+  
+  emilie burst;
+  mavuika attack, skill;
+  chasca skill, aim:4, aim[bullets=4];
+}
+wait(84);

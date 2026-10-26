@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+kokomi char lvl=90/90 cons=0 talent=9,9,9;
+kokomi add weapon="prototypeamber" refine=5 lvl=90/90;
+kokomi add set="oceanhuedclam" count=4;
+kokomi add stats hp=4780 atk=311 er=0.518 hydro%=0.466 heal=0.359;
+kokomi add stats def%=0.124 def=39.36 hp=507.88 hp%=0.5952 atk=33.08 atk%=0.5952 er=0.1102 em=39.64 cr=0.0662 cd=0.1324;
+
+nahida char lvl=90/90 cons=0 talent=9,9,2;
+nahida add weapon="favoniuscodex" refine=3 lvl=90/90;
+nahida add set="deepwoodmemories" count=4;
+nahida add stats hp=4780 hp%=0 atk%=0 atk=311 def%=0 em=561 heal=0 phys%=0 er=0 cr=0 dendro%=0 cd=0;
+nahida add stats def=39.36 def%=0.124 em=118.92 atk=33.08 hp=507.88 hp%= 0.0992 atk%=0.0992 er=0.1102 cr=0.3972 cd=0.5296;
+
+amber char lvl=90/90 cons=3 talent=9,9,9;
+amber add weapon="favoniuswarbow" refine=3 lvl=90/90;
+amber add set="fopl" count=4;
+amber add stats hp=4780 hp%=0 atk%=0 atk=311 def%=0 em=561 heal=0 phys%=0 er=0 cr=0 pyro%=0 cd=0;
+amber add stats def=39.36 def%=0.124 em=118.92 atk=33.08 hp=507.88 hp%= 0.0992 atk%=0.0992 er=0.2204 cr=0.331 cd=0.5296;
+
+kazuha char lvl=90/90 cons=0 talent=9,9,9;
+kazuha add weapon="xiphos" refine=1 lvl=90/90;
+kazuha add set="vv" count=4;
+kazuha add stats hp=4780 atk=311 em=187 em=187 em=187;
+kazuha add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.496 er=0.551 em=118.92 cr=0.0662 cd=0.1324;

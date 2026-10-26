@@ -1,0 +1,39 @@
+active dori; 
+fischl attack, skill;
+for let i=0; i<4; i=i+1 {
+  
+  if i && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie attack, skill;
+  }
+
+  if i > 0 {
+    bennett attack:1, charge;
+  }
+  bennett skill, burst;
+
+  amy attack;
+  if .amy.burst.ready {
+    amy attack, burst; 
+  } else {
+    amy skill;
+  }
+  
+  while .dori.mods.bennett-field || .status.bennettburst { 
+    switch {
+      case .dori.skill.ready:
+        dori skill;
+      case .dori.burst.ready:
+        dori burst;
+      case .dori.normal > 2 && .dori.dash.ready && .stam > 18:
+        dori dash;
+      default:
+        dori attack;
+    }
+  }
+  
+  bennett skill, attack; 
+  
+  print("done");
+}

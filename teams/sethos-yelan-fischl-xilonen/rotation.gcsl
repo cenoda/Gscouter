@@ -1,0 +1,33 @@
+active sethos;
+sethos aim;
+for let i=0; i<4; i=i+1 {
+  xilonen skill, attack:2;
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } while !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  if .fischl.burst.ready && .fischl.energy == .fischl.energymax {
+    fischl attack:2, burst;
+  } else {
+    fischl attack, skill;
+  }
+  
+  sethos skill, attack; 
+  sethos burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, skill;
+  sethos attack, aim[hold=2]:2;
+  
+  xilonen burst;
+}

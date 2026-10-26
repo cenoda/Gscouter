@@ -1,0 +1,32 @@
+let normal_attack_state = 1;
+let skill_state = 4;
+let c_right = 1;
+active fischl;
+for let i=0; i<4; i=i+1 {
+  fischl attack:2, skill;
+  collei skill, attack:2;
+  albedo skill;
+  if .albedo.burst.ready {
+  albedo burst;
+  }
+  fischl attack:2, burst;
+  collei burst, attack:2;
+  let start = f();
+  while f() - start < 10*60 {
+    switch {
+    case .ningguang.skill.ready:
+      ningguang skill, dash;
+    case .ningguang.burst.ready:
+      ningguang burst;
+    case .state == normal_attack_state:
+      switch .ningguang.prevAttack {
+      case c_right:
+        ningguang walk;
+      default:
+  	    ningguang charge;
+      }
+    default: 
+      ningguang attack;
+    }
+  }
+}

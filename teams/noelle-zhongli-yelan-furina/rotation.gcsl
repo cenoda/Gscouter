@@ -1,0 +1,16 @@
+active zhongli;
+for let x=0; x<4; x=x+1 {
+ zhongli skill[hold=1], dash;
+  pick_up_crystallize("any");
+ while !.zhongli.mods.favonius-cd { zhongli attack; }
+ furina  skill, dash, burst;
+ yelan   burst, attack, skill, attack;
+ noelle  skill, burst;
+ noelle  attack:3;
+ zhongli attack, dash, attack;
+  pick_up_crystallize("any");
+ noelle  attack:3, dash;
+ noelle  attack:3;
+ yelan   skill, attack;
+ noelle  attack:4;
+}

@@ -1,0 +1,29 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  faruzan skill, burst;
+  
+  if .sucrose.burst.ready {
+    sucrose burst;
+  }
+  if .sucrose.skill.ready {
+    sucrose skill, dash;
+  }
+  while .xianyun.status.xianyun-airborne-buff {
+    sucrose jump;
+    if .airborne {
+      sucrose high_plunge[collision=rand()>0.5];
+    }
+    if .sucrose.status.xianyun-airborne-buff {
+      if .sucrose.skill.ready {
+        sucrose skill;
+      } else {
+        sucrose dash;
+      }
+    }
+  }
+  
+}

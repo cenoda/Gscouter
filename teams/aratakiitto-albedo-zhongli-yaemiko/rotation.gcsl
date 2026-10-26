@@ -1,0 +1,20 @@
+active yae;
+  yae skill, skill, skill;
+  zhongli skill[hold=1], dash, attack;
+  albedo skill, attack;
+  yae skill, attack;
+  itto attack,burst[prestack=1],attack,skill,
+    attack:2,charge:5,
+    attack:4,charge:5,
+    skill[travel=0],charge;
+  sleep(21); 
+for let x = 0; x< 3; x=x+1 {
+  zhongli skill, attack;
+  yae skill,skill,skill;
+  albedo attack, skill, attack;
+  zhongli skill[hold=1], dash, attack;
+  itto burst,attack:3,skill,charge:5,
+    attack:4,charge:5,
+    skill[travel=0],charge; 
+  sleep(21);
+}

@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+alhaitham char lvl=90/90 cons=2 talent=9,10,9;
+alhaitham add weapon="lofi" refine=1 lvl=90/90;
+alhaitham add set="gilded" count=4;
+alhaitham add stats hp=4780 atk=311 em=186.5 dendro%=0.466 cr=0.311;
+alhaitham add stats hp=507.88 atk=33.07 def=39.35 hp%=0.0991 atk%=0.0991 def%=0.1239 em=79.26 er=0.1101 cr=0.3305 cd=0.7926;
+
+fischl char lvl=90/90 cons=6 talent=9,10,9;
+fischl add weapon="aqua" refine=1 lvl=90/90;
+fischl add set="gt" count=4;
+fischl add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cr=0.311;
+fischl add stats hp=507.88 atk=33.07 def=39.35 hp%=0.0991 atk%=0.1982 def%=0.1239 em=39.63 er=0.1101 cr=0.3305 cd=0.7926;
+
+yae char lvl=90/90 cons=2 talent=9,10,9;
+yae add weapon="kagura" refine=1 lvl=90/90;
+yae add set="gt" count=4;
+yae add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cr=0.311;
+yae add stats hp=507.88 atk=33.07 def=39.35 hp%=0.0991 atk%=0.0991 def%=0.1239 em=79.26 er=0.1101 cr=0.3305 cd=0.7926;
+
+nahida char lvl=90/90 cons=2 talent=9,10,9;
+nahida add weapon="athousandfloatingdreams" refine=1 lvl=90/90;
+nahida add set="deepwoodmemories" count=4;
+nahida add stats hp=4780 atk=311 em=186.5 dendro%=0.466 cd=0.622;
+nahida add stats hp=507.88 atk=33.07 def=39.35 hp%=0.0991 atk%=0.0991 def%=0.1239 em=198.15 er=0.1101 cr=0.3966 cd=0.2642;

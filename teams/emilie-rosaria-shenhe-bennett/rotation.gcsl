@@ -1,0 +1,21 @@
+active emilie;
+emilie skill;
+for let i = 0; i < 5; i = i + 1 {
+  bennett skill,burst;
+  if .shenhe.burst.ready{
+    shenhe burst;
+  } else {
+    shenhe attack;
+  }
+  shenhe skill,attack;
+  
+  rosaria skill,burst;
+  if .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill;
+  }
+  emilie attack:4;
+  bennett skill,attack:2;
+  rosaria skill,attack:2;
+}

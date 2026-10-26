@@ -1,0 +1,14 @@
+active nahida;
+for let r = 0; r < 4; r = r + 1 {
+nahida skill, burst;
+dehya skill, attack;
+kuki skill;
+kazuha burst, skill, high_plunge;
+dehya burst, skill:10;
+nahida attack, charge;
+kazuha skill, high_plunge;
+if .kuki.burst.ready {
+   kuki burst;
+}
+nahida attack:2;
+}

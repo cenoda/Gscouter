@@ -1,0 +1,16 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst, attack;
+  if is_even(i) {
+    furina attack, dash, attack:2;
+  } else {
+    yoimiya burst;
+  }
+  bennett skill, dash, burst;
+  if !.element.t0.hydro && !.element.t0.pyro {
+    bennett attack;
+  }
+  xilonen skill, attack:2;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  xilonen skill, burst, attack:2;
+}

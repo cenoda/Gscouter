@@ -1,0 +1,19 @@
+active mavuika;
+fischl skill;
+for let i=0; i<4; i=i+1 {
+  chevreuse burst, skill[hold=1];
+  if is_even(i) {
+    yoimiya attack:3, dash;
+  }
+  mavuika burst, charge, dash, skill;
+  fischl attack;
+  if .fischl.skill.ready {
+    fischl skill;
+  } else {
+    fischl attack, burst; 
+  }
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  if is_even(i) && .yoimiya.burst.ready && .yoimiya.energy == .yoimiya.energymax {
+    yoimiya burst;
+  }
+}

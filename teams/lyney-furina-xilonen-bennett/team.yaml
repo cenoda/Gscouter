@@ -1,0 +1,19 @@
+id: lyney-furina-xilonen-bennett
+name: Lyney / Furina / Xilonen / Bennett
+members:
+    - lyney
+    - furina
+    - xilonen
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/PmbRHC6gwtcT
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    lyney: start_hp%=60
+reference:
+    dps: 98625
+    computed: "2026-10-02"

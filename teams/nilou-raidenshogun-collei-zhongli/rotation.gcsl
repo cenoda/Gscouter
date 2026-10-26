@@ -1,0 +1,7 @@
+active zhongli;
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], dash, attack:2;
+  raiden attack, skill;
+  collei attack, skill, burst;
+  nilou burst, skill, attack:18;
+}

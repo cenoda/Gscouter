@@ -1,0 +1,33 @@
+fn varesa_combo(amt) {
+  for let j = 0; j < amt; j = j + 1 {
+    if .varesa.skill.ready {
+      varesa skill, attack, high_plunge[collision=1]; 
+    } else {
+      varesa charge, high_plunge[collision=1]; 
+    }
+    if .varesa.energy >= 30 && .varesa.status.apex-drive {
+      varesa burst;
+    }
+  }
+}
+active varesa;
+varesa attack; 
+for let i=0; i<4; i=i+1 {
+  if .chev.sets.emblem >= 4 || .chev.sets.gt >= 4 {
+    chev burst, skill[hold=1]:3; 
+  } else if .chev.sets.no >=4 {
+    chev burst, skill[hold=1]:2;
+  } else {
+    if i == 0 {
+      chev burst, skill[hold=1]:1;
+    } else {
+      chev skill[hold=1], attack;
+    }
+  }
+  
+  durin skill, skill, burst;
+  
+  ororon skill, burst;
+  
+  varesa_combo(7);
+}

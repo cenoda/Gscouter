@@ -1,0 +1,17 @@
+active nahida;
+nahida skill;
+for let i=0; i<5; i=i+1 {
+  raiden attack:2, skill;
+  xingqiu skill, burst,attack;
+  kirara  skill[short_hold=1];
+  nahida  attack:3,
+            skill,
+            attack:4,
+            attack:4,
+            skill,
+            attack:3,
+            attack:4,
+            skill,
+            attack:4, jump,
+            attack:2;
+}

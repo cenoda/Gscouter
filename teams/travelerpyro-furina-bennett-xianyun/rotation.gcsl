@@ -1,0 +1,35 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd && !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  bennett burst, skill;
+  
+  luminepyro skill[hold=1];
+  if .luminepyro.burst.ready {
+    luminepyro burst;
+  }
+  
+  if .xianyun.sets.vv >= 4 {
+    xianyun attack:2; sleep(20);
+  }
+  
+  while .xianyun.status.xianyun-airborne-buff {
+    luminepyro jump; 
+    if .airborne {
+      let variableDelay = rand() * 15; print(variableDelay);
+      wait(variableDelay);
+      luminepyro high_plunge[collision=rand()>0.5];
+    }
+    if .xianyun.status.xianyun-airborne-buff { 
+      luminepyro dash;
+    }
+  }
+  
+  bennett skill;
+}

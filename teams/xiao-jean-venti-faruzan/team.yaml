@@ -1,0 +1,17 @@
+id: xiao-jean-venti-faruzan
+name: Xiao / Jean / Venti / Faruzan
+members:
+    - xiao
+    - jean
+    - venti
+    - faruzan
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/qBqw6nwcQkgB
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 43622
+    computed: "2026-09-30"

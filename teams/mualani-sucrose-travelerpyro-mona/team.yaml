@@ -1,0 +1,17 @@
+id: mualani-sucrose-travelerpyro-mona
+name: Mualani / Sucrose / Travelerpyro / Mona
+members:
+    - mualani
+    - sucrose
+    - aetherpyro
+    - mona
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/WM9bFP9R9TGd
+notes: 'Harvested from the KQM gcsim database: 4 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 102974
+    computed: "2026-10-02"

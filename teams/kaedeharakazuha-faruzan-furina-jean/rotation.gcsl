@@ -1,0 +1,20 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  
+  jean burst, skill;
+  
+  faruzan skill, burst;
+  
+  kazuha skill, high_plunge[collision=1], burst;
+  
+  faruzan aim:2, skill;
+  
+  kazuha skill, high_plunge[collision=1];
+  
+  jean attack, skill;
+  
+  faruzan aim:3, skill, aim;
+  
+  kazuha skill, high_plunge[collision=1];
+}

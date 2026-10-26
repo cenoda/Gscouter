@@ -1,0 +1,38 @@
+fn sethosCombo() {
+  sethos burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack;
+}
+active sethos; 
+sethos aim[hold=1];
+for let i=0; i<4; i=i+1 {
+  if .bennett.burst.ready {
+    bennett burst;
+  } else {
+    bennett skill, burst;
+  }
+  
+  amy attack;
+  if !.amy.skill.ready {
+    amy attack, burst;
+  } else {
+    amy skill;
+  }
+
+  if .chev.burst.ready {
+    chev burst, skill[hold=1]:2;
+  } else {
+    chev attack:1, skill[hold=1], attack:2;
+  }
+  
+  sethos skill, aim[hold=2]; 
+  sethosCombo();
+  
+}

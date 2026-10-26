@@ -1,0 +1,24 @@
+active nahida;
+nahida attack;
+for let i=0; i<5; i=i+1 {
+  if i == 0 {
+    columbina attack, skill, burst;
+  } else {
+    columbina skill, charge;
+    if .columbina.burst.ready {
+      columbina burst;
+    }
+  }
+
+  nahida attack, skill, attack;
+  if !is_even(i) {
+    nahida burst;
+  }
+  
+  nilou skill, attack:2, skill;
+  lauma attack, skill[hold=1], burst;
+  columbina attack, charge, dash, charge, dash, 
+            attack, charge, dash, charge, dash, 
+            charge, dash, attack, charge;
+}
+columbina dash, attack;

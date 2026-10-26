@@ -1,0 +1,18 @@
+active cyno;
+cyno skill;
+for let i=0; i<4; i=i+1 {
+  let Startframe = f();
+  furina skill, dash, burst, attack;
+  nahida skill, burst, attack, charge;
+  ororon skill, burst;
+  cyno skill, burst;
+  while f() - Startframe < 1260 {
+    if .cyno.skill.ready {
+      cyno skill;
+    } else if .cyno.normal == 5 && .stam > 20 {
+      cyno dash;
+    } else {
+      cyno attack;
+    }
+  }
+}

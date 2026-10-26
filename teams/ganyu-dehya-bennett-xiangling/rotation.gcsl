@@ -1,0 +1,8 @@
+active dehya ;
+for let i = 0; i < 5; i = i + 1 {
+  dehya skill, skill, attack;
+  bennett burst, skill;
+  xiangling burst, skill, dash;
+  ganyu skill, aim:5, skill, aim;
+  bennett skill;
+}

@@ -1,0 +1,13 @@
+active raiden;
+raidenshogun skill;
+for let x = 0; x < 5; x = x + 1 {
+  sara skill, attack:2;
+  zhongli skill, burst;
+  nahida burst, skill;
+  sara aim;
+  zhongli skill;
+  sara burst;
+  raidenshogun burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+
+  print("Rotation Done");
+}

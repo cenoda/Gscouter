@@ -1,0 +1,22 @@
+active emilie;
+for let i = 0; i < 6; i = i + 1 {
+  if i && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } 
+  else {
+    emilie attack, skill;
+  }
+  durin skill, burst, skill;
+  nicole burst, skill;
+  lyney aim:4;
+  lyney skill;
+  if .lyney.burst.ready && .lyney.energy == .lyney.energymax {
+    lyney burst;
+    delay(11);
+    lyney skill;
+  } 
+  else {
+    lyney aim;
+  }
+  lyney aim:2;
+}

@@ -1,0 +1,24 @@
+active bennett;
+  
+for let i=0; i<4; i=i+1 {
+  if i { 
+    lyney aim[weakspot=1];
+    lynette skill;
+  }
+  bennett skill, burst;
+  xilonen skill, attack:2;
+  if .lynette.burst.ready {
+    lynette burst;
+  } else {
+    lynette skill;
+  }
+  lyney aim[weakspot=1], aim:2;
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(11); 
+    lyney skill;
+  } else {
+    lyney aim;
+  }
+  lyney skill;
+}

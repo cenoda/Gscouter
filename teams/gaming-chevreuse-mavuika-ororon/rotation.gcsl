@@ -1,0 +1,21 @@
+active mav; 
+for let i=0; i<4; i=i+1 { 
+  ororon burst, skill;
+  
+  chev burst, skill[hold=1]:2;
+  
+  mav skill, burst, dash;
+  
+  gaming burst, attack:2,
+         skill, low_plunge;
+         wait(40);
+  gaming skill, low_plunge;
+         wait(40);
+  gaming skill, low_plunge;
+         wait(40);
+  gaming skill, low_plunge;
+         wait(40);
+  gaming skill, low_plunge;
+  gaming skill, low_plunge;
+  gaming skill, low_plunge;
+}

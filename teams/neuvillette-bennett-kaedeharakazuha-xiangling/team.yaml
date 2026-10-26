@@ -1,0 +1,19 @@
+id: neuvillette-bennett-kaedeharakazuha-xiangling
+name: Neuvillette / Bennett / Kaedeharakazuha / Xiangling
+members:
+    - neuvillette
+    - bennett
+    - kazuha
+    - xiangling
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/JDDw7btnKTBp
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    neuvillette: start_hp=35000
+reference:
+    dps: 61171
+    computed: "2026-10-02"

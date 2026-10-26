@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+sucrose char lvl=90/90 cons=6 talent=3,9,9;
+sucrose add weapon="thrillingtalesofdragonslayers" refine=5 lvl=1/20;
+sucrose add set="viridescentvenerer" count=4;
+sucrose add stats hp=4780 atk=311 em=187 em=187 em=187;
+sucrose add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.5952 er=0.1102 em=118.92 cr=0.0993 cd=0.4634;
+
+xiangling char lvl=90/90 cons=6 talent=5,9,9;
+xiangling add weapon="dragonsbane" refine=3 lvl=90/90;
+xiangling add set="tenacity" count=4;
+xiangling add stats hp=4780 atk=311 atk%=0.466 pyro%=0.466 cr=0.311;
+xiangling add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=79.28 cr=0.331 cd=0.7944;
+
+yelan char lvl=90/90 cons=2 talent=1,9,9;
+yelan add weapon="elegyfortheend" refine=1 lvl=90/90;
+yelan add set="emblemofseveredfate" count=4;
+yelan add stats hp=4780 atk=311 hp%=0.466 hydro%=0.466 cr=0.311;
+yelan add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.4408 em=39.64 cr=0.1986 cd=0.7944;
+
+hutao char lvl=90/90 cons=1 talent=9,9,9 start_hp=2;
+hutao add weapon="staffofhoma" refine=1 lvl=90/90;
+hutao add set="crimsonwitchofflames" count=4;
+hutao add stats hp=4780 atk=311 hp%=0.466 pyro%=0.466 cr=0.311;
+hutao add stats def%=0.124 def=39.36 hp=507.88 hp%=0.1984 atk=33.08 atk%=0.0992 er=0.1102 em=39.64 cr=0.331 cd=0.7944;

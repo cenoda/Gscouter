@@ -1,0 +1,26 @@
+# Build from the source config, used to validate the rotation.
+
+navia char lvl=90/90 cons=0 talent=6,10,10;
+navia add weapon="verdict" refine=1 lvl=90/90;
+navia add set="gladiatorsfinale" count=2;
+navia add set="crimsonwitchofflames" count=1;
+navia add set="emblemofseveredfate" count=2;
+navia add stats def%=0.066 def=16 hp=5079 atk=329 atk%=0.6060000000000001 er=0.37 em=42 cr=0.579 cd=1.2200000000000002 geo%=0.466;
+
+mona char lvl=85/90 cons=6 talent=7,7,7;
+mona add weapon="favcodex" refine=5 lvl=90/90;
+mona add set="noblesseoblige" count=4;
+mona add set="thundersoother" count=1;
+mona add stats def=32 hp=5766 atk=311 atk%=0.28600000000000003 er=0.92 em=35 cr=0.665 cd=0.7929999999999999 hydro%=0.466;
+
+bennett char lvl=85/90 cons=6 talent=6,8,8;
+bennett add weapon="skywardblade" refine=1 lvl=90/90;
+bennett add set="theexile" count=4;
+bennett add set="echoesofanoffering" count=1;
+bennett add stats def%=0.24 def=65 hp=3953 hp%=0.733 atk=364 atk%=0.133 er=1.026 em=55 cr=0.035;
+
+zhongli char lvl=89/90 cons=6 talent=10,10,10;
+zhongli add weapon="favoniuslance" refine=5 lvl=90/90;
+zhongli add set="totm" count=4;
+zhongli add set="gildeddreams" count=1;
+zhongli add stats def%=0.124 hp=6304 hp%=0.5710000000000001 atk=311 er=0.23299999999999998 em=42 cr=0.657 cd=0.918 geo%=0.466;

@@ -1,0 +1,25 @@
+active razor; 
+for let i=0; i<4; i=i+1 {
+  
+  if i && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie attack, skill;
+  }
+  
+  lisa skill[hold=1], burst; 
+  
+  bennett skill, dash, burst;
+  
+  razor skill, dash, attack, burst;
+  razor attack:3, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+  razor attack:3, dash;
+  razor attack:2;
+  
+  bennett skill;
+  
+  print("done");
+}

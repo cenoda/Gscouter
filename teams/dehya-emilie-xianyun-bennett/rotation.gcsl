@@ -1,0 +1,31 @@
+fn DehyaPlunge() {
+  dehya jump;
+  if .airborne {
+    dehya high_plunge[collision=rand()>0.5];
+  }
+}
+active dehya; 
+for let i=0; i<4; i=i+1 {
+  dehya skill;
+  
+  if i==0 || !.emilie.burst.ready {
+  emilie skill, attack;
+  } else {
+  emilie burst;
+  }
+  
+  xianyun skill, high_plunge, attack, burst;
+  
+  bennett skill, burst;
+
+  DehyaPlunge(); dehya dash;
+  DehyaPlunge(); dehya dash;
+  DehyaPlunge(); dehya attack;
+  DehyaPlunge(); dehya attack;
+  DehyaPlunge(); dehya attack;
+  DehyaPlunge(); dehya attack;
+  DehyaPlunge(); dehya attack;
+  DehyaPlunge(); dehya attack;
+  
+  bennett skill;
+}

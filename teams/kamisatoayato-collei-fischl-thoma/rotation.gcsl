@@ -1,0 +1,12 @@
+active ayato;
+for let i=0; i<4; i=i+1 {
+  ayato burst;
+  fischl skill;
+  thoma skill, burst, attack;
+  collei skill, burst;
+  ayato skill, attack:15;
+  fischl attack, burst;
+  thoma skill, attack:2;
+  collei attack, skill;
+  ayato skill, attack:12;
+}

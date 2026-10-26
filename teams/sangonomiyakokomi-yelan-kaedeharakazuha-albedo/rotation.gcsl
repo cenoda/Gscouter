@@ -1,0 +1,21 @@
+active albedo;
+albedo skill;
+for let x = 5; x; x = x - 1 {
+  yelan skill, attack;
+  kazuha skill, high_plunge;
+  kokomi skill;
+  yelan burst, attack;
+  if .kazuha.burst.ready {
+    kazuha burst, attack;
+  } else {
+    kazuha attack:3;
+  }
+  kazuha skill, high_plunge;
+  albedo attack, skill;
+  yelan attack, skill;
+  kokomi attack, burst;
+  for let x = 9; x; x = x - 1 {
+    kokomi attack:2, walk;
+  }
+  albedo skill, attack;
+}

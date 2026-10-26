@@ -1,0 +1,11 @@
+active albedo;
+albedo skill, attack;
+for let i=0; i<4; i=i+1 { 
+  
+  nahida attack, burst, skill;
+  kaeya skill, burst;  
+  candace skill, burst, attack;
+  albedo attack,skill, burst, attack:2, charge, jump, attack:3, dash, attack:3;
+  kaeya skill, dash;
+  albedo attack, skill;
+  candace skill, attack:2;}

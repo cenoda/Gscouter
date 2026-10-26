@@ -1,0 +1,19 @@
+active fischl;
+fischl skill;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  esco skill, burst;
+  
+  if .amy.burst.ready { 
+    amy attack:2, burst; 
+  } else { 
+    amy attack, skill; 
+  }
+  
+  freminet skill, attack, burst,
+           attack:2, skill, skill,
+           attack:2, skill, attack:1, skill, 
+           attack:2, skill, attack:1, skill,
+           attack:2, skill;
+}

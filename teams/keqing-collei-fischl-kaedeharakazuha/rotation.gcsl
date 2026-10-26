@@ -1,0 +1,29 @@
+active fischl;
+for let i=0; i<4; i=i+1 {
+  if i == 0 {
+    fischl burst;
+    collei burst;
+    kazuha skill, high_plunge;
+  } else {
+    kazuha skill, high_plunge;
+    collei burst;
+    fischl attack:2, burst;
+    kazuha burst;
+  }
+  keqing skill, burst, skill, 
+    attack, charge, 
+    attack, charge, 
+    attack, skill;
+  keqing attack, charge;
+  keqing attack, charge;
+  kazuha skill, high_plunge;
+  fischl skill, attack;
+  collei skill, attack;
+  keqing skill, burst, skill, 
+    attack, charge, 
+    attack, charge, 
+    attack, skill;
+  keqing attack, charge;
+  
+  keqing attack;
+}

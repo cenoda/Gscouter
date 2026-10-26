@@ -1,0 +1,24 @@
+active zhongli;
+for let i=0; i<4; i=i+1 {
+	zhongli attack,skill[hold=1], dash;
+	while (.zhongli.mods.favonius-cd==0) {
+	  zhongli attack;
+	}
+	chiori skill:2;
+	shenhe skill[hold=1],attack;
+	
+	if .shenhe.burst.ready {
+	  shenhe burst;
+	} else {
+	  chiori burst;
+	}
+	
+	if .ganyu.burst.ready {
+	  ganyu burst;
+	} else {
+	  ganyu aim;
+	}
+	
+	ganyu skill, aim[weakspot=1],aim:3;
+	print("end");
+}

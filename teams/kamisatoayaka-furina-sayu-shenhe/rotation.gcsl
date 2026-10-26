@@ -1,0 +1,11 @@
+active furina;
+for let i = 0; i < 1; i = i + 1{
+  furina burst,skill;
+  shenhe burst,skill;
+  sayu skill, burst;
+  ayaka dash, skill, attack, burst, attack:2, charge;
+  sayu skill,attack;
+  shenhe skill,attack:2;
+  ayaka dash,attack,charge,skill,attack:2,charge;
+  print("rotation done");
+}

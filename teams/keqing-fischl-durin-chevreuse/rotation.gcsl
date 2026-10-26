@@ -1,0 +1,48 @@
+active amy;
+for let i = 0; i < 6; i = i + 1 { 
+  if .amy.skill.ready {
+    fischl skill, attack;
+  } else if .amy.burst.ready {
+    amy attack:2, burst;
+  }
+  durin skill, burst, skill;
+  chev skill[hold=1], burst;
+  keq skill, burst, skill, dash,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      skill;
+  if .amy.skill.ready {
+    amy skill, attack;
+  } else if .amy.burst.ready {
+    amy attack:2, burst;
+  }
+  durin skill:2;
+  keq skill, dash,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      skill,
+      attack, charge;
+  durin burst;
+  chev burst, skill[hold=1]:3;
+  if .amy.skill.ready {
+    amy skill, attack;
+  } else if .amy.burst.ready {
+    amy attack:2, burst;
+  }
+  durin skill:2;
+  keq skill, burst, skill, dash,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      skill, skill,
+      attack, charge,
+      attack, charge;
+}

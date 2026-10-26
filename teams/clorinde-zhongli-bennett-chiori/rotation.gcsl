@@ -1,0 +1,22 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active zl;
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], dash;
+  bennett skill, burst;
+  chiori attack, skill:2;
+  clorinde_combo();
+  if .clorinde.burst.ready {
+    clorinde burst; 
+  }
+  bennett skill, attack;
+  zhongli burst;
+}

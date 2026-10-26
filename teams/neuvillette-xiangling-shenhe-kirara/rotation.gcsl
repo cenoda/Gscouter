@@ -1,0 +1,13 @@
+active neuv;
+for let i = 0; i < 3; i = i + 1 {
+  neuv skill, attack:3, dash, attack; 
+  shenhe attack, skill[hold=1], attack;
+  kirara skill[short_hold=1], burst;
+  xiangling burst, skill, dash;
+  neuv charge, burst, skill, charge;
+  shenhe skill[hold=1], attack:2;
+  kirara skill[hold=60];
+  xiangling skill, dash, attack:3;
+  neuv charge, charge;
+}
+wait(173);

@@ -1,0 +1,37 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+        clorinde skill;
+    } else {
+        clorinde attack;
+    }
+  }
+}
+active fischl; 
+fischl burst;
+kirara skill, attack;
+sucrose skill, dash, burst, attack;
+clorinde_combo();
+  
+for let r=0; r<4; r=r+1 { 
+  sucrose attack, charge; 
+  clorinde burst; 
+  if .kirara.burst.ready { 
+    kirara skill, burst;
+  } else {
+    kirara skill, attack;
+  }
+  if .fischl.burst.ready { 
+    fischl attack:2, burst;
+  } else {
+    fischl attack, skill, attack;
+  }
+  if .sucrose.burst.ready { 
+    sucrose skill, dash, burst, attack;
+  } else {
+    sucrose skill, dash, attack;
+  }
+  clorinde_combo();
+  
+}

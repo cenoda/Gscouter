@@ -1,0 +1,16 @@
+active mavuika;
+for let i=0; i<5; i=i+1 {
+  
+  mavuika skill[hold=1];
+  xilonen skill, attack:2;
+  chongyun dash; pick_up_crystallize("pyro");
+  chongyun skill;
+  kaeya skill, dash, burst; 
+  mav burst, charge, dash, attack,
+             charge, dash, attack,
+             charge, dash, attack,
+             charge, dash, attack,
+             charge, dash, attack,
+             charge;
+  mavuika dash, charge:2, dash;
+}

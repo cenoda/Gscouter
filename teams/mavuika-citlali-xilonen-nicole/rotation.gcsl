@@ -1,0 +1,26 @@
+let UseXilonenDash = false;  
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  mavuika skill, attack; 
+  delay(3); 
+  nicole skill, attack;
+  xilonen skill, attack:2;
+  if UseXilonenDash == true {
+    xilonen dash;   
+  }
+  pick_up_crystallize("pyro");
+  citlali skill, burst, attack;
+  mavuika swap;
+  mavuika skill[recast=1], charge, dash, attack, charge;  
+  mavuika burst;
+  delay(24); 
+  mavuika charge:3, charge[hold=6], charge[final=1], dash;
+  mavuika charge:3, charge[hold=6], charge[final=1], dash; 
+  
+  if UseXilonenDash == false {   
+    mavuika attack;
+    delay(13);
+  } else {
+    delay(19);
+  }
+}

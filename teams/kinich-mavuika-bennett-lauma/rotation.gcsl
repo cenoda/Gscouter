@@ -1,0 +1,45 @@
+active kinich;
+fn kinich_combo(shorthold) {
+  if shorthold == true {
+    for let c=0; c<5; c=c+1 { 
+      kinich attack[direction=1]:2;
+      while .kinich.nightsoul.points < 20 && .kinich.nightsoul.state {
+        wait(1);
+      }
+      if .kinich.nightsoul.state {
+        kinich skill[hold=1];
+      }
+    }
+  }
+  if shorthold == false {
+    kinich attack[direction=1]:1;
+    for let c=0; c<4; c=c+1 {
+      kinich attack[direction=1]:2;
+      while .kinich.nightsoul.points < 20 && .kinich.nightsoul.state {
+        wait(1);
+      }
+      if .kinich.nightsoul.state {
+        kinich skill[hold=0];
+      }
+    }
+  }    
+}
+lauma attack; 
+for let i=0; i<2; i=i+1{ 
+  
+  mavuika burst;
+  if is_even(i) { 
+    mavuika charge; 
+  }
+  mavuika skill, dash;
+  
+  bennett burst, skill;
+  
+  lauma skill[hold=0];
+  
+  kinich skill;
+  kinich_combo(true); 
+  if .kinich.burst.ready {
+    kinich burst;
+  }
+}

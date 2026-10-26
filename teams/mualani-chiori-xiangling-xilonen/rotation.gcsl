@@ -1,0 +1,31 @@
+active mualani;
+fn mualani_combo() {
+  mualani skill;
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    mualani skill;
+  }
+}
+mualani attack;
+for let i=0; i<2; i=i+1 {
+  xilonen skill, burst, attack:2;
+  chiori skill:2;
+  xl burst, skill, dash;
+  pick_up_crystallize("hydro");
+  mualani burst;
+  mualani_combo();
+  mualani attack;
+  
+  xilonen skill, attack:2;
+  chiori burst, skill:2;
+  xl attack:3, skill, dash;
+  pick_up_crystallize("hydro");
+  mualani_combo();
+  mualani attack;
+  
+}

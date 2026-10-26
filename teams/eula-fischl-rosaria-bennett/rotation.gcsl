@@ -1,0 +1,18 @@
+active eula; 
+for let i = 0; i < 4; i = i + 1 { 
+  rosaria skill;
+  while !.rosaria.mods.favonius-cd {
+    rosaria attack;
+  }
+  eula skill, attack;
+  bennett skill, burst;
+  fischl attack, skill;
+  rosaria burst;
+  eula burst, walk, attack:4, skill[hold=1], walk[f=10], attack:4;
+  fischl attack:2, burst;
+  rosaria skill;
+  while !.rosaria.mods.favonius-cd {
+    rosaria attack;
+  }
+  eula attack:4, dash, attack:3;
+}

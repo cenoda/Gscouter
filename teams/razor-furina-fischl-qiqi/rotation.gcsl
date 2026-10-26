@@ -1,0 +1,34 @@
+active fischl;
+fischl skill;
+  
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if !.furina.burst.ready {
+    furina attack;
+  }
+  furina burst;
+  
+  if .qiqi.skill.ready {
+    qiqi skill, attack;
+    while !.debuff.res.t0.qiqi-talisman { 
+      qiqi attack;
+    }
+  } else if .qiqi.burst.ready {
+    qiqi burst;
+  }
+  
+  if .amy.skill.ready { 
+    amy attack:1, skill; 
+  } else { 
+    amy attack:2, burst; 
+  }
+  
+  razor skill, dash, attack, burst,
+        attack:3, skill, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, skill, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3;
+}

@@ -1,0 +1,26 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  dori burst;
+  
+  furina skill, dash, burst;
+  
+  ororon skill, burst;
+  
+  kazuha skill, high_plunge;
+  
+  dori skill, attack:2, dash, attack:2;
+  
+  while .furina.skill.cd {
+    if .kazuha.burst.ready && !.dori.infusion.dori-c6 {
+      kazuha burst;
+    } else if .kazuha.skill.ready && !.dori.infusion.dori-c6 {
+      kazuha skill, high_plunge;
+    } else if .dori.skill.ready {
+      dori skill;
+    } else if .dori.normal > 2 {
+      dori dash;
+    } else {
+      dori attack;
+    }
+  }
+}

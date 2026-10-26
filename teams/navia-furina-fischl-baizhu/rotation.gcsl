@@ -1,0 +1,47 @@
+fn rand_delay(mean, stddev) {
+  let del = randnorm() * stddev + mean;
+  if del > (mean + mean) {
+    del = mean + mean;
+  }
+  delay(del);
+}
+let prev_char_id = -1;
+let prev_action_id = -1;
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+
+  if prev_char_id != char_id && action_id != .action.swap {
+    execute_action(char_id, .action.swap, []);
+  }
+
+  if action_id == .action.swap {
+    
+    rand_delay(12, 3);
+  }
+  
+  prev_char_id = char_id;
+  prev_action_id = action_id;
+  return _execute_action(char_id, action_id, p);
+}
+active furina;
+for let i=0; i<4; i=i+1 {
+    furina skill, dash, attack;                    pick_up_crystallize("any");
+    fischl attack:2, skill, dash;                  pick_up_crystallize("any");
+    navia burst;
+    furina burst;
+    baizhu skill, burst;
+      print(.navia.shrapnel);
+    navia skill[hold=1], attack:3, dash;           pick_up_crystallize("any");
+    navia attack:2;                                
+    fischl attack:2, burst;                        pick_up_crystallize("any"); 
+      print(.navia.shrapnel);
+    navia skill[hold=1], attack:3, dash;           pick_up_crystallize("any");
+    navia attack:2;
+    baizhu skill, dash, attack;                    pick_up_crystallize("any");
+      print(.navia.shrapnel);
+    if !.navia.skill.ready {
+    navia attack, dash;                            pick_up_crystallize("any");
+    }
+    navia skill[hold=1], attack:3, dash;           pick_up_crystallize("any");
+    navia attack:2;
+}

@@ -1,0 +1,33 @@
+active candace;
+fn mualani_combo() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+}
+for let i=0; i<4; i=i+1 {
+  candace skill, burst, attack;
+  if !.candace.mods.favonius-cd && .candace.weapon == .keys.weapon.favlance {
+    candace attack;
+  } else {
+    wait(8); 
+  }
+  xilonen skill, attack, burst, attack;
+  xiangling burst, skill, dash; 
+  candace skill, attack;    
+  mualani skill;
+  mualani_combo();
+  if .mualani.burst.ready && .mualani.energy == .mualani.energymax {
+    mualani burst;
+    mualani attack;
+  } else {
+    mualani skill;
+    mualani attack:3, dash; 
+  }
+}

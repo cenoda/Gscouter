@@ -1,0 +1,31 @@
+active nahida;
+let normal_attack_state = 1;
+let c_left = 0;
+let c_twirl = 2;
+for {
+  if !.debuff.res.t0.nahida-e {
+    nahida skill;
+  } else if .nahida.burst.ready {
+    nahida burst;
+  } else if .xingqiu.burst.ready {
+    xingqiu burst, attack;
+  } else if !.nahida.mods.raiden-e {
+    raiden skill, attack;
+  } else if .xingqiu.skill.ready {
+    xingqiu skill, dash, attack:2;
+  } else if .ningguang.skill.ready {
+    ningguang attack, skill, dash;
+  } else if .ningguang.burst.ready {
+    ningguang attack, burst, walk;
+  } else if .ningguang.jadeCount == 7 {
+    ningguang charge;
+  } else if .ningguang.onfield && .state == normal_attack_state {
+    if .ningguang.prevAttack == c_left || .ningguang.prevAttack == c_twirl {
+      ningguang charge;
+    } else {
+      ningguang walk;
+    }
+  } else {
+    ningguang attack;
+  }
+}

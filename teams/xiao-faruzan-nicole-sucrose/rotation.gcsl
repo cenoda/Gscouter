@@ -1,0 +1,25 @@
+active faruzan;
+for let i=0; i<4; i=i+1 {
+  faruzan burst;
+  while !.faruzan.mods.favonius-cd && !.xiao.burst.ready {
+    faruzan attack;
+  }
+  
+  nicole attack, skill, attack;
+  
+  sucrose burst, skill;
+  if i && .sucrose.skill.ready {  
+    sucrose skill, dash;
+  } else {
+    sucrose dash;
+  }
+  
+  xiao skill:2;
+  if .xiao.skill.ready && !.xiao.burst.ready {
+    xiao skill;
+  }
+  xiao burst;
+  for let h = 12; h > 0; h = h - 1 {
+    xiao jump, high_plunge[collision=1];
+  }
+}

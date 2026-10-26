@@ -1,0 +1,30 @@
+active kokomi;
+let odd = true;
+for let i = 0; i < 5; i = i + 1 {
+  if (!i) {
+    kokomi attack;
+  }
+  kazuha skill, high_plunge;
+  furina burst, skill;
+  xingqiu skill, dash, burst, attack;
+  kokomi skill, attack:2, dash, attack:2;
+  if(odd) {
+    kazuha burst;
+  } else {
+    kazuha skill, high_plunge;
+  }
+  odd = !odd;
+  kokomi attack,burst,
+    attack:2, dash,
+    attack:2, dash,
+    attack:2, walk,
+    attack:2, dash,
+    attack:2, dash,
+    attack:2, walk,
+    attack:2, dash,
+    attack:2, dash,
+    attack:2, walk,
+    attack:2, dash,
+    attack:2, dash,
+    attack:2;
+}

@@ -1,0 +1,26 @@
+active chiori;
+for let i = 0; i < 4; i = i + 1 {
+  chiori skill:2;
+  furina attack, skill, dash, burst;
+  kokomi attack;
+  if .kokomi.burst.ready { 
+    kokomi burst;
+  }
+  kokomi skill;
+  gorou attack, skill, dash, burst;
+  wait(30);
+  for let combo = 0; combo < 3; combo = combo + 1 {
+    chiori skill, attack;
+    while !.chiori.skill.ready {
+      if .chiori.burst.ready { 
+        chiori burst; 
+      }
+      
+      if .chiori.normal == 4 {
+        chiori dash;
+      } else {
+        chiori attack;
+      }
+    }
+  }
+}

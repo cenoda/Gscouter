@@ -1,0 +1,25 @@
+active furina;
+for let i=0; i<4; i=i+1 { 
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && !.furina.mods.favonius-cd {
+    furina attack;
+  }
+  furina burst;
+  
+  dori skill, attack:2, burst;
+  
+  shenhe burst, skill[hold=0];
+  
+  eula skill;
+  if !.eula.burst.ready {
+    eula attack;
+  }
+  eula burst, walk, attack:4, skill[hold=1], walk[f=11], attack:4;
+  
+  shenhe skill[hold=0];
+  while !.shenhe.mods.favonius-cd {
+    shenhe attack;
+  }
+  
+  eula attack:2;
+}

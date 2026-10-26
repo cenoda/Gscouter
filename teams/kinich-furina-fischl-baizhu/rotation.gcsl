@@ -1,0 +1,36 @@
+fn kinich_combo() {
+  kinich skill;
+  while .kinich.nightsoul.state {
+    switch .kinich.nightsoul.points {
+      case 20:
+        kinich skill[hold=1];
+      default:
+        if .kinich.blind_spot {
+          kinich attack[direction=.kinich.blind_spot];
+        } else {
+          kinich attack;
+        }
+    }
+  }
+}
+active kinich; 
+fischl skill, attack;
+for let i=0; i<4; i=i+1 { 
+  furina skill, dash, attack, burst;
+  
+  baizhu skill, attack, burst;
+  
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  
+  kinich_combo();
+  if .kinich.burst.ready {
+    kinich burst;
+  }
+  if .furina.skill.cd {
+    kinich attack;
+  }
+}

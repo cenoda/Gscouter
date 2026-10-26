@@ -1,0 +1,10 @@
+active eula;
+for let i = 0; i < 5; i = i + 1 {
+    yelan attack:3,skill,burst,attack;
+    bennett skill,burst;
+    aetherelectro skill[hits=3],attack;
+    eula skill,burst,walk,attack:4,skill[hold=1],attack:4,dash;
+    aetherelectro skill[hits=3],attack;
+    eula attack:2;
+    bennett skill;
+}

@@ -1,0 +1,10 @@
+set_particle_delay("bennett", 85); 
+active zhongli;
+for let i = 0; i < 4; i = i + 1 {
+  zhongli attack, skill[hold=1], dash, attack;
+  bennett skill, dash, burst;
+  yunjin burst, attack, skill;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5;
+  yunjin skill, attack:3;
+  print(i);
+}

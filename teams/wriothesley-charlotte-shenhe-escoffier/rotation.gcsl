@@ -1,0 +1,25 @@
+active escoffier;
+for let i=0; i<4;i=i+1 {
+  if is_even(i) {
+    escoffier skill, attack:3;
+  } else {
+    escoffier skill, burst;
+  }
+  shenhe skill[hold=1], attack, burst;
+  if !.shenhe.mods.favonius-cd {
+    shenhe attack;
+  }
+  charlotte skill, burst, attack;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3;
+  if is_even(i) {
+    wrio burst, attack, jump;
+  } else {
+    wrio charge, jump, attack:3, jump;
+  }
+}

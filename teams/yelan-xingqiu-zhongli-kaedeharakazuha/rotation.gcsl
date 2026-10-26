@@ -1,0 +1,13 @@
+active yelan;
+    yelan aim;
+for let i=0; i<4; i=i+1 {
+	kazuha skill, high_plunge;
+	zhongli attack, skill[hold=1], dash;
+	xingqiu burst, attack;
+	yelan burst, attack, skill, attack:5;
+	kazuha skill, high_plunge;
+	xingqiu attack, skill, dash, attack;
+	yelan attack:4, dash, attack:4;
+	yelan skill;
+	yelan attack:4, dash, attack:4;
+}

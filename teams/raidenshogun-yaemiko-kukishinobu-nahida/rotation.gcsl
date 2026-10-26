@@ -1,0 +1,10 @@
+active raiden;
+  raiden skill;
+for let i=0; i<4; i=i+1 {
+  yae skill:3;
+  nahida skill,burst;
+  kuki skill,burst;
+  yae attack, burst, skill:3;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  yae attack, charge, dash;
+}

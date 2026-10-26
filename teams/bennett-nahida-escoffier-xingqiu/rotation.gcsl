@@ -1,0 +1,18 @@
+active xq;
+for let i = 0; i < 4; i = i + 1 {
+  xq skill, dash, burst, attack;
+  
+  nahida skill, attack:2;
+  
+  escoffier skill, attack;
+  
+  bennett skill, attack, burst;
+  while .xq.mods.xingqiuburst || .status.bennettburst {
+    if .bennett.skill.ready {
+      bennett skill;
+    } else {
+      bennett attack;
+    }
+  }
+  bennett attack:2;
+}

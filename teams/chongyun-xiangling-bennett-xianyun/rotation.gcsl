@@ -1,0 +1,31 @@
+active chongyun; 
+for let i = 0; i < 4; i = i + 1 {
+  xianyun skill, low_plunge, burst; 
+  
+  bennett burst, skill;
+  
+  xl burst, skill, dash;
+  
+  bennett skill;
+ 
+  if .chongyun.burst.ready {
+    chongyun burst;
+  }
+  chongyun skill;
+  
+  while .chongyun.status.xianyun-airborne-buff {
+    chongyun jump;
+    if .airborne {
+      chongyun high_plunge[collision=rand()>0.5];
+    }
+    if .chongyun.status.xianyun-airborne-buff { 
+      chongyun dash;
+    }
+  }
+  if .chongyun.burst.ready {
+    chongyun burst;
+  }
+  
+  bennett skill;
+  xl attack:2;
+}

@@ -1,0 +1,29 @@
+active mavuika; 
+for let i=0; i<4; i=i+1 {
+  if i {
+    bennett attack;
+  }
+  bennett skill, burst;
+  
+  if .barbara.skill.ready {
+    barbara attack:2, skill;
+  } else {
+    barbara attack:4; 
+  }
+  
+  set_player_pos(0,-2);  
+  mavuika burst;
+  set_player_pos(0,0);
+  mavuika charge, skill, dash;
+  
+  chasca attack, skill;
+  set_player_pos(0,-2);  
+  chasca aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+  set_player_pos(0,0);
+}
+wait(82);

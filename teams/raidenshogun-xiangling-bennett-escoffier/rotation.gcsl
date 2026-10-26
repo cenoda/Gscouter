@@ -1,0 +1,11 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 4; i = i + 1 {
+  esco skill;
+  bennett burst, skill;
+  xiangling burst, skill, dash;
+  bennett attack, skill;
+  escoffier burst;
+  bennett skill;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+}

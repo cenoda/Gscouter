@@ -1,0 +1,26 @@
+active chongyun; 
+for let i=0; i<4; i=i+1 {
+  xingqiu skill, dash, burst, attack;
+  
+  nahida skill, attack, charge; 
+  
+  kuki skill, attack;
+
+  chongyun skill, attack;
+  while .status.chongyunfield || .chongyun.infusion.chongyun-ice-weapon {
+    
+    if .chongyun.normal == 4 {
+      chongyun attack, dash;
+    } else {
+      chongyun attack;
+    }
+  }
+  if .kuki.burst.ready {
+    kuki attack, burst;
+  } else if .chongyun.burst.ready {
+    chongyun burst;
+  } else if .nahida.burst.ready {
+    nahida burst;
+  }
+  
+}

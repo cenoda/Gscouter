@@ -1,0 +1,17 @@
+id: nilou-kaveh-nahida-xingqiu
+name: Nilou / Kaveh / Nahida / Xingqiu
+members:
+    - nilou
+    - kaveh
+    - nahida
+    - xingqiu
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/dg6cp9HnhhTT
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 148043
+    computed: "2026-10-02"

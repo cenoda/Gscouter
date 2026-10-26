@@ -1,0 +1,29 @@
+fn FreminetPlunge() {
+  freminet jump;
+  if .airborne {
+    freminet high_plunge[collision=rand()>0.5];
+  }
+}
+active freminet; 
+for let x = 0; x < 4; x = x + 1 {
+  yae skill:3;
+  
+  escoffier skill;
+  if !.esco.mods.favonius-cd {
+    esco attack;
+  }
+  
+  xianyun skill, high_plunge, burst;
+  
+  freminet skill, attack; 
+    FreminetPlunge(); freminet attack;
+    FreminetPlunge(); freminet attack;
+    FreminetPlunge(); freminet attack;
+    FreminetPlunge(); freminet skill;
+    FreminetPlunge(); freminet dash;
+    FreminetPlunge(); freminet dash;
+    FreminetPlunge(); freminet dash;
+    FreminetPlunge(); 
+  
+  print("done");
+}

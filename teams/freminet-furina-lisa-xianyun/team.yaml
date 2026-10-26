@@ -1,0 +1,17 @@
+id: freminet-furina-lisa-xianyun
+name: Freminet / Furina / Lisa / Xianyun
+members:
+    - freminet
+    - furina
+    - lisa
+    - xianyun
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/zBDqWWHq787b
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 58832
+    computed: "2026-09-30"

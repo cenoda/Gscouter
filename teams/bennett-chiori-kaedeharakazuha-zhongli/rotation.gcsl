@@ -1,0 +1,9 @@
+active chiori;
+for let r=0; r<4; r=r+1 {
+    zhongli attack,skill[hold=1],dash;
+    bennett skill,burst;
+    chiori skill:2;
+    kazuha skill[hold=1],high_plunge,burst,skill,high_plunge,attack:3;
+    bennett attack:2,skill;
+    kazuha attack:2,skill,high_plunge,attack:3;
+}

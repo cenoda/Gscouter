@@ -1,0 +1,17 @@
+active nahida;
+for let x=0; x<4; x=x+1 {
+  nahida skill, burst;
+  furina skill, dash, attack;
+  kokomi attack, skill;
+  xiangling burst;
+  furina burst;
+  xiangling skill, attack;
+  nahida attack:2, charge, jump;
+  kokomi attack, burst;
+  while .kokomi.skill.cd > 220 {
+    kokomi attack:2, dash, walk[f=2];
+  }
+  koko attack:2;
+  xl skill, attack:2;
+  nahida attack:3;
+}

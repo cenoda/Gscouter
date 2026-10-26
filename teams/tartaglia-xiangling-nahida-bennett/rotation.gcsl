@@ -1,0 +1,21 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida burst, skill;
+  bennett burst, skill;
+  xiangling burst, skill, dash;
+  tartaglia burst, walk, skill,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:4, charge, dash;
+  bennett skill;
+  xiangling attack, skill;
+  tartaglia aim;
+  bennett attack, skill;
+  xiangling attack:2;
+  tartaglia aim;
+  print("end");
+}
+wait(12);

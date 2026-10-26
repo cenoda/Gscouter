@@ -1,0 +1,18 @@
+active furina;
+for let i=0; i<4; i=i+1 { 
+  furina skill, dash, attack;
+  ororon burst;
+  furina burst;
+  baizhu skill, burst;
+  ororon skill, attack:2;
+  cyno skill, burst;
+  while .cyno.mods.cyno-q > 300 {
+    if .cyno.mods.cyno-a1 && .cyno.skill.ready {
+      cyno skill;
+    } else if .cyno.normal == 5 && .stam > 20 {
+      cyno dash;
+    } else {
+      cyno attack;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  if i == 0 {
+    furina skill, dash, burst;
+  } else {
+    furina burst;
+
+    furina skill, dash;
+  }
+  dori skill, burst, attack;
+  
+  kazuha skill, high_plunge, burst;
+  
+  mizuki skill, burst;
+  while .mizuki.status.dreamdrifter-state {
+    wait(1);
+  }
+  mizuki attack;
+  kazuha skill, high_plunge;
+}

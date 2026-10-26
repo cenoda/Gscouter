@@ -1,0 +1,11 @@
+active furina;
+for let i=0; i<5; i=i+1 {
+  furina skill, dash, attack, burst;
+  nahida skill, burst;
+  kuki skill, attack;
+  fischl skill, attack;
+  nahida attack:2, charge, attack:3, skill, attack:2, charge, attack:5, charge, dash, attack:3, skill;
+  fischl attack:2, burst;
+  kuki burst, attack;
+  nahida attack, charge;
+}

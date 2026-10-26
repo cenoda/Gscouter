@@ -1,0 +1,17 @@
+active emilie;
+    
+for let x = 0; x<5; x=x+1 {
+  if x && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill;
+  }
+  chongyun skill;
+  bennett skill, burst;
+  rosaria skill, burst;
+  bennett attack, skill;
+  chongyun burst;
+  bennett skill;
+  rosaria attack, skill, attack;
+  bennett attack, skill;
+}

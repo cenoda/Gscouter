@@ -1,0 +1,25 @@
+active fischl; 
+fischl burst;
+for let i=0; i<4; i=i+1 {
+  xilonen skill, attack:2;
+  if i && ( i / 2 ) * 2 == i {  
+    fischl dash, burst;
+  } else if i {
+    fischl attack, skill;
+  }
+  yunjin skill[hold=1], attack, burst, dash; 
+  pick_up_crystallize("electro");
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+  if ( i / 2 ) * 2 == i {
+    clorinde burst;
+  } else {
+    xilonen burst;
+  }
+}

@@ -1,0 +1,17 @@
+id: clorinde-fischl-klee-chevreuse
+name: Clorinde / Fischl / Klee / Chevreuse
+members:
+    - clorinde
+    - fischl
+    - klee
+    - chevreuse
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/frPPqjzbfWTd
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 71416
+    computed: "2026-10-02"

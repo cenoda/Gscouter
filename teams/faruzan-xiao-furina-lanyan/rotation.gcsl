@@ -1,0 +1,20 @@
+active furina;
+furina skill, dash, burst;
+for let i=0; i<3; i=i+1 {
+  if i {
+    furina skill, dash;
+  }
+  faruzan skill, burst;
+  if .lanyan.burst.ready {
+    lanyan burst;
+  }
+  lanyan skill:2;
+  
+  if .lanyan.skill.ready {
+    lanyan skill:2;
+  }
+  xiao skill:2, burst;
+  for let h = 12; h > 0; h = h - 1 {
+    xiao jump, high_plunge[collision=rand()>0.5];
+  }
+}

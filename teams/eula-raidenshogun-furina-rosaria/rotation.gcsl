@@ -1,0 +1,11 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+	furina skill, dash, attack, burst, attack;
+	rosaria skill;
+	eula skill;
+	rosaria burst;
+	eula burst, walk, attack:4, skill[hold=1], walk[f=11], attack:4;
+	rosaria skill;
+	raiden burst, attack:4, skill, attack:4, dash, attack:4;
+}

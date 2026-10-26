@@ -1,0 +1,40 @@
+active columbina;
+for let i=0; i<8; i=i+1 {
+  columbina swap;
+  let StartFrame = f();
+  if is_even(i) {
+    columbina skill, burst;
+    ineffa skill, attack;
+  } else {
+    columbina skill, attack;
+    if .ineffa.burst.ready {
+      ineffa burst, skill;
+    } else {
+      ineffa skill, attack;
+      columbina attack:3;
+    }
+  }
+  nicole skill, burst;
+  durin skill:2, burst;
+  if is_even(i) {
+    while f() - StartFrame < 1040 {
+      if .durin.normal == 4 && .stam > 20 {
+        durin dash;
+      }
+      durin attack;
+      if .durin.normal == 2 && .stam > 50 {
+        durin charge, dash;
+      }
+    }
+  } else {
+    while f() - StartFrame < 1080 {
+      if .durin.normal == 4 && .stam > 20 {
+        durin dash;
+      }
+      durin attack;
+      if .durin.normal == 2 && .stam > 50 {
+        durin charge, dash;
+      }
+    }
+  }
+}

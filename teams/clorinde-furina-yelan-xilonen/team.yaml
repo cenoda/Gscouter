@@ -1,0 +1,17 @@
+id: clorinde-furina-yelan-xilonen
+name: Clorinde / Furina / Yelan / Xilonen
+members:
+    - clorinde
+    - furina
+    - yelan
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Whg9hcc8f6jp
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 76067
+    computed: "2026-10-02"

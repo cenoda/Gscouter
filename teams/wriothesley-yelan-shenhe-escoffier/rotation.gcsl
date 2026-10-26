@@ -1,0 +1,18 @@
+active escoffier;
+for let i=0; i<4; i=i+1 {
+  escoffier attack, skill, burst;
+  yelan skill, attack, burst, attack;
+  shenhe skill[hold=1], attack, burst, attack;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:4;
+  if .wrio.burst.ready  {
+    wrio burst; 
+  } else {
+    wrio charge; 
+  }
+}

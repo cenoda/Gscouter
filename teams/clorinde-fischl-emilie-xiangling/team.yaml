@@ -1,0 +1,17 @@
+id: clorinde-fischl-emilie-xiangling
+name: Clorinde / Fischl / Emilie / Xiangling
+members:
+    - clorinde
+    - fischl
+    - emilie
+    - xiangling
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/HCNfWgwFHqcJ
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 74271
+    computed: "2026-10-02"

@@ -1,0 +1,20 @@
+active collei;
+let t = 0;
+for let i=0; i<4; i=i+1 {
+    t = f();
+    collei skill;
+    xingqiu burst, attack;
+    fischl skill, attack;
+    xiao attack:3, skill, attack:5, skill, attack:2;
+    fischl attack, burst;
+    collei burst, attack, skill;
+    xingqiu attack, skill, dash, attack:2;
+    xiao attack, burst;
+    while f() - t <= 24*60 {
+        if .xiao.normal > 2 {
+            xiao dash;
+        }
+        xiao attack;
+    }
+    print("done");
+}

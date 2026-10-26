@@ -1,0 +1,12 @@
+active shenhe;
+for let i = 5; i > 0; i = i - 1 {
+  shenhe skill, attack, burst;
+  venti skill, burst;
+  
+  mona burst, attack, skill;
+  
+  diona aim[weakspot=1], skill[hold=1];
+  shenhe skill, attack;
+  venti skill, attack;
+  diona burst, aim[weakspot=1]:7;
+}

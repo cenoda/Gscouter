@@ -1,0 +1,14 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina attack, burst, skill, attack;
+  bennett burst, skill;
+  if !.element.t0.pyro {
+    bennett attack;
+  }
+  lynette skill, attack, burst;
+  yoi skill, attack:5, dash,
+             attack:5, dash,
+             attack:5, dash,
+             attack:2;
+  lynette skill, attack;
+}

@@ -1,0 +1,10 @@
+active raiden;
+raiden skill;
+for let i=0; i<6; i=i+1 { 
+  furina skill, dash, attack, burst;
+  ororon skill, burst;
+  jean skill, burst;
+  raiden burst, attack:3, charge, dash, attack:3, charge, dash, attack:3, charge, dash, attack, charge, skill;
+  jean skill, attack:3;
+  print("rota done");
+}

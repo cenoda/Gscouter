@@ -1,0 +1,15 @@
+active arlecchino;
+for let i=0; i<4; i=i+1 {
+  
+  arle skill;
+  bennett skill, burst;
+  kazuha skill, high_plunge;
+  kaeya skill, burst;
+  arle  charge, 
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3;
+}

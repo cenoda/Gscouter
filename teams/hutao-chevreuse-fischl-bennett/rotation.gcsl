@@ -1,0 +1,27 @@
+active fischl;
+fischl aim;
+for let i=0; i<4; i=i+1 {
+  bennett skill, burst;
+  chev burst, skill[hold=1]:2;
+  
+  fischl attack;
+  if .fischl.skill.ready {
+    fischl skill;
+  } else {
+    fischl attack, burst;
+  }
+  
+  hutao skill,
+    attack:3, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge;
+  if .hutao.burst.ready {
+    hutao burst;
+  } else {
+    hutao jump, attack:3, charge, jump;
+  }
+}

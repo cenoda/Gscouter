@@ -1,0 +1,30 @@
+active furina;
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+      if .clorinde.bolratio >= 1 {
+        clorinde skill;
+      } else {
+        clorinde attack;
+      }
+  }
+}
+for let i=0; i<4; i=i+1 {
+  if .furina.skill.ready {
+    furina skill, dash, burst;
+  } else {
+    zl burst;
+  }
+  chiori skill:2;
+  zhongli skill[hold=1], dash;
+  while !pick_up_crystallize("any") {
+    wait(1);
+  }
+  clorinde_combo();
+  if .clorinde.burst.ready {
+    clorinde burst;
+  } else {
+    chiori burst;
+  }
+
+}

@@ -1,0 +1,21 @@
+active xingqiu;
+for let i = 0; i < 4; i = i + 1 {
+  xingqiu skill, dash, burst, attack;
+  
+  nahida skill, attack:2;
+  
+  if i > 0 {
+    emilie burst;
+  } else {
+    emilie attack, skill;
+  }
+  
+  bennett skill, attack, burst;
+  while .xingqiu.mods.xingqiuburst {
+    if .bennett.skill.ready {
+      bennett skill;
+    } else {
+      bennett attack;
+    }
+  }
+}

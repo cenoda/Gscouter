@@ -1,0 +1,30 @@
+active lauma;
+lauma attack;
+for let i=0; i<6; i=i+1 {
+  
+  if .columbina.burst.ready {
+    columbina burst;
+  } 
+  columbina skill;
+  
+  ineffa skill;
+  
+  aetherhydro skill[hold_ticks=2];
+  
+  lauma attack, skill[hold=.dew>0], burst;
+  
+  columbina attack, charge, dash, charge, dash, charge;
+  
+  if .aetherhydro.burst.ready {
+    aetherhydro burst;
+  } else {
+    aetherhydro attack:2;
+  }
+  
+  columbina attack, charge, dash, charge, dash;
+  columbina attack, charge;
+  while .columbina.skill.cd > 30 && !.columbina.burst.ready {
+    columbina attack;
+  } 
+}
+columbina dash, attack;

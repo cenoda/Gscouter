@@ -1,0 +1,26 @@
+active tartaglia;
+  tartaglia walk, skill, attack;
+for let i=0; i<4; i=i+1 {
+  nahida skill;
+  if .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida attack, charge;
+  }
+  dori skill, attack;
+  collei burst, skill;
+  tartaglia burst;
+  dori burst;
+  tartaglia walk, skill,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:4, charge, dash;
+  collei skill;
+  dori skill, attack;
+  tartaglia aim;
+  dori attack;
+  tartaglia aim;
+}

@@ -1,0 +1,13 @@
+active ayaka;
+ayaka dash; 
+for let x=0; x<5; x=x+1 {
+    ayaka skill;
+    kazuha skill, high_plunge, burst;
+    shenhe skill, burst;
+    zhongli attack, skill[hold=1], dash;
+    kazuha skill, high_plunge;
+    ayaka dash, skill, burst, attack, charge;
+    shenhe skill, attack;
+    kazuha skill, high_plunge;
+    ayaka dash, attack:4, charge;
+}

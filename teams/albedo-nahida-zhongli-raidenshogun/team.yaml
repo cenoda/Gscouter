@@ -1,0 +1,17 @@
+id: albedo-nahida-zhongli-raidenshogun
+name: Albedo / Nahida / Zhongli / Raidenshogun
+members:
+    - albedo
+    - nahida
+    - zhongli
+    - raiden
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Mcc7ghCjGDRM
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 43769
+    computed: "2026-10-02"

@@ -1,0 +1,48 @@
+fn sethosCombo() {
+  if .sethos.skill.ready {
+    sethos skill;
+  }
+  sethos burst;
+  while .sethos.mods.sethos-burst {
+    if .sethos.skill.ready {
+      sethos skill;
+    } if .sethos.normal > 2 {
+      sethos walk;
+    } else {
+      sethos attack;
+    }
+  }
+}
+active sethos;
+sethos aim[hold=2];
+for let i=0; i<4; i=i+1 {
+  nahida skill, attack;
+  if i > 0 && .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+
+	tighnari skill, aim;
+	if .tighnari.burst.ready {
+	  tighnari burst, aim:2;
+	} else {
+	  tighnari aim:2;
+	}
+	
+  amy attack;
+  if .amy.burst.ready {
+    amy attack, burst;
+  } else {
+    amy skill;
+  }
+  sethosCombo();
+  while .sethos.energy > 55 {
+    sethos aim[hold=2];
+    if .sethos.skill.ready {
+      sethos skill;
+    }
+  }
+  
+  print("done");
+}

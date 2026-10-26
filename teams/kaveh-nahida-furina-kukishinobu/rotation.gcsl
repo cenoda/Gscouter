@@ -1,0 +1,10 @@
+active nahida;
+for let i=0; i<3; i=i+1 {
+  nahida skill, attack, burst;
+  furina skill, dash, burst, attack;
+  kuki skill, attack;
+  kaveh skill, burst, attack:4, dash, attack:4, skill, attack:4, dash, attack:4, skill;
+  if .kuki.burst.ready {
+    kuki burst, attack;
+  }
+}

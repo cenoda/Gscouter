@@ -1,0 +1,22 @@
+active emilie;
+for let i = 0; i < 4; i = i + 1 {
+  if i && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  
+  durin skill:2, burst;
+  
+  faruzan skill, burst; print("faru_ft_1");
+  
+  lanyan attack, skill:2;
+  
+  faruzan aim:2, skill; print("faru_ft_2");
+  
+  lanyan skill:2;
+  
+    lanyan burst;
+
+  faruzan aim:2, skill, aim:2; print("faru_ft_3");
+}

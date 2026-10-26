@@ -1,0 +1,23 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  
+  nahida skill, burst, attack, charge;
+  
+  sara skill, aim;
+  
+  amy attack:2, burst;
+  sara burst;
+  
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  
+  nahida attack:2, charge;
+  
+  if .amy.skill.ready {
+    amy attack, skill;
+  } else {
+    nahida attack;
+  }
+  
+  nahida attack, charge;
+}

@@ -1,0 +1,11 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+	nahida attack, skill;
+	kokomi attack, skill, dash;
+	ganyu skill, burst;
+	venti skill, burst;
+	ganyu aim[weakspot=1]:3, skill, aim;
+	venti skill, attack;
+	ganyu aim[weakspot=1]:2;
+	nahida attack;
+}

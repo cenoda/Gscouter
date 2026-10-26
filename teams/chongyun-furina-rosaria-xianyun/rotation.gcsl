@@ -1,0 +1,36 @@
+active chongyun; 
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  xianyun skill, low_plunge, burst; 
+  
+  rosaria skill, burst;
+  
+  xianyun attack:2; wait(15); 
+  
+  if .chongyun.burst.ready {
+    chongyun burst;
+  }
+  while .chongyun.skill.ready {
+    chongyun skill;
+  }
+  
+  while .chongyun.status.xianyun-airborne-buff {
+    chongyun jump;
+    if .airborne {
+      chongyun high_plunge[collision=rand()>0.5];
+    }
+    if .chongyun.status.xianyun-airborne-buff { 
+      chongyun dash;
+    }
+  }
+  if .chongyun.burst.ready {
+    chongyun burst;
+  }
+  
+  rosaria skill;
+}

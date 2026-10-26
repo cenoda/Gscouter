@@ -1,0 +1,18 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill, attack;
+  xilonen skill, attack:2; pick_up_crystallize("hydro");
+  kazuha skill, high_plunge, burst;
+  citlali skill;
+  while !.citlali.mods.favonius-cd {
+    citlali attack;
+  }
+  while .citlali.swap.cd > 0 {
+    wait(1);
+  }
+  neuvillette charge, burst, skill, charge;
+  kazuha skill, high_plunge;
+  xilonen skill, attack:2; pick_up_crystallize("hydro");
+  neuvillette charge, charge;
+}
+wait(173);

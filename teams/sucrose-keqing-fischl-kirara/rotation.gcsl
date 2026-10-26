@@ -1,0 +1,60 @@
+let stddev = 3;
+let mean = 12;
+fn rand_delay() {
+  let del = randnorm() * stddev + mean;
+  delay(del);
+}
+active fischl;
+for let r = 0; r < 4; r = r + 1 { 
+  fischl attack:2, burst;
+  
+  rand_delay(); 
+  kirara swap;
+  kirara skill, attack, burst;
+  
+  rand_delay();
+  sucrose swap;
+  sucrose attack;
+  while !.element.t0.electro { 
+    sucrose attack;
+  }
+  sucrose skill, dash, burst;
+  
+  rand_delay();
+  keqing swap;
+  keqing skill, burst, skill, 
+    attack, charge, 
+    attack, charge, 
+    attack, skill,
+    attack, charge,
+    attack, charge;
+  
+  rand_delay();
+  fischl swap;
+  fischl skill, attack;
+  
+  rand_delay();
+  kirara swap;
+  kirara skill, attack;
+  
+  rand_delay();
+  sucrose swap;
+  while !.element.t0.electro {
+    sucrose attack;
+  }
+  sucrose skill, dash, attack:3; 
+  
+  rand_delay();
+  keqing swap;
+  keqing skill, burst, skill, 
+    attack, charge, 
+    attack, charge, 
+    attack, skill,
+    attack, charge,
+    attack, charge;
+  
+  if r < 3 { 
+    rand_delay();
+    fischl swap;
+  }
+}

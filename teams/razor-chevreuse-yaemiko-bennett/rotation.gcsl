@@ -1,0 +1,39 @@
+active razor; 
+razor skill, dash; 
+for let i=0; i<4; i=i+1 {
+  
+  if i == 0  {
+    chev burst, skill[hold=1]:1;
+  } else {
+    chev attack:1, skill[hold=1], attack:1;
+  }
+
+  yae skill:3;
+  
+  bennett skill, dash, burst;
+  
+  while !.razor.mods.razor-q {
+    if .razor.burst.ready && .razor.skill.ready {
+      razor skill, dash, attack, burst;
+    } else if .razor.burst.ready {
+      razor burst;
+    } else if .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+  
+  while .razor.mods.razor-q > 240 { 
+  
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+}

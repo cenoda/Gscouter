@@ -1,0 +1,31 @@
+active dori;
+dori skill, attack;
+for let i=0; i<4; i=i+1 {  
+  kazuha skill, high_plunge;
+  
+  fischl attack, skill;
+  
+  kirara skill, attack;
+  
+  kazuha burst;
+  
+  dori skill, attack:2, dash, attack:2, burst;
+  
+  kazuha skill, high_plunge;
+  
+  kirara skill, attack;
+  
+  fischl attack:2, burst;
+  
+  dori skill, attack:2, dash, attack:2;
+  
+  kazuha skill, high_plunge;
+  
+  dori skill, attack:2, dash, attack:2;
+  
+  kirara burst;
+  
+  dori skill, attack:2, dash, attack:2;
+  
+  print("done");
+}

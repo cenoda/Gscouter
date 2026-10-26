@@ -1,0 +1,26 @@
+active yelan;
+for let i = 0; i < 4; i = i + 1 {
+  yelan skill, attack, burst, attack;
+  bennett skill, burst;
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  durin attack;
+  durin skill, attack;
+  durin attack, burst;
+  durin attack, charge, dash;
+  durin attack, charge, dash;
+  durin attack, charge, dash;
+  durin attack, charge, dash;
+  durin attack, charge, dash;
+  durin attack, charge, dash;
+  durin attack;
+  if is_even(i) {
+    fischl attack, skill[recast=1], attack; 
+  } else {
+    durin attack:2;
+  }
+  bennett skill;
+}

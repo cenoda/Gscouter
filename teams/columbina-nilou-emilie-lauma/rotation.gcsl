@@ -1,0 +1,31 @@
+active lauma;
+lauma attack;
+columbina swap;
+for let i=0; i<4; i=i+1 {
+  let StartFrame=f();
+  columbina skill, burst;
+  emilie skill, attack;
+  if !.emilie.mods.favonius-cd {
+    emilie attack;
+  }
+  nilou skill, attack:3;
+  lauma attack, skill[hold=1], burst;   
+  columbina swap;
+  columbina attack;
+  
+  while f()-StartFrame < 1060 {
+    print("check");
+    print("verdant-dew is ", .verdant-dew);
+    print("moonridge-dew is ", .moonridge-dew);
+    if .verdant-dew + .moonridge-dew > 0 {
+      columbina charge;
+      
+      columbina dash;
+      
+      wait(9);  
+    } else {
+      print("Not enough Dew, use NA");
+      columbina attack;
+    }
+  }
+}

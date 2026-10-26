@@ -1,0 +1,37 @@
+fn kinich_combo() {
+  kinich skill;
+  while .kinich.nightsoul.state {
+    switch .kinich.nightsoul.points {
+      case 20:
+        kinich skill[hold=1];
+      default:
+        if .kinich.blind_spot {
+          kinich attack[direction=.kinich.blind_spot];
+        } else {
+          kinich attack;
+        }
+    }
+  }
+}
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  baizhu skill, burst, attack;
+  
+  yelan burst, attack;
+  if !.yelan.skill.ready && .yelan.breakthrough {
+    yelan aim;
+  }
+  yelan skill, attack;
+  
+  kinich_combo(); 
+  
+  yelan skill, attack:2;
+  
+  if .kinich.burst.ready {
+    kinich burst;
+  } else {
+    yelan attack:2;
+  }
+}

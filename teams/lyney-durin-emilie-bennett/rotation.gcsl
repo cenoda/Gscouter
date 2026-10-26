@@ -1,0 +1,27 @@
+active durin;
+for let i=0; i<6; i=i+1 {
+  durin skill, skill, burst;
+  if i && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  bennett skill, burst;
+  lyney aim:3;
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(11);
+    lyney skill;
+  } else {
+    lyney aim;
+  }
+  lyney aim;
+  if i<5 {
+    lyney skill;
+    lyney aim;
+  } else {
+    lyney aim;
+    lyney skill;
+  }
+  bennett skill, attack;
+}

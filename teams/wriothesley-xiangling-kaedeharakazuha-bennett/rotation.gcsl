@@ -1,0 +1,24 @@
+active wrio;
+wrio attack;
+for let i=0; i<4; i=i+1 {
+  xiangling skill;                                  wait(45); 
+  kazuha attack, skill[hold=1], high_plunge;  
+  if !.kazuha.mods.favonius-cd {
+    kazuha attack;
+  }
+  bennett burst, skill;
+  xiangling burst, attack:2;                  
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump, 
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3;
+  if .wrio.burst.ready  {
+    wrio burst, attack;
+  } else {
+    wrio charge, jump;
+    wrio attack:3, charge, jump, attack:3;
+  }
+}

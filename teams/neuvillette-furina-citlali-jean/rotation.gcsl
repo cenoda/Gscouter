@@ -1,0 +1,12 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  furina attack, skill, dash, attack:2;
+  citlali skill, attack:2;
+  furina burst;
+  jean skill, attack, burst;
+  neuvillette charge, skill, charge, burst;
+  jean skill, attack;
+  neuvillette charge, charge;
+}
+wait(173);

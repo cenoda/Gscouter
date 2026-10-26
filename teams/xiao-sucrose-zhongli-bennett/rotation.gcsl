@@ -1,0 +1,32 @@
+active zhongli;
+set_particle_delay("sucrose", 115);
+for let i=0; i<4; i=i+1 {
+  zhongli attack, skill[hold=1], dash;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  bennett skill, burst;
+  sucrose skill, dash;
+  xiao skill:2, burst;
+  for let h = 0; h < 11; h = h + 1 {
+    let col = rand();
+    if col > 0.5 {
+      xiao jump, high_plunge[collision=1];
+    } else {
+      xiao jump, high_plunge;
+    }
+  }
+  for let h = 0; h < 2; h = h + 1 {
+    let col = rand();
+    if col > 0.5 {
+      xiao jump, low_plunge[collision=1];
+    } else {
+      xiao jump, low_plunge;
+    }
+  }    
+  sucrose skill, dash;
+  if .sucrose.burst.ready {
+    sucrose burst;
+  }
+  xiao attack, charge;
+}

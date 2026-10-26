@@ -1,0 +1,24 @@
+active furina;
+for let i=0; i<4; i=i+1 { 
+  furina skill, dash;
+  
+    furina attack;
+  
+  furina burst;
+  
+  escoffier skill;
+  if !is_even(i) {
+    esco burst;
+  }
+  
+  if is_even(i) {
+    charlotte burst;
+  }
+  charlotte skill[hold=1];
+  
+  eula skill;
+  if !.eula.burst.ready {
+    eula attack;
+  }
+  eula burst, attack:4, skill[hold=1], walk[f=11], attack:4, dash, attack:2;
+}

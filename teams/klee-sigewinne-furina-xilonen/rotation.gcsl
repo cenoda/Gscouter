@@ -1,0 +1,21 @@
+active furina;
+for let i=0; i<3; i=i+1 {
+  furina skill, dash, burst;
+  sigewinne attack, skill;
+  xilonen skill, attack:2;
+  klee attack[travel=6], burst, walk,
+       attack[travel=6], charge,
+       attack[travel=6], charge,
+       attack[travel=6], skill[bounce=3, mine=8],
+       attack[travel=6];
+  if .klee.skill.ready{
+    klee skill[bounce=3, mine=8], 
+         attack[travel=6], charge, attack[travel=6];
+  }
+  klee attack[travel=6], charge,
+       attack[travel=6], charge,
+       attack[travel=6], charge,
+       attack[travel=6], charge,
+       attack[travel=6], walk, attack[travel=6], walk, attack[travel=6], walk,  
+       attack[travel=6], charge, attack[travel=6];
+}

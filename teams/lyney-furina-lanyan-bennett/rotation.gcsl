@@ -1,0 +1,33 @@
+fn lyneyAim() {
+  if .lyney.weapon == .keys.weapon.crescent { 
+    lyney aim[hold=2, weakspot=rand()>0.5];
+  } else { 
+    lyney aim[hold=2];
+  }
+}
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  bennett burst, skill; 
+  
+  lanyan attack, skill, attack;
+  
+  lyneyAim();
+  lyneyAim();
+  if .lyney.burst.ready {
+    lyney burst; delay(11); 
+    lyney skill;
+  } else {
+    lyneyAim();
+  }
+  lyneyAim();
+  lyneyAim();
+  lyney skill;
+  lyneyAim();
+  lyneyAim();
+}

@@ -1,0 +1,18 @@
+active zhongli;
+for let x=0; x<4; x=x+1 {
+  zhongli skill[hold=1], attack;
+  chiori skill:2;
+  yelan burst,attack,skill,attack:4;
+  gorou skill,burst;
+  if .chiori.burst.ready {
+    chiori burst;
+  } else {
+    chiori attack:3;
+  }
+  chiori attack;
+  yelan attack:3;
+  chiori attack:4;
+  yelan skill, attack:2;
+  gorou attack, skill, attack:2;
+  chiori attack:4;
+}

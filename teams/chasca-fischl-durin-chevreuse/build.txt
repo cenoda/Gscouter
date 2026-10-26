@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+chasca char lvl=90/90 cons=0 talent=9,9,9;
+chasca add weapon="songofstillness" refine=5 lvl=90/90;
+chasca add set="obsidiancodex" count=4;
+chasca add stats hp=4780 atk=311 atk%=0.466 pyro%=0.466 cd=0.622;
+chasca add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*5 er=0.0551*2 em=19.82*2 cr=0.0331*11 cd=0.0662*10;
+
+fischl char lvl=90/90 cons=6 talent=9,9,9;
+fischl add weapon="vhunt" refine=1 lvl=90/90;
+fischl add set="scroll" count=4;
+fischl add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cd=0.622;
+fischl add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*12 cd=0.0662*10;
+
+durin char lvl=90/90 cons=0 talent=9,9,9;
+durin add weapon="wolffang" refine=1 lvl=90/90;
+durin add set="gift" count=4;
+durin add stats hp=4780 atk=311 atk%=0.466 pyro%=0.466 cd=0.622;
+durin add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*8 er=0.0551*2 em=19.82*2 cr=0.0331*12 cd=0.0662*6;
+
+chevreuse char lvl=90/90 cons=6 talent=9,9,9;
+chevreuse add weapon="favlance" refine=3 lvl=90/90;
+chevreuse add set="no" count=4;
+chevreuse add stats hp=4780 atk=311 er=0.518 pyro%=0.466 cr=0.311;
+chevreuse add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*10 em=19.82*2 cr=0.0331*10 cd=0.0662*6;

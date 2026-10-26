@@ -1,0 +1,15 @@
+active yaemiko;
+for let i=0; i<4; i=i+1 {
+    yaemiko skill:3, attack;
+	kokomi skill;
+	luminedendro skill, burst, attack:2;
+	fischl skill, attack;
+	yaemiko attack, burst, attack, skill:3;
+	kokomi burst;
+	yaemiko attack, charge, dash,
+		attack:2, charge, dash, attack;
+	fischl burst, attack;
+	luminedendro skill, attack;
+	yaemiko attack, charge, dash,
+		attack:2, charge, dash, attack;
+}

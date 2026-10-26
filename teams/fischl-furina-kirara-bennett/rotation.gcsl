@@ -1,0 +1,82 @@
+active kirara;
+fn doActionList() {
+  kirara skill;
+  for let r=0; r<4; r=r+1 {
+    furina skill, dash, burst;
+    bennett burst, skill;
+    fischl attack, skill;
+    kirara skill, burst;
+    fischl attack:2, dash, attack:2, dash, attack:2;
+    bennett skill;
+    fischl attack:2, dash, attack:2, burst;
+    kirara skill[hold=180];
+    bennett skill;
+    fischl attack:2, dash, attack:2;
+  }
+}
+fn printActiveHPRatio() {
+  if .fischl.onfield {
+    print("Fischl HP: ", .fischl.hpratio * 100, "%");
+  } else if .furina.onfield {
+    print("Furina HP: ", .furina.hpratio * 100, "%");
+  } else if .kirara.onfield {
+    print("Kirara HP: ", .kirara.hpratio * 100, "%");
+  } else {
+    print("Bennett HP: ", .bennett.hpratio * 100, "%");
+  }
+}
+set_on_tick(printActiveHPRatio);
+fn randy(mean, standardDeviation, min, max) {
+  let value = randnorm() * standardDeviation + mean;
+  if value < min {
+    value = min;
+  } else if value > max {
+    value = max;
+  }
+  return value;
+}
+let prev_char_id = -1;
+switch {
+  case .fischl.onfield:
+    prev_char_id = .keys.char.fischl;
+  case .furina.onfield:
+    prev_char_id = .keys.char.furina;
+  case .kirara.onfield:
+    prev_char_id = .keys.char.kirara;
+  default:
+    prev_char_id = .keys.char.bennett;
+} 
+let prev_action_id = -1;
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if prev_char_id != char_id && action_id != .action.swap {
+    execute_action(char_id, .action.swap, []);
+  }
+  if action_id == .action.burst {
+    while .fischl.onfield && !.fischl.burst.ready {
+      fischl attack;
+    }
+    while .furina.onfield && !.furina.burst.ready {
+      furina attack;
+    }
+    while .kirara.onfield && !.kirara.burst.ready {
+      kirara attack;
+    }
+    while .bennett.onfield && !.bennett.burst.ready {
+      bennett attack;
+    }
+  }
+  if action_id == .action.swap {
+    delay(randy(9.5, 1.5, 8, 17)); 
+
+  } else if prev_action_id == .action.attack && action_id != .action.attack && action_id != .action.charge {
+    delay(randy(3, 1, 0, 6)); 
+    
+  } else if prev_action_id != .action.attack {
+    delay(randy(3, 1, 0, 6)); 
+  }
+  prev_char_id = char_id;
+  prev_action_id = action_id;
+  return _execute_action(char_id, action_id, p);
+}
+doActionList();

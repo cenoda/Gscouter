@@ -1,0 +1,35 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || ( char_id == .keys.char.chiori && action_id == .action.skill ) || ( char_id == .keys.char.xilonen && action_id == .action.skill ) {
+    pick_up_crystallize("any");
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+fn freminetCombo(){
+  freminet skill, dash;
+  freminet burst, skill;
+  freminet skill:2, attack:2;
+  freminet skill:2, attack:2;
+  freminet skill:2, attack:2;
+  freminet skill:2;
+}
+active freminet;
+freminet skill;
+for let i=0; i<4; i=i+1{
+  xilonen burst;
+  
+  furina skill, dash, burst;
+  
+  xilonen skill, attack:2;
+  
+  if .chiori.burst.ready{
+    chiori burst;
+  }
+  chiori skill:2;
+
+  if !i{
+    freminet skill;
+  }
+  freminetCombo();
+}

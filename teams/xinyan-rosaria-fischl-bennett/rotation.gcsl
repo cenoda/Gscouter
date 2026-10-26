@@ -1,0 +1,37 @@
+active xinyan;
+for let i=0; i<4; i=i+1 {
+  bennett skill, burst;
+  
+  rosaria skill, burst;
+  
+  if .amy.skill.ready { 
+    amy attack:1, skill; 
+  } else { 
+    amy attack:2, burst; 
+  }
+  
+  xinyan skill;
+  
+  while .xinyan.skill.cd > 720 {
+    if .xinyan.burst.ready && .xinyan.energy == .xinyan.energymax {
+      xinyan burst;
+    } else if .xinyan.normal > 4 && .stam > 18 {
+      xinyan dash;
+    } else {
+      xinyan attack;
+    }
+  }
+  
+  rosaria skill;
+
+  while .xinyan.skill.cd > 380 {
+    if .xinyan.burst.ready && .xinyan.energy == .xinyan.energymax {
+      xinyan burst;
+    } else if .xinyan.normal > 4 && .stam > 18 {
+      xinyan dash;
+    } else {
+      xinyan attack;
+    }
+  }
+  
+}

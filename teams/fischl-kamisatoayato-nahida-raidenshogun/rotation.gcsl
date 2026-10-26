@@ -1,0 +1,12 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  kamisatoayato burst;
+  nahida skill, burst, attack;
+  fischl attack, skill;
+  kamisatoayato skill, attack:15;
+  nahida attack:3, skill, attack:2, charge;
+  raiden skill, attack;
+  fischl attack:2, burst;
+  kamisatoayato skill, attack:16;
+}

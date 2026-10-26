@@ -1,0 +1,20 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  
+  nahida skill;
+  if i > 0 && .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  furina skill, dash, burst;
+  
+  dori skill, attack:2, dash, attack:1, burst;
+  
+  freminet skill, burst,
+           attack:2, skill, skill,
+           attack:2, skill, attack, skill,  
+           attack:2, skill, attack, skill,
+           attack:2, skill;
+}

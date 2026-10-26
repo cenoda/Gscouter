@@ -1,0 +1,10 @@
+active emilie;
+emilie skill;
+for let i = 0; i < 5; i = i + 1 {  
+  mavuika skill, dash;
+  furina skill, burst, dash;
+  bennett skill, burst;
+  mavuika burst, charge:2;
+  emilie burst, attack:4, dash, attack:4, dash, attack:3;
+  bennett skill, attack:2;
+}

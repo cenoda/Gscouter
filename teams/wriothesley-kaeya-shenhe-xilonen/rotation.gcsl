@@ -1,0 +1,22 @@
+active shenhe;
+for let x=0; x<4; x=x+1 {
+  shenhe skill[hold=1], burst;
+  xilonen skill, burst, attack:2;
+  kaeya skill;
+  if .kaeya.sets.ap {
+    kaeya dash; pick_up_crystallize("cryo");
+  }
+  kaeya burst;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:4, charge, jump;
+  if .wrio.burst.ready {
+    wrio burst;
+  } else {
+    wrio attack:3;
+  }
+  kaeya skill, attack;
+}

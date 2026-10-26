@@ -1,0 +1,10 @@
+active xq;
+for let i=0; i<6; i=i+1 {
+  xingqiu skill, dash, burst;
+  raiden attack, skill, attack;
+  fischl attack:2, burst;
+  kaveh skill, burst, attack:7, walk, attack:4, skill, attack:5;
+  if .fischl.skill.ready {
+  fischl attack, skill;
+  }
+}

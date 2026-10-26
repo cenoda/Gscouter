@@ -1,0 +1,15 @@
+active kamisatoayato;
+for let i=0; i<4; i=i+1 {
+  ayato burst;
+  bennett skill, burst;
+  fischl attack, skill, attack;
+  xiangling attack, burst, skill;
+  ayato skill, attack:17;
+  fischl attack, burst;
+  bennett skill, attack;
+  while !.xiangling.skill.ready {
+    xiangling attack:2, dash;
+  }
+  xiangling skill;
+  ayato skill, attack:13;
+}

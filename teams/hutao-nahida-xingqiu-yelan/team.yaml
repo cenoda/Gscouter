@@ -1,0 +1,17 @@
+id: hutao-nahida-xingqiu-yelan
+name: Hutao / Nahida / Xingqiu / Yelan
+members:
+    - hutao
+    - nahida
+    - xingqiu
+    - yelan
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/6g9qBP87PGqQ
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 74390
+    computed: "2026-10-02"

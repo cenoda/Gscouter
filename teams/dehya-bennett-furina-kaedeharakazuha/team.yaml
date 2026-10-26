@@ -1,0 +1,17 @@
+id: dehya-bennett-furina-kaedeharakazuha
+name: Dehya / Bennett / Furina / Kaedeharakazuha
+members:
+    - dehya
+    - bennett
+    - furina
+    - kazuha
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/f8zr6dBRNgjd
+notes: 'Harvested from the KQM gcsim database: 7 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 45083
+    computed: "2026-10-02"

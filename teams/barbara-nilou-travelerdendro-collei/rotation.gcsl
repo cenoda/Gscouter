@@ -1,0 +1,23 @@
+active aetherdendro;
+for let i=0; i<4; i=i+1 {
+  aetherdendro skill, attack, dash; 
+  barbara attack:2, charge;
+  if .barbara.skill.ready {
+    barbara skill;
+  } else {
+    barbara attack;
+  }
+  nilou skill, attack:2, skill;
+  collei skill, burst, attack;
+  aetherdendro skill, burst, attack;
+  barbara attack:2, charge;
+  barbara attack:3, dash;
+  barbara attack:2, charge;
+  barbara attack:3, dash;
+  barbara attack:2, charge;
+  if .nilou.burst.ready {
+    nilou burst;
+  } else {
+    barbara attack:2;
+  }
+}

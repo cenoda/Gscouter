@@ -1,0 +1,17 @@
+id: neuvillette-xinyan-kaedeharakazuha-xilonen
+name: Neuvillette / Xinyan / Kaedeharakazuha / Xilonen
+members:
+    - neuvillette
+    - xinyan
+    - kazuha
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/QcqkKk8TGpjk
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 72800
+    computed: "2026-10-02"

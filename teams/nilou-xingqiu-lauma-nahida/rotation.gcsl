@@ -1,0 +1,24 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida attack, skill;
+  nilou skill, attack:2, skill;
+  nahida burst;
+  xingqiu skill, dash, burst;
+  lauma attack, skill[hold=1], burst;
+  
+  lauma attack:3, dash;
+  lauma attack:3, dash;
+  lauma attack:3, dash;
+  lauma attack:3, dash;
+  lauma attack:3, dash;
+  
+  nahida skill, attack;     wait(10); 
+  
+  lauma skill[hold=1];
+  lauma attack:3, dash;
+  if .nilou.burst.ready {
+    nilou burst;
+  } else {
+    lauma attack:3, dash;
+  }
+}

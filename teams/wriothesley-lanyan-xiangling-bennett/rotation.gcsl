@@ -1,0 +1,20 @@
+active bennett;
+for let i=0; i<4; i=i+1 {
+  bennett skill;
+  xiangling swap; wait(55);
+  lanyan skill:2;
+  bennett burst, skill;
+  xiangling burst, skill, dash;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump, 
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3;
+  if .wrio.burst.ready  {
+    wrio burst;
+  } else {
+    wrio charge, jump; 
+  }
+}

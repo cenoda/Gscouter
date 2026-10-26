@@ -1,0 +1,20 @@
+active beidou;
+for let i=0; i<4; i=i+1 {
+  bennett skill, burst;
+  tartaglia burst;
+  fischl attack:2, burst;
+  beidou skill, burst;
+  tartaglia walk, skill,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:4, charge, dash;
+  fischl attack, skill;
+  bennett attack, skill;
+  beidou attack, skill, attack:2;
+  bennett attack, skill;
+  tartaglia aim:2;
+  print("end");
+}

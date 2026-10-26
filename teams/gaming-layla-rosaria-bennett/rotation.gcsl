@@ -1,0 +1,19 @@
+active gaming;
+for let i=0; i<3; i=i+1 {
+  if i {
+    rosaria skill;
+    gaming skill, low_plunge;
+    bennett skill;
+  }
+  layla burst, skill;
+  rosaria skill, burst;
+  bennett burst;
+  gaming burst;
+  wait(40);
+  for let p=0; p<6; p=p+1 {
+    gaming skill;
+    wait(17);
+    gaming low_plunge;
+  }
+  
+}

@@ -1,0 +1,13 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  sigewinne skill, attack:2;
+  mavuika burst, charge:2, dash, charge:2, dash, skill, dash;
+  chasca skill;
+  chasca aim:4;
+  if is_even(i) {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}

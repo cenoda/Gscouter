@@ -1,0 +1,30 @@
+active razor; 
+  
+for let i=0; i<4; i=i+1 {
+  
+  if .amy.skill.ready {
+    amy attack:1, skill;
+  }
+  furina skill, dash;
+  while !.furina.burst.ready {
+    furina attack;
+  }
+  furina burst;
+  
+  charlotte skill, burst, attack;
+  
+  if .amy.skill.ready { 
+    amy attack:1, skill; 
+  } else { 
+    amy attack:2, burst; 
+  }
+  
+  razor skill, dash, attack, burst,
+        attack:1, skill, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, skill, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, skill, dash;
+}

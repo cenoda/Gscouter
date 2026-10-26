@@ -1,0 +1,17 @@
+active mavuika; 
+for let i=0; i<4; i=i+1 {
+  mavuika attack, skill;
+  ororon skill, burst;
+  chevreuse burst, skill[hold=1];
+  mavuika burst, charge:2, dash;
+  keqing skill, burst, skill,
+         attack, charge,
+         attack, charge,
+         attack, charge,
+         attack, charge,
+         attack, charge,
+         attack,
+         skill:2,
+         attack, charge,
+         attack, charge;
+}

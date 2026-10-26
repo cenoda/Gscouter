@@ -1,0 +1,17 @@
+id: alhaitham-raidenshogun-xingqiu-travelerdendro
+name: Alhaitham / Raidenshogun / Xingqiu / Travelerdendro
+members:
+    - alhaitham
+    - raiden
+    - xingqiu
+    - aetherdendro
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/fPcrhpWhKz9F
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 69033
+    computed: "2026-10-02"

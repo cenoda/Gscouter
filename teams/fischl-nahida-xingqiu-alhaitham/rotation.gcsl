@@ -1,0 +1,11 @@
+active fischl;
+for let i=0; i<3; i=i+1 {
+  fischl attack:2, skill;
+  nahida skill, burst;
+  xingqiu attack, burst, attack;
+  alhaitham skill[hold=1], low_plunge, attack:3, dash, attack:3, dash, attack:3;
+  fischl attack:2, burst;
+  alhaitham burst;
+  xingqiu attack, skill, dash;
+  alhaitham attack:3, dash, attack:3, charge, attack:3, dash, attack:3, dash, attack:3;
+}

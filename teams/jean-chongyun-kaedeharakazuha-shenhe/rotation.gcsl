@@ -1,0 +1,22 @@
+active shenhe;
+for let i=0; i<4; i=i+1 {
+  shenhe skill[hold=1];
+  if .shenhe.burst.ready {
+    shenhe burst;
+  } else {
+    shenhe attack;
+  }
+  kazuha skill[hold=1], high_plunge;
+
+  if .kazuha.burst.ready {
+    kazuha burst;
+  }
+  chongyun skill, attack, burst;
+  jean skill; 
+  jean attack, charge;
+  jean attack, charge;
+  jean attack, charge;
+  jean attack, charge;
+  jean attack, charge;
+  print("rotation done");
+}

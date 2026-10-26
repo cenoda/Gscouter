@@ -1,0 +1,26 @@
+active razor; 
+  
+for let i=0; i<4; i=i+1 {
+  nahida skill, attack; 
+  if .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  furina skill, dash, burst;
+  
+  escoffier skill, burst;
+
+  razor skill, dash, attack, burst, attack, skill, dash;
+  
+  while .razor.mods.razor-q > 210 { 
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+}

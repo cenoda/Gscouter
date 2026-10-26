@@ -1,0 +1,13 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 5; i = i + 1 {
+  bennett burst, skill;
+  kokomi attack, skill, dash;
+  xiangling burst, skill, dash;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  if .kokomi.burst.ready {
+    kokomi burst;
+  }
+  bennett skill;
+  xiangling attack:3;
+}

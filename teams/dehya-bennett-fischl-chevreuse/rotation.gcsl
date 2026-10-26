@@ -1,0 +1,57 @@
+fn rand_delay(mean, stddev, min, max) {
+  
+  let del = randnorm() * stddev + mean;
+
+  if del < min {
+    del = min;
+  } else if del > max {
+    del = max;
+  }
+
+  delay(del);
+}
+let prev_char_id = -1;
+let prev_action_id = -1;
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+
+  if prev_char_id != char_id && action_id != .action.swap {
+    execute_action(char_id, .action.swap, []);
+  }
+  if action_id == .action.swap {
+
+    rand_delay(14, 4, 6, 20);
+  } else if prev_action_id == .action.attack && action_id == .action.attack {
+    
+  } else if prev_action_id == .action.attack && action_id == .action.charge {
+    
+  } else if prev_action_id == .action.swap && action_id == .action.burst {
+    
+  } else if prev_action_id != .action.swap  {
+
+    rand_delay(2, 4, 0, 8);
+  } else if prev_action_id == .action.swap {
+
+    rand_delay(12, 6, 6, 18);
+  }
+  
+  prev_char_id = char_id;
+  prev_action_id = action_id;
+  return _execute_action(char_id, action_id, p);
+}
+active dehya;
+fischl skill;
+for let i=0; i<5; i=i+1 {
+  dehya skill;
+  bennett burst, skill;
+  chevreuse burst, skill[hold=1]:3;
+  if .fischl.skill.ready { 
+    fischl attack:2, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  bennett attack, skill;
+  dehya burst, attack:10;
+  bennett attack:3, skill;
+  dehya skill, attack;
+}

@@ -1,0 +1,30 @@
+active chongyun; 
+for let i = 0; i < 4; i = i + 1 {
+  if i > 0 {
+    chongyun burst;
+  }
+  
+  shenhe skill[hold=1];
+  if !.shenhe.burst.ready {
+    shenhe attack;
+  }
+  shenhe burst;
+  
+  xianyun skill, low_plunge, burst; 
+  
+  xilonen skill, attack:2;
+  
+  chongyun skill;
+  
+  while .chongyun.status.xianyun-airborne-buff {
+    chongyun jump;
+    if .airborne {
+      chongyun high_plunge[collision=rand()>0.5];
+    }
+    if .chongyun.status.xianyun-airborne-buff { 
+      chongyun dash;
+    }
+  }
+  
+  xilonen burst, skill, attack:2;
+}

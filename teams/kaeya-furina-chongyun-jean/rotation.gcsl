@@ -1,0 +1,38 @@
+active chongyun;
+for let i=0; i<4; i=i+1 {
+  chongyun burst;
+  
+  furina skill, dash, burst;
+  
+  chongyun skill;
+  
+  jean skill, burst;
+  
+  kaeya attack, skill, attack, burst;
+  while .debuff.res.t0.vvcryo {
+    if .kaeya.skill.ready {
+      kaeya skill, dash;
+    } else if .kaeya.normal > 1 && .stam > 25 {
+      kaeya charge;
+    } else if .kaeya.normal > 3 && .stam > 18 {
+      kaeya dash;
+    } else {
+      kaeya attack;
+    }
+  }
+  
+  jean attack, skill;
+  
+  while .furina.skill.cd> 60 {
+    if .kaeya.skill.ready {
+      kaeya skill, dash;
+    } else if .kaeya.normal > 1 && .stam > 25 {
+      kaeya charge;
+    } else if .kaeya.normal > 3 && .stam > 18 {
+      kaeya dash;
+    } else {
+      kaeya attack;
+    }
+  }
+  
+}

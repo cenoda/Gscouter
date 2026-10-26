@@ -1,0 +1,11 @@
+active baizhu ;
+for let i = 0; i < 4; i = i + 1 {
+  baizhu skill, burst, attack;
+  furina skill, dash, burst;
+  xingqiu burst, attack:1;
+  xiangling burst, attack, skill;
+  xingqiu skill, dash, attack:2;
+  baizhu attack:3, skill, attack:3, dash, attack:3, dash, attack:2, charge, attack:2;
+  xiangling attack:2, skill;
+  baizhu attack:3, dash, attack:3;
+}

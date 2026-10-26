@@ -1,0 +1,13 @@
+active nahida;
+klee attack;
+for let i=0; i<4; i=i+1 {
+  zhongli attack, skill[hold=1];
+  nahida skill, burst;
+  xingqiu skill, dash, burst, attack;
+  while .xingqiu.skill.cd>180 {
+    if .klee.skill.ready {
+      klee attack, skill[bounce=3, mine=8], attack;
+    }
+    klee attack, walk;
+  }
+}

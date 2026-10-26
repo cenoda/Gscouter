@@ -1,0 +1,14 @@
+active ganyu;
+for let i=0; i<4; i=i+1 {
+	if .ganyu.burst.ready {
+	  ganyu burst;
+	}
+	zhongli attack, skill[hold=1], dash;
+	while (.zhongli.mods.favonius-cd==0) {
+	  zhongli attack;
+	}
+	bennett burst,skill;
+	xiangling burst, skill;
+	ganyu skill, aim[weakspot=1], aim:3, aim[weakspot=1], skill, aim[weakspot=1];
+	bennett skill;
+}

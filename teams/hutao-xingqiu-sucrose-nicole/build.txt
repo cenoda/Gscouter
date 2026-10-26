@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+hutao char lvl=90/90 cons=1 talent=9,9,9;
+hutao add weapon="balladofthefjords" refine=1 lvl=90/90;
+hutao add set="shime" count=4;
+hutao add stats hp=4780 atk=311 em=187 pyro%=0.466 cr=0.311;
+hutao add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*2 em=19.82*4 cr=0.0331*10 cd=0.0662*12;
+
+xingqiu char lvl=90/90 cons=6 talent=9,9,9;
+xingqiu add weapon="favoniussword" lvl=90/90 refine=5;
+xingqiu add set="no" count=4;
+xingqiu add stats hp=4780 atk=311 er=0.518 hydro%=0.466 cr=0.311;
+xingqiu add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*12;
+
+sucrose char lvl=90/90 cons=6 talent=9,9,9;
+sucrose add weapon="ttds" refine=5 lvl=90/90;
+sucrose add set="viridescentvenerer" count=4;
+sucrose add stats hp=4780 atk=311 em=187 em=187 em=187;
+sucrose add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*12 em=19.82*6 cr=0.0331*8 cd=0.0662*2;
+
+nicole char lvl=90/90 cons=0 talent=9,9,9;
+nicole add weapon="oathsworneye" refine=5 lvl=90/90;
+nicole add set="cg" count=4;
+nicole add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 atk%=0.466;
+nicole add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*6 er=0.0551*5 em=19.82*12 cr=0.0331*2 cd=0.0662*5;

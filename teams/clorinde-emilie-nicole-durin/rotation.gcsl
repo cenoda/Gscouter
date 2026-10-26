@@ -1,0 +1,27 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active emilie;
+for let i = 0; i < 6; i = i + 1 {
+  if i && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  nicole skill, burst;
+  durin skill:2, burst, attack;
+  if !is_even(i) {
+    durin charge, dash, attack, charge, dash, attack, charge, dash;
+  }
+  clorinde_combo();
+  if is_even(i) {
+    clorinde burst;
+  }
+}

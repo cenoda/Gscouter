@@ -1,0 +1,26 @@
+active luminedendro;
+for let i=0; i<5; i=i+1 {
+  luminedendro skill,attack,burst;
+  nilou skill,attack:2,skill;
+  kirara skill[short_hold=1],burst;
+  switch {
+    case .kokomi.skill.ready:
+        kokomi skill;
+    case .kokomi.burst.ready.skill.active:
+        kokomi burst;
+        }
+  kokomi charge;
+  luminedendro skill,attack;
+  kokomi attack:2,charge,
+         attack:2,charge;
+  kirara skill[short_hold=1];
+  kokomi charge;
+  switch {
+    case .kokomi.burst.ready.skill.active:
+        kokomi burst;
+    case .kokomi.skill.ready:
+        kokomi skill;
+        }
+  kokomi attack:2,charge,
+         attack:2,charge;
+}

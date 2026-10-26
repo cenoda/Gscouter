@@ -1,0 +1,11 @@
+active bennett;
+for let i=0; i< 5; i=i+1 {
+  bennett skill, burst;
+  if .fischl.burst.ready {
+    fischl attack:2, burst;
+  } else {
+    fischl skill, attack;
+  }
+  beidou skill[counter=1], attack, burst;
+  zhongli attack, skill[hold=1], attack:4, dash, attack:4, dash, attack:4, dash, attack:4, dash, attack:4, dash, attack:4, dash, attack:4, dash, attack:4;
+}

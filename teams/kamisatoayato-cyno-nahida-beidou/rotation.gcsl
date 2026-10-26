@@ -1,0 +1,9 @@
+active cyno;
+cyno skill, attack:2;
+for let i=0; i<4; i=i+1 {
+  nahida skill, burst;
+  ayato skill, attack, burst;
+  beidou skill[counter=1], attack:2, burst;
+  cyno skill, burst, attack, skill, attack:8, skill, attack:3, attack:3, skill, attack:3, skill, attack:5;
+  beidou skill[counter=1], attack:2;
+  }

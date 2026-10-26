@@ -1,0 +1,35 @@
+active faruzan;
+faruzan skill;
+for let i=0; i<4; i=i+1 {
+  if .nicole.burst.ready {
+    nicole burst;
+  } else {
+    nicole attack;
+  }
+  nicole skill;
+  
+  durin skill:2, burst;
+  
+  bennett skill, dash, burst;
+
+  while .status.bennettburst || .faruzan.hurricane-count {
+    switch {
+      case .faruzan.skill.ready && .faruzan.swap.ready && !.faruzan.hurricane-count:
+        faruzan skill;
+      case .faruzan.burst.ready && .faruzan.swap.ready && .faruzan.energy == .faruzan.energymax:
+        faruzan burst;
+      case .faruzan.hurricane-count && .faruzan.swap.ready || (.faruzan.hurricane-count && .faruzan.onfield):
+        faruzan aim[weakspot=rand()>0.3];
+      case .faruzan.skill.ready && .faruzan.swap.ready:
+        faruzan skill;
+
+      case .faruzan.onfield:
+        faruzan aim;
+      default:
+        faruzan attack;
+    }
+  }
+  if !.faruzan.mods.faruzan-e && !.faruzan.skill.cd {
+    faruzan skill;
+  }
+}

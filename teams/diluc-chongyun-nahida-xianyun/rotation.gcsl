@@ -1,0 +1,31 @@
+fn DilucPlunge() {
+  diluc jump;
+  if .airborne {
+    diluc high_plunge[collision=rand()>0.5];
+  }
+}
+active diluc; 
+for let i = 0; i < 4; i = i + 1 {
+  if is_even(i) {
+    nahida skill, burst;
+  } else {
+    nahida skill, attack, charge;
+  }
+  
+  chongyun burst, skill;
+  
+  xianyun skill, high_plunge, burst;
+  
+  diluc skill;
+  DilucPlunge(); diluc dash;
+  DilucPlunge(); 
+  diluc skill;
+  DilucPlunge(); diluc dash;
+  DilucPlunge(); diluc dash;
+  DilucPlunge(); 
+  diluc skill;
+  DilucPlunge(); diluc dash;
+  DilucPlunge(); diluc dash;
+  DilucPlunge(); 
+
+}

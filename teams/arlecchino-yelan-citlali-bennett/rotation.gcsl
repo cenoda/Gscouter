@@ -1,0 +1,14 @@
+active yelan;
+for let i = 0; i < 4; i = i + 1 {
+  yelan attack, skill, burst, attack;
+  arle skill; delay(11);
+  bennett skill, burst;
+  citlali skill, burst;
+  arle attack:2, charge, 
+       attack:3, dash,
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack;
+}

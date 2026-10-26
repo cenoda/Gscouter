@@ -1,0 +1,29 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active yae;
+for let i = 0; i < 4; i = i + 1 {
+  yae skill:3;
+  
+  amy attack;
+  if .amy.burst.ready { 
+    amy attack:1, burst;
+  } else {
+    amy skill;
+  }
+  
+  kazuha skill, high_plunge;
+  
+  clorinde_combo();
+  
+  kazuha skill, high_plunge;
+  
+  clorinde burst;
+}

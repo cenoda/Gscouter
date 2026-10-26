@@ -1,0 +1,10 @@
+active furina;	
+for let x = 0; x < 4; x = x + 1 {
+ furina skill, dash, burst; 
+ ayaka dash, attack, skill, attack, charge;
+ lynette skill, burst, attack;
+ charlotte burst, skill;
+ ayaka dash, attack, charge, burst, skill, dash, attack:2, charge;
+ lynette skill, attack;
+ ayaka dash, attack:2, charge;
+}

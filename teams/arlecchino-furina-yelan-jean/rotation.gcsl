@@ -1,0 +1,13 @@
+active arle;
+arle skill;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, attack, burst;
+  yelan skill, attack, burst, attack;
+  jean skill, attack, burst, attack;
+  arle charge,
+       attack:5, dash,
+       attack:5, dash,
+       attack:5,
+       skill;
+  jean attack, skill, attack; 
+}

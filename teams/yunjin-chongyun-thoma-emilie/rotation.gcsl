@@ -1,0 +1,20 @@
+active yunjin;
+yunjin skill[perfect=1];
+for let i=0; i<4; i=i+1 {
+  if i && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill;
+  }
+  
+  thoma skill, burst, attack;
+  chongyun skill;
+  
+  yunjin burst,
+         attack:4, skill[perfect=1],
+         attack:4, dash,
+         attack:4, dash,
+         attack:4, dash,
+         attack:3;
+  chongyun burst, attack;
+}

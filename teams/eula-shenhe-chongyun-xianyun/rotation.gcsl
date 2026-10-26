@@ -1,0 +1,32 @@
+active eula; 
+eula skill; 
+for let x = 0; x < 4; x = x + 1 {
+  shenhe skill[hold=1], burst;
+  
+  chongyun burst, skill;
+  
+  xianyun skill, low_plunge, burst;
+
+  while .eula.status.xianyun-airborne-buff {
+    if .eula.skill.ready {
+      eula skill[hold=1]; 
+    } else {
+      eula jump;
+      if .airborne {
+        eula high_plunge[collision=rand()>0.5];
+      }
+      eula dash;
+    }
+  }
+  eula attack;
+  
+  while .shenhe.burst.cd > 90 {
+    if .eula.skill.ready {
+      eula skill;
+    } else if .eula.burst.ready && .eula.energy == .eula.energymax {
+      eula burst, skill;
+    } else {
+      eula attack;
+    }
+  }
+}

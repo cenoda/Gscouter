@@ -1,0 +1,9 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill, attack:2, dash, attack:2;
+  xilonen skill, burst, attack:2;
+  chiori attack, skill:2;
+  xiangling burst, skill, dash; pick_up_crystallize("hydro");
+  neuvillette charge, skill, charge, burst, charge, charge;
+}
+wait(173);

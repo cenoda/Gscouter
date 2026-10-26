@@ -1,0 +1,18 @@
+active arlecchino;
+for let i=0; i<4; i=i+1 {
+  arle skill;
+  if i {
+    arle attack;
+  }
+  xilonen skill, attack:2;
+  yunjin skill, dash; pick_up_crystallize("pyro"); 
+  yunjin burst;
+  kaeya skill, dash, burst;
+  arle  charge, 
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3;
+}

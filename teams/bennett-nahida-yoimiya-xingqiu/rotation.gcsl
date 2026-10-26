@@ -1,0 +1,14 @@
+active nahida;
+for let x=0; x< 4; x=x+1 {
+  nahida skill, attack;
+  if .nahida.burst.ready {
+    nahida burst;
+  }
+  xingqiu skill, dash, burst, attack;
+  bennett skill,attack, burst;  
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack:5;
+  if .yoimiya.burst.ready {
+    yoimiya burst;
+  }
+  bennett skill, attack;
+}

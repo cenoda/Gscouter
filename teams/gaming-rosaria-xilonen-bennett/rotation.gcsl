@@ -1,0 +1,31 @@
+active gaming; 
+gaming skill, low_plunge, dash;
+for let i=0; i<3; i=i+1 {
+  if i {
+    rosaria skill;
+  
+    gaming skill, low_plunge, dash;
+    
+    bennett skill;
+    
+  }
+  xilonen skill, attack:2;
+  
+  bennett burst, dash; pick_up_crystallize("pyro");
+  
+  rosaria skill, burst;
+  
+  gaming burst;
+  wait(45);
+  for let p=0; p<4; p=p+1 {
+    gaming skill;
+    wait(20);
+    gaming low_plunge;
+  }
+  for let p=0; p<2; p=p+1 {
+    gaming skill;
+    wait(39);
+    gaming low_plunge;
+  }
+  
+}

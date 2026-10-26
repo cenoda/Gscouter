@@ -1,0 +1,17 @@
+id: kamisatoayaka-furina-jean-shenhe
+name: Kamisatoayaka / Furina / Jean / Shenhe
+members:
+    - ayaka
+    - furina
+    - jean
+    - shenhe
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/zT79hbKHjGwG
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 64220
+    computed: "2026-10-01"

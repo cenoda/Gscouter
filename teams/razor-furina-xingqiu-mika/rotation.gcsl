@@ -1,0 +1,23 @@
+active razor; 
+if .razor.weapon != .keys.weapon.uomms || .keys.weapon.pride {
+  razor skill, dash;
+}
+  
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  xq skill, dash, burst, attack;
+  
+  mika burst, attack, skill, attack;
+  
+  razor skill[hold=0], dash, attack, burst;
+  while .xq.mods.xingqiuburst { 
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+active raidenshogun;
+  raidenshogun skill;
+for let i=0; i<4; i=i+1 {
+  if .fischl.skill.ready {
+    fischl skill, attack;
+  }
+  kazuha skill, high_plunge;
+  collei skill, burst;
+  fischl attack:2, burst;
+  kazuha burst, skill, high_plunge;
+  raidenshogun burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  print ("done");
+}

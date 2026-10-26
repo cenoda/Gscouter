@@ -1,0 +1,17 @@
+id: sangonomiyakokomi-furina-xiangling-bennett
+name: Sangonomiyakokomi / Furina / Xiangling / Bennett
+members:
+    - kokomi
+    - furina
+    - xiangling
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/q6nCDcnpmck6
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 57917
+    computed: "2026-09-30"

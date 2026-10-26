@@ -1,0 +1,18 @@
+active beidou;
+for let i=0; i<4; i=i+1 {
+  beidou skill;
+  sucrose burst, attack:2;
+  fischl attack:2, burst;
+  if .tighnari.burst.ready {
+    tighnari skill, aim, burst, aim:2;
+  } else {
+	tighnari skill, aim:3;
+  }
+  beidou skill, burst;
+  sucrose attack:2, charge, attack:2, charge;
+  sucrose attack, skill, jump, attack, charge;
+  fischl attack, skill;
+  tighnari skill, aim:3;
+  beidou skill, attack;
+  sucrose attack, skill, jump, attack:2, charge, attack:3, dash, attack:2;
+}

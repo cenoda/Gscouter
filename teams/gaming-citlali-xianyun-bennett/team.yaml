@@ -1,0 +1,17 @@
+id: gaming-citlali-xianyun-bennett
+name: Gaming / Citlali / Xianyun / Bennett
+members:
+    - gaming
+    - citlali
+    - xianyun
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/fBgqpCwhrjMd
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 103208
+    computed: "2026-10-01"

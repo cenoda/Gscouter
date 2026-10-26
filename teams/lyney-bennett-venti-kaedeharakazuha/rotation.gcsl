@@ -1,0 +1,17 @@
+let weak = 1; 
+active lyney;
+for let i=0; i<5; i=i+1 { 
+  lyney aim[weakspot=weak];
+  kazuha skill, high_plunge, burst;
+  while !.kazuha.mods.favonius-cd {
+    kazuha attack;
+  }
+  bennett burst, skill;
+  venti skill, burst;
+  while !.venti.mods.favonius-cd {
+    venti attack;
+  }
+  lyney aim[weakspot=weak], aim, burst;
+  delay(11); 
+  lyney skill, skill;
+}

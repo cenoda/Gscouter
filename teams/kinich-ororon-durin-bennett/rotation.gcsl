@@ -1,0 +1,28 @@
+fn kinich_combo() { 
+  kinich skill;
+  while .kinich.nightsoul.state {
+    kinich attack[direction=1]:2;
+    while .kinich.nightsoul.points < 20 && .kinich.nightsoul.state {
+      wait(1);
+    }
+    if .kinich.nightsoul.state {
+      kinich skill[hold=1];
+    }
+    if .kinich.burst.ready && .kinich.energy == .kinich.energymax  {
+      kinich burst;
+    }
+  }
+}		
+active kinich; 
+active kinich; 
+for let i=0; i<4; i=i+1 {
+  ororon skill, burst;
+  
+  bennett skill, dash;
+  
+  durin skill:2, burst;
+  
+  bennett skill, dash, burst;
+  
+  kinich_combo();
+}

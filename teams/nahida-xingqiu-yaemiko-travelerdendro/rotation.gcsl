@@ -1,0 +1,16 @@
+active yae;
+for let x = 0; x < 5; x = x + 1 {
+  yae attack, skill, attack, skill, attack, skill;
+  nahida skill, burst;
+  luminedendro skill,burst;
+  xingqiu skill, burst, attack;
+  yae attack:2, charge, dash, attack, skill, attack, skill, attack, skill, attack:2, charge, dash;
+  luminedendro skill,attack;
+  yae attack:3;
+  if .yae.burst.ready {
+    yae burst;
+  } else {
+    yae dash, attack:2;
+  }
+  print("Rotation Done");
+}

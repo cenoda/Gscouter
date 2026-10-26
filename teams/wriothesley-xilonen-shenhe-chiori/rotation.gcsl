@@ -1,0 +1,24 @@
+active wrio;
+wrio attack;
+for let i=0; i<4; i=i+1 {
+  xilonen skill, attack:2;
+  shenhe skill[hold=1], dash; pick_up_crystallize("cryo");
+  if .shenhe.burst.ready {
+    shenhe burst;
+  }
+  if .chiori.burst.ready &&!.chiori.skill.ready {
+    chiori burst;
+  }
+  chiori skill:2;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge;
+  if .wrio.burst.ready {
+    wrio burst;
+  } else {
+    wrio attack:3;
+  }
+}

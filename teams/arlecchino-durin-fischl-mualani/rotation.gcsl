@@ -1,0 +1,19 @@
+active fischl;
+  fischl skill;
+  arle skill;
+  durin skill, skill, burst;
+  mualani burst; 
+  arlecchino charge, attack:2, charge, attack;
+  mualani skill, walk[f=90], attack, skill;
+  fischl attack, burst;
+  arlecchino attack:3, dash, attack:3, dash, attack:4;
+
+  arle skill; 
+  durin attack, skill, skill, burst;
+  mualani skill, walk[f=99], attack, skill; 
+  fischl attack, skill;
+  arle charge;
+  arle attack:3, dash, attack:3;
+  
+  mualani skill, walk[f=90], attack, skill;
+  arle attack:3, dash, attack:5;

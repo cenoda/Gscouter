@@ -1,0 +1,21 @@
+active shenhe;
+for let i=0; i<4; i=i+1 {
+    let xl-er-conversion = 80 - 3*2*0.6*.xiangling.stats.er;
+	shenhe skill[hold=1];
+	if .shenhe.burst.ready {
+		shenhe burst;
+	}
+	while (.xiangling.energy<80&&.shenhe.mods.favonius-cd==0) {
+		print("Forcing Fav");
+		shenhe attack;
+	}
+	if .shenhe.mods.favonius-cd==1 {
+		print("Fav proc'd");
+	}
+	print("go");
+	bennett burst,skill;
+	xiangling burst,skill;
+	ganyu skill, aim:5, skill, aim;
+	bennett skill;
+	print("end");
+}

@@ -1,0 +1,17 @@
+id: emilie-durin-nicole-bennett
+name: Emilie / Durin / Nicole / Bennett
+members:
+    - emilie
+    - durin
+    - nicole
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/dk9LT7NCHgRf
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 78308
+    computed: "2026-10-02"

@@ -1,0 +1,18 @@
+active durin;
+for let i=0; i<5; i=i+1 {
+  durin skill:2, burst;
+  xianyun skill, low_plunge;
+  if !.xianyun.burst.ready  {
+    xianyun skill, low_plunge;
+  }
+  xianyun burst;
+  nicole skill, attack;
+  xiao skill:2;
+  if .xiao.skill.ready && !.xiao.burst.ready {
+    xiao skill;
+  }
+  xiao burst;
+  for let h = 10; h > 0; h = h - 1 {
+    xiao jump, high_plunge[collision=1];
+  }
+}

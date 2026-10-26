@@ -1,0 +1,27 @@
+fn sethosCombo() {
+  sethos burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack; 
+}
+active fischl;
+for let r=0; r<4; r=r+1 {
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  
+  kirara skill[short_hold=1], attack;
+  
+  heizou attack, charge, burst, skill;
+  
+  sethos skill;
+  sethosCombo();
+}

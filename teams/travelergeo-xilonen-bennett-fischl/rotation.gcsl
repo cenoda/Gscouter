@@ -1,0 +1,43 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+	  pick_up_crystallize("any");
+  }
+	
+  return _execute_action(char_id, action_id, p);
+}
+fn rand_c2() {
+  let c2 = rand();
+  if c2 < 1 { 
+    c2 = 0;
+  } else {
+    c2 = 1;
+  }
+  
+  return c2;
+}
+active bennett;
+for let i=0; i<4; i=i+1 {
+  
+  bennett skill, burst;
+  xilonen skill, attack:2;
+  pick_up_crystallize("any");
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  while .bennett.burst.cd > 30 {
+    switch {
+    case .luminegeo.skill.ready:
+      luminegeo skill[short_hold=1, no_meteorite=rand_c2()], dash;
+    case .luminegeo.burst.ready:
+      luminegeo burst;
+    case .xilonen.skill.ready:
+      xilonen skill, attack:2;
+      pick_up_crystallize("any");
+    default:
+      luminegeo attack;
+    }
+  }
+}

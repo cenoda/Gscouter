@@ -1,0 +1,22 @@
+active wrio;
+wrio attack;
+for let x=0; x<4; x=x+1 {
+  xilonen burst;
+  furina skill, attack, burst;
+  xilonen skill, attack:2;
+  pick_up_crystallize("any");
+  citlali skill, burst;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump;
+  xilonen skill, attack:2;
+  pick_up_crystallize("any");
+  if .wrio.burst.ready {
+    wrio burst;
+  } else {
+    wrio attack:3, charge;
+  }
+}

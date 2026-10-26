@@ -1,0 +1,15 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  
+  yelan burst, attack, skill, attack;
+  
+  bennett burst, attack, skill;
+  
+  diluc attack, burst, attack, skill, attack, skill, attack, skill;
+  
+  yelan skill, attack;
+  
+  diluc attack:5;
+  
+}

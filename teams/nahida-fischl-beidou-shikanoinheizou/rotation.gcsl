@@ -1,0 +1,23 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill, burst, attack;
+  fischl skill, attack;
+  beidou skill[counter=1], burst;
+  heizou attack, charge, attack:2, charge, skill, attack:2, charge;
+  fischl attack:2, burst;
+  nahida attack:2, skill,
+    attack:3, dash, 
+    attack:2, dash,
+    attack:3, charge;
+  beidou skill, attack:2;
+  while .fischl.oz-duration > 10 {
+        if .heizou.skill.ready {
+            heizou attack, charge, burst, skill;
+        } else if .heizou.normal > 1 {
+            heizou charge;
+        }
+        else {
+            heizou attack;
+        }
+  }
+}

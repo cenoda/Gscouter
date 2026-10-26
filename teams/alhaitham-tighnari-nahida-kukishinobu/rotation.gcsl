@@ -1,0 +1,23 @@
+active kuki;
+active kuki;
+for let i = 0; i < 4; i = i + 1 {
+  kuki attack, skill;
+  
+  nahida skill, burst, attack, charge;
+  
+	tighnari skill, aim, burst, aim:2;
+  
+  haitham burst;
+  
+  kuki burst;
+  
+  haitham attack:3, dash,
+          attack:3, dash,
+          attack:3;
+  
+	tighnari skill, aim:3;
+	
+  haitham skill[hold=1], low_plunge[short=1],
+          attack:2, charge, dash,
+          attack:3, charge;
+}

@@ -1,0 +1,14 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill; delay(11);
+  bennett skill, burst;
+  layla burst, attack, skill;
+  kazuha skill[hold=1], high_plunge;
+  arle charge[early_cancel=1], dash, 
+       attack:3, dash,
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3;
+}

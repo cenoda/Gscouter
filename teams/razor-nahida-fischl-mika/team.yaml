@@ -1,0 +1,17 @@
+id: razor-nahida-fischl-mika
+name: Razor / Nahida / Fischl / Mika
+members:
+    - razor
+    - nahida
+    - fischl
+    - mika
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/kNTDBLRbCFqB
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 60356
+    computed: "2026-10-02"

@@ -1,0 +1,24 @@
+active nahida ;
+for let i=0; i<4; i=i+1 {
+  nahida burst;
+  tartaglia walk, skill, attack:2;
+  kazuha skill, high_plunge;
+  nahida skill, attack, charge;
+  bennett burst;
+  tartaglia burst;
+  kazuha burst, skill, high_plunge;
+  tartaglia walk, skill,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash;
+  kazuha skill, high_plunge;
+  nahida attack:2, charge;
+  bennett skill;
+  tartaglia aim;
+  nahida attack:2, charge;
+  bennett skill;
+  tartaglia aim;
+}
+wait(11);

@@ -1,0 +1,12 @@
+active yelan;
+for let i=0; i<4; i=i+1 {
+  yelan attack, skill, burst, attack;
+  bennett burst, attack, skill;
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  } 
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack:2;
+  bennett attack, skill;
+}

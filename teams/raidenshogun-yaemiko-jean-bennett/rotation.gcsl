@@ -1,0 +1,11 @@
+active yaemiko;
+for let i=0; i<4; i=i+1 {
+yaemiko skill:3;
+herexcellencythealmightynarukamiogoshogodofthunder attack, skill;
+bennett skill,  burst;
+jean burst, skill;
+yaemiko attack, burst, skill:3;
+herexcellencythealmightynarukamiogoshogodofthunder burst,  attack:3, charge, attack:3, charge, attack:3, charge, attack, charge;
+jean skill;
+  print("rotation done");
+}

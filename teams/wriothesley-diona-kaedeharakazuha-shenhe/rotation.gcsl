@@ -1,0 +1,23 @@
+active wrio;
+ 
+wrio attack;
+for let x=0; x<4; x=x+1 {
+  kazuha skill, high_plunge, burst;
+  diona skill[hold=1], burst;
+  shenhe skill[hold=1], attack, burst;
+  while !.shenhe.mods.favonius-cd {
+    shenhe attack;
+  }
+  kazuha skill, high_plunge;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump;
+  if .wrio.burst.ready {
+    wrio burst;
+  } else {
+    wrio attack:4;
+  }
+}

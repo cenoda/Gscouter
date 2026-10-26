@@ -1,0 +1,14 @@
+active raiden;
+  raiden skill;
+for let i=0; i<4; i=i+1 {
+  sara skill, aim;
+  jean attack, burst;
+  mona skill, burst;
+  kujousara burst;
+  raiden burst, attack:4, dash, attack:4, skill, attack:4, dash, attack:4;
+  jean attack:2, skill;
+  
+  mona attack:3;
+  
+  print("Rotation done");
+}

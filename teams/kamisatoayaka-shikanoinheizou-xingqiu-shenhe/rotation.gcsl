@@ -1,0 +1,16 @@
+active ayaka;
+for let x = 0; x < 5; x = x + 1 {
+  if !x {
+    ayaka dash, skill;
+  } else {
+    ayaka dash, attack, skill, attack, charge;
+  }
+  xingqiu skill, dash, burst, attack;
+  shenhe skill, attack, burst;
+  heizou attack, charge, attack, burst, attack, skill;
+  ayaka dash, attack, skill, attack, burst, attack;
+  shenhe attack, skill, attack;
+  ayaka dash, attack:4, charge;
+  heizou attack, charge, attack, skill;
+  print("Rotation Done");
+}

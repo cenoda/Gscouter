@@ -1,0 +1,14 @@
+active bennett;
+for let x = 0; x < 5; x = x + 1 {
+  bennett burst, skill;
+  rosaria burst, skill;
+  kazuha burst;
+  ayaka dash, attack, skill, burst, attack;
+  rosaria skill;
+  ayaka attack:2, charge, attack;
+  kazuha skill, high_plunge, attack;
+  bennett skill;
+  rosaria skill;
+  ayaka skill, dash, attack;
+  kazuha skill, high_plunge;
+}

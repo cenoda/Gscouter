@@ -1,0 +1,21 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack;
+  fischl attack, skill;
+  nahida skill, burst;
+  furina burst, attack:2;
+  nahida attack:2, charge, attack:2, charge;
+  
+  alhaitham skill, attack, burst;
+  
+  fischl attack:2, burst;
+  
+  alhaitham swap; wait(14); 
+  
+  alhaitham attack:3, charge,
+            attack:2, dash,
+            attack:3, charge, 
+            attack:3, dash,
+            attack:3, charge,
+            attack:3;
+}

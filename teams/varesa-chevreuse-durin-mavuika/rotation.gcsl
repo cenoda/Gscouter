@@ -1,0 +1,24 @@
+fn varesa_combo(amt) {
+  for let j = 0; j < amt; j = j + 1 {
+    if .varesa.skill.ready {
+      varesa skill, attack, high_plunge[collision=1]; 
+
+    } else {
+      varesa charge, high_plunge[collision=1]; 
+    }
+    if .varesa.energy >= 30 && .varesa.status.apex-drive {
+      varesa burst;
+    }
+  }
+}
+active varesa;
+varesa attack;
+for let i=0; i<4; i=i+1 {
+  chev burst, skill[hold=1];
+  
+  durin skill:2, burst;
+  
+  varesa_combo(4);
+  
+  mavuika skill, burst, charge:2, dash, charge:2, dash, charge:2, dash; 
+}

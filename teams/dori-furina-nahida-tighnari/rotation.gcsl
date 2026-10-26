@@ -1,0 +1,21 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+	nahida skill;
+	if i > 0 {
+	  nahida burst;
+	}
+	
+	furina skill, dash, burst;
+	
+	dori skill, attack:2, dash, attack:2, burst;
+	
+	tighnari skill, aim, burst:1, aim:2;
+	
+	dori skill, attack:2, dash, attack:2;
+	
+	nahida skill, attack, charge;
+	
+	dori skill, attack:2;
+	
+	tighnari skill, aim:3;
+}

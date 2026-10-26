@@ -1,0 +1,17 @@
+id: klee-furina-sangonomiyakokomi-xiangling
+name: Klee / Furina / Sangonomiyakokomi / Xiangling
+members:
+    - klee
+    - furina
+    - kokomi
+    - xiangling
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/wNff89NHTc6W
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 56786
+    computed: "2026-09-30"

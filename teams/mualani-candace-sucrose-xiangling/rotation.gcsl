@@ -1,0 +1,43 @@
+active mualani;
+fn mualani_combo() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+}
+mualani attack; 
+for let i=0; i<2; i=i+1 {
+  sucrose skill;
+  xiangling burst, skill, dash;  
+  candace skill, burst, attack;
+  if !.candace.mods.favonius-cd {
+    candace attack;
+  } else {
+    wait(8); 
+  }
+  mualani burst;
+  mualani skill;
+  mualani_combo();
+  mualani walk[f=1];
+  candace skill, attack:2, dash, burst;
+  xiangling attack:3;
+  if !.xiangling.mods.favonius-cd {
+    xiangling attack;
+  }
+  xiangling skill, dash;
+  sucrose skill, dash, attack, burst;
+  mualani skill;
+  mualani_combo();
+  if .mualani.nightsoul.state {
+    mualani skill; 
+  }
+  while !.element.t0.hydro {
+    mualani attack;
+  }
+}

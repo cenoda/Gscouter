@@ -1,0 +1,11 @@
+active xingqiu;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+xingqiu burst, attack, skill, attack:2;
+bennett skill, attack, burst, attack;
+jean attack, skill, attack, burst, attack;
+raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+jean skill;
+bennett skill;
+xingqiu attack;
+}

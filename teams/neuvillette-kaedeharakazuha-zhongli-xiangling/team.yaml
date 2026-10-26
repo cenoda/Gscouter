@@ -1,0 +1,19 @@
+id: neuvillette-kaedeharakazuha-zhongli-xiangling
+name: Neuvillette / Kaedeharakazuha / Zhongli / Xiangling
+members:
+    - neuvillette
+    - kazuha
+    - zhongli
+    - xiangling
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/nBCnHWhWWGMK
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    neuvillette: start_hp=35000
+reference:
+    dps: 79229
+    computed: "2026-10-01"

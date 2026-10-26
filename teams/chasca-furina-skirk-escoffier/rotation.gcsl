@@ -1,0 +1,12 @@
+active furina;
+for let i=0; i<2; i=i+1 {
+  furina skill, dash, burst;
+  escoffier skill, attack, burst;
+  skirk skill[hold=1], burst;
+  chasca skill, aim:4, skill, burst;
+  
+  escoffier attack, skill, attack:2;
+  skirk skill[hold=1], burst;
+  chasca skill, aim:4;
+}
+wait(126);

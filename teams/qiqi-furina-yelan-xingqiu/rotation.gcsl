@@ -1,0 +1,11 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+furina skill, dash, burst;
+xingqiu burst, attack, skill, dash;
+yelan  attack, burst, attack, skill, attack;
+if .qiqi.skill.ready {qiqi skill;}
+else {qiqi burst;}
+qiqi attack:5, dash, attack:5, dash, attack:5, dash;
+yelan attack, skill;
+qiqi attack:5;
+}

@@ -1,0 +1,23 @@
+active fischl;
+fischl skill;
+for let i=0; i<4; i=i+1 {
+  dori skill, burst;
+  
+  bennett skill, burst;
+  
+  haitham burst;
+  
+  amy attack;
+  if .amy.burst.ready {
+    amy attack, burst;
+  } else {
+    amy skill;
+  }
+
+  alhaitham attack:3, dash, 
+            attack:3, charge, dash,
+            attack:3, charge, dash,
+            attack:1, skill[hold=1], low_plunge[short=1];
+  alhaitham attack:4, charge, dash,
+            attack:4;
+}

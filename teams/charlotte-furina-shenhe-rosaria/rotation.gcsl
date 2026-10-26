@@ -1,0 +1,20 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  shenhe skill, burst;
+  
+  rosaria skill, burst;
+  
+  charlotte burst, skill[hold=1], attack:2;
+  
+  rosaria skill;
+  
+  shenhe skill, attack;
+  
+  charlotte attack:3, dash, attack:3, dash, attack:3;
+  
+  rosaria skill;
+  
+  charlotte attack:3;
+}

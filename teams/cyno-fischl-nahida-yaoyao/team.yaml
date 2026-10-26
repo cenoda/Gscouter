@@ -1,0 +1,17 @@
+id: cyno-fischl-nahida-yaoyao
+name: Cyno / Fischl / Nahida / Yaoyao
+members:
+    - cyno
+    - fischl
+    - nahida
+    - yaoyao
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/QcbLL7HB87FL
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 51165
+    computed: "2026-10-02"

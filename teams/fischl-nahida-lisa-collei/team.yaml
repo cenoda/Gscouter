@@ -1,0 +1,17 @@
+id: fischl-nahida-lisa-collei
+name: Fischl / Nahida / Lisa / Collei
+members:
+    - fischl
+    - nahida
+    - lisa
+    - collei
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/LGzpbhd8Qknp
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 47929
+    computed: "2026-10-01"

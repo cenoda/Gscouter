@@ -1,0 +1,26 @@
+fn clorinde_combo() { 
+  clorinde skill;
+   while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active yae;
+for let i = 0; i < 5; i = i + 1 { 
+  yae skill:3;
+  if .xl.burst.ready { 
+    xl skill, dash, burst;
+  } else {
+    xl attack:3, skill, dash;
+  }
+  chevreuse burst, skill[hold=1];
+  if !.chev.mods.favonius-cd {
+    chev attack;
+  }
+  clorinde_combo();
+  clorinde burst;
+  
+}

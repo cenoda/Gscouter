@@ -1,0 +1,13 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  xilo burst;
+  furina skill, dash, burst;
+  xilo skill, attack:2;
+  yelan burst, attack, skill, attack;
+  pick_up_crystallize("any");
+  luminehydro attack, skill[hold=1], dash[pickup_droplets=4], attack, burst;
+  xilo skill, attack:2;
+  yelan attack, skill, attack:2;
+  pick_up_crystallize("any");
+  luminehydro attack:3;
+}

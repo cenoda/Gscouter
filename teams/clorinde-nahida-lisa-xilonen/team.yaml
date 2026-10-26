@@ -1,0 +1,17 @@
+id: clorinde-nahida-lisa-xilonen
+name: Clorinde / Nahida / Lisa / Xilonen
+members:
+    - clorinde
+    - nahida
+    - lisa
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/HPtwwGMdTK8d
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 62161
+    computed: "2026-10-02"

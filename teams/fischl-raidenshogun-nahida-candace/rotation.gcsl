@@ -1,0 +1,17 @@
+active raiden;
+raiden skill;
+for let i = 1; i <=6; i = i + 1 {
+  nahida skill, burst;
+  if .fischl.skill.ready {
+    fischl skill, attack;
+  } else {
+    fischl attack:2, burst;
+  }
+  candace burst, attack, skill, attack;
+  nahida attack:2, charge;
+  raiden attack:2, charge, attack;
+  nahida attack, skill, attack, charge;
+  raiden attack, skill, attack, charge;
+  candace attack, skill, attack;
+  nahida attack;
+}

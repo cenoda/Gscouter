@@ -1,0 +1,13 @@
+active yelan;
+for let x=0; x<4; x=x+1 {
+  yelan attack, skill, burst, attack;
+  bennett skill, burst;
+  diona skill[hold=1], attack, burst, attack;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  if .yoimiya.burst.ready {
+    yoimiya burst;
+  } else {
+    bennett dash, attack:3;
+  }
+  bennett dash, skill, attack;
+}

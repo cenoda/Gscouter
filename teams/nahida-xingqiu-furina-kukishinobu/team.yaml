@@ -1,0 +1,17 @@
+id: nahida-xingqiu-furina-kukishinobu
+name: Nahida / Xingqiu / Furina / Kukishinobu
+members:
+    - nahida
+    - xingqiu
+    - furina
+    - kuki
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/dCjMfDWBwBmK
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 69738
+    computed: "2026-10-01"

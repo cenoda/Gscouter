@@ -1,0 +1,11 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  
+  charlotte skill[hold=1], burst; 
+  
+  eula skill, attack, burst, walk, attack:4, skill[hold=1], walk[f=10], attack:4;
+  
+  raiden burst, attack:4, skill, dash, attack:4;
+}

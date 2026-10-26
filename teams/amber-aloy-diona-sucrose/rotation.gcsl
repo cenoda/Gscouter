@@ -1,0 +1,17 @@
+let rotations = 5;
+active diona;
+for let i=0; i<4; i=i+1 {
+  diona skill, burst, attack;
+  sucrose attack:2;
+  amber burst;
+  sucrose skill;
+  aloy burst, dash;
+  amber skill, aim[bunny=1], dash;
+  diona skill, dash;
+  amber aim[weakspot=1];
+  aloy skill, dash;
+  amber aim[weakspot=1];
+  aloy  aim[weakspot=1];
+  amber skill, aim[bunny=1];
+  
+}

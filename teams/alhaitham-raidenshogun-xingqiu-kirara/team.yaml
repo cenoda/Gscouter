@@ -1,0 +1,17 @@
+id: alhaitham-raidenshogun-xingqiu-kirara
+name: Alhaitham / Raidenshogun / Xingqiu / Kirara
+members:
+    - alhaitham
+    - raiden
+    - xingqiu
+    - kirara
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/pfBw8bFh6mLk
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 78905
+    computed: "2026-10-01"

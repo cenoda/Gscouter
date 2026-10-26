@@ -1,0 +1,11 @@
+active neuvillette;
+for let i=0;i<4;i=i+1 {
+neuvillette skill,burst;
+kazuha skill, high_plunge,burst;
+neuvillette charge, skill; 
+kazuha skill, high_plunge;
+neuvillette charge;
+childe burst; 
+kazuha skill[glide_cancel=1];
+neuvillette charge;
+}

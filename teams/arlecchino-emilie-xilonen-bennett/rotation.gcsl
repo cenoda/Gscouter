@@ -1,0 +1,16 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  xilonen skill, attack:2;
+  bennett skill, burst, dash; pick_up_crystallize("pyro");
+  if i && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack:2;
+  }
+  arle charge, 
+      attack:5, dash, 
+      attack:5, dash,
+      attack:5, dash,
+      attack;
+}

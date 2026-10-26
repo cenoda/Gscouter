@@ -1,0 +1,27 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle attack, skill;
+  xingqiu burst, attack;
+  zhongli skill[hold=1], dash, attack;
+  let startFrame = f();
+  while f() - startFrame < 45 {
+    while !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    }
+    if pick_up_crystallize("hydro") {
+      break;
+    }
+    wait(1);
+  }
+  yelan burst, attack;
+  xingqiu skill, dash, attack:2;
+  yelan attack, skill, attack;
+  arle charge, 
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3;
+  yelan attack, skill, attack:3;
+}

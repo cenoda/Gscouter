@@ -1,0 +1,22 @@
+active rosaria;
+for let i=0; i<4; i=i+1 {
+	rosaria skill;
+	eula skill;
+	if i {
+		eula attack;
+	}
+	layla burst, skill;
+	shenhe burst, skill;
+	rosaria skill, burst;
+	eula swap;
+    while !.eula.burst.ready {
+      if .eula.skill.ready {
+        eula skill;
+      } else {
+        eula attack;
+      }
+    }
+	eula burst, walk, attack:4, skill[hold=1], attack:4;
+	shenhe skill, attack;
+	eula attack:4;
+}

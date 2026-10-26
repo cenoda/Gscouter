@@ -1,0 +1,10 @@
+active furina;
+for let i = 0; i < 5; i = i + 1 {
+  furina  skill, dash, burst;
+  baizhu attack, skill, burst;
+  thoma skill, burst;
+  yelan skill, burst;
+  baizhu attack:3, dash, attack:3, skill, attack:3, dash, attack:3;
+  yelan  attack, skill, attack;
+  baizhu attack:4;
+}

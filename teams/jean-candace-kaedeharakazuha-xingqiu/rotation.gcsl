@@ -1,0 +1,18 @@
+active candace;
+for let i=0; i<4; i=i+1 {
+  candace attack, skill;
+  kazuha skill[hold=1], high_plunge;
+  xingqiu burst, attack, skill, dash, attack:2;
+  kazuha attack, burst;
+  candace attack, skill, burst, attack;
+  jean skill;
+  jean attack:3, charge;
+  jean attack:3, charge;
+  jean attack:3, charge;
+  kazuha attack, skill, high_plunge;
+  
+  jean attack;
+  jean skill; 
+  jean attack:3, charge;
+  print("rotation done");
+}

@@ -1,0 +1,22 @@
+active razor;
+razor skill, dash; 
+  
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  esco skill, burst;
+  
+  chongyun burst, skill;
+  
+  razor skill[hold=1], dash, attack, burst, attack, skill, dash;
+  
+  while .razor.mods.razor-q > 210 { 
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+}

@@ -1,0 +1,33 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  if i == 0 {
+    nahida skill, burst;
+  } else {
+    nahida skill, attack, burst;
+  }
+  
+  yelan skill;
+  while !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  if .fischl.burst.ready && .fischl.energy == .fischl.energymax {
+    fischl attack:2, burst;
+  } else {
+    fischl skill, attack;
+  }
+  
+  sethos attack, skill, attack; 
+  sethos burst;
+  sethos attack:2, dash,
+         attack:2, dash,
+         attack:2, dash,
+         attack:2, dash,
+         attack:2, dash,
+         attack:2, dash,
+         attack:2, dash,
+         attack:2, dash,
+         skill;
+  sethos attack, aim[hold=2]:2, attack;
+}

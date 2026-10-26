@@ -1,0 +1,10 @@
+active mavuika;  
+for let i=0; i<4; i=i+1 {
+  mavuika skill, attack;
+  bennett skill, burst;
+  citlali skill, burst, attack;
+  mavuika burst;
+  wait(17);
+  mavuika charge;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+}

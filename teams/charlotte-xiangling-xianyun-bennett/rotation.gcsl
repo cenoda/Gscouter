@@ -1,0 +1,14 @@
+active bennett;
+for let i=0; i<2; i=i+1 {
+  bennett burst, skill;
+  xiangling burst, skill, dash;
+  xianyun skill, low_plunge, burst;
+  charlotte skill;
+  for let h = 8; h > 0; h = h - 1 {
+    charlotte jump;
+    if .airborne {
+      charlotte high_plunge[collision=rand()>0.5];
+    }
+  }
+  charlotte attack:2, charge, attack:2, charge, attack:2, charge;
+}

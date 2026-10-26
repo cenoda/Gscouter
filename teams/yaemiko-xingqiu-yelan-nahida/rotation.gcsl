@@ -1,0 +1,21 @@
+active nahida;
+for let i = 0; i < 5; i = i + 1 {
+  let src = f();
+  yae skill, skill, skill;
+  nahida skill;
+  while !.nahida.burst.ready {
+    nahida attack;
+  }
+  nahida burst;
+  xingqiu skill, dash, burst, attack;
+  yae skill, attack;
+  yelan skill, attack, burst, attack;
+  yae skill, attack;
+  while f() - src < 24 * 60 {
+    if .yelan.skill.ready {
+      yelan skill, attack;
+    } else {
+      yae attack;
+    }
+  }
+}

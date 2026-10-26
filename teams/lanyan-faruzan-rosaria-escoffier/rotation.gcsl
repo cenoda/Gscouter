@@ -1,0 +1,23 @@
+active esco;
+for let i = 0; i < 4; i = i + 1 {
+  if !is_even(i) {
+    esco burst;
+  } else if i > 0 {
+    faruzan aim;
+  }
+  esco skill;
+  
+  rosaria skill, burst;
+  
+  faruzan skill, burst;
+  
+  lanyan skill:2, burst;
+  
+  faruzan aim:2, skill;
+  
+  rosaria skill;
+  
+  lanyan attack, skill:2;
+  
+  faruzan aim:2, skill, attack;
+}

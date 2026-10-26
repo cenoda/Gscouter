@@ -1,0 +1,13 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill, attack;
+  kazuha burst;
+  ororon burst;
+  kazuha skill, high_plunge;
+  ineffa skill, attack;
+  neuvillette charge, burst, skill, charge;
+  kazuha skill, high_plunge;
+  ororon skill, attack:2;
+  neuvillette charge:2;
+}
+wait(173);

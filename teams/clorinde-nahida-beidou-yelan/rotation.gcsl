@@ -1,0 +1,56 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+fn rand_counter() {
+  let counter = rand();
+  if counter > 0.80 {
+    counter = 2;
+  } else if counter > 0.7 && counter <= 0.80 {
+    counter = 1;
+  } 
+  else {
+    counter = 0;
+  }
+  
+  return counter;
+}
+active beidou; 
+beidou skill[counter=rand_counter()];
+for let i=0; i<4; i=i+1 {
+  nahida skill; 
+  if .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  if i == 0 {
+    beidou burst, attack;
+  } else {
+    beidou skill[counter=rand_counter()], burst;
+  }
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  clorinde_combo();
+  
+  beidou skill[counter=rand_counter()];
+  
+  yelan attack, skill;
+  
+  clorinde_combo();
+  
+}

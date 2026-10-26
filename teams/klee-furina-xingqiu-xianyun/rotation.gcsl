@@ -1,0 +1,33 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  if !i {
+    furina skill, dash, burst;
+  } else {
+    furina burst, skill, dash;
+  }
+  
+  xingqiu skill, burst, attack;
+  xianyun skill, low_plunge, burst;
+  klee attack, skill;
+  
+  for let p = 4; p > 0; p = p - 1 {
+    let col = rand();
+    let col2 = rand();
+    
+    klee attack, charge, jump;
+    if .airborne {
+      klee low_plunge[collision=rand()>0.5];
+    }
+    
+    klee attack, jump;
+    if .airborne {
+      klee low_plunge[collision=rand()>0.5];
+    }
+  }
+  
+  klee attack, charge, attack, charge, attack;
+  if !i {
+    furina attack;
+  } 
+}
+wait(30);

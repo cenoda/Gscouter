@@ -1,0 +1,22 @@
+active fischl;
+for let i=0; i<6; i=i+1 {
+  fischl skill, attack;    
+  nahida burst, skill, attack;
+  
+  xingqiu skill, dash, burst, attack;
+ while !.xingqiu.mods.favonius-cd && 
+  !.fischl.burst.ready {
+   xingqiu attack;
+  } 
+  
+  fischl attack:2, burst;
+  
+   razor skill, dash, attack, burst,
+      attack:3, skill, dash,
+      attack:3, dash,
+      attack:3, dash,
+      attack:3, skill, dash,
+      attack:3, dash,
+      attack:3, dash,
+      attack:3, skill, dash, attack;
+}

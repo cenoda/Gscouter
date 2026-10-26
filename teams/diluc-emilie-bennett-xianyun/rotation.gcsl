@@ -1,0 +1,27 @@
+active diluc; 
+diluc skill;
+for let i = 0; i < 4; i = i + 1 {
+  
+  if i > 0 && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie attack, skill;
+  }
+  
+  xianyun skill, high_plunge, attack, burst;
+  
+  bennett skill, burst;
+  
+  xianyun attack:2; sleep(20);
+  
+  if .diluc.burst.ready {
+    diluc burst;
+  }
+  for let h=0; h<8; h=h+1 {
+    diluc jump;
+    if .airborne {
+      diluc high_plunge[collision=rand()>0.50], dash;
+    }
+  }
+  diluc skill:3;
+}

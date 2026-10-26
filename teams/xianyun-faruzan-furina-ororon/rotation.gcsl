@@ -1,0 +1,47 @@
+fn xianyunCombo() {
+  if .xianyun.status.xianyun-airborne-buff {
+    
+    xianyun jump;
+    if .airborne {
+      xianyun low_plunge[collision=rand()>0.5], attack;
+    }
+  } else {
+    
+    if .xianyun.normal > 2 && .xianyun.dash.ready {
+      xianyun dash;
+    } else {
+      xianyun attack;
+    }
+  }
+}
+active ororon;
+for let i=0; i<4; i=i+1 {  
+  ororon skill, burst;
+  while !.ororon.mods.favonius-cd {
+    ororon attack;
+  }
+  
+  furina skill, dash, burst;
+  
+  faruzan skill, burst;
+  while !.faruzan.mods.favonius-cd {
+    faruzan attack;
+  }
+  
+  xianyun skill, low_plunge, burst;
+  
+  while .xianyun.status.xianyun-airborne-buff {
+    if .xianyun.status.xianyun-airborne-buff {
+      
+      xianyun jump;
+      if .airborne {
+        xianyun low_plunge[collision=rand()>0.5];
+      } 
+      if .xianyun.status.xianyun-airborne-buff {
+        xianyun attack;
+      }
+    }
+  }
+  
+  print("done");
+}

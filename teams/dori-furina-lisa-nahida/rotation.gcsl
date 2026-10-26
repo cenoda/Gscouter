@@ -1,0 +1,31 @@
+active lisa;
+for let i=0; i<4; i=i+1 {
+  if .nahida.skill.ready {
+    nahida skill;
+  }
+  nahida burst;
+  if i > 0 {
+    nahida attack, charge;
+  }
+  
+  furina skill, dash, burst;
+  
+  dori skill, attack:2, dash, attack:2, burst;
+  
+  lisa burst, skill[hold=1];
+  lisa attack:1;
+
+  while .furina.mods.furina-burst {
+    if .dori.skill.ready && .dori.swap.ready {
+      dori skill;
+    } else if .dori.normal > 2 && .stam > 18 {
+      dori dash;
+    } else if .dori.infusion.dori-c6 {
+      dori attack;
+    } else if .nahida.skill.ready {
+      nahida skill;
+    } else {
+      nahida attack, charge;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+id: wriothesley-kaeya-shenhe-xilonen
+name: Wriothesley / Kaeya / Shenhe / Xilonen
+members:
+    - wrio
+    - kaeya
+    - shenhe
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/qBdTbGRHtN78
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 41040
+    computed: "2026-10-01"

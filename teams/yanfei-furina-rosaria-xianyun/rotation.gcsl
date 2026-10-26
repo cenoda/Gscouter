@@ -1,0 +1,23 @@
+active furina;
+for let x = 0; x < 4; x = x + 1 {
+  furina skill, dash, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  rosaria skill, burst;
+  
+  yanfei skill;
+  
+  while .yanfei.status.xianyun-airborne-buff {
+    
+    yanfei jump;
+    if !.element.t0.frozen || !.element.t0.cryo || !.element.t0.hydro {
+      wait(16);
+    }
+    if.airborne{
+      yanfei high_plunge[collision=rand()>0.5], dash;
+    }
+  }
+  yanfei skill, charge;
+  
+}

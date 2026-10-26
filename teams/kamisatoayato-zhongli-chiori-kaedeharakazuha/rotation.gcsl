@@ -1,0 +1,15 @@
+active ayato;
+for let i=1; i<=6; i=i+1 {
+  let is_rotation_even = (i / 2 * 2 == i); 
+  if !is_rotation_even { 
+    ayato burst;
+  }
+  zhongli attack, skill[hold=1];
+  if is_rotation_even {
+    chiori burst, attack; 
+  }
+  chiori skill, skill;
+  kazuha skill, high_plunge, burst;
+  ayato skill, attack:15;
+  kazuha attack, skill, high_plunge;
+}

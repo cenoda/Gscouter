@@ -1,0 +1,16 @@
+active neuv;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  furina attack, skill, dash, attack;
+  jean skill, attack;
+  luminepyro skill[hold=1], burst;
+  furina burst;
+  jean burst;
+  neuvillette charge, skill, charge, burst;
+  jean skill, attack;
+  if !.jean.mods.favonius-cd {
+    jean attack;
+  }
+  neuvillette charge, charge; 
+}
+wait(173);

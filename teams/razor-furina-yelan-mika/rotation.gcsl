@@ -1,0 +1,40 @@
+active furina;
+  
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  while !.furina.burst.ready && .furina.energy != .furina.energymax {
+    furina attack;
+  }
+  furina burst;
+  
+  mika burst;
+  
+  yelan skill, burst, attack;
+
+  mika skill, attack;
+
+  while !.razor.mods.razor-q {
+    if .razor.skill.ready && .razor.burst.ready  && .razor.energy == .razor.energymax {
+      razor skill, dash, attack, burst;
+    } else if .razor.burst.ready && .razor.energy == .razor.energymax {
+      razor burst;
+    } else if .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+  
+  while .razor.mods.razor-q > 400 {
+  
+    if .razor.normal > 3 && .razor.skill.ready {
+        razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+id: fischl-furina-rosaria-mika
+name: Fischl / Furina / Rosaria / Mika
+members:
+    - fischl
+    - furina
+    - rosaria
+    - mika
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/n9TMqtq8jLDF
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 43817
+    computed: "2026-10-01"

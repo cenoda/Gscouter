@@ -1,0 +1,14 @@
+active xilonen;
+for let i=0; i<4; i=i+1 {
+  xilonen skill, attack:2, burst;
+  furina skill, attack, burst;
+  yelan burst, attack;
+  xilonen skill, attack:2;
+  yelan skill, attack;
+  wrio  skill,
+        attack:5, charge, dash,
+        attack:5, charge, dash,
+        attack:5, charge, dash;  
+
+  yelan attack, skill, attack:2;
+}

@@ -1,0 +1,15 @@
+active furina;
+ furina skill, dash, burst;
+for let i=0; i<4; i=i+1 {
+if i {furina burst, skill;}
+kazuha burst;
+sleep(9);
+bennett burst, skill;
+kazuha skill, high_plunge;
+yoimiya skill, attack:5, dash,
+               attack:5, dash,
+               attack:5;
+      
+kazuha skill, high_plunge;
+bennett attack, skill;
+}

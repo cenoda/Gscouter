@@ -1,0 +1,17 @@
+id: yoimiya-yelan-furina-xilonen
+name: Yoimiya / Yelan / Furina / Xilonen
+members:
+    - yoimiya
+    - yelan
+    - furina
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/WT6Cj9GghwtC
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 67155
+    computed: "2026-10-02"

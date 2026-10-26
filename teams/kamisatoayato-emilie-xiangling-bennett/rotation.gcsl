@@ -1,0 +1,15 @@
+active emilie;
+for let i=0; i<4; i=i+1 {
+  emilie attack, skill;
+  bennett burst, skill;
+  xiangling burst, skill, dash;
+  ayato attack, skill, attack:15;
+  if .emilie.burst.ready {
+    emilie burst;
+  } else {
+    ayato burst;
+  }
+  bennett skill, attack;
+  xiangling attack:3, skill, dash;
+  ayato skill, attack:15;
+}

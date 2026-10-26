@@ -1,0 +1,20 @@
+active cyno;
+cyno skill;
+for let i=0; i<4; i=i+1 {
+  xilonen skill, attack:2, skill;
+  
+  furina skill, dash, attack, burst, attack:2;
+  citlali skill, burst;
+  xilonen skill, attack:2;
+  pick_up_crystallize("electro"); 
+  cyno skill, burst;
+   while .cyno.burst.cd> 430 {
+   if .cyno.skill.ready {
+      cyno skill;
+    } else if .cyno.normal == 5 {
+      cyno dash;
+    } else {
+      cyno attack;
+    }
+  }
+}

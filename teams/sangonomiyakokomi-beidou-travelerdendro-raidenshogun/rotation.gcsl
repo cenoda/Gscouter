@@ -1,0 +1,27 @@
+active raiden;
+raiden skill, attack;
+kokomi attack, skill;
+for let i = 0; i < 5; i = i + 1 {
+  let t = f();
+  beidou skill[counter=1], burst, attack;
+  aetherdendro skill, attack, burst, attack;
+  kokomi attack, burst,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+	attack:2, charge, jump,
+	attack:2, charge, jump,
+	attack:2;
+  aetherdendro skill, attack:3;
+  if (i == 0) {
+	while (f() < t + 18*60){
+	  kokomi attack:2, charge, jump; 
+	}
+  } else {
+	while (f() < t + 17*60){
+	  kokomi attack:2, charge, jump; 
+	}
+  }
+  print("done"); 
+  kokomi skill;
+  raiden skill;
+}

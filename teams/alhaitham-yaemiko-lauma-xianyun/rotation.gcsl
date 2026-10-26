@@ -1,0 +1,33 @@
+let farColl = 0.5; 
+let closeColl = 0.3; 
+fn alhaitham_plunge(collision) {
+  haitham jump;
+  if .airborne {
+    haitham high_plunge[collision=rand()>collision];
+  }
+}
+  
+active yae;
+for let i = 0; i < 4; i = i + 1 {
+  yae skill:3;  
+  
+  lauma attack, skill;
+  
+  xianyun skill, low_plunge, burst;
+  
+  haitham skill[hold=1], low_plunge[short=1];
+  haitham attack:1; alhaitham_plunge(closeColl);
+  haitham attack:1; alhaitham_plunge(closeColl);
+  haitham attack:1; alhaitham_plunge(closeColl);
+  haitham attack:1; alhaitham_plunge(closeColl);
+  haitham attack:1; alhaitham_plunge(closeColl);
+  haitham attack:1; alhaitham_plunge(closeColl);
+  haitham attack:1; alhaitham_plunge(closeColl);
+  if .haitham.burst.ready {
+    haitham burst;
+  } else if .yae.burst.ready {
+    yae burst;
+  } else {
+    haitham attack, charge;
+  }
+}

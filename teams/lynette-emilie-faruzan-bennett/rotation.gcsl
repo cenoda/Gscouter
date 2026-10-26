@@ -1,0 +1,27 @@
+active emilie;
+for let i = 0; i < 4; i = i + 1 {
+  if i && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  
+  bennett skill, burst;
+  
+  faruzan skill, burst;
+  
+  lynette burst, skill, 
+  attack:2, charge, 
+  attack:2, charge,
+  attack;
+  
+  bennett skill;
+  
+  faruzan aim:2;
+
+  lynette skill, attack, charge, 
+  
+  attack, charge,
+  attack, charge,
+  attack, charge;
+}

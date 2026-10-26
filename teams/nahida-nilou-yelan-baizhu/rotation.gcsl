@@ -1,0 +1,15 @@
+active nilou;
+for let r = 0; r < 5; r = r + 1 {
+  nilou skill, attack:2, skill;
+  nahida skill, attack, burst;
+  baizhu skill, burst;
+  while !.baizhu.mods.favonius-cd {
+    baizhu attack;
+  }
+  yelan  burst, attack, skill, attack:4, dash, attack:4, dash, attack:3;
+  baizhu attack, skill, attack:2;
+  while !.baizhu.mods.favonius-cd {
+    baizhu attack;
+  }
+  yelan attack:4, dash, attack:2, skill;
+}

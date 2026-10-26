@@ -1,0 +1,10 @@
+active raiden;
+for let i=0; i<4; i=i+1 {
+    if !i {
+        raiden skill;
+    }
+    yelan skill, burst, attack;
+    bennett skill, attack, burst;
+    chevreuse attack, burst, attack, skill[hold=1], attack, skill[hold=1], attack:2, skill[hold=1]; 
+    raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+}

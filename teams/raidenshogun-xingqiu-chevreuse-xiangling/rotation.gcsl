@@ -1,0 +1,9 @@
+active raiden;
+raiden skill;
+for let x=0; x<5; x=x+1 {
+  xingqiu skill,dash,burst,attack;
+  chevreuse burst,attack,skill[hold=1],skill[hold=1];
+  xiangling attack:4, burst, attack, skill, dash; 
+  chevreuse attack:2; 
+  raiden attack, burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+}

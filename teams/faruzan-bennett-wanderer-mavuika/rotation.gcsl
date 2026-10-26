@@ -1,0 +1,23 @@
+active faruzan;
+for let i = 0; i < 1; i = i + 1 {
+  faruzan burst;
+  
+  bennett burst;
+  
+  mavuika skill, burst;
+  
+  wanderer attack:1, burst;
+  wanderer skill, attack, charge;	
+  while .wanderer.skydweller-points > 3 {
+    if .wanderer.normal < 3 {
+      wanderer attack;
+    } else if .wanderer.mods.wanderer-a4 {
+      wanderer dash;
+    } else if .wanderer.skydweller-points > 2 {
+      wanderer charge;
+    } else {
+      wanderer attack;
+    }
+  }
+  wanderer skill;
+}

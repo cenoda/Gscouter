@@ -1,0 +1,22 @@
+active fischl;
+for let i=0; i<4; i=i+1 {
+  fischl attack:2, skill;
+  faruzan skill, aim, burst;
+  bennett attack, skill, burst;
+  sucrose skill;
+  
+  if  .sucrose.burst.ready {
+       sucrose burst;
+  } 
+  sucrose attack:2, charge,
+          attack:2, charge,
+          attack:2, charge;
+  fischl attack:2, burst;
+  sucrose skill, 
+          attack:2, charge,
+          attack:2, charge;
+  faruzan skill, aim, attack:2;
+  bennett skill, attack:3;
+  faruzan aim, attack:2;
+  bennett skill;
+}

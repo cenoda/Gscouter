@@ -1,0 +1,15 @@
+active shenhe;
+for let x = 0; x < 6; x = x + 1 {
+	shenhe skill, burst;
+	kokomi attack, skill;
+	ganyu skill, burst, aim[weakspot=1];
+	venti skill, burst;
+	shenhe skill, attack;
+	if !.shenhe.mods.favonius-cd {
+		shenhe attack;
+	}
+    kokomi burst;
+    ganyu aim, skill, aim[weakspot=1]:1, attack;
+    venti skill,attack;
+    ganyu attack, aim[weakspot=1], attack;
+}

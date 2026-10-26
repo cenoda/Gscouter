@@ -1,0 +1,9 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  zhongli attack, skill[hold=1], dash;
+  nahida skill, burst;
+  venti skill, burst;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  zhongli burst;
+}

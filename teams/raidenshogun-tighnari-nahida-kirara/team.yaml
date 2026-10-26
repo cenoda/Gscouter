@@ -1,0 +1,17 @@
+id: raidenshogun-tighnari-nahida-kirara
+name: Raidenshogun / Tighnari / Nahida / Kirara
+members:
+    - raiden
+    - tighnari
+    - nahida
+    - kirara
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/CJPWQM78P8DQ
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 46797
+    computed: "2026-09-30"

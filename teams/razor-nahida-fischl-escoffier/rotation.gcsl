@@ -1,0 +1,37 @@
+active razor; 
+amy skill, attack;
+for let i=0; i<4; i=i+1 {
+  nahida skill;
+  if i > 0 && .nahida.burst.ready {
+    nahida burst, attack, charge;
+  } else {
+    nahida attack, charge;
+  }
+  
+  esco skill;
+  if .esco.weapon == .keys.weapon.favspear {
+    esco burst;
+  } else if .esco.burst.ready {
+    esco burst;
+  }
+  
+  if .amy.burst.ready {
+    amy attack:2, burst;
+  } else {
+    amy attack:1, skill;
+  }
+
+  razor skill, dash, attack, burst, attack, skill, dash;
+  
+  while .razor.mods.razor-q > 210 { 
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+  
+  print("done");
+}

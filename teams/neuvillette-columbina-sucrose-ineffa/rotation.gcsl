@@ -1,0 +1,19 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  columbina burst, skill;
+  ineffa skill, attack;           wait(15);  
+  sucrose attack:2, skill, dash;
+  if .sucrose.burst.ready {
+    sucrose burst, attack:2;
+  } else {
+    sucrose attack:2, charge;
+  }
+  neuvillette charge, burst, skill, charge;
+  if is_even(i) {
+    ineffa burst;
+  }
+  sucrose attack, skill, dash;    wait(15);  
+  neuvillette charge:2;
+}
+wait(173);

@@ -1,0 +1,32 @@
+active gorou;
+for let i = 0; i < 4; i = i + 1 {
+  if i > 0 {
+    
+    xilonen skill, attack:2;
+    
+  }
+  
+  bennett skill; 
+  gorou attack, skill;
+  xilonen burst;
+  gorou attack, burst;
+  bennett skill, burst;
+  xilonen skill, attack:2; 
+  
+  if i == 0 {
+
+    itto attack, burst[prestack=1],
+         attack, skill,
+         attack:2, charge:5,
+         attack:4, charge:5, skill[travel=0], charge;
+         sleep(21); 
+    
+  } else {
+
+    itto attack, burst[prestack=1],
+         attack, skill, charge:4,
+         attack:3, charge:4,
+         attack:3, skill, charge:4; 
+    
+  }
+}

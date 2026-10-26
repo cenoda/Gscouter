@@ -1,0 +1,17 @@
+id: kinich-mavuika-bennett-emilie
+name: Kinich / Mavuika / Bennett / Emilie
+members:
+    - kinich
+    - mavuika
+    - bennett
+    - emilie
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/MQc9TwDcB7Dq
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 89065
+    computed: "2026-10-02"

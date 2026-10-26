@@ -1,0 +1,12 @@
+active ayaka;
+for let x=0; x<5; x=x+1 {
+  ayaka dash, skill;
+  kazuha skill, high_plunge, burst;
+  ganyu skill, burst;
+  mona burst, skill;
+  ayaka dash, skill, burst;
+  kazuha skill, high_plunge;
+  ganyu skill, aim[weakspot=1]:3;
+  ayaka swap;
+  print("done");
+}

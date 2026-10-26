@@ -1,0 +1,29 @@
+active lyney;
+for let i=0; i<4; i=i+1 {
+  lyney aim[weakspot=1];
+  
+  nahida skill, burst;
+  
+  kazuha skill, high_plunge;
+  
+  bennett skill, burst;
+  
+  kazuha burst;
+  
+   lyney aim[weakspot=1], aim, aim[weakspot=1];
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(15); 
+    lyney skill;
+  }
+  else {
+    lyney aim, aim[weakspot=1];
+  }
+      
+  lyney skill;
+  
+  kazuha skill, high_plunge;
+  
+  bennett skill;
+ 
+}

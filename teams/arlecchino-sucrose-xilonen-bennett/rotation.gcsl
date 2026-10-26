@@ -1,0 +1,20 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  bennett swap;  delay(12); 
+  bennett skill, burst;
+  xilonen skill, attack:2;
+  sucrose skill, dash;
+  if ( i / 2 ) * 2 == i {
+    sucrose burst;
+  } else {
+    sucrose attack;
+  }
+  arle attack, charge, 
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:4;
+}

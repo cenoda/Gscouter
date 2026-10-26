@@ -1,0 +1,11 @@
+active nahida;
+for let x=0; x<4; x=x+1 {
+  nahida skill, burst, attack;
+  kokomi attack:2, skill;
+  furina skill, burst, attack;
+  kuki attack, skill;
+  kokomi attack, burst;
+  while .kokomi.skill.cd > 165 {
+    kokomi attack:2, dash, walk[f=2];
+  }
+}

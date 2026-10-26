@@ -1,0 +1,35 @@
+active lauma;
+lauma attack;
+for let i=0; i<6; i=i+1 {
+  
+  if .columbina.burst.ready {
+    columbina burst;
+  } 
+  columbina skill;
+  
+  ineffa skill;
+  
+  if .barbara.skill.ready {
+    barbara skill, attack;
+  } else {
+    barbara attack, charge;
+  }
+  
+  lauma attack, skill[hold=.dew>0], burst;
+  
+  columbina attack, charge, dash, charge, dash, charge;
+  
+  if .barbara.skill.ready {
+    barbara skill, attack;
+  } else {
+    barbara attack, charge;
+  }
+  
+  columbina attack, charge, dash;
+  columbina attack, charge, dash;
+  columbina attack, charge;
+  while .columbina.skill.cd > 30 && !.columbina.burst.ready {
+    columbina attack;
+  } 
+}
+columbina dash, attack;

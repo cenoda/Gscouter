@@ -1,0 +1,21 @@
+active razor; 
+if .chongyun.sets.scroll > 4 { 
+  razor skill, dash; 
+}
+  
+for let i=0; i<4; i=i+1 {
+  esco skill;
+  
+  chongyun burst, skill;
+  
+  nicole skill, burst;
+  
+  razor skill[hold=0], dash, attack, burst;
+  razor attack:3, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:1, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+}

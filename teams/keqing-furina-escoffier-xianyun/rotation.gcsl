@@ -1,0 +1,53 @@
+fn KeqingPlunge() {
+  keqing jump;
+  if .airborne {
+    keqing high_plunge[collision=rand()>0.5];
+  }
+}
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  if i > 0 && .esco.burst.ready && .esco.energy == .esco.energymax {
+    esco burst;
+  }
+  esco skill;
+  
+  xianyun skill, low_plunge, burst;
+  
+  keq skill;
+  keqing attack, charge;
+  
+  while .keqing.status.xianyun-airborne-buff {
+    if .previous-action == .action.skill {
+      keqing attack, charge;
+    } else {
+      KeqingPlunge();
+      if .keqing.skill.ready {
+        keqing skill;
+      } else if !.keqing.status.xianyun-airborne-buff { 
+        keqing attack;
+      } else {
+        keqing dash;
+      }
+    }
+  }
+  
+  while .furina.skill.cd {
+    if .keqing.skill.ready && .previous-action != .action.skill { 
+      keqing skill;
+    } else if .keqing.burst.ready && .stam < 25 { 
+      keqing burst;
+    } else if .keqing.normal > 1 && .stam > 25 { 
+      keqing charge;
+    } else if .keqing.normal == 5 && .stam > 25 { 
+      keqing dash;
+    } else {
+      keqing attack;
+    }
+  }
+}

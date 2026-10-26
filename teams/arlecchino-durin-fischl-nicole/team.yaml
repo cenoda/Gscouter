@@ -1,0 +1,17 @@
+id: arlecchino-durin-fischl-nicole
+name: Arlecchino / Durin / Fischl / Nicole
+members:
+    - arle
+    - durin
+    - fischl
+    - nicole
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/9tJ9DWWWwWKt
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 98054
+    computed: "2026-10-01"

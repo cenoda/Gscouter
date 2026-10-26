@@ -1,0 +1,24 @@
+active gaming; 
+gaming skill, low_plunge;
+for let i=0; i<4; i=i+1 {
+  xilonen skill, attack:2;
+  
+  xianyun skill, low_plunge, burst;
+  
+  rosaria skill, burst;
+  
+  gaming burst;
+  wait(45);
+  for let p=0; p<4; p=p+1 {
+    gaming skill;
+    wait(20);
+    gaming low_plunge;
+  }
+  for let p=0; p<2; p=p+1 {
+    gaming skill;
+    wait(40);
+    gaming high_plunge;
+  }
+  gaming skill, high_plunge;
+  gaming dash;
+}

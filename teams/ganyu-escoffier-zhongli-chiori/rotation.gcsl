@@ -1,0 +1,40 @@
+fn ganyuAim() {
+  if .ganyu.weapon == .keys.weapon.crescent { 
+    ganyu aim[hold=2, weakspot=rand()>0.5];
+  } else { 
+    ganyu aim[hold=2];
+  }
+}
+active chiori;
+for let i=0; i<4; i=i+1 {
+  if i > 0 && .esco.burst.ready {
+    esco burst;
+  }
+  esco skill;
+  
+  if i == 0 && .zl.sets.ap >= 4 { 
+    zl skill[hold=1], dash, attack:2, dash; pick_up_crystallize("any"); 
+  } else {
+    zl attack, skill[hold=1], dash; pick_up_crystallize("any"); 
+  }
+  
+  if .chiori.skill.cd && .chiori.burst.ready {
+    chiori burst;
+  }
+  chiori skill:2;
+  
+  ganyu skill;
+  if .ganyu.burst.ready {
+    ganyu burst;
+  } else {
+    ganyuAim();
+  }
+  ganyuAim();
+  ganyuAim();
+  ganyuAim();
+  ganyuAim();
+  ganyuAim();
+  if i > 0 && .chiori.burst.cd {
+    ganyu aim;
+  }
+}

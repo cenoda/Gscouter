@@ -1,0 +1,21 @@
+active barbara;
+for let i=0; i<4; i=i+1 {
+  if .barbara.skill.ready {
+    barbara attack:3, skill, dash;
+  } else {
+    barbara attack:4;
+  }
+  collei skill, burst;
+  yunjin attack, skill, burst;
+  cyno skill, burst;
+  while .cyno.burst.cd > 460 {
+    if .cyno.skill.ready {
+      cyno skill;
+    } else if .cyno.normal == 5 {
+      cyno dash;
+    } else {
+      cyno attack;
+    }
+  }
+  print("end");
+}

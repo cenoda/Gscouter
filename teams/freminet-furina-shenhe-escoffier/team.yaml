@@ -1,0 +1,17 @@
+id: freminet-furina-shenhe-escoffier
+name: Freminet / Furina / Shenhe / Escoffier
+members:
+    - freminet
+    - furina
+    - shenhe
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/79bFBDmqjQnT
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 72771
+    computed: "2026-10-02"

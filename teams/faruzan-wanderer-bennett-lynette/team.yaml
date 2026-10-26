@@ -1,0 +1,17 @@
+id: faruzan-wanderer-bennett-lynette
+name: Faruzan / Wanderer / Bennett / Lynette
+members:
+    - faruzan
+    - wanderer
+    - bennett
+    - lynette
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/jC8krPfgPmKh
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 55540
+    computed: "2026-10-02"

@@ -1,0 +1,20 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+	pick_up_crystallize("any"); 
+  }
+	
+  return _execute_action(char_id, action_id, p);
+}
+active navia;
+for let x=0; x<3; x=x+1 {
+  navia burst;
+  zhongli skill[hold=1], dash, attack;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  chiori skill:2;
+  mona skill,burst;
+  navia skill[hold=1], attack:2, dash, attack:2, skill[hold=1];
+  navia attack:2, dash, attack:2, dash, attack:2;
+}

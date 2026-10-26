@@ -1,0 +1,16 @@
+active mavuika;
+mona attack, skill;
+for let i = 0; i < 6; i = i + 1 {
+  nicole skill, burst;
+  xilonen skill, attack:2;
+  mona burst, attack;
+  mavuika burst, charge, skill;
+  mona charge;
+  xilonen attack:1, skill, attack:2;
+  mona charge, jump,
+         charge, jump,
+         charge, jump,
+         charge, attack;
+  mona attack, skill, attack;
+  
+}

@@ -1,0 +1,19 @@
+active freminet; 
+for let i=0; i<4; i=i+1 {
+  xingqiu skill, dash, burst, attack;
+  
+  nahida skill, attack, charge; 
+  
+  kuki skill;
+  if .kuki.burst.ready && .kuki.energy == .kuki.energymax {
+    kuki burst;
+  } else {
+    kuki attack;
+  }
+
+  freminet skill, attack, burst,
+          attack:2, skill, attack, skill,
+          attack:2, skill, attack, skill,  
+          attack:2, skill, attack, skill,
+          attack:3, skill; 
+}

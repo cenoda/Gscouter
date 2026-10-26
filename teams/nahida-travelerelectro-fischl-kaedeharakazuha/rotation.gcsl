@@ -1,0 +1,19 @@
+active fischl;
+  fischl aim;
+  kazuha skill, high_plunge, burst;
+for let i=0; i<4; i=i+1 {
+  fischl skill;
+  nahida skill, burst;
+  kazuha skill, high_plunge;
+  lumineelectro skill, dash, burst, attack:2;
+  fischl burst;
+  nahida attack:2, skill,
+    attack:3, dash,
+    attack:3, dash,
+    attack:3, dash,
+    attack:2, dash,
+    attack:2, dash, skill;
+  lumineelectro skill, attack:2;
+  kazuha skill, high_plunge, burst;
+  print("done!");
+}

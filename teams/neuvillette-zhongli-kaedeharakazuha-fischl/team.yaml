@@ -1,0 +1,17 @@
+id: neuvillette-zhongli-kaedeharakazuha-fischl
+name: Neuvillette / Zhongli / Kaedeharakazuha / Fischl
+members:
+    - neuvillette
+    - zhongli
+    - kazuha
+    - fischl
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/NJLpFKj6LPPd
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 64396
+    computed: "2026-10-02"

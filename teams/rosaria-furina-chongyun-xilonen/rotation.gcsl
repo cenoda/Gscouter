@@ -1,0 +1,26 @@
+active xilonen;
+for let i=0; i<4; i=i+1 {
+  xilonen burst;
+  
+  furina skill, dash, burst;
+  
+  chongyun burst, skill;
+  
+  xilonen attack, skill, attack:2;
+  
+  rosaria skill, burst;
+  while .furina.skill.cd > 120 {
+    switch {
+      case .rosaria.skill.ready:
+        rosaria skill;
+      case .rosaria.normal > 2 && .stam > 43:
+        rosaria charge, dash;
+      case .rosaria.normal > 2 && .stam > 18:
+        rosaria dash;
+      default:
+        rosaria attack;
+    }
+  }
+  
+  xilonen skill, attack:2;
+}

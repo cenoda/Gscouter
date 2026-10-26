@@ -1,0 +1,23 @@
+active furina;
+for let i = 0; i < 5; i = i + 1 {
+  furina skill, burst;
+  xilonen burst;
+  bennett burst, skill;
+  xilonen skill, attack:2;
+  bennett skill, dash; pick_up_crystallize("pyro"); 
+  klee attack, burst, walk,
+       attack[travel=6], charge,
+       attack[travel=6], charge, 
+       attack[travel=6], skill[bounce=3, mine=8], jump,
+       attack[travel=6], charge;
+  if .klee.skill.ready {
+    klee attack, skill[bounce=3, mine=8], jump;
+  }
+  klee attack[travel=6], charge, 
+       attack[travel=6], charge, 
+       attack[travel=6], charge,
+       attack[travel=6], charge,
+       attack;
+  
+  xilonen skill, attack:2;
+}

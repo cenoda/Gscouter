@@ -1,0 +1,33 @@
+fn rand_counter() {
+  let counter = rand();
+  if counter > 0.80 {
+    counter = 2;
+  } else if counter > 0.7 && counter <= 0.80 {
+    counter = 1;
+  } 
+  else {
+    counter = 0;
+  }
+  
+  return counter;
+}
+active beidou; 
+for let i=0; i<4; i=i+1 {
+  fischl attack, skill;
+
+  if .chev.burst.ready {
+    chev burst, skill[hold=1]:2;
+  } else {
+    chev skill[hold=1], attack;
+  }
+  
+  beidou skill[counter=rand_counter()], burst;
+  
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5;
+  
+  fischl attack:2, burst;
+  
+  beidou skill[counter=rand_counter()];
+  
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:3, burst;
+}

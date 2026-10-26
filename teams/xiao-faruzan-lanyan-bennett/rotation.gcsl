@@ -1,0 +1,27 @@
+active faruzan;
+for let i=0; i<4; i=i+1 {
+  faruzan skill, burst;
+  while !.faruzan.mods.favonius-cd {
+    faruzan attack;
+  }
+  
+  bennett skill, burst;
+  if .bennett.weapon == .keys.weapon.favoniussword && !.bennett.mods.favonius-cd {
+    bennett attack;
+  }
+  
+  lanyan skill:2;
+  if !is_even(i) && .lanyan.skill.ready {
+    lanyan skill:2;
+  } else {
+    lanyan attack; 
+    if .lanyan.weapon != .keys.weapon.favoniuscodex {
+      lanyan dash;
+    }
+  }
+  
+  xiao skill:2, burst;
+  for let h = 12; h > 0; h = h - 1 {
+    xiao jump, high_plunge[collision=rand()>0.5];
+  }
+}

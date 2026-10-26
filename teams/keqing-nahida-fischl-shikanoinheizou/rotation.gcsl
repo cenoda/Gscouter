@@ -1,0 +1,25 @@
+active fischl;
+for let i=0; i<3; i=i+1 {
+  if i {
+    fischl attack:2;
+  }
+  fischl burst;
+  nahida skill, attack;
+  heizou attack, charge, burst, skill; 
+  keqing skill, burst, skill,
+    attack, charge,
+    attack, charge,
+    attack, skill;
+  keqing attack, charge;
+  keqing attack;
+
+  nahida skill, attack, charge;
+  fischl skill, attack;
+  heizou attack, charge, burst, skill; 
+  keqing skill, burst, skill,
+    attack, charge,
+    attack, charge,
+    attack, skill;
+  keqing attack, charge;
+  keqing attack;
+}

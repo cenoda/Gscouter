@@ -1,0 +1,21 @@
+active herexcellencythealmightynarukamiogoshogodofthunder ;
+ herexcellencythealmightynarukamiogoshogodofthunder skill;
+for let i=0; i<5; i=i+1 {
+ {
+ if .xingqiu.burst.ready {
+    xingqiu  skill, dash, burst, attack;
+  } else {
+	xingqiu attack, skill, dash, burst, attack;
+  }
+  sucrose burst, attack, charge;
+  fischl attack:2,  burst;
+  herexcellencythealmightynarukamiogoshogodofthunder attack, burst, 
+         attack:4, dash,
+         attack:4, skill,
+         attack:4, dash,
+         attack:4;      
+  sucrose attack, skill, dash, attack:2, charge, attack:2, charge;
+  fischl attack, skill, attack;
+  sucrose attack, skill, dash, attack:2, charge, attack:2;
+}
+}

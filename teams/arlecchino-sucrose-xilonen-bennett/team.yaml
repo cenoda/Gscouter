@@ -1,0 +1,17 @@
+id: arlecchino-sucrose-xilonen-bennett
+name: Arlecchino / Sucrose / Xilonen / Bennett
+members:
+    - arle
+    - sucrose
+    - xilonen
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/tMpLHpWpJ7mw
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 78103
+    computed: "2026-10-01"

@@ -1,0 +1,29 @@
+active charlotte;
+charlotte attack;
+for let i=0; i<4; i=i+1 {
+  xianyun skill, low_plunge, burst;
+  
+  bennett skill, burst;
+  
+  jean skill, burst;
+
+  let j=0;
+  while .xianyun.status.xianyun-airborne-buff {
+    if .xianyun.status.xianyun-airborne-buff {
+      charlotte jump;
+      if .airborne {
+        charlotte high_plunge[collision=rand()>0.5];
+        j = j + 1;
+      }
+      if j < 2 { 
+        charlotte attack;
+      } else if j == 8 {
+        charlotte attack;
+      } else {
+        charlotte dash;
+      }
+    }
+  }
+  charlotte charge, dash, skill[hold=1];
+  jean skill;
+}

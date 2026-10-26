@@ -1,0 +1,16 @@
+active furina;
+for let r=0; r<5; r=r+1 {
+  furina skill, dash, burst;
+  xianyun skill, low_plunge, burst;
+  faruzan burst;
+  heizou attack, charge, burst, skill;
+  for let p=0; p<8; p=p+1 {
+    if .heizou.status.xianyun-airborne-buff {
+      heizou jump;
+    }
+    if .airborne {
+      heizou high_plunge[collision=1], dash;
+    }
+  }
+  heizou attack, charge, skill;
+}

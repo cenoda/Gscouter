@@ -1,0 +1,27 @@
+active eula;
+for let x = 0; x < 4; x = x + 1 {
+  furina skill, dash, burst;
+  while !.furina.mods.favonius-cd {
+    furina attack;
+  }
+  fischl attack;
+  if .fischl.burst.ready && .fischl.energy == .fischl.energymax  {
+    fischl burst; 
+  } else {
+    fischl skill;
+  }
+  eula skill, attack;
+  xianyun attack, skill, low_plunge, burst;
+  if .eula.burst.ready && .eula.energy == .eula.energymax  {
+    eula burst;
+  } else {
+    eula attack:2;
+  }
+  eula skill[hold=1], attack:2;
+  for let h = 8; h > 0; h = h - 1 {
+    eula jump;
+    if .airborne {
+      eula high_plunge[collision=rand()>0.5], dash;
+    }
+  }
+}

@@ -1,0 +1,57 @@
+fn rand_delay(mean, stddev) {
+  let del = randnorm() * stddev + mean;
+  if del > (mean + mean) {
+    del = mean + mean;
+  }
+  delay(del);
+}
+let prev_char_id = -1;
+let prev_action_id = -1;
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+
+  if prev_char_id != char_id && action_id != .action.swap {
+    execute_action(char_id, .action.swap, []);
+  }
+
+  if action_id == .action.swap {
+    
+    rand_delay(12, 3);
+  } else if prev_action_id == .action.attack && action_id != .action.attack && action_id != .action.charge {
+    
+    rand_delay(3, 1);
+  } else if prev_action_id != .action.attack {
+    
+    rand_delay(3, 1);
+  }
+  
+  prev_char_id = char_id;
+  prev_action_id = action_id;
+  return _execute_action(char_id, action_id, p);
+}
+
+active neuv;
+for let i = 0; i < 4; i = i + 1 {
+  neuv burst;
+  kazuha skill, high_plunge, burst;
+  zhongli skill[hold=1], dash, dash, attack;
+  
+  for let k=0; k<10; k=k+1 {
+     if .gadgets.crystallizeshard.hydro > 0 { pick_up_crystallize("hydro"); break; }
+     wait(1);
+  } 
+  shenhe attack, skill[hold=1], attack;
+  kazuha skill, high_plunge;
+  neuv charge, charge, skill;
+  kazuha skill, high_plunge, burst;
+  zhongli skill[hold=1], dash, dash, attack;
+  
+  for let k=0; k<10; k=k+1 {
+     if .gadgets.crystallizeshard.hydro > 0 { pick_up_crystallize("hydro"); break; }
+     wait(1);
+  } 
+  shenhe attack, skill[hold=1], attack;
+  kazuha skill, high_plunge;
+  neuv charge, skill, charge;
+}
+wait(173);

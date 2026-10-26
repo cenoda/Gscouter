@@ -1,0 +1,13 @@
+active tartaglia;
+for let i=0; i<4; i=i+1 {
+print("done");
+  tartaglia skill;
+  kazuha skill[hold=1], high_plunge, burst, attack;
+  fischl attack:2, burst;
+  thoma burst, attack, skill, attack:3;
+  tartaglia burst, walk[f=10], skill, attack:3, charge, dash, attack:3, charge, attack:3, charge, attack:2;
+  kazuha attack, skill[hold=1], high_plunge, attack;
+  tartaglia aim:1;
+  fischl attack:2, skill;
+  tartaglia attack:2, aim:4, attack;
+}

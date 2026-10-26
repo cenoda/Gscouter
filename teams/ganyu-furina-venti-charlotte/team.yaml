@@ -1,0 +1,17 @@
+id: ganyu-furina-venti-charlotte
+name: Ganyu / Furina / Venti / Charlotte
+members:
+    - ganyu
+    - furina
+    - venti
+    - charlotte
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/FTrjpQJmfcPK
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 100060
+    computed: "2026-10-02"

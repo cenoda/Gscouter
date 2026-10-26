@@ -1,0 +1,15 @@
+active furina;
+  for let i=0; i<4; i=i+1 {
+  
+  furina skill, dash, burst;
+  bennett burst, skill;
+  fischl aim[hold=0], skill;
+  kazuha skill, high_plunge, burst;
+  kazuha attack:3;
+  bennett skill, attack;
+  fischl attack:5, burst;
+  kazuha skill, high_plunge, attack:2;
+  bennett skill;
+  fischl attack:5, dash, attack:3;
+
+  }

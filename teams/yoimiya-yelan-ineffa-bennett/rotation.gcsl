@@ -1,0 +1,19 @@
+active yelan;
+for let i = 0; i < 6; i = i + 1 {
+  yelan attack, skill, attack, burst, attack;
+  if !.yelan.mods.favonius-cd {
+    yelan attack; 
+  }
+  bennett skill, burst;
+  if ( (i+2) / 3 ) * 3 == (i+2) {   
+    ineffa burst, skill;
+  } else {
+    ineffa attack, dash, skill;
+  }
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  if ( i / 3 ) * 3 == i {           
+    yoimiya burst;
+  } else {
+    bennett attack, skill, attack;
+  }
+}

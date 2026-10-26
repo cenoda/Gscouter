@@ -1,0 +1,24 @@
+active ganyu;
+for let r = 0; r < 5; r = r + 1 {
+  ganyu skill, burst;
+  xilonen skill, attack:2;
+  while .xilonen.weapon == .keys.weapon.favsword && .xilonen.mods.favonius-cd == 0 {
+    xilonen attack;
+  }
+  bennett skill, burst, dash;
+  pick_up_crystallize("cryo");
+  jean skill, burst;
+  while .jean.weapon == .keys.weapon.favsword && .jean.mods.favonius-cd == 0 {
+    jean attack;
+  }
+  ganyu aim:1, skill, aim:4;
+  xilonen skill, attack:2;
+  while .xilonen.weapon == .keys.weapon.favsword && .xilonen.mods.favonius-cd == 0 {
+    xilonen attack;
+  }
+  bennett skill, dash;
+  jean skill;
+  while .jean.weapon == .keys.weapon.favsword && .jean.mods.favonius-cd == 0 {
+    jean attack;
+  }
+}

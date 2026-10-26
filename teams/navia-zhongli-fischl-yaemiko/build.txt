@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+navia char lvl=90/90 cons=0 talent=9,9,9;
+navia add weapon="serpentspine" refine=1 lvl=90/90 +params=[stacks=5];
+navia add set="nighttime" count=4;
+navia add stats hp=4780 atk=311 atk%=0.466 geo%=0.466 cr=0.311;
+navia add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.2755 em=39.640 cr=0.2979 cd=0.7944;
+
+zhongli char lvl=90/90 cons=0 talent=9,9,9;
+zhongli add weapon="favoniuslance" refine=3 lvl=90/90;
+zhongli add set="totm" count=4;
+zhongli add stats hp=4780 atk=311 hp%=0.466 geo%=0.466 cr=0.311;
+zhongli add stats def%=0.124 def=39.36 hp=507.88 hp%=0.1984 atk=33.08 atk%=0.0992 er=0.1102 em=39.64 cr=0.3310 cd=0.7944;
+
+fischl char lvl=90/90 cons=6 talent=9,9,9;
+fischl add weapon="alleyhunter" refine=1 lvl=90/90 +params=[stacks=10];
+fischl add set="gt" count=4;
+fischl add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cr=0.311;
+fischl add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.3310 cd=0.7944;
+
+yae char lvl=90/90 cons=0 talent=9,9,9;
+yae add weapon="thewidsith" refine=3 lvl=90/90;
+yae add set="gt" count=4;
+yae add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cr=0.311;
+yae add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.331 cd=0.7944;

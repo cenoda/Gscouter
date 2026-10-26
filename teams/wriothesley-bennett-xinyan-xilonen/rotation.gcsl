@@ -1,0 +1,21 @@
+active wrio;
+wrio attack;
+for let i=0; i<4; i=i+1 {
+  xilo skill, attack:2;
+  bennett skill, burst;
+  xinyan dash, skill, burst;
+  pick_up_crystallize("any");
+  wrio skill,
+       attack:3, charge, 
+       attack:3, charge, 
+       attack:3, charge;
+       delay(44);
+  wrio attack:3, charge,
+       attack:3, charge, jump;
+  if .wrio.burst.ready  {
+    wrio burst;
+  } else {
+    wrio attack;
+  }
+
+}

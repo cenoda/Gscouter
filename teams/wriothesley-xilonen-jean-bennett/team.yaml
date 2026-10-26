@@ -1,0 +1,17 @@
+id: wriothesley-xilonen-jean-bennett
+name: Wriothesley / Xilonen / Jean / Bennett
+members:
+    - wriothesley
+    - xilonen
+    - jean
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/NmMb9WG96qFP
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 47057
+    computed: "2026-09-30"

@@ -1,0 +1,25 @@
+active furina;                                   
+for let i = 0; i < 4; i = i + 1 { 
+  furina skill, dash, attack, burst; 
+  
+  xianyun skill, low_plunge, attack, burst; 
+  
+  bennett skill, burst; 
+  xianyun attack, charge; 
+  wait(50); 
+  
+  for let q = 0; q < 8; q = q + 1 { 
+    qiqi jump;
+    if !.element.t0.hydro { 
+      delay(20); 
+    }
+    if .airborne {
+      qiqi high_plunge[collision=rand()>0.5], dash; 
+    }
+  }
+  if .qiqi.skill.ready { 
+    qiqi skill;
+  }
+  
+  bennett skill; 
+}

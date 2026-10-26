@@ -1,0 +1,29 @@
+active neuvillette;	
+for let x = 0; x < 4; x = x + 1 {
+  neuvillette skill;
+  furina skill, dash, burst;
+  zhongli skill[hold=1], dash, attack:2;
+  
+  while !pick_up_crystallize("any") {
+    if !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    } else {
+      wait(1);
+    }
+  }
+  
+  while !.zhongli.mods.favonius-cd { 
+    zhongli attack;
+  }
+  charlotte skill[hold=1], burst;
+  while !.charlotte.mods.favonius-cd {
+    charlotte attack;
+  }
+  neuvillette charge, skill, charge, burst;
+  charlotte attack:2, dash;
+  if !.charlotte.mods.favonius-cd {
+    charlotte attack;
+  }
+  neuvillette charge, charge;
+  wait(173); 
+}

@@ -1,0 +1,13 @@
+active ganyu;
+for let r = 0; r < 5; r = r + 1 {
+  zhongli skill[hold=1], dash;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+	ganyu skill, burst;
+	bennett skill, burst;
+	jean skill, burst;
+	ganyu aim:2, skill, aim:3;
+	bennett skill;
+	jean skill;
+}

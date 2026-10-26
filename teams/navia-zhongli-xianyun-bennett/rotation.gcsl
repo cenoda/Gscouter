@@ -1,0 +1,36 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+	pick_up_crystallize("any"); 
+  }
+	
+  return _execute_action(char_id, action_id, p);
+}
+active navia;
+navia skill;
+for let x = 0; x < 4; x = x + 1 {
+  if .navia.burst.ready {
+    navia burst;
+  }
+  zl skill[hold=1], dash, attack;
+  xianyun skill, low_plunge, burst; 
+  bennett skill, burst;
+  navia skill[hold=1];
+  
+  for let h = 4; h > 0; h = h - 1 {
+    navia jump;
+    if .airborne {
+        navia high_plunge[collision=rand()>0.5], dash;
+    }
+  }
+  
+  bennett skill, attack;
+  
+  navia skill;
+  for let h = 4; h > 0; h = h - 1 {
+    navia jump;
+    if .airborne {
+        navia high_plunge[collision=rand()>0.5], dash;
+    }
+  }
+}

@@ -1,0 +1,41 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+fn WaitForCryo() {
+  let StartFrame = f();
+  if !.element.t0.pyro {      
+    while !.element.t0.cryo && f() - StartFrame < 120 {   
+      wait(1);
+    }
+  }
+}
+active mav;
+for let i = 0; i < 4; i = i + 1 {
+  
+  mav skill, attack;
+
+  xilonen skill, attack:2; pick_up_crystallize("pyro");
+  
+  if !i {
+    citlali skill, attack;
+  } else {
+    citlali skill, burst, attack;
+  }
+  
+  mav burst;
+  WaitForCryo();
+  mav charge:3, dash, charge:3; 
+  
+  clorinde_combo();
+  if .clorinde.burst.ready {
+    clorinde burst;
+  }
+  
+}

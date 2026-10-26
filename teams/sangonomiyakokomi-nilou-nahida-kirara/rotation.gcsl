@@ -1,0 +1,27 @@
+active nahida;
+for let i=0; i<5; i=i+1 {
+  nahida attack,skill;
+  nilou skill,attack:2,skill;
+  kirara skill[short_hold=1],burst;
+  switch {
+    case .kokomi.skill.ready:
+        kokomi skill;
+    case .kokomi.burst.ready:
+        kokomi burst;
+        }
+  kokomi attack,charge;
+  nahida skill,burst,attack;
+  kokomi attack:2,charge,
+         attack:2,charge;
+  kirara skill[short_hold=1];
+  kokomi charge;
+  switch {
+    case .kokomi.skill.ready:
+        kokomi skill;
+    case .kokomi.burst.ready:
+        kokomi burst;
+        }
+  kokomi attack:2,charge,
+         attack:2,charge;
+         
+}

@@ -1,0 +1,18 @@
+active kuki;
+for let i=0; i<6; i=i+1 {
+  if i {
+    lyney aim[weakspot=1];  
+  }
+  kuki skill;
+  bennett burst, skill;
+  chevreuse skill[hold=1], burst;
+  lyney aim[weakspot=1], aim;
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(11);
+    lyney skill;
+  } else {
+    lyney aim;
+  }
+  lyney aim, skill;
+}

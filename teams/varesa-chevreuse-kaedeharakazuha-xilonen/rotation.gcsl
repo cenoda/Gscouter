@@ -1,0 +1,24 @@
+fn varesa_combo(amt) {
+  for let j = 0; j < amt; j = j + 1 {
+    if .varesa.skill.ready {
+      varesa skill, attack, high_plunge[collision=1]; 
+
+    } else {
+      varesa charge, high_plunge[collision=1]; 
+    }
+    if .varesa.energy >= 30 && .varesa.status.apex-drive {
+      varesa burst;
+    }
+  }
+}
+active varesa;
+varesa attack;
+for let i=0; i<4; i=i+1 {
+  xilonen skill, attack:2;
+  kazuha skill, high_plunge;
+  if .chevreuse.burst.ready {
+    chevreuse burst;
+  }
+  chevreuse skill[hold=1], dash; pick_up_crystallize("electro");
+  varesa_combo(6);
+}

@@ -1,0 +1,21 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash;
+  if i > 0 {
+    furina attack;
+  }
+  furina burst;
+  
+  escoffier skill, burst;
+  
+  yelan burst, attack, skill, attack;
+  
+  mualani skill,
+          walk[f=91], attack,
+          walk[f=91], attack,
+          walk[f=1], burst,
+          walk[f=40], attack,
+          walk[f=1];
+  
+  yelan skill, attack:5;
+}

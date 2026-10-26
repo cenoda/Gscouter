@@ -1,0 +1,30 @@
+active klee;
+for let i=0; i<4; i=i+1 {
+  klee attack, skill[bounce=3, mine=8], dash;
+  xianyun swap;
+  xianyun skill, low_plunge;
+  xianyun burst;
+  xilo skill, attack:2;
+  pick_up_crystallize("any");
+  citlali skill, attack;
+  for let j=0; j<4; j=j+1 {
+    klee jump;
+    if .airborne {
+      klee high_plunge[collision=rand()>0.5];
+      print("current plunge count is ", j+1);
+    }
+    delay(28);
+  }
+  
+  delay(15);
+  print("14f wait after 4th plunge");
+  
+  for let j=0; j<3; j=j+1 {
+    klee jump;
+    if .airborne {
+      klee high_plunge[collision=rand()>0.5];
+      print("current plunge count is ", j+1);
+    }
+    delay(42);
+  }
+}

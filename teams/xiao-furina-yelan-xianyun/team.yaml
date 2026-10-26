@@ -1,0 +1,17 @@
+id: xiao-furina-yelan-xianyun
+name: Xiao / Furina / Yelan / Xianyun
+members:
+    - xiao
+    - furina
+    - yelan
+    - xianyun
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/6MRnR6NgwGLT
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 54936
+    computed: "2026-10-01"

@@ -1,0 +1,20 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  furina attack, skill, dash, attack;
+  ineffa skill, attack;
+  if i && .ineffa.burst.ready {
+    ineffa burst;
+  }
+  sucrose attack, skill, dash;
+  if .sucrose.burst.ready {
+    sucrose burst;
+  } else {
+    sucrose attack;
+  }
+  furina burst;
+  neuvillette charge, burst, skill, charge;
+  sucrose attack, charge, skill, dash;
+  neuvillette charge:2;
+}
+wait(173);

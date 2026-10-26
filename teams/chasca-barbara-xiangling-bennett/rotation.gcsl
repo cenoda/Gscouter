@@ -1,0 +1,25 @@
+active xiangling;
+for let i=0; i<3; i=i+1 {
+  if .xiangling.burst.ready {
+    xiangling burst, attack, skill, dash;
+  } else {
+    xiangling attack:3, skill, dash;
+  }
+  bennett skill, burst;
+  if .barbara.skill.ready {
+    barbara attack, skill;
+  } else {
+    barbara attack:2;
+  }
+  
+  chasca skill;
+  set_player_pos(0,-2); 
+  chasca aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+  set_player_pos(0,0);
+  bennett skill, attack:2;
+}

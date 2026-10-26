@@ -1,0 +1,28 @@
+active nahida;
+for let i = 0; i < 4; i = i + 1 {
+  nahida burst, skill; 
+  zhongli skill[hold=1], dash;  
+  if .lisa.burst.ready {
+    lisa attack, burst;
+  } else {
+    lisa attack, skill[hold=1];
+  }
+  alhaitham skill[hold=1], low_plunge, 
+            attack:2, charge, dash, 
+            attack:3, charge, dash;
+        
+  if .lisa.burst.ready {
+    lisa attack, burst;
+  } else if .lisa.skill.ready {
+    lisa attack, skill[hold=1];
+  } else {
+    lisa attack;
+  }
+  alhaitham burst;
+  lisa dash, attack:2;
+  alhaitham attack:3, dash, 
+            attack:3, charge, dash, 
+            attack:3, charge, dash, 
+            attack:3, dash, 
+            attack:3;
+}

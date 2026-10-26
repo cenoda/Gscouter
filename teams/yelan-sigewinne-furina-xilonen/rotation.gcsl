@@ -1,0 +1,22 @@
+active furina;
+for let x=0; x<4; x=x+1 {
+  furina skill, dash, burst;
+  
+  xilonen skill, attack:2;
+  
+  sigewinne skill, attack, dash; pick_up_crystallize("hydro");
+  
+  yelan burst, attack:3, skill, attack:4, dash, attack;
+  
+  xilonen skill, attack:2;
+  
+  while !.xilonen.mods.favonius-cd {
+    xilonen attack;
+  }
+  sigewinne attack:3, dash; pick_up_crystallize("hydro");
+  while .yelan.skill.cd > 5 {
+    yelan attack;
+  }
+  
+  yelan skill, attack:4;
+}

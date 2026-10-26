@@ -1,0 +1,17 @@
+id: eula-furina-chongyun-xianyun
+name: Eula / Furina / Chongyun / Xianyun
+members:
+    - eula
+    - furina
+    - chongyun
+    - xianyun
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/QT7C7CCR6KrK
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 55170
+    computed: "2026-10-02"

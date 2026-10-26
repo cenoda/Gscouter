@@ -1,0 +1,17 @@
+id: razor-furina-xingqiu-escoffier
+name: Razor / Furina / Xingqiu / Escoffier
+members:
+    - razor
+    - furina
+    - xingqiu
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/pzTnWbCdzdW9
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 67644
+    computed: "2026-09-30"

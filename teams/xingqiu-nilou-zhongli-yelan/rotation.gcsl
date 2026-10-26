@@ -1,0 +1,11 @@
+active xingqiu;
+for let x=0; x<4; x=x+1 {
+  xingqiu burst,attack,skill, dash;
+  zhongli attack,skill[hold=1],dash;
+  yelan attack, burst,attack,skill;
+  nilou skill;
+  nilou attack:18;
+  yelan attack,skill,attack;
+  nilou burst;
+  yelan attack:4;
+}

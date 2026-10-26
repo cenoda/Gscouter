@@ -1,0 +1,39 @@
+active kuki;
+kuki attack, skill;
+for let i=0; i<4; i=i+1 {
+  nahida skill, attack;
+  if .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  while !.xq.skill.ready {
+    if .nahida.normal > 1 && .stam > 50 {
+      nahida charge;
+    } else {
+      nahida attack;
+    }
+  }
+  
+  xingqiu skill, dash, burst, attack;
+  
+  bennett skill, attack, burst;
+  
+  kuki attack;
+  while .xingqiu.mods.xingqiuburst > 150 {
+    switch {
+      case .kuki.skill.ready:
+        kuki skill;
+      case .kuki.burst.ready && .previous-action != .action.skill:
+        kuki burst;
+      case .bennett.skill.ready && .bennett.swap.ready && .previous-action == .action.charge:
+        bennett skill, attack:2;
+      case .kuki.normal > 1 && .stam > 25:
+        kuki charge;
+      default:
+        kuki attack;
+    }
+  }
+  
+  print("done");
+}

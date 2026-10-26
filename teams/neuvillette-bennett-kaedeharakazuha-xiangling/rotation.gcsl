@@ -1,0 +1,18 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  if i == 0 {
+    neuvillette burst;
+  }
+  else {
+    neuvillette burst, attack;
+  }
+  kaz skill, high_plunge;
+  bennett burst, skill;
+  xiangling burst, attack, skill, dash;
+  neuvillette charge, charge, skill, attack:3, dash, attack:2;
+  kazuha skill, high_plunge, burst;
+  bennett skill;
+  xiangling attack, skill;
+  neuvillette charge, skill, charge;
+}
+wait(173);

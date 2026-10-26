@@ -1,0 +1,22 @@
+active lisa;
+lisa attack;
+chevreuse burst, skill[hold=1];
+for let i=0; i<4; i=i+1 {
+  fischl attack, skill;
+
+  if .chev.burst.ready && i > 1 {
+    chev burst, skill[hold=1]:2;
+  } else if i > 0 {
+    chev skill[hold=1], attack;
+  }
+  
+  lisa burst;
+  
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5;
+  
+  fischl attack:2, burst;
+  
+  lisa skill[hold=1];
+  
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, burst;
+}

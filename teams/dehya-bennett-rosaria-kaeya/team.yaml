@@ -1,0 +1,17 @@
+id: dehya-bennett-rosaria-kaeya
+name: Dehya / Bennett / Rosaria / Kaeya
+members:
+    - dehya
+    - bennett
+    - rosaria
+    - kaeya
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/hcr6R8QWLBDH
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 34975
+    computed: "2026-10-02"

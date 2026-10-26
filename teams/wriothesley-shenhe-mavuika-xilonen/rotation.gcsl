@@ -1,0 +1,22 @@
+active wrio;
+wrio attack;
+for let i=0; i<4; i=i+1 {
+  xilonen skill, attack:2;
+  shenhe dash, skill[hold=1];
+  mavuika burst, charge, skill;
+  wrio skill,
+       attack:5, charge, jump,
+       attack:5, charge, jump;
+  let StartFrame = f();
+  while !.element.t0.pyro && f() - StartFrame < 120 { 
+    wait(1);
+  }
+  wrio attack:5, charge;
+  if .wrio.burst.ready {
+    wrio dash, attack;
+    wrio burst;
+  } else {
+    wrio jump;
+    wrio attack:3, charge, dash;
+  }
+}

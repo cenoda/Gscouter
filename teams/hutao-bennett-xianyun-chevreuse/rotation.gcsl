@@ -1,0 +1,16 @@
+active bennett;
+for let i=0; i<4; i=i+1 {
+  bennett burst, skill;
+  chev burst, skill[hold=1]:3;
+  xianyun skill, low_plunge, attack, burst;
+  while !.xianyun.mods.favonius-cd {
+    xianyun attack;
+  }
+  hutao skill;
+  for let j=0; j<6; j=j+1 {
+    hutao attack, charge, jump;
+    if .airborne {
+      hutao high_plunge[collision=rand()>0.5];
+    }
+  }
+}

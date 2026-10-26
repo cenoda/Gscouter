@@ -1,0 +1,17 @@
+id: arlecchino-candace-xilonen-bennett
+name: Arlecchino / Candace / Xilonen / Bennett
+members:
+    - arle
+    - candace
+    - xilonen
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/bLpt6ppBzNMw
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 78591
+    computed: "2026-10-02"

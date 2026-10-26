@@ -1,0 +1,24 @@
+active emilie;
+for let i = 0; i < 6; i = i + 1 {
+  if !i {
+    emilie skill;
+  } else if ( i / 2 ) * 2 == i {
+    emilie skill, attack:3;
+  } else {
+    emilie burst;
+  }
+  bennett burst, skill;
+  xiangling burst, skill;
+  klee attack, burst, walk;
+  klee attack, skill[bounce=3, mine=8], jump;
+  if .klee.skill.ready {
+    klee attack, skill[bounce=3, mine=8], jump;
+  } else {
+    klee attack[travel=6], charge;
+  }
+  for let i=0; i<5; i=i+1 {
+    klee attack, charge;
+  }
+  bennett attack, skill, attack;
+  xiangling attack:3;
+}

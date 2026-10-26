@@ -1,0 +1,17 @@
+id: alhaitham-xingqiu-kukishinobu-diona
+name: Alhaitham / Xingqiu / Kukishinobu / Diona
+members:
+    - alhaitham
+    - xingqiu
+    - kuki
+    - diona
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/mrhr8zgbTHwn
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 56627
+    computed: "2026-10-02"

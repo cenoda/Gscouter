@@ -1,0 +1,8 @@
+active nahida;
+{
+  nahida skill, burst;
+  bennett skill, burst;
+  raiden skill;
+  alhaitham skill[hold=1], low_plunge, attack:4,  burst;
+  raiden burst, attack:4, dash, attack:4, dash, attack:4;
+}

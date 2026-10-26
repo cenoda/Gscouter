@@ -1,0 +1,27 @@
+active razor; 
+fischl skill, attack;
+  
+for let i=0; i<4; i=i+1 {
+  bennett skill, burst;
+  
+  rosaria skill, burst;
+  
+  fischl attack;
+  if .fischl.burst.ready && .fischl.energy == .fischl.energymax {
+    fischl attack, burst;
+  } else {
+    fischl skill;
+  }
+  
+  razor skill, dash, attack, burst;
+  
+  while .razor.mods.razor-q > 270 { 
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+}

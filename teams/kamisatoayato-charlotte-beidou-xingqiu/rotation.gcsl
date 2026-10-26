@@ -1,0 +1,23 @@
+fn rand_counter() {
+  let counter = rand();
+  if counter > 0.5 {
+    counter = 2;
+  } else {
+    counter = 0;
+  }
+  
+  return counter;
+}
+active ayato;
+for let r=0; r<4; r=r+1 {
+  ayato burst;
+  xq burst, attack, skill, dash, attack;
+  charlotte skill, burst;
+  beidou skill[counter=rand_counter()], burst;
+  ayato skill, attack:16;
+  beidou skill[counter=rand_counter()];
+  xq attack:4;
+  charlotte attack, skill, attack;
+  ayato skill, attack:15;
+  beidou skill[counter=rand_counter()], attack;
+}

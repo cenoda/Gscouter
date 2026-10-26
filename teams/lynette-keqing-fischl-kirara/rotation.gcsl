@@ -1,0 +1,33 @@
+active fischl;
+fischl burst; 
+for let i=0; i<4; i=i+1 { 
+  
+  if .fischl.burst.ready{
+  
+  fischl attack:2, burst;
+  }    
+  
+  kirara skill, burst;
+  
+  lynette skill, burst, attack;
+  
+  keqing skill, burst, skill,
+         attack, charge,
+         attack, skill,
+         attack, charge;
+         delay(9); 
+  keqing attack, charge;
+
+  fischl attack:2, skill;
+   
+  kirara skill, attack;
+ 
+  lynette skill, attack;
+ 
+  keqing skill, burst, skill,
+         attack, charge,
+         attack, skill,
+         attack, charge;
+         delay(9);
+  keqing attack, charge;
+}

@@ -1,0 +1,15 @@
+active neuv;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  furina attack, skill, dash, attack;
+  luminepyro skill[hold=1], burst;
+  escoffier skill, attack, burst;
+  furina burst;
+  neuvillette charge, skill, charge, burst;
+  luminepyro attack:2;
+  while !.luminepyro.mods.favonius-cd {
+    luminepyro attack;
+  }
+  neuvillette charge, charge; 
+}
+wait(173);

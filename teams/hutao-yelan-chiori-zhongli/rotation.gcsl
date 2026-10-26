@@ -1,0 +1,18 @@
+active chiori;
+for let r=0; r<4; r=r+1 {
+    chiori skill:2;
+    zhongli attack, skill[hold=1], jump;
+    while !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    }
+    yelan attack, skill, attack, burst, attack;
+    while !.yelan.mods.favonius-cd {
+      yelan attack;
+    }
+    hutao skill;
+    for let j=0; j<9; j=j+1 {
+      hutao attack, charge, jump;
+    }
+    hutao attack;
+    yelan attack:4, attack;
+}

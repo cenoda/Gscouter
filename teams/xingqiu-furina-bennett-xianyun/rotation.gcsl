@@ -1,0 +1,21 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  xingqiu skill, dash, burst, attack;
+  xianyun skill, low_plunge, attack, burst;
+  bennett burst, attack, skill;
+  for let j=0; j < 8; j = j + 1 {
+
+    if .bennett.mods.xianyun-airborne-buff.duration > 15 {
+      bennett jump;
+      if .airborne {
+        bennett high_plunge, attack; 
+      } else {
+        bennett attack;
+      }
+      if .bennett.skill.ready { 
+        bennett skill;
+      }
+    }
+  }
+}

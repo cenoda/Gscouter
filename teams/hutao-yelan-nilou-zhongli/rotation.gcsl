@@ -1,0 +1,17 @@
+active nilou;
+for let i=0; i<4; i=i+1 { 
+  
+  nilou skill, attack:2, skill;
+  zhongli skill[hold=1], dash;
+  if i { 
+    zhongli burst; 
+  }
+  yelan burst, attack:2, skill;
+  hutao skill;
+  for let h=9; h>0; h = h - 1 {
+    hutao attack:2, charge, jump;
+  }
+  
+  yelan skill, attack:2;
+  nilou attack:2;
+}

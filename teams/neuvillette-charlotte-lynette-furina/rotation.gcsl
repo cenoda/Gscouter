@@ -1,0 +1,20 @@
+active neuvillette;	
+for let x = 0; x < 4; x = x + 1 {
+  neuvillette skill;
+  furina skill, dash, burst;
+  lynette burst, skill;
+  if !.lynette.mods.favonius-cd {
+    lynette attack;
+  }
+  charlotte skill, burst, attack; 
+  if !.charlotte.mods.favonius-cd {
+    charlotte attack;
+  }
+  neuvillette charge, burst, skill, charge;
+  lynette skill, attack;
+  if !.lynette.mods.favonius-cd {
+    lynette attack;
+  }
+  neuvillette charge, charge;
+}
+wait(173);

@@ -1,0 +1,19 @@
+active kaeya;
+for let i=0; i<4; i=i+1 {
+  
+  kaeya attack, burst;
+  lynette skill, attack, burst;
+  bennett burst;
+  gaming burst;
+  wait(65);
+  for let p=0; p<6; p=p+1 {
+    print(p);
+    gaming skill;
+    wait(20);
+    gaming low_plunge;
+  }
+  kaeya attack, skill;
+  bennett skill;
+  gaming skill, low_plunge;
+  
+}

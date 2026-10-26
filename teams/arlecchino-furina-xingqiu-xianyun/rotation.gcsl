@@ -1,0 +1,19 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  
+  xingqiu skill, dash, burst, attack;
+  
+  arle skill, attack;
+  
+  xianyun skill, low_plunge, attack, burst, attack;
+  
+  arle charge, attack;
+  while .arle.status.xianyun-airborne-buff {
+    arle jump;
+    if .airborne {
+      arle high_plunge[collision=rand()<0.5], attack;
+    }
+  }
+
+}

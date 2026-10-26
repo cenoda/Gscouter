@@ -1,0 +1,18 @@
+active diluc; 
+fischl aim; 
+for let i = 0; i < 4; i = i + 1 {
+  bennett skill, burst;
+  
+  chevreuse burst, skill[hold=1]:2; 
+  
+  fischl attack;
+  if .fischl.skill.ready {
+    fischl skill;
+  } else {
+    fischl attack:1, burst;
+  }
+  
+  diluc attack, skill,
+        attack:3, skill,
+        attack:2, skill, attack, burst, attack; 
+}

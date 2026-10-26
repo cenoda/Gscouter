@@ -1,0 +1,17 @@
+id: klee-xiangling-kaedeharakazuha-bennett
+name: Klee / Xiangling / Kaedeharakazuha / Bennett
+members:
+    - klee
+    - xiangling
+    - kazuha
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Qqj6rJGMzHNp
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 51677
+    computed: "2026-10-02"

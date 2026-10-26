@@ -1,0 +1,20 @@
+active lyney;
+for let i=0; i<3; i=i+1 {
+  lyney aim, aim;
+  xilonen burst, skill, attack:2;
+  lynette skill, attack;
+  if !.lynette.mods.favonius-cd  {
+    lynette attack;
+  }
+  dehya skill; 
+  pick_up_crystallize("any");
+  if !.dehya.mods.favonius-cd  {
+    dehya attack;
+  }
+  lyney aim, aim;
+  xilonen skill, attack:2;
+  lynette burst, attack;
+  lyney burst;
+  delay(13);
+  lyney skill, aim, aim, skill;
+}

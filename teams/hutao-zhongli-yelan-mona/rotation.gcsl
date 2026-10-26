@@ -1,0 +1,25 @@
+active zl;
+for let x=0; x<3; x=x+1 {
+  zhongli skill[hold=1], jump, attack;   pick_up_crystallize("any");
+  while !.zhongli.mods.favonius-cd  {
+    zhongli attack;
+ }
+ 
+  yelan skill,burst,attack;
+  
+   while !.yelan.mods.favonius-cd  {
+    yelan attack;}
+    
+  mona skill, attack, burst, attack;
+  
+  hutao skill,
+    attack:2, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:2, charge,jump,attack;
+}

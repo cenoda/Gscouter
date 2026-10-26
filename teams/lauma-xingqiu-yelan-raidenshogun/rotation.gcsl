@@ -1,0 +1,24 @@
+active lauma;
+lauma skill;
+raiden skill, attack;
+for let i = 0; i < 4; i = i + 1 {
+  if i > 0 {
+    lauma skill[hold=1], burst;
+  }
+  
+  xingqiu skill, dash, burst, attack;
+  
+  yelan skill, attack, burst, attack;
+  
+  while .yelan.skill.cd { 
+    lauma attack;
+  }
+  
+  yelan skill, attack;
+  
+  lauma attack:3; 
+  
+  raiden skill, attack;
+  
+  lauma attack:3;
+}

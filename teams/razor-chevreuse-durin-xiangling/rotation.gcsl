@@ -1,0 +1,28 @@
+active razor; 
+razor skill, dash; 
+for let i=0; i<4; i=i+1 {
+  chev burst, skill[hold=1]:1;
+  
+  durin skill, burst, skill;
+  
+  xl burst, skill[a4_delay=60], dash;
+  
+  if .razor.sets.tf != 4 {
+    razor skill[hold=0], dash, attack, burst;
+    razor attack:0, skill, dash;
+    razor attack:3, dash;
+    razor attack:3, dash;
+    razor attack:3, skill, dash;
+    razor attack:3, dash;
+    razor attack:3, dash;
+    razor attack:3, skill, dash;
+  } else {
+    razor skill[hold=0], dash, attack, burst;
+    razor attack:0, skill, dash;
+    razor attack:3, dash;
+    razor attack:3, skill, dash;
+    razor attack:3, dash;
+    razor attack:3, skill, dash;
+    razor attack:3;
+  }
+}

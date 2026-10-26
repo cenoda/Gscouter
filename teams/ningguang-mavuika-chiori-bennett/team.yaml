@@ -1,0 +1,17 @@
+id: ningguang-mavuika-chiori-bennett
+name: Ningguang / Mavuika / Chiori / Bennett
+members:
+    - ningguang
+    - mavuika
+    - chiori
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/jbgm9P6LkCP8
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 61042
+    computed: "2026-09-30"

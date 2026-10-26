@@ -1,0 +1,22 @@
+active xiangling;
+for let i=0; i<4; i=i+1 {
+  xiangling skill, dash;
+  bennett burst, skill;
+  xiangling burst;
+  citlali skill, attack;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump, 
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3;
+  if .wrio.burst.ready  {
+    wrio burst;
+  } else {
+    wrio charge, jump, attack; 
+  }
+  bennett skill, attack;
+  xiangling swap;
+  wait(73);  
+}

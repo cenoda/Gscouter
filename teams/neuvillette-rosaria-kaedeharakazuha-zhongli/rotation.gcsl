@@ -1,0 +1,35 @@
+active neuv;
+for let i = 0; i < 3; i = i + 1 {
+  neuv burst;
+  kazuha skill, high_plunge, burst;
+  zhongli skill[hold=1], dash, attack;
+  for let k=0; k<25; k=k+1 {
+    if .gadgets.crystallizeshard.hydro > 0 { 
+      pick_up_crystallize("hydro"); 
+      break; 
+    } else if .gadgets.crystallizeshard.cryo > 0 { 
+      pick_up_crystallize("cryo"); 
+      break; 
+    }
+    wait(1);
+  } 
+  rosaria skill, burst, attack;
+  kazuha skill, high_plunge;
+  neuv charge, charge, skill;
+  kazuha skill, high_plunge, burst;
+  zhongli skill[hold=1], dash, attack;
+  for let k=0; k<25; k=k+1 {
+    if .gadgets.crystallizeshard.hydro > 0 { 
+      pick_up_crystallize("hydro"); 
+      break; 
+    } else if .gadgets.crystallizeshard.cryo > 0 { 
+      pick_up_crystallize("cryo"); 
+      break; 
+    }
+    wait(1);
+  }   
+  rosaria skill, burst, attack;
+  kazuha skill, high_plunge;
+  neuv charge, skill, charge;
+}
+wait(173);

@@ -1,0 +1,33 @@
+fn FreminetPlunge() {
+  freminet jump;
+  if .airborne {
+    freminet high_plunge[collision=rand()>0.5];
+  }
+}
+active freminet; 
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash;
+  if !.furina.burst.ready {
+    furina attack;
+  }
+  furina burst;
+  
+  esco skill;
+  if i > 0 && .esco.burst.ready {
+    esco burst;
+  }
+  
+  xianyun skill, low_plunge, burst;
+  
+  freminet skill, attack; 
+    FreminetPlunge(); freminet attack;
+    FreminetPlunge(); freminet attack;
+    FreminetPlunge(); freminet attack;
+    FreminetPlunge(); freminet dash;
+    FreminetPlunge(); freminet dash;
+    FreminetPlunge(); freminet dash;
+    FreminetPlunge(); freminet skill;
+    FreminetPlunge(); 
+  
+  print("done");
+}

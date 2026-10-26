@@ -1,0 +1,39 @@
+active razor; 
+razor skill, dash; 
+for let i=0; i<4; i=i+1 {
+  if .bennett.burst.ready {
+    bennett burst;
+  } else {
+    bennett skill, dash, burst;
+  }
+  
+  if !.amy.skill.ready {
+    amy attack:2, burst;
+  } else {
+    amy attack, skill;
+  }
+
+  if .chev.burst.ready {
+    chev burst, skill[hold=1]:3;
+  } else {
+    chev attack:1, skill[hold=1];
+  }
+
+  if !.razor.mods.razor-q {
+    if .razor.burst.ready && !is_even(i) {
+      razor  burst;
+    } else {
+      razor skill, dash;
+    }
+  }
+  
+  while .razor.infusion.bennett-fire-weapon || .status.bennettburst { 
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+}

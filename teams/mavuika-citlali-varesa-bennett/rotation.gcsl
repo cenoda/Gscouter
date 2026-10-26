@@ -1,0 +1,15 @@
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  mavuika skill, attack;
+  bennett skill, burst;
+  varesa skill, attack, high_plunge[collision=1];
+  citlali skill, burst, attack;
+  
+  mavuika burst;
+  delay(18); 
+  mavuika charge:3, charge[hold=6], charge[final=1], dash;
+  mavuika charge:3, charge[hold=6], charge[final=1], dash; 
+  mavuika charge:2;
+  mavuika dash;
+  delay(10);
+}

@@ -1,0 +1,34 @@
+active nilou;
+let last = 0;
+for let x = 5; x > 0 || f() < last {
+    switch {
+    case .nilou.skill.ready && !.nilou.status.tranquilityaura:
+        nilou skill, attack:2, skill;
+        x = x - 1;
+        if x == 0 { last = f() + 12 * 60; }
+    case .collei.skill.ready:
+        collei skill;
+    case .collei.burst.ready:
+        collei burst;
+    case .kokomi.skill.ready && !.status.kokomiskill:
+        kokomi skill;
+    case .kokomi.burst.ready && .status.kokomiskill && .status.kokomiskill < 4*60:
+        kokomi burst;
+    case .tighnari.burst.ready:
+        tighnari burst;
+    case .tighnari.skill.ready:
+        tighnari skill, aim:3;
+
+    case .nilou.skill.ready:
+        nilou skill, attack:3;
+    case .nilou.onfield && .nilou.status.lunarprayer:
+        nilou attack;
+    case .collei.onfield:
+        collei attack:2;
+        kokomi swap;
+
+    default:
+        if .kokomi.normal == 3 { kokomi dash; }
+        kokomi attack;
+    }
+}

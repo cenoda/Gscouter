@@ -1,0 +1,20 @@
+active gorou;
+     
+for let i=0; i<4; i=i+1 {
+  if i {
+    zhongli skill, attack;
+  }
+  gorou skill, burst;
+  albedo attack, skill;
+  zhongli attack, skill[hold=1], dash;
+  noelle skill, burst[extend=0];
+  
+  noelle attack:4, dash, 
+         attack:4;
+         
+  gorou attack, skill;
+  
+  noelle attack:2, dash, 
+         attack:4, dash,
+         attack:4;
+}

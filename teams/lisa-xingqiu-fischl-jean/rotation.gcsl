@@ -1,0 +1,15 @@
+active lisa;
+for let i=0; i<4; i=i+1 {
+  lisa skill, attack:2, skill, attack;
+  jean skill;
+  lisa skill[hold=1], burst;
+  fischl attack, skill;
+  xingqiu skill, burst, attack;
+  jean attack, skill, attack:2, burst, attack;
+  lisa attack:3, dash, attack:3;
+  jean skill, attack:2;
+  fischl attack:2, burst;
+  lisa attack:3, dash, attack:3, dash, skill, attack;
+  jean skill, attack;
+  lisa attack:2, skill, attack:2;
+}

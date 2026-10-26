@@ -1,0 +1,40 @@
+active ineffa;
+for let i=0; i<6; i=i+1 {
+  
+  if .ineffa.burst.ready {
+    ineffa burst;
+  } else {
+    ineffa skill, attack;
+  }
+  
+  if .furina.skill.ready {
+    furina skill, dash, attack;
+  } else {
+    furina attack:2;
+  }
+  
+  sucrose attack;
+  if .sucrose.burst.ready {
+    sucrose burst;
+  } else if .sucrose.skill.ready {
+    sucrose skill, dash;
+  } else {
+    sucrose charge;
+  }
+  
+  flins skill, skill,
+        attack:3, dash, attack:4, burst,
+        attack:4, skill, burst,
+        attack:4, dash, attack:1;
+  
+  if .ineffa.status.ineffa-a4 { 
+    flins attack:3;
+  }
+  sucrose attack;
+  if .sucrose.skill.ready {
+    sucrose skill, dash;
+  } else {
+    sucrose charge;
+  }
+  
+}

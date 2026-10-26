@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+lyney char lvl=90/90 cons=0 talent=9,9,9;
+lyney add weapon="prototypecrescent" refine=5 lvl=90/90;
+lyney add set="marechausseehunter" count=4;
+lyney add stats hp=4780 atk=311 atk%=0.466 pyro%=0.466 cd=0.622;
+lyney add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.3972 cd=0.662;
+
+albedo char lvl=90/90 cons=0 talent=9,9,9;
+albedo add weapon="favsword" refine=5 lvl=90/90;
+albedo add set="totm" count=4;
+albedo add stats hp=4780 atk=311 def%=0.583 geo%=0.466 cr=0.311;
+albedo add stats def%=0.496 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=39.64 cr=0.331 cd=0.5296;
+
+lynette char lvl=90/90 cons=6 talent=9,9,9;
+lynette add weapon="favsword" refine=5 lvl=90/90;
+lynette add set="viridescentvenerer" count=4;
+lynette add stats hp=4780 atk=311 atk%=0.466 er=0.518 cr=0.311;
+lynette add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.3857 em=39.64 cr=0.331 cd=0.5958;
+
+bennett char lvl=90/90 cons=6 talent=9,9,9;
+bennett add weapon="alleyflash" refine=1 lvl=90/90;
+bennett add set="ap" count=4;
+bennett add stats hp=4780 atk=311 er=0.518 pyro%=0.466 cr=0.311;
+bennett add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.2755 em=39.64 cr=0.2979 cd=0.7944;

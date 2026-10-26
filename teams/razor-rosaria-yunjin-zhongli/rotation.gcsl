@@ -1,0 +1,43 @@
+active razor;
+for let i=0; i<4; i=i+1 {
+  razor skill, dash;
+  
+  zhongli skill[hold=1], dash, attack;
+  if !.zhongli.mods.favonius-cd && i > 0 {
+    zhongli attack;
+  }
+
+  yunjin skill;
+  if !.yunjin.mods.favonius-cd {
+    yunjin attack;
+  }
+  yunjin burst;
+  rosaria skill, burst;
+
+  razor attack;
+  while !.razor.mods.razor-q {
+    if .razor.burst.ready && .razor.skill.ready {
+      razor skill, dash, attack, burst;
+    } else if .razor.burst.ready {
+      razor burst;
+    } else if .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+  
+  while .razor.mods.yunjin-c6 || .razor.mods.razor-q > 290 {
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+  
+  rosaria skill;
+}

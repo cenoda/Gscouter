@@ -1,0 +1,20 @@
+active razor;
+razor skill, dash;
+for let i=0; i<4; i=i+1 {
+  xingqiu skill, dash, burst, attack;
+  
+  aetherdendro skill, attack, burst, attack;
+  
+  bennett skill, attack, burst;
+  
+  razor skill, dash, attack, burst,
+    attack, skill, dash,
+    attack:3, dash,
+    attack:3, dash,
+    attack:3, skill, dash,
+    attack:3, dash,
+    attack:3, dash,
+    attack:2, skill, dash;
+    
+  print("done");
+}

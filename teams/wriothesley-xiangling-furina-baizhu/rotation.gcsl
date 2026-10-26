@@ -1,0 +1,20 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+ furina skill,attack, burst;
+ while !.furina.mods.favonius-cd {
+ furina attack;} 
+ baizhu skill, attack, burst;
+ while !.baizhu.mods.favonius-cd {
+  baizhu attack;} 
+ xiangling burst,skill,dash;
+ while !.xl.mods.favonius-cd {
+  xl attack;} 
+ wrio skill,
+  attack:3, charge,
+  attack:3, charge,
+  attack:3, charge,
+  attack:3, charge,
+  attack:3;
+ if .wriothesley.burst.ready {wrio charge,burst;} 
+ else {wrio attack:2, charge;} 
+}

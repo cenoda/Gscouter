@@ -1,0 +1,17 @@
+id: tartaglia-xiangling-nahida-bennett
+name: Tartaglia / Xiangling / Nahida / Bennett
+members:
+    - tartaglia
+    - xiangling
+    - nahida
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/qLGH9b8LL98Q
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 44629
+    computed: "2026-10-01"

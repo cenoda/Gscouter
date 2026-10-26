@@ -1,0 +1,36 @@
+active fischl;
+for let i=0; i<4; i=i+1 { 
+  fischl burst;
+  yaoyao skill, attack:2;
+  sucrose attack;
+  let a=f();
+  while !.element.t0.electro && f()-a < 180 {
+    sucrose attack;
+  }
+  sucrose skill, dash, burst;
+  keqing skill, burst, skill, 
+    attack, charge, 
+    attack, charge, 
+    attack, skill;
+  delay(9);
+  keqing attack, charge;
+  delay(5);
+  keqing attack, charge;
+  
+  fischl skill, attack;
+  yaoyao burst, attack, dash;
+  sucrose swap;
+  let b=f();
+  while !.element.t0.electro && f()-b < 180 {
+    sucrose attack;
+  }
+  sucrose skill, dash, attack;
+  keqing skill, burst, skill, 
+    attack, charge,
+    attack, charge, 
+    attack, skill;
+  delay(9);
+  keqing attack, charge;
+  delay(5);
+  keqing attack, charge;
+}

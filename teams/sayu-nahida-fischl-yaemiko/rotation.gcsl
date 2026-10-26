@@ -1,0 +1,23 @@
+active nahida;
+for let i = 5; i; i = i - 1 {  
+  nahida skill, burst;
+  
+  yae skill, attack:2, skill, attack:2, skill;
+  
+  fischl attack, skill;
+
+  sayu skill[hold=250];
+
+  yae skill, attack:2, skill, attack:2, skill;
+  nahida attack:2, skill;
+  yae attack, burst, skill:3;
+  
+  fischl attack:2, burst;
+  
+  if .sayu.burst.ready {
+    sayu burst;
+  }
+  
+  sayu skill[hold=180];
+  print("rotation done");
+}

@@ -1,0 +1,24 @@
+active esco;
+for let i=0; i<4;i=i+1 {
+  escoffier skill, burst;
+  shenhe attack, skill[hold=1], attack, burst;
+  if !.shenhe.mods.favonius-cd {
+    shenhe attack;
+  }
+  lynette skill, burst;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3;
+  if is_even(i) {
+    wrio burst;
+  } else {
+    wrio attack;
+  }
+  if .lynette.cons >= 4 {
+    lynette skill, attack;
+  }
+}

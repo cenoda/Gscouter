@@ -1,0 +1,24 @@
+active yelan;
+let t = 0;
+for let i=0; i<4; i=i+1 {
+  let t = f();
+  yelan skill, burst, attack;
+  amber burst;
+  wait (30);
+  sucrose attack, skill, attack:3;
+  wait (5);
+  hutao skill, attack:1, charge, jump,
+  	attack:1, charge, jump,
+  	attack:1, charge, jump,
+  	attack:1, charge, jump,
+  	attack:1, charge, jump,
+  	attack:1, charge, jump,
+  	attack:1, charge, jump,
+  	attack:1, charge, jump,
+  	attack:1, charge, jump,
+  	attack;
+  amber attack:2;
+  while f() - t < 18*60 {
+    yelan attack; }
+  print("done");
+}

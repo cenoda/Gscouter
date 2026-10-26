@@ -1,0 +1,17 @@
+id: xilonen-furina-chiori-mavuika
+name: Xilonen / Furina / Chiori / Mavuika
+members:
+    - xilonen
+    - furina
+    - chiori
+    - mavuika
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/6dTbw6NRRpgq
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 623592
+    computed: "2026-10-02"

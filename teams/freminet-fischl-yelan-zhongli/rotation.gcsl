@@ -1,0 +1,27 @@
+active freminet; 
+for let i=0; i<4; i=i+1 {
+  
+  if rand() > 0 {
+    zhongli skill[hold=1], dash;
+  } else {
+    zhongli skill[hold_nostele=1], dash;
+  }  
+  
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }  
+  amy attack;
+  if .amy.burst.ready && .amy.energy == .amy.energymax { 
+    amy attack:1, burst; 
+  } else { 
+    amy skill; 
+  }
+  
+  yelan skill, burst, attack;
+  
+  freminet skill, attack, burst,
+           attack:2, skill, skill,
+           attack:2, skill, attack, skill,  
+           attack:2, skill, attack, skill,
+           attack:2, skill;
+}

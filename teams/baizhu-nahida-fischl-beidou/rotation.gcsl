@@ -1,0 +1,10 @@
+active baizhu;
+for let i=0; i<3; i=i+1 {
+  nahida skill, burst;
+  fischl skill;
+  beidou skill, burst;
+  baizhu skill, burst, attack:4, charge, attack:3, charge, attack:3;
+  fischl burst;
+  baizhu skill, attack:4, charge, attack:4, charge, attack:4;
+  
+}

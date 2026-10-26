@@ -1,0 +1,32 @@
+active fischl;
+fischl skill;
+for let x = 0; x < 4; x = x + 1 {
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  bennett skill, attack, burst;
+  
+  ororon attack, skill, burst;
+  
+  if .fischl.skill.ready {
+    fischl attack:1, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  
+  bennett attack;
+  while .yelan.mods.yelanburst {
+
+    if .bennett.skill.ready {
+      bennett skill;
+    } else {
+      bennett attack;
+    }
+  }
+  
+}

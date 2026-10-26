@@ -1,0 +1,28 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  nahida skill, burst;
+  
+  bennett skill, burst;
+  
+  kazuha skill, high_plunge;
+  
+  if .kazuha.skill.ready {
+    kazuha skill, high_plunge;
+  }
+  kazuha burst;
+  while .kazuha.infusion.bennett-fire-weapon {
+    if .kazuha.skill.ready {
+      kazuha skill, high_plunge;
+    } else if .kazuha.normal > 1 {
+      if .stam > 25 {
+        kazuha charge;
+      }
+    } else {
+      kazuha attack;
+    }
+  }
+  
+  bennett skill, attack;
+}

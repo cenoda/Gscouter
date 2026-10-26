@@ -1,0 +1,22 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  
+  mika burst;
+  
+  rosaria skill, burst;
+  
+  yunjin skill, burst;
+  
+  mika skill[hold=1];
+
+  rosaria attack;
+  while .rosaria.mods.mika-c6 || .rosaria.mods.yunjin-c6 {
+    if .rosaria.skill.ready {
+      rosaria skill;
+    } else {
+      rosaria attack;
+    }
+  }
+  
+}

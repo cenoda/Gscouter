@@ -1,0 +1,33 @@
+active emilie;
+emilie skill;
+for let i=0; i<4; i=i+1 { 
+  if i > 0 && .emilie.burst.ready {
+    emilie burst;
+  } else if .emilie.skill.ready {
+    emilie skill, attack;
+  }
+  
+  ororon skill, burst;
+  
+  if i > 0 && .mav.burst.ready {
+    mav skill, burst;
+    while .sethos.skill.cd {
+      mav charge;
+    }
+    mav dash;
+  } else {
+    mav skill, attack;
+  }
+  
+  sethos skill; 
+  sethos burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, skill;
+  sethos aim[hold=2]:1;
+}

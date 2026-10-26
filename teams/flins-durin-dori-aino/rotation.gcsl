@@ -1,0 +1,13 @@
+active dori;
+for let i=0; i<6; i=i+1 {
+  dori skill, burst;
+  aino skill, burst;
+  durin skill:2, burst, attack;
+  flins skill, attack, 
+        skill, attack, burst, 
+        attack:4, dash, attack:4, dash, attack:2, 
+        skill, attack, burst, 
+        attack:4, dash, attack:4, dash,
+        attack:2;
+  
+}

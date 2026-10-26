@@ -1,0 +1,12 @@
+active nilou;
+for let i=0; i<4; i=i+1 {
+  yelan skill, burst, attack:3;
+  kuki attack, skill;
+  collei attack, skill, burst;
+  nilou skill, attack:3;
+  nilou attack:3;
+  nilou attack:3;
+  nilou attack:3;
+  nilou attack:3;
+  nilou attack:3;
+}

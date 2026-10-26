@@ -1,0 +1,18 @@
+active furina;
+furina skill, dash, burst;
+for let i=0; i<4; i=i+1 {
+if i {furina burst, skill;}
+xingqiu burst, attack;
+bennett burst, attack, skill;
+diluc attack, skill,
+      attack, skill,
+      attack, skill, burst; 
+      
+xingqiu attack, skill, dash, attack;
+bennett skill;
+wait(25);
+diluc attack, skill,
+      attack, skill,
+      attack, skill,
+      attack;
+}

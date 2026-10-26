@@ -1,0 +1,12 @@
+active amy;
+for let i=0; i<4; i=i+1 {
+  amy skill, attack;
+  kirara skill, burst;
+  nahida attack, skill, burst;
+  alhaitham skill[hold=1], low_plunge, attack:3, dash, attack:3, dash, attack:2;
+  amy attack:2, burst;
+  nahida attack, skill,charge;
+  alhaitham burst;
+  kirara skill,attack;
+  alhaitham attack:3, dash, attack:3, charge, attack:3, dash, attack:3, dash, attack:3;
+}

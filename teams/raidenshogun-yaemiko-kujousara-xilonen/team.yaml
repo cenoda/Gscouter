@@ -1,0 +1,17 @@
+id: raidenshogun-yaemiko-kujousara-xilonen
+name: Raidenshogun / Yaemiko / Kujousara / Xilonen
+members:
+    - raiden
+    - yae
+    - sara
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/p8mKN8gMTHjH
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 50133
+    computed: "2026-09-30"

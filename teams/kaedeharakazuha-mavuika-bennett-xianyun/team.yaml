@@ -1,0 +1,17 @@
+id: kaedeharakazuha-mavuika-bennett-xianyun
+name: Kaedeharakazuha / Mavuika / Bennett / Xianyun
+members:
+    - kazuha
+    - mavuika
+    - bennett
+    - xianyun
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/N9BnBwHtT9rG
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 59167
+    computed: "2026-10-02"

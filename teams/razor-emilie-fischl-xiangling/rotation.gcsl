@@ -1,0 +1,35 @@
+active razor; 
+for let i=0; i<4; i=i+1 {
+  
+  if i && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+
+  amy attack;
+  if .amy.burst.ready {
+    amy attack, burst;
+  } else {
+    amy skill;
+  }
+  
+  if .xiangling.burst.ready {
+    xiangling burst, skill, dash;
+  } else {
+    xiangling attack, skill, dash; 
+  }
+  
+  razor skill, dash, attack, burst;
+  
+  while .razor.mods.razor-q > 210 { 
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+  
+}

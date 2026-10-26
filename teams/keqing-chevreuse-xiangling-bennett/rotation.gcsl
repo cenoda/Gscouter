@@ -1,0 +1,21 @@
+active keqing;
+keqing skill; 
+for let i=0; i<4; i=i+1 {
+  bennett burst, skill;
+  chev burst, skill[hold=1]:2;
+
+  xl burst, skill[a4_delay=60], dash;
+  
+  keqing skill, burst, skill,
+        attack, charge,
+        attack, charge,
+        attack, charge,
+        attack, charge,
+        attack, charge;
+  
+  bennett skill;
+  
+  keqing skill:2,
+      attack:2, charge,
+      attack:2, charge;
+}

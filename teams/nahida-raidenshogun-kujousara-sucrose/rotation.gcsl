@@ -1,0 +1,12 @@
+active raiden;
+  raiden skill;
+  
+for let i=0; i<4; i=i+1 {
+  sucrose attack:2, charge;
+  nahida attack, burst, skill;
+  sara skill, aim;
+  wait (11);
+  sucrose skill, dash, burst, attack:2;
+  sara burst; 
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+}

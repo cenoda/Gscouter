@@ -1,0 +1,41 @@
+active razor; 
+for let i=0; i<4; i=i+1 {
+  nahida skill, attack; 
+  if .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  furina skill, dash;
+  if !.furina.burst.ready {
+    furina attack;
+  }
+  furina burst;
+  
+  charlotte skill[hold=1], burst, attack;
+
+  while !.razor.mods.razor-q {
+    if .razor.burst.ready && .razor.skill.ready {
+      razor skill, dash, attack, burst, attack, skill, dash;
+    } else if .razor.burst.ready {
+      razor burst;
+    } else if .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+  
+  while .razor.mods.razor-q > 210 { 
+    if .razor.normal > 3 && .razor.skill.ready {
+        razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+}

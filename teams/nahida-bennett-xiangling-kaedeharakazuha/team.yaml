@@ -1,0 +1,17 @@
+id: nahida-bennett-xiangling-kaedeharakazuha
+name: Nahida / Bennett / Xiangling / Kaedeharakazuha
+members:
+    - nahida
+    - bennett
+    - xiangling
+    - kazuha
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/hfj86DMbpk9K
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 36673
+    computed: "2026-10-01"

@@ -1,0 +1,23 @@
+active fischl;
+for let i=0; i<5; i=i+1 {
+  fischl attack, skill;
+  
+  xingqiu skill, dash, burst, attack;
+  
+  bennett skill, attack, burst, attack;
+  
+  fischl attack:2, burst;
+  
+  yanfei skill, attack, burst;
+  while .yanfei.mods.yanfei-q {
+    if .yanfei.skill.ready && .yanfei.mods.yanfei-a1 && .previous-action == .action.attack {
+      yanfei skill;
+    } else if .yanfei.mods.yanfei-seal && .stam > 25 && .previous-action == .action.attack {
+      yanfei charge;
+    } else {
+      yanfei attack;
+    }
+  }
+  
+  bennett skill, attack;
+}

@@ -1,0 +1,21 @@
+active rosaria;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  if i { 
+    bennett burst, skill, attack;
+  } else {
+    bennett skill, burst;
+  }
+  if i && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack:2;
+  }
+  rosaria skill, attack, burst,
+      attack:2, charge, dash,
+      attack:1, charge, dash,
+      attack:1, charge, dash,
+      attack:2, skill,
+      attack:2, charge, dash, attack:2;
+  bennett skill, attack;
+}

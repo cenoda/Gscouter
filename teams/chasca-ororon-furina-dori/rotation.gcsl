@@ -1,0 +1,11 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill;
+  ororon skill, burst;
+  dori burst,skill;
+  furina burst;
+  chasca skill;
+  chasca aim:4;
+  chasca burst;
+  dori skill,attack:3;
+}

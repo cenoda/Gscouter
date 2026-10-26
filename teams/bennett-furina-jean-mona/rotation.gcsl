@@ -1,0 +1,8 @@
+active furina;    
+for let i=0; i<1; i=i+1 {
+  furina burst, skill, dash;
+	bennett burst, skill;
+	jean burst;
+	mona burst;
+	furina charge, attack:4, charge;
+}

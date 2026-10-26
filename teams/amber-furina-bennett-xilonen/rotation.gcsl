@@ -1,0 +1,23 @@
+active bennett;
+bennett skill;
+for let i = 0; i < 4; i = i + 1 {
+  xilonen skill, attack:2, burst;
+  
+  furina skill, dash, burst;
+  
+  bennett skill, burst;
+  
+  amber burst;
+  
+  xilonen skill, attack:2;
+  while .status.bennettburst || .amber.mods.bennettfield {
+    switch {
+      case .amber.skill.ready:
+        amber skill;
+      case .previous-action == .action.skill:
+        amber aim[bunny=1];
+      default:
+        amber aim[weakspot=rand()>0.8];
+    }
+  }
+}

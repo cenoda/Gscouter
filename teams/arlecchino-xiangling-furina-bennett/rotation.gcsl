@@ -1,0 +1,16 @@
+active arle;
+let furina_burst=0;
+arle skill;
+for let i = 0; i < 4; i = i + 1 {
+  if .furina.burst.ready{
+    furina skill,attack,burst;
+  } else {
+    furina skill,attack:2;
+    arle attack:3;
+  }
+  bennett burst, skill;
+  xiangling burst,skill;
+  arle charge, 
+       attack:14,skill;
+  xiangling attack:4;
+}

@@ -1,0 +1,70 @@
+fn randy(mean, standardDeviation, min, max, display) {
+  let value = randnorm() * standardDeviation + mean;
+  if value > max {
+    value = max;
+  } else if value < min {
+    value = min;
+  }
+  if display {
+    print(value);
+  }
+  return value;
+}
+let prev_char_id = -1;
+let prev_action_id = -1;
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+
+  if prev_char_id != char_id && action_id != .action.swap {
+    execute_action(char_id, .action.swap, []);
+  }
+
+  if action_id == .action.swap {
+    
+    delay(randy(9.5, 1.5, 5, 17, 0));
+  } else if prev_action_id == .action.attack && action_id != .action.attack && action_id != .action.charge {
+    
+    delay(randy(3, 1, 0, 6, 0));
+  } else if prev_action_id != .action.attack {
+    
+    delay(randy(3, 1, 0, 6, 0));
+  }
+  
+  prev_char_id = char_id;
+  prev_action_id = action_id;
+  return _execute_action(char_id, action_id, p);
+}
+active neuvillette;
+for let i=0; i<3; i=i+1 {
+  neuvillette skill, attack:3; 
+  zhongli skill[hold=1], dash, attack;
+  let startFrame1 = f();
+  while !pick_up_crystallize("hydro") && f() - startFrame1 < 30 { 
+    if !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    } else {
+      wait(1);
+    }
+  } 
+  xiangling skill, dash, burst;
+  if !.xiangling.mods.favonius-cd {
+    xiangling attack;
+  }
+  chiori skill:2; 
+  neuvillette charge, burst, skill, charge;
+  xiangling attack:2, skill, dash;
+  if !.xiangling.mods.favonius-cd {
+    xiangling attack;
+  }
+  zhongli skill, attack:2, dash;
+  let startFrame2 = f();
+  while !pick_up_crystallize("hydro") && f() - startFrame2 < 30 {
+    if !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    } else {
+      wait(1);
+    }
+  } 
+  neuvillette charge, charge;
+}
+wait(173);

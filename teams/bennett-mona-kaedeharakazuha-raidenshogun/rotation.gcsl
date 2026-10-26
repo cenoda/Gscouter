@@ -1,0 +1,15 @@
+active raiden;
+raiden skill;
+for let i=0; i<5; i=i+1 {
+    mona attack:2;
+    kazuha skill,high_plunge;
+    bennett skill,burst,attack;
+    mona burst;
+    delay(63);
+    mona skill;
+    kazuha swap;
+    delay(10);
+    kazuha attack,skill[glide_cancel=1],burst;
+    raiden burst,attack:4,skill,attack:4,dash,attack:4,dash,attack:4;
+    
+}

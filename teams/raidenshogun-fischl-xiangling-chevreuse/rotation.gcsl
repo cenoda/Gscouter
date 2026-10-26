@@ -1,0 +1,26 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 4; i = i + 1 {
+  chevreuse burst;
+  if i==0 {
+    chevreuse skill[hold=1]; 
+  } else {
+    chevreuse attack;
+  }
+  
+  if i==0 {
+    xiangling burst, skill;
+  } else {
+    xiangling burst;
+  }
+  
+  fischl attack:3, burst;
+  raiden burst, attack:4, dash, attack:4, skill, attack:4, dash, attack:4;
+  chevreuse attack, skill[hold=1], attack;
+  xiangling attack:2, skill, dash; 
+  if i==0 || i==2 {
+    fischl attack:3, skill;
+  } else {
+    fischl attack:4, dash;
+  } 
+}

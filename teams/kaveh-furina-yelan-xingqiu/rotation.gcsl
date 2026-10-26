@@ -1,0 +1,11 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  xingqiu burst, attack, skill, dash;
+  
+  yelan  attack, burst, attack, skill, attack;
+  
+  kaveh skill, burst, attack:7, walk, attack:4, skill, attack:4,dash, attack:3, skill;
+  
+}

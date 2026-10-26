@@ -1,0 +1,14 @@
+active albedo;
+for let i=0; i<4; i=i+1 {
+  albedo skill, attack;
+  zhongli skill[hold=1], dash, attack;  
+  faruzan skill;
+  bennett skill, burst;
+  faruzan attack, burst, aim[weakspot=1], aim, skill, aim:2;
+  bennett attack, skill;
+  while !.zhongli.mods.favonius-cd {
+      zhongli attack;
+  }
+  faruzan attack:3, skill, aim[weakspot=1], aim;
+  bennett skill;
+}

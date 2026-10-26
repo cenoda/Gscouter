@@ -1,0 +1,17 @@
+id: bennett-xiangling-furina-travelerhydro
+name: Bennett / Xiangling / Furina / Travelerhydro
+members:
+    - bennett
+    - xiangling
+    - furina
+    - luminehydro
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/MzfQ8pcLG8pp
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 55359
+    computed: "2026-09-30"

@@ -1,0 +1,26 @@
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  mavuika skill;
+  xilonen skill, attack:2;
+  rosaria skill, burst;
+  charlotte skill[hold=1]; pick_up_crystallize("pyro");
+  if is_even(i){
+    charlotte attack:3;
+  } else {
+    charlotte burst;
+  }
+  mavuika burst;
+          
+  mavuika charge, dash, attack,
+          charge, dash, attack,
+          charge, dash, attack,
+          charge, dash, attack,
+          charge, dash, attack,
+          charge, dash, attack;
+
+  if .mavuika.cons == 0 {
+    mavuika charge:3, charge[final=1], dash;
+  } else {
+    mavuika charge:2, dash, charge:2, dash;
+  }
+}

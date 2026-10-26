@@ -1,0 +1,31 @@
+fn kinich_combo() {
+  kinich skill;
+  while .kinich.nightsoul.state { 
+    if .kinich.blind_spot {
+      kinich attack[direction=.kinich.blind_spot];
+    } else {
+      kinich attack;
+    }
+    while .kinich.nightsoul.state && .kinich.nightsoul.points < 20 && .kinich.nightsoul.points > 18 {
+      wait(1);
+    }
+    if .kinich.nightsoul.state && .kinich.nightsoul.points == 20 {
+      kinich skill[hold=1];
+    }
+    set_player_pos(0, -3); 
+  }
+}		
+active nilou;
+for let i=0; i<4; i=i+1 {
+  nilou skill, attack:2, skill;
+  
+  xingqiu skill, dash, burst, attack;
+  
+  baizhu burst, skill, attack:2;
+  
+  kinich_combo();
+  
+  baizhu skill, attack:2, charge, dash;
+  set_player_pos(0, 0); 
+  baizhu attack:2, charge;
+}

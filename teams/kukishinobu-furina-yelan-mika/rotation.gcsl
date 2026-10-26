@@ -1,0 +1,35 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  yelan skill, burst, attack;
+  
+  mika burst, attack, skill;
+  
+  kuki attack;
+  while !.yelan.skill.ready {
+    if .kuki.skill.ready {
+      kuki skill;
+    } else if .kuki.normal > 1 && .stam > 25 {
+      kuki charge;
+    } else if .kuki.normal > 3 && .stam > 18 {
+      kuki dash;
+    } else {
+      kuki attack;
+    }
+  }
+  
+  yelan skill, attack;
+  
+  while .yelan.skill.cd > 180 {
+    if .kuki.skill.ready {
+      kuki skill;
+    } else if .kuki.normal > 1 && .stam > 25 {
+      kuki charge;
+    } else if .kuki.normal > 3 && .stam > 18 {
+      kuki dash;
+    } else {
+      kuki attack;
+    }
+  }
+}

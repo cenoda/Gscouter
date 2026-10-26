@@ -1,0 +1,22 @@
+active wrio;
+wrio attack;
+for let i=0; i<4; i=i+1 {
+  luminepyro attack, skill, burst, attack;
+  bennett burst, skill;
+  xiangling burst, skill;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump, 
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:4;
+  if .wrio.burst.ready && .wrio.energy == .wrio.energymax  {
+    wrio burst;
+    wrio attack;
+  } else {
+    wrio charge, jump;
+    wrio attack:3, charge, jump;  
+    wrio attack;
+  }
+}

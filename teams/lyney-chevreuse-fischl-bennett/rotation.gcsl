@@ -1,0 +1,12 @@
+active bennett;
+for let r = 6; r > 0; r = r - 1 {
+  bennett skill, burst;
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } 
+  else {
+    fischl attack:2, burst;
+  } 
+  chevreuse skill[hold=1], burst;
+  lyney aim[weakspot=1], aim:2, skill, burst, skill, aim;
+}

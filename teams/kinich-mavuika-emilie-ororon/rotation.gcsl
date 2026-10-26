@@ -1,0 +1,33 @@
+fn kinich_combo() {
+  kinich skill;
+  while .kinich.nightsoul.state { 
+    if .kinich.blind_spot {
+      kinich attack[direction=.kinich.blind_spot];
+    } else {
+      kinich attack;
+    }
+    while .kinich.nightsoul.state && .kinich.nightsoul.points < 20 && .kinich.nightsoul.points > 15 {
+      wait(1);
+    }
+    if .kinich.nightsoul.state && .kinich.nightsoul.points == 20 {
+      kinich skill[hold=1];
+    }
+  }
+}		
+active kinich; 
+for let i=0; i<4; i=i+1{ 
+  if i && .emilie.burst.ready { 
+    emilie burst;
+  } else {
+    emilie skill;
+  }
+  ororon skill, burst;
+  mav skill, burst, charge, dash;
+  if i { 
+    mav charge:2, dash; 
+  }
+  kinich_combo();
+  if is_even(i) && .kinich.burst.ready { 
+    kinich burst;
+  }
+}

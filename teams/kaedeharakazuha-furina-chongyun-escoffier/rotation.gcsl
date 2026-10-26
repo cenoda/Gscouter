@@ -1,0 +1,22 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  esco skill, burst;
+  
+  chongyun burst, skill;
+  
+  kazuha skill[hold=0], high_plunge[collision=1];
+  kazuha burst;
+  kazuha attack:1, charge;
+  kazuha attack:1, charge;
+  kazuha skill[hold=0], high_plunge[collision=1];
+  kazuha attack:1, charge;
+  kazuha attack:1, charge;
+  kazuha attack:1, charge, attack;
+  kazuha skill[hold=0], high_plunge[collision=1];
+}

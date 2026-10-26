@@ -1,0 +1,29 @@
+active razor; 
+fischl skill, attack;
+for let i=0; i<4; i=i+1 {
+  xingqiu skill, dash, burst, attack;
+  
+  razor skill, dash, attack;
+  
+  bennett skill, dash, attack, burst;
+  
+  if !.amy.skill.ready {
+    amy attack:2, burst;
+  } else {
+    amy attack, skill;
+  }
+  
+  razor attack, burst;
+  while .xingqiu.mods.xingqiuburst { 
+
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+  
+  bennett skill, dash;
+}

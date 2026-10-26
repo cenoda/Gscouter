@@ -1,0 +1,32 @@
+active razor; 
+fn RazorPlunge() {
+  razor jump;
+  if .airborne {
+    razor high_plunge[collision=rand()>0.5];
+  }
+}
+for let i = 0; i < 4; i = i + 1 {
+  if i > 0 && .esco.burst.ready {
+    esco burst;
+  } else if i > 0 {
+    esco attack;
+  }
+  esco skill;
+  
+  furina skill, dash, attack, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  razor skill;
+  if .razor.burst.ready {
+    razor dash, burst, skill;
+  }
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor skill;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor attack:3, skill, dash;
+}

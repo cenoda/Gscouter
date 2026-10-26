@@ -1,0 +1,17 @@
+id: jean-rosaria-layla-bennett
+name: Jean / Rosaria / Layla / Bennett
+members:
+    - jean
+    - rosaria
+    - layla
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Jm6pGRdnHkQ8
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 29494
+    computed: "2026-09-30"

@@ -1,0 +1,22 @@
+active nahida;
+for let r=0; r<4; r=r+1 {
+	nahida skill, attack:3;
+	if .nahida.burst.ready && .nahida.energy == .nahida.energymax {
+		nahida burst;
+	}
+	bennett burst, skill;
+	dehya attack, skill;
+	wrio skill,
+		attack:3, charge, jump,
+		attack:3, charge, jump, 
+		attack:3, charge, jump,
+		attack:3, charge, jump,
+		attack:3, charge, jump,
+		attack:4;
+	if .wrio.burst.ready && .wrio.energy == .wrio.energymax  {
+		wrio burst;
+	} else {
+		wrio charge, jump;
+	}
+	bennett skill, attack:2;
+}

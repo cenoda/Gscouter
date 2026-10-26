@@ -1,0 +1,46 @@
+active mona;
+fn mualani_combo() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+}
+for let i=0; i<2; i=i+1 {
+  mona skill; 
+  sucrose skill;
+  xiangling burst, skill, dash;
+  mona burst;
+  mualani burst;
+  mualani skill;
+  mualani_combo();
+  mualani walk[f=1];
+  if .mualani.nightsoul.state {
+    mualani skill; 
+  }
+  while !.element.t0.hydro {
+    mualani attack;
+  }    
+    
+  xiangling attack:2;
+  while !.xiangling.mods.favonius-cd {
+    xiangling attack;
+  }
+  xiangling skill, dash;
+  sucrose skill, dash;
+  if .sucrose.skill.ready {
+    sucrose skill, attack:2; 
+  } else {
+    sucrose attack;
+  }
+  sucrose burst;
+  mona burst;
+  mualani skill;
+  mualani_combo();
+  mualani walk[f=1];
+}

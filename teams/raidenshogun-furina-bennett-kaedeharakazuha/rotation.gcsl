@@ -1,0 +1,17 @@
+active raidenshogun;
+ raidenshogun skill, dash;
+for let i=0; i<4; i=i+1 {
+if i==0 {
+ furina skill, dash, burst; 
+} else {
+ furina burst, skill;
+} 
+bennett burst, attack, skill;
+kazuha burst, skill, high_plunge;
+raidenshogun burst, attack:4, dash, 
+                    attack:4, skill, 
+                    attack:4, dash, 
+                    attack:4;
+kazuha skill, high_plunge;
+bennett skill;
+}

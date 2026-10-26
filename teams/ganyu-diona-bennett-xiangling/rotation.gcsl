@@ -1,0 +1,10 @@
+active diona;
+for let i = 0; i < 5; i = i + 1 {
+  diona burst;
+  ganyu skill, burst;
+  bennett burst, skill;
+  xiangling burst, skill, dash;
+  diona attack, skill[hold=1];
+  ganyu aim, skill, aim:3, aim;
+  bennett skill;
+}

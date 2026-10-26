@@ -1,0 +1,22 @@
+active mav; 
+raiden attack, skill;
+for let i = 0; i < 4; i = i + 1 {
+  sara skill, aim;
+
+  if i > 0 && .mav.burst.ready {
+    mav burst, charge:2, dash,
+               charge:2, dash, 
+               skill, dash;
+  } else {
+    mav skill, attack;
+  }
+  
+  chevreuse burst, skill[hold=1]:3;
+
+  while .sara.burst.cd { 
+    sara attack;
+  }
+  sara burst;
+  
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+}

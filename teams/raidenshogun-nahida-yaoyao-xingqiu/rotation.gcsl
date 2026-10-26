@@ -1,0 +1,18 @@
+active raiden;
+raiden skill;
+nahida attack:2, charge;
+for let i=0; i<5; i=i+1 {
+  xingqiu skill, dash, burst, attack;
+  nahida skill, attack, burst, attack, charge;
+  yaoyao attack, skill;
+  raiden attack;
+  while !.raiden.burst.ready {raiden attack;}
+  raiden burst,
+         attack:4, dash,
+         attack:4, dash,
+         attack:4, dash,
+         attack:4, dash,
+         attack:4, skill;
+  nahida attack:3, charge;
+  print("rotation done");
+}

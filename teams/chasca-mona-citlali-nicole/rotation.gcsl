@@ -1,0 +1,19 @@
+active nicole;
+for let i = 0; i < 4; i = i + 1 {
+  
+  if !is_even(i) {
+    nicole burst;
+  }
+  nicole skill;
+  mona skill, burst, attack;
+  
+  citlali skill, attack;
+  
+  chasca skill, aim:4;
+  if is_even(i) {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+  
+}

@@ -1,0 +1,25 @@
+active lauma;
+lauma attack;
+for let i=0; i<6; i=i+1 {
+  
+  columbina skill, burst;
+  
+  ineffa skill;
+  if .ineffa.burst.ready {
+    ineffa burst;
+  } 
+  
+  yelan burst, skill;
+  
+  lauma attack, skill[hold=.dew>0], burst;
+  
+  columbina attack, charge, dash, charge, dash;
+  columbina attack, charge, dash;
+  columbina attack, charge;
+  
+  yelan attack:3;
+  
+  columbina attack, charge, dash, charge, dash;
+  columbina attack, charge;
+}
+columbina dash, attack;

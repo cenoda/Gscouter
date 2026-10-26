@@ -1,0 +1,11 @@
+let rotations = 5;
+active candace;
+for let i=0; i<4; i=i+1 {
+  candace skill, attack, burst, attack;
+  kazuha attack, skill, high_plunge, burst;
+  yelan burst, attack, skill, attack;
+  tartaglia burst, walk, skill, attack:4, dash, attack:4, dash, attack:4, dash, attack:4;
+  candace attack, skill, attack;
+  yelan skill, attack:2;
+  kazuha skill, high_plunge, attack;
+}

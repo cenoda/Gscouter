@@ -1,0 +1,29 @@
+active xingqiu;
+for let i = 0; i < 5; i = i + 1 {
+  xingqiu skill, dash, burst, attack;
+  yelan burst, attack;
+  bennett burst, attack, skill;
+  xingqiu attack:2, dash, attack:2;
+  yelan attack, skill, attack;
+  if !.yelan.mods.favonius-cd {
+    yelan attack;
+  }
+  let e = .yelan.mods.favonius-cd;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5;
+  yelan attack, skill, attack:2;
+  if !.yelan.mods.favonius-cd {
+    yelan attack;
+  }
+  xingqiu attack:2;
+
+  while e && !.yelan.mods.favonius-cd {
+    yelan attack;
+  }
+  if .yelan.onfield {
+    while .yelan.normal < 4 {
+    yelan attack;
+    
+    }
+  }
+   
+}

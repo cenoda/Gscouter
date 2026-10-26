@@ -1,0 +1,36 @@
+active xilonen;
+for let i=0; i<4; i=i+1 {
+  xilonen burst;
+  
+  furina skill, dash, burst;
+  
+  shenhe skill, burst;
+  
+  xilonen skill, attack:2;
+  
+  if .chongyun.burst.ready {
+    chongyun burst;
+  }
+  chongyun skill;
+  while .shenhe.skill.cd { 
+    if .chongyun.normal > 4 {
+      chongyun dash;
+    } else {
+      chongyun attack;
+    }
+  }
+  
+  shenhe skill, attack;
+  
+  while .shenhe.skill.cd > 300 { 
+    if .chongyun.burst.ready {
+      chongyun burst;
+    } else if .chongyun.normal > 2 {
+      chongyun dash;
+    } else {
+      chongyun attack;
+    }
+  }
+  
+  xilonen skill, attack:2;
+}

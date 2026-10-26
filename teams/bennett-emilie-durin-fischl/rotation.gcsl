@@ -1,0 +1,30 @@
+active bennett; 
+bennett skill;
+for let i=0; i<4; i=i+1 {
+  
+  if i > 0 && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  
+  durin skill, skill, burst;
+  
+  bennett burst, skill;
+   
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst; 
+  }
+  
+  while .status.bennettburst {
+    if .bennett.skill.ready {
+      bennett skill;
+    } else if .bennett.normal > 2 {
+      bennett charge, dash;
+    } else {
+      bennett attack;
+    }
+  }
+}

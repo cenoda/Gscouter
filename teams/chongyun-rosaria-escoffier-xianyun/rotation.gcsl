@@ -1,0 +1,35 @@
+active chongyun; 
+for let i = 0; i < 4; i = i + 1 {
+  if i > 0 && .esco.burst.ready && .esco.energy == .esco.energymax {
+    esco burst;
+  } else if i > 0 {
+    esco attack;
+  }
+  esco skill;
+  
+  xianyun skill, low_plunge, burst; 
+  
+  rosaria skill, burst;
+  
+  if .chongyun.burst.ready {
+    chongyun burst;
+  }
+  chongyun skill;
+  
+  while .chongyun.status.xianyun-airborne-buff {
+    chongyun jump;
+    if .airborne {
+      chongyun high_plunge[collision=rand()>0.5];
+    }
+    if .chongyun.status.xianyun-airborne-buff { 
+      chongyun dash;
+    }
+  }
+  
+  xianyun attack:2; wait(20); 
+  
+  if .chongyun.burst.ready {
+    chongyun burst;
+  }
+  
+}

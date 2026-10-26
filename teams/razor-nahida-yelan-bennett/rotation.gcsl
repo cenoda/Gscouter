@@ -1,0 +1,20 @@
+active razor;
+for let i=0; i<4; i=i+1 {
+  razor skill, dash;
+  
+  nahida skill, attack, burst;
+  bennett skill, burst;
+  
+  yelan burst, attack:2, skill;
+  
+  razor skill, dash, attack, burst,
+    attack:3, skill, dash,
+    attack:3, dash,
+    attack:3, dash,
+    attack:3, skill, dash,
+    attack:3;
+  yelan attack, skill;
+  bennett skill, attack;
+  
+  print("done");
+}

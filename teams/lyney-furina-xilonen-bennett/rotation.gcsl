@@ -1,0 +1,30 @@
+active furina;
+let rotations = 5;
+for let r = rotations; r > 0; r = r - 1 {
+  if r != rotations { 
+    lyney aim[weakspot=1];
+  }
+  if .furina.skill.ready { 
+    if !.furina.burst.ready {
+      bennett skill;
+    }
+    if !.furina.burst.ready {
+      furina attack;
+    }
+    furina skill, walk;
+    delay(13);
+    furina burst;
+  }
+  bennett skill, dash, burst;
+  xilonen skill, attack:2;
+  lyney aim[weakspot=1], aim, aim, aim;
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(12); 
+    lyney skill;
+  } 
+  else {
+    lyney aim;
+  }
+  lyney skill;
+}

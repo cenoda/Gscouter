@@ -1,0 +1,22 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+    if !i {
+        furina skill, dash, attack, burst;
+    } else {
+        furina burst, skill;
+    }
+    while !.furina.mods.favonius-cd {
+        furina attack;
+    }
+    bennett burst, attack, skill;
+    kazuha burst, skill, high_plunge;
+    while !.kazuha.mods.favonius-cd {
+        kazuha attack;
+    }
+    xinyan skill, burst, attack:4, dash, attack:4;
+    kazuha skill, high_plunge;
+    while !.kazuha.mods.favonius-cd {
+        kazuha attack;
+    }
+    bennett skill;
+}

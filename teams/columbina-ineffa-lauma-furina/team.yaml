@@ -1,0 +1,17 @@
+id: columbina-ineffa-lauma-furina
+name: Columbina / Ineffa / Lauma / Furina
+members:
+    - columbina
+    - ineffa
+    - lauma
+    - furina
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/t8BrTMfrd6Dn
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 141309
+    computed: "2026-09-30"

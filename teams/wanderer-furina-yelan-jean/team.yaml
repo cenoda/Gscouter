@@ -1,0 +1,17 @@
+id: wanderer-furina-yelan-jean
+name: Wanderer / Furina / Yelan / Jean
+members:
+    - wanderer
+    - furina
+    - yelan
+    - jean
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/LDDqz7TkRhmC
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 49157
+    computed: "2026-10-02"

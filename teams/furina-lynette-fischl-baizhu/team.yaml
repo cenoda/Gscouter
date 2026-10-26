@@ -1,0 +1,17 @@
+id: furina-lynette-fischl-baizhu
+name: Furina / Lynette / Fischl / Baizhu
+members:
+    - furina
+    - lynette
+    - fischl
+    - baizhu
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/WpDbczLn6bjt
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 65306
+    computed: "2026-10-02"

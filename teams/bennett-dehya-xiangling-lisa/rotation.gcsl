@@ -1,0 +1,13 @@
+active dehya;
+	
+for let i =0; i < 5; i = i + 1 {
+	dehya skill,attack;
+	lisa skill[hold=1],burst,attack;
+	bennett burst,skill;
+	xiangling burst, skill;
+	bennett skill;
+	dehya burst, skill:10;
+	bennett skill;
+	dehya skill, attack;
+	lisa attack;
+}

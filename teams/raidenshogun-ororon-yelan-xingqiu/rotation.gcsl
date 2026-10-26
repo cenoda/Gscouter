@@ -1,0 +1,16 @@
+active raiden;
+raiden skill;
+for let x =0; x< 3; x=x+1 {
+  if x {
+    xingqiu attack:2;
+  }
+  xingqiu burst, attack, skill, dash, attack:2;
+  ororon skill, attack, burst;
+  yelan attack, burst, attack:3, skill, attack;
+  raiden burst, 
+         attack:4, skill,
+         attack:4, dash,
+         attack:4, dash,
+         attack:4;     
+  yelan skill, attack:3;
+}

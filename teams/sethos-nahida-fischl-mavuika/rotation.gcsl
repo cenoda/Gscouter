@@ -1,0 +1,43 @@
+fn sethosCombo() {
+  sethos burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk, 
+         skill;
+}
+active sethos;
+sethos aim[hold=2];
+for let i=0; i<4; i=i+1 {
+  nahida skill, attack;
+  if i > 0 && .nahida.burst.ready && .nahida.energy == .nahida.energymax {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  if .mav.burst.ready {
+    mav burst, skill;
+  } else {
+    mav attack, skill;
+  }
+  
+  amy attack;
+  if .amy.burst.ready {
+    amy attack, burst;
+  } else {
+    amy skill;
+  }
+  
+  if .sethos.skill.cd {
+    nahida attack:2, skill, charge;
+  }
+  
+  sethos skill; 
+  sethosCombo();
+  sethos aim[hold=2]:2;
+}

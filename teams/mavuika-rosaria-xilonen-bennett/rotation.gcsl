@@ -1,0 +1,21 @@
+active mavuika;
+  
+mavuika skill;
+  
+for let i=0; i<5; i=i+1 {
+  
+  if i {
+    bennett skill, burst;
+  } else {
+    bennett burst, skill;
+  }
+  
+  xilonen skill, attack:2;
+  rosaria burst, skill, dash; pick_up_crystallize("pyro");
+  delay(6);
+  mavuika burst, charge:3, charge[hold=8], charge[final=1],
+           dash, charge:3, charge[hold=33], charge[final=1];
+  mavuika dash, charge, dash;
+  rosaria skill;
+  mavuika skill[hold=1], charge, dash;
+}

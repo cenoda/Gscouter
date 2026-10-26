@@ -1,0 +1,21 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 { 
+  neuvillette skill, attack;
+  citlali skill, attack;
+  if !.citlali.mods.favonius-cd {
+    citlali attack;
+  }
+  nahida skill, attack;
+  if !.nahida.mods.favonius-cd {
+    nahida attack;
+  }
+  raiden skill, attack;
+  citlali burst;
+  neuvillette charge, burst, skill, charge;
+  nahida attack:2, dash, attack;
+  if !.nahida.mods.favonius-cd {
+    nahida attack;
+  }
+  neuvillette charge, charge;
+}
+wait(173);

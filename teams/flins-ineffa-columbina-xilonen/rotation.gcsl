@@ -1,0 +1,22 @@
+active columbina;
+for let i=0; i<6; i=i+1 {
+  if !i {
+    columbina skill;
+  }
+  ineffa skill, burst;
+  if i {
+    columbina skill;
+  }
+  columbina burst;
+  xilonen skill, attack:2;
+  flins skill, attack, 
+        skill, attack, burst, 
+        attack:3, dash, attack:3, 
+        skill, attack, burst, 
+        attack:3, dash, attack:3, 
+        skill, burst, attack;
+  if is_even(i) {
+    xilonen skill, attack:2;
+    flins burst;
+  }
+}

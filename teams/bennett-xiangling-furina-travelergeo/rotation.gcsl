@@ -1,0 +1,15 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  luminegeo attack, skill[short_hold=1];
+  furina skill, dash, burst;
+  bennett burst, attack:2, skill[hold=1];
+  luminegeo attack, skill[short_hold=1], dash, burst;
+  pick_up_crystallize("any");
+  xiangling attack, burst, skill, dash;
+  bennett skill, attack;
+  xiangling attack:3;
+  luminegeo attack, skill[short_hold=1], dash, attack;
+  pick_up_crystallize("any");
+  bennett  skill[hold=1], attack;
+  
+}

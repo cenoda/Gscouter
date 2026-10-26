@@ -1,0 +1,26 @@
+active razor;
+razor skill, dash; 
+  
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  escoffier skill, burst;
+  
+  xq skill, dash, burst, attack;
+
+  razor skill[hold=1], dash, attack, burst;
+  let razorSkills = 0;
+  while razorSkills < 3 { 
+    
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+      razorSkills = razorSkills + 1;
+    
+    } else if .razor.normal > 3 {
+      razor dash;
+    
+    } else {
+      razor attack;
+    }
+  }
+}

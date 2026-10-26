@@ -1,0 +1,17 @@
+id: layla-mona-kaedeharakazuha-ganyu
+name: Layla / Mona / Kaedeharakazuha / Ganyu
+members:
+    - layla
+    - mona
+    - kazuha
+    - ganyu
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/wtgPBjcPzpHG
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 36899
+    computed: "2026-09-30"

@@ -1,0 +1,17 @@
+id: sangonomiyakokomi-bennett-nahida-jean
+name: Sangonomiyakokomi / Bennett / Nahida / Jean
+members:
+    - kokomi
+    - bennett
+    - nahida
+    - jean
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/fwK9qWGmPmg9
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 37030
+    computed: "2026-10-01"

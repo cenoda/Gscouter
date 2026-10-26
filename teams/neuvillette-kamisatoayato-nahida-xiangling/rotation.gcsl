@@ -1,0 +1,13 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+	neuvillette skill;
+	nahida attack, skill, burst;
+	ayato skill, attack, burst, attack;
+	xiangling burst, skill;
+	neuvillette charge, burst, skill, charge;
+	ayato skill, attack;
+	nahida attack, skill, charge;
+	xiangling skill;
+	neuvillette charge:2;
+  }
+   wait(173);

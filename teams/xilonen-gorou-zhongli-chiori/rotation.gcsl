@@ -1,0 +1,32 @@
+active zhongli;
+for let i = 0; i < 4; i = i + 1 {
+  let stl = rand();
+  if stl > 0 { 
+    zhongli skill[hold=1], dash;
+  } else {
+    zhongli skill[hold_nostele=1], dash;
+  }
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  gorou skill;
+  if i && .gorou.burst.ready{
+    gorou burst;
+  }
+  while !.gorou.mods.favonius-cd {
+    gorou attack;
+  }
+  chiori swap;
+  if !.chiori.burst.ready {
+    chiori attack;
+  }
+  chiori burst, skill:2;
+  xilonen skill;
+  while !.xilonen.burst.ready {
+    xilonen attack;
+  }
+  xilonen burst;
+  while .xilonen.nightsoul.state{
+    xilonen attack;
+  }
+}

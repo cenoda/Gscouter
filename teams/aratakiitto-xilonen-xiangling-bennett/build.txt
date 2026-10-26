@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+itto char lvl=90/90 cons=0 talent=10,10,10;
+itto add weapon="redhornstonethresher" refine=1 lvl=90/90;
+itto add set="huskofopulentdreams" count=4 +params=[stacks=4];
+itto add set="wandererstroupe" count=1;
+itto add stats def%=0.634 def=32 hp=5079 hp%=0.14600000000000002 atk=327 er=0.305 em=103 cr=0.5980000000000001 cd=1.065 geo%=0.466;
+
+xilonen char lvl=90/90 cons=0 talent=8,10,10;
+xilonen add weapon="peakpatrolsong" refine=1 lvl=90/90;
+xilonen add set="scrolloftheheroofcindercity" count=4;
+xilonen add set="obsidiancodex" count=1;
+xilonen add stats def%=1.166 def=42 hp=5019 atk=330 atk%=0.326 er=0.602 em=166 cr=0.528 cd=0.272;
+
+xiangling char lvl=90/90 cons=6 talent=9,9,9;
+xiangling add weapon="thecatch" refine=5 lvl=90/90;
+xiangling add set="emblemofseveredfate" count=4;
+xiangling add stats hp=4780 atk=311 er=0.518 pyro%=0.466 cr=0.311;
+xiangling add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1488 er=0.1653 em=39.64 cr=0.331 cd=0.7944;
+
+bennett char lvl=90/90 cons=6 talent=9,9,9;
+bennett add weapon="thealleyflash" refine=1 lvl=90/90;
+bennett add set="noblesseoblige" count=5;
+bennett add stats hp=4780 atk=311 er=0.518 pyro%=0.466 cr=0.311;
+bennett add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.3306 em=39.64 cr=0.2648 cd=0.7944;

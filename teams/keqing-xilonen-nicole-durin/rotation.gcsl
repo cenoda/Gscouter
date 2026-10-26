@@ -1,0 +1,16 @@
+active nicole;
+for let i = 0; i < 6; i = i + 1 { 
+  nicole skill; wait(18);
+  durin skill:2, burst;
+  xilo skill, attack:2;
+  keq skill, burst, skill,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      attack, charge;
+  xilo skill, attack:2;
+  keq skill, burst, skill, 
+      attack, charge,
+      attack, charge,
+      attack, charge;
+}

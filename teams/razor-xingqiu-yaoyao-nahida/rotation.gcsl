@@ -1,0 +1,30 @@
+active nahida;
+for let i=0; i<4; i=i + 1 {
+if i {nahida attack;}
+nahida burst, skill;
+ while !.nahida.mods.favonius-cd && 
+  !.xingqiu.burst.ready {
+      nahida attack;
+    }
+   
+xingqiu skill, dash, burst, attack;
+ while !.xingqiu.mods.favonius-cd && 
+  !.razor.burst.ready {
+      xingqiu attack;
+    }
+  
+  if.yaoyao.burst.ready { 
+     yaoyao burst, dash, skill, dash;
+   }
+  else { 
+     yaoyao skill;
+   }
+  razor skill, dash, burst,
+     attack:3, skill, dash, 
+     attack:3, dash, 
+     attack:3, dash, 
+     attack:3, skill, dash, 
+     attack:3, dash, 
+     attack:3, dash,
+     attack:2, skill, dash;
+}

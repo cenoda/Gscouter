@@ -1,0 +1,16 @@
+active gaming; 
+for let i = 0; i < 4; i = i + 1 {
+  ororon skill, burst;
+  
+  chev burst, skill[hold=1]:3; 
+  
+  furina skill, dash, burst;
+  
+  gaming burst;
+  for let j = 0; j < 6; j = j + 1 {
+    sleep(45);
+    gaming skill, high_plunge;
+  }
+  sleep(30); 
+  gaming skill, high_plunge;
+}

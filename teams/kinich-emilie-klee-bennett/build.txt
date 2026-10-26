@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+kinich char lvl=90/90 cons=6 talent=10,10,10;
+kinich add weapon="fangofthemountainking" refine=5 lvl=90/90;
+kinich add set="obsidiancodex" count=4;
+kinich add stats hp=4780 atk=311 atk%=0.466 dendro%=0.466 cd=0.622;
+kinich add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.3972 cd=0.662;
+
+emilie char lvl=90/90 cons=6 talent=10,10,10;
+emilie add weapon="lumidouceelegy" refine=5 lvl=90/90;
+emilie add set="ur" count=5;
+emilie add stats hp=4780 atk=311 atk%=0.466 dendro%=0.466 cd=0.622;
+emilie add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.2755 em=39.64 cr=0.3972 cd=0.5958;
+
+klee char lvl=90/90 cons=6 talent=9,9,9;
+klee add weapon="ttds" refine=5 lvl=90/90;
+klee add set="deepwood" count=4;
+klee add stats hp=4780 atk=311 atk%=0.466 pyro%=0.466 cr=0.311;
+klee add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.331 cd=0.7944;
+
+bennett char lvl=90/90 cons=6 talent=10,10,10;
+bennett add weapon="skywardblade" refine=5 lvl=90/90;
+bennett add set="no" count=5;
+bennett add stats hp=4780 atk=311 er=0.518 pyro%=0.466 cr=0.311;
+bennett add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.551 em=39.64 cr=0.1655 cd=0.7282;

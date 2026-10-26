@@ -1,0 +1,63 @@
+fn mav_dc_cancel(d_travel_f) { 
+  
+  if d_travel_f < 6 {
+    d_travel_f = 6;
+  }
+  
+  let dash_ns = 10; 
+  let base_cons = 0.9; 
+  let base_tick_rate = 6;
+  
+  while !.mavuika.dash.ready {
+    print("waiting on mavuika dash cd");
+    wait(1);
+  }
+  
+  let d_ticks = d_travel_f / base_tick_rate + 1; 
+  print("Max number of NS ticks during dash: ", d_ticks);
+  let ns_consumed = dash_ns + base_cons * d_ticks;
+  print("Expected NS consumption: ", ns_consumed);
+  
+  if .mavuika.nightsoul.points > ns_consumed || .mavuika.status.mavuika-burst {
+    mavuika dash[charge_cancel=1, travel=d_travel_f], charge;
+  } else {
+    print("current NS points = ", .mavuika.nightsoul.points);
+    print("skipping mav d*c, not enough NS points ");
+    mavuika jump;
+  }
+}
+set_particle_delay("lynette", 70);
+active mavuika;
+for let i=0; i<5; i=i+1 {
+  if i== 0 {
+    mavuika skill[hold=1];
+  } else {
+    mavuika skill[hold=1];
+    mavuika charge;
+    mav_dc_cancel(6); mavuika charge;
+    mav_dc_cancel(6);
+  }
+  citlali attack, skill;
+  if !.citlali.mods.favonius-cd {
+    citlali attack;
+  }
+  bennett burst;
+  if !.citlali.mods.favonius-cd {
+    citlali attack;
+  }
+  citlali burst;
+  lynette skill, burst;
+  mavuika burst;
+  mavuika charge;
+  mav_dc_cancel(6); mavuika charge;
+  mav_dc_cancel(6); mavuika charge;
+  mavuika charge[final=1];
+  mav_dc_cancel(6); mavuika charge;
+  mav_dc_cancel(6); mavuika charge;
+  delay(15);
+  mavuika charge[final=1];
+  mav_dc_cancel(6);
+  if i== 0 {
+    mav_dc_cancel(6);
+  }
+}

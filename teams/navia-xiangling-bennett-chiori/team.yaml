@@ -1,0 +1,17 @@
+id: navia-xiangling-bennett-chiori
+name: Navia / Xiangling / Bennett / Chiori
+members:
+    - navia
+    - xiangling
+    - bennett
+    - chiori
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/NL67Mbmkz6dg
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 63707
+    computed: "2026-10-02"

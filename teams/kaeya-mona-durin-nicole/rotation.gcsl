@@ -1,0 +1,14 @@
+active mona;
+for let i = 0; i < 6; i = i + 1 {
+  mona skill, attack;
+  nicole skill;
+  durin skill, attack, burst;
+  mona burst, attack;
+  kaeya skill, burst,
+        attack, charge,
+        attack, charge;
+  mona attack:3;
+  kaeya skill,
+        attack, charge,
+        attack, charge;
+}

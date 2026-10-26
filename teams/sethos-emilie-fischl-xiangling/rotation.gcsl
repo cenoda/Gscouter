@@ -1,0 +1,40 @@
+fn sethosCombo() {
+  sethos burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk, 
+         attack;
+}
+active emilie;
+for let i=0; i<5; i=i+1 {
+  
+  if i && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie attack, skill;
+  }
+  
+  if .xiangling.burst.ready {
+    xiangling burst, skill, dash;
+  } else {
+    xiangling attack, skill, dash;
+  }
+  
+  amy attack;
+  if .amy.burst.ready {
+    amy attack, burst;
+  } else {
+    amy skill;
+  }
+  
+  sethos skill; 
+  sethosCombo();
+  if is_even(i) {
+    sethos aim[hold=2];
+  }
+}

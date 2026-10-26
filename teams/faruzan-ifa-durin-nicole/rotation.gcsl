@@ -1,0 +1,16 @@
+active faru;
+for let i=0; i<4; i=i+1 {
+  faru burst;
+  nicole skill, burst;
+  if i {
+    durin skill:2, burst;
+  } else {
+    durin skill, burst, skill;
+  }
+  faru skill, aim;
+  ifa skill;
+  while .ifa.nightsoul.points > 10 {
+    ifa charge;
+  }
+  ifa burst;
+}

@@ -1,0 +1,54 @@
+active durin;
+for let i=0; i<3; i=i+1 {
+  while .durin.burst.cd > 53 { 
+    wait(1);
+  }
+  durin skill:2, burst;
+  
+  emilie skill, attack;
+  
+  if is_even(i){ 
+    fischl attack:2, burst;
+  } else {
+    fischl skill, attack;
+  }
+  
+  sethos skill, burst,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, skill,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk;
+  sethos aim[hold=2]:2, skill;
+  
+  emilie burst, skill;
+  
+  if is_even(i){
+    fischl skill, attack;
+  } else {
+    fischl attack:2, burst;
+  }
+  
+  durin skill:2, burst;
+  
+  sethos skill, burst,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, skill,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk;
+  
+  if is_even(i){
+    fischl attack:2, burst;
+  } else {
+    fischl skill, attack;
+  }
+  
+  sethos skill, aim[hold=2], aim[hold=1]:6, skill;
+}

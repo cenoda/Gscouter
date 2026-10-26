@@ -1,0 +1,20 @@
+active furina;
+  furina skill, dash, burst;
+for let i = 0; i < 4; i = i + 1 {
+  if i {
+   furina attack, burst, skill;
+  } 
+  yelan burst, attack;
+  
+  sayu burst, attack, skill;
+  
+  yelan attack, skill, attack;
+  
+  yoimiya skill, attack:5, dash, 
+                 attack:5, dash, 
+                 attack:5;
+                  
+  yelan attack, skill, attack; 
+  
+  sayu skill;
+}

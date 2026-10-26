@@ -1,0 +1,17 @@
+id: wanderer-faruzan-yelan-xingqiu
+name: Wanderer / Faruzan / Yelan / Xingqiu
+members:
+    - wanderer
+    - faruzan
+    - yelan
+    - xingqiu
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/jBjRQDwc87RN
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 56128
+    computed: "2026-10-02"

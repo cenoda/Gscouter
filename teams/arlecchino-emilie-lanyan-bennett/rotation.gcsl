@@ -1,0 +1,23 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  
+  bennett swap;   delay(12);  
+  bennett skill, burst;
+  
+  if i > 0 && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie attack, skill;
+  }
+  
+  lanyan attack, skill:2;
+  
+  arle charge, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3;
+}

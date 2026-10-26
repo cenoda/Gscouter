@@ -1,0 +1,31 @@
+active fischl;
+fischl skill;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.burst.ready || !.furina.mods.favonius-cd) {
+    furina attack;
+  }
+  furina burst;
+  
+  esco skill, burst;
+  
+  if .fischl.burst.ready {
+    fischl attack:2, burst;
+  } else {
+    fischl attack, skill;
+  }
+  
+  rosaria skill, burst;
+  
+  let rosariaSkills = 0;
+  while rosariaSkills < 2 { 
+    if .rosaria.skill.ready {
+      rosaria skill;
+      rosariaSkills = rosariaSkills + 1;
+    } else if .rosaria.normal > 3 && .stam > 43 {
+      rosaria charge, dash;
+    } else {
+      rosaria attack;
+    }
+  } 
+}

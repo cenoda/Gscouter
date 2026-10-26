@@ -1,0 +1,18 @@
+active nahida;
+for let i=0; i<4; i=i+1 { 
+  nahida skill, burst;
+  
+  thoma skill, attack, burst, attack;
+  
+  yelan skill;
+  if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  cyno burst, attack, skill;
+  for let i = 0; i < 6; i=i+1 {
+    cyno attack:4, skill;
+  }
+  
+}

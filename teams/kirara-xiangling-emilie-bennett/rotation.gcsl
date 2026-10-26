@@ -1,0 +1,17 @@
+active emilie;
+emilie skill;
+for let x=0; x<5; x=x+1 {
+  bennett burst, skill;
+  xiangling burst, skill;
+  kirara burst,skill;
+  emilie burst;
+  
+  bennett attack,skill,attack;
+  xiangling attack:3;
+  emilie attack:3;
+  kirara skill[hold=20],attack;
+  emilie attack:3;
+  
+  bennett skill,attack;
+  xiangling attack:3;
+}

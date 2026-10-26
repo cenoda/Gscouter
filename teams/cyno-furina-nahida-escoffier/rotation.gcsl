@@ -1,0 +1,19 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  
+  nahida skill;
+  if i > 0 && .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida attack, charge;
+  }
+  
+  furina skill, dash, burst;
+  
+  esco skill, burst;
+  
+  cyno skill, burst, attack:1, skill;
+  for let x = 0; x < 7; x = x + 1 {
+    cyno attack:4, skill;
+  }
+}

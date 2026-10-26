@@ -1,0 +1,10 @@
+active raiden;
+raiden skill;
+nahida skill, attack;
+for let x = 5; x; x = x - 1 {
+	sara skill, aim;
+	lisa attack, skill[hold=1], burst;
+	nahida burst, skill, attack;
+	sara burst;
+	raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+}

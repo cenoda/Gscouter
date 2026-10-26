@@ -1,0 +1,28 @@
+active yelan;
+for let i = 0; i < 4; i = i + 1 {
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  chevreuse burst, attack, skill[hold=1];
+
+  xilonen skill, attack:3;
+  
+  hutao skill,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2;
+  if .hutao.burst.ready {
+    hutao burst;
+  }
+}

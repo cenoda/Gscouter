@@ -1,0 +1,17 @@
+id: sangonomiyakokomi-nahida-nilou-travelerdendro
+name: Sangonomiyakokomi / Nahida / Nilou / Travelerdendro
+members:
+    - kokomi
+    - nahida
+    - nilou
+    - luminedendro
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/mRRBKLfgqRGb
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 56727
+    computed: "2026-10-02"

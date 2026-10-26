@@ -1,0 +1,14 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  yelan skill, burst, attack;
+  bennett skill, burst;
+  fischl attack:2, burst;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  bennett attack, skill;
+  if is_even(i) {
+    fischl attack, skill;
+  } else {
+    fischl attack:2;
+  }
+}

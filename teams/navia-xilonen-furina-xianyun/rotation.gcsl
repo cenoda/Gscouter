@@ -1,0 +1,27 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+	  pick_up_crystallize("any");
+  }
+	
+  return _execute_action(char_id, action_id, p);
+}
+fn navia_combo() {
+  navia skill[hold=1];
+  for let h = 4; h > 0; h = h - 1 {
+    navia jump;
+    if .airborne {
+      navia high_plunge[collision=1], dash;
+    }
+  }
+}
+active navia; 
+for let x = 0; x < 4; x = x + 1 {
+  furina skill, dash, burst;
+  xilonen skill, attack:2;
+  navia burst;
+  xianyun skill, low_plunge, burst;
+  navia_combo(); 
+  xilonen skill, attack:2;
+  navia_combo(); 
+}

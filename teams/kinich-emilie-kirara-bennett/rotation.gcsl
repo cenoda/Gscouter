@@ -1,0 +1,29 @@
+fn kinich_combo() {
+  kinich skill;
+  
+  for let c=0; c<5; c=c+1 { 
+    kinich attack[direction=1]:2;
+    while .kinich.nightsoul.points < 20 && .kinich.nightsoul.state {
+      wait(1);
+    }
+    if .kinich.nightsoul.state {
+      kinich skill[hold=1];
+    }
+  }
+  
+  if .kinich.burst.ready {
+    kinich burst;
+  }
+}
+active kinich; 
+for let i=0; i<4; i=i+1 {
+  if i && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack:2;
+  }
+  bennett skill, burst;
+  kirara skill[short_hold=1], burst;
+  kinich_combo();
+  bennett skill, attack:2, dash;
+}

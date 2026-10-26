@@ -1,0 +1,16 @@
+active furina;
+for let x=0; x<4; x=x+1 {
+  furina attack, skill, dash, burst;
+  bennett skill, burst;
+  if !.element.t0.hydro && !.element.t0.pyro {
+    bennett attack;
+  }
+  citlali skill, burst;
+  yoimiya skill, attack:5, attack:5, attack:5;
+  bennett skill, dash;
+  if .yoimiya.burst.ready && .yoimiya.energy == .yoimiya.energymax  {
+    yoimiya burst; 
+  } else {
+    yoimiya attack:2, dash;
+  }
+}

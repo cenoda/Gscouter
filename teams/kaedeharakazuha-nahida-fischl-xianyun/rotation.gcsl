@@ -1,0 +1,60 @@
+active fischl;
+fischl skill;
+for let i=0; i<4; i=i+1 {
+  
+  if .fischl.skill.cd <= 30 {
+    fischl attack, skill;
+  }
+
+  nahida skill;
+
+    nahida attack;
+
+  while .xianyun.skill.ready {
+    xianyun skill, low_plunge;
+  }
+  xianyun attack, burst; 
+  
+  while .fischl.skill.cd >= 30 {
+    switch {
+      
+      case !.amy.oz && .amy.burst.ready:
+        amy attack:2, burst;
+      
+      case .kazuha.skill.ready && .kazuha.swap.ready:
+        kazuha skill, high_plunge[collision=rand()>0.2];
+      case .kazuha.burst.ready && .kazuha.skill.cd  && .kazuha.swap.ready:
+        kazuha burst;
+      
+      case .kazuha.sets.tf == 4 && .status.vvelectro:
+        xianyun attack;
+      
+      case .kazuha.infusion.kazuha-c6-infusion && .previous-action == .action.low_plunge:
+        kazuha attack;
+      case .kazuha.infusion.kazuha-c6-infusion && .xianyun.status.xianyun-airborne-buff:
+        kazuha jump;
+        if .airborne {
+          kazuha low_plunge[collision=rand()>0.5];
+        }
+      case .kazuha.infusion.kazuha-c6-infusion && .kazuha.normal > 1 && .stam > 25:
+        kazuha charge;
+      case .kazuha.infusion.kazuha-c6-infusion:
+        kazuha attack;
+      
+      case .xianyun.onfield && .previous-action == .action.low_plunge:
+        xianyun attack;
+      case .xianyun.weapon == .keys.weapon.sacfrags && .xianyun.skill.ready && .xianyun.swap.ready:
+        xianyun skill, low_plunge;
+      case .xianyun.status.xianyun-airborne-buff && .xianyun.swap.ready:
+        xianyun jump;
+        if .airborne {
+          xianyun low_plunge[collision=rand()>0.5];
+        }
+
+      default:
+        xianyun attack;
+    }
+  }
+
+  print("done");
+}

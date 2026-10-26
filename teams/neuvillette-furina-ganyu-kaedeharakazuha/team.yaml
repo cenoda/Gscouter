@@ -1,0 +1,17 @@
+id: neuvillette-furina-ganyu-kaedeharakazuha
+name: Neuvillette / Furina / Ganyu / Kaedeharakazuha
+members:
+    - neuvillette
+    - furina
+    - ganyu
+    - kazuha
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/QnRHC9RLMWCh
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 116211
+    computed: "2026-10-02"

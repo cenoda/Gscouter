@@ -1,0 +1,31 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  jean skill, burst;
+  
+  yelan skill, burst, attack;
+  candace skill, burst, attack;
+  
+  while !.yelan.skill.ready {
+    if .jean.skill.ready {
+      jean skill;
+    } else {
+      if .jean.normal > 3 {
+        jean dash;
+      } else {
+        jean attack;
+      }
+    }
+  } 
+  
+  yelan skill, attack;
+  
+  jean skill;
+  jean attack:3, dash;
+  jean attack:3, dash;
+  jean attack:1;
+  
+  candace attack, skill;
+
+}

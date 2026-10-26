@@ -1,0 +1,23 @@
+active sara;
+sara skill;
+for let i=0; i<4; i=i+1 {
+  chev burst, skill[hold=1], attack;
+  dehya skill;
+  if .dehya.skill.ready {
+    dehya skill;
+  }
+  sara aim;
+  if .sara.burst.ready {
+    sara burst;
+  }
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+  sara skill;
+  clorinde burst, attack, dash;
+}

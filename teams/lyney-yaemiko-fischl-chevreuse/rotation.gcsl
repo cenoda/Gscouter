@@ -1,0 +1,20 @@
+let weak = 1; 
+active yae;
+for let r=0; r<4; r=r+1 {
+  if r { 
+    lyney aim[weakspot=weak];
+  }
+  yae skill:3;
+  chev burst, skill[hold=1];
+  if !.chev.mods.favonius-cd {
+    chev skill[hold=1];
+  }
+  if .fischl.burst.ready {
+    fischl attack:2, burst;
+  } else {
+    fischl attack, skill;
+  }
+  lyney aim[weakspot=weak], aim, aim, burst;
+  delay(11); 
+  lyney skill, skill; 
+}

@@ -1,0 +1,18 @@
+active arle;
+for let i=0; i<4; i=i+1 {
+  arle skill;
+  if i {
+    wait(10);
+  }
+  bennett skill, burst;
+  skirk skill[hold=1], burst;
+  citlali skill, burst;
+  arle charge[early_cancel=1], dash,
+       attack:3, dash,
+       attack:3;
+  skirk dash, skill[hold=1], dash;
+  arle attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack;
+}

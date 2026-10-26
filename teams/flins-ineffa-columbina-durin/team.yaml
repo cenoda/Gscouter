@@ -1,0 +1,17 @@
+id: flins-ineffa-columbina-durin
+name: Flins / Ineffa / Columbina / Durin
+members:
+    - flins
+    - ineffa
+    - columbina
+    - durin
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/pFRT87nmD9Pp
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 133011
+    computed: "2026-09-30"

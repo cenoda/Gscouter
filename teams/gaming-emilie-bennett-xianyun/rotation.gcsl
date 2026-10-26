@@ -1,0 +1,19 @@
+active gaming; 
+gaming skill, low_plunge, dash; 
+for let i = 0; i < 4; i = i + 1 {
+  if i > 0 && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  
+  xianyun skill, low_plunge, burst;
+  
+  bennett burst, skill;
+  
+  gaming burst, attack:2;
+  for let i=0; i<6; i=i+1 {
+    gaming skill, high_plunge, attack:1;
+  }
+  gaming skill, high_plunge, dash;
+}

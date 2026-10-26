@@ -1,0 +1,15 @@
+active ayaka;
+ayaka dash;
+for let i = 0; i < 5; i = i + 1{
+  if .lynette.skill.ready {
+    lynette skill, burst;
+  } else {
+    lynette attack, burst;
+  }
+  shenhe skill, burst;
+  kokomi skill;
+  ayaka dash, skill, attack:2, burst, attack:2, charge;
+  lynette attack, skill;
+  shenhe skill, dash, attack;
+  ayaka dash, attack:2, charge, attack:2, skill, attack:2, charge, dash, attack:2,charge;
+}

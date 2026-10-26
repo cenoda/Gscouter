@@ -1,0 +1,23 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  candace skill, burst;
+  
+  bennett burst, skill;
+  
+  xl burst, attack, skill, dash;
+  candace skill, attack;
+  
+  bennett attack:2; 
+  while !.furina.skill.ready {
+    if .bennett.skill.ready {
+      bennett skill;
+    } else if .candace.skill.ready { 
+	    candace skill, attack;
+    } else {
+      bennett attack;
+    }
+  }
+  
+}

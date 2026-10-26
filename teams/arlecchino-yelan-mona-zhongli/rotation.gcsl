@@ -1,0 +1,20 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  yelan attack, skill, burst, attack;
+  while !.yelan.mods.favonius-cd {
+    yelan attack;
+  }
+  zhongli skill[hold=1], dash, attack;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }  
+  mona attack, skill, burst, attack;
+  arle charge[early_cancel=1], dash,
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3;
+}

@@ -1,0 +1,91 @@
+active kuki;
+fn doActionList() {
+  for let r=0; r<3; r=r+1 {
+    kuki skill;
+    furina skill, dash, burst;
+    albedo skill, burst;
+    kuki burst;
+    alhaitham skill[hold=1]; alhaithamLowPlunge();
+    alhaitham attack:5, dash, 
+              attack:1, charge, dash,
+              attack:3;
+    kuki skill;
+    alhaitham burst;
+    albedo skill, attack;
+    alhaitham attack:5, dash, 
+              attack:3, charge, dash,
+              attack:4, charge, dash,
+              attack:3, charge;
+  }
+}
+fn alhaithamLowPlunge() {
+  if rand() < 1/3 { 
+    alhaitham low_plunge[short=1];
+  } else {
+    alhaitham low_plunge;
+  }
+}
+fn randy(mean, standardDeviation, min, max, display) {
+  let value = randnorm() * standardDeviation + mean;
+  if display {
+    print("initial roll: ", value);
+  }
+  if value > max {
+    value = max;
+  } else if value < min {
+    value = min;
+  }
+  if display {
+    print("final value: ", value);
+  }
+  return value;
+}
+let prev_char_id = -1;
+switch {
+  case .alhaitham.onfield:
+    prev_char_id = .keys.char.alhaitham;
+  case .furina.onfield:
+    prev_char_id = .keys.char.furina;
+  case .albedo.onfield:
+    prev_char_id = .keys.char.albedo;
+  default:
+    prev_char_id = .keys.char.kuki;
+} 
+let prev_action_id = -1;
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if prev_char_id != char_id && action_id != .action.swap {
+    execute_action(char_id, .action.swap, []);
+  }
+  
+  if action_id == .action.dash {
+    pick_up_crystallize("any");
+  } 
+  if action_id == .action.burst {
+    while .alhaitham.onfield && !.alhaitham.burst.ready {
+      alhaitham attack;
+    }
+    while .furina.onfield && !.furina.burst.ready {
+      furina attack;
+    }
+    while .albedo.onfield && !.albedo.burst.ready {
+      albedo attack;
+    }
+    while .kuki.onfield && !.kuki.burst.ready {
+      kuki attack;
+    }
+  } 
+  if action_id == .action.swap {
+    delay(randy(9.5, 1.5, 8, 17, 0)); 
+
+  } else if prev_action_id == .action.attack && action_id != .action.attack && action_id != .action.charge {
+    delay(randy(3, 1, 0, 6, 0)); 
+    
+  } else if prev_action_id != .action.attack {
+    delay(randy(3, 1, 0, 6, 0)); 
+  }
+  prev_char_id = char_id;
+  prev_action_id = action_id;
+  return _execute_action(char_id, action_id, p);
+}
+doActionList();

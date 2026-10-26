@@ -1,0 +1,23 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arlecchino skill;
+  lynette skill;
+  if .lynette.burst.ready {
+    lynette burst;
+  }
+  chiori skill:2;
+  zhongli skill[hold=1], dash;
+  pick_up_crystallize("any");
+  if .chiori.burst.ready {
+    chiori burst;
+  } else {
+    zhongli burst;
+  }
+  arlecchino attack, charge, 
+             attack:3, dash, 
+             attack:3, dash, 
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3;
+}

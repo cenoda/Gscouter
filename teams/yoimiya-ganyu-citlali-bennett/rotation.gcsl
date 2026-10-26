@@ -1,0 +1,13 @@
+active bennett;
+for let x=0; x<4; x=x+1 {
+  bennett skill, attack;
+  citlali skill, burst;
+  bennett skill, burst;
+  delay(4); 
+  ganyu skill, burst;
+  yoimiya skill;
+  yoimiya attack:5, dash;
+  yoimiya attack:5, dash;
+  yoimiya attack:5, dash;
+  yoimiya attack;
+}

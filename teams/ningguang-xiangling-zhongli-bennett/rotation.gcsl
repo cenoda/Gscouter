@@ -1,0 +1,47 @@
+let normal_attack_state = 1;
+let skill_state = 4;
+let c_right = 1;
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+	pick_up_crystallize("any"); 
+  }
+  return _execute_action(char_id, action_id, p);
+  
+}
+active zhongli;
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], dash;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  if .bennett.burst.ready {
+    bennett burst;
+  }
+  bennett skill;
+  if .xiangling.burst.ready {
+    xiangling burst, skill;
+  } else {
+    xiangling attack, skill;
+  }
+  ningguang attack, skill, dash;
+  let start = f();
+  while f() - start < 600 {
+    switch {
+    case .ningguang.burst.ready:
+      ningguang burst, walk;
+    case .ningguang.skill.ready:
+      ningguang skill, dash;
+    case .state == normal_attack_state:
+      switch .ningguang.prevAttack {
+      case c_right:
+	ningguang walk;
+      default:
+	ningguang charge;
+      }
+    default:
+      ningguang attack;
+    }
+  } 
+  print("end");
+}

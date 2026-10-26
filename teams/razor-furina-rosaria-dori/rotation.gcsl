@@ -1,0 +1,37 @@
+active razor; 
+  
+for let i=0; i<4; i=i+1 {
+  dori skill, burst, attack;
+  furina skill, dash, burst;
+  
+  rosaria skill;
+  if !.rosaria.burst.ready {
+    rosaria attack;
+  }
+  rosaria burst;
+
+  while !.razor.mods.razor-q {
+    if .razor.burst.ready && .razor.skill.ready {
+      razor skill, dash, attack, burst;
+    } else if .razor.burst.ready {
+      razor burst;
+    } else if .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+  
+  while .razor.mods.razor-q > 210 { 
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+  
+}

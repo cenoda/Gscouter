@@ -1,0 +1,33 @@
+active neuv;
+for let i = 0; i < 4; i = i + 1 {
+  neuv skill, attack:3;
+  zhongli skill[hold=1], dash, attack;
+  for let k=0; k<25; k=k+1 {
+    if .gadgets.crystallizeshard.hydro > 0 { 
+      pick_up_crystallize("hydro"); 
+      break; 
+    } else if .gadgets.crystallizeshard.electro > 0 { 
+      pick_up_crystallize("electro"); 
+      break; 
+    }
+    wait(1);
+  } 
+  yae skill:3;
+  fischl attack, skill;
+  neuv charge, burst, skill, charge;
+  zhongli skill[hold=1], dash, attack;
+  for let k=0; k<25; k=k+1 {
+    if .gadgets.crystallizeshard.hydro > 0 { 
+      pick_up_crystallize("hydro"); 
+      break; 
+    } else if .gadgets.crystallizeshard.electro > 0 { 
+      pick_up_crystallize("electro"); 
+      break; 
+    }
+    wait(1);
+  } 
+  yae skill:3;
+  fischl attack:2, burst;
+  neuv charge:2;
+}
+wait(173);

@@ -1,0 +1,36 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+    pick_up_crystallize("any");
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+let noelle_half_spin = true;
+active columbina;
+for let i=0; i<4; i=i+1 {
+  if i > 0 && (.columbina.weapon == .keys.weapon.pamber || (.columbina.burst.ready && .columbina.energy == .columbina.energymax)) {
+    columbina skill, burst;
+  } else {
+    columbina skill, attack;
+  }
+  
+  furina skill, dash, attack:1, burst;
+  
+  chiori skill:2;
+  
+  if noelle_half_spin == false {
+    noelle skill, burst, 
+    attack:3, dash, 
+    attack:3, dash, 
+    attack:3, dash,
+    attack:3, dash,
+    attack:4;
+  } else { 
+    noelle skill, burst, 
+    charge[no_limit=1]:8, charge[final=1], dash,
+    attack:3, dash, 
+    attack:3, dash, 
+    attack:2;
+  }
+}

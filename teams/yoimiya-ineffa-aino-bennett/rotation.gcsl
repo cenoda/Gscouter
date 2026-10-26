@@ -1,0 +1,17 @@
+active bennett;
+for let i = 0; i < 6; i = i + 1 {
+  bennett skill[hold_c4=1], burst;
+  ineffa swap;
+  if i && .ineffa.burst.ready && .ineffa.energy == .ineffa.energymax {
+    ineffa burst, skill;
+  } else {
+    ineffa attack, dash, skill;
+  }
+  aino skill, burst;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  if is_even(i) {
+    yoimiya burst;
+  } else {
+    yoimiya attack:2, dash; 
+  }
+}

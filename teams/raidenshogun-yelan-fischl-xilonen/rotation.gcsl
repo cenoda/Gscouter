@@ -1,0 +1,22 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 4; i = i + 1 {
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  xilonen skill, attack:2;
+  
+  fischl attack:2, burst;
+  
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else if .xilonen.burst.ready {
+    xilonen attack, burst;
+  }
+}

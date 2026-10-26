@@ -1,0 +1,36 @@
+fn lyneyAim() {
+  if .lyney.weapon == .keys.weapon.crescent { 
+    lyney aim[hold=2, weakspot=rand()>0.5];
+  } else { 
+    lyney aim[hold=2];
+  }
+}
+active furina;
+for let i=0; i<5; i=i+1 {
+  if .furina.skill.ready { 
+    if !.furina.burst.ready {
+      furina attack;
+    }
+    furina skill, walk;
+    delay(13);
+    furina burst;
+  }
+  nicole skill, burst;
+  if .fischl.skill.ready {
+    fischl skill, attack;
+  } else {
+    fischl attack:2, burst;
+  }
+  lyneyAim();
+  lyneyAim();
+  if .lyney.burst.ready {
+    lyney burst; delay(11); 
+    lyney skill;
+  } else {
+    lyneyAim();
+  }
+  lyneyAim();
+  lyneyAim();
+  lyney skill;
+  lyneyAim();
+}

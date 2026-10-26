@@ -1,0 +1,16 @@
+active neuv;
+for let i = 0; i < 4; i = i + 1 {
+  neuv skill; 
+  yelan burst, attack;
+  xilonen skill, attack:2;
+  lynette skill, attack, burst;
+  yelan skill, attack;
+  pick_up_crystallize("hydro");
+  neuv charge, burst, skill, charge;
+  xilonen skill, attack:2;
+  lynette attack, skill;
+  yelan skill, attack;
+  pick_up_crystallize("hydro");
+  neuv charge, charge;
+}
+wait(173);

@@ -1,0 +1,31 @@
+fn mualani_combo() {
+  mualani skill;
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+  mualani walk[f=1];
+}
+active furina;
+for let i=0; i<3; i=i+1 {
+  furina skill, dash, attack;
+  if i {
+    furina attack;
+    esco attack;
+  }
+  escoffier skill, burst;
+  furina burst, attack;
+  skirk skill[hold=1], burst;
+  mualani_combo();
+  mualani skill, burst;
+  
+  esco skill, attack:2;
+  skirk skill[hold=1], burst;
+  mualani_combo();
+}

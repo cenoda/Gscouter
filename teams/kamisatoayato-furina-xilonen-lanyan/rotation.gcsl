@@ -1,0 +1,22 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  
+  furina skill, dash, burst;
+  
+  xilonen skill, burst, attack:2;
+  
+  lanyan skill, attack;
+  
+  ayato skill, attack:15, burst;
+  
+  xilonen skill, attack:2;
+  
+  lanyan skill, attack;
+  
+  while !.ayato.skill.ready {
+    ayato attack;
+  }
+  
+  ayato skill, attack:15;
+  
+}

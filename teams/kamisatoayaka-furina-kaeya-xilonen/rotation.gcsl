@@ -1,0 +1,18 @@
+active xilonen; 
+for let r=0; r<4; r=r+1 {
+  xilonen burst;
+  
+  furina skill, dash, burst;
+  
+  xilonen skill, attack:2;
+  
+  kaeya burst, skill;
+  
+  ayaka skill, dash, burst, attack:2, charge, dash, attack:2, charge;
+  
+  kaeya attack, skill;
+  
+  xilonen skill, attack:2;
+  
+  ayaka dash, attack:2, charge, skill, dash, attack:2, charge;
+}

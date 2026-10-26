@@ -1,0 +1,22 @@
+active xq;
+for let i=0; i<3; i=i+1 { 
+  xingqiu  burst, attack;
+  xiangling  burst, attack, skill;
+  yelan  attack, burst, attack;
+  xq skill, dash, attack:2;
+  yelan  attack, skill, attack:2;
+  hutao skill,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:2, charge, jump, attack; 
+  yelan  skill, attack;
+while !.yelan.mods.favonius-cd {
+ yelan attack;} 
+ xq attack;
+}

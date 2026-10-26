@@ -1,0 +1,40 @@
+active lyney;
+  lyney aim;
+  xilonen skill, attack:2;
+  
+  bennett burst;
+  
+  bennett dash; pick_up_crystallize("pyro");
+  
+  xiangling burst, skill, dash;
+  
+  lyney aim:2, burst;
+  delay(11); 
+  lyney skill, aim, skill;
+  
+ for let i=0; i<4; i=i+1 {
+  
+  lyney aim;
+  
+  xilonen skill, attack:2;
+  
+  bennett skill, dash; pick_up_crystallize("pyro");
+  
+  bennett burst; 
+  
+  if .xl.burst.ready{
+    xl burst, skill, dash;
+  } else {
+    xl attack, skill, dash;
+  } 
+  
+  lyney aim:3;
+  if .lyney.burst.ready {
+    lyney burst;
+    delay (11);
+    lyney skill;
+  } else {
+    lyney aim;
+  }
+  lyney aim, skill;
+}

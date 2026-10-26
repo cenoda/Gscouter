@@ -1,0 +1,12 @@
+active furina;
+for let i=0; i<2; i=i+1 {
+  furina skill, dash, burst;
+  sigewinne skill, dash;
+  mona skill, burst;
+  chasca skill, aim:4, skill, burst;
+  
+  sigewinne skill, dash;
+  mona skill, burst;
+  chasca skill, aim:4, aim[bullets=4];
+}
+wait(82);

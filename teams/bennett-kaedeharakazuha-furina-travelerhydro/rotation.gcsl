@@ -1,0 +1,12 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  bennett burst, attack, skill;
+  kazuha skill, high_plunge, burst;
+  aetherhydro skill[hold=1], dash[pickup_droplets=4], burst;
+  bennett skill, attack ;
+  kazuha skill, high_plunge;
+  aetherhydro attack:2;
+  bennett skill;
+  
+}

@@ -1,0 +1,39 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || ( char_id == .keys.char.fischl && action_id == .action.burst ) || ( char_id == .keys.char.chiori && action_id == .action.skill ) || ( char_id == .keys.char.ningguang && action_id == .action.walk ) {
+    pick_up_crystallize("any"); 
+  }
+  return _execute_action(char_id, action_id, p);
+}
+active chiori; 
+for let i = 0; i < 4; i = i + 1 {
+  chiori skill:2;
+  
+  bennett skill, burst;
+  
+  if .fischl.skill.ready{
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  
+  ningguang attack, skill, dash, 
+            attack, walk, 
+            attack, 
+            charge;
+  ningguang burst, skill, dash, 
+            charge,
+            attack, walk, 
+            attack, walk, 
+            attack, 
+            charge,
+            attack,
+            charge; 
+            
+  if .chiori.burst.ready {
+    chiori burst;
+  } else {
+    ningguang attack, charge;
+  }
+  
+}

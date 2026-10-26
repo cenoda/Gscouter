@@ -1,0 +1,34 @@
+active mona;
+for let i = 0; i < 5; i = i + 1 {
+  mona skill, attack:2, burst;
+  mavuika swap;
+  sleep(36);
+  mavuika skill;
+  if .sucrose.burst.ready {
+    sucrose skill, dash, burst, attack;
+  } else {
+    sucrose skill, jump, attack;
+  }
+  mona swap; 
+  sleep(49);
+  mona attack;
+  nicole skill,attack;
+  if .sucrose.burst.cd {
+    mona charge, jump,
+         charge, jump,
+         charge, jump,
+         charge:2;
+  } else {
+    mona attack:2, 
+         charge:3, jump,
+         charge;
+  }
+  sleep(1);
+  while .mona.energy < 50 && !.mavuika.mods.favonius-cd {
+    mavuika attack;
+  }
+  nicole burst;
+  while .mona.energy < 60 && !.nicole.mods.favonius-cd {
+    nicole attack;
+  }
+}

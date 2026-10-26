@@ -1,0 +1,22 @@
+id: skirk-furina-yelan-escoffier
+name: Skirk / Furina / Yelan / Escoffier
+members:
+    - skirk
+    - furina
+    - yelan
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/p8Crm967dKBD
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    escoffier: start_energy=0
+    furina: start_energy=0
+    skirk: start_serpents_subtlety=0
+    yelan: start_energy=0
+reference:
+    dps: 138088
+    computed: "2026-10-01"

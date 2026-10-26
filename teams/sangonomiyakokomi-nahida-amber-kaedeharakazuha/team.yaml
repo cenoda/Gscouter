@@ -1,0 +1,17 @@
+id: sangonomiyakokomi-nahida-amber-kaedeharakazuha
+name: Sangonomiyakokomi / Nahida / Amber / Kaedeharakazuha
+members:
+    - kokomi
+    - nahida
+    - amber
+    - kazuha
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/gPhB67BmNd7B
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 77087
+    computed: "2026-10-01"

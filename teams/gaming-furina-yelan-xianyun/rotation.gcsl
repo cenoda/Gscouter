@@ -1,0 +1,11 @@
+active gaming; 
+for let r=0; r<4; r=r+1{
+  furina skill, dash, burst;
+  xianyun skill, high_plunge, burst;
+  yelan skill, burst, attack;
+  gaming burst, attack:2;
+  for let i=0; i<6; i=i+1 {
+    gaming skill, high_plunge, attack;
+  }
+  gaming skill, high_plunge, dash;
+}

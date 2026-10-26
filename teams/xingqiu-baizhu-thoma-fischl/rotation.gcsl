@@ -1,0 +1,27 @@
+active baizhu; 
+for let i=0; i<4; i=i+1 {
+    baizhu skill, burst;
+    xingqiu burst, attack;
+    thoma burst, attack, skill, attack:2;
+    fischl attack, skill;
+    baizhu attack, walk,
+        attack, walk,
+        attack, walk,
+        attack, skill,
+        attack;
+    xingqiu skill, dash, attack:2;
+    baizhu attack, walk,
+        attack, walk,
+        attack, walk,
+        attack, walk,
+        attack, walk,
+        attack, charge;
+    fischl attack, burst;
+    baizhu attack, walk,
+        attack, walk,
+        attack, walk,
+        attack, walk,
+        attack, walk,
+        attack, charge;
+    print("done");
+}

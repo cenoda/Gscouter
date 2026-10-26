@@ -1,0 +1,33 @@
+active fischl;
+for let i=0; i<4; i=i+1 { 
+  fischl burst;
+  baizhu skill, burst;
+  sucrose attack;
+  while !.element.t0.electro {
+    sucrose attack;
+  }
+  sucrose skill, dash, burst;
+  keqing skill, burst, skill, 
+    attack, charge, 
+    attack, charge, 
+    attack, skill;
+  delay(9);
+  keqing attack, charge;
+  delay(5);
+  keqing attack, charge;
+  
+  fischl skill, attack;
+  baizhu skill, attack:2;
+  while !.element.t0.electro {
+    sucrose attack;
+  }
+  sucrose skill, dash, attack;
+  keqing skill, burst, skill, 
+    attack, charge, 
+    attack, charge, 
+    attack, skill;
+  delay(9);
+  keqing attack, charge;
+  delay(5);
+  keqing attack, charge;
+}

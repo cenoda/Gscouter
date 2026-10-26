@@ -1,0 +1,17 @@
+id: sucrose-fischl-yaemiko-tighnari
+name: Sucrose / Fischl / Yaemiko / Tighnari
+members:
+    - sucrose
+    - fischl
+    - yae
+    - tighnari
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/FLrCJGhgKR7k
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 75898
+    computed: "2026-10-01"

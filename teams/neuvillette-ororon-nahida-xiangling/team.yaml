@@ -1,0 +1,17 @@
+id: neuvillette-ororon-nahida-xiangling
+name: Neuvillette / Ororon / Nahida / Xiangling
+members:
+    - neuvillette
+    - ororon
+    - nahida
+    - xiangling
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/ktRGbDMrRTM9
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 71726
+    computed: "2026-10-01"

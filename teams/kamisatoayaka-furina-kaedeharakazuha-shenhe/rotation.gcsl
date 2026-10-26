@@ -1,0 +1,18 @@
+active furina;
+for let i = 0; i < 5; i = i + 1{
+  furina skill, dash, burst, attack:2;
+  kazuha burst;
+  shenhe skill, burst;
+  kazuha skill, high_plunge;
+  ayaka dash, attack:2, skill, attack:2, charge, burst;
+  kazuha skill[hold=1], high_plunge, attack;
+  shenhe skill;
+  
+  if .shenhe.skill.ready {
+    shenhe skill;
+  } else {
+    shenhe attack;
+  }
+  ayaka dash, attack:2, skill, attack:2, charge;
+  print("rotation done");
+}

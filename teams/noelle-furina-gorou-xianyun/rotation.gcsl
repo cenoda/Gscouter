@@ -1,0 +1,40 @@
+active noelle; 
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  while !.furina.mods.favonius-cd {
+    furina attack;
+  }
+  
+  xianyun skill, low_plunge, attack, burst;
+  
+  gorou attack, skill, burst;
+  while !.gorou.mods.favonius-cd {
+    gorou attack;
+  }
+  
+  noelle swap;
+  while .xianyun.status.xianyun-airborne-buff {
+    if !.noelle.mods.noelle-burst {
+      noelle burst;
+    }
+    if .gorou.skill.ready {
+      gorou attack, skill;
+    }
+    if .xianyun.status.xianyun-airborne-buff {
+      noelle jump;
+      if .airborne {
+        noelle high_plunge[collision=rand()>0.5], dash;
+      }
+    }
+  }
+  while .furina.skill.cd {
+    if .noelle.skill.ready {
+      noelle skill;
+    }
+    if .noelle.normal > 3 {
+      noelle dash;
+    } else {
+      noelle attack;
+    }
+  }
+}

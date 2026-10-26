@@ -1,0 +1,20 @@
+active nahida;
+nahida skill;
+for let i=0; i<3; i=i+1 {
+  rosaria skill;
+  furina skill, dash, burst;
+  if !i {
+    bennett skill, burst;
+  } else {
+    bennett burst, skill;
+  }
+  nahida burst;
+  rosaria skill,attack, burst,
+      attack:2, charge, dash,
+      attack:1, charge, dash,
+      attack:1, charge, dash,
+      attack, skill,
+      attack:2, charge, dash;
+  nahida attack, charge, dash, skill;
+  bennett skill, attack;
+}

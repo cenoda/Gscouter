@@ -1,0 +1,14 @@
+active ayato; 
+for let i=0; i<4; i=i+1 {
+  kamisatoayato burst;
+  xingqiu burst, attack;
+  nahida skill, attack, charge;
+  kukishinobu burst;
+  kamisatoayato skill, attack:14;
+  
+  xingqiu skill, dash, attack;
+  kukishinobu skill, attack;
+  nahida skill, attack, burst;
+  kamisatoayato skill, attack:15;
+  print("done");
+}

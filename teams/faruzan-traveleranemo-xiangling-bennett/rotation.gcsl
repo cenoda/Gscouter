@@ -1,0 +1,19 @@
+active faruzan;
+for let i=0; i<4; i=i+1 {
+  
+  faruzan skill, burst;
+  
+  bennett burst, skill;
+  
+  xl burst, skill, dash;
+  
+  traveleranemo skill[hold=1], burst;
+  faruzan aim[weakspot=rand()>0.1]:2, skill, aim[weakspot=rand()>0.1]:2;
+  
+  bennett skill, attack;
+  
+  traveleranemo skill[hold=1];
+ 
+  bennett skill;
+  
+}

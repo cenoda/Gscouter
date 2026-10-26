@@ -1,0 +1,12 @@
+active furina;
+for let i=0; i<3; i=i+1 { 
+  furina skill, dash;
+  kuki skill;
+  nahida burst, skill;
+  furina burst, attack;
+  kuki burst;
+  cyno skill, burst, attack, skill;
+  for let x = 0; x < 7; x = x + 1 {
+    cyno attack:4, skill;
+  }
+}

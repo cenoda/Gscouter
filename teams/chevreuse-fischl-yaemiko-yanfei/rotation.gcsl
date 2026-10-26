@@ -1,0 +1,22 @@
+active yae;
+for let r = 0; r < 4; r = r + 1 {
+  if r > 0 && .yae.burst.ready {
+    yae burst;
+  }
+  yae skill:3;
+  chev burst, skill[hold=1];
+  fischl attack, skill;
+  yanfei skill, charge,
+         attack:2, burst,
+         attack:2, charge,
+         attack:2, charge,
+         attack:2, charge;
+  chev skill[hold=1], attack;
+  yae skill, attack, skill:2;
+  fischl attack:2, burst;
+  yanfei skill, charge,
+         attack:2, charge, 
+         attack:2, charge,
+         attack:2, charge;
+  
+}

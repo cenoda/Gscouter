@@ -1,0 +1,17 @@
+id: raidenshogun-xiangling-bennett-yaemiko
+name: Raidenshogun / Xiangling / Bennett / Yaemiko
+members:
+    - raidenshogun
+    - xiangling
+    - bennett
+    - yaemiko
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/kfRh6NDngKbd
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 48466
+    computed: "2026-09-30"

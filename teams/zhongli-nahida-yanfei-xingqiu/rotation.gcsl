@@ -1,0 +1,12 @@
+active zhongli;
+for let i=0; i<4; i=i+1 {
+  zhongli attack, skill[hold=1], dash, attack;
+  nahida skill, burst,attack;
+  xingqiu skill, dash, burst, attack;  
+  yanfei skill, attack:3, charge,
+    attack:3, charge, 
+    attack:3, charge, 
+    attack:3, charge, 
+    skill, charge, 
+    attack:3, charge;
+}

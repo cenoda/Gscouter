@@ -1,0 +1,17 @@
+id: sangonomiyakokomi-fischl-collei-kukishinobu
+name: Sangonomiyakokomi / Fischl / Collei / Kukishinobu
+members:
+    - kokomi
+    - fischl
+    - collei
+    - kuki
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/PFDNrCJTwcwf
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 50905
+    computed: "2026-10-01"

@@ -1,0 +1,22 @@
+fn skirk_burst() {
+  if .skirk.serpents_subtlety >= 5 || .skirk.void_rifts > 0 {
+    skirk skill[hold=1];
+    wait(3);
+    if .skirk.serpents_subtlety >= 50 {
+      skirk burst;
+    }
+  }
+}
+active mavuika; 
+furina burst;
+for let i=0; i<2; i=i+1 {
+  furina skill, dash;
+  mavuika skill, attack;
+  skirk_burst();
+  chasca skill, aim:4, skill, burst;
+  
+  mavuika burst, skill, dash;
+  skirk_burst();
+  chasca skill, aim:4, aim[bullets=4];
+}
+wait(82);

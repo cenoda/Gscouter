@@ -1,0 +1,21 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  
+  mona burst;
+  
+  bennett skill, burst;
+  
+  amber aim[weakspot=rand()>0.5];
+  while .furina.skill.cd > 60 {
+    if .amber.burst.ready {
+      amber burst;
+      mona attack, skill;
+    } else if .amber.skill.ready {
+      amber skill, dash;
+    } else {
+      amber aim[weakspot=rand()>0.8];
+    }
+  }
+  bennett skill, attack;
+}

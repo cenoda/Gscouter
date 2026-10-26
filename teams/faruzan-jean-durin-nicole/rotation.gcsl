@@ -1,0 +1,29 @@
+active faruzan;
+faruzan skill;
+for let i=0; i<4; i=i+1 {
+  nicole burst, skill;
+  
+  durin skill:2, burst;
+  
+  jean skill, burst;
+
+  while .status.jean-q || .debuff.res.t0.jean-c4 || .faruzan.hurricane-count {
+    switch {
+      case .faruzan.skill.ready && .faruzan.swap.ready && !.faruzan.hurricane-count:
+        faruzan skill;
+      case .faruzan.burst.ready && .faruzan.swap.ready: 
+        faruzan burst;
+      case .faruzan.hurricane-count && .faruzan.swap.ready || (.faruzan.hurricane-count && .faruzan.onfield):
+        faruzan aim[weakspot=rand()>0.3];
+      case .faruzan.skill.ready && .faruzan.swap.ready:
+        faruzan skill;
+      case .jean.skill.ready && .jean.swap.ready:
+        jean attack, skill;
+      default:
+        faruzan aim;
+    }
+  }
+  
+    faruzan skill;
+  
+}

@@ -1,0 +1,18 @@
+active neuv;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill, attack;
+  furina skill, dash, attack;
+  lauma burst;
+  kazuha skill, high_plunge;
+  if !i {
+    lauma skill, attack;  
+  } else {
+    lauma skill[hold=1];
+  }
+  furina burst;
+  neuvillette charge, skill, charge, burst;
+  kazuha skill, high_plunge;
+  lauma skill[hold=1];
+  neuvillette charge:2;
+}
+wait(173);

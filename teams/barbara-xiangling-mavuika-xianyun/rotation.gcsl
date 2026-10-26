@@ -1,0 +1,33 @@
+active mav; 
+for let i=0; i<4; i=i+1 {
+  xianyun skill, low_plunge, attack, burst;
+  
+  barbara attack, charge;
+  
+  if .mav.burst.ready && i > 0 {
+    mav burst, skill, dash;
+  } else if .mav.skill.ready {
+    mav skill, dash;
+  }
+  
+  xl burst, skill, dash;
+
+  let j=0;
+  while .xianyun.status.xianyun-airborne-buff {
+    if .xianyun.status.xianyun-airborne-buff {
+      barbara jump;
+      if .airborne {
+        barbara high_plunge[collision=rand()>0.5];
+        j = j + 1;
+      }
+      if j < 4 {
+        barbara attack;
+      } else if j == 8 {
+        barbara attack;
+      } else {
+        barbara dash;
+      }
+    }
+  }
+  barbara attack:3;
+}

@@ -1,0 +1,46 @@
+fn rand_counter() {
+  let counter = rand();
+  if counter > 0.75 {
+    counter = 2;
+  } else if counter > 0.75 && counter <= 0.5 {
+    counter = 1;
+  } 
+  else {
+    counter = 0;
+  }
+  
+  return counter;
+}
+active beidou; 
+beidou skill; 
+for let i=0; i<4; i=i+1 {
+  bennett skill, burst;
+
+  if .chev.burst.ready {
+    chev burst, skill[hold=1]:2;
+  } else {
+    chev skill[hold=1], attack:1;
+  }
+
+  amy attack;
+  if !.amy.skill.ready {
+    amy attack, burst;
+  } else {
+    amy skill;
+  }
+
+  while .beidou.mods.bennett-field || .status.bennettburst { 
+    switch {
+      case .beidou.skill.ready:
+        beidou skill[counter=rand_counter()];
+      case .beidou.burst.ready:
+        beidou burst;
+      case .beidou.normal > 2 && .beidou.dash.ready && .stam > 18:
+        beidou dash;
+      default:
+        beidou attack;
+    }
+  }
+  
+  print("done");
+}

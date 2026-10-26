@@ -1,0 +1,19 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  bennett skill, burst;
+  xilonen skill, attack:2;
+  if .chev.burst.ready {
+    chev burst, skill[hold=1], dash;
+  } else {
+    chev attack, skill[hold=1], attack, dash;
+  }
+  pick_up_crystallize("pyro");
+  arle attack, charge, 
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash;
+}

@@ -1,0 +1,12 @@
+active nilou;
+nilou skill, attack:3; 
+for let i = 0; i < 4; i = i +1 {
+  kazuha skill, high_plunge;
+  xiangling attack:2, burst, skill;
+  mona burst, attack;
+  nilou attack, burst;
+  kazuha skill, high_plunge, burst;
+  mona skill, attack:3;
+  xiangling attack:2, skill;
+  nilou skill, attack:3, attack:3, attack:3, attack:3, attack:3;
+}

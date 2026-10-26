@@ -1,0 +1,25 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+    pick_up_crystallize("any");
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+active noelle; 
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  columbina skill, burst;
+  
+  xilonen skill, attack:2;
+  
+  noelle skill, burst, attack:3, dash, attack:3, dash, attack:2;
+  
+  xilonen skill, attack:2;
+  
+  noelle attack:3, dash, attack:3, dash, attack:1;
+  if is_even(i) {
+    noelle attack;
+  }
+}

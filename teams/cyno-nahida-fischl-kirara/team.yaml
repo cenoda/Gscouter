@@ -1,0 +1,17 @@
+id: cyno-nahida-fischl-kirara
+name: Cyno / Nahida / Fischl / Kirara
+members:
+    - cyno
+    - nahida
+    - fischl
+    - kirara
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/KDcWwbmTpgJK
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 53681
+    computed: "2026-10-02"

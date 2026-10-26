@@ -1,0 +1,53 @@
+fn declensionCombo() {
+  switch {
+    case .heizou.skill.ready && .heizou.declension == 4:
+      heizou skill;
+    case .heizou.normal > 1 && .heizou.burst.ready && .heizou.declension != 4:
+      heizou burst;
+    case .heizou.normal > 1:
+      heizou charge;
+    default:
+      heizou attack;
+  }
+}
+fn hurricaneCombo() {
+  switch {
+    case .faruzan.hurricane-count:
+      faruzan aim[weakspot=rand()>0.7];
+    case .faruzan.skill.ready:
+      faruzan skill;
+    default:
+      faruzan aim;
+  }
+}
+active fischl;
+for let i = 4; i > 0; i = i - 1 { 
+  fischl skill, attack;
+  
+  faruzan skill, burst;
+  
+  nahida skill, attack, burst;
+  
+  while .previous-action != .action.skill {
+    declensionCombo();
+  }
+  
+  while .faruzan.hurricane-count || !.faruzan.skill.cd {
+    hurricaneCombo();
+  }
+  
+  fischl attack, burst;
+  
+  while .previous-action != .action.skill {
+    declensionCombo();
+  }
+  
+  while .faruzan.hurricane-count || !.faruzan.skill.cd {
+    hurricaneCombo();
+  }
+  while .fischl.skill.cd {
+    declensionCombo();
+  }
+  
+  print("done");
+}

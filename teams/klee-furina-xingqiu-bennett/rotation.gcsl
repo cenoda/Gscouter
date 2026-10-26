@@ -1,0 +1,24 @@
+active furina;
+for let r=0; r<5; r=r+1 {
+  furina skill, dash, burst;
+  xingqiu skill, dash, burst, attack;
+  if !r {
+    bennett skill, burst;
+  } else {
+    bennett burst, attack, skill;
+  }
+  klee attack, burst, walk,
+       attack[travel=6], charge,
+       attack[travel=6], charge,
+       attack, skill[bounce=3, mine=8], jump,
+       attack, walk, attack[travel=6], charge;
+  if .klee.skill.ready {
+    klee attack, skill[bounce=3, mine=8], jump;
+  } else {
+    klee attack[travel=6], charge;
+  }
+  klee attack[travel=6], charge, 
+       attack, walk, attack[travel=6], charge,
+       attack, walk, attack[travel=6], charge, attack;
+  bennett skill;
+}

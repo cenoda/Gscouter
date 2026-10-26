@@ -1,0 +1,23 @@
+active furina;
+for let x=0; x<3; x=x+1 {
+    furina skill,attack,burst;
+    yelan burst,attack;
+    if x == 0 {yelan skill,attack;}
+    mona skill,attack,burst,attack;
+    hutao skill,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge,jump,
+    attack:2,charge,jump,attack;
+    if .hutao.burst.ready {
+    hutao burst;
+  } 
+  yelan skill,attack;
+  while !.yelan.mods.favonius-cd {
+  yelan attack;}
+}

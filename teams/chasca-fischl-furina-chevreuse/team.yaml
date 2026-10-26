@@ -1,0 +1,17 @@
+id: chasca-fischl-furina-chevreuse
+name: Chasca / Fischl / Furina / Chevreuse
+members:
+    - chasca
+    - fischl
+    - furina
+    - chevreuse
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/LgLq666Ghqtd
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 67868
+    computed: "2026-10-02"

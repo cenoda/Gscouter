@@ -1,0 +1,12 @@
+active ayato;
+for let i=0; i<4; i=i+1 {
+    ayato burst[radius=2];
+    aetherdendro skill, attack, burst;
+    fischl attack, skill;
+    thoma skill, burst;
+    ayato skill, attack:15;
+    aetherdendro skill, attack;
+    fischl burst, attack:2;
+    thoma skill, attack;
+    ayato skill, attack:15;
+}

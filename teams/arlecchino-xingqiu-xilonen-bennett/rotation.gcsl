@@ -1,0 +1,18 @@
+active arle;
+  arle skill;
+  
+  xilonen skill, attack:2;
+  
+  xingqiu skill, dash, burst;
+  
+  bennett skill, burst;
+  
+  arle attack:2, charge, 
+       attack:2, charge,
+       attack:2, charge,
+       attack:2, charge,
+       attack:2, charge, 
+       attack:2, charge,
+       attack:2, charge,
+       attack:2, charge,
+       attack:2;

@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+mavuika char lvl=90/90 cons=0 talent=9,9,9;
+mavuika add weapon="serpentspine" refine=1 lvl=90/90 +params=[stacks=5];
+mavuika add set="obsidiancodex" count=4;
+mavuika add stats hp=4780 atk=311 em=186.5 pyro%=0.466 cd=0.622;
+mavuika add stats hp=507.88 hp%=0.0991 atk=33.07 atk%=0.3968 def=39.35 def%=0.1239 em=39.63 er=0.1101 cr=0.2648 cd=0.662;
+
+xilonen char lvl=90/90 cons=0 talent=9,9,9;
+xilonen add weapon="favoniussword" refine=3 lvl=90/90;
+xilonen add set="scrolloftheheroofcindercity" count=4;
+xilonen add stats hp=4780 atk=311 def%=0.583 geo%=0.466 cr=0.311;
+xilonen add stats hp=507.88 hp%=0.0991 atk=33.07 atk%=0.0991 def=39.35 def%=0.3717 em=39.63 er=0.1101 cr=0.3305 cd=0.6605;
+
+bennett char lvl=90/90 cons=6 talent=9,9,9;
+bennett add weapon="thealleyflash" refine=1 lvl=90/90;
+bennett add set="noblesseoblige" count=4;
+bennett add stats hp=4780 atk=311 er=0.518 pyro%=0.466 cr=0.311;
+bennett add stats hp=507.88 hp%=0.0991 atk=33.07 atk%=0.0992 def=39.35 def%=0.1239 em=39.64 er=0.551 cr=0.1986 cd=0.662;
+
+kamisatoayaka char lvl=90/90 cons=0 talent=9,9,9;
+kamisatoayaka add weapon="favoniussword" refine=3 lvl=90/90;
+kamisatoayaka add set="archaicpetra" count=4;
+kamisatoayaka add stats hp=4780 atk=311 er=0.518 cryo%=0.466 cr=0.311;
+kamisatoayaka add stats hp=507.88 hp%=0.0991 atk=33.07 atk%=0.2973 def=39.35 def%=0.1239 em=39.63 er=0.5505 cr=0.3305 cd=0.1321;

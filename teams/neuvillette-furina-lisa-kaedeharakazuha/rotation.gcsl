@@ -1,0 +1,12 @@
+active neuv;
+for let i=0; i<3; i=i+1 {
+  neuv skill, dash;
+  furina skill, dash, attack;
+  kazuha skill[hold=1], high_plunge, burst;
+  furina burst;
+  lisa burst;
+  neuvillette charge, skill, charge, burst;
+  kazuha skill, high_plunge;
+  neuvillette charge, charge;
+  lisa skill[hold=1];
+}

@@ -1,0 +1,24 @@
+# Build from the source config, used to validate the rotation.
+
+kazuha char lvl=90/90 cons=0 talent=9,9,9;
+kazuha add weapon="favsword" refine=5 lvl=90/90;
+kazuha add set="viridescentvenerer" count=5;
+kazuha add stats hp=4780 atk=311 em=187 em=187 em=187;
+kazuha add stats def=39.36 def%=0.124 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.6612 em=118.92 cr=0.2648 cd=0.1324;
+
+dehya char lvl=90/90 cons=0 talent=9,9,9;
+dehya add weapon="akuoumaru" refine=1 lvl=90/90;
+dehya add set="eosf" count=4;
+dehya add stats hp=4780 atk=311 atk%=0.466 cr=0.311 pyro%=0.466;
+dehya add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.3306 em=39.64 cr=0.331 cd=0.662;
+
+bennett char lvl=90/90 cons=6 talent=9,9,9;
+bennett add weapon="favoniussword" refine=5 lvl=90/90;
+bennett add set="noblesseoblige" count=5;
+bennett add stats def%=0.124 def=39.36 hp=5287.88 hp%=0.0992 atk=344.08 atk%=0.1984 er=0.6282 em=39.64 cr=0.642 cd=0.7944 pyro%=0.466;
+
+lisa char lvl=90/90 cons=6 talent=9,9,9;
+lisa add weapon="favoniuscodex" refine=5 lvl=90/90;
+lisa add set="gd" count=4;
+lisa add stats hp=4780 atk=311 er=0.518 em=187 em=187;
+lisa add stats def=39.36 def%=0.124 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.551 em=79.28 cr=0.3972 cd=0.1324;

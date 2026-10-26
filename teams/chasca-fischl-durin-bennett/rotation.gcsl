@@ -1,0 +1,21 @@
+active fischl;
+fischl skill;
+for let i=0; i<4; i=i+1 {
+  bennett skill, attack;
+  durin skill:2, burst;
+  bennett skill, burst;
+  if is_even(i) {
+    fischl attack:2, burst;
+    chasca attack;
+  } else {
+    fischl attack, skill, attack;
+  }
+  chasca skill;
+  chasca aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}
+wait(82);

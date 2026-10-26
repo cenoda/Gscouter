@@ -1,0 +1,48 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+  	pick_up_crystallize("hydro"); 
+  }
+  return _execute_action(char_id, action_id, p);
+}
+active furina;
+for {
+  switch {
+    case .furina.skill.ready && (.furina.onfield || .furina.swap.ready):
+      furina skill, dash;
+    case .furina.burst.ready && (.furina.onfield || .furina.swap.ready):
+      furina burst;
+    case .furina.onfield && !.xilo.swap.ready: 
+      furina attack;
+    case .chiori.burst.ready && .chiori.swap.ready && .furina.fanfare > 200 && .debuff.res.t0.xilonen-e-shred-hydro && .debuff.res.t0.geo-res: 
+      chiori burst;
+    case .chiori.skill.ready && (.chiori.onfield || .chiori.swap.ready):
+      chiori skill:2;
+    case .chiori.onfield && !.xilo.swap.ready: 
+      chiori attack;
+    case .xilo.burst.ready && .xilo.onfield:
+      xilonen burst;
+    case .xilo.skill.ready && (.xilo.swap.ready || .xilo.onfield): 
+      xilonen skill, attack:2;
+    case .sigewinne.skill.ready && .sigewinne.swap.ready && !.sigewinne.tags.sigewinne-convalescence: 
+      sigewinne skill, dash;
+    case .sigewinne.burst.ready && (.sigewinne.onfield || .sigewinne.swap.ready): 
+      sigewinne attack, burst;
+    case .sigewinne.weapon != .keys.weapon.favbow && !.xilo.swap.ready: 
+      sigewinne attack;
+    case .sigewinne.weapon == .keys.weapon.favbow && !.sigewinne.mods.favonius-cd && (.sigewinne.onfield || .sigewinne.swap.ready): 
+      while !.sigewinne.mods.favonius-cd {
+        sigewinne attack;
+      }
+      furina attack;
+    case !.xilo.mods.favonius-cd && (.xilo.onfield || .xilo.swap.ready): 
+      while !.xilo.mods.favonius-cd {
+        xilo attack;
+      }
+      furina attack;
+    case !.debuff.res.t0.geo-res && .xilo.onfield: 
+      xilonen dash;
+    default: 
+      xilonen attack;
+  }
+}

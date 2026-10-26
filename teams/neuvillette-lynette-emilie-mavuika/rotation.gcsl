@@ -1,0 +1,28 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 { 
+  neuvillette skill;
+  wait(3);
+  if !.element.t0.hydro {           
+    neuv attack;
+  }
+  if !.element.t0.hydro {           
+    neuv attack, dash, attack:2;
+  }
+  lynette attack, skill;  
+  if .mavuika.burst.ready {  
+    mavuika burst, attack;
+    emilie skill, attack;
+  } else {
+    emilie burst, attack;
+  }
+  mavuika attack, skill;
+  lynette burst, attack;
+  neuvillette charge, burst, skill, charge;
+  if .lynette.cons >= 4 {
+    lynette dash, attack, skill;
+  } else {
+    lynette attack:2, dash;   
+  }
+  neuvillette charge, charge;
+}
+wait(173);

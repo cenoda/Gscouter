@@ -1,0 +1,12 @@
+active durin;
+for let i=0; i<4;i=i+1 {
+  durin skill, skill, burst;
+  bennett skill, burst;
+  fischl attack, skill;
+  ayato skill, attack:15;
+  durin skill, skill;
+  ayato burst;
+  fischl attack:2, burst;
+  bennett skill, attack;
+  ayato skill, attack:15;
+}

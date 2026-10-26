@@ -1,0 +1,29 @@
+active lauma;
+for let i=0; i<4; i=i+1 {
+  if !i {
+    lauma attack, skill;   
+  } else {
+    lauma attack, skill[hold=1];
+  }
+  kuki skill, attack;
+  lauma burst;
+  furina skill, dash, burst;
+  alhaitham skill[hold=1], low_plunge[short=1];
+  alhaitham attack:2, charge, dash;
+  alhaitham attack:3, charge, dash;
+  kuki burst;
+  
+  lauma attack, skill[hold=1];
+  alhaitham burst;
+  kuki skill, attack;
+  
+  alhaitham attack:3, dash;
+  alhaitham attack:2, charge, dash;
+  
+  alhaitham attack:3, dash;
+  alhaitham attack:3, charge, dash;
+  alhaitham attack:3, dash;
+  alhaitham attack:3, charge, dash;
+  
+  alhaitham attack:2;
+}

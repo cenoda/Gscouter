@@ -1,0 +1,27 @@
+active nahida;
+for let i=0; i<4; i=i+1 { 
+  nahida burst, skill;
+  
+  yelan burst, attack, skill, attack;
+  
+  mavuika burst, attack, skill;
+  
+  mualani skill,
+          walk[f=91], attack,
+          walk[f=91], attack,
+          walk[f=91], attack,
+          walk[f=1];
+          
+  if i == 3 {
+    yelan skill; 
+  } else {
+    if i == 0 {
+      yelan attack:3;
+    } 
+  }
+  
+  if .mualani.burst.ready {
+    mualani burst;  
+  }       
+  
+}

@@ -1,0 +1,15 @@
+active raiden;
+for let i=0; i<4; i=i+1 {
+  raiden skill, dash, attack;
+  yelan burst, attack;
+  kazuha burst, attack;
+  if .fischl.burst.ready {
+    fischl burst;  
+  }else {
+    fischl skill;
+  }
+  kazuha attack, skill, high_plunge;
+  yelan attack, skill, attack, skill, attack;
+  raiden burst, attack:3,charge, attack:3,charge, attack:3,charge, attack,charge;
+  
+}

@@ -1,0 +1,17 @@
+id: raidenshogun-chevreuse-xiangling-mavuika
+name: Raidenshogun / Chevreuse / Xiangling / Mavuika
+members:
+    - raiden
+    - chevreuse
+    - xiangling
+    - mavuika
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/jQb9mnGKnHCM
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 59322
+    computed: "2026-10-02"

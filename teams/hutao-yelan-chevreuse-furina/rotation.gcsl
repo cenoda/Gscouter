@@ -1,0 +1,37 @@
+active furina;
+furina skill, dash;
+chevreuse burst, skill[hold=1];
+furina burst;
+yelan burst, attack, skill, attack;
+hutao skill,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:2, charge, jump, attack, burst;
+for let i=0; i<2; i=i+1 {
+  
+  yelan skill, attack:2;
+  
+  furina attack, skill, dash;
+  
+  chevreuse burst, skill[hold=1]:2;
+  furina burst;
+  
+  yelan burst, attack:4, skill, attack; 
+  hutao skill,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:2, charge, jump, attack;
+}
+hutao burst;

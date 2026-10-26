@@ -1,0 +1,17 @@
+id: yaemiko-fischl-zhongli-nahida
+name: Yaemiko / Fischl / Zhongli / Nahida
+members:
+    - yaemiko
+    - fischl
+    - zhongli
+    - nahida
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/qmMMc8jB8Kfh
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 60925
+    computed: "2026-09-24"

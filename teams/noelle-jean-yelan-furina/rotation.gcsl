@@ -1,0 +1,17 @@
+active furina;
+for let x=0; x<4; x=x+1 {
+ furina  skill, dash, burst;
+ yelan   burst, attack, skill, attack;
+ jean    skill, attack;
+ while !.jean.mods.favonius-cd { jean attack; }
+ noelle  burst;
+ noelle  attack:4, dash;
+  pick_up_crystallize("any");
+ noelle  attack:3, skill;
+ noelle  attack:3;
+  pick_up_crystallize("any");
+ yelan   skill, attack;
+ jean    skill, burst, attack;
+ noelle  attack:3;
+  pick_up_crystallize("any");
+}

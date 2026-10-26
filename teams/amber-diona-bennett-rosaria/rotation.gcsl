@@ -1,0 +1,34 @@
+active diona;
+for let i = 0; i <4; i = i + 1 {
+  diona skill[hold=1], burst;
+  if .diona.skill.ready {
+   diona skill[hold=1];
+  }
+  bennett burst, skill;
+  if .amber.skill.ready {
+   amber attack:2, skill, dash;
+  }
+  else {amber aim, dash, skill;}
+   amber burst;
+  rosaria skill, burst;
+  amber aim[bunny=1];
+  if .amber.skill.ready {
+   amber skill, aim[bunny=1];
+  }
+  else {
+   amber attack,skill, aim[bunny=1];
+  }
+  for let x = 0; x< 5; x=x+1 {
+    let weak = rand();
+    if weak > 0.3 {
+      amber aim[weakspot=1];
+    }
+    else {
+      amber aim;
+    }
+  }
+  if i!=3 {
+   rosaria skill;
+  }
+  print("end");
+}

@@ -1,0 +1,17 @@
+id: neuvillette-furina-xilonen-prune
+name: Neuvillette / Furina / Xilonen / Prune
+members:
+    - neuvillette
+    - furina
+    - xilonen
+    - prune
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/kt6N6pCT8ndw
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 97981
+    computed: "2026-10-02"

@@ -1,0 +1,25 @@
+active zhongli;
+for let x=0; x<5; x=x+1 {
+  zhongli attack,skill[hold=1], jump;
+  chiori skill:2;
+  xingqiu burst, attack, skill, dash, attack:2;
+  hutao skill,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack;
+  if .chiori.burst.ready {
+    chiori burst;
+  } else {
+    chiori attack:2;
+  }
+  chiori attack:3;
+  zhongli attack:3;
+  xingqiu attack:2;
+  print ("done");
+}

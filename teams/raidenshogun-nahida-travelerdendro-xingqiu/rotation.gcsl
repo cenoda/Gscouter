@@ -1,0 +1,17 @@
+active raiden;
+for let i=0; i<4; i=i+1 {
+  
+  raiden skill;
+  xingqiu burst, attack;
+  nahida skill, attack, burst;
+  luminedendro attack, skill, attack, burst;
+  wait(1);
+  xingqiu attack, skill, dash, attack:2;
+  raiden attack, burst,
+         attack:4, dash,
+         attack:4, dash,
+         attack:4, dash,
+         attack:4;
+  nahida attack:2, charge;
+  raiden attack:2;
+}

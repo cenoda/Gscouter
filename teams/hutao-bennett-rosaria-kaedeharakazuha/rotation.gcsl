@@ -1,0 +1,17 @@
+active rosaria;
+for let x=0; x<5; x=x+1 {
+  rosaria skill;
+  kazuha burst;
+  bennett skill, burst;
+  kazuha skill, high_plunge;
+  rosaria skill, burst;
+  hutao attack, skill, 
+    attack:1, charge, jump,
+    attack:1, charge, jump;
+  wait(16);
+  hutao attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash;
+  bennett skill;
+  kazuha skill, high_plunge, attack;
+}

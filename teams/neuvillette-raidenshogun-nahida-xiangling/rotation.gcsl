@@ -1,0 +1,22 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+    if i == 0 {
+      neuvillette skill;      
+    } else {
+
+      delay(135); 
+      neuv skill, attack:2;
+
+      delay(21);
+    }
+    raiden skill, attack;
+    nahida skill, burst;
+    xiangling skill, burst;
+    neuvillette charge;
+    
+    wait(203); 
+    neuvillette burst,skill,charge;
+    xiangling skill,attack:2;
+    neuvillette charge, charge;
+}
+wait(173);

@@ -1,0 +1,10 @@
+active raidenshogun;
+    raiden skill, attack;
+for let i = 0; i < 4; i = i+1 {
+    jean skill, attack;
+    xingqiu burst, attack, skill, dash, attack:2;
+    sara attack, skill, aim;
+    jean attack, skill, attack, burst, attack;
+    sara burst;
+    raiden attack, burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+}

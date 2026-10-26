@@ -1,0 +1,21 @@
+active mav; 
+raiden skill, attack;
+for let i = 0; i < 4; i = i + 1 {
+  chevreuse burst, skill[hold=1];
+  if .mav.burst.ready && i > 0 {
+    mav burst, 
+        charge:2, charge[final=1], dash,
+        charge:2, charge[final=1], dash,
+        skill, dash;
+  } else {
+    mav attack, skill;
+  }
+  
+  xl burst, skill, dash;
+  
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  
+  if i > 0 && !is_even(i) {
+    xl attack:5, dash, attack:1, charge, dash;
+  }
+}

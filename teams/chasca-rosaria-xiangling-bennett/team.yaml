@@ -1,0 +1,17 @@
+id: chasca-rosaria-xiangling-bennett
+name: Chasca / Rosaria / Xiangling / Bennett
+members:
+    - chasca
+    - rosaria
+    - xiangling
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Ng6DrPHtk6fH
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 60112
+    computed: "2026-10-02"

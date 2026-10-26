@@ -1,0 +1,17 @@
+id: neuvillette-furina-yaemiko-kaedeharakazuha
+name: Neuvillette / Furina / Yaemiko / Kaedeharakazuha
+members:
+    - neuvillette
+    - furina
+    - yae
+    - kazuha
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/WwNH7mpD9Gpk
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 80834
+    computed: "2026-10-02"

@@ -1,0 +1,32 @@
+active zhongli;
+for let i = 0; i < 4; i = i + 1 {
+  let stl = rand();
+      if stl > 0 { 
+      zhongli skill[hold=1], dash;
+      } else {
+      zhongli skill[hold_nostele=1], dash;
+      }
+  
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  
+  albedo skill, attack;
+  
+  chiori burst, skill:2;
+  
+  if i == 0 {
+    itto attack, burst[prestack=1],
+         attack, skill,
+         attack:2, charge:5,
+         attack:4, charge:5, skill[travel=0], charge;
+         sleep(21); 
+
+  } else {
+    itto attack, burst[prestack=1],
+         attack, skill, charge:4,
+         attack:3, charge:4,
+         attack:3, skill, charge:4; 
+
+  }
+}

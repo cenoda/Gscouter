@@ -1,0 +1,23 @@
+active emilie;
+for let i=0; i<4; i=i+1 {
+  if i > 0 && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst, skill;
+  } else if i > 0 {
+    emilie attack, skill;
+  } else {
+    emilie skill;
+  }
+  
+  nicole burst, skill;
+  
+  durin skill, burst, skill;
+  
+  hutao skill,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:2, charge, jump;
+}

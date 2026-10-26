@@ -1,0 +1,26 @@
+active bennett;
+for let i=0; i<5; i=i+1 {
+  while !.faruzan.mods.favonius-cd && !.faruzan.burst.ready {
+    faruzan attack;
+  }
+  faruzan skill, attack, burst;
+  bennett skill, burst;
+  kazuha skill, high_plunge, burst;
+  if .wanderer.burst.ready {
+    wanderer attack, burst;
+  }  
+  wanderer attack, skill, attack, charge;
+  while .wanderer.skydweller-points > 3 {
+    if .wanderer.normal < 3 {
+      wanderer attack;
+    } else if .wanderer.mods.wanderer-a4 {
+      wanderer dash;
+    } else if .wanderer.skydweller-points > 4 {
+      wanderer charge;
+    } else {
+      break;
+    }
+ } 
+  wanderer skill;
+  bennett skill, attack:2;
+}

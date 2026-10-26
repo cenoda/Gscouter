@@ -1,0 +1,15 @@
+active xilonen; 
+for let i=0; i<4; i=i+1 {
+  xilonen burst;
+  furina skill, dash, burst;
+  xilonen skill, attack:2;
+    while !.xilonen.mods.favonius-cd {
+    xilonen attack;
+  }
+  pick_up_crystallize("any");
+  yelan burst, attack, skill;
+  ningguang attack:2, charge, attack:1, skill, dash, attack:1, burst, attack:1, charge, attack:1, skill;
+  xilonen skill, attack:2;
+  yelan attack, skill, attack;
+  ningguang attack:1, charge, attack:1;
+}

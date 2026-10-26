@@ -1,0 +1,14 @@
+active ayaka;
+for let x=0; x<5; x=x+1 {
+    ayaka dash, attack, charge, skill;
+    kazuha skill, high_plunge, burst;
+    zhongli attack, skill[hold=1], dash;
+    if !pick_up_crystallize("cryo") {
+      zhongli dash, attack;
+    }
+    pick_up_crystallize("cryo");
+    ganyu skill, aim[weakspot=1], burst;
+    ayaka dash, skill, burst;
+    kazuha skill, high_plunge;
+    ganyu aim, skill, aim[weakspot=1];
+}

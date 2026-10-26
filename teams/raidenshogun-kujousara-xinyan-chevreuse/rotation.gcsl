@@ -1,0 +1,13 @@
+active xinyan; 
+raiden skill, attack;
+for let i = 0; i < 4; i = i + 1 {
+  chevreuse burst, skill[hold=1]:3;
+  
+  sara skill, aim, attack:1;
+  
+  xinyan skill, burst, attack:2;
+  
+  sara attack:1, burst;
+  
+  raiden burst, attack:4, dash, attack:4, dash, attack:4, dash, attack:4, skill;
+}

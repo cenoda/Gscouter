@@ -1,0 +1,23 @@
+active mavuika; 
+for let i=0; i<4; i=i+1 {
+  mavuika skill;
+  bennett skill, burst;
+  citlali skill, burst, charge;
+  mavuika burst, charge, dash, charge;
+  if .wanderer.burst.ready {
+    wanderer burst, attack;
+  }
+  wanderer skill, attack;	
+  while .wanderer.skydweller-points > 4 {
+    if .wanderer.normal < 3 {
+      wanderer attack;
+    } else if .wanderer.mods.wanderer-a4 {
+      wanderer dash;
+    } else if .wanderer.skydweller-points > 2 {
+      wanderer charge;
+    } else {
+      wanderer attack;
+    }
+  }
+  wanderer skill, low_plunge;
+}

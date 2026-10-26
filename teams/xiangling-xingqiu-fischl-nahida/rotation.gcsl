@@ -1,0 +1,34 @@
+active nahida;
+let t = 0;
+    nahida skill;
+for let i=0; i<4; i=i+1 {
+    t = f();
+    nahida burst;
+    xingqiu burst, attack:2;
+    fischl skill, attack;
+    xiangling skill, attack, burst, attack;
+    while f() - t <= 12.8*60 {
+        if .nahida.normal > 2 {
+            if .nahida.skill.ready {
+              nahida skill;
+            } else {
+              nahida walk;
+            }
+        }
+        nahida attack;
+    }
+    nahida attack;
+    xingqiu attack, skill, dash, attack:2;
+    fischl attack:2, burst;
+    xiangling attack, skill, attack;
+    while f() - t <= 24.5*60 {
+        if .nahida.normal > 2 {
+            if .nahida.skill.ready {
+              nahida skill;
+            } else {
+              nahida walk;
+            }
+        }
+        nahida attack;
+    }
+}

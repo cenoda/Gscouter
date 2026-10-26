@@ -1,0 +1,25 @@
+active yelan;
+  yelan skill, burst, attack;
+  gorou skill, burst;
+  albedo attack, skill;
+  
+  itto attack, burst[prestack=1], 
+       attack, skill, attack:2, charge:5, 
+       attack:4, charge:5, 
+       skill[travel=0], charge;
+       sleep(21); 
+
+  for let i=0; i<4; i=i+1 {
+  
+  while !.yelan.burst.ready { yelan attack; }
+  yelan skill, burst, attack;
+  gorou attack, skill, attack, burst;
+  albedo attack, skill, attack;
+  sleep(15);
+  
+  itto burst, attack:3, skill, charge:5, 
+       attack:4, charge:5, 
+       skill[travel=0], charge;
+       sleep(21);
+
+  }

@@ -1,0 +1,17 @@
+id: kukishinobu-nahida-tighnari-mona
+name: Kukishinobu / Nahida / Tighnari / Mona
+members:
+    - kuki
+    - nahida
+    - tighnari
+    - mona
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/rgj67gnJj6kp
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 50926
+    computed: "2026-09-30"

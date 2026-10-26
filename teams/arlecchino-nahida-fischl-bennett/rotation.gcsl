@@ -1,0 +1,16 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arlecchino skill, attack;
+  nahida attack,skill;
+  while !.nahida.mods.favonius-cd {
+    nahida attack;
+  }
+  bennett skill, burst;
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  arlecchino charge,
+             attack:16;
+}

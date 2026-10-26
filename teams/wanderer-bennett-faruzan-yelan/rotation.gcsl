@@ -1,0 +1,30 @@
+active faruzan;
+for let i = 0; i < 3; i = i + 1  {
+  
+  faruzan burst;
+  while !.faruzan.mods.favonius-cd {
+    faruzan attack;
+  }
+  yelan skill, burst;
+  while !.yelan.mods.favonius-cd {
+    yelan attack;
+  }
+  bennett skill, attack, burst;
+  if .wanderer.burst.ready {
+    wanderer attack, burst;
+  }  
+  wanderer attack, charge, skill;	
+  while .wanderer.skydweller-points > 3 {
+    if .wanderer.normal < 3 {
+      wanderer attack;
+    } else if .wanderer.mods.wanderer-a4 {
+      wanderer dash;
+    } else if .wanderer.skydweller-points > 2 {
+      wanderer charge;
+    } else {
+      wanderer attack;
+    }
+ } 
+  wanderer skill;
+  
+}

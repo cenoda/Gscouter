@@ -1,0 +1,23 @@
+active chongyun;
+for let i=0; i<4; i=i+1 { 
+  chongyun attack:2, skill;
+  furina skill, dash, attack, burst;
+  escoffier skill, burst;
+  if .skirk.sets.finaleofthedeepgalleries >= 4 {
+    skirk skill[hold=1], burst;  
+    wait(48);                    
+    skirk attack:5, dash;
+    chongyun burst;
+  } else {
+    skirk skill[hold=1], attack:5, dash, attack:3;
+    chongyun burst;
+    skirk burst;
+  }
+  skirk skill,
+        attack:5, dash,
+          
+        attack:2, charge, dash,
+  
+        attack:5, dash,
+        attack:5, dash;
+}

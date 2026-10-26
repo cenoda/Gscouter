@@ -1,0 +1,11 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  jean skill, burst;
+  yelan burst, attack, skill, attack;
+  nilou attack, skill, attack:3, attack:3, attack:3, burst, attack:2;
+  jean skill, attack;
+  yelan attack:2, skill, attack, aim;
+  nilou attack:3;
+  furina attack;
+}

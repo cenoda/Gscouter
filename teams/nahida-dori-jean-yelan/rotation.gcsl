@@ -1,0 +1,14 @@
+active nahida;
+    nahida skill;
+for let i=0; i<4; i=i+1 {
+    nahida burst;
+    yelan skill, burst, attack;
+    dori attack, skill, attack, burst;
+    jean attack, skill, attack, burst, attack;
+    nahida attack:2, skill, attack;
+    yelan attack, skill, attack:2;
+    dori attack, skill, attack;
+    jean attack, skill, attack;
+    nahida attack:2, skill, attack:2, charge; 
+    print("done");
+}

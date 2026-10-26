@@ -1,0 +1,25 @@
+active xilonen;
+for let i=0; i<4; i=i+1 {
+  xilonen burst;
+  
+	furina skill, dash, burst;
+	
+	xq skill, dash, burst, attack;
+	
+	xilonen skill, attack:2;
+	
+	candace skill, attack, burst, attack;
+
+	while .candace.mods.candace-q {
+	
+	  if .xq.normal > 4 {
+	    xq dash;
+	  } else {
+	    xq attack;
+	  }
+	}
+	
+	xilonen skill, attack:2;
+	
+	print("done");
+}

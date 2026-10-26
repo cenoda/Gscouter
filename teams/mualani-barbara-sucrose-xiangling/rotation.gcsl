@@ -1,0 +1,39 @@
+active barbara;
+fn mualani_combo() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+}
+barbara skill, attack:2;
+for let i=0; i<2; i=i+1 {
+  sucrose skill, dash; wait(45); 
+  xiangling burst, skill, dash;
+  mualani burst;
+  mualani skill;
+  mualani_combo();
+  if .mualani.nightsoul.state {
+    mualani skill; 
+  }
+  barbara attack:4, dash, attack:3;
+  
+  xiangling attack:2;
+  if !.xiangling.mods.favonius-cd {
+    xiangling attack;
+  }
+  xiangling skill, dash;
+  sucrose skill, dash, burst;
+  mualani skill;
+  mualani_combo();
+  mualani walk[f=1];
+  barbara skill, attack;
+  if !.barbara.mods.favonius-cd {
+    barbara attack;
+  }
+}

@@ -1,0 +1,13 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill, burst;
+  xingqiu skill, burst;  
+  fischl attack:2;
+  if .fischl.skill.ready {
+    fischl skill;
+  } else {
+    fischl burst;
+  }
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack:5, burst;
+
+}

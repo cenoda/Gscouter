@@ -1,0 +1,25 @@
+active wrio;
+wrio attack;
+for let i=0; i<4; i=i+1 {
+  xilonen skill, attack:2;
+  shenhe attack:2, skill[hold=1], burst;
+  if !.shenhe.mods.favonius-cd {
+    shenhe attack;
+  }
+  bennett skill, burst;
+  if .bennett.sets.ap >= 4 {
+    bennett dash; pick_up_crystallize("cryo");
+  }
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump, 
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:4;
+  if .wrio.burst.ready && .wrio.energy == .wrio.energymax  {
+    wrio burst;
+  } else {
+    wrio attack:2;
+  }
+}

@@ -1,0 +1,22 @@
+active fischl;
+for let x = 0; x < 5; x = x + 1 {
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  rosaria skill, burst;
+  beidou skill[counter=1], burst;
+  jean attack, skill;
+  jean attack:3, charge;
+  jean attack:3, charge;
+  jean attack:3, charge;
+  rosaria skill;
+  
+  beidou skill[counter=1];
+  
+  jean attack:3, charge;
+  jean skill;
+  jean attack, charge;
+  print("rotation done");
+}

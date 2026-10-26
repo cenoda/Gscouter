@@ -1,0 +1,17 @@
+id: tartaglia-bennett-nahida-kaedeharakazuha
+name: Tartaglia / Bennett / Nahida / Kaedeharakazuha
+members:
+    - tartaglia
+    - bennett
+    - nahida
+    - kazuha
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/rqhcncpQgHGC
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 36160
+    computed: "2026-09-30"

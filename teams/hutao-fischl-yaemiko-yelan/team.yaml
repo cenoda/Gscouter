@@ -1,0 +1,17 @@
+id: hutao-fischl-yaemiko-yelan
+name: Hutao / Fischl / Yaemiko / Yelan
+members:
+    - hutao
+    - fischl
+    - yae
+    - yelan
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/7mFBRBLfDHjk
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 66886
+    computed: "2026-10-02"

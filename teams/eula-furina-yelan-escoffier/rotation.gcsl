@@ -1,0 +1,18 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  
+  escoffier skill, burst;
+  
+  yelan burst, attack;
+  if !.yelan.skill.ready && .yelan.breakthrough {
+    yelan aim;
+  }
+  yelan skill;
+  
+  eula skill, attack, burst, walk, attack:4, skill[hold=1], walk[f=11], attack:4, dash, attack;
+  
+  yelan skill, attack:2;
+  
+  eula attack:2;
+}

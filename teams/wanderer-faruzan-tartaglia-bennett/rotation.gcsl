@@ -1,0 +1,15 @@
+active faruzan;
+for let i=0; i<1; i=i+1 {
+  faruzan skill, burst;
+  bennett skill, burst;
+  tartaglia burst;
+  wanderer skill;
+  while .status.bennettburst > 0 {
+    if .wanderer.normal == 1 && .wanderer.mods.wanderer-a4 {
+      wanderer dash;
+    } else {
+      wanderer attack;
+    }
+  }
+  wanderer burst;
+}

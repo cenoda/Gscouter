@@ -1,0 +1,17 @@
+id: raidenshogun-yaemiko-kaedeharakazuha-nahida
+name: Raidenshogun / Yaemiko / Kaedeharakazuha / Nahida
+members:
+    - raiden
+    - yae
+    - kazuha
+    - nahida
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/cBp76Qc6nL9p
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 60810
+    computed: "2026-10-01"

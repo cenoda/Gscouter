@@ -1,0 +1,23 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina attack, skill, dash, burst;
+  bennett skill, burst;
+  if .fischl.burst.ready {
+    fischl attack:2, burst;
+  } else {  
+    fischl attack, skill;
+  }
+  if .yanfei.burst.ready {
+    yanfei burst, attack, charge, attack;
+  } else {  
+    yanfei attack:2;
+  }
+  yanfei skill, 
+         attack, charge,
+         attack:2, charge,
+         attack:2, charge,
+         attack:2, charge,
+         attack, charge,
+         attack:2, skill, charge;
+  bennett skill;
+}

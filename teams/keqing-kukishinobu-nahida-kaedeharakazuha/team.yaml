@@ -1,0 +1,17 @@
+id: keqing-kukishinobu-nahida-kaedeharakazuha
+name: Keqing / Kukishinobu / Nahida / Kaedeharakazuha
+members:
+    - keqing
+    - kuki
+    - nahida
+    - kazuha
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/BCDgNddHPM7q
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 95039
+    computed: "2026-10-02"

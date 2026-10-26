@@ -1,0 +1,19 @@
+active zhongli;
+for let x=0; x<4; x=x+1 { 
+	if x>0 && .zhongli.burst.ready {
+        zhongli burst;
+        }
+	zhongli attack,skill[hold=1], dash,attack;
+	albedo skill,attack;
+	if !.albedo.burst.ready {
+	albedo attack:2;
+	}
+	albedo burst;
+	xingqiu burst, attack, skill, dash, attack:2;
+	yoimiya skill,attack:5,dash,attack:5,dash,attack:5;
+	if .yoimiya.burst.ready {
+		yoimiya burst;
+	}
+	zhongli skill, attack:2;
+	xingqiu attack:3;
+}

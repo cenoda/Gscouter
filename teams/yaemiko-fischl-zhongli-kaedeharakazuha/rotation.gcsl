@@ -1,0 +1,14 @@
+active yae;
+  yae attack;
+for let i=0; i<4; i=i+1 {
+  yae skill:3;
+  kazuha skill, high_plunge, burst;
+  zhongli skill[hold=1], dash;pick_up_crystallize("any");
+  fischl attack:2, skill;
+  kazuha attack, skill, high_plunge;
+  yae attack, charge, dash, burst, skill:3, attack, charge, dash;
+  kazuha skill, high_plunge;
+  zhongli skill[hold=1], dash;pick_up_crystallize("any");
+  fischl attack:2, burst;
+  yae attack:2, charge, jump, attack:2, charge, jump, attack, charge, dash;	
+}

@@ -1,0 +1,17 @@
+active lyney;
+for let i=0; i<4; i=i+1 {
+  lyney aim;
+  zhongli skill[hold=1], dash;
+  chiori skill:2;
+  bennett skill, burst;
+  pick_up_crystallize("any");
+  lyney aim:4;
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(11); 
+    lyney skill; 
+  } else {
+    lyney aim;
+  }
+  lyney skill;
+}

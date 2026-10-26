@@ -1,0 +1,17 @@
+id: razor-kirara-fischl-mavuika
+name: Razor / Kirara / Fischl / Mavuika
+members:
+    - razor
+    - kirara
+    - fischl
+    - mav
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/pCdq8g8FKWWw
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 70225
+    computed: "2026-09-30"

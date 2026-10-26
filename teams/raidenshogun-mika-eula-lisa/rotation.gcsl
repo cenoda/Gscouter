@@ -1,0 +1,19 @@
+active raiden;
+  raiden skill;
+for let x = 0; x < 4; x=x+1{
+  mika attack, burst;
+  eula skill, attack:2;
+  mika skill[hold=1], attack;
+  lisa burst;
+  eula swap;
+  while !.eula.burst.ready {
+    if !.eula.burst.ready {
+      eula skill;
+    } else {
+      eula attack;
+    }
+  }
+  eula burst, walk, skill, attack:5, skill[hold=1], attack:4;
+  raiden burst, attack:4, skill, attack:4, dash, attack:3;
+  print("done");
+}

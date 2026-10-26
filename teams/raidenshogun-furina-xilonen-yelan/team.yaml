@@ -1,0 +1,22 @@
+id: raidenshogun-furina-xilonen-yelan
+name: Raidenshogun / Furina / Xilonen / Yelan
+members:
+    - raiden
+    - furina
+    - xilonen
+    - yelan
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Kzq9zh7rkGg8
+notes: 'Harvested from the KQM gcsim database: 4 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    furina: start_hp%=70
+    raiden: start_hp%=70
+    xilonen: start_hp%=70
+    yelan: start_hp%=70
+reference:
+    dps: 95739
+    computed: "2026-10-02"

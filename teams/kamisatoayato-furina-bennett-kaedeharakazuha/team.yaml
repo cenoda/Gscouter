@@ -1,0 +1,17 @@
+id: kamisatoayato-furina-bennett-kaedeharakazuha
+name: Kamisatoayato / Furina / Bennett / Kaedeharakazuha
+members:
+    - ayato
+    - furina
+    - bennett
+    - kazuha
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/LGhtHBWzzLbC
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 48619
+    computed: "2026-10-01"

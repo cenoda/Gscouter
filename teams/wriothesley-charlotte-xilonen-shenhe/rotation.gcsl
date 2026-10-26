@@ -1,0 +1,24 @@
+active shenhe;
+for let x=0; x<4; x=x+1 {
+  shenhe attack:2, skill[hold=1], burst;
+  xilonen skill, attack:2;
+  if !.xilonen.mods.favonius-cd {
+    xilonen attack;
+  }
+  charlotte skill, burst, attack; 
+  if .charlotte.sets.ap >=4 {
+    charlotte dash; pick_up_crystallize("cryo");
+  }
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:4;
+  if .wrio.burst.ready && .wrio.energy == .wrio.energymax {
+    wrio burst, attack;
+  } else {
+    wrio charge, jump, attack:3, jump;
+  }
+}

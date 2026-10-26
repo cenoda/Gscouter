@@ -1,0 +1,22 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina attack, skill, burst;
+  sigewinne skill, attack;
+  if is_even(i) {
+    escoffier skill, attack:3;
+  } else {
+    escoffier skill, burst;
+  }
+  wrio skill, 
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:4;
+  if .wrio.burst.ready && .wrio.energy == .wrio.energymax {
+    wrio burst;
+  } else {
+    wrio charge, jump, attack;
+  }
+}

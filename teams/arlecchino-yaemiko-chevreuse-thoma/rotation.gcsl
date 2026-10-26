@@ -1,0 +1,13 @@
+active yae;
+yae skill; 
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  chevreuse burst, skill[hold=1], attack;
+  thoma attack, skill, burst;
+  yae skill:3;
+  arle charge,
+       attack:5, dash,
+       attack:5, dash,
+       attack:5, dash,
+       attack:2;
+}

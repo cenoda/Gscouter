@@ -1,0 +1,19 @@
+active gaming;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  amber burst, attack;
+  xianyun attack, skill, low_plunge, burst;
+  gaming burst, attack:2,
+         skill, low_plunge;
+         wait(40);
+  gaming skill, low_plunge;
+          wait(40);
+  gaming skill, low_plunge;
+          wait(40);
+  gaming skill, low_plunge;
+         wait(40);
+  gaming skill, low_plunge,
+         skill, low_plunge,
+         skill, low_plunge;
+
+}

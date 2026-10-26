@@ -1,0 +1,17 @@
+id: neuvillette-furina-kaedeharakazuha-rosaria
+name: Neuvillette / Furina / Kaedeharakazuha / Rosaria
+members:
+    - neuvillette
+    - furina
+    - kazuha
+    - rosaria
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/nKW7FRmwPJrF
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 81349
+    computed: "2026-10-02"

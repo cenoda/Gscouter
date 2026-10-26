@@ -1,0 +1,30 @@
+active xiangling;
+for let r = 0; r < 4; r = r + 1{
+  xiangling skill;
+  yelan skill:2,burst,attack;
+  if r == 0 { sucrose attack; }
+  set_player_pos(0,-3);
+   if r == 0 { wait (13);}
+  sucrose attack;
+  sucrose skill,dash;
+  set_player_pos(0,0);
+  sucrose attack:2; 
+  hutao attack,skill;
+  for let ca = 9; .hutao.mods.paramita; ca = ca - 1 {
+    hutao attack;
+    hutao attack;
+    hutao charge;
+    if ca == 1 { 
+      if .hutao.burst.ready {
+        hutao burst;
+      }
+    }
+      else if .stam >= 18  {
+      hutao dash;
+    }
+    else {
+    hutao jump;
+    }
+  }
+wait (100);
+}

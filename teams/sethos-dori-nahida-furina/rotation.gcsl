@@ -1,0 +1,18 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  nahida skill, attack, burst;
+  dori skill, attack, burst;
+  sethos skill, burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2;
+  sethos skill;
+  dori skill, attack;
+  sethos aim[hold=2]:2;
+}

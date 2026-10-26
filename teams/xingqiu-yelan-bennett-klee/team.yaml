@@ -1,0 +1,17 @@
+id: xingqiu-yelan-bennett-klee
+name: Xingqiu / Yelan / Bennett / Klee
+members:
+    - xingqiu
+    - yelan
+    - bennett
+    - klee
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/BLkwpjrRf79G
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 55755
+    computed: "2026-09-30"

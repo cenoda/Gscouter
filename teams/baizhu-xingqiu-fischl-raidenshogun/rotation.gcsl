@@ -1,0 +1,19 @@
+active raiden;
+for let i = 0; i < 6; i = i + 1 {
+raiden skill, dash;
+baizhu skill, burst;
+fischl skill, attack;
+xingqiu skill, dash, burst, attack:2;
+baizhu attack:2, dash,
+       attack:3, dash,
+       attack:3, dash, skill;
+fischl attack:2, burst;
+baizhu attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:2, dash;
+raiden attack;
+print("end");
+}

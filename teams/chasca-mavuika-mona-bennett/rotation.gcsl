@@ -1,0 +1,14 @@
+active mavuika; 
+for let i=0; i<4; i=i+1 {
+  mavuika skill, attack;
+  bennett skill, burst;
+  mona skill, attack, burst;
+  mavuika burst, charge, dash;
+  chasca skill, aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}
+wait(82);

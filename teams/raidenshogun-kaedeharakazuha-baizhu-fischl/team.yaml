@@ -1,0 +1,17 @@
+id: raidenshogun-kaedeharakazuha-baizhu-fischl
+name: Raidenshogun / Kaedeharakazuha / Baizhu / Fischl
+members:
+    - raidenshogun
+    - kazuha
+    - baizhu
+    - fischl
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/NP9q7tMMrGWg
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 48875
+    computed: "2026-10-02"

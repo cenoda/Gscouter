@@ -1,0 +1,16 @@
+active cyno;
+for let i=0; i<4; i=i+1 {
+  raiden skill, attack;
+  zhongli skill[hold=1], dash;
+  collei skill, burst;
+  cyno skill, burst;
+  while .element.t0.quicken {
+  	if .cyno.mods.cyno-a1 && .cyno.skill.ready {
+  		cyno skill;
+  	} else if .cyno.normal == 5 {
+  		cyno dash;
+  	} else {
+  		cyno attack;
+  	}
+}
+}

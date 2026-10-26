@@ -1,0 +1,31 @@
+active lauma;
+lauma attack;
+for let i=0; i<6; i=i+1 {
+  columbina skill, burst;
+  
+  if .ineffa.burst.ready {
+    ineffa burst;
+  }
+  ineffa skill;
+  
+  if i {
+    if .furina.skill.ready {
+      furina attack, skill, dash;
+    } else {
+      furina attack:2;
+    }
+  } else {
+    furina skill, dash;
+  }
+  
+  lauma attack, skill[hold=.dew>0], burst;
+  
+  columbina attack, charge, dash, charge, dash, charge, dash, charge;
+  if .furina.skill.ready {
+    furina attack, skill, dash;
+  } else {
+    furina attack:2;
+  }
+  columbina attack, charge, dash, charge, dash, charge;
+}
+columbina dash, attack;

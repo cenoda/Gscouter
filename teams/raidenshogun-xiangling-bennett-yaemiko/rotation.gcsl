@@ -1,0 +1,11 @@
+active raiden;
+  raiden skill;
+for let x=0; x<4; x=x+1 {
+  yaemiko skill, skill, skill;
+  bennett burst, skill;
+  xiangling burst, skill;
+  yaemiko burst, skill, skill, skill;
+  raiden burst, attack:4, dash, attack:4, dash, attack:4, skill, attack:4;
+  bennett skill;
+  xiangling attack:2;
+}

@@ -1,0 +1,95 @@
+fn randy(mean, standardDeviation, min, max, display) {
+  let value = randnorm() * standardDeviation + mean;
+  if value > max {
+    value = max;
+  } else if value < min {
+    value = min;
+  }
+  if display {
+    print(value);
+  }
+  return value;
+}
+let prev_char_id = -1;
+let prev_action_id = -1;
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+
+  if prev_char_id != char_id && action_id != .action.swap {
+    execute_action(char_id, .action.swap, []);
+  }
+
+  if action_id == .action.swap {
+    
+    delay(randy(9.5, 1.5, 5, 17, 0));
+  } else if prev_action_id == .action.attack && action_id != .action.attack && action_id != .action.charge {
+    
+    delay(randy(3, 1, 0, 6, 0));
+  } else if prev_action_id != .action.attack {
+    
+    delay(randy(3, 1, 0, 6, 0));
+  }
+  
+  prev_char_id = char_id;
+  prev_action_id = action_id;
+  return _execute_action(char_id, action_id, p);
+}
+active xingqiu;
+for let r=0; r<4; r=r+1 {
+  xingqiu skill;
+  while !.xingqiu.burst.ready {
+    if .xingqiu.skill.ready {
+      xingqiu skill;
+    } else {
+      xingqiu attack;
+    }
+  }
+  xingqiu burst, attack;
+  
+  diona skill[hold=1], attack;
+  while !.diona.burst.ready {
+    if .diona.skill.ready {
+      diona skill[hold=1];
+    } else {
+      diona attack;
+    }
+  }
+  diona burst;
+  
+  kuki attack, skill, dash;
+  
+  alhaitham attack;
+  let alhaithamStart = f();
+  while !.xingqiu.skill.ready {
+    switch {
+      case .alhaitham.burst.ready && ((f() == alhaithamStart) || ((.xingqiu.skill.cd > 14*60) && (.alhaitham.mirrors < 2))):
+        alhaitham burst;
+        if .kuki.burst.ready {
+          kuki burst;
+        } else {
+          xingqiu attack:2;
+        }
+        alhaitham swap;
+        let waitStart = f();
+        while !.alhaitham.mirrors && (f() - waitStart < 120) {
+          alhaitham attack;
+        }
+      
+      case .alhaitham.skill.ready && (.alhaitham.mirrors == 0):
+        alhaitham skill[hold=1], low_plunge[short=1];
+      
+      case !.status.alhaitham-a1-icd && (.alhaitham.mirrors < 3):
+        if .alhaitham.normal == 1 {
+          alhaitham attack;
+        }
+        alhaitham charge, dash;
+      
+      case .alhaitham.normal > 3:
+        alhaitham dash;
+      
+      default:
+        alhaitham attack;
+    }
+  }
+  
+}

@@ -1,0 +1,13 @@
+active klee;
+for let i=0; i<4; i=i+1 {
+  klee skill[bounce=3, mine=8], dash;
+  bennett skill, burst;
+  citlali skill, burst;
+  chasca skill, aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}
+wait(82);

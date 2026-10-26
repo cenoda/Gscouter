@@ -1,0 +1,32 @@
+active itto;
+  aethergeo burst, attack;
+  fischl skill, attack;
+  gorou attack, burst, skill;
+  if !.gorou.mods.favonius-cd {
+    gorou attack;
+  }
+  itto attack, burst[prestack=1], attack, 
+       skill[travel=0], attack:2, charge:5,
+       attack:4, charge:5, 
+       skill[travel=0], charge;
+  sleep(21);
+  
+for let x = 3; x; x = x - 1 {
+  aethergeo burst, skill[short_hold=1], attack;
+  itto swap; 
+  wait(34); 
+  itto attack;
+  if .fischl.skill.ready { 
+    fischl skill, attack; 
+  } else { 
+    fischl attack:2, burst; 
+  }
+  gorou attack, burst, skill;
+  if !.gorou.mods.favonius-cd {
+    gorou attack;
+  }
+  itto attack, burst[prestack=1], attack, 
+       skill[travel=0], charge:4, 
+       attack:3, charge:4, 
+       attack:3, skill[travel=0], charge:4;
+}

@@ -1,0 +1,54 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active durin;
+durin skill:2, burst;
+fischl attack, skill, attack;
+chevreuse burst, skill[hold=1];
+clorinde_combo();
+clorinde attack, burst;
+let rot = 0;
+for let i = 0; i < 5; i = i + 1 {
+  
+  if rot == 0 {
+    fischl attack:2, burst;
+  }
+  
+  if is_even(i) {
+    chevreuse skill[hold=1], attack;
+  } else {
+    chevreuse burst, skill[hold=1]:2;
+  }
+  
+  if rot {
+    durin attack;
+  }
+  durin attack, skill:2, burst;
+  
+  if rot == 1 {
+    fischl attack:2, burst;
+  }
+  if rot == 2 {
+    fischl attack, skill, attack;
+  }
+  
+  clorinde_combo();
+  
+  if rot == 0 {
+    fischl attack, skill, attack;
+  }
+  
+  clorinde burst;
+
+  rot = rot + 1;
+  if rot == 3 {
+    rot = 0;
+  }
+}

@@ -1,0 +1,17 @@
+id: sucrose-xiangling-fischl-sangonomiyakokomi
+name: Sucrose / Xiangling / Fischl / Sangonomiyakokomi
+members:
+    - sucrose
+    - xiangling
+    - fischl
+    - kokomi
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/6BQRkpf6Qdm9
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 55530
+    computed: "2026-10-02"

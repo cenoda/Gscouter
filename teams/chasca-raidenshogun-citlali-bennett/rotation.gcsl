@@ -1,0 +1,16 @@
+active raiden;
+for let i=0; i<4; i=i+1 {
+  raiden skill, attack;
+  
+  citlali skill, burst;
+  
+  bennett skill, burst;
+  
+  chasca skill, aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}
+wait(82);

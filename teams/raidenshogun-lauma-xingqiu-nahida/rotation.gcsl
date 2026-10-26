@@ -1,0 +1,13 @@
+active nahida;
+nahida attack;
+raiden skill;
+for let i=0; i<5; i=i+1 {
+  xingqiu skill, dash, burst, attack:1;
+  nahida attack, burst, attack, skill, attack:2, charge;
+  lauma attack:1, burst, attack:2, skill[hold=1], attack:1;
+  raiden burst,
+         attack:4, dash,
+         attack:4, dash,
+         attack:4, dash,
+         attack:5, skill;
+}

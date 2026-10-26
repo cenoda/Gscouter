@@ -1,0 +1,21 @@
+active emilie;
+for let i=0; i<6; i=i+1 {
+  if is_even(i) {
+    emilie skill, attack;
+    nicole attack:2, skill;
+  } else {
+    emilie burst;
+    nicole burst, skill;
+  }
+  durin skill:2, burst, attack;
+  ganyu skill, aim:5;
+  ganyu attack; 
+  ganyu skill;
+  if is_even(i) {
+    ganyu burst;
+  } else {
+    ganyu aim:2;
+    ganyu attack; 
+  }
+}
+wait(10);

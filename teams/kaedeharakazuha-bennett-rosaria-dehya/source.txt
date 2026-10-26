@@ -1,0 +1,4 @@
+# Conditions of the source config, used to validate the rotation.
+
+energy every interval=480,720 amount=1;
+target lvl=100 pos=-1.1, 1.1 resist=0.1 hp=99999999999999999;

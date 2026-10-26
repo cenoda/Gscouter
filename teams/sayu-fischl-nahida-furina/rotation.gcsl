@@ -1,0 +1,20 @@
+active fischl;
+for let i=0; i<4; i=i+1 {
+  if i==0 {
+    fischl burst;
+    sayu skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  nahida skill, attack, burst;
+  furina skill, dash, burst;
+  sayu burst;
+  nahida attack, skill, attack:3, charge;
+  if i==0 {
+    fischl attack:2, skill;
+  } else {
+    fischl attack:5, skill; 
+  }
+  sayu skill[hold=600];
+  print("rotation done");
+}

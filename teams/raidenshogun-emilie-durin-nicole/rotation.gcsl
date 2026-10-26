@@ -1,0 +1,18 @@
+active raiden;
+raiden skill;
+emilie skill, attack;
+for let i = 0; i < 4; i = i + 1 {
+  nicole skill, burst;
+  
+  durin attack, skill, burst, skill, attack;
+  
+  emilie burst;
+  if i > 0 {
+    emilie skill;
+  }
+  raiden burst, 
+         attack:4, skill, 
+         attack:4, dash, 
+         attack:4, dash, 
+         attack:4;
+}

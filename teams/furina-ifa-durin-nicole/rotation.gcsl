@@ -1,0 +1,24 @@
+active furina; 
+for let i=0; i<4; i=i+1 { 
+  
+ furina skill, dash;
+ if .furina.burst.ready {
+   furina burst;
+ }
+ nicole burst,skill;
+ durin skill, attack, burst;
+ 
+ ifa skill;
+ while .ifa.nightsoul.points > 10 {
+   ifa charge;
+ }
+ if .ifa.burst.ready {
+   ifa burst;
+ } else {
+   ifa skill;
+ }
+ if !.furina.skill.ready {
+   ifa attack, charge, attack;
+ }
+ 
+}

@@ -1,0 +1,20 @@
+active emilie;
+emilie skill;
+for let i=0; i<4; i=i+1 { 
+  neuv skill;
+  
+  emilie burst;
+  
+  durin skill:2, burst;
+  
+  lauma skill[hold=.dew>0];
+  
+  neuv charge, burst, skill, charge;
+  
+  durin skill:2;
+  
+  lauma attack, skill[hold=1];
+  
+  neuv charge, charge;
+}
+wait(173);

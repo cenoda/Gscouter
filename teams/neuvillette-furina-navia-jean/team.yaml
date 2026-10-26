@@ -1,0 +1,17 @@
+id: neuvillette-furina-navia-jean
+name: Neuvillette / Furina / Navia / Jean
+members:
+    - neuvillette
+    - furina
+    - navia
+    - jean
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/7JW8t8zJw9Kq
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 71653
+    computed: "2026-10-02"

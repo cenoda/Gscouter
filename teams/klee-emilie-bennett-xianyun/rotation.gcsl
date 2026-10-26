@@ -1,0 +1,40 @@
+active klee;
+klee attack; 
+for let i = 0; i < 4; i = i + 1 {
+  
+  if i > 0 && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie attack, skill;
+  }
+  
+  xianyun skill, low_plunge, burst; 
+  
+  bennett skill, burst;
+
+  klee attack;
+  if .klee.skill.ready {
+    klee skill[bounce=3, mine=8];
+  }
+  if .klee.burst.ready {
+    klee burst;
+  }
+  
+  let plunges = 0;
+  while .xianyun.status.xianyun-airborne-buff {
+    klee jump;
+    if .airborne {
+      klee low_plunge[collision=rand()>0.5];
+      plunges = plunges + 1; print(plunges);
+    }
+    if .xianyun.status.xianyun-airborne-buff { 
+      if .klee.skill.ready {
+        klee attack, skill[bounce=3, mine=8];
+      } else if .stam > 50 {
+        klee charge;
+      } else {
+        klee attack;
+      }
+    }
+  }
+}

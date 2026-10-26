@@ -1,0 +1,15 @@
+let rotations = 4;
+active lisa;
+  lisa skill;
+for let i = 0; i < rotations; i = i + 1 {
+  kazuha skill, high_plunge;
+  nahida skill, burst;
+  sara skill, aim;
+  wait(13);
+  kazuha attack, skill, high_plunge, burst;
+  sara burst;
+  lisa attack, burst, skill[hold=1], attack:2, charge;
+  kazuha skill, high_plunge;
+  sara skill, aim;
+  lisa attack, charge, attack, charge;
+}

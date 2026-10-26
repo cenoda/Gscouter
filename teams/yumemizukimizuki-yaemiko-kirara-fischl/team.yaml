@@ -1,0 +1,17 @@
+id: yumemizukimizuki-yaemiko-kirara-fischl
+name: Yumemizukimizuki / Yaemiko / Kirara / Fischl
+members:
+    - mizuki
+    - yae
+    - kirara
+    - fischl
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/8rNt7W8dwzmC
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 53021
+    computed: "2026-10-02"

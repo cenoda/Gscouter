@@ -1,0 +1,34 @@
+fn varesa_combo(amt) {
+  for let j = 0; j < amt; j = j + 1 {
+    if .varesa.skill.ready {
+      varesa skill, attack, high_plunge[collision=1]; 
+
+    } else {
+      varesa charge, high_plunge[collision=1]; 
+    }
+    if .varesa.energy >= 30 && .varesa.status.apex-drive {
+      varesa burst;
+    }
+  }
+}
+active varesa;
+varesa_combo(1);
+for let i=0; i<5; i=i+1 {
+  if .xilonen.burst.ready {
+    xilonen skill, burst, attack:2;
+  } else {
+    xilonen skill, attack:2;
+  }
+  ororon burst, skill;
+  sara dash; pick_up_crystallize("electro");
+  sara skill;
+  varesa_combo(3);
+  xilonen skill, attack:2;
+  sara dash; pick_up_crystallize("electro");
+  if .sara.burst.ready {
+    sara burst;
+  } else {
+    sara aim;
+  }
+  varesa_combo(4);
+}

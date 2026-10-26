@@ -1,0 +1,17 @@
+id: alhaitham-xingqiu-fischl-ineffa
+name: Alhaitham / Xingqiu / Fischl / Ineffa
+members:
+    - alhaitham
+    - xingqiu
+    - fischl
+    - ineffa
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/6mhn7N7nBPMn
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 80598
+    computed: "2026-10-02"

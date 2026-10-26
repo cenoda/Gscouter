@@ -1,0 +1,10 @@
+active raiden;
+  raiden skill;
+for let i=0; i<4; i=i+1 {
+  kazuha skill, high_plunge, burst;
+  fischl skill, attack;
+  alhaitham skill, attack:2, charge, attack:3, dash, attack:3, dash, attack:3, burst;
+  fischl attack:2, burst;
+  kazuha skill, high_plunge;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+}

@@ -1,0 +1,24 @@
+active layla;
+for let i = 5; i; i = i - 1 {
+  layla skill, burst;
+  
+  bennett skill, burst;
+  
+  rosaria skill, burst;
+  
+  yoimiya skill, attack:5, dash;
+  wait(30);
+  yoimiya attack:5, dash;
+  wait(30);
+  yoimiya attack:1;
+  
+  bennett attack, skill;
+  rosaria skill, attack;
+  
+  if .yoimiya.burst.ready {
+    set_player_pos(10,10);
+    yoimiya burst;
+    set_player_pos(0,0);
+  }
+  print("rotation done");
+}

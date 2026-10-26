@@ -1,0 +1,14 @@
+active bennett;
+  bennett skill;  
+for let rot=0; rot<5; rot=rot+1 {
+  nahida skill,burst;
+  bennett burst, skill;
+  kazuha skill,high_plunge,burst;
+  xiangling burst, skill;
+  bennett attack:2,skill;
+  xiangling attack:3;
+  bennett attack:2,skill;
+  xiangling attack:3;
+  kazuha skill,high_plunge,attack:2;
+  bennett skill;
+}

@@ -1,0 +1,21 @@
+active albedo;
+for let x=0; x<5; x=x+1 {
+  albedo skill;
+  zhongli attack, skill[hold=1], jump;
+  xingqiu burst, attack, skill, dash, attack:2;
+  albedo attack, burst, attack;
+  hutao skill,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack;
+  zhongli attack:3;
+  xingqiu attack:2;
+  wait (2);
+  print ("done");
+}

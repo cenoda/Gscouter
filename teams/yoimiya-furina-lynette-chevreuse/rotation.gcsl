@@ -1,0 +1,17 @@
+active furina;
+furina skill, dash, burst;
+for let i=0; i<4; i=i+1 {
+  if i {
+    furina attack, burst, skill, attack;
+  }
+  lynette burst, attack;
+  chev burst, skill[hold=1];
+  lynette skill;
+  yoi skill, attack:5, dash,
+                 attack:5, dash,
+                 attack:5;
+  if .yoi.burst.ready {
+    yoi burst;
+  } 
+  lynette skill, attack;
+}

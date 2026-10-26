@@ -1,0 +1,9 @@
+active kazuha;
+for let i = 0; i < 4; i = i + 1 {
+  
+  kazuha skill;
+  faruzan burst, skill;
+  jean burst, skill;
+  kazuha skill, burst;
+  nilou skill, attack:3, burst, attack:13;
+}

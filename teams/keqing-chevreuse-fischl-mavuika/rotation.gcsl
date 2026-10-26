@@ -1,0 +1,32 @@
+active fischl; 
+fischl skill;
+for let i=0; i<4; i=i+1 {  
+  if .amy.skill.ready {
+    amy attack, skill;
+  } else if .amy.burst.ready && i > 0 {
+    amy attack:2, burst;
+  }
+  
+  if .chev.burst.ready {
+    chev burst, skill[hold=1];
+  } else {
+    chev skill[hold=1], attack:1;
+  }
+  
+  if .mav.burst.ready {
+    mav burst, skill, dash;
+  } else {
+    mav attack, skill;
+  }
+  
+  keqing skill, burst, skill,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      attack, charge;
+  keqing skill:2,
+      attack, charge,
+      attack, charge,
+      attack, charge;
+}

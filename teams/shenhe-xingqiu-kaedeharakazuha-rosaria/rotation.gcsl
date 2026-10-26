@@ -1,0 +1,11 @@
+active xingqiu;
+for let x =0 ; x<5; x=x+1 {
+xingqiu skill, burst;
+shenhe attack,burst,skill;
+kazuha attack,burst,attack, skill, high_plunge;
+rosaria attack,skill,burst,attack;
+shenhe attack,skill,attack:3;
+kazuha skill, high_plunge, attack:2;
+rosaria attack,skill, attack:2;
+xingqiu attack:2;
+}

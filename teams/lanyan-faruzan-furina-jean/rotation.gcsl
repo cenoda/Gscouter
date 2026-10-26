@@ -1,0 +1,18 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  
+  jean skill, burst;
+  
+  faruzan skill, burst;
+  
+  lanyan skill:2, burst;
+  
+  faruzan aim:2, skill;
+  
+  lanyan attack, skill:2;
+  
+  jean skill;
+  
+  faruzan aim:2, skill, aim:1;
+}

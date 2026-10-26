@@ -1,0 +1,29 @@
+fn kinich_combo() { 
+  kinich skill;
+  while .kinich.nightsoul.state {
+    kinich attack[direction=1]:2;
+    while .kinich.nightsoul.points < 20 && .kinich.nightsoul.state {
+      wait(1);
+    }
+    if .kinich.nightsoul.state {
+      kinich skill[hold=1];
+    }
+  }
+}		
+active kinich; 
+for let i=0; i<4; i=i+1 {
+  if is_even(i) {
+    nicole burst, skill;
+  } else {
+    nicole attack, skill;
+  }
+  
+  durin skill:2, burst;
+  
+  lauma skill[hold=0];
+  
+  kinich_combo();
+  if .kinich.burst.ready && .kinich.energy == .kinich.energymax  {
+    kinich burst;
+  }
+}

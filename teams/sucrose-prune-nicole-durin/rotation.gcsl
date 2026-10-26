@@ -1,0 +1,22 @@
+active durin;
+for let i=0; i<6; i=i+1 {
+  let StartFrame = f();
+  durin skill, skill, burst;
+  prune skill, burst, skill;
+  nicole skill, burst;
+  while f() - StartFrame < 1020 {
+    if .sucrose.skill.ready{
+      sucrose skill, jump;
+    }
+    else{
+      if .sucrose.burst.ready{
+        sucrose burst;
+      }
+      else{
+        sucrose attack:2, charge;
+      }
+    }
+    
+  }
+  
+}

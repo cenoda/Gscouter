@@ -1,0 +1,27 @@
+fn RaidenPlunge() {
+  raiden jump;
+  if .airborne {
+    raiden high_plunge[collision=rand()>0.5];
+  }
+}
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 { 
+  
+  furina skill, dash, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  bennett skill, burst;
+  
+  RaidenPlunge(); raiden dash;
+  RaidenPlunge(); raiden dash;
+  RaidenPlunge(); raiden dash;
+  RaidenPlunge(); raiden dash;
+  RaidenPlunge(); raiden dash;
+  RaidenPlunge(); raiden dash;
+  RaidenPlunge(); raiden dash;
+  RaidenPlunge(); raiden attack, skill;
+  
+  bennett skill, dash;
+}

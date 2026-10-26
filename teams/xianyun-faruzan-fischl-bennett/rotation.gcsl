@@ -1,0 +1,35 @@
+active fischl;
+for let i=0; i<4; i=i+1 {
+  fischl attack, skill;
+  
+  faruzan skill, burst;
+  
+  bennett skill, burst;
+  xianyun skill:3, high_plunge, burst;
+  
+  amy attack:2, burst;
+
+  while .xianyun.status.xianyun-airborne-buff {
+    if .xianyun.skill.ready {
+      xianyun skill:3, high_plunge;
+    } else if .xianyun.status.xianyun-airborne-buff {
+      xianyun jump;
+      if .airborne {
+        xianyun high_plunge[collision=rand()>0.5];
+      }
+      if .xianyun.status.xianyun-airborne-buff {
+        xianyun dash;
+      }
+    }
+  }
+  
+  faruzan skill, aim:2;
+
+  while .fischl.skill.cd > 30 {
+    if .xianyun.normal > 2 {
+      xianyun dash;
+    } else {
+      xianyun attack;
+    }
+  }
+}

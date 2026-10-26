@@ -1,0 +1,20 @@
+active nahida;
+for let i=0; i<4; i=i+1 {  
+    nahida skill;
+    if .nahida.burst.ready {
+      nahida burst, attack:2, skill;
+    }
+    bennett skill;
+    if .bennett.burst.ready {
+      bennett burst;
+    }
+    kazuha skill, high_plunge;
+    if .kazuha.burst.ready {
+      kazuha burst;
+    }
+    if .sayu.burst.ready {
+      sayu burst;
+    }
+    sayu skill[hold=130];
+    kazuha skill, high_plunge;
+}

@@ -1,0 +1,17 @@
+id: neuvillette-furina-baizhu-travelerpyro
+name: Neuvillette / Furina / Baizhu / Travelerpyro
+members:
+    - neuvillette
+    - furina
+    - baizhu
+    - luminepyro
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/HCpH8r8hRzLb
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 71509
+    computed: "2026-10-02"

@@ -1,0 +1,26 @@
+active furina;
+furina skill, dash, burst;
+nahida skill, charge;
+for let i=0; i<4; i=i+1 {
+  if .furina.skill.ready {
+    furina skill, dash;
+    nahida skill, charge;
+  } else if i {
+    nahida skill, burst, charge;
+  }
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst; 
+  }
+  sethos aim[hold=2], skill, attack, burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack; 
+}

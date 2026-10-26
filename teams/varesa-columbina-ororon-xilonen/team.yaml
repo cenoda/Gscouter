@@ -1,0 +1,17 @@
+id: varesa-columbina-ororon-xilonen
+name: Varesa / Columbina / Ororon / Xilonen
+members:
+    - varesa
+    - columbina
+    - ororon
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/npdRdjddwppf
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 87575
+    computed: "2026-10-01"

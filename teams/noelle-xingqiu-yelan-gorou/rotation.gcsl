@@ -1,0 +1,17 @@
+active xingqiu;
+for let i=0; i<4; i=i+1 {
+	xingqiu skill, burst, attack;
+	yelan burst, skill, attack;
+	gorou skill,burst, attack;
+	noelle skill,burst[extend=0];
+	
+	noelle attack:4, dash,
+	       attack:4;
+	       
+	yelan skill, attack;       
+	gorou skill, attack;
+	
+	noelle attack:4, dash,
+	       attack:2;
+	
+}

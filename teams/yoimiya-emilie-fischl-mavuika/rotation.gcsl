@@ -1,0 +1,29 @@
+active emilie;
+emilie skill;
+for let i = 0; i < 4; i = i + 1 {
+  if i > 0 && .emilie.burst.ready {
+    emilie burst;
+  } else if .emilie.skill.ready {
+    emilie skill, attack;
+  }
+  
+  if .mav.burst.ready && i > 0 {
+    mav burst, skill, charge:2, dash;
+  } else {
+    mav attack, skill;
+  }
+  
+  amy attack;
+  if .amy.skill.ready {
+    amy skill;
+  } else {
+    amy attack, burst;
+  }
+  
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack:2;
+  if .yoimiya.burst.ready && .yoimiya.energy == .yoimiya.energymax && i > 0 {
+    yoimiya burst;
+  } else {
+    yoimiya attack:2; 
+  }
+}

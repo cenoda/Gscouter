@@ -1,0 +1,11 @@
+active chongyun;
+for let i=0; i<4; i=i+1 {
+  chongyun burst, skill;
+  yunjin skill, burst, attack:2;
+  shenhe skill[hold=1], burst;
+  thoma attack:2, dash, attack:2, dash, attack:2, dash, attack:2, dash, attack:2, dash, attack:2, dash, attack:2, dash, attack:4;
+  chongyun attack, skill, attack;
+  yunjin skill, attack:4;
+  shenhe skill[hold=1], attack:3;
+  thoma attack:2, dash, attack:2, dash, attack:2, dash, attack:2, dash, attack:2, dash, attack:4;
+}

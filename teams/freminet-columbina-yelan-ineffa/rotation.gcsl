@@ -1,0 +1,28 @@
+active freminet; 
+for let i=0; i<4; i=i+1 {
+  if .columbina.burst.ready {
+    columbina skill, burst;
+  } else {
+    columbina skill, attack;
+  }
+  
+  if i > 0 && .ineffa.burst.ready {
+    ineffa skill, burst;
+  } else {
+    ineffa skill;
+  }
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  freminet skill, attack, burst,
+           attack:2, skill, attack:0, skill,
+           attack:2, skill, attack:1, skill, 
+           attack:2, skill, attack:1, skill,
+           attack:2, skill;
+}

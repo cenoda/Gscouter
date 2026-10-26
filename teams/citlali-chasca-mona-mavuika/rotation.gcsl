@@ -1,0 +1,22 @@
+active mavuika;
+for let i = 0; i < 2; i = i + 1 {
+  if i==0 {
+    mavuika skill;
+  } else {
+    mavuika skill[hold=1], charge;
+  }
+  citlali skill, burst;
+  mona attack, burst;
+  mavuika burst;
+  wait(21);
+  mavuika charge;
+  mona skill, attack;
+  chasca skill, burst, aim:3;
+  mavuika skill[hold=1], charge;
+  citlali skill, burst;
+  mona attack, dash;
+  mavuika burst, charge;
+  mona skill, attack;
+  chasca skill, aim:4;
+}
+wait(125);

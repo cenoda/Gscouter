@@ -1,0 +1,17 @@
+id: faruzan-wanderer-furina-lanyan
+name: Faruzan / Wanderer / Furina / Lanyan
+members:
+    - faruzan
+    - wanderer
+    - furina
+    - lanyan
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/bDMfHWht8nG8
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 52459
+    computed: "2026-09-30"

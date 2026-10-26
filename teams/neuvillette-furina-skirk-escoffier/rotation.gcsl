@@ -1,0 +1,18 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  furina attack, skill, dash, attack;
+  if i {
+    escoffier burst, attack:3;
+  } else {
+    escoffier burst;
+  }
+  escoffier skill, attack;
+  skirk skill[hold=1], burst;
+  furina burst;
+  neuvillette attack, charge, skill, charge, burst;
+  escoffier attack:2, dash, skill;
+  skirk skill[hold=1], burst;
+  neuvillette charge, charge;
+}
+wait(173);

@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+itto char lvl=90/90 cons=0 talent=9,9,9;
+itto add weapon="favgs" refine=5 lvl=90/90;
+itto add set="husk" count=5;
+itto add stats hp=4780 atk=311 def%=0.583 geo%=0.466 cr=0.311;
+itto add stats def=39.36 def%=0.124 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=39.64 cr=0.2317 cd=1.1254;
+
+bennett char lvl=90/90 cons=6 talent=9,9,9;
+bennett add weapon="sapwoodblade" refine=1 lvl=90/90;
+bennett add set="noblesse" count=4;
+bennett add stats hp=4780 atk=311 er=0.518 pyro%=0.466 cr=0.311;
+bennett add stats def=39.36 def%=0.124 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.6612 em=39.64 cr=0.1986 cd=0.5296;
+
+fischl char lvl=90/90 cons=6 talent=9,9,9;
+fischl add weapon="thestringless" refine=5 lvl=90/90;
+fischl add set="gt" count=4;
+fischl add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cr=0.311;
+fischl add stats def=39.36 def%=0.124 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.2204 em=39.64 cr=0.3641 cd=0.8606;
+
+beidou char lvl=90/90 cons=6 talent=9,9,9;
+beidou add weapon="sacrificialgreatsword" refine=5 lvl=90/90;
+beidou add set="emblem" count=4;
+beidou add stats hp=4780 atk=311 er=0.518 hp%=0.466 cr=0.311;
+beidou add stats def=39.36 def%=0.124 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=.1102 em=39.64 cr=0.3641 cd=0.8606;

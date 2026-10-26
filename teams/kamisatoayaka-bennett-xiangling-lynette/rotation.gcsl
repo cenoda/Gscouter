@@ -1,0 +1,15 @@
+active xiangling;
+for let i = 0; i < 4; i = i + 1 {
+  xiangling skill, attack;
+  bennett burst, skill;
+  ayaka burst;
+  lynette skill, burst;
+  xiangling burst;
+  ayaka skill, dash, 
+        attack:2, charge,
+        attack:2, charge, dash,
+        attack:2, charge,
+        attack:2, charge, dash,
+        attack:2, charge,
+        skill, dash, attack;
+}

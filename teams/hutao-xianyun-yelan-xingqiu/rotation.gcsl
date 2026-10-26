@@ -1,0 +1,16 @@
+active xingqiu;
+for let i=0; i<4; i=i+1 {
+  xingqiu skill, dash, burst, attack:2;
+  xianyun skill, low_plunge, burst;
+  yelan burst, attack;
+  xianyun attack, jump, low_plunge; 
+  yelan attack:2, skill, attack;
+  hutao skill;
+  for let j=0; j<6; j=j+1 {
+    hutao attack:1, charge, jump;
+    if .airborne {
+      hutao high_plunge[collision=rand()>0.5];
+    }
+  }
+  yelan skill, attack;
+}

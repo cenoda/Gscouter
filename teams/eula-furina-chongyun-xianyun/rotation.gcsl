@@ -1,0 +1,39 @@
+active eula; 
+eula skill; 
+for let x = 0; x < 4; x = x + 1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+
+  eula skill; 
+  
+  xianyun attack, skill, low_plunge, burst; 
+  
+  chongyun burst, skill;
+
+  while .eula.status.xianyun-airborne-buff {
+    if .eula.skill.ready {
+      eula skill[hold=1]; 
+    } else {
+      eula jump;
+      if .airborne {
+        eula high_plunge[collision=rand()>0.5];
+      }
+      if .eula.status.xianyun-airborne-buff { 
+        eula dash;
+      }
+    }
+  }
+  while .furina.skill.cd {
+    if .eula.burst.ready && .eula.energy == .eula.energymax {
+      eula burst, skill;
+    } else if .eula.skill.ready {
+      eula skill;
+    } else {
+      eula attack;
+    }
+  }
+  
+}

@@ -1,0 +1,19 @@
+active fischl;
+for let i=0; i<4; i=i+1 {
+  if .fischl.burst.ready {
+    fischl attack:2, burst;
+  } else {
+    fischl skill, attack;
+  }
+  
+  collei skill, burst;
+  yunjin attack, skill, burst;
+  cyno skill, burst,
+    attack:4, skill,
+    attack:4, dash,
+    attack:3, skill,
+    attack:4, dash,
+    attack:3, skill,
+    attack:4;
+  print("end");
+}

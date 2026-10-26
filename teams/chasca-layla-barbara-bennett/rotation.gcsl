@@ -1,0 +1,19 @@
+active layla;
+for let i=0; i<4; i=i+1 {
+  layla burst, attack, skill, attack;
+  bennett skill, burst;
+  if is_even(i) {
+    barbara swap; wait(27); 
+    barbara attack:2, skill;
+  }
+  
+  chasca skill;
+  set_player_pos(0,-2);  
+  chasca aim:4;
+  chasca aim[bullets=4];
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  }
+  bennett skill, attack:2, dash;
+  set_player_pos(0,0);
+}

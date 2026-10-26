@@ -1,0 +1,18 @@
+active yae;
+for let i=0; i<4; i=i+1 {
+  yae skill:3, attack;
+  kirara skill[hold=34], burst;
+  fischl attack, skill;
+  tighnari skill, aim, burst, aim:2;
+  yae attack, burst, skill:3, attack;
+  kirara skill[hold=34];
+  fischl attack:2, burst;
+  tighnari skill, aim;
+  if .tighnari.burst.ready {
+    tighnari burst, aim:2;
+  } else {
+    tighnari aim:2;
+    yae attack, charge, jump;
+  }
+  yae attack, charge, jump;
+}

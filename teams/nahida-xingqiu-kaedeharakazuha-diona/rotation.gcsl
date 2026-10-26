@@ -1,0 +1,22 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill;
+
+    nahida attack, charge;
+
+  xq skill, dash, burst, attack;
+  
+  diona skill[hold=1], attack, burst, attack;
+  
+  while .xq.mods.xingqiuburst > 60 {
+    if .kazuha.skill.ready && .kazuha.swap.ready {
+      kazuha attack, skill, high_plunge[collision=rand()>0.5];
+    } else if .kazuha.burst.ready && (.kazuha.swap.ready || .kazuha.onfield) {
+      kazuha attack, burst;
+    } else if .nahida.normal > 2 && .stam > 18 {
+      nahida dash;
+    } else {
+      nahida attack;
+    }
+  }
+}

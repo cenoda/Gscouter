@@ -1,0 +1,20 @@
+active lyney;
+for let i=0; i<4; i=i+1 {
+  lyney aim;
+  if i && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  xilonen skill, attack:2;
+  bennett skill, burst;
+  lyney aim:4;
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(11);
+    lyney skill;
+  } else {
+    lyney aim;
+  }
+  lyney skill;
+}

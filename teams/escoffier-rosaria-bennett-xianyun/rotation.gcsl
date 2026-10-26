@@ -1,0 +1,22 @@
+active xianyun;
+for let i = 0; i < 4; i = i + 1 {
+  xianyun skill, low_plunge, burst;
+  
+  bennett skill, burst;
+
+  if .xianyun.sets.vv >= 4 {
+    xianyun attack:2; wait(20);
+  }
+  
+  rosaria skill, burst;
+  
+  esco skill;
+  while .xianyun.status.xianyun-airborne-buff {
+    esco jump;
+    if .airborne {
+      esco low_plunge[collision=rand()>0.5];
+    }
+  }
+  
+  rosaria skill;
+}

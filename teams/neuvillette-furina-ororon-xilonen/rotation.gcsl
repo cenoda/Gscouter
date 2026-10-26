@@ -1,0 +1,18 @@
+active neuvillette;
+for let x=0; x<4; x=x+1 {
+  neuvillette skill;
+  furina attack, skill, dash, attack;
+  xilonen skill, burst, attack:2;
+  if .xilonen.sets.ap >=4 {
+    xilonen dash;   pick_up_crystallize("hydro");
+  }
+  ororon skill, burst;
+  furina burst;
+  neuvillette charge, skill, charge, burst;
+  xilonen skill, attack:2;
+  if .xilonen.sets.ap >=4 {
+    xilonen dash;   pick_up_crystallize("hydro");
+  }
+  neuvillette charge:2;
+}
+wait(173);

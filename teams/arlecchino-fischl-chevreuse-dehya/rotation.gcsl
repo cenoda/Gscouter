@@ -1,0 +1,18 @@
+active arle;
+arle skill;
+for let i = 0; i < 4; i = i + 1 {
+  fischl burst;
+  chevreuse burst, skill[hold=1], attack;
+  dehya skill:2;
+  arle charge,
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:4;
+  if .fischl.skill.ready {
+    fischl skill,attack;
+  }
+  arle attack:3,skill;
+  fischl attack:2;
+}

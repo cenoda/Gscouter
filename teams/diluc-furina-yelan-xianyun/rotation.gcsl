@@ -1,0 +1,24 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  yelan skill, burst, attack;
+  
+  xianyun skill, low_plunge, attack, burst;
+  
+  diluc skill, attack, burst, attack;
+  for let h = 0; h < 5; h = h + 1 {
+    diluc jump;
+    if .airborne { 
+      diluc low_plunge[collision=rand()>0.5], attack;
+    }
+  }
+  
+  for let h = 0; h < 3; h = h + 1 {
+    diluc jump;
+    if .airborne { 
+      diluc high_plunge[collision=rand()>0.5], dash;
+    }
+  }
+  diluc skill:3;
+}

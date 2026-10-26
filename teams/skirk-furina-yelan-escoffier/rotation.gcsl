@@ -1,0 +1,36 @@
+active furina;
+furina attack, skill, dash; 
+escoffier skill, attack:3;  
+yelan skill, attack:2, dash, attack:2;  
+skirk skill,
+      attack:5, dash,
+      
+      attack:2, burst,
+      
+      attack:5, dash,
+      attack:5, dash,
+      
+      attack:2, charge, dash,
+      
+      attack:5, dash,
+      attack:2;
+      
+furina swap;
+print("Skirk E cd (60 FPS) is ", .skirk.skill.cd);
+print("Skirk Q cd (60 FPS) is ", .skirk.burst.cd);
+for let i=0; i<4; i=i+1 { 
+  furina burst, skill, dash;
+  escoffier skill, burst;
+  yelan skill, attack, burst, attack;
+  skirk skill,
+        attack:2, burst,
+        
+        attack:5, dash,
+        attack:5, dash,
+        attack:5, dash,
+        
+        attack:2, charge, dash,
+        
+        attack:5, dash,
+        attack:2;
+}

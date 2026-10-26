@@ -1,0 +1,22 @@
+id: sangonomiyakokomi-sayu-fischl-furina
+name: Sangonomiyakokomi / Sayu / Fischl / Furina
+members:
+    - kokomi
+    - sayu
+    - fischl
+    - furina
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/b6GFPtKQ77pk
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    fischl: start_hp%=90
+    furina: start_hp%=90
+    kokomi: start_hp%=90
+    sayu: start_hp%=90
+reference:
+    dps: 64874
+    computed: "2026-10-02"

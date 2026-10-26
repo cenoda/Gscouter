@@ -1,0 +1,14 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, burst;
+  escoffier skill, burst;
+  skirk skill[hold=1], burst;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:2;
+}

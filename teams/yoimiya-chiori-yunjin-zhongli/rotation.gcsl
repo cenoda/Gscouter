@@ -1,0 +1,22 @@
+active zhongli;
+for let x=0; x<4; x=x+1 {
+  zhongli attack, skill[hold=1], dash;
+  while (!.zhongli.mods.favonius-cd) { 
+	  zhongli attack;
+	}
+	
+	chiori skill:2;
+  yunjin skill, burst;
+  
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack:5;
+  
+  if .yoimiya.burst.ready {
+    yoimiya burst;
+  } else if .chiori.burst.ready {
+    chiori burst;
+  } else {
+    yoimiya attack:3;
+  }
+  
+  print("done");
+}

@@ -1,0 +1,27 @@
+active dehya;
+  
+for let i=0; i<4; i=i+1 {
+  dehya skill;
+  
+  nahida skill;
+  if .nahida.burst.ready && .nahida.energy == .nahida.energymax {
+    nahida burst;
+  } else {
+    nahida attack, charge;
+  }
+  
+  furina skill, dash, burst;
+  
+  sayu burst;
+  
+  dehya skill;
+  if .sayu.skill.cd > 80 && .dehya.burst.ready && .dehya.energy == .dehya.energymax {
+    dehya burst;
+    while .sayu.skill.cd > 50 {
+      dehya skill;
+    }
+  }
+  
+  sayu skill[hold=600];
+  print("done");
+}

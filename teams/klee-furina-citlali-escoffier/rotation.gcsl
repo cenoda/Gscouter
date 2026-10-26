@@ -1,0 +1,34 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill; 
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd && !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  if .furina.weapon == .keys.weapon.favsword && !.furina.mods.favonius-cd {
+    furina attack;
+  }
+  
+  esco skill, burst;
+  
+  citlali skill, burst;
+  
+  klee attack;
+  while .furina.skill.cd {
+    switch {
+      case .klee.burst.ready:
+        if .klee.skill.ready && .klee.sets.cw > 4 {
+          klee skill[release=0];
+        }
+        klee burst;
+      case .klee.skill.ready:
+        klee skill[bounce=3, mine=8], jump;
+      case .stam > 50 && .previous-action == .action.attack:
+        klee charge;
+      case .previous-action == .action.attack:
+        klee walk;
+      default:
+        klee attack;
+    }
+  }
+}

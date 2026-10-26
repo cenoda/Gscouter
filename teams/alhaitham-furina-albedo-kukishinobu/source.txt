@@ -1,0 +1,5 @@
+# Conditions of the source config, used to validate the rotation.
+
+options swap_delay=1 iteration=1000 ignore_burst_energy=false;
+target lvl=100 type=dummy radius=1 pos=0,1.5 particle_threshold=520000 particle_drop_count=3;
+hurt every interval=240,360 amount=10000,15000;

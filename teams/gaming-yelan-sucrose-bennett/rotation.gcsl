@@ -1,0 +1,16 @@
+active yelan;
+for let i = 0; i<3; i=i+1 {
+  yelan skill, attack, burst, attack;
+  while !.yelan.mods.favonius-cd {
+    yelan attack;
+  }
+  bennett burst, skill[hold=1];
+  sucrose skill, attack;
+  gaming burst, attack:2;
+  for let i=0; i<6; i=i+1 {
+    gaming skill, high_plunge, attack;
+  }
+  gaming skill, high_plunge, dash;
+  
+  print ("done");
+}

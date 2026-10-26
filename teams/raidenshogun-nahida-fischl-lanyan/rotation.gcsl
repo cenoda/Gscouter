@@ -1,0 +1,19 @@
+active raiden;
+raiden skill;
+lanyan attack:1; 
+for let i=0; i<4; i=i+1 {
+  nahida skill, attack, burst;
+  
+  fischl attack:2, burst;
+  
+  lanyan attack, skill:2, burst;
+  
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:2;
+  
+  if .fischl.skill.ready {
+    lanyan attack:2;
+    fischl attack, skill;
+  } else {
+    raiden attack:2; 
+  }
+}

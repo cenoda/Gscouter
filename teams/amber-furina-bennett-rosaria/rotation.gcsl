@@ -1,0 +1,40 @@
+active rosaria;
+for let i = 0; i <4; i = i + 1 {
+  rosaria skill;
+  furina  burst, skill, dash;
+  bennett burst, skill;
+
+  if .amber.burst.ready {
+   amber attack, skill, dash, burst;
+   rosaria skill, burst;
+
+   for let x = 0; x< 6; x=x+1 {
+     
+     let weak = rand();
+     if weak > 0.0 {
+      amber aim[weakspot=1];
+    }
+     else {
+      amber aim;
+    }
+   }
+  }
+  
+  else {
+   amber attack, skill;
+   print("Warning! Amber has energy issues!");
+   rosaria skill, burst;
+
+   for let x = 0; x< 7; x=x+1 {
+     
+     let weak = rand();
+     if weak > 0.0 {
+       amber aim[weakspot=1];
+     }
+     else {
+       amber aim;
+     }
+   }
+  }
+  print("end");
+}

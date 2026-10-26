@@ -1,0 +1,18 @@
+let weak = 1; 
+active lyney;
+for let i=0; i<5; i=i+1 { 
+  lyney aim[weakspot=weak];
+  zhongli skill[hold=1], dash;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  bennett skill, burst, dash;
+  pick_up_crystallize("pyro");
+  venti skill, burst;
+  while !.venti.mods.favonius-cd {
+    venti attack;
+  }
+  lyney aim[weakspot=weak], aim, aim, burst;
+  delay(11); 
+  lyney skill, skill;
+}

@@ -1,0 +1,40 @@
+active klee;
+klee attack;
+ for let i=0; i<4; i=i+1 {
+  kazuha skill, high_plunge, burst;
+  if .kuki.burst.ready {
+    kuki burst;
+    kuki skill;
+    xiangling attack, burst, skill, dash;
+    kazuha skill, high_plunge;
+    klee attack, burst, walk, attack, skill[bounce=3, mine=8];
+    
+    if .klee.skill.ready {
+      klee jump, attack, skill[bounce=3, mine=8], jump;
+    } else {
+      klee attack[travel=6], charge;
+    }
+    klee attack[travel=6], charge, 
+    attack[travel=6], charge, 
+    attack[travel=6], charge, 
+    attack[travel=6], charge, 
+    attack[travel=6], charge, 
+    attack[travel=6], walk, attack, walk, attack;
+  } else {
+    kuki skill;
+    xiangling attack, burst, skill, dash;
+    kazuha skill, high_plunge;
+    klee attack, burst, walk, attack, skill[bounce=3, mine=8];
+    if .klee.skill.ready {
+      klee jump, attack, skill[bounce=3, mine=8], jump;
+    } else {
+      klee attack[travel=6], charge;
+    }
+    klee attack[travel=6], charge, 
+    attack[travel=6], charge, 
+    attack[travel=6], charge, 
+    attack[travel=6], charge, 
+    attack[travel=6], charge, 
+    attack[travel=6], walk, attack;
+  }     
+}

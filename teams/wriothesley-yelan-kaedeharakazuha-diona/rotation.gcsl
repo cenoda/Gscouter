@@ -1,0 +1,20 @@
+active yelan;
+ 
+for let i=0; i<4; i=i+1 {
+  yelan skill, burst, attack;  
+  diona burst, attack:2;
+  kazuha skill[hold=1], high_plunge, burst;
+  diona skill[hold=1], attack;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3;
+  if is_even(i) {
+    wrio burst;
+  } else {
+    wrio charge;
+  }
+}

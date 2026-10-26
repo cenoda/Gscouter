@@ -1,0 +1,17 @@
+id: xilonen-ganyu-xiangling-shenhe
+name: Xilonen / Ganyu / Xiangling / Shenhe
+members:
+    - xilonen
+    - ganyu
+    - xiangling
+    - shenhe
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/9rLmfdB6F9b9
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 52011
+    computed: "2026-10-02"

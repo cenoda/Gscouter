@@ -1,0 +1,15 @@
+active furina;
+for let x=0; x<4; x=x+1 {
+ furina skill, burst;
+ yelan  skill, burst, attack;
+ gorou  burst, skill; pick_up_crystallize("hydro");
+ noelle skill, burst;
+ noelle attack:3, dash, attack:3;
+ yelan  attack, skill, attack;
+ gorou  skill;
+ while !.gorou.mods.favonius-cd { 
+   gorou attack; pick_up_crystallize("hydro");
+ }
+ noelle attack:3, dash;
+ noelle attack:3;
+}

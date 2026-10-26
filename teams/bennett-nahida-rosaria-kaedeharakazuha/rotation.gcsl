@@ -1,0 +1,13 @@
+active rosaria;
+for let i=0; i<4; i=i+1 {
+  rosaria skill;
+  nahida skill, burst;
+  kazuha attack, skill, high_plunge;
+  bennett skill, burst;
+  rosaria skill, burst;
+  kazuha burst, skill, high_plunge;
+  rosaria attack:2, skill;
+  bennett skill;
+  nahida attack:3, skill, attack:3;
+  kazuha skill, high_plunge;
+}

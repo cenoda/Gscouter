@@ -1,0 +1,16 @@
+active nilou;
+let rotations = 6;
+while rotations {
+  xingqiu burst[orbital=1],attack,skill[orbital=1];
+  yelan attack, burst,attack,skill;
+  kazuha attack,skill,high_plunge, attack,burst;
+  nilou skill;
+  nilou attack:3;
+  nilou attack:3;
+  nilou attack:3;
+  nilou attack:3;
+  nilou attack:3;
+  nilou attack:3;
+  nilou burst;
+  kazuha skill, high_plunge;
+}

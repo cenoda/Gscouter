@@ -1,0 +1,34 @@
+active furina;
+furina skill, dash, burst;
+xilonen burst, skill, attack:2;
+yelan burst, attack, skill, attack;
+mualani skill,
+          walk[f=91], attack,
+          walk[f=91], attack,
+          walk[f=1], burst,
+          walk[f=40], attack,
+          walk[f=1];
+yelan skill, attack:2;
+xilonen skill, attack:2;
+for let i = 0; i < 3; i = i + 1 {
+  xilonen burst;
+  
+  furina burst, skill, dash, attack;
+  
+  yelan burst;
+  
+  xilonen attack, skill, attack:2;
+  
+  yelan skill, attack;
+  
+  mualani skill,
+          walk[f=91], attack,
+          walk[f=91], attack,
+          walk[f=1], burst,
+          walk[f=40], attack,
+          walk[f=1];
+  
+  yelan skill, attack:2;
+  
+  xilonen skill, attack:2;
+}

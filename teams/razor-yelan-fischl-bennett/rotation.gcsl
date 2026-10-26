@@ -1,0 +1,35 @@
+active razor; 
+fischl skill, attack;
+for let i=0; i<4; i=i+1 {
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  if .bennett.skill.cd {
+    yelan attack;
+  }
+
+  bennett skill, dash, burst, attack;
+  
+  if !.amy.skill.ready {
+    amy attack:2, burst;
+  } else {
+    amy skill, attack;
+  }
+  
+  razor skill, dash, attack, burst, attack, skill, dash;
+  while .razor.infusion.bennett-fire-weapon { 
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+  
+  bennett skill, dash;
+}

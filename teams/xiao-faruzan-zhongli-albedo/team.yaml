@@ -1,0 +1,17 @@
+id: xiao-faruzan-zhongli-albedo
+name: Xiao / Faruzan / Zhongli / Albedo
+members:
+    - xiao
+    - faruzan
+    - zhongli
+    - albedo
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/gJ8nWBBtbkHK
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 38009
+    computed: "2026-10-02"

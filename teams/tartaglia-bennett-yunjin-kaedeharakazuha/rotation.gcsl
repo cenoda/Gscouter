@@ -1,0 +1,25 @@
+active tartaglia;
+for let i=0; i<4; i=i+1 {
+  if .tartaglia.skill.ready {    
+    tartaglia walk, skill, attack;
+    bennett burst;
+  }else {
+    bennett skill, burst; 
+    tartaglia aim;
+  }
+  kazuha burst, skill, high_plunge;
+  yunjin skill, burst, attack;
+  tartaglia burst, walk[f=12], skill,
+            attack:4, dash,
+            attack:4, dash,
+            attack:4, dash,
+            attack:4, dash,
+            attack:4, dash,
+            attack:2;
+  kazuha skill, high_plunge;
+  bennett skill, attack;
+  yunjin skill, attack;
+  tartaglia aim;
+  print("end");
+}
+wait(10);

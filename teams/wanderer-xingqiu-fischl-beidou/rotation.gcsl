@@ -1,0 +1,32 @@
+active beidou; 
+fischl skill;
+for let i=0; i<4; i=i+1 {
+  xingqiu skill, dash, burst, attack;
+  
+  beidou skill, attack, burst, attack;
+  
+  if .amy.burst.ready {
+    amy attack:2, burst;
+  } else if .amy.skill.ready {
+    amy attack:1, skill;
+  }
+  
+  wanderer attack, skill;
+  while .wanderer.skydweller-points > 3 {
+    switch {
+      case .wanderer.normal < 3:
+        wanderer attack;
+      case .wanderer.mods.wanderer-a4:
+        wanderer dash;
+      default:
+        wanderer attack;
+    }
+  } 
+  if .wanderer.burst.ready && .wanderer.energy == .wanderer.energymax {
+    wanderer attack, burst;
+  } else {
+    wanderer skill;
+    
+  }
+  
+}

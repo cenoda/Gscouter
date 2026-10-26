@@ -1,0 +1,45 @@
+active lauma;
+lauma attack;
+for let i=0; i<5; i=i+1 {
+  if .columbina.burst.ready {
+    columbina burst;
+  }
+  if i == 0 {
+    columbina skill, attack;
+  } else {
+    columbina skill;
+  }
+  
+  if .fischl.skill.ready{
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  
+  if .sucrose.burst.ready {
+    sucrose burst;
+  }
+  if .sucrose.skill.ready {
+    sucrose attack, skill, dash, attack;
+  } else {
+    sucrose attack:2;
+  }
+  
+  lauma attack, skill[hold=.dew>0], burst;
+  columbina attack, charge, dash, charge, dash, charge;
+  
+  if .sucrose.skill.ready {
+    sucrose attack, skill, dash, attack;
+  } else {
+    sucrose attack:2;
+  }
+  
+  columbina attack, charge, dash; 
+  
+  if .columbina.skill.cd > 270 {
+    columbina attack, charge, dash, charge, dash, charge;
+  } else {
+    columbina charge, dash, charge, charge;
+  }
+}
+columbina dash, attack;

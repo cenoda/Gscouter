@@ -1,0 +1,41 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || ( char_id == .keys.char.yelan && action_id == .action.skill ) || ( char_id == .keys.char.xilonen && action_id == .action.skill ) {
+    pick_up_crystallize("any");
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+active xingqiu;
+for let i = 0; i < 4; i = i + 1 {
+  
+  xingqiu skill, dash, burst, attack;
+  
+  while !.xingqiu.mods.favonius-cd {
+    
+    xingqiu attack;
+    
+  }
+  
+  yelan burst, skill, attack;
+  
+  while !.yelan.mods.favonius-cd {
+  
+  yelan attack;
+    
+  }
+  
+  xilonen skill, attack:2;
+  
+  while !.xilonen.mods.favonius-cd {
+  
+  xilonen attack;
+    
+  }
+
+  itto attack, burst[prestack=1],
+       attack, skill,
+       attack:2, charge:5, dash,
+       attack:4, charge:5, skill[travel=0], charge;
+       sleep(21); 
+}

@@ -1,0 +1,26 @@
+active esco;
+for let i=0; i<4; i=i+1 {
+  esco skill, attack;
+  
+  furina skill, dash;
+  
+  kokomi skill, dash, attack:2;
+  furina burst;
+  
+  yelan burst, attack, skill;
+  
+  kokomi attack, burst,
+        attack:2, dash,
+        attack:2, dash,
+        attack:2, walk,
+        attack:2, dash,
+        attack:2, dash,
+        attack:2, walk,
+        attack:2, dash,
+        attack:2, dash,
+        attack:2, walk,
+        attack:2, dash,
+        attack:2; 
+  
+  yelan skill, attack:4;
+}

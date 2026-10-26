@@ -1,0 +1,15 @@
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  chev skill[hold=1], attack, dash;
+  furina skill, dash, attack, burst;
+  mavuika burst, charge:2, dash, charge, skill, dash;
+  chasca skill;
+  chasca aim:4;
+  chasca aim[bullets=4];
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    
+  }
+}
+wait(82);

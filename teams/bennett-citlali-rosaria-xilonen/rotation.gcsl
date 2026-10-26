@@ -1,0 +1,13 @@
+active bennett;
+bennett skill;
+for let x=0; x<4; x=x+1 {
+  xilo skill, attack:2;
+  rosa skill; pick_up_crystallize("any");
+  rosa burst;
+  citlali skill, burst;
+  bennett burst, skill, attack:3, skill;
+  delay(38);
+  bennett attack:3, skill, 
+          attack, charge, attack, skill,
+          attack:3, skill;
+}

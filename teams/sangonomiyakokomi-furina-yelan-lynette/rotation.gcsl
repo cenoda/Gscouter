@@ -1,0 +1,25 @@
+active furina;
+for let x=0; x<4; x=x+1 {
+if (x == 0) {
+      furina skill;} else {
+      furina attack,skill; }
+ lynette skill ,burst, attack;
+ kokomi skill,attack;
+ furina burst,attack;
+ yelan burst,attack,skill,attack;
+ lynette skill;
+ kokomi attack,burst,
+ attack:2,dash,
+ attack:2,dash,
+ attack:2,walk,
+ attack:2,dash,
+ attack:2,dash,
+ attack:2,walk,
+ attack:2,dash,
+ attack:2,dash,
+ attack:2,walk,
+ attack:2,dash,
+ attack:2,dash;
+  yelan skill,attack:2;
+ 
+}

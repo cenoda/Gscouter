@@ -1,0 +1,17 @@
+id: neuvillette-xiangling-kaedeharakazuha-diona
+name: Neuvillette / Xiangling / Kaedeharakazuha / Diona
+members:
+    - neuvillette
+    - xiangling
+    - kazuha
+    - diona
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/KtWKTpFntW6B
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 53666
+    computed: "2026-10-01"

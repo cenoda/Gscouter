@@ -1,0 +1,36 @@
+active yae;
+for let x = 0; x < 3; x = x + 1 {
+  if x==0 {
+    yae skill:3;
+  } else {
+    yae skill, attack, skill, attack, skill;
+  }
+  
+  furina skill, dash, attack;
+  
+  kazuha skill, high_plunge, burst;
+  
+  sigewinne skill, dash;
+  
+  furina burst;
+  
+  kazuha skill, high_plunge;
+  
+  sigewinne skill, dash;
+  
+  yae attack; 
+  
+  if .yae.burst.ready {
+    yae burst; 
+  } else {
+    yae charge, dash;
+  }
+  yae skill:2, attack, skill, attack, charge, jump;
+  
+  kazuha skill, high_plunge;    
+  
+  sigewinne burst;
+  
+  yae attack, charge, dash;
+  
+}

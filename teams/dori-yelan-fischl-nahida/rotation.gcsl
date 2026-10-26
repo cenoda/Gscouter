@@ -1,0 +1,28 @@
+active fischl;
+for let i=0; i<4; i=i+1 {
+  fischl attack, skill;
+  
+  nahida skill, attack, burst;
+  
+  yelan skill, burst, attack;
+  
+  if i > 0 && .dori.burst.ready {
+    dori burst;
+  }
+  dori skill, attack:2, dash, attack:2;
+  if .dori.burst.ready {
+    dori burst;
+  }
+  
+  nahida skill, attack, charge;
+  
+  fischl attack:2, burst;
+  
+  yelan attack, skill, attack;
+  
+  dori skill, attack:2, dash, attack:2;
+  
+  nahida skill, attack, charge, attack, charge;
+  
+  dori skill, attack:2;
+}

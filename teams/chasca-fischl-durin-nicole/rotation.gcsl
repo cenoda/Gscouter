@@ -1,0 +1,28 @@
+active nicole;
+for let i = 0; i < 4; i = i + 1 {
+  
+  nicole skill;
+  if .nicole.burst.ready { 
+    nicole burst;
+  }
+  
+  if .fischl.skill.ready {
+    fischl skill, attack;
+  } else {
+    fischl attack:2, burst;
+  }
+  
+  if !i {
+    durin skill, burst, skill;
+  } else {
+    durin skill:2, burst, attack;
+  }
+  
+  chasca skill, aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+  
+}

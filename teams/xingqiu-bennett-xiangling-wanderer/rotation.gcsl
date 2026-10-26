@@ -1,0 +1,9 @@
+active xingqiu;
+for let i=0; i<4; i=i+1 {
+  xingqiu attack, burst, attack;
+  bennett burst, attack, skill;
+  xiangling attack, burst, attack, skill, dash;
+  bennett attack, skill;
+  xingqiu attack, skill, dash;
+  wanderer attack, burst, attack, skill, attack:3, attack:3, attack:3, attack:3, attack:2, charge, skill, low_plunge;  
+}

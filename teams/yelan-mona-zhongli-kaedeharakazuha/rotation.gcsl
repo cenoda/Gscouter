@@ -1,0 +1,13 @@
+active yelan;
+for let i=0; i<1; i=i+1 {
+	yelan burst,skill;
+	zhongli attack, skill[hold=1], attack, dash;
+	
+	while !pick_up_crystallize("hydro") {
+	  wait(1);
+	}
+	
+	kazuha skill, high_plunge, attack, burst;
+	mona attack, burst;
+	yelan attack, skill, attack, skill, attack:4;
+}

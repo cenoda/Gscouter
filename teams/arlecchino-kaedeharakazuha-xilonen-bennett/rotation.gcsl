@@ -1,0 +1,22 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  xilonen skill, attack:2;
+  if !.xilonen.mods.favonius-cd {
+    xilonen attack;
+  }
+  bennett swap;
+  if !.bennett.burst.ready {
+    bennett attack:2; 
+  }
+  bennett skill, burst, dash;
+  pick_up_crystallize("pyro");
+  kazuha skill, high_plunge;
+  arle charge, 
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3;
+}

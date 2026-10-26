@@ -1,0 +1,31 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active zl;
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], dash;
+  if !.chiori.skill.ready && .chiori.burst.ready {
+    chiori burst;
+  }
+  chiori skill:2;
+  nahida skill, attack;
+  if .nahida.burst.ready && .nahida.energy == .nahida.energymax {
+    nahida burst;
+  } else {
+    nahida attack:2, charge;
+  }
+  if .clorinde.burst.ready {
+    clorinde burst, skill;
+  } else {
+    chiori burst;
+  }
+  clorinde_combo();
+  zhongli burst;
+}

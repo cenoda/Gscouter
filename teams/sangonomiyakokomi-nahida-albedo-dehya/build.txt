@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+kokomi char lvl=90/90 cons=0 talent=9,9,9;
+kokomi add weapon="prototypeamber" refine=5 lvl=90/90;
+kokomi add set="oceanhuedclam" count=4;
+kokomi add stats hp=4780 atk=311 hp%=0.466 hydro%=0.466 heal=0.359;
+kokomi add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*10 atk=16.54*2 atk%=0.0496*8 er=0.0551*8 em=19.82*2 cr=0.0331*2 cd=0.0662*2;
+
+nahida char lvl=90/90 cons=0 talent=9,9,9;
+nahida add weapon="favoniuscodex" refine=3 lvl=90/90;
+nahida add set="deepwood" count=4;
+nahida add stats hp=4780 atk=311 em=187 dendro%=0.466 cr=0.311;
+nahida add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*2 em=19.82*10 cr=0.0331*10 cd=0.0662*6;
+
+albedo char lvl=90/90 cons=0 talent=9,9,9;
+albedo add weapon="cinnabarspindle" refine=5 lvl=90/90;
+albedo add set="goldentroupe" count=4;
+albedo add stats hp=4780 atk=311 def%=0.583 geo%=0.466 cr=0.311;
+albedo add stats def%=0.062*4 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*12;
+
+dehya char lvl=90/90 cons=0 talent=9,9,9;
+dehya add weapon="favoniusgreatsword" refine=3 lvl=90/90;
+dehya add set="flowerofparadiselost" count=4;
+dehya add stats hp=4780 atk=311 em=187 em=187 em=187;
+dehya add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*6 em=19.82*6 cr=0.0331*12 cd=0.0662*2;

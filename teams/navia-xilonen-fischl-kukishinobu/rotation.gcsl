@@ -1,0 +1,20 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+    pick_up_crystallize("any"); 
+  }
+  return _execute_action(char_id, action_id, p);
+}
+active navia; 
+for let i=0; i<4; i=i+1 {
+  kuki skill, attack;
+  xilonen skill, attack:2;
+  navia burst;
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  navia skill[hold=1], attack:2, dash, attack:2, dash, attack:2;
+  navia skill[hold=1], attack:2, dash, attack:2, dash, attack:2;
+}

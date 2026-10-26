@@ -1,0 +1,27 @@
+active nicole;
+for let i = 0; i < 6; i = i + 1 {
+  nicole skill, attack;
+  wait(6);  
+  sucrose swap;
+  if .sucrose.burst.ready {  
+    sucrose skill, dash, burst;
+  } else {
+    wait(24);   
+    sucrose skill, dash;
+  }
+  citlali skill, burst;
+  gaming burst, attack;
+  delay(9);
+  gaming skill, low_plunge;
+  delay(17);
+  gaming skill, low_plunge;
+  delay(17);
+  gaming skill, low_plunge;
+  delay(17);
+  gaming skill, low_plunge;
+  delay(17);
+  gaming skill, low_plunge;
+  delay(38);
+  gaming skill, low_plunge;
+  gaming skill, low_plunge;
+}

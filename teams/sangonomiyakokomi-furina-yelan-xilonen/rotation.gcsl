@@ -1,0 +1,56 @@
+active furina;
+  furina skill, dash;
+  xilonen skill, attack:2;
+  
+  kokomi attack, skill, dash; pick_up_crystallize("hydro");
+  kokomi attack;
+  furina burst;
+  
+  yelan burst, attack, skill, attack; 
+  
+  xilonen attack, skill, attack:2;
+  
+  kokomi attack, burst,
+         attack:2, dash; pick_up_crystallize("hydro");
+  kokomi attack:2, dash,
+         attack:2, walk,
+         attack:2, dash,
+         attack:2, dash,
+         attack:2, walk,
+         attack:2, dash,
+         attack:2, dash,
+         attack:2, walk,
+         attack:2, dash,
+         attack:2;
+ 
+  yelan skill, attack:2;
+for let i=0; i<4; i=i+1 {
+  xilonen skill, attack:2;
+  
+  furina attack, skill, dash;
+  
+  kokomi skill, dash, attack:2; pick_up_crystallize("hydro");
+  furina burst;
+  
+  yelan burst, attack; 
+  
+  xilonen skill, attack:2;
+  
+  yelan attack, skill; 
+  
+  kokomi attack, burst,
+         attack:2, dash; pick_up_crystallize("hydro");
+  kokomi attack:2, dash,
+         attack:2, walk,
+         attack:2, dash,
+         attack:2, dash,
+         attack:2, walk,
+         attack:2, dash,
+         attack:2, dash,
+         attack:2, walk,
+         attack:2, dash,
+         attack:2;
+ 
+  yelan skill, attack:2;
+}
+yelan attack;

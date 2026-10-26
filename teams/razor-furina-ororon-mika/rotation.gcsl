@@ -1,0 +1,18 @@
+active razor; 
+  
+for let i=0; i<4; i=i+1 {
+  ororon burst, skill;
+  
+  furina skill, dash, burst;
+  
+  mika burst, attack, skill;
+  razor skill, dash, attack, burst,
+        attack:3, skill, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, skill, dash,
+        attack:3, dash,
+        attack:3, dash, 
+        attack:3;
+  print("done");
+}

@@ -1,0 +1,17 @@
+id: mualani-sucrose-xilonen-travelerpyro
+name: Mualani / Sucrose / Xilonen / Travelerpyro
+members:
+    - mualani
+    - sucrose
+    - xilonen
+    - luminepyro
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/NBgwgHcGHNcH
+notes: 'Harvested from the KQM gcsim database: 4 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 93555
+    computed: "2026-10-02"

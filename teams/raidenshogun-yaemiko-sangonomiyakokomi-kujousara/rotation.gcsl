@@ -1,0 +1,11 @@
+active raiden;
+    raiden skill;
+for let i =0; i<4; i = i+1 {
+    yaemiko skill:3;
+    sara skill, aim;
+    kokomi skill;
+    yaemiko burst,skill:3;
+    kokomi burst;
+    sara burst;
+    raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+}

@@ -1,0 +1,15 @@
+active sara;
+sara skill;
+for let i=0; i<4; i=i+1 {
+  fischl attack:2, burst;
+  kirara skill[hold=1], attack;
+  kazuha skill, high_plunge, burst;
+  sara aim:2, skill, burst;
+  
+  fischl aim, skill;
+  kirara burst, skill;
+  kazuha skill, high_plunge;
+  sara aim:2, skill, aim:4, skill;
+  
+  print("done");
+}

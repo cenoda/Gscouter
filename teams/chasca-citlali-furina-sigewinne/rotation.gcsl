@@ -1,0 +1,13 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  
+  furina skill, attack,burst;
+  sigewinne attack,skill;
+  citlali skill, burst;
+  chasca skill, aim:4;
+  chasca aim[bullets=4];
+  if .chasca.burst.ready {
+    chasca burst;
+  }
+}
+wait(82);

@@ -1,0 +1,23 @@
+active razor;
+razor skill, dash; 
+  
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd && !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  escoffier skill, burst;
+  
+  rosaria skill, burst;
+  
+  razor skill[hold=1], dash, attack, burst;
+  razor attack:3, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+  razor attack:3;
+  
+  rosaria skill;
+}

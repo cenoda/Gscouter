@@ -1,0 +1,27 @@
+active yanfei;
+for let i = 0; i < 4; i = i + 1 {
+  if i == 0 {
+    yanfei attack;
+  } else {
+    bennett skill;
+  }
+  kazuha skill, high_plunge, burst;
+  bennett burst, skill;
+  xiangling burst, skill;
+  kazuha skill, high_plunge;
+  yanfei skill, charge;
+  if .yanfei.burst.ready {
+    yanfei burst, charge,
+      attack:2, charge,
+      attack:2, charge,
+      attack:2, charge,
+      attack, charge,
+      skill, charge;
+  } else {
+    yanfei attack:2, charge,
+      attack:2, charge,
+      attack:2, charge,
+      attack:2, charge,
+      attack:2, skill, charge;
+  }
+}

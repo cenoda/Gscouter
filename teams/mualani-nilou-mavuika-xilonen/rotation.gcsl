@@ -1,0 +1,33 @@
+active nilou;
+fn mualani_combo() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<4; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+}
+for let i=0; i<2; i=i+1 {
+  nilou skill, attack:3;
+  mavuika burst, charge, skill;
+  xilonen skill, attack:2;
+  mualani skill;
+  mualani_combo();
+  mualani skill;
+  if !.element.t0.pyro {
+    mualani attack;
+  }
+  xilonen skill, attack:2;
+  mualani burst;
+  mualani dash; 
+  nilou skill, attack:3;
+  mavuika burst, charge:4, skill;
+  xilonen skill, attack:2;
+  mualani skill;
+  mualani_combo();
+  mualani walk[f=1];
+}

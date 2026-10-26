@@ -1,0 +1,17 @@
+id: ganyu-zhongli-chiori-shenhe
+name: Ganyu / Zhongli / Chiori / Shenhe
+members:
+    - ganyu
+    - zhongli
+    - chiori
+    - shenhe
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/RWdDGTK9LbQW
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 47251
+    computed: "2026-10-01"

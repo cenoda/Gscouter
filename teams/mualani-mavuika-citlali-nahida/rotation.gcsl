@@ -1,0 +1,16 @@
+active mavuika; 
+for let i=0; i<4; i=i+1 { 
+  mualani attack;
+  citlali skill, burst;
+  nahida skill, burst;
+  mavuika burst, skill, dash;
+  mualani skill, walk[f=91], attack,
+                 walk[f=91], attack;        
+  if .mualani.burst.ready {
+    mualani walk[f=1], burst,
+            walk[f=46], attack;
+  } else {
+    mualani walk[f=91], attack;
+  }
+  mualani walk[f=1];
+}

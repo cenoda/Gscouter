@@ -1,0 +1,15 @@
+active faruzan;
+for let i=0; i<4; i=i+1 {
+  faruzan skill, burst;
+  while !.faruzan.mods.favonius-cd && !.xianyun.burst.ready {
+    faruzan attack;
+  }
+  xianyun skill, low_plunge, burst;
+  
+  yelan skill, burst, attack;
+  
+  xiao skill:2, burst;
+  for let h = 8; h > 0; h = h - 1 {
+    xiao attack, jump, high_plunge[collision=rand()>0.5];
+  }
+}

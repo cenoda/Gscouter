@@ -1,0 +1,17 @@
+id: shenhe-sangonomiyakokomi-kaedeharakazuha-ganyu
+name: Shenhe / Sangonomiyakokomi / Kaedeharakazuha / Ganyu
+members:
+    - shenhe
+    - kokomi
+    - kazuha
+    - ganyu
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/7gQN9NKk6dDt
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 47349
+    computed: "2026-10-01"

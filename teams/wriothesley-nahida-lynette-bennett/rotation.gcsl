@@ -1,0 +1,15 @@
+active nahida;
+for let i = 0; i < 4; i = i + 1 {
+  
+  nahida skill, attack, burst;
+  bennett skill, burst;
+  lynette skill, burst, attack;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:4, charge, jump;
+  lynette skill, attack;
+}

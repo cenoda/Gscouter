@@ -1,0 +1,33 @@
+active emilie;
+emilie skill;
+for let i=0; i<4; i=i+1 {
+  if i > 0 && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else if .emilie.skill.ready {
+    emilie attack, skill;
+  }
+  
+  thoma skill, attack, burst;
+  
+  sara skill;
+  
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+  
+  sara aim, burst;
+  
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}

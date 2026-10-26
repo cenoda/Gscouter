@@ -1,0 +1,33 @@
+active tighnari;
+    
+      keqing skill;
+for let i=0; i<4; i=i+1 {
+      
+      zhongli skill[hold=1], dash;
+     
+       while !pick_up_crystallize("electro") {
+      wait(1);
+    }
+    
+      fischl attack, skill;
+      tighnari skill, aim, burst, aim:2;
+      keqing skill, burst, skill,
+             attack, charge,
+             attack, charge,
+             attack, charge;
+     
+      zhongli skill[hold=1], dash;
+       
+       while !pick_up_crystallize("electro") {
+      wait(1);
+    }
+    
+      fischl burst, attack:2;
+      tighnari skill, aim:3;
+      keqing skill, burst, skill,
+             attack, charge,
+             attack, charge,
+             attack, charge,
+             attack, charge;
+              
+}

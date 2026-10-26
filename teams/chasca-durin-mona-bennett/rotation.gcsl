@@ -1,0 +1,13 @@
+active durin;
+for let i=0; i<4; i=i+1 {
+  durin skill, attack, burst;   
+  bennett skill, burst;
+  mona skill, burst, attack;
+  chasca skill, aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+  bennett skill, attack;
+}

@@ -1,0 +1,27 @@
+fn DehyaPlunge() {
+  dehya jump;
+  if .airborne {
+    dehya high_plunge[collision=rand()>0.5];
+  }
+}
+active dehya; 
+dehya skill;
+for let i=0; i<4; i=i+1 {
+  xianyun attack, skill, low_plunge, attack, burst;
+  
+  bennett skill, burst, attack;
+  
+  xianyun attack:3;
+  
+  citlali skill, burst, attack;
+  
+  DehyaPlunge();
+  DehyaPlunge();
+  DehyaPlunge();
+  DehyaPlunge(); dehya dash; wait(43);
+  DehyaPlunge(); dehya dash;
+  DehyaPlunge(); dehya dash;
+  dehya skill;
+  
+  bennett skill;
+}

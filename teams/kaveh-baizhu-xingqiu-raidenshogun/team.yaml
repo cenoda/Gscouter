@@ -1,0 +1,17 @@
+id: kaveh-baizhu-xingqiu-raidenshogun
+name: Kaveh / Baizhu / Xingqiu / Raidenshogun
+members:
+    - kaveh
+    - baizhu
+    - xingqiu
+    - raiden
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/8R8GpnWdzDD6
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 70599
+    computed: "2026-10-01"

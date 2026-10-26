@@ -1,0 +1,17 @@
+id: tighnari-tartaglia-nahida-kukishinobu
+name: Tighnari / Tartaglia / Nahida / Kukishinobu
+members:
+    - tighnari
+    - tartaglia
+    - nahida
+    - kuki
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/n7dhgfBj8BFM
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 47363
+    computed: "2026-10-01"

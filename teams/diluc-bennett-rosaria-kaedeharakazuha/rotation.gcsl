@@ -1,0 +1,18 @@
+active rosaria;
+for let i=0; i<4; i=i+1 {
+  rosaria skill;
+  kazuha burst;
+  if i==0 { 
+    bennett skill, burst; 
+  } else {
+  bennett burst, skill; 
+  }
+  kazuha skill, high_plunge;
+  rosaria skill, burst;
+  diluc skill, attack, skill, attack, skill, attack;
+  if .diluc.burst.ready { 
+    diluc burst; 
+  }
+  bennett skill;
+  kazuha skill, high_plunge, attack;
+}

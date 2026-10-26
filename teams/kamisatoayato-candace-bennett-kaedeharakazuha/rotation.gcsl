@@ -1,0 +1,15 @@
+active ayato;
+for let i=0; i<4; i=i+1 {
+print("done");
+  if .ayato.burst.ready {
+    ayato burst;
+  }
+  candace skill, burst, attack;
+  kazuha attack, skill[hold=1], high_plunge;
+  bennett skill, burst;                 
+  ayato skill, attack:15;
+  kazuha skill[hold=1], high_plunge, burst;
+  candace skill, attack:2;
+  ayato skill, attack:15;
+  
+}

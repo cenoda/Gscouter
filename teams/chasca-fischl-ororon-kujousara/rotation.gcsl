@@ -1,0 +1,21 @@
+active sara;
+for let i=0; i<4; i=i+1 {
+  sara skill;
+  if .fischl.burst.ready {
+    fischl attack:2, burst;
+  } else {
+    fischl attack:2, skill;
+  }
+  if .sara.burst.ready {
+    sara burst;
+  }
+  ororon burst, skill;
+  sara aim;
+  chasca skill, aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}
+wait(82);

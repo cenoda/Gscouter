@@ -1,0 +1,29 @@
+active fischl;
+fischl skill; 
+for let r=0; r<4; r=r+1 {
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  dori skill, burst; 
+  
+  haitham burst;
+  
+  amy attack;
+  if .amy.skill.ready {
+    amy skill;
+  } else {
+    amy attack, burst;
+  }
+  
+  haitham attack:3, dash,
+          attack:3;
+  haitham skill, attack:3, charge, dash,
+          attack:3, dash,
+          attack:3, charge, dash,
+          attack:3, charge;
+}

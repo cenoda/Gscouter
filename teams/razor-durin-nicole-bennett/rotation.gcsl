@@ -1,0 +1,17 @@
+active razor; 
+for let i=0; i<4; i=i+1 {
+  nicole burst, skill;
+  
+  durin skill:2, burst;
+  
+  bennett skill, dash, burst;
+  razor skill[hold=1];
+  razor dash, attack, burst;
+  razor attack:1, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:2, skill, dash;
+}

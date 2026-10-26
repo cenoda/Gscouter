@@ -1,0 +1,11 @@
+active beidou;
+cyno skill,attack;
+for let i = 0; i < 4; i = i + 1 {
+  chevreuse burst, skill[hold=1], attack;
+  xiangling burst,skill,attack;
+  beidou skill[counter=1],attack,burst;
+  cyno skill, attack, burst,
+       attack:4, skill, attack:5, skill,
+       attack:4, dash,  attack:3, skill,
+       attack:4;
+}

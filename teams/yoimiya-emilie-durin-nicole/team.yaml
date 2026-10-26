@@ -1,0 +1,17 @@
+id: yoimiya-emilie-durin-nicole
+name: Yoimiya / Emilie / Durin / Nicole
+members:
+    - yoimiya
+    - emilie
+    - durin
+    - nicole
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/PNLJqfrJfqrg
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 84466
+    computed: "2026-10-01"

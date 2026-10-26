@@ -1,0 +1,17 @@
+id: columbina-ineffa-lauma-mona
+name: Columbina / Ineffa / Lauma / Mona
+members:
+    - columbina
+    - ineffa
+    - lauma
+    - mona
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/8JjnGqk676KK
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 143253
+    computed: "2026-10-02"

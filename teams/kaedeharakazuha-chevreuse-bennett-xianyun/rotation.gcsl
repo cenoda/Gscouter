@@ -1,0 +1,24 @@
+active bennett;
+for let i=0; i<4; i=i+1 { 
+  bennett skill;
+  
+  xianyun skill, low_plunge, burst;
+  
+  bennett burst, skill;
+  chev burst, skill[hold=1]:2;
+  
+  xianyun attack:2; wait(20); 
+  
+  kazuha skill, high_plunge[collision=1];
+  while .kazuha.status.xianyun-airborne-buff {
+    kazuha jump;
+    if .airborne {
+      kazuha high_plunge[collision=rand()>0.3];
+    }
+    if .kazuha.status.xianyun-airborne-buff {
+      kazuha dash;
+    }
+  }
+  kazuha skill, high_plunge[collision=1];
+
+}

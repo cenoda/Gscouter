@@ -1,0 +1,23 @@
+active mavuika; 
+for let i=0; i<4; i=i+1 {
+  mavuika skill;
+  
+  if i {
+    lyney aim:3;
+  }
+  bennett skill, burst;
+  
+  citlali skill, burst, attack;
+  
+  mavuika burst;
+  
+  lyney aim[weakspot=1], aim;
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(11);
+    lyney skill;
+  } else {
+    lyney aim;
+  }
+  lyney aim, skill, aim;
+}

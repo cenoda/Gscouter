@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+ganyu char lvl=90/90 cons=0 talent=9,9,9;
+ganyu add weapon="prototypecrescent" refine=5 lvl=90/90;
+ganyu add set="blizzardstrayer" count=5;
+ganyu add stats hp=4780 atk=311 atk%=0.466 cryo%=0.466 cd=0.622;
+ganyu add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.3972 cd=0.662;
+
+layla char lvl=90/90 cons=6 talent=9,9,9;
+layla add weapon="harbingerofdawn" refine=5 lvl=90/90;
+layla add set="totm" count=4;
+layla add stats hp=4780 atk=311 hp%=0.466 cryo%=0.466 cd=0.622;
+layla add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.2204 em=39.64 cr=0.3972 cd=0.662;
+
+ayaka char lvl=90/90 cons=0 talent=9,9,9;
+ayaka add weapon="amenomakageuchi" refine=5 lvl=90/90;
+ayaka add set="blizzardstrayer" count=5;
+ayaka add stats hp=4780 atk=311 atk%=0.466 cryo%=0.466 cd=0.622;
+ayaka add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.3972 cd=0.662;
+
+kazuha char lvl=90/90 cons=0 talent=9,9,9;
+kazuha add weapon="xiphos" refine=1 lvl=90/90;
+kazuha add set="vv" count=5;
+kazuha add stats hp=4780 atk=311 em=187 em=187 em=187;
+kazuha add stats def=39.36 def%=0.124 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.3968 er=0.6612 em=118.92 cr=0.0662 cd=0.1324;

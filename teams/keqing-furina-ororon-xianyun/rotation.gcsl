@@ -1,0 +1,28 @@
+fn KeqingPlunge() {
+  keq jump;
+  if .airborne {
+    keq high_plunge[collision=rand()>0.5];
+  }
+}
+active ororon;
+for let i = 0; i < 4; i = i + 1 {
+  ororon skill, burst;
+  
+  furina skill, dash, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  keq skill:2; 
+  KeqingPlunge(); keq dash; 
+  KeqingPlunge(); keq dash;
+  KeqingPlunge(); keq dash;
+  KeqingPlunge(); keq burst;
+  
+  xianyun attack:2; sleep(20);
+  
+  keq skill:2;
+  KeqingPlunge(); keq dash;
+  KeqingPlunge(); keq dash;
+  KeqingPlunge(); keq dash;
+  KeqingPlunge(); 
+}

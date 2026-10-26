@@ -1,0 +1,20 @@
+active yelan;
+ 
+for let x=0; x<4; x=x+1 {
+  yelan skill, burst, attack;
+  shenhe skill[hold=1], attack, burst, attack;
+  kazuha attack:2, skill[hold=1], high_plunge, burst; 
+    
+  wrio skill,
+       attack:3, charge, dash,
+       attack:3, charge, dash,
+       attack:3, charge, dash,
+       attack:3, charge, jump,
+       attack:3, charge, jump;
+  if .wrio.burst.ready {
+    wrio burst;
+  } else {
+    wrio attack:3;
+  }
+   
+}

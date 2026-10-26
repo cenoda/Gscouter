@@ -1,0 +1,26 @@
+active neuv;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  furina attack, skill, dash, attack;
+  lauma burst;
+  xilonen skill, attack:2;
+  if !i {
+    lauma skill;  
+  } else {
+    lauma skill[hold=1];
+  }
+  if .lauma.sets.ap >= 4 {
+    lauma dash;
+  }
+  pick_up_crystallize("hydro");
+  furina burst;
+  neuvillette charge, skill, charge, burst;
+  xilonen skill, attack:2;
+  lauma skill[hold=1];
+  if .lauma.sets.ap >= 4 {
+    lauma dash;
+  }
+  pick_up_crystallize("hydro");
+  neuvillette charge:2;
+}
+wait(173);

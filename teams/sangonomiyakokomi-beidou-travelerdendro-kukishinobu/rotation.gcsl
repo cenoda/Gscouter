@@ -1,0 +1,18 @@
+active kokomi;
+for let i = 0; i < 5; i = i + 1 {
+kokomi attack:2, skill;
+beidou skill[counter=1], burst, attack;
+aetherdendro  skill, attack, burst, attack;
+kuki skill, attack;
+kokomi burst, attack:2, jump,
+              attack:2, walk,
+              attack:2, jump,
+              attack:2, walk,
+              attack:2, walk,
+              attack:2, walk,
+              attack:2, walk,
+              attack:2, walk,
+              attack:2;
+aetherdendro skill, attack:3;
+kokomi attack:2, charge, dash;
+}

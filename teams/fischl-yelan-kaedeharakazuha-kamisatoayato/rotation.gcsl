@@ -1,0 +1,12 @@
+active ayato;
+for let i=0; i<4; i=i+1 { 
+	ayato burst;
+	kazuha skill, high_plunge;
+	yelan skill, burst, attack;
+	fischl attack, skill;
+	ayato skill, attack:15;
+	yelan skill, attack;
+	kazuha skill, high_plunge, attack, burst, attack;
+	fischl attack:2, burst;
+	ayato skill, attack:15;
+}

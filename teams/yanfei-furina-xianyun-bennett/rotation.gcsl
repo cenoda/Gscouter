@@ -1,0 +1,32 @@
+active furina;
+let rotations = 4;
+for let r = rotations; r > 0; r = r - 1 {
+  furina attack, skill, dash, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  bennett skill, burst, attack;
+  xianyun attack[travel=0]:2, dash;
+  
+  yanfei skill;
+  for let h = 8; h > 0; h = h - 1 {
+    let col = rand();
+    if col > 0.5 {
+      wait(30);
+      yanfei jump;
+      if.airborne{
+        yanfei high_plunge[collision=1];
+      }
+    } else {
+      wait(30);
+      yanfei jump;
+      if.airborne{
+        yanfei high_plunge;
+      }
+    }
+  }
+  yanfei attack, skill;
+   
+  bennett skill;
+  
+}

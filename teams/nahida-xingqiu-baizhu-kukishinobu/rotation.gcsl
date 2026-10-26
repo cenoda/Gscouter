@@ -1,0 +1,21 @@
+active kuki;
+for let i = 0; i < 5; i = i + 1 {
+  nahida skill, burst;
+  baizhu burst, skill;
+  xingqiu skill, dash, burst, attack;
+  kuki
+    skill,
+    attack:3, dash,
+    attack:3, dash,
+    attack:3, dash,
+    attack:3, dash,
+    attack:3;
+  baizhu attack, skill;
+  while !.baizhu.mods.favonius-cd {
+    baizhu attack;
+  }
+  kuki
+    attack:3, dash,
+    attack:3, burst,
+    attack:2;
+}

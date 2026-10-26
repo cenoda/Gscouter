@@ -1,0 +1,28 @@
+active lisa;
+ 
+  lisa skill;
+  yaoyao attack:2, skill;
+  kazuha skill, high_plunge, burst;
+  fischl skill, attack;
+  lisa skill, burst, skill, charge;
+  kazuha skill, high_plunge;
+  lisa skill[hold=1],
+   attack:2, charge;
+for let i=0; i<4; i=i+1 {
+  
+  fischl attack:2, burst;
+  yaoyao skill, attack:2;
+  kazuha skill, high_plunge, burst;
+  lisa attack:2, charge, attack:2;
+  kazuha skill, high_plunge;
+  lisa attack:2, charge;
+  fischl attack:3, skill, attack:3;
+  yaoyao attack, skill, attack:2;
+  kazuha skill, high_plunge, burst;
+  lisa skill, burst, attack, charge;
+  kazuha skill, high_plunge;
+  lisa skill[hold=1],
+       attack:2, charge;
+       
+    print("done");
+}

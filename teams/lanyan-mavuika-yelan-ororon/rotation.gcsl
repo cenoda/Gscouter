@@ -1,0 +1,34 @@
+fn lanyanDrivingCombo() {
+  switch {
+    case .lanyan.normal > 1 && .lanyan.burst.ready && .lanyan.energy == .lanyan.energymax:
+      lanyan burst;
+    case .lanyan.normal > 1 && .lanyan.skill.ready:
+      set_player_pos(0, 0); 
+      lanyan skill; set_player_pos(0, -3); 
+      lanyan skill; 
+    case .lanyan.normal > 1 && .previous-action == .action.skill && .stam > 18:
+      lanyan dash; set_player_pos(0, 0); 
+    case .lanyan.normal > 2 && .stam > 18:
+      lanyan dash; set_player_pos(0, 0); 
+    default:
+      lanyan attack;
+  }
+}
+active ororon;
+for let i=0; i<4; i=i+1 {
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  mav skill, attack, burst, dash;
+  
+  ororon burst, attack, skill;
+  
+  while .yelan.mods.yelanburst {
+    lanyanDrivingCombo();
+  }
+}

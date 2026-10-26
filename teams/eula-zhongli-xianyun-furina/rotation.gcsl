@@ -1,0 +1,25 @@
+active eula;
+for let r = 0; r < 4; r = r + 1 {
+  zhongli skill[hold=1], dash;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  furina skill, dash, burst;
+  while !.furina.mods.favonius-cd {
+    furina attack;
+  }
+  eula skill, attack;
+  xianyun skill, low_plunge, burst;
+  if .eula.burst.ready && .eula.energy == .eula.energymax {
+    eula burst;
+  } else {
+    eula attack:2;
+  }
+  eula skill[hold=1], attack:2;
+  for let h = 8; h > 0; h = h - 1 {
+    eula jump;
+    if .airborne {
+      eula high_plunge[collision=rand()>0.5], dash;
+    }
+  }
+}

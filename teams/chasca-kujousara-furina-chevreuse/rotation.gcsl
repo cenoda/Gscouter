@@ -1,0 +1,20 @@
+active furina;
+for let i=0; i<2; i=i+1 {
+  furina skill, dash, burst;
+  sara skill;
+  chevreuse skill[hold=1], burst;
+  sara aim;
+  if .sara.burst.ready && .sara.energy == .sara.energymax {
+    sara burst;
+  }
+  chasca skill, aim:4, aim[bullets=4], burst;
+  
+  sara skill;
+  chevreuse attack, skill[hold=1];
+  sara aim;
+  if .sara.burst.ready && .sara.energy == .sara.energymax {
+    sara burst;
+  }
+  chasca skill, aim:4, aim[bullets=4];
+}
+wait(82);

@@ -1,0 +1,18 @@
+active nicole; 
+for let i=0; i<4; i=i+1 { 
+ nicole skill, burst;
+ mona burst, attack;
+ durin skill, attack, burst;
+ mona attack, skill, attack;
+ ifa skill;
+ while .ifa.nightsoul.points > 10 {
+   ifa charge;
+ }
+ if .ifa.burst.ready {
+   ifa burst;
+ } else {
+   ifa skill;
+ }
+ mona attack:3;
+ 
+}

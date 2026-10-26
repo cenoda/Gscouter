@@ -1,0 +1,25 @@
+active gaming; 
+for let i=0; i<4; i=i+1 {
+  bennett skill, burst;
+  
+  rosaria skill, burst;
+  
+  while .lynette.skill.ready {
+    lynette skill;
+  }
+  if .lynette.burst.cd {
+    lynette attack;
+  }
+  lynette burst;
+  
+  gaming burst;
+  
+  gaming attack:2;
+  for let p=1; p<5; p=p+1 { 
+    gaming skill, low_plunge; print(p);
+    wait(40);
+  }
+  gaming skill, low_plunge; print("5");
+  
+  gaming skill, low_plunge; print("6");
+}

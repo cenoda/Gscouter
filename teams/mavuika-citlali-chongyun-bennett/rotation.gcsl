@@ -1,0 +1,18 @@
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  chongyun skill;
+  mavuika skill;
+  bennett skill, burst;
+  citlali skill, burst, attack;
+  mavuika burst;
+  wait(18); 
+  if i {
+    wait(2);
+  }
+  mavuika charge:2, dash;
+  mavuika charge:2, dash;
+  mavuika charge:2, dash;
+  mavuika charge:2, dash;
+  delay(11);       
+  mavuika charge;  
+}

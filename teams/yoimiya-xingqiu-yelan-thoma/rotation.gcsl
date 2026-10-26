@@ -1,0 +1,19 @@
+active thoma;
+for let x=0; x<4; x=x+1 {
+  while !.xingqiu.burst.ready {
+    xingqiu attack;
+  }
+  xingqiu burst;
+  while !.xingqiu.skill.ready {
+    xingqiu attack;
+  }
+  xingqiu skill, dash, attack;
+  yelan attack, burst, attack;
+  thoma skill, burst, attack;
+  yelan attack, skill;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  yelan skill, attack:2;
+  if .yoimiya.burst.ready {
+    yoimiya dash, burst;
+  }
+}

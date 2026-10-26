@@ -1,0 +1,17 @@
+id: kaedeharakazuha-furina-nahida-bennett
+name: Kaedeharakazuha / Furina / Nahida / Bennett
+members:
+    - kazuha
+    - furina
+    - nahida
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/8gPTTLRnKH7R
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 113696
+    computed: "2026-10-01"

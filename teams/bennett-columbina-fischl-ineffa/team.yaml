@@ -1,0 +1,17 @@
+id: bennett-columbina-fischl-ineffa
+name: Bennett / Columbina / Fischl / Ineffa
+members:
+    - bennett
+    - columbina
+    - fischl
+    - ineffa
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/67LJzDcJkzpp
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 93063
+    computed: "2026-10-01"

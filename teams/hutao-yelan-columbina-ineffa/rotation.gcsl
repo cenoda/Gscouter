@@ -1,0 +1,31 @@
+active ineffa;
+for let i=0; i<5; i=i+1 {
+  if i > 0 && .ineffa.burst.ready {
+    ineffa skill, burst;
+  } else {
+    ineffa attack, skill;
+  }
+  
+  if .columbina.burst.ready {
+    columbina skill, burst;
+  } else {
+    columbina skill, attack;
+  }
+  
+  yelan skill, burst, attack:2;
+  
+  hutao skill,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump;
+  if .hutao.burst.ready {
+    hutao attack:1, burst;
+  } else {
+    hutao attack:2, charge, jump;
+  }
+}

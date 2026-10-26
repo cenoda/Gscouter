@@ -1,0 +1,15 @@
+active collei;
+for let i=0; i<4; i=i+1 {
+    collei skill;
+    fischl skill, attack;
+    kokomi skill,
+           attack:2, dash,
+           attack:2, dash,
+           attack:2, dash;
+    beidou attack, skill[counter=1], burst;
+    fischl attack:2, burst;
+    collei attack, burst, attack, skill;
+    kokomi burst;
+    for let c = 10; c; c = c - 1 { kokomi attack:2, dash, walk[f=2]; }
+    beidou skill[counter=1], attack:3;
+}

@@ -1,0 +1,8 @@
+active ganyu;
+for let i=0; i<4; i=i+1 {
+  ganyu skill;
+  xilonen skill, attack:2;
+  nicole skill, attack;
+  durin skill,skill,burst;
+  ganyu aim:7;
+}

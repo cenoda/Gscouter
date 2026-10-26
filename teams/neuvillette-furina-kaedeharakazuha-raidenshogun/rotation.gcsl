@@ -1,0 +1,12 @@
+active neuv;
+for let x=0; x<4; x=x+1 {
+  neuvillette skill;
+  furina attack, skill, dash, attack;
+  raiden skill, attack;
+  kazuha skill, high_plunge, burst;
+  furina burst;
+  neuvillette charge, burst, skill, charge;
+  kazuha skill, high_plunge;
+  neuvillette charge:2;
+}
+wait(173);

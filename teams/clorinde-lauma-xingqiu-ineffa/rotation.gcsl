@@ -1,0 +1,30 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active lauma;
+for let i=0; i<4; i=i+1 {
+  if i > 0 {
+    lauma attack;
+  }
+  lauma skill[hold=.dew>1];
+  
+  xq skill, dash, burst, attack;
+  
+  ineffa attack, skill;
+  
+  clorinde_combo();
+  
+  lauma attack, skill[hold=1];
+  
+  ineffa burst;
+  
+  clorinde_combo();
+  
+}

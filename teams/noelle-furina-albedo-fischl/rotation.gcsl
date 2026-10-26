@@ -1,0 +1,9 @@
+active albedo;
+for let i=0; i < 4; i=i+1 {
+  albedo skill, attack;
+  fischl skill, attack;
+  furina skill, dash, burst;
+  noelle skill, burst, attack:3, dash, attack:4;
+  fischl attack, burst;
+  noelle attack:3, dash, attack:3, dash, attack:3, dash, attack:4;
+}

@@ -1,0 +1,10 @@
+active ganyu;
+for let i = 0; i < 5; i=i+1 {
+    ganyu aim[weakspot=1], skill, burst;
+    venti skill, burst;
+    rosaria skill, burst;
+    ganyu aim[weakspot=1];
+    mona attack, skill, burst;
+    venti skill, attack;
+    rosaria skill;
+}

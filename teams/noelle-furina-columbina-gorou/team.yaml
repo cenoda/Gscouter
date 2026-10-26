@@ -1,0 +1,17 @@
+id: noelle-furina-columbina-gorou
+name: Noelle / Furina / Columbina / Gorou
+members:
+    - noelle
+    - furina
+    - columbina
+    - gorou
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/RwzfgtngJjkJ
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 65675
+    computed: "2026-10-02"

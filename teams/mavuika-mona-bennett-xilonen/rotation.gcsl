@@ -1,0 +1,26 @@
+active mavuika; 
+for let i = 0; i < 4; i = i + 1 {
+  mavuika skill;
+  
+  xilonen skill, attack:2;
+  
+  bennett skill, burst;
+  
+  mona skill[hold=1]; 
+  if .mona.burst.ready {
+    mona burst;
+  } else {
+    mona attack:2; 
+  }
+  
+  if .mavuika.burst.cd {
+    mav attack:1;
+  }
+  mavuika burst, charge:2, dash,
+                 charge:2, dash,
+                 charge:2, dash,
+                 charge:2, dash,
+                 charge:2, dash,
+                 charge:2, dash,
+                 charge:1, charge[final=1];
+}

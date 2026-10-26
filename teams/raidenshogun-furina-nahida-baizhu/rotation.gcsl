@@ -1,0 +1,35 @@
+active raiden;
+for let i=0; i<6; i=i+1 {
+  raiden skill, attack;
+  
+  furina skill, dash;
+  while !.furina.burst.ready {
+    furina attack;
+  }
+  furina burst;
+  
+  nahida skill; 
+  while !.nahida.burst.ready {
+    nahida attack;
+  }
+  nahida burst, attack;
+  
+  baizhu skill;
+  while !.baizhu.burst.ready {
+    baizhu attack;
+  }
+  baizhu burst;
+  
+  nahida attack:2, charge, jump;
+  nahida attack:3, dash;
+  nahida attack:3, dash;
+  
+  nahida attack:2, charge, jump;
+  nahida attack:3, dash;
+  
+  baizhu skill, attack:2;
+  
+  nahida attack:2, charge, jump;
+  nahida attack:3, dash;
+  nahida attack:3, dash;
+}

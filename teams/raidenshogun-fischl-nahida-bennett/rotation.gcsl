@@ -1,0 +1,16 @@
+active raiden;
+  raiden skill;
+for let rot=0; rot<4; rot=rot+1 {
+  nahida attack, skill, burst;
+  bennett skill, burst;
+  fischl attack:2;
+  while !.fischl.burst.ready { 
+  fischl attack;
+  }
+  fischl burst;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4, dash;
+  bennett skill, dash, attack:2;    
+  if .fischl.skill.ready {
+  fischl attack, skill;
+  }                         
+}

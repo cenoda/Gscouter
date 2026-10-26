@@ -1,0 +1,37 @@
+active furina;
+let rotation = 0;
+for {
+  switch {
+    case .furina.burst.ready && .furina.skill.ready && .furina.swap.ready:
+      furina skill, dash, burst;
+      pick_up_crystallize("any");
+      if rotation { furina attack; }
+    case .yelan.burst.ready && .yelan.swap.ready:
+      yelan burst, attack;
+    case .yelan.skill.ready && .yelan.swap.ready:
+      yelan skill, attack;
+      pick_up_crystallize("any");
+    case .chiori.skill.ready && .chiori.swap.ready:
+      chiori skill:2;
+    case .noelle.skill.ready && .noelle.swap.ready:
+      noelle skill;
+      if .noelle.status.noelle-burst { noelle attack:2; }
+    case .noelle.burst.ready && .noelle.swap.ready && !.noelle.status.noelle-burst:
+      noelle burst;
+      noelle attack:2;
+      rotation = rotation + 1;
+    case .noelle.normal == 4:
+      noelle dash;
+      pick_up_crystallize("any");
+    case .noelle.status.noelle-burst:
+      noelle attack;
+    case .noelle.onfield:
+      noelle attack;
+    case .yelan.onfield:
+      yelan  attack;
+    case .chiori.onfield:
+      chiori attack;
+    case .furina.onfield:
+      furina attack;
+  }
+}

@@ -1,0 +1,31 @@
+active furina;
+furina skill, dash;
+for let x=0; x<4; x=x+1 {
+  furina burst;
+  if x {
+    furina skill, dash;
+  }
+  zhongli skill[hold=1], dash;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  chiori skill:2;
+  gaming burst, attack:2,
+   skill, low_plunge;
+   wait(40);
+   gaming skill, low_plunge;
+   wait(40);
+   gaming skill, low_plunge;
+   wait(40);
+   gaming skill, low_plunge;
+   wait(40);
+   gaming skill, low_plunge,
+   skill, low_plunge,
+   skill, low_plunge;
+   
+  if .chiori.burst.ready {
+    chiori burst;
+  } else {
+    gaming skill, high_plunge;
+  }
+}

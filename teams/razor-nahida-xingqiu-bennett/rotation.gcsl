@@ -1,0 +1,27 @@
+active razor;
+for let i=0; i<4; i=i+1 {
+  razor skill, dash;
+  
+  nahida skill, attack;
+  if .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  xingqiu skill, burst, attack;
+  
+  bennett skill, attack, burst;
+  
+  razor skill, dash, attack, burst,
+    attack, skill, dash,
+    attack:3, dash,
+    attack:3, dash,
+    attack:2, skill, dash,
+    attack:3, dash,
+    attack:3;
+    
+  bennett skill, attack:2;
+  
+  print("done");
+}

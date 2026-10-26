@@ -1,0 +1,18 @@
+let rotations = 5;
+active nahida;
+    
+nahida skill;
+for let x = 0; x<5; x=x+1 {
+  if .nahida.burst.ready {
+    nahida burst;
+  }   
+  chongyun skill;
+  bennett skill, burst;
+  rosaria skill, burst;
+  bennett attack, skill;
+  chongyun burst;
+  bennett attack, skill;
+  nahida attack,skill;
+  rosaria attack, skill;
+  bennett attack, skill;
+}

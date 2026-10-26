@@ -1,0 +1,19 @@
+id: skirk-chiori-yelan-zhongli
+name: Skirk / Chiori / Yelan / Zhongli
+members:
+    - skirk
+    - chiori
+    - yelan
+    - zhongli
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/9cJG6jQfLW8h
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    skirk: start_serpents_subtlety=100
+reference:
+    dps: 63787
+    computed: "2026-10-01"

@@ -1,0 +1,13 @@
+active lauma;
+lauma attack;
+for let i = 0; i < 4; i = i + 1 {
+  columbina skill, burst, attack;
+  ineffa skill, attack; wait(12);
+  lauma attack, skill[hold=1], burst;
+  ayato skill, attack:15, burst;
+  columbina attack, charge;
+  ineffa burst;
+  lauma skill[hold=1];
+  ayato skill, attack:15;
+  columbina attack;
+}

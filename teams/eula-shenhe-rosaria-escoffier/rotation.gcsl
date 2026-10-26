@@ -1,0 +1,14 @@
+active shenhe;
+for let i=0; i<4; i=i+1 {
+  escoffier skill, burst;
+  
+  shenhe skill[hold=1], burst;
+  
+  rosaria skill, burst;
+  
+  eula skill, burst, skill, attack:4, dash, attack:2, skill[hold=1], walk[f=11], attack:2;
+  
+  rosaria skill;
+  
+  eula attack:2;
+}

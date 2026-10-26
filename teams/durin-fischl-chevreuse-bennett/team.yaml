@@ -1,0 +1,17 @@
+id: durin-fischl-chevreuse-bennett
+name: Durin / Fischl / Chevreuse / Bennett
+members:
+    - durin
+    - fischl
+    - chev
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/QwGz6zPP9zpm
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 103937
+    computed: "2026-10-01"

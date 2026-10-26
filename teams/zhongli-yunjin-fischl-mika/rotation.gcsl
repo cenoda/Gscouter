@@ -1,0 +1,23 @@
+active zhongli;
+zhongli skill[hold=1], dash;
+for let x=0; x<4; x=x+1 {
+  fischl attack;
+  if .fischl.burst.ready {
+    fischl attack, burst;
+  } else {
+    fischl skill;
+  }
+  yunjin skill; 
+  while !.yunjin.burst.ready {
+    yunjin attack;
+  }
+  yunjin burst;
+  mika skill[hold=1], attack, burst;
+  zhongli attack:5, dash, 
+          attack:5, dash, 
+          attack:5, dash, 
+          attack:5, dash, 
+          attack:5, dash,
+          attack:5,
+      skill[hold=1], dash;
+    }

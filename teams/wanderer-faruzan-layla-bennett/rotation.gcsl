@@ -1,0 +1,27 @@
+active faruzan;
+for let i = 0; i < 4; i = i + 1 {
+  faruzan skill, attack, burst;
+  
+  layla skill, attack, burst;
+  
+  bennett skill, burst;
+  
+  if .wanderer.burst.ready {
+    wanderer attack, burst;
+  }
+  wanderer attack, skill, attack, charge;
+  while .wanderer.skydweller-points > 3 {
+    if .wanderer.normal < 3 {
+      wanderer attack;
+    } else if .wanderer.mods.wanderer-a4 {
+      wanderer dash;
+    } else if .wanderer.skydweller-points > 9 {
+      wanderer charge;
+    } else {
+      break;
+    }
+  }
+  wanderer skill;
+  
+  bennett skill;
+}

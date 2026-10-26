@@ -1,0 +1,12 @@
+let weak = 0; 
+active zhongli;
+for let i=0; i<5; i=i+1 {
+  zhongli skill[hold=1], dash;
+  furina skill, dash, burst;
+  bennett skill, burst;
+  venti skill, burst,
+    aim[hold=0, weakspot=rand()<weak]:12, 
+    skill,
+    aim[hold=0, weakspot=rand()<weak]:16, 
+    skill;
+}

@@ -1,0 +1,12 @@
+active candace;
+for let i=0; i<4; i=i+1 {
+  candace attack,skill;
+  yelan burst,attack,skill,attack;
+  kuki attack,skill;
+  collei attack,skill,burst;
+  candace attack,skill,burst;
+  candace attack:3;
+  yelan attack:4;
+  candace attack:3,dash;
+  candace attack:3,dash;
+}

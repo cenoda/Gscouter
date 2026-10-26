@@ -1,0 +1,31 @@
+active fischl;
+for let i = 0; i < 4; i = i + 1 {
+  fischl attack, skill;    
+  xingqiu skill, burst, attack;
+  xiangling attack, burst, skill, attack;
+  sucrose attack, skill, walk;
+  sucrose attack:2;
+  if .sucrose.skill.ready {
+    sucrose skill, walk;
+  } else {
+    sucrose charge;
+  }
+  sucrose attack:2, walk, attack:2, walk, attack:2;
+  fischl attack:2, burst;
+  xingqiu attack:3;
+  sucrose attack:2, walk, attack:2, charge;
+  xiangling attack:2, skill, dash;
+  sucrose attack;
+  if.sucrose.burst.ready && .sucrose.energy == .sucrose.energymax {
+    sucrose burst; 
+  } else {
+    sucrose attack, charge;
+  }
+  sucrose attack:2, walk, attack:2;
+  if .sucrose.skill.ready {
+    sucrose skill, walk;
+  } else {
+    sucrose attack, charge;
+  }
+  sucrose attack:2, walk, attack:2, walk, attack:3, charge;
+}

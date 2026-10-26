@@ -1,0 +1,14 @@
+active furina;
+for let i=0; i<2; i=i+1 {
+  furina skill, dash, burst;
+  escoffier skill, attack, burst;
+  shenhe skill[hold=1], attack;
+  if !.shenhe.mods.favonius-cd {
+    shenhe attack;
+  }
+  chasca skill, aim:4, aim[bullets=4], burst;
+  
+  escoffier skill, attack;
+  shenhe burst, skill[hold=1];
+  chasca skill, aim:4;
+}

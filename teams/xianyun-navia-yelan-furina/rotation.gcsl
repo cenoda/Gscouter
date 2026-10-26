@@ -1,0 +1,44 @@
+active navia;
+  furina skill, dash, burst;
+  navia skill, burst;
+  xianyun skill, low_plunge, burst;
+  yelan burst, attack, skill, attack;
+  for let n = 2; n > 0; n = n - 1 {
+    navia skill[hold=1];
+    for let h = 3; h > 0; h = h - 1 {
+      navia jump;
+      if .airborne {
+          navia high_plunge[collision=rand()>0.5], dash;
+      }
+    }
+    navia jump;
+    if .airborne {
+        navia high_plunge[collision=rand()>0.5], attack;
+    }
+  }
+  
+for let i = 0; i < 2; i = i + 1 {
+  yelan skill, attack;
+  xianyun skill, low_plunge;
+  furina skill, dash, burst;
+  xianyun burst;
+  if !i {
+    navia skill[hold=1];
+  }
+  navia burst;
+  yelan burst, attack, skill, attack;
+  for let n = 2; n > 0; n = n - 1 {
+    navia skill[hold=1];
+    for let h = 3; h > 0; h = h - 1 {
+      navia jump;
+      if .airborne {
+          navia high_plunge[collision=rand()>0.5], dash;
+      }
+    }
+    navia jump;
+    if .airborne {
+        navia high_plunge[collision=rand()>0.5], attack;
+    }
+  }
+}
+navia skill[hold=1];

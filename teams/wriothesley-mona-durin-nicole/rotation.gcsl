@@ -1,0 +1,25 @@
+active mona;
+for let i=0; i<4; i=i+1 {
+  mona skill;
+  if i {
+    wait(24);   
+  }
+  if .nicole.burst.ready && .nicole.energy == .nicole.energymax  {
+    nicole burst, skill;
+  } else {
+    nicole skill, attack;
+  }
+  durin skill, attack, burst;
+  mona attack, burst, attack:3;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump, 
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump;
+  if .wrio.burst.ready && .wrio.energy == .wrio.energymax  {
+    wrio burst;
+  } else {
+    wrio attack;
+  }
+}

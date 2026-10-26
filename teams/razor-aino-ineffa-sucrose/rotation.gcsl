@@ -1,0 +1,26 @@
+active razor; 
+for let i=0; i<4; i=i+1 {
+  if i > 0  && .ineffa.burst.ready {
+    ineffa skill, burst;
+  } else {
+    ineffa skill;
+  }
+  
+  aino skill, burst;
+  
+  if i > 0 && .sucrose.burst.ready {
+    sucrose burst, attack;
+  } else {
+    sucrose skill, dash, attack;
+  }
+  
+  razor skill[hold=0], dash, attack, burst;
+  razor attack:1, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+  razor attack:3, dash;
+  razor attack:3;
+  
+  sucrose skill, dash, attack:2;
+}

@@ -1,0 +1,15 @@
+active ayaka;
+ayaka dash;
+for let i = 0; i < 6; i = i + 1 {
+  tartaglia skill, attack:2; 
+  kazuha burst;
+  ganyu burst, skill;
+  kazuha skill, high_plunge;
+  ayaka dash, skill, burst, attack;
+  tartaglia burst, walk, skill,
+    attack, charge, dash;
+  ganyu aim, skill;
+  kazuha skill, high_plunge;
+  ayaka dash, attack, skill, attack:3, charge;
+  print("end");
+}

@@ -1,0 +1,29 @@
+active razor; 
+fischl attack, skill;
+for let i=0; i<4; i=i+1 {
+  kirara skill[short_hold=1];
+  if .kirara.burst.ready {
+    kirara burst;
+  }
+  bennett skill, burst;
+
+  if .amy.burst.ready {
+    amy attack:2, burst;
+  } else {
+    amy attack:1, skill;
+  }
+  
+  razor skill, dash, attack, burst;
+  
+  while .razor.infusion.bennett-fire-weapon { 
+    if .razor.normal > 3 && .razor.skill.ready {
+        razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+  razor attack:3;
+  print("done");
+}

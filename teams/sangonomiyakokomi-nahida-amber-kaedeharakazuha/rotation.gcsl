@@ -1,0 +1,10 @@
+active nahida;
+for let i=0; i<4; i=i+1 { 
+  nahida burst, attack:2, skill;
+  amber aim[weakspot=1];
+  kazuha skill[hold=1], high_plunge, burst;
+  kokomi skill;
+  amber skill, burst, attack;
+  kokomi attack, burst, attack:2, dash, attack:2, charge, attack:2, dash, attack:2, charge;
+  kazuha skill, high_plunge;
+}

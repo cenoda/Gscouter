@@ -1,0 +1,32 @@
+let did_xl_burst = 1;
+active emilie;
+emilie skill;
+for let x=0; x<4; x=x+1 {
+  bennett skill, burst;
+  
+  if .xl.burst.ready && .xl.energy == .xl.energymax {
+    xl burst, skill;
+    did_xl_burst = 1;
+  } else {
+    xl attack:2, skill;
+    did_xl_burst = 0;
+  }
+  
+  if did_xl_burst == 1 {
+    ganyu aim:6;
+  } else {
+    ganyu aim:4;
+  }
+	
+  if .ganyu.burst.ready && .ganyu.energy == .ganyu.energymax {
+    ganyu skill, burst;
+  } else {
+    ganyu aim, skill;
+  }
+  
+  if .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+}

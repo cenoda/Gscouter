@@ -1,0 +1,32 @@
+fn ChongyunPlunge() {
+  chongyun jump;
+  if .airborne {
+    chongyun high_plunge[collision=rand()>0.5];
+  }
+}
+active chongyun; 
+for let i = 0; i < 4; i = i + 1 {
+  xianyun skill, low_plunge, burst;
+  
+  bennett skill, burst;
+
+  if .xianyun.sets.vv >= 4 && i == 0 && .element.t0.pyro {
+    xianyun attack:2;
+  }
+  
+  citlali skill, burst;
+  
+  chongyun swap;
+  ChongyunPlunge(); chongyun dash; 
+  ChongyunPlunge(); chongyun dash; wait(10); 
+  ChongyunPlunge(); chongyun skill;
+  ChongyunPlunge(); chongyun dash;
+  ChongyunPlunge(); chongyun dash; wait(10); 
+  ChongyunPlunge(); chongyun burst; 
+  ChongyunPlunge(); 
+
+  bennett skill;
+  while !.bennett.mods.favonius-cd { 
+    bennett attack;
+  }
+}

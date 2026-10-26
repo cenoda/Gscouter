@@ -1,0 +1,41 @@
+active zhongli;
+for let h = 0; h < 4; h = h + 1 {
+  let even = (h + 1) / 2 == h / 2;
+  zhongli skill[hold=1], dash;
+  while !.zhongli.mods.favonius-cd && !.faruzan.burst.ready { 
+    zhongli attack;
+  }  
+  while !.faruzan.mods.favonius-cd && !.faruzan.burst.ready { 
+   faruzan attack;
+  }   
+  faruzan burst, attack; 
+  if even {
+    xiao skill:2, burst;
+    for let j = 12; j > 0; j = j - 1 { 
+      let col = rand(); 
+      if col > 0.5 { 
+        xiao jump, high_plunge[collision=1]; 
+      } else { 
+        xiao jump, high_plunge; 
+      } 
+    } 
+  } else {
+    xiao skill:2;
+    if .wanderer.burst.ready {
+        wanderer attack, burst;
+     }  
+     wanderer attack:2, skill;
+     while .wanderer.skydweller-points > 3 {
+       if .wanderer.normal < 3 {
+         wanderer attack;
+       } else if .wanderer.mods.wanderer-a4 {
+          wanderer dash;
+       } else if .wanderer.skydweller-points > 4 {
+          wanderer charge;
+       } else {
+         break;
+       }
+      }
+      wanderer skill, low_plunge;  
+    }
+}

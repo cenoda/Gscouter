@@ -1,0 +1,15 @@
+active neuv;
+for let i=0; i<4; i=i+1 {
+  
+  neuv skill;
+  ineffa skill, attack;       
+  columbina burst, skill;
+  kazuha skill, high_plunge, burst;
+  neuv charge, burst, skill, charge;
+  if .ineffa.burst.ready {
+    ineffa burst;
+  }
+  kazuha skill, high_plunge;
+  neuv charge, charge;
+} 
+wait(173);

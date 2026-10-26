@@ -1,0 +1,10 @@
+active ayaka;
+for let i=0; i<4; i=i+1 {
+  ayaka dash, attack, skill;
+  ganyu burst, skill;
+  venti skill, burst;
+  mona burst, skill;
+  ayaka dash, attack, skill, burst;
+  ganyu skill, aim[weakspot=1]:2;
+  venti skill, attack;
+}

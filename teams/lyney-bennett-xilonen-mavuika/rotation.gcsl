@@ -1,0 +1,35 @@
+active mavuika; 
+for let i=0; i<3; i=i+1 {
+  
+  if i == 0 { 
+    bennett skill, attack;
+    xilonen skill, attack:2;
+    bennett burst, dash;
+    pick_up_crystallize("pyro");
+  } 
+  
+  else {
+    xilonen skill, attack:2;
+    while !.xilonen.mods.favonius-cd {
+      xilonen attack;
+    }
+    bennett skill, burst, dash;
+    pick_up_crystallize("pyro");
+  }
+    
+  mavuika skill, burst, charge:2, dash, charge:2;
+  
+  lyney aim, aim; 
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(13); 
+    lyney skill;
+  } else {
+    lyney aim;
+  }
+  lyney aim, skill;
+  if i<2 {
+    lyney aim; 
+  }
+  
+}

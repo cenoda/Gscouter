@@ -1,0 +1,25 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 { 
+  sucrose burst, attack;
+  collei skill, burst;
+  fischl attack:2, burst;
+  sucrose skill, dash, attack;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  
+  if .fischl.skill.ready {
+    fischl skill, attack;
+  }
+  
+  if .sucrose.skill.ready {
+    sucrose skill, dash;
+  }
+  
+  while !.sucrose.burst.ready {
+    if .sucrose.normal > 2 {
+      sucrose dash;
+    } else {
+      sucrose attack;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  bennett burst, skill[hold=1, hold_c4=1];
+  lynette skill, attack:2, burst, attack;
+  xiangling burst, skill, dash;
+  bennett attack, skill;
+  xiangling attack:3, dash,
+            attack:3, dash;
+  lynette skill, attack;
+  bennett skill, attack;
+  xl attack:3;
+  
+}

@@ -1,0 +1,32 @@
+active nahida;
+for let i=0; i<4; i=i+1 { 
+  nahida skill, attack;
+  if .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  furina skill, dash, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  let plunges = 0;
+  cyno skill, burst, attack, skill;
+  while .cyno.mods.cyno-q > 130 {
+    if .cyno.skill.ready {
+      cyno skill;
+    } else if .cyno.status.xianyun-airborne-buff {
+      cyno jump;
+      if .airborne {
+        cyno low_plunge[collision=rand()>0.5], attack;
+        plunges = plunges + 1; print(plunges);
+      }
+    } else if .cyno.normal == 4 {
+      cyno dash;
+    } else {
+      cyno attack;
+    }
+  }
+  
+}

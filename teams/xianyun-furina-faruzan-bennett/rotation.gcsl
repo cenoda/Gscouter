@@ -1,0 +1,30 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  while .furina.skill.cd {
+    if .xianyun.normal > 2 {
+      xianyun dash;
+    } else {
+      xianyun attack;
+    }
+  }
+  
+  furina skill, dash, burst;
+  
+  bennett skill, burst;
+  faruzan skill, burst;
+  
+  if .xianyun.skill.ready {
+    xianyun skill:3, high_plunge, attack;
+  }
+  xianyun burst;
+  while .xianyun.status.xianyun-airborne-buff {
+    if .xianyun.skill.ready {
+      xianyun skill:3, high_plunge;
+    } else if .xianyun.status.xianyun-airborne-buff {
+      xianyun jump;
+      if .airborne {
+        xianyun high_plunge[collision=rand()>0.5], dash;
+      }
+    }
+  }
+}

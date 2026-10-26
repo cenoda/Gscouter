@@ -1,0 +1,21 @@
+active bennett;
+for let i=0; i<4; i=i+1 {
+ bennett skill;
+ thoma burst, attack, skill;
+ xiangling skill, attack;
+ bennett burst, skill;
+ xiangling burst, attack;
+ wrio skill,
+  attack:3, charge,
+  attack:3, charge,
+  attack:3, charge,
+  attack:3, charge,
+  attack:3, charge;
+ if .wrio.burst.ready {
+   wrio burst;
+ } else {
+   wrio attack:3, charge;
+ } 
+ 
+ print("Rotation Done");
+}

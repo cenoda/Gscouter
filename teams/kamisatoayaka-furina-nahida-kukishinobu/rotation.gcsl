@@ -1,0 +1,19 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  nahida skill, burst;
+  
+  if .kuki.burst.ready { 
+    kuki skill, burst; 
+  } else { 
+    kuki skill; 
+  }
+  
+  ayaka dash, attack, skill, burst,
+        attack:3, charge, dash,
+        attack:3, charge, dash,
+        attack:3, charge, dash,
+        skill, attack:3;
+
+}

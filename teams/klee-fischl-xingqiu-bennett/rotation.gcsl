@@ -1,0 +1,36 @@
+active xingqiu;
+let normal_animation = 1;
+let charge_animation = 2;
+for let r = 5; r > 0; r = r - 1 {
+  let src = f();
+  let funnel = 0;
+  xingqiu skill, dash, burst, attack;
+  bennett skill, attack, burst;
+  if .fischl.burst.ready {
+    fischl attack:2, burst;
+  } else {
+    fischl attack, skill;
+  }
+  klee attack;
+  if .klee.burst.ready {
+    klee burst, walk;
+  }
+  while f() - src <= 20.5 * 60 {
+    if .klee.skill.ready {
+      klee attack, skill[bounce=3, mine=8], jump;
+    } else if .klee.onfield && .state == normal_animation && ( .stam >= 50 || .status.kleespark ) {
+      klee charge;
+    } else if .klee.onfield && .klee.normal > 1 && .state == normal_animation {
+      klee walk;
+    } else if !.status.kleeq && .bennett.skill.ready && !.status.bennettburst && !funnel && ( .bennett.energy < 50 || .klee.energy < 50 ) {
+      bennett skill, attack:2;
+      funnel = 1;
+    } else {
+      klee attack;
+    }
+  }
+  
+  if .klee.onfield && .state == charge_animation {
+    klee attack;
+  }
+}

@@ -1,0 +1,17 @@
+id: traveleranemo-furina-fischl-bennett
+name: Traveleranemo / Furina / Fischl / Bennett
+members:
+    - traveleranemo
+    - furina
+    - fischl
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/pBDJtzgn7nTk
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 43669
+    computed: "2026-09-30"

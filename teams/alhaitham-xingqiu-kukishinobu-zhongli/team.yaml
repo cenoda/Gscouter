@@ -1,0 +1,17 @@
+id: alhaitham-xingqiu-kukishinobu-zhongli
+name: Alhaitham / Xingqiu / Kukishinobu / Zhongli
+members:
+    - alhaitham
+    - xingqiu
+    - kuki
+    - zhongli
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/z8t8BP7JL8m8
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 56796
+    computed: "2026-10-01"

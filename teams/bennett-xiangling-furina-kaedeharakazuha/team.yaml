@@ -1,0 +1,17 @@
+id: bennett-xiangling-furina-kaedeharakazuha
+name: Bennett / Xiangling / Furina / Kaedeharakazuha
+members:
+    - bennett
+    - xiangling
+    - furina
+    - kaz
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/8LMW7LtW8GgL
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 62462
+    computed: "2026-10-02"

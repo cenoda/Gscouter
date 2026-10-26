@@ -1,0 +1,15 @@
+active zhongli;
+for let x=0; x<4; x=x+1 {
+  zhongli attack, skill[hold=1], dash;
+  while (.zhongli.mods.favonius-cd==0) {
+	  zhongli attack;
+	}
+  yelan burst, attack, skill, attack:2, dash, attack:2;
+  chiori skill, skill;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack:1;
+  if .yoimiya.burst.ready && .yoimiya.energy == .yoimiya.energymax {
+    yoimiya burst;
+  } else {
+    yoimiya attack:3;
+  }
+}

@@ -1,0 +1,26 @@
+active columbina;
+for let i=0; i<6; i=i+1 {
+  
+  if .columbina.burst.ready {
+    columbina skill, burst;
+  } else {
+    columbina skill, attack;
+  }
+  
+  ineffa skill;
+  if i && .ineffa.burst.ready {
+    ineffa burst;
+  } 
+  
+  ororon skill, burst, attack;
+  mizuki skill;
+  while .mizuki.status.dreamdrifter-state {
+   if .mizuki.burst.ready {
+    mizuki burst;
+   } else {
+    wait(1);
+   }
+ }
+ mizuki charge;
+ columbina attack;
+}

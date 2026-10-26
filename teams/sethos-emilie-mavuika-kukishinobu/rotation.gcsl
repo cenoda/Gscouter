@@ -1,0 +1,39 @@
+fn sethosCombo() {
+  sethos burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, skill;
+}
+active emilie;
+emilie skill;
+for let i=0; i<4; i=i+1 {
+  
+  if i && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else if .emilie.skill.ready {
+    emilie skill, attack;
+  }
+  
+  if .mav.burst.ready && i > 0 {
+    mav burst, skill;
+    if i > 1 { 
+      mav charge:1, dash;
+    }
+  } else {
+    mav skill, attack;
+  }
+  
+  kuki skill, attack;
+  if .kuki.burst.ready && i > 0 {
+    kuki burst;
+  }
+  
+  sethos skill; 
+  sethosCombo();
+  sethos aim[hold=2]:1;
+}

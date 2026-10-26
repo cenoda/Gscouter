@@ -1,0 +1,23 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+	
+	if .bennett.skill.ready {
+	  bennett skill;
+	}
+	bennett burst;
+	
+  ororon skill, burst;
+  
+	raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+	
+  while .furina.skill.cd {
+    if .bennett.skill.ready {
+      bennett skill;
+    } else {
+      bennett attack;
+    }
+  }
+  
+}

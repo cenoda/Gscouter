@@ -1,0 +1,19 @@
+active noelle;
+for let i=0; i<5; i=i+1 {
+  navia burst;
+  furina skill, dash; 
+    pick_up_crystallize("any");
+  furina burst;
+  yunjin burst, skill;
+  navia dash; 
+    set_player_pos(4.5,2.4);
+    pick_up_crystallize("any");
+  navia skill, attack;
+  noelle burst, skill, attack:4;
+  navia skill, attack;
+  noelle attack:4, dash;
+    set_player_pos(0,0);
+    pick_up_crystallize("any");
+  yunjin skill;
+  noelle attack:3;
+  }

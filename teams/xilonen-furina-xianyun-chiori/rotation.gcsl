@@ -1,0 +1,31 @@
+fn XilonenPlunge() {
+  xilonen jump;
+  if .airborne {
+    xilonen high_plunge[collision=rand()>0.5];
+  }
+}
+active furina;
+ 
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, attack, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  chiori skill:2;
+  
+  xilonen skill; pick_up_crystallize("any");
+  XilonenPlunge(); xilonen attack;
+  XilonenPlunge(); xilonen attack;
+  XilonenPlunge(); xilonen attack;
+  XilonenPlunge(); xilonen attack;
+  XilonenPlunge(); xilonen attack;
+  XilonenPlunge(); xilonen attack; 
+  XilonenPlunge(); xilonen attack;
+  XilonenPlunge();
+
+  if .xilonen.burst.ready {
+    xilonen burst;
+  } else if .chiori.burst.ready {
+    chiori burst;
+  }
+}

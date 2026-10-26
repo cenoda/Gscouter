@@ -1,0 +1,18 @@
+active neuv;
+for let i=0; i<4; i=i+1 { 
+  neuv skill;
+  if i && !.element.t0.hydro {
+    sleep(24);
+    while !.element.t0.hydro {
+      neuv attack; 
+    }
+  }
+  xilo skill, burst, attack:2;
+  emilie skill, attack;
+  xl burst, skill, dash; pick_up_crystallize("hydro");
+  neuv charge, burst, skill, charge;
+  xilo skill, attack:2;
+  xl attack:2, skill, dash; pick_up_crystallize("any");
+  neuv charge:2;
+}
+sleep(173);

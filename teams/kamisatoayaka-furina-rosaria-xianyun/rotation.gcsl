@@ -1,0 +1,37 @@
+fn AyakaPlunge() {
+  ayaka jump;
+  if .airborne {
+    ayaka high_plunge[collision=rand()>0.5];
+  }
+}
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd && !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  rosaria skill, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  ayaka skill, dash;
+  if .ayaka.burst.ready {
+    ayaka attack;
+  }
+  ayaka burst; 
+  AyakaPlunge(); ayaka attack;
+  AyakaPlunge(); 
+  
+  rosaria skill;
+  
+  ayaka dash;
+  AyakaPlunge(); ayaka attack;
+  AyakaPlunge(); ayaka attack;
+  AyakaPlunge();
+  
+  ayaka skill;
+  
+  AyakaPlunge(); ayaka attack:2;
+}

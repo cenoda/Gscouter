@@ -1,0 +1,13 @@
+active ayaka;
+  ayaka dash;
+for let i=0; i<4; i=i+1 {
+  nahida skill,burst;
+  kazuha skill,high_plunge;
+  bennett skill,burst;
+  kazuha burst,attack;
+  ayaka skill, dash, burst, attack:2;
+  kazuha skill,high_plunge,attack:2;
+  ayaka dash, attack:2, dash, attack:2;
+  bennett skill,attack;
+  ayaka attack,skill, dash, attack,charge;
+}

@@ -1,0 +1,15 @@
+active mavuika;
+for let i = 0; i < 5; i = i + 1 {
+  mavuika skill;
+  xilonen skill, attack:2;
+  bennett skill, burst;
+  neuv skill, attack;
+  mavuika burst, charge:2, dash,
+                 charge:2, dash,
+                 charge:2, dash,
+                 charge:2, dash,
+                 charge:2, dash,
+                 charge:2, dash,
+                 charge:2, charge[final=1], attack;
+
+}

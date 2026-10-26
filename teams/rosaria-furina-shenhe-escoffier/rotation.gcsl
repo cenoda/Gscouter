@@ -1,0 +1,37 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  esco skill, burst;
+  
+  shenhe skill, burst;
+  
+  rosaria skill, burst;
+  
+  rosaria attack;
+  while .shenhe.skill.cd {
+    if .rosaria.skill.ready {
+      rosaria skill;
+    } else if .rosaria.normal > 3 && .stam > 43 {
+      rosaria charge, dash;
+    } else {
+      rosaria attack;
+    }
+  }
+  
+  shenhe skill, attack;
+  
+  while .furina.skill.cd {
+    if .rosaria.skill.ready {
+      rosaria skill;
+    } else if .rosaria.normal > 3 && .stam > 43 {
+      rosaria charge, dash;
+    } else {
+      rosaria attack;
+    }
+  }
+}

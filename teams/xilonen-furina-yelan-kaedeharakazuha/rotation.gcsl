@@ -1,0 +1,36 @@
+active furina;
+furina skill, dash;
+for let i=0; i<3; i=i+1 {
+  
+  xilonen skill, attack, burst, attack;
+  
+  while i && !.xilonen.mods.favonius-cd {
+    xilonen attack;
+  }
+  
+  if !i {
+    furina burst;
+  }
+  
+  kazuha burst;
+  
+  if i {
+    furina burst, skill, dash;
+  }
+  
+  yelan burst, attack, skill, attack:4;
+  
+  xilonen skill, attack:2;
+  
+  while !.xilonen.mods.favonius-cd {
+    xilonen attack;
+  }
+  
+  kazuha attack, skill, high_plunge, attack;
+  
+  while .yelan.skill.cd>5{
+    yelan attack;
+  }
+  
+  yelan skill, attack:4;
+}

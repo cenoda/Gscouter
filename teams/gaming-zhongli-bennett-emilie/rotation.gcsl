@@ -1,0 +1,21 @@
+active gaming; 
+gaming skill, low_plunge, dash;
+for let i = 0; i < 4; i = i + 1 {
+  if i > 0 && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie skill;
+  }
+  zhongli skill[hold=1], dash;
+  bennett burst;
+  gaming burst;
+  gaming skill;
+  sleep(42);
+  gaming low_plunge;
+  for let p = 0; p < 8; p = p + 1 {
+    gaming skill;
+		sleep(17);
+		gaming low_plunge;
+  }
+  gaming dash;
+}

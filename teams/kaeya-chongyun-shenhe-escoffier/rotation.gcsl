@@ -1,0 +1,41 @@
+active chongyun; 
+for let i=0; i<4; i=i+1 {
+  if i > 0 && .esco.burst.ready && .esco.energy == .esco.energymax {
+    esco burst;
+  }
+  esco skill;
+  
+  shenhe skill, burst;
+  
+  chongyun burst, skill;
+  
+  kaeya skill, burst;
+  
+  while .shenhe.skill.cd {
+    switch {
+      case .kaeya.skill.ready:
+        kaeya skill, dash;
+      case .kaeya.normal > 2 && .stam > 25:
+        kaeya charge;
+      case .kaeya.normal > 3 && .stam > 18:
+        kaeya dash;
+      default:
+        kaeya attack;
+    }
+  }
+  
+  shenhe skill, attack;
+  
+  while .status.chongyunfield || .kaeya.infusion.chongyun-ice-weapon {
+    switch {
+      case .kaeya.skill.ready:
+        kaeya skill, dash;
+      case .kaeya.normal > 2 && .stam > 25:
+        kaeya charge;
+      case .kaeya.normal > 3 && .stam > 18:
+        kaeya dash;
+      default:
+        kaeya attack;
+    }
+  }
+}

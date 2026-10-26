@@ -1,0 +1,20 @@
+active yelan;
+for let i=0; i<4; i=i+1 {
+  yelan skill, attack, burst, attack;
+  bennett burst, skill;
+  xiangling burst, skill, dash;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump, 
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3;
+  if .wrio.burst.ready {
+    wrio burst;
+  } else {
+    
+  }
+  bennett skill, attack;
+  xiangling attack:3;
+}

@@ -1,0 +1,18 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill, burst;
+  varesa burst, skill;
+  alhaitham burst;
+  fischl attack:2, burst;
+  alhaitham attack:3, dash,
+            attack:3, charge, dash,
+            attack:3, dash,
+            attack:3, charge,
+            attack:3;
+  varesa skill, attack, high_plunge;
+  fischl attack:2, skill;
+  alhaitham skill,
+            attack:3, dash,
+            attack:3, charge, dash,
+            attack:2;
+}

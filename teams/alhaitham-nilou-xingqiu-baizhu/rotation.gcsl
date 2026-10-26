@@ -1,0 +1,17 @@
+active nilou;
+for let r = 0; r < 5; r = r + 1 {
+  nilou skill, attack:2, skill;
+  baizhu attack, skill, burst, attack;
+  xingqiu skill, dash, burst, attack;
+  alhaitham skill[hold=1], low_plunge[short=1], 
+            attack:3, charge,
+            attack:3, charge;
+  baizhu attack, skill, attack;
+  alhaitham burst, attack;
+  xingqiu attack:2;
+  wait(16); 
+  alhaitham attack:3, jump,
+            attack:3, jump, 
+            attack:2, charge,
+            attack:2;
+}

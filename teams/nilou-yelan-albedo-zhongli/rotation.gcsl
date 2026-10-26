@@ -1,0 +1,9 @@
+active yelan;
+for let r = 5; r > 0; r = r - 1 {
+  yelan skill,burst,attack;
+  zhongli skill[hold=1],dash,attack;
+  albedo skill,attack;
+  nilou skill,attack:18,burst;
+  zhongli burst;
+  yelan attack:2;
+}

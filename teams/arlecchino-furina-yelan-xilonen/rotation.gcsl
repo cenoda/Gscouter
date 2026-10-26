@@ -1,0 +1,18 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  xilonen burst;
+  furina skill, dash, burst;
+  xilonen skill, attack, attack;
+  yelan burst, attack, skill, attack;
+  arle attack:2, charge, 
+         attack:2, charge, 
+         attack:2, charge,
+         attack:2, charge,
+         attack:2, charge, 
+         attack:2, charge,
+         attack:2, charge,
+         attack:2;
+  xilonen skill, attack, attack;
+  yelan attack, skill, attack;
+}

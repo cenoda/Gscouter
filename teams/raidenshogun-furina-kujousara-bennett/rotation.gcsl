@@ -1,0 +1,11 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 6; i = i + 1 {
+  furina skill, dash, attack, burst;
+  sara skill, aim, attack;
+  bennett skill, burst;
+  furina attack:2, dash; 
+  sara burst;
+  raiden burst, attack:3, charge, dash, attack:3, charge, dash, attack:3, charge, dash, attack, charge, dash, skill;
+  bennett skill, attack;
+}

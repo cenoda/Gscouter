@@ -1,0 +1,17 @@
+active ineffa;
+for let i=0; i<6; i=i+1 {
+  if i && .ineffa.burst.ready && .ineffa.energy == .ineffa.energymax {
+    ineffa skill, burst;
+  } else {
+    ineffa skill, attack;
+  }
+  aino skill, burst;
+  bennett skill, burst;
+  chasca skill;
+  chasca aim:4;
+  chasca aim[bullets=4];
+  if !is_even(i) {
+    chasca burst;
+  }
+  bennett skill, attack:2;
+}

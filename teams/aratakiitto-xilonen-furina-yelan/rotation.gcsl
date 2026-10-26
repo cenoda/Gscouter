@@ -1,0 +1,28 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || ( char_id == .keys.char.yelan && action_id == .action.skill ) || ( char_id == .keys.char.xilonen && action_id == .action.skill ) {
+    pick_up_crystallize("any");
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+active xilonen;
+for let i = 0; i < 4; i = i + 1 {
+  
+  if i > 0 {
+    
+    xilonen skill, attack:2;
+    
+  }
+  
+  xilonen burst;
+  furina skill, dash, burst;
+  yelan burst, skill, attack;
+  xilonen skill, attack:2;
+
+  itto attack, burst[prestack=1],
+       attack, skill,
+       attack:2, charge:5, dash,
+       attack:4, charge:5, skill[travel=0], charge;
+       sleep(21); 
+}

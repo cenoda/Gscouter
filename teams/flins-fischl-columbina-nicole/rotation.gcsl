@@ -1,0 +1,25 @@
+active fischl;
+for let i=0; i<6; i=i+1 {
+  
+  if !is_even(i) {
+    fischl attack:2, burst;
+    columbina skill, attack;
+    nicole skill, burst;
+  } else {
+    fischl skill;
+    if i {
+      fischl attack;
+    }
+    columbina skill, burst;
+    nicole skill, burst;
+  }
+  
+  flins skill, attack, 
+        skill, attack:3, dash, attack:3, burst, 
+        attack:3, dash, attack:3, 
+        skill, attack:3, burst, 
+        attack:3, dash, attack:2;
+  if !is_even(i) {
+    flins attack:2;
+  }
+}

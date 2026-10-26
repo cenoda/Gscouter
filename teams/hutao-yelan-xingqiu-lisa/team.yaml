@@ -1,0 +1,17 @@
+id: hutao-yelan-xingqiu-lisa
+name: Hutao / Yelan / Xingqiu / Lisa
+members:
+    - hutao
+    - yelan
+    - xingqiu
+    - lisa
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/MBdGMnw9WFgH
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 76349
+    computed: "2026-09-30"

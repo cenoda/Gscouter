@@ -1,0 +1,20 @@
+active fischl;
+for let i = 0; i < 4; i = i + 1 {
+  fischl skill, attack;
+  yae attack, skill:3, attack:2;
+  chevreuse burst, skill[hold=1]:2;
+  xiangling attack:2, skill, dash, burst; 
+  yae attack:3;                           
+  fischl attack:2, burst;                 
+  yae attack:2, charge, dash,             
+      burst, skill:3,                     
+      attack:2, charge, dash;
+  xiangling skill, attack:2;
+  while !.fischl.skill.ready {
+    if .yae.normal == 3 && .stam > 100 {
+      yae charge, dash;
+    } else {
+      yae attack;
+    }
+  }
+}

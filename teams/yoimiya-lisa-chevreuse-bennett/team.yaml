@@ -1,0 +1,17 @@
+id: yoimiya-lisa-chevreuse-bennett
+name: Yoimiya / Lisa / Chevreuse / Bennett
+members:
+    - yoimiya
+    - lisa
+    - chevreuse
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/QBkD9GFC7fbF
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 57286
+    computed: "2026-10-02"

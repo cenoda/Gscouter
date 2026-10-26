@@ -1,0 +1,25 @@
+active furina;
+for let r=0; r<4; r=r+1 {
+  furina skill, dash, burst;
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  dori skill, attack, burst;
+  haitham skill, 
+          attack:3, dash,
+          attack:3;
+  haitham burst;
+  
+  yelan skill, attack;
+  
+  haitham attack:3, charge, 
+          attack:3, dash,
+          attack:3, dash, 
+          attack:2, charge;
+}

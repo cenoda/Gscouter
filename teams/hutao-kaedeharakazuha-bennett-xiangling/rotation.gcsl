@@ -1,0 +1,24 @@
+active bennett;
+for let i=0; i<3; i=i+1 {
+  bennett skill, burst;
+  
+  if .kazuha.burst.ready && .kazuha.energy == .kazuha.energymax {
+    kazuha burst;
+  } else {
+    kazuha skill, high_plunge;
+  }
+  
+  if .xl.burst.ready && .xl.energy == .xl.energymax {
+    xl burst;
+  } else {
+    xl attack;
+  }
+  xl skill;
+  
+  hutao skill;
+  for let n2c = 0; n2c < 8; n2c = n2c + 1 {
+    hutao attack:2, charge, jump;
+  }
+  
+  hutao attack:4; 
+}

@@ -1,0 +1,22 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  if i == 0 {
+    nahida skill, burst;
+  } else {
+    nahida burst;
+  }
+  
+  furina skill, dash, burst;
+  
+  dori skill, attack, burst;
+  
+  alhaitham burst;
+  
+  nahida skill, attack, charge;
+  
+  haitham attack:3, dash,
+          attack:3;
+  haitham skill, attack:3, charge,
+          attack:3, charge,
+          attack:3, charge;
+}

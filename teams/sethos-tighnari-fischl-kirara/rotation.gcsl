@@ -1,0 +1,35 @@
+fn sethosCombo() {
+  sethos burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, skill;
+}
+active kirara;
+for let i=0; i<4; i=i+1 {
+  kirara skill[short_hold=1];
+  if i > 0 && .kirara.burst.ready {
+    kirara burst;
+  }
+	
+  if .amy.skill.ready { 
+    amy attack, skill;
+  } else {
+    amy attack:2, burst;
+  }
+  
+  sethos skill; 
+  sethosCombo();
+  sethos aim[hold=2]:1;
+
+	tighnari skill, aim;
+	if .tighnari.burst.ready {
+	  tighnari burst, aim:2;
+	} else {
+	  tighnari aim:2;
+	}
+}

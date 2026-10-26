@@ -1,0 +1,17 @@
+id: hutao-chevreuse-fischl-yaemiko
+name: Hutao / Chevreuse / Fischl / Yaemiko
+members:
+    - hutao
+    - chevreuse
+    - fischl
+    - yae
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/HWfBBD6f7Cgh
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 70726
+    computed: "2026-10-01"

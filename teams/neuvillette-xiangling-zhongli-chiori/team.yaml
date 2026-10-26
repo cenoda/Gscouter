@@ -1,0 +1,17 @@
+id: neuvillette-xiangling-zhongli-chiori
+name: Neuvillette / Xiangling / Zhongli / Chiori
+members:
+    - neuvillette
+    - xiangling
+    - zhongli
+    - chiori
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/8BJ8tTR8cGWg
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 57345
+    computed: "2026-09-30"

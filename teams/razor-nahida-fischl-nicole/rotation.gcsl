@@ -1,0 +1,25 @@
+active razor; 
+fischl skill, attack;
+for let i=0; i<4; i=i+1 {
+  nahida skill, attack, charge;
+  
+  nicole skill, burst;
+  
+  if .amy.skill.ready {
+    amy attack, skill;
+  } else {
+    amy attack:2, burst;
+  }
+  
+  razor skill, dash, attack, burst, attack, skill, dash;
+  
+  while .razor.mods.razor-q > 200 { 
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+}

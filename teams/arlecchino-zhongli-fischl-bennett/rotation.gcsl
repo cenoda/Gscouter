@@ -1,0 +1,32 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arlecchino skill;
+  zhongli skill[hold=1], dash, attack;
+  let startFrame = f();
+  while f() - startFrame < 45 {
+    while !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    }
+    if pick_up_crystallize("pyro") {
+      break;
+    }
+    wait(1);
+  }
+  bennett swap;
+  if !.bennett.burst.ready {
+    bennett attack:2; 
+  }
+  bennett skill, burst;
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  arlecchino charge,
+             attack:3, dash, 
+             attack:3, dash, 
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3;
+}

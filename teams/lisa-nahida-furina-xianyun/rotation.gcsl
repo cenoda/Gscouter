@@ -1,0 +1,35 @@
+active nahida;
+for let x=0; x<4; x=x+1 {
+  nahida skill, attack;
+  if .nahida.burst.ready && .nahida.energy == .nahida.energymax {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  furina skill, dash, attack, burst;
+  
+  lisa attack, burst;
+  
+  xianyun attack, skill, low_plunge, attack, burst;
+  
+  while .xianyun.status.xianyun-airborne-buff {
+    if .xianyun.status.xianyun-airborne-buff {
+      lisa jump;
+      if .airborne {
+        lisa high_plunge[collision=rand()>0.5], dash;
+      }
+    }
+  }
+  if .lisa.skill.ready {
+    lisa skill[hold=1];
+  }
+  while .furina.skill.cd > 240 {
+    if .lisa.normal > 2 {
+      lisa dash;
+    } else {
+      lisa attack;
+    }
+  }
+  
+}

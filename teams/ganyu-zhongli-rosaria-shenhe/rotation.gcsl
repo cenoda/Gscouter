@@ -1,0 +1,11 @@
+active rosaria;
+for let i=0; i<4; i=i+1 {
+  rosaria skill, burst;
+  shenhe skill, burst;
+  zhongli skill[hold=1], dash;
+  ganyu aim[weakspot=1], skill, burst, aim;
+  shenhe skill, attack;
+  rosaria skill;
+  ganyu aim[weakspot=1], aim, skill;
+  zhongli burst;
+}

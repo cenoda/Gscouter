@@ -1,0 +1,30 @@
+fn lyneyAim() {
+  if .lyney.weapon == .keys.weapon.crescent { 
+    lyney aim[hold=2, weakspot=rand()>0.5];
+  } else { 
+    lyney aim[hold=2];
+  }
+}
+active esco;
+for let i=0; i<4; i=i+1 {
+  if i > 0 && .esco.burst.ready {
+    esco burst;
+  }
+  esco skill;
+  
+  bennett skill, burst;
+  
+  citlali skill, burst; 
+  
+  lyneyAim();
+  lyneyAim();
+  if .lyney.burst.ready && .lyney.energy == .lyney.energymax {
+    lyney burst; delay(11); 
+    lyney skill;
+  } else {
+    lyneyAim();
+  }
+  lyneyAim();
+  lyneyAim();
+  lyney skill;
+}

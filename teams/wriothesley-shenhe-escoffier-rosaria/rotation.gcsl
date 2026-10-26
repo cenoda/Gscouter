@@ -1,0 +1,28 @@
+active escoffier;
+for let i=0; i<4; i=i+1 {
+  escoffier skill, attack;
+  
+  shenhe skill[hold=1];
+  if .shenhe.burst.ready{
+    shenhe burst;
+  } else {
+    shenhe attack, burst;
+  } 
+  
+  rosaria burst, skill;
+  
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3;
+  if .wrio.burst.ready {
+    wrio burst;
+  } else {
+    wrio charge;
+  }
+  
+  rosaria skill;
+}

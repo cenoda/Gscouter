@@ -1,0 +1,29 @@
+active wrio;
+wrio attack;
+for let i=0; i<4;i=i+1 {
+  if is_even(i) {
+    xilonen burst;
+  }
+  shenhe skill[hold=1], attack, burst;
+  if !.shenhe.mods.favonius-cd {
+    shenhe attack;
+  }
+  xilonen skill, attack:2;
+  if is_even(i) {
+    escoffier skill, attack:3;
+  } else {
+    escoffier skill, burst;
+  }
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:4;
+  if is_even(i) {
+    wrio burst;
+  } else {
+    wrio charge;
+  }
+}

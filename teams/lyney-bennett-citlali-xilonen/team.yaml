@@ -1,0 +1,17 @@
+id: lyney-bennett-citlali-xilonen
+name: Lyney / Bennett / Citlali / Xilonen
+members:
+    - lyney
+    - bennett
+    - citlali
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/JHFwdwP7FP9t
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 68592
+    computed: "2026-09-30"

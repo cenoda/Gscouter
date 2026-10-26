@@ -1,0 +1,11 @@
+active ayato;
+ayato burst[radius=2];
+for let i=0; i<5; i=i+1{
+  nahida skill, burst, attack;
+  kuki skill, attack;
+  luminedendro skill, burst, attack:2;
+  ayato skill, attack:15;
+  kuki burst, attack:2, skill, attack:3;
+  luminedendro skill;
+  ayato skill, attack:15, burst;
+}

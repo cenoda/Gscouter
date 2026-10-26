@@ -1,0 +1,26 @@
+# Build from the source config, used to validate the rotation.
+
+nilou char lvl=90/90 cons=6 talent=10,10,10;
+nilou add weapon="keyofkhajnisut" refine=1 lvl=90/90;
+nilou add set="tenacityofthemillelith" count=2;
+nilou add set="silkenmoonsserenade" count=2;
+nilou add set="gladiatorsfinale" count=1;
+nilou add stats def%=0.124 def=100 hp=6065 hp%=1.41 atk=325 er=1.218 em=56 cr=0.28;
+
+durin char lvl=90/90 cons=2 talent=9,10,10;
+durin add weapon="amenoma" refine=5 lvl=90/90;
+durin add set="oceanhuedclam" count=1;
+durin add set="celestialgift" count=4;
+durin add stats def=21 hp=4780 hp%=0.099 atk=348 atk%=1.299 er=0.46 em=44 cr=0.696 cd=0.45899999999999996;
+
+sucrose char lvl=90/90 cons=6 talent=6,6,6;
+sucrose add weapon="sacrificialfragments" refine=5 lvl=90/90;
+sucrose add set="noblesseoblige" count=1;
+sucrose add set="viridescentvenerer" count=4;
+sucrose add stats hp=4780 hp%=0.234 atk=431 atk%=0.158 er=0.466 em=776.5 cr=0.252 cd=0.14;
+
+mualani char lvl=90/90 cons=0 talent=1,10,10;
+mualani add weapon="thewidsith" refine=5 lvl=90/90;
+mualani add set="thunderingfury" count=1;
+mualani add set="obsidiancodex" count=4;
+mualani add stats def%=0.051 def=83 hp=5079 hp%=1.049 atk=311 er=0.057999999999999996 em=159 cr=0.35800000000000004 cd=1.018 hydro%=0.466;

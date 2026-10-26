@@ -1,0 +1,40 @@
+active fischl;
+fischl skill;
+for let i=0; i<4; i=i+1 {
+  
+  if i > 0 && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie attack, skill;
+  }
+
+  if i > 0 {
+    bennett attack:1, charge;
+  }
+  bennett skill, burst;
+
+  amy attack;
+  if .amy.burst.ready {
+    amy attack, burst; 
+  } else {
+    amy skill;
+  }
+  
+  while .aetherelectro.mods.bennett-field || .status.bennettburst { 
+    switch {
+      case .aetherelectro.skill.ready:
+        aetherelectro skill[hits=3, amulet_delay=107];
+      case .aetherelectro.burst.ready:
+        aetherelectro burst;
+
+      case .aetherelectro.normal > 3 && .aetherelectro.dash.ready && .stam > 18:
+        aetherelectro dash;
+      default:
+        aetherelectro attack;
+    }
+  }
+  
+  bennett skill, attack; 
+  
+  print("done");
+}

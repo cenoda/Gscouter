@@ -1,0 +1,14 @@
+active chev;
+for let i=0; i<4; i=i+1 {
+  chev skill[hold=1], attack, dash;
+  bennett skill, burst;
+  rosaria skill, burst;
+  chasca skill;
+  chasca aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}
+wait(82);

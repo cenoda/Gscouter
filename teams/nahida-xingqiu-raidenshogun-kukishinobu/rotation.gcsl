@@ -1,0 +1,10 @@
+active nahida;
+    nahida skill;
+    raiden attack, skill;
+for let i=0; i<4; i=i+1 {
+    kuki attack, skill, dash;
+    xingqiu skill, dash, burst, attack;
+    nahida attack:25, skill;
+    raiden attack, skill;
+    print("done");
+}

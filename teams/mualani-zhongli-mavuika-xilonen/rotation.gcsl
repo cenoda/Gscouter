@@ -1,0 +1,23 @@
+fn mualani_combo() {
+  mualani skill, 
+          walk[f=90], attack,
+          walk[f=90], attack,
+          walk[f=90], attack;
+}
+active mavuika; 
+mualani swap;
+wait(49); 
+for let i=0; i<6; i=i+1 {
+  mualani attack;
+  xilonen skill, attack:2;
+  mavuika burst, charge, skill, dash;
+  pick_up_crystallize("hydro");
+  zhongli skill[hold_nostele=1], dash;
+  mualani_combo();
+  if .mualani.burst.ready {
+    mualani walk[f=1];
+    mualani burst, attack;
+  } else {
+    mualani skill, attack, charge, attack:2;
+  }
+}

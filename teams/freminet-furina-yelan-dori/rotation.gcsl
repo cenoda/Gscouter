@@ -1,0 +1,19 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  dori burst, skill, attack;
+  
+  if .yelan.burst.ready {
+    yelan burst, attack, skill;
+  } else {
+    yelan skill, burst, attack;
+  }
+  freminet skill, burst, skill;
+  freminet skill:2, attack:2;
+  freminet skill:2, attack:2;
+  freminet skill:2, attack:2;
+  freminet skill:2, attack:2;
+  freminet skill:2;
+  
+}

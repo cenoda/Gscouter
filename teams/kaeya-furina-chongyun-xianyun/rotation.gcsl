@@ -1,0 +1,40 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  chongyun burst, skill;
+  
+  xianyun skill, low_plunge, attack, burst; 
+  
+  kaeya skill;
+  
+  while .kaeya.status.xianyun-airborne-buff {
+    if .kaeya.burst.ready {
+      kaeya burst;
+    } else if .kaeya.skill.ready {
+      kaeya skill;
+    } else {
+      kaeya jump;
+      if .airborne {
+        kaeya high_plunge[collision=rand()>0.5];
+      }
+      if .kaeya.status.xianyun-airborne-buff { 
+        kaeya dash;
+      }
+    }
+  }
+  
+  while .furina.skill.cd {
+    if .kaeya.skill.ready {
+      kaeya skill;
+    } else if .kaeya.normal > 1 {
+      kaeya charge;
+    } else {
+      kaeya attack;
+    }
+  }
+}

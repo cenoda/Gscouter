@@ -1,0 +1,33 @@
+active chongyun; 
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash;
+  
+    furina attack;
+  
+  furina burst;
+  
+  shenhe skill[hold=1], attack, burst;
+  
+  xianyun skill, low_plunge, attack, burst; 
+  
+  if .chongyun.burst.ready {
+    chongyun burst;
+  }
+  while .chongyun.skill.ready {
+    chongyun skill;
+  }
+  
+  while .chongyun.status.xianyun-airborne-buff {
+    chongyun jump;
+    if .airborne {
+      chongyun high_plunge[collision=rand()>0.5];
+    }
+    if .chongyun.status.xianyun-airborne-buff { 
+      chongyun dash;
+    }
+  }
+  chongyun attack;
+  if .chongyun.burst.ready {
+    chongyun burst;
+  }
+}

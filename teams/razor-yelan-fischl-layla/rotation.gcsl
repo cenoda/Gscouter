@@ -1,0 +1,18 @@
+active fischl;
+for let i=0; i<6; i=i+1 {
+  fischl skill, attack:2;
+  layla attack, burst, skill;
+  while !.yelan.mods.favonius-cd {
+    yelan attack;
+   }
+  yelan skill, burst, attack;
+  fischl attack:2, burst;
+  razor attack, skill, dash, attack, burst,
+      attack:3, skill, dash,
+      attack:3, dash,
+      attack:3, dash,
+      attack:3, skill, dash,
+      attack:3, dash,
+      attack:3, dash,
+      attack:3;
+}

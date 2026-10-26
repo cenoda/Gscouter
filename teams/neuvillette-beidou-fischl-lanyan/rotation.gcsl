@@ -1,0 +1,13 @@
+active beidou;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  lanyan attack, burst, dash;
+  fischl attack, skill;
+  beidou skill, burst, dash;
+  neuvillette charge, burst, skill, charge;
+  lanyan skill:2;
+  fischl attack:2, burst;
+  beidou skill, attack;
+  neuvillette charge, charge;
+}
+wait(173);

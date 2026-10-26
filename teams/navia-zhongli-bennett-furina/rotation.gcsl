@@ -1,0 +1,39 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+	pick_up_crystallize("any"); 
+  }
+	
+  return _execute_action(char_id, action_id, p);
+}
+active bennett;
+  
+for let i=0; i<4; i=i+1 {
+    bennett skill, dash;
+    
+    if i {
+      zhongli attack;
+    }
+    
+    zhongli skill[hold=1], dash;
+    
+    if !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    }
+    
+    furina skill, dash;
+    
+    while !.furina.burst.ready {
+      furina attack;
+    }
+    
+    furina burst; 
+    bennett burst, skill, dash;
+    navia burst, skill, attack:2, dash, attack:3;
+    zhongli attack:2, skill; 
+    navia attack, skill[hold=1], attack:2, dash, attack:3;
+    
+    if .navia.skill.ready {
+      navia skill;
+    } 
+}

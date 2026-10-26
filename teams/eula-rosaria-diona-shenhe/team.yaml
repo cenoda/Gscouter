@@ -1,0 +1,17 @@
+id: eula-rosaria-diona-shenhe
+name: Eula / Rosaria / Diona / Shenhe
+members:
+    - eula
+    - rosaria
+    - diona
+    - shenhe
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/dmD9DCMnczBq
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 34693
+    computed: "2026-10-01"

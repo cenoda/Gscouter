@@ -1,0 +1,34 @@
+fn kinich_combo() { 
+  kinich skill;
+  while .kinich.nightsoul.state {
+    kinich attack[direction=1]:2;
+    while .kinich.nightsoul.points < 20 && .kinich.nightsoul.state {
+      wait(1);
+    }
+    if .kinich.nightsoul.state {
+      kinich skill[hold=1];
+    }
+    if .kinich.burst.ready && .kinich.energy == .kinich.energymax  {
+      kinich burst;
+    }
+  }
+}		
+active kinich; 
+for let i=0; i<4; i=i+1 {
+  escoffier skill;
+  if i > 0 && .escoffier.burst.ready {
+    escoffier burst;
+  } else {
+    escoffier attack;
+  }
+  
+  if is_even(i) {
+    nicole burst, skill;
+  } else {
+    nicole attack, skill;
+  }
+  
+  durin skill:2, burst;
+  
+  kinich_combo();
+}

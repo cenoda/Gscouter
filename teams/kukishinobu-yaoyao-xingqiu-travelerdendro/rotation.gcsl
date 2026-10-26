@@ -1,0 +1,19 @@
+active luminedendro;
+for let i=0; i<5; i=i+1 {
+  luminedendro attack, burst;
+  kuki skill, attack;
+  xingqiu burst, attack;
+  luminedendro attack:2, skill;
+  yaoyao burst,
+         attack:2, dash,
+         attack:2, dash,
+         attack:2, dash,
+         attack:2, dash, skill,
+         attack:2;
+  luminedendro attack, skill, attack;
+  xingqiu skill, dash, attack;
+  kuki burst, attack;
+  yaoyao attack:2, dash,
+         attack:3;
+  print("rotation done");
+}

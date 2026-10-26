@@ -1,0 +1,19 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  nahida skill, burst;
+  baizhu attack, skill, burst;
+  if !.baizhu.mods.favonius-cd {
+    baizhu attack;
+  }
+  yoimiya skill,
+          attack:5, dash,
+          attack:5, dash,
+          attack:5, dash,
+          attack;
+  if .yoimiya.burst.ready && .yoimiya.energy == .yoimiya.energymax {
+    yoimiya burst;
+  } else {
+    yoimiya attack:2, dash;
+  }                      
+}

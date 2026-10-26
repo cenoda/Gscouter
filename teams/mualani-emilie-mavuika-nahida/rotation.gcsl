@@ -1,0 +1,30 @@
+active mavuika;
+fn mualani_combo() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+}
+for let i=0; i<4; i=i+1 {
+  nahida attack, skill, burst;
+  if is_even(i) {
+    mavuika burst, skill;
+    emilie skill, attack;
+  } else {
+    mavuika skill, attack;
+    emilie burst;
+  }
+  mualani skill;
+  mualani_combo();
+  if is_even(i) {
+    mualani burst;
+  } else {
+    mualani walk[f=1];
+  }
+}

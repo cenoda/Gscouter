@@ -1,0 +1,18 @@
+active neuv;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill, attack;
+  furina skill, dash, attack;
+  lauma attack, burst;
+  if !i {
+    lauma skill, attack;
+  } else {
+    lauma skill[hold=1], attack;
+  }
+  fischl attack, skill;
+  furina burst;
+  neuvillette attack, charge, skill, charge, burst;
+  fischl attack:2, burst;
+  lauma skill[hold=1];
+  neuvillette attack, charge:2;
+}
+wait(173);

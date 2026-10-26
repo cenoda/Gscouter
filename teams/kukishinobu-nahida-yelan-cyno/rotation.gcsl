@@ -1,0 +1,13 @@
+active kuki ;
+for let i=0; i<4; i=i+1 {
+  kuki skill;
+  nahida skill, burst;
+  yelan skill, burst, attack;
+  cyno burst, attack, skill, 
+       attack:4, skill, 
+       attack:3, skill, 
+       attack:4, skill,
+       attack:4, skill,
+       attack:4, skill,
+       attack:3, skill, attack;
+}

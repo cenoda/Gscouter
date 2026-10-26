@@ -1,0 +1,16 @@
+active ororon;
+for let i=0; i<4; i=i+1 {
+  ororon burst, skill;
+  chevreuse burst, skill[hold=1], attack;
+  sara skill, aim;
+  if .sara.burst.ready {
+    sara burst;
+  }
+  chasca skill, aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}
+wait(82);

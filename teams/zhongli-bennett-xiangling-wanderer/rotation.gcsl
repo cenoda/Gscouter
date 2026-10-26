@@ -1,0 +1,8 @@
+active bennett;
+for let i=0; i<4; i=i+1 {
+  bennett skill;
+  zhongli skill[hold=1], dash, attack:2;
+  bennett burst, skill;
+  xiangling burst, skill;
+  wanderer attack, burst, skill, charge:13, skill, low_plunge;
+}

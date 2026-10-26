@@ -1,0 +1,20 @@
+id: hutao-yelan-xingqiu-travelerpyro
+name: Hutao / Yelan / Xingqiu / Travelerpyro
+members:
+    - hutao
+    - yelan
+    - xingqiu
+    - luminepyro
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/PtWt7F6zFQdJ
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    hutao: start_hp%=1
+    luminepyro: base_atk_buff=1, skirk_story_buff=1
+reference:
+    dps: 73051
+    computed: "2026-10-02"

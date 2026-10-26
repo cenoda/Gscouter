@@ -1,0 +1,17 @@
+active yelan;
+for let i=0; i<6; i=i+1 {
+yelan burst, attack, skill, attack;
+xingqiu attack, burst, attack;
+bennett burst, attack, skill;
+diluc attack, skill,
+      attack, skill,
+      attack, skill,
+      burst;
+      
+yelan attack, skill, attack;
+xingqiu attack, skill, dash, attack;
+diluc attack, skill,
+      attack, skill, 
+      attack, skill, 
+      attack:2;
+}

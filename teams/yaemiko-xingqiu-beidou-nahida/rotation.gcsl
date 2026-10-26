@@ -1,0 +1,27 @@
+active nahida;
+  
+for let i = 0; i < 5; i = i + 1 {
+  nahida skill;
+  while !.nahida.burst.ready {
+    nahida attack;
+  }
+  nahida burst;
+  xingqiu skill, dash, burst, attack;
+  yae skill:2, attack, skill;
+  let perfect_e1 = rand();
+  if perfect_e1 < 0.1 {
+    beidou skill[counter=2];
+  } else {
+    beidou skill[counter=1];
+  }
+  beidou burst;
+  wait(7);
+  yae attack:19;
+  let perfect_e2 = rand();
+  if perfect_e2 < 0.1 {
+    beidou skill[counter=2];
+  } else {
+    beidou skill[counter=1];
+  }
+  print("end");
+}

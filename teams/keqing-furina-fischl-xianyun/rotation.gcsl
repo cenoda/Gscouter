@@ -1,0 +1,31 @@
+fn KeqingPlunge() {
+  keq jump;
+  if .airborne {
+    keq high_plunge[collision=rand()>0.5];
+  }
+}
+active fischl;
+for let i = 0; i < 4; i = i + 1 {
+  fischl attack, skill;
+  
+  furina skill, dash, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  keq skill:2; 
+  KeqingPlunge(); keq dash;
+  KeqingPlunge(); keq dash;
+  KeqingPlunge(); keq dash;
+  KeqingPlunge(); 
+  
+  fischl attack:2, burst;  
+  
+  xianyun attack:2, charge;
+  
+  keq skill:2;
+  KeqingPlunge(); keq dash;
+  KeqingPlunge(); keq dash;
+  KeqingPlunge(); keq dash;
+  KeqingPlunge(); 
+  keq attack, charge, attack, charge, attack, burst;
+}

@@ -1,0 +1,7 @@
+active baizhu;
+for let i=0; i<6; i=i+1 {
+  baizhu attack, skill, burst;
+  xingqiu skill, dash, burst, attack;
+  raiden attack, skill, attack;
+  kaveh skill, burst, attack:7, walk, attack:4, skill, attack:5;
+}

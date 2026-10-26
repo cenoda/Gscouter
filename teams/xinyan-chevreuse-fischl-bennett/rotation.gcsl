@@ -1,0 +1,27 @@
+active xinyan; 
+for let r = 4; r > 0; r = r - 1 {
+  bennett skill, burst;
+  
+  fischl attack:1;
+  if .fischl.skill.ready {
+    fischl skill;
+  } else {
+    fischl attack, burst;
+  }
+  
+  chevreuse burst, skill[hold=1]:3;
+  
+  xinyan swap;
+  
+  while .xinyan.infusion.bennett-fire-weapon || .status.bennettburst { 
+    if .xinyan.skill.ready {
+      xinyan skill;
+    } else if .xinyan.burst.ready {
+      xinyan burst;
+    } else if .xinyan.normal > 2 && .stam > 18 {
+      xinyan dash;
+    } else {
+      xinyan attack;
+    }
+  }
+}

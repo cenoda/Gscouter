@@ -1,0 +1,12 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 5; i = i + 1 { 
+  bennett burst, skill;
+  sara skill, aim;
+  delay(11); 
+  xiangling burst, skill;
+  sara burst;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  bennett skill;
+  xiangling attack:3;
+}

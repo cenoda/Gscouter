@@ -1,0 +1,15 @@
+active neuv;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  furina attack:2, skill, dash;
+  sucrose attack, burst;
+  durin skill, attack, burst;
+  sucrose swap;   wait(6);  
+  sucrose attack, skill, dash;
+  furina burst;
+  neuvillette charge, skill, charge, burst;
+  durin skill, attack;
+  sucrose attack, skill, dash;
+  neuvillette charge:2;
+}
+wait(173);

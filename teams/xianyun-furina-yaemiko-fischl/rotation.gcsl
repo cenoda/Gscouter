@@ -1,0 +1,51 @@
+fn xianyunCombo() {
+  
+  if .xianyun.skill.ready {
+    xianyun skill, low_plunge;
+  } else if .xianyun.status.xianyun-airborne-buff {
+    
+    xianyun jump;
+    if .airborne {
+      xianyun low_plunge[collision=rand()>0.5], attack;
+    }
+  } else {
+    
+    if .xianyun.normal > 2 && .xianyun.dash.ready {
+      xianyun dash;
+    } else {
+      xianyun attack;
+    }
+  }
+}
+active yae;
+for let i=0; i<4; i=i+1 {
+  yae skill:3;
+  
+  fischl attack, skill;
+  
+  furina skill, dash, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  for let h = 0; h < 3; h = h + 1 {
+    if .xianyun.skill.ready {
+      xianyun skill, low_plunge;
+    } else if .xianyun.status.xianyun-airborne-buff {
+      
+      xianyun jump;
+      if .airborne {
+        xianyun low_plunge[collision=rand()>0.5], attack;
+      }
+    }
+  }
+  
+  fischl attack:2, burst;
+  
+  yae skill:3;
+  
+  while .fischl.oz {
+    xianyunCombo();
+  }
+  
+  print("done");
+}

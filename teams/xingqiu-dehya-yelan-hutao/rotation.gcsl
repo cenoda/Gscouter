@@ -1,0 +1,19 @@
+active xingqiu ;
+for let i=0; i<4; i=i+1 {
+  xingqiu burst, attack;
+  dehya skill,attack,skill;
+  yelan attack, burst, attack;
+  xingqiu skill, dash, attack:2;
+  yelan attack, skill, attack;
+  hutao skill,
+      attack:1, charge, jump,
+      attack:2, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:2, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump;
+  yelan skill, attack:3;
+}

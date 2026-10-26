@@ -1,0 +1,15 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+    neuvillette skill;
+    furina attack, skill, dash, attack;
+    kazuha skill, high_plunge, burst;
+    aethergeo burst, skill[short_hold=1];
+    while !pick_up_crystallize("hydro") {
+      wait(1);
+    }
+    furina burst; 
+    neuvillette charge, skill, charge, burst;
+    kazuha skill, high_plunge;
+    neuvillette charge, charge;
+}
+ wait(173);

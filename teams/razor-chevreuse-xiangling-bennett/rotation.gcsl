@@ -1,0 +1,38 @@
+active razor; 
+razor skill, dash; 
+for let i=0; i<4; i=i+1 {
+  if .bennett.burst.ready && .bennett.energy == .bennett.energymax {
+    bennett burst, skill;
+  } else {
+    bennett skill, burst;
+  }
+  
+  chev burst, skill[hold=1]:3;
+  
+  if .xl.burst.ready && .xl.energy == .xl.energymax {
+    xl burst;
+  }
+  xl skill[a4_delay=540], dash; 
+
+  switch {
+    case .razor.skill.ready && .razor.burst.ready && .razor.energy == .razor.energymax:
+      razor skill, dash, attack, burst;
+    case .razor.burst.ready && .razor.energy == .razor.energymax:
+      razor burst;
+    case .razor.skill.ready:
+      razor skill, dash;
+    default:
+      razor attack;
+  }
+
+  while .chev.skill.cd > 210 { 
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+  
+}

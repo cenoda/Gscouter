@@ -1,0 +1,13 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  jean burst, skill;
+  eula skill, burst, walk, attack:4, skill[hold=1], walk[f=11], attack:4;
+  jean skill;
+   while !.jean.mods.favonius-cd {
+   jean attack;
+  }
+  eula attack:2;
+  raiden burst, attack:4, dash, attack:4, skill, attack:4;
+}

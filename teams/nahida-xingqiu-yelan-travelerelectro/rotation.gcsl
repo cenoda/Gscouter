@@ -1,0 +1,16 @@
+active nahida;
+nahida skill;
+for let i = 0; i < 4; i = i + 1 {
+  nahida burst;
+  if i != 0 {
+    nahida attack, charge;
+  }
+  xingqiu burst, attack;
+  lumineelectro skill[hits=3, amulet_delay=107], burst, attack;
+  yelan skill, attack, burst;
+  nahida attack:3, skill, attack, dash, attack, charge;
+  xingqiu skill, dash, attack:2;
+  nahida attack:3, skill, attack, charge;
+  yelan attack:2, skill, attack:2;
+  nahida attack:2, charge, dash, attack:3, skill, attack:2;
+}

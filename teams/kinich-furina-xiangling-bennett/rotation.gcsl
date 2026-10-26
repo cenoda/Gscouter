@@ -1,0 +1,30 @@
+fn kinich_combo() {
+  kinich skill;
+  kinich attack;
+  while .kinich.nightsoul.state {
+    if .kinich.nightsoul.points == 20 {
+      kinich skill[hold=1];
+      continue;
+    }
+    kinich attack;
+  }
+}
+active kinich; 
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  bennett burst, skill;
+  
+  xl burst, skill, dash;
+  
+  kinich_combo();
+  if .kinich.burst.ready {
+    kinich burst;
+  }
+  
+  bennett skill;
+}

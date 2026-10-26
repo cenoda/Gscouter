@@ -1,0 +1,17 @@
+id: xiao-faruzan-jean-bennett
+name: Xiao / Faruzan / Jean / Bennett
+members:
+    - xiao
+    - faruzan
+    - jean
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/GgN9BWWtpK7F
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 51730
+    computed: "2026-10-01"

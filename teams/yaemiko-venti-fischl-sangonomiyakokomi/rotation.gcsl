@@ -1,0 +1,21 @@
+active fischl;
+for let i=0; i<4; i=i+1 {
+  fischl attack:2, skill;
+  yaemiko skill:3;
+  kokomi attack:2, skill;
+  venti burst, skill, attack;
+  yaemiko burst, skill:3;
+  kokomi attack:2;
+  fischl attack:2, burst;
+  venti skill, attack;
+  kokomi burst,
+    attack:2, dash,
+    attack:2, dash,
+    attack:2, dash,
+    attack:2, dash,
+    attack:2, dash,
+    attack:2, dash,
+    attack:3
+    ;
+  venti skill, attack;
+}

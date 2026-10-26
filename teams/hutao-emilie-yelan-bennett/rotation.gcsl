@@ -1,0 +1,27 @@
+active emilie;
+for let i=0; i<4; i=i+1 {
+  if i > 0 && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  bennett skill, burst, attack;
+  
+  hutao skill,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:1, charge, jump;
+}

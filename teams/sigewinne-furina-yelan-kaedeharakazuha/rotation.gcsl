@@ -1,0 +1,12 @@
+active furina;
+for let x=0; x<4; x=x+1 {
+  furina skill;
+  kazuha skill,high_plunge,burst;
+  furina burst;
+  sigewinne attack:2,skill;
+  yelan burst, attack,skill,attack:4;
+  kazuha skill,high_plunge,attack:2;
+  furina attack:3,dash,attack:3,dash;
+  
+  yelan attack:4,skill,attack:3;
+}

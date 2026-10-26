@@ -1,0 +1,22 @@
+active bennett;	
+bennett skill;
+for let i=0; i<4; i=i+1 {
+    zhongli skill[hold=1], dash;
+    while !.zhongli.mods.favonius-cd {
+        zhongli attack;
+    }
+    navia burst;
+    pick_up_crystallize("any");
+    bennett skill, burst;
+    pick_up_crystallize("any");
+    pick_up_crystallize("any");
+ ayaka dash, burst,skill,attack,charge;
+    pick_up_crystallize("any");
+    navia attack;
+    pick_up_crystallize("any");
+    navia skill, attack:3, dash, attack:2;
+    pick_up_crystallize("any");
+    navia skill[hold=1], attack:3;
+    ayaka skill;
+    bennett skill;
+}

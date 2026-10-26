@@ -1,0 +1,21 @@
+active dori;
+dori burst;
+for let i=0; i<4; i=i+1 {
+  nahida skill, attack;
+  if .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  furina skill, dash, burst;
+  
+  sayu burst;
+  
+  dori skill; wait(5); 
+  
+  sayu skill[hold=600];
+  
+  dori skill, attack:2, burst;
+  print("done");
+}

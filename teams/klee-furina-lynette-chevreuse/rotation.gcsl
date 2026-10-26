@@ -1,0 +1,20 @@
+active furina;
+furina skill, dash, burst;
+for let i=0; i<4; i=i+1 {
+  if i {
+    furina burst, skill, attack;
+  }
+  lynette burst, attack;
+  chev skill[hold=1], burst;
+  lynette skill;
+  klee attack, burst, walk, attack[travel=6], charge;
+  if !i {
+    klee attack[travel=6], charge, attack, skill[bounce=3, mine=8], jump;
+  }
+  klee attack[travel=6], charge, attack, skill[bounce=3, mine=8], jump;
+  for let r = 5; r> 0; r = r - 1 {
+    klee attack[travel=6], charge, jump; 
+  }  
+  klee attack;
+  lynette skill, attack;
+}

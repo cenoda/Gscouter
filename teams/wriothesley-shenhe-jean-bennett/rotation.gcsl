@@ -1,0 +1,25 @@
+active shenhe;
+for let i=0; i<4; i=i+1 {
+  shenhe attack:2, skill[hold=1], burst;
+  if !.shenhe.mods.favonius-cd {
+    shenhe attack;
+  }
+  bennett skill, burst;
+  jean skill, burst, attack;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump, 
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3;
+  if .wrio.burst.ready && .wrio.energy == .wrio.energymax  {
+    wrio burst;
+  } else {
+    
+  }
+  jean attack, skill;
+  if !.jean.mods.favonius-cd {
+    jean attack;
+  }
+}

@@ -1,0 +1,29 @@
+fn rand_counter() {
+  let counter = rand();
+  if counter > 0.6 {
+    counter = 2;
+  } else {
+    counter = 0;
+  }
+  return counter;
+}
+active beidou; 
+for let r = 0; r < 4; r = r + 1 {
+  fischl attack, skill;
+  chev burst, skill[hold=1];
+  beidou skill[counter=rand_counter()], burst;
+  yanfei skill, charge, 
+         attack:2, burst,
+         attack:2, charge,
+         attack:2, charge;
+  fischl attack:2, burst;
+  chev skill[hold=1], attack:2;
+  beidou skill[counter=rand_counter()];
+  yanfei skill, charge,
+         attack:2, charge, 
+         attack:2, charge,
+         attack:2, charge,
+         attack:2, charge,
+         attack:2, charge;
+  
+}

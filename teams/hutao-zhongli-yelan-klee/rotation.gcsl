@@ -1,0 +1,22 @@
+active zhongli;
+for let x=0; x<3; x=x+1 {
+  zhongli skill[hold=1];
+  while( !.zhongli.mods.favonius-cd ) {
+    zhongli attack;
+  }
+  yelan skill, burst, attack, skill, attack;
+  klee skill, attack:2;
+  hutao skill,
+    attack:1, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash;
+    
+}

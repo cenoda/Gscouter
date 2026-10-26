@@ -1,0 +1,17 @@
+id: chasca-fischl-furina-nicole
+name: Chasca / Fischl / Furina / Nicole
+members:
+    - chasca
+    - fischl
+    - furina
+    - nicole
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/C8HbCMkfj9mg
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 82218
+    computed: "2026-10-02"

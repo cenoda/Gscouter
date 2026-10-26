@@ -1,0 +1,33 @@
+fn DoriPlunge() {
+  if .dori.mods.xianyun-airborne-buff {
+    dori jump;
+    if .airborne {
+      dori high_plunge[collision=rand()>0.5];
+    }
+  }
+}
+active dori; 
+for let x=0; x<4; x=x+1 {
+  furina skill, dash, burst;
+  
+  dori skill, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  sara skill, aim;
+  sara attack;
+
+  dori skill, attack;
+  DoriPlunge(); dori dash;
+  DoriPlunge(); dori dash;
+  DoriPlunge();
+  
+  xianyun attack:2, charge;
+  
+  sara burst;
+  
+  dori skill, attack;
+  DoriPlunge(); dori dash;
+  DoriPlunge(); dori dash;
+  DoriPlunge();
+}

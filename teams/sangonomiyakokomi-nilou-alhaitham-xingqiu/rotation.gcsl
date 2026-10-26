@@ -1,0 +1,16 @@
+active nilou;
+for let i=0; i<4; i=i+1 {
+  nilou skill, attack:2, skill;
+  xingqiu skill, burst, attack;
+  alhaitham burst;
+  kokomi skill;
+  alhaitham attack:3, dash, 
+    attack:3, dash, 
+    attack:2, charge, 
+    attack:3, charge, 
+    attack:3;
+  if .kokomi.burst.ready {
+    kokomi burst;
+  }
+  alhaitham skill, attack, charge, attack:3, dash, attack:3;
+}

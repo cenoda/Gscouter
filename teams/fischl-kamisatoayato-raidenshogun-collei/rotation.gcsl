@@ -1,0 +1,25 @@
+active raiden;
+let t = 0;
+    raiden skill;
+for let i=0; i<4; i=i+1 {
+    t = f();
+    kamisatoayato burst;
+    collei skill;
+    fischl skill, attack;
+    kamisatoayato skill, attack:16;
+    raiden skill, attack;
+    fischl attack, burst;
+    collei burst, skill;
+    kamisatoayato skill, attack:16;
+    while f() - t <= 25.5*60 || !.kamisatoayato.burst.ready {
+        if .raiden.burst.ready {
+            raiden burst;
+        }
+        if .raiden.normal > 4 {
+            raiden dash;
+        }
+        raiden attack;
+    }
+    
+    print("done");
+}

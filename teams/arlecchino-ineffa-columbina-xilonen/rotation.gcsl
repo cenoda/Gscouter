@@ -1,0 +1,27 @@
+active arle;
+for let i = 0; i < 6; i = i + 1 {
+  arle skill; 
+  if is_even(i) {
+    columbina attack, skill;
+  } else {
+    columbina burst, skill;
+  }
+  xilonen skill, attack:2;
+  if is_even(i) {
+    ineffa skill, burst;
+  } else {
+    ineffa skill, attack;
+  }
+  arle attack:2, charge,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash;
+  if !is_even(i) {
+    print("beep");
+    arle attack:3, dash;
+    arle attack:3;
+  }
+}

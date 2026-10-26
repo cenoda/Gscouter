@@ -1,0 +1,23 @@
+active ineffa;
+for let i=0; i<6; i=i+1 {
+  ineffa skill;
+  if i && .ineffa.burst.ready {
+    ineffa burst;
+  } else {
+    ineffa attack;
+  }
+  columbina skill;
+  if .columbina.burst.ready {
+    columbina burst;
+  } else {
+    columbina attack:2;
+  }
+  bennett skill, burst;
+  chasca skill;
+  chasca aim:4;
+  chasca aim[bullets=4];
+  if is_even(i) {
+    chasca burst;
+  }
+  bennett skill, attack;
+}

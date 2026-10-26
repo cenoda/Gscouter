@@ -1,0 +1,19 @@
+let UseXilonenDash = false;  
+active bennett;
+for let i=0; i<4; i=i+1 {
+  bennett skill, burst;
+  xilonen skill, attack:2;
+  if UseXilonenDash == true {
+    xilonen dash;   
+  }
+  pick_up_crystallize("pyro");
+  citlali skill, burst;
+  chasca skill;
+  chasca aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}
+wait(82);

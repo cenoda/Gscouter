@@ -1,0 +1,30 @@
+active razor; 
+razor skill, dash; 
+for let i=0; i<4; i=i+1 {
+  
+  if .chev.burst.ready {
+    chev burst, skill[hold=1]:2;
+    if !.chev.mods.favonius-cd {
+      chev skill[hold=1];
+    }
+  } else {
+    chev attack, skill[hold=1];
+    if !.chev.mods.favonius-cd {
+      chev attack;
+    }
+  }
+  
+  durin skill:2, burst;
+  
+  nicole skill, burst;
+  
+  razor skill[hold=0]; 
+  razor dash, attack, burst;
+  razor attack:1, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:2, skill, dash;
+}

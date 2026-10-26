@@ -1,0 +1,27 @@
+active bennett;
+for let i = 0; i < 4; i = i + 1 {
+  bennett skill, burst;
+  
+  if ( i / 2 ) * 2 !=i {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  
+  amy attack;
+  if .amy.skill.ready {
+    amy skill;
+  } else {
+    amy attack, burst;
+  }
+  
+  bennett skill;
+  
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack:2;
+  
+  if ( i / 2 ) * 2 ==i {
+    yoimiya burst;
+  } else {
+    yoimiya attack:3;
+  }
+}

@@ -1,0 +1,12 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+nahida skill,burst;
+kuki skill;
+candace skill,burst,attack;
+heizou attack,burst,skill;
+nahida attack,skill;
+kuki attack,burst;
+candace skill,attack;
+heizou attack:2;
+candace attack:3;
+}

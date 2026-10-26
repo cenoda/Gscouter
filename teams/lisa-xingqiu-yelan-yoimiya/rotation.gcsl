@@ -1,0 +1,9 @@
+active lisa;
+for let i = 0; i < 4; i = i + 1 {
+ lisa skill[hold=1], burst;
+  xingqiu  burst, attack, skill, dash;
+  yelan burst, attack, skill, attack;
+  yoimiya attack, skill, attack:5, dash, attack:5, dash, attack:5;
+  yelan attack:2, skill; 
+  lisa attack:4;
+   }

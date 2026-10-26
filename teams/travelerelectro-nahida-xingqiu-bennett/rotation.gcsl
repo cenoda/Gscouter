@@ -1,0 +1,18 @@
+active lumineelectro;
+for let i = 0; i < 5; i = i + 1 {
+  lumineelectro skill;
+  xingqiu skill, dash, burst, attack;
+  nahida skill, attack;
+  if .nahida.burst.ready {
+    nahida burst;
+  }
+  bennett attack, burst, skill;
+  lumineelectro burst, attack:2;
+  bennett skill;
+  lumineelectro attack:5;
+  bennett skill;
+  lumineelectro attack:5;
+  bennett skill;
+  lumineelectro attack:6;
+  bennett skill;
+}

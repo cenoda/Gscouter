@@ -1,0 +1,8 @@
+active zhongli;
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], dash, attack;
+  nahida skill, burst, attack;
+  raiden skill;
+  mona skill, burst, attack:4, dash, attack:4, dash, attack:4, dash;
+  mona attack:4, dash, skill, attack:4, dash, attack:4, dash, attack:4;
+}

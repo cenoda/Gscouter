@@ -1,0 +1,22 @@
+active gaming;
+for let i=0; i<4; i=i+1 {
+  xianyun skill, low_plunge, burst;
+  bennett skill, burst;
+  if i == 0 {
+    xianyun attack:2;
+  }
+  rosaria skill, burst;
+  gaming burst;
+  wait(45);
+  for let p=0; p<4; p=p+1 {
+    gaming skill;
+    wait(20);
+    gaming low_plunge;
+  }
+  for let p=0; p<2; p=p+1 {
+    gaming skill;
+    wait(40);
+    gaming low_plunge;
+  }
+  gaming skill, high_plunge, dash;
+}

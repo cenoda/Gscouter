@@ -1,0 +1,40 @@
+active lyney;
+for let i = 0; i < 4; i = i + 1 {
+  if i > 0 { 
+    lyney aim[weakspot=1];
+  }
+  
+  while .amber.skill.ready {
+    amber skill;
+  }
+  if .amber.burst.ready {
+    amber burst;
+  }
+  if !.bennett.burst.ready {
+    bennett skill;
+  }
+  bennett burst;
+  
+  lynette skill;
+  if .lynette.skill.ready {
+    lynette skill;
+  }
+  for let i = 0; i < 2; i = i + 1 { 
+    if !.lynette.burst.ready {
+      lynette attack;
+    }
+  }
+  lynette burst;
+   
+  lyney aim[weakspot=1], aim, aim;
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(11); 
+    lyney skill;
+  } else {
+    lyney aim;
+  }
+  lyney aim, skill;
+  
+  print("done");
+}

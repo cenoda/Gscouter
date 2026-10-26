@@ -1,0 +1,10 @@
+active zhongli;
+for let i=0; i<4; i=i+1 { 
+	zhongli skill[hold=1], dash, attack;
+	collei skill, burst;
+	nahida attack:2, skill;
+	tighnari skill, aim:3, burst;
+	zhongli attack:3;
+	collei attack:3;
+	tighnari aim;
+}

@@ -1,0 +1,10 @@
+active beidou;
+for let i=0; i<4; i=i+1 {
+   beidou attack, skill[counter=2];
+   nahida attack:2, skill,  burst;
+   xingqiu skill, dash, burst, attack:2;
+   sara skill, aim, burst;
+   beidou skill[counter=2], burst;
+   sara attack:2, aim, attack:3, aim, attack:3, aim, attack:2, skill, aim;
+  
+}

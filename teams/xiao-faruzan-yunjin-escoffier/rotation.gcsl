@@ -1,0 +1,18 @@
+active escoffier;
+for let i=0; i<4; i=i+1 {
+  escoffier skill;
+  if .escoffier.burst.ready {
+    escoffier burst;
+  }
+  
+  faruzan skill, burst;
+  
+  yunjin skill[hold=2], burst;
+  
+  xiao skill:2, burst,
+       attack:4, dash,
+       attack:4, dash,
+       attack:4, dash,
+       attack:4, dash,
+       attack:5;
+}

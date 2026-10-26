@@ -1,0 +1,22 @@
+id: fischl-furina-kirara-bennett
+name: Fischl / Furina / Kirara / Bennett
+members:
+    - fischl
+    - furina
+    - kirara
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/cDc7PQzqTNKh
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    bennett: start_hp%=75
+    fischl: start_hp%=85
+    furina: start_hp%=55
+    kirara: start_hp%=75
+reference:
+    dps: 59376
+    computed: "2026-10-02"

@@ -1,0 +1,15 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 { 
+  neuvillette skill;
+  furina skill, dash, burst;
+  emilie attack, skill;
+  xiangling burst, skill;
+  neuvillette charge, burst, skill, charge;
+  emilie burst;
+  xiangling attack:3, skill, dash;
+  if !.xiangling.mods.favonius-cd {
+    xiangling attack;
+  }
+  neuvillette charge, charge;
+}
+wait(173);

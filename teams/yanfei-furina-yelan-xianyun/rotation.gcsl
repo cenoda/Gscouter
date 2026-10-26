@@ -1,0 +1,30 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  xianyun skill, low_plunge, attack, burst;
+  
+  yanfei attack;
+  while .xianyun.status.xianyun-airborne-buff {
+    if .yanfei.skill.ready {
+      yanfei skill, attack;
+    } else {
+      yanfei jump;
+      if .airborne {
+        yanfei low_plunge[collision=rand()>0.5];
+        
+      }
+      if .xianyun.status.xianyun-airborne-buff { 
+        yanfei attack;
+      }
+    }
+  }
+  
+}

@@ -1,0 +1,31 @@
+active razor; 
+razor skill, dash; 
+  
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if !.furina.burst.ready && !.furina.mods.favonius-cd {
+    furina attack;
+  }
+  furina burst;
+  
+  escoffier skill, burst;
+  
+  mona skill, burst, attack;
+
+  if i == 0 {
+    razor skill;
+  } else {
+    razor skill[hold=1]; 
+  }
+  razor dash, attack, burst, attack, skill, dash;
+  
+  while .razor.mods.razor-q > 210 { 
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+}

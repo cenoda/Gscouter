@@ -1,0 +1,12 @@
+active furina;
+for let r = 4; r > 0; r = r - 1 {
+  if !.bennett.burst.ready {bennett skill;}
+  furina skill, burst; 
+  bennett skill, burst, attack;
+  kazuha skill, high_plunge;
+  lyney aim[weakspot=1], aim, aim;
+  lyney burst; 
+  lyney skill;
+  lyney aim, skill, aim[weakspot=1];
+}
+sleep(9);

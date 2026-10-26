@@ -1,0 +1,30 @@
+fn kinich_combo() {
+  kinich skill;
+  while .kinich.nightsoul.state {
+    switch .kinich.nightsoul.points {
+      case 20:
+        kinich skill[hold=1];
+      default:
+        if .kinich.blind_spot {
+          kinich attack[direction=.kinich.blind_spot];
+        } else {
+          kinich attack;
+        }
+    }
+  }
+  if .kinich.burst.ready && .kinich.energy == .kinich.energymax {
+	  kinich burst;
+  }
+}
+active kinich;
+for let i=0; i<4; i=i+1 {
+  ororon skill, burst;
+  if is_even(i) {
+    emilie skill, attack;
+  } else {
+    emilie burst;
+  }
+  bennett skill, burst;
+  kinich_combo();
+  bennett skill, dash;
+}

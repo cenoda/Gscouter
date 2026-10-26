@@ -1,0 +1,17 @@
+id: travelerhydro-nahida-xiangling-bennett
+name: Travelerhydro / Nahida / Xiangling / Bennett
+members:
+    - luminehydro
+    - nahida
+    - xiangling
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/LJcJC6M7hQMD
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 31772
+    computed: "2026-09-30"

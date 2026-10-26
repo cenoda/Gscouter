@@ -1,0 +1,22 @@
+active bennett;
+for let i = 0; i < 3; i = i + 1 {
+    
+    bennett burst,skill;
+    sara burst;
+    
+    fischl attack:2, skill;
+    sara attack,skill;
+    chevreuse attack, burst, attack, skill[hold=1]:2;
+    bennett attack:3, skill, attack:3, skill;
+    sara attack, walk, aim;
+    fischl attack:3; 
+
+    bennett burst,skill;
+    sara attack, skill;
+    
+    fischl attack:2, burst;
+    chevreuse attack, burst, attack, skill[hold=1]:2;
+    bennett attack:3, skill, attack:3, skill;
+    sara attack, walk, aim;
+    fischl attack:3;
+}

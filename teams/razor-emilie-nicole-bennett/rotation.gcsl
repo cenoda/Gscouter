@@ -1,0 +1,29 @@
+active razor; 
+for let i=0; i<4; i=i+1 {
+  
+  if i > 0 && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack; 
+  }
+  
+  nicole skill, burst;
+  
+  bennett skill, dash, burst;
+  
+  razor skill, dash, attack, burst, attack:1, skill, dash; 
+  
+  while .razor.mods.razor-q > 240 { 
+  
+    if .razor.normal > 3 {
+      if .razor.skill.ready {
+        razor skill, dash;
+      } else {
+        razor dash;
+      }
+    } else {
+      razor attack;
+    }
+  }
+  razor skill, dash;
+}

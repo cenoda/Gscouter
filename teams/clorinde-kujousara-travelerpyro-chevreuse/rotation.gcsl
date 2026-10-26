@@ -1,0 +1,42 @@
+fn clorinde_combo_opener() {
+  clorinde skill, attack:3, skill;
+  set_player_pos(0, -5); 
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+      set_player_pos(0, 0);
+    } else {
+      clorinde attack;
+    }
+  }
+}
+fn clorinde_combo_rotation() {
+  clorinde skill, attack, skill; 
+  set_player_pos(0, -5); 
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+      set_player_pos(0, 0);
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active sara;
+sara skill, attack:2;
+luminepyro skill, burst;
+chevreuse burst, skill[hold=1];
+sara burst;
+clorinde_combo_opener();
+for let i=0; i<4; i=i+1 {
+  sara aim;
+  chevreuse skill[hold=1], attack;
+  clorinde attack, burst, attack:2;
+  luminepyro skill, burst;
+  if .sara.burst.ready {
+    sara skill, burst;
+  } else {
+    sara skill, attack;
+  }
+  clorinde_combo_rotation();
+}

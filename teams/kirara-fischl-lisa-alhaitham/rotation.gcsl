@@ -1,0 +1,12 @@
+active fischl;
+for let i=0; i<5; i=i+1 {
+  fischl skill;
+  kirara burst, skill[short_hold=1];
+  lisa attack, burst;
+  alhaitham skill[hold=1], low_plunge, attack:3, dash, attack:3, dash, attack:3;
+  fischl attack:2, burst;
+  kirara skill[short_hold=1];
+  alhaitham burst;
+  lisa attack:3;
+  alhaitham attack:3, dash, attack:3, charge, attack:3, dash, attack:3, dash, attack:4;
+}

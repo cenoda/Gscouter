@@ -1,0 +1,15 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+    
+    neuvillette skill;
+    navia burst;
+    furina skill, dash, burst;
+    navia skill[hold=1];
+    kazuha skill, high_plunge; 
+    
+    neuvillette charge, burst, skill, charge;
+    kazuha skill, high_plunge; 
+    navia skill[hold=1];
+    neuvillette charge, charge;
+}
+wait(173);

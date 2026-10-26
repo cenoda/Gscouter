@@ -1,0 +1,17 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  baizhu attack,skill,burst;
+  fischl burst;
+  sucrose attack,skill,burst;
+  raidenshogun burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  sucrose attack:2;
+  if .fischl.skill.ready
+  {
+    fischl skill;
+  }
+  else
+  {
+    sucrose skill;
+  }  
+}

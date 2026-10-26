@@ -1,0 +1,15 @@
+active mona;
+mona skill;
+for let i = 0; i < 4; i = i + 1 {
+  
+  nicole skill, burst;
+  durin skill:2, burst;
+  mona burst, attack; 
+  kirara skill[short_hold=1];
+  mona charge; delay(22);
+  mona charge; delay(13);
+  mona charge;delay(24);
+  mona charge; delay(1);
+  mona charge, skill;
+  
+}

@@ -1,0 +1,27 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+	pick_up_crystallize("any"); 
+  }
+	
+  return _execute_action(char_id, action_id, p);
+}
+active gorou;
+for let i=0; i<4; i=i+1 {
+    gorou attack, skill, attack; 
+    while !.gorou.mods.favonius-cd {
+      gorou attack;
+    }
+    navia burst;
+    bennett burst, skill;
+    xiangling burst, skill;
+    gorou burst;
+    navia skill[hold=1], attack:3, dash, attack:2;
+    gorou attack:3, dash; 
+    navia skill[hold=1], attack:3, dash, attack:2;
+    if .navia.skill.ready {
+      navia skill[hold=1];
+    }
+    bennett skill, dash;
+    xiangling attack:2, dash;
+}

@@ -1,0 +1,10 @@
+active mavuika; 
+for let i = 0; i < 4; i = i + 1 {
+  arlecchino skill, attack;
+  xiangling skill, attack:2;
+  xilonen skill, attack:2;
+  mavuika attack, skill;
+  xiangling burst;
+  mavuika burst, charge:2;
+  arlecchino charge, attack:15;
+}

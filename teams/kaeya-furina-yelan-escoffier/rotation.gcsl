@@ -1,0 +1,20 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  esco skill, attack, burst;
+  yelan burst, attack, skill;
+  if .yelan.breakthrough {
+    yelan aim, attack;
+  }
+  else {
+    yelan attack:2;
+  }
+  kaeya skill, attack, burst;
+  yelan attack:4, dash,
+        attack:4;
+  kaeya skill, attack;
+  wait(9); 
+  yelan attack:2, skill,
+        attack:4, dash,
+        attack:2;
+}

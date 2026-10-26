@@ -1,0 +1,11 @@
+active yae;
+for let x = 0; x < 4; x = x + 1{
+	yae skill:3;
+  dehya skill:2;
+  chevreuse burst, skill[hold=1], attack;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+	if x ==0 || x ==2 {
+	  yoimiya burst;
+	}
+  yae attack:2, charge, dash, attack;
+}

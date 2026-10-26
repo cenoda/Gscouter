@@ -1,0 +1,23 @@
+active razor; 
+for let i=0; i<4; i=i+1 {
+  if i > 0 && .columbina.burst.ready {
+    columbina burst, skill;
+  } else {
+    columbina attack, skill;
+  }
+  
+  nicole skill, burst;
+  
+  bennett skill, dash, burst;
+  
+  razor skill[hold=0], dash, attack, burst;
+  razor attack:0, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:2, skill, dash;
+  
+  bennett skill, dash;
+}

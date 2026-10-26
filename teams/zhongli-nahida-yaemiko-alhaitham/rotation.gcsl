@@ -1,0 +1,11 @@
+active yae;
+for let i = 0; i < 5; i = i + 1 {
+  yae skill:3;
+  zhongli skill[hold=1], dash, attack;
+  nahida skill, burst;
+  alhaitham skill, attack:3, charge, attack:4;
+  yae skill:3;
+  alhaitham burst;
+  nahida attack, skill, charge;
+  alhaitham attack:3, dash, attack:3, dash, attack:3, charge, attack:3, dash, attack:3;
+}

@@ -1,0 +1,13 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, attack, burst;
+  
+  esco skill, burst;
+  
+  ororon skill, burst;
+  
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  
+  esco attack:2, dash, attack:2; 
+}

@@ -1,0 +1,13 @@
+active luminedendro;
+for let i=0; i<4; i=i+1 { 
+    luminedendro skill, attack, burst;
+    kuki skill, dash, attack;
+    yelan burst, attack, skill, attack;
+    heizou  attack, charge, attack, burst, attack, skill;
+    luminedendro attack, skill;
+    heizou attack:3, charge;
+    kuki attack, burst;
+    yelan attack, skill;
+    heizou attack:4, charge, attack, skill, attack;
+    print("done");
+}

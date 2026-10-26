@@ -1,0 +1,15 @@
+active luminedendro;
+for let i=0; i<4; i=i+1 {
+  nilou skill, attack:2, skill;
+  collei skill;
+  luminedendro burst, skill, attack:3;
+  kokomi skill;
+  kokomi attack:3, charge;
+  kokomi attack:3, charge;
+  luminedendro skill, attack;
+  collei burst;
+  kokomi burst;
+  kokomi attack:2, charge;
+  kokomi attack:3;
+  kokomi attack, charge;
+}

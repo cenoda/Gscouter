@@ -1,0 +1,10 @@
+active nahida;
+for let i=0; i<4; i=i+1 { 
+  nahida skill, burst;
+  fischl skill;
+  beidou skill, burst;
+  wanderer attack, skill, charge:7, attack, skill, low_plunge, attack;  
+  fischl attack:2, burst;
+  beidou skill;
+  wanderer attack, burst, attack, skill, charge:8, attack, skill, low_plunge;
+}

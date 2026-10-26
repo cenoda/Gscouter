@@ -1,0 +1,25 @@
+fn WaitForCryo() {
+  let StartFrame = f();
+  if !.element.t0.pyro {      
+    while !.element.t0.cryo && f() - StartFrame < 120 {   
+      wait(1);
+    }
+  }
+}
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  nicole skill, burst;
+  sucrose swap;
+  if .sucrose.burst.ready {  
+    sucrose skill, dash, burst;
+  } else {
+    wait(24);   
+    sucrose skill, dash;
+  }
+  citlali skill, burst;
+  arle charge;
+  arle attack:6;
+  arle attack:6;
+  arle attack:3, dash;
+}

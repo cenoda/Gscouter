@@ -1,0 +1,7 @@
+active xinyan;
+for let i=0; i<5; i=i+1 {
+  bennett skill, burst, dash;
+  xinyan skill, burst;
+  mika skill, attack, burst;
+  lyney attack:20, skill;
+}

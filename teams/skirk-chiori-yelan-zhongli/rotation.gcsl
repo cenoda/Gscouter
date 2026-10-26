@@ -1,0 +1,26 @@
+active zhongli;
+for let i = 0; i < 4; i = i + 1 {
+  zhongli skill[hold=1], dash, attack;
+  if !.zhongli.mods.favnoius-cd {
+    zhongli attack;
+  }
+  if is_even(i) {
+    chiori burst;
+  }
+  chiori skill:2;
+  yelan skill, burst, attack:3;
+  if !is_even(i) {
+    yelan attack:2;
+  }
+  skirk skill,
+        attack:2, burst,
+        
+        attack:5, dash,
+        attack:5, dash,
+        attack:5, dash,
+        
+        attack:2, charge, dash,
+          
+        attack:5, dash,
+        attack:2;
+}

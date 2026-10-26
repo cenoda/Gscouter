@@ -1,0 +1,23 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  xilonen burst;
+  
+  furina skill, dash, burst;
+  
+  xilonen skill, attack:2;
+  
+  yunjin skill;
+  
+  yunjin dash; pick_up_crystallize("any");
+  yunjin burst;
+  
+  ayato skill, attack:18;
+  
+  xilonen skill, attack:2;
+  
+  yunjin skill;
+  
+  yunjin dash; pick_up_crystallize("any");
+  
+  ayato burst, skill, attack:11;
+}

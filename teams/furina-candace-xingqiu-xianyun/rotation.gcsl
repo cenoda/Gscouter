@@ -1,0 +1,24 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  xq skill, dash, burst, attack;
+  
+  xianyun skill, low_plunge, attack, burst;
+  
+  candace skill, attack, burst, attack;
+  
+  furina attack;
+  for let p=0; p<8; p=p+1 {
+    if .furina.status.xianyun-airborne-buff {
+      furina jump;
+      if .airborne {
+        furina high_plunge[collision=1];
+        if p < 8 {
+          furina attack;
+        }
+      }
+    }
+  }
+  
+}

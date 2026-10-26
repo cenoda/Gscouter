@@ -1,0 +1,29 @@
+active fischl;
+fischl skill;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  mona burst, attack;
+  
+  bennett burst, skill, dash, attack;
+  
+  if .fischl.skill.ready {
+    fischl attack:1, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  
+  bennett skill, dash;
+  
+  mona attack, skill, attack;
+  
+  while .status.bennettburst || .bennett.infusion.bennett-fire-weapon {
+    if .bennett.skill.ready {
+      bennett skill, dash;
+    } else if .bennett.normal > 2 && .bennett.infusion.bennett-fire-weapon {
+      bennett charge;
+    } else {
+      bennett attack;
+    }
+  }
+}

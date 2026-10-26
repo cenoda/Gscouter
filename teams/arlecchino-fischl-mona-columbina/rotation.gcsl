@@ -1,0 +1,20 @@
+active arle;
+for let i=0; i<4; i=i+1 {
+  
+  arlecchino skill;
+  columbina skill, attack;
+  
+  if (is_even(i)) {
+    fischl attack:2, burst;
+  } else {
+    fischl attack, skill;
+  } 
+  
+  mona burst, attack:3, skill, attack;
+  arlecchino charge,
+             attack:2, charge,
+             attack:2, charge,
+             attack:2, charge,
+             attack:2, charge,
+             attack:6, attack;
+}

@@ -1,0 +1,26 @@
+let weak = 0; 
+active lyney;
+for let i=0; i<5; i=i+1 {
+  lyney aim[weakspot=weak];
+  xilonen skill, attack:2;
+  while !.xilonen.mods.favonius-cd {
+    xilonen attack;
+  }
+  
+  bennett skill, burst, dash;
+  pick_up_crystallize("pyro");
+  
+  zhongli skill[hold=1], dash;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  lyney aim[weakspot=weak], aim:2;
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(11); 
+    lyney skill;
+  } else {
+    lyney aim;
+  }
+  lyney skill;
+}

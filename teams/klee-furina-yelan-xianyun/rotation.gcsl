@@ -1,0 +1,30 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  if !i {
+    furina skill, burst; 
+  } else {
+    furina skill, dash, burst;
+  }
+  yelan skill, burst, skill, attack;
+  xianyun skill, low_plunge, burst;
+  klee attack, skill[bounce=3];
+  
+  for let p = 4; p > 0; p = p - 1 {
+    if p > 1 {
+      klee attack, charge;
+    } else {
+      klee attack;
+    }
+    klee jump;
+    if .airborne {
+      klee low_plunge[collision=rand()>0.5];
+    }
+    if p > 1 {
+      klee attack;
+    }
+    klee jump;
+    if .airborne {
+      klee low_plunge[collision=rand()>0.5];
+    }
+  }
+}

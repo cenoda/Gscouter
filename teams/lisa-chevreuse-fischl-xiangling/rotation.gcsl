@@ -1,0 +1,22 @@
+active lisa;
+lisa attack;
+for let i = 0; i < 4; i = i + 1 {
+  chevreuse burst, skill[hold=1]:2;
+  
+  xl burst, skill, dash;
+  
+  fischl attack, skill;
+  
+  lisa attack, burst, skill[hold=1];
+  lisa attack:1, charge;
+  lisa attack:1, charge;
+  lisa attack:2, charge;
+  
+  xl attack, skill;
+  
+  fischl attack:2, burst;
+  
+  lisa attack:2, charge;
+  lisa attack:2, charge;
+  lisa attack:1, charge;
+}

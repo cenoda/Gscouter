@@ -1,0 +1,24 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active fischl; 
+fischl skill;
+for let i=0; i<4; i=i+1 { 
+  kazuha skill, high_plunge, burst;
+  baizhu skill, attack, burst;
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  kazuha attack, skill[hold=1], high_plunge;
+  clorinde_combo();
+  clorinde burst;
+}

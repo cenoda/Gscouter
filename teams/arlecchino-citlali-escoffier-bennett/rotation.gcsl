@@ -1,0 +1,38 @@
+active arle;
+fn WaitForCryo() {
+  if !.element.t0.pyro {
+    while !.element.t0.cryo {
+      wait(1);
+    }
+  }
+}
+for let i=0; i<4; i=i+1 {
+  if .arle.weapon == .keys.weapon.crimsonmoonssemblance {
+    arle charge;
+  }
+  arle skill; delay(11);
+  bennett skill, burst;
+  escoffier skill, attack;
+  citlali skill, burst;
+  if .arle.cons >= 2 {
+    arle charge[early_cancel=1], dash;
+    wait(47); 
+  } else {
+    arle charge;
+  }
+  WaitForCryo();
+  arle attack:3, dash;
+  WaitForCryo();
+  arle attack:3, dash;
+  WaitForCryo();
+  arle attack:3, dash;
+  WaitForCryo();
+  arle attack:3, dash;
+  WaitForCryo();
+  arle attack:3, dash;
+  WaitForCryo();
+  arle attack:2;
+  if .arle.cons < 2 {
+    arle attack; 
+  }
+}

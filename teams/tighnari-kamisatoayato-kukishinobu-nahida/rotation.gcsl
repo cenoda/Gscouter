@@ -1,0 +1,12 @@
+active ayato;
+for let i=0; i<4; i=i+1 {
+    ayato burst;
+	nahida skill, burst, attack;
+	kuki skill, attack;
+	tighnari skill, aim, burst, aim:2;
+    ayato skill, attack:15;
+	nahida skill, attack, charge;
+    kuki attack, burst, attack, skill;
+	tighnari skill, aim:3;
+    ayato skill, attack:15;
+}

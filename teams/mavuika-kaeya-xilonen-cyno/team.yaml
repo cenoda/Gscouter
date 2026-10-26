@@ -1,0 +1,17 @@
+id: mavuika-kaeya-xilonen-cyno
+name: Mavuika / Kaeya / Xilonen / Cyno
+members:
+    - mavuika
+    - kaeya
+    - xilonen
+    - cyno
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/GhzmbLLJmKcq
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 70538
+    computed: "2026-10-02"

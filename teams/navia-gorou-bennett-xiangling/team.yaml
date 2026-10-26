@@ -1,0 +1,17 @@
+id: navia-gorou-bennett-xiangling
+name: Navia / Gorou / Bennett / Xiangling
+members:
+    - navia
+    - gorou
+    - bennett
+    - xiangling
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/FBd99p9GQ6Bg
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 44958
+    computed: "2026-10-02"

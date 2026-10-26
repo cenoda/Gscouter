@@ -1,0 +1,24 @@
+active layla;
+layla skill;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  esco skill, burst;
+  
+  chongyun burst, skill;
+  
+  while .furina.skill.cd {
+    switch {
+      case .layla.skill.ready:
+        layla skill;
+      case .layla.burst.ready:
+        layla burst;
+      case .layla.normal > 1 && .stam > 25:
+        layla charge;
+      case .layla.normal > 3 && .stam > 18:
+        layla dash;
+      default:
+        layla attack;
+    }
+  }
+}

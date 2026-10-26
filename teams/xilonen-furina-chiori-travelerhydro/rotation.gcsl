@@ -1,0 +1,11 @@
+active furina;
+for let i=0; i<1; i=i+1 {
+  
+furina skill, dash, burst;
+xilonen burst, skill, attack:2;
+chiori burst, skill:2;
+luminehydro skill[hold=1], dash[pickup_droplets=4], burst;
+xilonen skill, attack:2;
+luminehydro attack, charge, dash, attack, charge, dash;
+  
+}

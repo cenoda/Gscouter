@@ -1,0 +1,20 @@
+active raidenshogun;
+  raidenshogun skill;
+for let i=0; i<4; i=i+1 {
+  if !i {
+    nahida skill, burst; 
+  } else {
+    nahida skill, attack, burst; 
+  }
+  fischl attack:2, burst;
+  yelan skill;
+  while !.yelan.burst.ready {
+    yelan attack; 
+  }
+  yelan burst, attack;
+  raidenshogun attack, burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  if .fischl.skill.ready {
+    fischl skill, attack;
+  }
+  print ("done");
+}

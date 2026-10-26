@@ -1,0 +1,37 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  baizhu skill, burst;
+  
+  if .amy.skill.ready {
+    amy attack, skill;
+  }
+  
+  while !.tighnari.skill.cd || .tighnari.mods.vijnanasuffusion {
+    if .tighnari.skill.ready {
+      tighnari skill;
+    } else if .tighnari.burst.ready && .previous-action == .action.aim {
+      tighnari burst;
+    } else if .tighnari.mods.vijnanasuffusion {
+      tighnari aim;
+    }
+  }
+  
+  amy attack:2, burst;
+  
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  
+  while .baizhu.burst.cd > 40 {
+    if .tighnari.skill.ready {
+      tighnari skill;
+    } else if .tighnari.burst.ready && .previous-action == .action.aim {
+      tighnari burst;
+    } else if .tighnari.mods.vijnanasuffusion {
+      tighnari aim;
+    } else if .amy.skill.ready {
+      amy attack, skill;
+    } else {
+      baizhu attack;
+    }
+  }
+}

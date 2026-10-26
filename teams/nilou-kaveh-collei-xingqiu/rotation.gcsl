@@ -1,0 +1,7 @@
+active nilou;
+for let i=0; i<5; i=i+1 {
+  nilou  skill,attack:2,skill;
+  collei skill, burst;
+  xingqiu skill, dash, burst, attack;
+  kaveh burst, skill, attack:12, skill, attack:4;
+}

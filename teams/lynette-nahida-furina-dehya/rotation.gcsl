@@ -1,0 +1,26 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  nahida skill;
+  if .nahida.burst.ready {
+    nahida burst;
+  }
+  nahida charge;
+  if .dehya.skill.cd {
+    nahida attack;
+  }
+  if .dehya.burst.ready {
+    dehya skill, attack, burst, skill;
+  } else { 
+    dehya skill, attack, skill; 
+  }
+  lynette skill, burst,
+          attack:2, charge,
+          attack:2, charge,
+          attack, charge, 
+          attack, charge,
+          skill,
+          attack, charge,
+          attack:2, charge, 
+          attack:2, charge;
+}

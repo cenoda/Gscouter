@@ -1,0 +1,13 @@
+active fischl;
+for let i=0; i<4; i=i+1 {
+  ayato burst;
+  nahida skill, attack, charge;
+  fischl attack, skill;
+  thoma skill, burst, attack;
+  ayato skill, attack:15;
+  fischl attack:2, burst;
+  nahida attack:3, skill, attack:2;
+  thoma skill, attack;
+  ayato skill, attack:15;
+    print("done");
+}

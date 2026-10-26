@@ -1,0 +1,30 @@
+active zhongli;
+for let i=0; i<4; i=i+1 {
+ zhongli skill[hold=1], dash;
+ if i > 0 {
+  while !.zhongli.mods.favonius-cd {
+   zhongli attack;
+   if .zhongli.normal > 5 {
+     zhongli dash;
+   }
+  }
+ }
+ yelan skill, burst, attack;
+ if .fischl.burst.ready {
+  fischl attack, burst;
+ } else {
+  fischl attack, skill, attack;
+ }
+ wanderer attack, skill;
+ while .wanderer.skydweller-points > 3 {
+  if .wanderer.normal < 3 {
+   wanderer attack;
+  } else if .wanderer.mods.wanderer-a4 {
+   wanderer dash;
+  } else {
+   wanderer attack;
+  }
+ }
+ wanderer skill;
+ wanderer attack;
+}

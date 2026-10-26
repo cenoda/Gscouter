@@ -1,0 +1,31 @@
+active fischl;
+fischl skill; 
+for let i = 0; i < 4; i = i + 1 {
+  xingqiu skill, dash;
+  if !.xingqiu.burst.ready {
+    xingqiu attack;
+  }
+  xingqiu burst, attack;
+  
+  ineffa skill, attack;
+  if i == 0 {
+    ineffa burst;
+  }
+  
+  haitham burst;
+  
+  if .amy.skill.ready {
+    amy attack, skill;
+  } else {
+    amy attack:1, burst;
+  }
+  
+  haitham attack:3, dash,
+          attack:3, skill,
+          attack:3, charge, dash,
+          attack:3, dash,
+          attack:3, dash,
+          attack:3, dash,
+          attack:3, dash,
+          attack:3;
+}

@@ -1,0 +1,14 @@
+active furina;
+for let i=0; i<5; i=i+1 {
+  furina skill, dash, attack, burst;
+  venti skill, attack, aim[hold=0]; 
+  faruzan attack, skill, burst, aim; 
+  bennett burst, skill;
+  if i {
+    furina attack:2;
+  }
+  venti skill, burst;
+  faruzan skill, aim:2;
+  venti aim, skill, aim;
+  faruzan skill, aim:2;
+}

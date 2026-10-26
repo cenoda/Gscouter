@@ -1,0 +1,19 @@
+id: hutao-yelan-mona-fischl
+name: Hutao / Yelan / Mona / Fischl
+members:
+    - hutao
+    - yelan
+    - mona
+    - fischl
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/7LRKJg788zJL
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    hutao: start_hp%=1
+reference:
+    dps: 177579
+    computed: "2026-10-02"

@@ -1,0 +1,21 @@
+active furina;
+for let i=0; i<4; i=i+1 { 
+  furina skill, dash, burst;
+  
+  dori skill, attack:2, burst;
+  
+  rosaria skill;
+  while !.rosaria.mods.favonius-cd && !.rosaria.burst.ready {
+    rosaria attack;
+  }
+  rosaria burst;
+  
+  eula skill, burst, walk, attack:4, skill[hold=1], walk[f=11], attack:4;
+  
+  rosaria skill;
+  while !.rosaria.mods.favonius-cd {
+    rosaria attack;
+  }
+  
+  eula attack:2;
+}

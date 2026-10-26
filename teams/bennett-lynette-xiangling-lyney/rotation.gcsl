@@ -1,0 +1,18 @@
+active lynette;
+for let i=0; i<4; i=i+1 {
+  lynette burst;
+  bennett burst, skill;
+  lyney aim[weakspot=1], aim, burst;
+   delay(11); 
+    lyney skill;
+    
+  xiangling burst, skill, dash;
+  bennett skill, attack;
+  lynette skill, 
+          attack:2, charge, 
+          attack:2, charge, 
+          attack:2, charge;
+  bennett skill;
+  lynette skill, attack;
+  lyney aim[weakspot=1], skill;
+}

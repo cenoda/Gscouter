@@ -1,0 +1,48 @@
+active dori; 
+for let i=0; i<6; i=i+1 {
+  amy attack;
+  if .amy.burst.ready {
+    amy attack, burst;
+  } else {
+    amy skill;
+  }
+  
+  if .nahida.skill.ready {
+    nahida skill;
+  }
+  if i > 0 && .nahida.burst.ready {
+    nahida attack, burst;
+  } else {
+    nahida attack, charge;
+  }
+  
+	tighnari skill, aim;
+	if .tighnari.burst.ready {
+	  tighnari burst, aim:2;
+	} else {
+	  tighnari aim:2;
+	}
+  
+  while .fischl.oz {
+    switch {
+      case .dori.skill.ready && .dori.swap.ready:
+        dori skill;
+      case .dori.burst.ready && .dori.swap.ready && !.dori.infusion.dori-c6:
+        dori burst;
+      case .dori.normal > 2 && .dori.dash.ready && .stam > 18:
+        dori dash;
+      case .dori.infusion.dori-c6:
+        dori attack;
+      case .nahida.onfield:
+        nahida attack;
+      case .dori.swap.ready:
+        nahida charge;
+      case .nahida.swap.ready && .nahida.skill.ready:
+        nahida skill;
+      default:
+        dori attack;
+    }
+  }
+  
+  print("done");
+}

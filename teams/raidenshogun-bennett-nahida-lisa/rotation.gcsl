@@ -1,0 +1,11 @@
+active raiden;
+  raiden skill;
+for let i=0; i<4; i=i+1 {
+  bennett skill, burst;
+  lisa charge, burst;
+  nahida skill, burst;
+  raidenshogun burst, attack:4, dash, attack:3, skill, dash, attack:3, charge, dash, attack:4, dash;
+  nahida skill, attack;
+  lisa skill[hold=1];
+  print("done!");
+}

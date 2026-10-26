@@ -1,0 +1,25 @@
+active nicole;
+for let i=0; i<6; i=i+1 {
+  
+  nicole skill;
+  if i {
+    nicole burst;
+    arlecchino attack:2;
+  } 
+  arlecchino skill;
+  durin skill, burst, skill;
+  kazuha skill, high_plunge;
+  if i {
+    arlecchino attack;
+  }
+  arlecchino attack, charge,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3;
+  if .kazuha.burst.ready {
+    kazuha burst;
+  } else {
+    kazuha skill, high_plunge;
+  }
+  arlecchino attack:3, dash, attack:3;
+}

@@ -1,0 +1,19 @@
+active xilonen;
+for let x=0; x<4; x=x+1 {
+  xilonen burst;
+  
+  furina skill, dash, burst; 
+  
+  rosaria skill, burst;
+  
+  xilonen skill, attack:2;
+  
+  ganyu aim[hold=2, weakspot=rand()>0.2], skill, burst, 
+        aim[hold=2, weakspot=rand()>0.2], 
+        aim[hold=2, weakspot=rand()>0.2];
+  xilonen skill, attack:2;
+  
+  rosaria skill;
+  
+  ganyu aim[hold=2, weakspot=rand()>0.2], skill;
+}

@@ -1,0 +1,13 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill, attack;
+  lynette burst;
+  luminepyro skill[hold=1], burst;
+  fischl attack, skill;
+  lynette skill, attack;
+  neuvillette charge, burst, skill, charge;
+  lynette skill, attack;
+  fischl attack:2, burst;
+  neuvillette charge, charge;
+}
+wait(173);

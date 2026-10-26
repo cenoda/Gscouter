@@ -1,0 +1,36 @@
+fn FreminetPlunge() {
+  freminet jump;
+  if .airborne {
+    freminet high_plunge[collision=rand()>0.5];
+  }
+}
+active freminet; 
+fischl skill, attack;
+for let x = 0; x < 4; x = x + 1 {
+  furina skill, dash;
+  if !.furina.burst.ready {
+    furina attack;
+  }
+  furina burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  amy attack;
+  if .amy.burst.ready { 
+    amy attack, burst; 
+  } else { 
+    amy skill; 
+  }
+  
+  freminet skill, attack; 
+  FreminetPlunge(); freminet attack;
+  FreminetPlunge(); freminet attack;
+  FreminetPlunge(); freminet attack;
+  FreminetPlunge(); freminet skill;
+  FreminetPlunge(); freminet dash;
+  FreminetPlunge(); freminet dash;
+  FreminetPlunge(); freminet dash;
+  FreminetPlunge(); freminet attack;
+  
+  print("done");
+}

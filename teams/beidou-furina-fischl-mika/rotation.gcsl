@@ -1,0 +1,50 @@
+fn rand_counter() {
+  let counter = rand();
+  if counter > 0.75 {
+    counter = 2;
+  } else if counter > 0.75 && counter <= 0.5 {
+    counter = 1;
+  } 
+  else {
+    counter = 0;
+  }
+  
+  return counter;
+}
+active beidou; 
+for let i=0; i<4; i=i+1 {
+  fischl attack, skill;
+  
+  furina skill, dash, burst;
+  
+  mika burst, attack, skill[hold=0];
+  
+  while .fischl.oz {
+    switch {
+      case .beidou.skill.ready:
+        beidou skill[counter=rand_counter()];
+      case .beidou.burst.ready:
+        beidou burst;
+      case .beidou.normal > 4 && .beidou.dash.ready && .stam > 18:
+        beidou dash;
+      default:
+        beidou attack;
+    }
+  }
+  
+  fischl attack:2, burst;
+  
+  while .furina.skill.cd {
+  
+    switch {
+      case .beidou.skill.ready:
+        beidou skill[counter=rand_counter()];
+      case .beidou.burst.ready:
+        beidou burst;
+      case .beidou.normal > 4 && .beidou.dash.ready && .stam > 18:
+        beidou dash;
+      default:
+        beidou attack;
+    }
+  }
+}

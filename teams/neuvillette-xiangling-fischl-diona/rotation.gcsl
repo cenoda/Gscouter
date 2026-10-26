@@ -1,0 +1,19 @@
+active neuv;
+for let i = 0; i < 4; i = i + 1 {
+  neuv skill, attack:3;
+  diona burst, skill;
+  while ( !.diona.mods.favonius-cd ) {
+  diona attack;
+  }
+  xiangling burst, skill;
+  fischl attack:2, burst;
+  neuv charge, burst, skill, charge;
+  diona attack:2, skill;
+  while ( !.diona.mods.favonius-cd ) {
+  diona attack;
+  }
+  xiangling skill, dash, attack;
+  fischl attack, skill;
+  neuv charge:2;
+}
+wait(173);

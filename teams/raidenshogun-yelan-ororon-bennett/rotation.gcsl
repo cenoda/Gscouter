@@ -1,0 +1,9 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  yelan skill, burst, attack;
+  bennett skill, burst;
+  ororon skill, attack, burst, attack;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  bennett skill, attack;
+}

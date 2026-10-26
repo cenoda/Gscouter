@@ -1,0 +1,19 @@
+active zhongli;
+for let i=0; i<4; i=i+1 {
+  zhongli attack, skill[hold=1], jump;
+  xingqiu burst, attack, skill, dash, attack:2;
+  yunjin attack, skill, attack, burst, attack;
+  hutao skill,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack;
+  yunjin skill, attack;
+  zhongli attack:3;
+  print ("done");
+}

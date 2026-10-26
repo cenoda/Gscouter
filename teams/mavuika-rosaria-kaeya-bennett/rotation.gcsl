@@ -1,0 +1,26 @@
+let Mav6C2D = true;
+active mavuika; 
+for let i=0; i<4; i=i+1 {
+  mavuika skill;
+  
+  bennett burst, skill;
+  
+  rosaria skill, attack, burst;
+  
+  kaeya skill, attack, burst;
+  
+  while !.mavuika.burst.ready {
+    mav attack;
+  }
+  mavuika burst;
+  if Mav6C2D == true {
+    mavuika charge:2, dash;
+    mavuika charge:2, dash;
+    mavuika charge:2, dash;
+    mavuika charge:2, dash;
+    mavuika charge:2, dash;
+    mavuika charge:2, dash;
+  } else {
+    mavuika charge:11, dash;
+  }
+}

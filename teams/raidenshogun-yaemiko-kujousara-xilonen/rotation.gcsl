@@ -1,0 +1,15 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 4; i = i + 1 {
+	yaemiko skill:3;
+	
+	xilonen burst, skill, attack:2;
+	
+	sara skill, aim, attack;
+	
+	yaemiko attack:2, burst, skill:3;
+	
+	sara burst;
+	
+	raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+}

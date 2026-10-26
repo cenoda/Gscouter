@@ -1,0 +1,27 @@
+active neuv;
+for let i = 0; i < 4; i = i + 1 {
+  neuv skill;
+  if .kazuha.burst.ready {
+  kazuha burst;
+  } else {
+  kazuha skill, high_plunge;
+  }
+  zhongli skill[hold=1], dash, attack;
+  while !pick_up_crystallize("any") {
+    if !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    } else {
+      wait(1);
+    }
+  }
+  
+  while !.zhongli.mods.favonius-cd { 
+    zhongli attack;
+  }
+  yelan burst, attack, skill;
+  neuv attack, charge, burst, skill, charge;
+  kazuha attack, skill, high_plunge;
+  yelan attack, skill, attack;  
+  neuv charge, charge;
+}
+wait(173);

@@ -1,0 +1,30 @@
+fn kinich_combo() {
+  kinich skill;
+  while .kinich.nightsoul.state {
+    switch .kinich.nightsoul.points {
+      case 20:
+        kinich skill[hold=1];
+      default:
+        if .kinich.blind_spot {
+          kinich attack[direction=.kinich.blind_spot];
+        } else {
+          kinich attack;
+        }
+    }
+  }
+}
+active kinich;
+furina skill, dash, burst;
+for let i=0; i<4; i=i+1{
+  if .furina.skill.ready {
+    furina skill, dash, attack;
+  }
+  mav burst, charge, skill, dash;
+  ororon burst, skill;
+  
+  kinich_combo();
+  if .kinich.burst.ready {
+    kinich burst;
+  }
+
+}

@@ -1,0 +1,18 @@
+active itto; 
+    
+for let i = 0; i < 4; i = i + 1 {
+    
+   if i && .emilie.burst.ready {
+    emilie burst, attack;
+ } else {
+    emilie skill, attack; 
+ }
+    dehya skill:2;
+    gorou skill, attack, burst;
+    itto attack, burst[prestack=1],
+         attack, skill,
+         attack:2, charge:5,
+         attack:4, charge:5, skill[travel=0], charge;
+         sleep(21); 
+    
+}

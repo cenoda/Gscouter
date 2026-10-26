@@ -1,0 +1,17 @@
+id: columbina-ineffa-lauma-barbara
+name: Columbina / Ineffa / Lauma / Barbara
+members:
+    - columbina
+    - ineffa
+    - lauma
+    - barbara
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/6wgdRChgFgkq
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 130106
+    computed: "2026-10-02"

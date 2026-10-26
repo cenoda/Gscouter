@@ -1,0 +1,9 @@
+active furina;
+for let i=0; i<4; i=i+1 { 
+  furina skill, dash, attack, burst;
+  sayu burst;
+  bennett burst, skill;
+  xiangling burst, skill, dash;
+  sayu skill[hold=510];
+  bennett skill;
+}

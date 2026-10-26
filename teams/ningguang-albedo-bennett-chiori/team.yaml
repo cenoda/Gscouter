@@ -1,0 +1,17 @@
+id: ningguang-albedo-bennett-chiori
+name: Ningguang / Albedo / Bennett / Chiori
+members:
+    - ningguang
+    - albedo
+    - bennett
+    - chiori
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/HHk68pjQ76kq
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 52001
+    computed: "2026-10-02"

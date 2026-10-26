@@ -1,0 +1,42 @@
+fn rand_counter() {
+  let counter = rand();
+  if counter > 0.80 {
+    counter = 2;
+  } else if counter > 0.6 && counter <= 0.80 {
+    counter = 1;
+  } else {
+    counter = 0;
+  }
+  
+  return counter;
+}
+active cyno;
+cyno skill;
+for let i = 0; i < 4; i = i + 1 {
+  if .chev.burst.ready && .chev.energy == .chev.energymax {
+    chev burst, skill[hold=1]:2;
+    if !.chev.mods.favonius-cd {
+      chev skill[hold=1];
+    }
+  } else {
+    chev attack, skill[hold=1];
+  }
+  
+  thoma skill, burst;
+  if !.thoma.mods.favonius-cd {
+    thoma attack;
+  }
+  
+  beidou skill[counter=rand_counter()], burst;
+  
+  cyno skill, attack, burst, attack:3, skill;
+  while .cyno.mods.cyno-q > 270 {
+    if .cyno.mods.cyno-a1 && .cyno.skill.ready {
+      cyno skill;
+    } else if .cyno.normal == 4 && .stam > 20 {
+      cyno dash;
+    } else {
+      cyno attack;
+    }
+  }
+}

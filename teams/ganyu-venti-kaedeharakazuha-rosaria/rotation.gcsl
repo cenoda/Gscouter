@@ -1,0 +1,10 @@
+active ganyu;
+ganyu aim[weakspot=1];
+for let x=0; x<6; x=x+1 {
+  kazuha skill, high_plunge, burst;
+  rosaria skill, burst;
+  ganyu burst, skill, aim[weakspot=1]; 
+  venti skill, burst;
+  rosaria skill;
+  ganyu aim[weakspot=1];
+}

@@ -1,0 +1,12 @@
+active neuv;
+neuv skill;
+for let i = 0; i < 4; i = i + 1 {
+  nilou skill, attack:2, skill;
+  nahida skill,burst;
+  baizhu skill,attack,burst;
+  neuv charge,burst,skill, charge;
+  
+  baizhu skill,attack;
+  neuv charge:2;
+  neuv skill;
+}

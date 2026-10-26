@@ -1,0 +1,17 @@
+active nahida;
+for let i=0; i<3; i=i+1 { 
+  nahida skill, attack, burst;
+  
+  furina skill, dash, burst;
+  
+  baizhu skill, burst;
+  
+  cyno skill, burst, attack, skill,
+    attack:4, skill, 
+    attack:4, skill, 
+    attack:4, skill,
+    attack:4, skill,
+    attack:4, skill,
+    attack:4, skill,
+    attack:4, skill, attack;
+}

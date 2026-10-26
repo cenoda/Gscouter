@@ -1,0 +1,23 @@
+active yae;
+for let i=0; i<4; i=i+1 {
+  yae skill:2, attack, skill;
+  zhongli skill[hold=1], dash, attack;
+  let startFrame = f();
+  while !pick_up_crystallize("electro") && f() - startFrame < 45 {
+    if !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    } else {
+      wait(1);
+    }
+  } 
+  nahida skill, burst;
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+  clorinde burst;
+}

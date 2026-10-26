@@ -1,0 +1,20 @@
+active ayato;
+for let i=0; i<5; i=i+1{
+  ayato burst;
+  nahida skill, burst;
+  kuki skill, attack;
+  kazuha skill, high_plunge, burst;
+  ayato skill, attack:15;
+  nahida attack, skill;
+  kuki burst;
+  while !.kuki.skill.ready {
+		if .kuki.normal == 3 {
+			kuki dash;
+		}
+		kuki attack;
+  }
+  kuki skill;
+  kazuha skill, high_plunge, attack:2;
+  ayato skill, attack:15;
+  print("done");
+}

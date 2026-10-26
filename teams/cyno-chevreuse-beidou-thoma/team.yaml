@@ -1,0 +1,17 @@
+id: cyno-chevreuse-beidou-thoma
+name: Cyno / Chevreuse / Beidou / Thoma
+members:
+    - cyno
+    - chev
+    - beidou
+    - thoma
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/GzMjPp9kfbQc
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 86799
+    computed: "2026-10-02"

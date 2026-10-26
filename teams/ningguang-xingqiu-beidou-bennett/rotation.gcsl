@@ -1,0 +1,30 @@
+let normal_attack_state = 1;
+let c_right = 1;
+active xingqiu;
+for let i = 0; i < 5; i = i + 1 {
+  xingqiu burst, attack:2;
+  bennett skill, attack, burst;
+  beidou attack, skill[counter=1], burst, attack;
+  xingqiu attack, skill, dash, attack:2;
+  let start = f();
+  while f() - start < 10*60 {
+    switch {
+    case .ningguang.skill.ready:
+      ningguang skill, dash;
+    case .ningguang.burst.ready:
+      ningguang burst;
+    case .state == normal_attack_state:
+      switch .ningguang.prevAttack {
+      case c_right:
+        ningguang walk;
+      default:
+  	    ningguang charge;
+      }
+    default:
+      ningguang attack;
+    }
+  }
+  beidou skill[counter=1], attack:2;
+  bennett skill, attack:3;
+  print("end");
+}

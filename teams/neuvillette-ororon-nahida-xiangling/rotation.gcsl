@@ -1,0 +1,51 @@
+fn rand_delay(mean, stddev) {
+  let del = randnorm() * stddev + mean;
+  if del > (mean + mean) {
+    del = mean + mean;
+  }
+  delay(del);
+}
+let prev_char_id = -1;
+let prev_action_id = -1;
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+
+  if prev_char_id != char_id && action_id != .action.swap {
+    execute_action(char_id, .action.swap, []);
+  }
+
+  if action_id == .action.swap {
+    
+    rand_delay(12, 3);
+  } else if prev_action_id == 
+  .action.attack && action_id != 
+  .action.attack && action_id != 
+  .action.charge {
+    
+    rand_delay(3, 1);
+  } else if prev_action_id != .action.attack {
+    
+    rand_delay(3, 1);
+  }
+  
+  prev_char_id = char_id;
+  prev_action_id = action_id;
+  return _execute_action(char_id, action_id, p);
+}
+active neuvillette;
+let rotations = 5;
+for let r = rotations;
+r > 0;
+r = r - 1 {
+  neuvillette skill, attack;
+  ororon skill, attack;
+  nahida skill, burst;
+  xiangling burst, skill, dash;
+  neuvillette charge, burst, skill, charge;
+  ororon burst;
+  xiangling attack:2, skill, dash;
+  while !.xiangling.mods.favonius-cd {
+    xiangling attack;
+  }
+  neuvillette charge, charge, jump:2, charge[short=1]; 
+}

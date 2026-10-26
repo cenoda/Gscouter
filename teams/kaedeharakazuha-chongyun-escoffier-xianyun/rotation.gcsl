@@ -1,0 +1,36 @@
+active esco;
+for let x = 0; x < 4; x = x + 1 {
+  esco skill;
+  if x > 0 && .esco.burst.ready {
+    esco burst;
+  }
+  
+  chongyun burst, skill;
+  
+  xianyun skill, low_plunge, burst;
+  
+  kazuha skill[hold=1], high_plunge[collision=1];
+  
+  while .kazuha.status.xianyun-airborne-buff {
+    kazuha jump;
+    if .airborne {
+      kazuha high_plunge[collision=rand()>0.4];
+    }
+    if .kazuha.status.xianyun-airborne-buff {
+      kazuha dash;
+    }
+  }
+  if .kazuha.burst.ready {
+    kazuha burst;
+  }
+  while .kazuha.skill.cd {
+    if .kazuha.normal > 1 {
+      kazuha charge;
+    } else {
+      kazuha attack;
+    }
+  }
+  kazuha skill[hold=0], high_plunge[collision=1];
+  
+  print("done");
+}

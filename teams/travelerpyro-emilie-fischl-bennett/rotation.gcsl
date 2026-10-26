@@ -1,0 +1,31 @@
+active emilie;
+for let i=0; i<4; i=i+1 {
+  if i > 0 && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie attack, skill;
+  }
+  
+  bennett skill, burst;
+  
+  if .fischl.burst.ready {
+    fischl attack:2, burst;
+  } else {
+    fischl attack:1, skill; 
+  }
+  
+  aetherpyro skill[hold=0];
+  while .status.bennettburst || .aetherpyro.mods.bennett-field {
+  
+    switch {
+      case .aetherpyro.burst.ready && .aetherpyro.normal > 1:
+        aetherpyro burst;
+      case .aetherpyro.normal > 3 && .stam > 25: 
+        aetherpyro charge;
+      case .aetherpyro.normal > 3 && .aetherpyro.dash.ready && .stam > 18: 
+        aetherpyro dash;
+      default:
+        aetherpyro attack;
+    }
+  }
+}

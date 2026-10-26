@@ -1,0 +1,27 @@
+fn kinich_combo() {
+  kinich skill;
+  kinich attack;
+  while .kinich.nightsoul.state {
+    if .kinich.nightsoul.points == 20 {
+      kinich skill[hold=1];
+      continue;
+    }
+    kinich attack;
+  }
+}
+active kinich; 
+for let i=0; i<4; i=i+1 {
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  thoma skill, attack, burst, attack;
+  
+  bennett skill, burst;
+  
+  kinich_combo();
+}

@@ -1,0 +1,15 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 { 
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    nahida attack, charge, jump, 
+           attack, charge, jump,
+           attack, charge;
+  }
+  furina skill, dash, burst;
+  nahida burst, skill, charge;
+  fischl attack:2, burst;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+}

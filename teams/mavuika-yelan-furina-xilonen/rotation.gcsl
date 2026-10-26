@@ -1,0 +1,33 @@
+active mavuika; 
+mavuika skill;
+furina skill, dash, burst;
+xilonen burst, skill, attack:2;
+yelan burst, attack, skill, attack;
+mav burst, charge:2, dash,
+      charge:2, dash,
+      charge:2, dash,
+      charge:2, dash,
+      charge:2, dash,
+      charge:1, skill;
+      
+yelan skill, attack:2;
+xilonen skill, attack:2;
+for let i = 0; i < 4; i = i + 1 {
+  xilonen burst;
+  
+  furina burst, skill, dash, attack;
+  
+  yelan burst;
+  xilonen attack, skill, attack:2;
+  yelan skill, attack;
+  mav burst, charge:2, dash,
+      charge:2, dash,
+      charge:2, dash,
+      charge:2, dash,
+      charge:2, dash,
+      charge:1, skill;
+  yelan skill, attack:2;
+  
+  xilonen skill, attack:2;
+ 
+}

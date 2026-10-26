@@ -1,0 +1,50 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+    pick_up_crystallize("any");
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+fn NaviaPlunge() {
+  navia jump;
+  if .airborne {
+    navia high_plunge[collision=rand()>0.5];
+  }
+}
+active navia; 
+navia skill;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  if .navia.burst.ready && .navia.energy == .navia.energymax {
+    navia burst;
+  }
+  
+  mona skill, burst;
+  
+  if i == 0 {
+    navia skill[hold=1];
+  } else {
+    navia skill[hold=0];
+  }
+  NaviaPlunge(); navia dash;
+  NaviaPlunge(); navia dash;
+  NaviaPlunge(); navia dash;
+  NaviaPlunge(); navia dash;
+  navia skill[hold=0];
+  NaviaPlunge(); navia dash;
+  NaviaPlunge(); navia dash;
+  NaviaPlunge(); navia dash;
+  NaviaPlunge(); navia attack:2;
+  if !.navia.burst.cd {
+    navia dash, attack:2;
+  }
+  
+}

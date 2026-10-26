@@ -1,0 +1,17 @@
+id: razor-xingqiu-baizhu-nahida
+name: Razor / Xingqiu / Baizhu / Nahida
+members:
+    - razor
+    - xingqiu
+    - baizhu
+    - nahida
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/G8T6LPcGgNJc
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 57098
+    computed: "2026-10-01"

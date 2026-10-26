@@ -1,0 +1,24 @@
+active arlecchino;
+for let i=0; i<3; i=i+1 {
+  arlecchino skill;
+  
+  xingqiu skill, dash, burst, attack;
+  
+  yelan skill, attack, burst, attack;
+  
+  bennett burst, attack;
+  
+  arlecchino attack:2, charge,
+             attack:2, charge,
+             attack:2, charge,
+             attack:2, charge,
+             attack:2;
+  
+  yelan skill, attack;
+  
+  arlecchino attack:2, charge,
+             attack:2, charge,
+             attack:2, charge,
+             attack:2, charge,
+             attack:2;
+}

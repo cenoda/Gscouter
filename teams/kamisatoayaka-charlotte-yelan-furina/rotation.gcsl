@@ -1,0 +1,16 @@
+active furina;	
+furina skill, dash;
+for let x = 0; x < 3; x = x + 1 {
+ furina burst; 
+ if x {
+   furina skill, dash;
+ }
+ yelan burst, attack, skill, attack;
+ charlotte burst, skill, attack;
+ 
+ ayaka skill, dash, attack, burst, attack:1, charge, dash, attack:1, charge, attack:1;
+ 
+ yelan attack, skill, attack;
+ 
+ ayaka dash, attack:1, charge, attack, skill, dash, attack:1, charge;
+}

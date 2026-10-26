@@ -1,0 +1,10 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill, attack;
+  nilou skill, attack:2, skill;
+  lauma attack, burst, skill[hold=1];
+  nahida skill, attack, burst;
+  neuv attack, skill, charge, burst, charge;
+  lauma attack, skill[hold=1];
+  neuv charge, skill, charge;
+}

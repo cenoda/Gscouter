@@ -1,0 +1,17 @@
+id: navia-noelle-furina-yelan
+name: Navia / Noelle / Furina / Yelan
+members:
+    - navia
+    - noelle
+    - furina
+    - yelan
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/w9pgB88HqDNd
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 56737
+    computed: "2026-10-01"

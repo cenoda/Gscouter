@@ -1,0 +1,29 @@
+active columbina;
+for let i=0; i<5; i=i+1 {
+  if i > 0 && .columbina.weapon == .keys.weapon.pamber {
+    columbina skill, burst;
+  } else {
+    columbina skill, attack;
+  }
+  
+  mona burst, attack;
+  
+  if is_even(i) {
+    fischl attack:2, burst;
+  } else {
+    fischl attack, skill;
+  }
+  
+  mona attack, skill, attack;
+  
+  hutao skill,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump;
+
+}

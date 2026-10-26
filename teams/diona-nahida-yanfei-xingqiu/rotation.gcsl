@@ -1,0 +1,15 @@
+active diona;
+ 
+for let i=0; i<2; i=i+1 {
+  diona skill;
+  nahida skill, burst;
+  xingqiu skill, burst, attack;
+  diona skill[hold=1], burst, attack;  
+  yanfei skill, attack:3, charge, attack:3, charge, attack:3, charge, attack:3, charge, skill, charge, attack:3, charge;
+  
+  diona skill;
+  nahida skill, burst;
+  xingqiu skill, burst, attack; 
+  diona skill[hold=1], burst, attack; 
+  yanfei skill, attack:3, charge, attack:3, charge, attack:3, charge, attack:3, charge, skill, charge, attack:3, charge;
+}

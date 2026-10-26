@@ -1,0 +1,25 @@
+active eula;
+for let i=0; i<3; i=i+1 {
+  kirara skill [hold=10], attack, burst;
+  if .kuki.burst.ready {kuki burst;}
+  eula skill;
+  yelan skill, burst, attack;
+  kirara attack, skill, attack;
+  kuki skill, attack;
+  eula swap;
+  while !.eula.burst.ready {
+    if .eula.skill.ready {
+      eula skill;
+    } else {
+      eula attack;
+    }
+  }
+  eula burst, attack:4, skill[hold=1], attack:5;
+  kirara skill[hold=10], burst;
+  if .kuki.burst.ready {kuki burst;}
+  eula skill;
+  yelan skill, burst, attack;
+  kuki skill, attack;
+  kirara attack, skill, attack;
+  eula skill, attack:4, skill[hold=1], attack:5;
+}

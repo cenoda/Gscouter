@@ -1,0 +1,19 @@
+active furina;
+let albedo_burst = 0;
+for let i=0; i<4; i=i+1 {
+  furina attack,skill;
+  albedo attack,skill;
+  ororon skill,burst;
+  furina burst;
+  if .albedo.burst.ready {
+    albedo burst;
+    albedo_burst=1;
+  } else {
+    albedo_burst=0;
+  }
+  mizuki skill,burst;
+  mizuki attack,charge;
+  if albedo_burst == 0 {
+    mizuki attack,charge,attack,charge;
+  }
+}

@@ -1,0 +1,9 @@
+active furina;
+for let x = 0; x < 4; x = x + 1 {
+ furina skill, dash, burst; 
+ lynette attack, skill, burst;
+ charlotte burst, skill;
+ ganyu aim[weakspot=1], skill, burst;
+ lynette skill, attack:2, charge, attack:2, charge, attack:2, charge;
+ ganyu aim[weakspot=1],skill,  aim;
+}

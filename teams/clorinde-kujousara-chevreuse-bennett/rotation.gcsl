@@ -1,0 +1,24 @@
+active sara;
+for let i=0; i<4; i=i+1 {
+  if ( i / 2 ) * 2 == i {
+    sara skill, aim, attack; 
+  }
+  bennett skill, burst;
+  chev skill[hold=1], burst, attack, dash; 
+  if ( i / 2 ) * 2 == i {
+    sara burst;
+  } else {
+    sara skill, aim;
+  }
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+  if .clorinde.burst.ready {
+    clorinde burst;
+  }
+}

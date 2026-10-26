@@ -1,0 +1,25 @@
+active xingqiu;
+for let x = 0; x < 4; x = x + 1 {
+	xingqiu skill, dash, burst, attack;
+	
+	yelan skill, attack, burst, attack;
+	
+  bennett skill, burst, attack;
+  
+  yanfei attack, skill, attack;
+  if .yanfei.burst.ready {
+    yanfei burst;
+  }
+  
+  while .xingqiu.mods.xingqiuburst {
+    if .yanfei.skill.ready && .yanfei.mods.yanfei-a1 && .previous-action == .action.attack {
+      yanfei skill;
+    } else if .yanfei.mods.yanfei-seal && .stam > 25 && .previous-action == .action.attack {
+      yanfei charge;
+    } else {
+      yanfei attack;
+    }
+  }
+  
+  bennett skill;
+}

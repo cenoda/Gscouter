@@ -1,0 +1,18 @@
+active yelan;
+for let i=0; i<4; i=i+1 {
+	gorou burst;
+	albedo attack, skill;
+	yelan burst, skill, attack;
+	gorou skill, attack;
+	noelle skill,burst[extend=0];
+	
+	noelle attack:4, dash,
+	       attack:4;
+	       
+	yelan skill, attack;       
+	gorou skill, attack;
+	
+	noelle attack:4, dash,
+	       attack:2;
+	
+}

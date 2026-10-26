@@ -1,0 +1,18 @@
+active nicole;
+for let i=0; i<6; i=i+1 {
+  nicole skill, attack:2, burst;
+  for let j=0; j<3; j=j+1 {
+    if !.nicole.mods.favonius-cd {
+      nicole attack;
+    }
+  }
+  citlali skill, burst, attack;
+  durin skill, attack, burst;
+  ganyu skill, aim:5;
+  if is_even(i) {
+    ganyu burst;
+  } else {
+    ganyu aim;
+  }
+}
+wait(28);

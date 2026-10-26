@@ -1,0 +1,17 @@
+active chevreuse;
+for let i=0; i<4; i=i+1 {
+  chevreuse skill[hold=1], burst;
+  if .xiangling.burst.ready && .xiangling.energy == .xiangling.energymax {
+    xiangling burst, skill, dash;
+  } else {
+    xiangling attack:3, skill, dash;
+  }
+  citlali skill, burst;
+  chasca skill, aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}
+wait(82);

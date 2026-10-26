@@ -1,0 +1,17 @@
+id: dori-emilie-mavuika-ororon
+name: Dori / Emilie / Mavuika / Ororon
+members:
+    - dori
+    - emilie
+    - mav
+    - ororon
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Nf8r6FDmMzCF
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 56900
+    computed: "2026-10-02"

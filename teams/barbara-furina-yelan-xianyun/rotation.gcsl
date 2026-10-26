@@ -1,0 +1,42 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  xianyun skill, low_plunge, attack, burst;
+  
+  barbara attack;
+  if .barbara.skill.ready {
+    barb skill;
+  }
+  while .xianyun.status.xianyun-airborne-buff && .yelan.skill.cd {
+    if .xianyun.status.xianyun-airborne-buff {
+      barbara jump;
+      if .airborne {
+        barbara high_plunge[collision=rand()>0.5];
+        barbara attack;
+      }
+    }
+  }
+  
+  yelan skill, attack;
+  
+  while .xianyun.status.xianyun-airborne-buff {
+    if .xianyun.status.xianyun-airborne-buff {
+      barbara jump;
+      if .airborne {
+        barbara high_plunge[collision=rand()>0.5];
+        barbara attack;
+      }
+    }
+  }
+  
+  barb attack:2, charge;
+  
+}

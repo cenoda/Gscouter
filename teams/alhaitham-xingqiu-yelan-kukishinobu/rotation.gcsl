@@ -1,0 +1,24 @@
+active xingqiu;
+for let r = 0; r < 3; r = r + 1 {
+  
+  xingqiu skill, dash, burst, attack;
+  
+  yelan burst, attack, skill, attack;
+  
+  alhaitham burst;
+  
+  kuki attack, skill, dash, attack;
+  
+  alhaitham attack:3, dash,
+            attack:3, dash,
+            attack:3, dash,
+            attack:3;
+            
+  yelan skill, attack:2;
+  
+  alhaitham skill[hold=1], low_plunge[short=1], 
+            attack:3, dash, 
+            attack:3, charge;
+  
+}
+wait(33);

@@ -1,0 +1,38 @@
+active razor; 
+razor skill, dash;
+for let i = 0; i < 4; i = i + 1 {
+  
+  if .chev.sets.no > 4 {
+    chev burst, skill[hold=1];
+  } else {
+    if .chev.burst.ready {
+      chev burst, skill[hold=1];
+    } else {
+      chev attack:1, skill[hold=1];
+    }
+  }
+  
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst; 
+  }
+  
+  if .mav.burst.ready {
+    mav burst, skill;
+  } else {
+    mav skill, attack;
+  }
+  
+  razor skill, dash, attack, burst;
+  
+  while .razor.mods.razor-q > 240 { 
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+}

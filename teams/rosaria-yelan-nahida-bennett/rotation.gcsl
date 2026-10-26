@@ -1,0 +1,17 @@
+active yelan;
+nahida skill;
+for let i=0; i<4; i=i+1 {
+  rosaria skill;
+  nahida burst;
+  yelan  burst,attack, skill, attack;
+  bennett skill, attack, burst, attack;
+  rosaria skill,attack, burst,
+      attack:1, charge, dash,
+      attack:1, charge, dash,
+      attack:1, charge, dash,
+      attack:1, skill,
+      attack:1, charge, dash;
+  yelan  skill, attack:2;
+  nahida attack:2, skill, attack:2;
+  bennett skill;
+}

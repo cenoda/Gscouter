@@ -1,0 +1,22 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 4; i = i + 1 {
+  if .columbina.burst.ready { 
+    columbina skill, burst;
+  } else if i > 0 {
+    columbina skill, attack, charge;
+  } else {
+    columbina skill, attack;
+  }
+  
+  mona burst, attack;
+  
+  durin skill, burst, attack;
+
+  mona attack, skill, attack;
+  raiden burst, 
+         attack:4, dash, 
+         attack:4, dash, 
+         attack:4, skill, 
+         attack:3;
+}

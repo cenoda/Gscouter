@@ -1,0 +1,9 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina attack,skill;
+  citlali skill,burst;
+  ororon skill,burst;
+  furina attack,burst;
+  mizuki skill,burst;
+  mizuki attack,charge;
+}

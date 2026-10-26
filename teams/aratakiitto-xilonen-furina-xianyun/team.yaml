@@ -1,0 +1,17 @@
+id: aratakiitto-xilonen-furina-xianyun
+name: Aratakiitto / Xilonen / Furina / Xianyun
+members:
+    - itto
+    - xilonen
+    - furina
+    - xianyun
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/6t8BBgfbpD99
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 62637
+    computed: "2026-10-02"

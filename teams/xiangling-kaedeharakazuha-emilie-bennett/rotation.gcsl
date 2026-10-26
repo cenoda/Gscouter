@@ -1,0 +1,19 @@
+active emilie;
+emilie skill;
+for let i = 0; i < 5; i = i + 1{
+  bennett skill,burst;
+  kazuha skill,high_plunge,burst;
+  xiangling burst, skill;
+  if .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill,attack;
+  }
+  bennett attack:2,skill;
+  xiangling attack:3;
+  kazuha skill,high_plunge;
+  emilie attack:3;
+  bennett skill,attack:2;
+  xiangling attack:3;
+  bennett attack:2;
+}

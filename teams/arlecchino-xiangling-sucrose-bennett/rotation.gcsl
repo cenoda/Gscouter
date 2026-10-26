@@ -1,0 +1,20 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  bennett burst, skill;
+  xiangling burst, skill, dash;
+  sucrose skill;
+  if .sucrose.burst.ready {
+    sucrose dash, burst;
+  }
+  arle charge, 
+       attack:3, dash,
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack;
+  bennett attack, skill, attack;
+  xiangling attack:4, dash;
+}

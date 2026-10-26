@@ -1,0 +1,17 @@
+id: mavuika-kaeya-xilonen-chongyun
+name: Mavuika / Kaeya / Xilonen / Chongyun
+members:
+    - mavuika
+    - kaeya
+    - xilonen
+    - chongyun
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/KgP6TPfL9gtj
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 97277
+    computed: "2026-10-02"

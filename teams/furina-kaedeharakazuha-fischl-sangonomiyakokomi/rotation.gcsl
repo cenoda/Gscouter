@@ -1,0 +1,27 @@
+active fischl;
+for let i=0; i<4; i=i+1 {
+fischl attack, skill;
+furina skill;
+kazuha skill, high_plunge;
+kokomi attack:2, walk, 
+  attack:2, walk,
+  attack:2, walk, skill;
+furina burst;
+kazuha skill, high_plunge;
+kokomi attack:2, walk, 
+  attack:2;
+fischl attack:2, burst;
+kazuha burst;
+kokomi burst, 
+  attack:2, walk, 
+  attack:2, walk,
+  attack:2, walk,
+  attack:2, walk,
+  attack:2, walk,
+  attack:2, walk,
+  attack:2, walk,
+  attack:2, walk,
+  attack:2, walk,
+  attack:2, walk,
+  attack:2;
+}

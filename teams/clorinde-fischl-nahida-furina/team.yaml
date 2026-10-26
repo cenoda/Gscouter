@@ -1,0 +1,17 @@
+id: clorinde-fischl-nahida-furina
+name: Clorinde / Fischl / Nahida / Furina
+members:
+    - clorinde
+    - fischl
+    - nahida
+    - furina
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/RrPH9bhhG7gR
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 75552
+    computed: "2026-09-30"

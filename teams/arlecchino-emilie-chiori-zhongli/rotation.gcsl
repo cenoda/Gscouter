@@ -1,0 +1,29 @@
+active arle;
+arle skill;
+for let i = 0; i < 4; i = i + 1 {
+  if !i { 
+    emilie skill, attack;
+  } else if .emilie.burst.ready {
+    emilie burst, attack, jump;
+  } else {
+    emilie skill, attack;
+    chiori burst;
+  }
+  chiori skill:2;
+  zhongli skill[hold=1], dash, attack;
+  if !i {
+    zhongli attack:3; 
+  }
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  arle charge, 
+       attack:3, dash,
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack,
+       skill;
+}

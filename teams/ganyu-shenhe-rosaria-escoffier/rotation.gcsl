@@ -1,0 +1,11 @@
+active escoffier;
+for let x=0; x<4; x=x+1 {
+  escoffier skill, burst;
+  shenhe skill, burst;
+  rosaria skill, burst;
+  ganyu skill, burst, aim;
+  rosaria skill;
+  shenhe skill, attack;
+  ganyu aim:2, skill, attack;
+  rosaria skill, attack;
+}

@@ -1,0 +1,32 @@
+fn rand_counter() {
+  let counter = rand();
+  if counter > 0.80 {
+    counter = 2;
+  } else if counter > 0.7 && counter <= 0.80 {
+    counter = 1;
+  } 
+  else {
+    counter = 0;
+  }
+  
+  return counter;
+}
+active beidou; 
+for let i=0; i<4; i=i+1 {
+  xingqiu skill, dash, burst, attack;
+  
+  beidou skill[counter=rand_counter()], attack, burst;
+  
+  alhaitham attack, burst;
+  
+  kuki attack, skill;
+  
+  alhaitham attack:3, dash,
+            attack:3, dash,
+            attack:2, skill,
+            attack:3, dash,
+            attack:3,dash,
+            attack, charge,
+            attack:3, dash,
+            attack:3, charge;
+}

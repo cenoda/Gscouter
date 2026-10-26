@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+klee char lvl=90/90 cons=0 talent=9,9,9;
+klee add weapon="thewidsith" refine=3 lvl=90/90;
+klee add set="unfinishedreverie" count=4;
+klee add stats hp=4780 atk=311 atk%=0.466 pyro%=0.466 cr=0.311;
+klee add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.331 cd=0.7944;
+
+aloy char lvl=90/90 cons=0 talent=9,9,9;
+aloy add weapon="sacrificialbow" refine=3 lvl=90/90;
+aloy add set="unfinishedreverie" count=4;
+aloy add stats hp=4780 atk=311 atk%=0.466 cryo%=0.466 cr=0.311;
+aloy add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=99.1 cr=0.2979 cd=0.7944;
+
+kirara char lvl=90/90 cons=6 talent=9,9,9;
+kirara add weapon="favoniussword" refine=3 lvl=90/90;
+kirara add set="noblesseoblige" count=4;
+kirara add stats hp=4780 atk=311 er=0.518 hp%=0.466 cr=0.311;
+kirara add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.2976 er=0.1102 em=39.64 cr=0.331 cd=0.662;
+
+kazuha char lvl=90/90 cons=0 talent=9,9,9;
+kazuha add weapon="favoniussword" refine=3 lvl=90/90;
+kazuha add set="viridescentvenerer" count=4;
+kazuha add stats hp=4780 atk=311 em=187 em=187 em=187;
+kazuha add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.551 em=79.28 cr=0.3972 cd=0.1324;

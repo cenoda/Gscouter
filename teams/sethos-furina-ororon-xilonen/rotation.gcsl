@@ -1,0 +1,25 @@
+active xilonen;
+for let i=0; i<4; i=i+1 {
+  xilonen burst;
+  furina skill, dash, burst;
+  
+  ororon burst, skill;
+  
+  xilonen skill, attack:2; pick_up_crystallize("any");
+  sethos skill; 
+  sethos burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2;
+  
+  xilonen skill, attack:2; pick_up_crystallize("any");
+  
+  sethos skill;
+  sethos aim[hold=2];
+  sethos aim[hold=1]:2;
+}

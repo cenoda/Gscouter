@@ -1,0 +1,17 @@
+id: cyno-furina-ororon-escoffier
+name: Cyno / Furina / Ororon / Escoffier
+members:
+    - cyno
+    - furina
+    - ororon
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/7Kzm6Hjz8cwp
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 57462
+    computed: "2026-10-02"

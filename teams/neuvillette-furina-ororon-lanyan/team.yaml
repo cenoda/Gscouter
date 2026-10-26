@@ -1,0 +1,17 @@
+id: neuvillette-furina-ororon-lanyan
+name: Neuvillette / Furina / Ororon / Lanyan
+members:
+    - neuvillette
+    - furina
+    - ororon
+    - lanyan
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/zPdnGrqLrkfN
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 74122
+    computed: "2026-10-01"

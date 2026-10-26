@@ -1,0 +1,22 @@
+active mona;
+for let i=0; i<4; i=i+1 {
+  mona attack:2, skill, attack:2;
+  while !.mona.mods.favonius-cd {
+    mona attack;
+  }
+  bennett burst, skill;
+  xiangling burst, skill, dash;
+  mona burst;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump, 
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump;
+  if .wrio.burst.ready  {
+    wrio burst;
+  } else {
+    wrio attack:3;
+  }
+  bennett skill, attack;
+}

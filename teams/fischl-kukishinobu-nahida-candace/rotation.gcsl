@@ -1,0 +1,16 @@
+active nahida;
+for let i = 1; i <=5; i = i + 1 {
+  nahida attack,skill, burst;
+  if .fischl.skill.ready {
+    fischl skill;
+  } else {
+    fischl burst;
+  }
+  candace skill[hold=1],burst,attack;
+  kuki attack,burst,attack,skill;
+  kuki attack,charge;
+  kuki attack,charge;
+  kuki attack,charge;
+  kuki attack,charge;
+  kuki attack;
+}

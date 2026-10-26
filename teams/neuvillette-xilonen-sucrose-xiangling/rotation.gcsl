@@ -1,0 +1,19 @@
+active neuvillette;
+neuvillette skill, attack;
+for let x=0; x<4; x=x+1 {
+  xilonen attack, skill, attack:2;
+  sucrose skill, dash;
+  if x && .sucrose.skill.ready {
+    sucrose skill, dash, attack;
+  } else {
+    sucrose attack;
+  }
+  xiangling attack, burst, skill, dash;
+  pick_up_crystallize("hydro");
+  neuvillette charge, burst, skill, charge;
+  xilonen skill, attack:2;
+  sucrose skill, dash, burst;
+  xiangling attack:2, skill, dash;
+  pick_up_crystallize("hydro");
+  neuvillette charge, charge, skill, attack;
+}

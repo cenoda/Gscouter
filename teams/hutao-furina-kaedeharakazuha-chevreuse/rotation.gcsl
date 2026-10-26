@@ -1,0 +1,18 @@
+active furina;
+for let r = 4; r > 0; r = r - 1 {
+  furina skill, attack, burst;
+  kaz burst;
+  chev burst, skill[hold=1];
+  kazuha skill, high_plunge;
+  tao skill;
+  for let i=9; i>0; i = i - 1 {
+    tao attack, charge, jump;
+  }
+  tao attack;
+  if .tao.burst.ready {
+    tao burst;
+  } else {
+    tao attack:2;
+  }
+  kazuha skill, high_plunge;
+}

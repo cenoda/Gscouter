@@ -1,0 +1,18 @@
+active ayato;
+ayato burst[radius=2];
+for let i=0; i<5; i=i+1{
+  nahida skill, burst, attack;
+  beidou skill[counter=1], burst, attack;
+  kuki skill, attack;
+  ayato skill, attack:15;
+  nahida skill, attack;
+  kuki burst;
+  while !.kuki.skill.ready {
+    if .kuki.normal == 3 {
+      kuki dash;
+    }
+    kuki attack;
+  }
+  kuki skill, attack;
+  ayato skill, attack:15, burst;
+}

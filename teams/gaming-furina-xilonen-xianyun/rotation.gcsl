@@ -1,0 +1,15 @@
+active gaming;
+gaming skill, high_plunge; 
+for let i = 0; i < 4; i = i + 1 {
+  xilonen skill, attack:2;
+  furina skill, dash, burst;
+  
+  xianyun skill, high_plunge, burst;
+  
+  gaming burst;
+  for let j = 0; j < 6; j = j + 1 {
+    sleep(45);
+    gaming skill, high_plunge;
+  }
+  gaming skill, high_plunge;
+}

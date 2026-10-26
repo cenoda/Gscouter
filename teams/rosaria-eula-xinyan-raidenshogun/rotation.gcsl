@@ -1,0 +1,28 @@
+active raiden;
+for let i=0; i<4; i=i+1 {
+  raiden skill;
+  rosaria skill;
+  
+  if .eula.energy<71 && !.rosaria.mods.favonius-cd {
+    rosaria attack;
+  }
+  eula skill, attack:2;
+  rosaria burst;
+  eula swap;
+  while !.eula.burst.ready {
+    if .eula.skill.ready {
+      eula skill;
+    } else {
+      eula attack;
+    }
+  }
+  eula burst, walk, attack:4, skill[hold=1], attack:4;
+  xinyan skill, burst;
+  rosaria skill;
+  
+  if .eula.energy<71 && !.rosaria.mods.favonius-cd {
+    rosaria attack;
+  }
+  eula attack:2;
+  raiden burst,  attack:3, charge, attack:3, charge, attack:2;
+}

@@ -1,0 +1,20 @@
+active esco;
+for let i=0; i<4; i=i+1 {
+  if i > 0 && .esco.burst.ready && .esco.energy == .esco.energymax {
+    esco skill, burst;
+  } else {
+    esco skill, attack;
+  }
+  tartaglia burst, skill, attack:1, charge, dash;
+  chongyun burst, skill;
+  skirk burst, skill[hold=1];
+  skirk attack:2, walk, 
+  attack:2, walk, 
+  attack:2, walk, 
+  attack:2, walk, 
+  attack:2, walk,
+  attack:2, walk,
+  attack:2, walk,
+  attack:2, walk,
+  attack:2;
+}

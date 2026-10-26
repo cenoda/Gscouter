@@ -1,0 +1,21 @@
+active emilie;
+for let i = 0; i < 4; i = i + 1 {
+  if i && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  
+  mavuika skill;
+  if .mavuika.burst.ready {
+    mavuika burst;
+  }
+  
+  ororon attack, skill, burst;
+  
+  chasca skill, aim:4, aim[bullets=4];
+  if .chasca.burst.ready {
+    chasca burst;
+  }
+}
+wait(84);

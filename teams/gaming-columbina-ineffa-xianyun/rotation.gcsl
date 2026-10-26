@@ -1,0 +1,29 @@
+active gaming; 
+for let i=0; i<4; i=i+1 {
+  if i > 0  && .ineffa.burst.ready {
+    ineffa skill, burst;
+  } else {
+    ineffa skill;
+  }
+  
+  if i > 0 && .columbina.burst.ready {
+    columbina skill, burst;
+  } else {
+    columbina skill, attack:2;
+  }
+  
+  xianyun skill, low_plunge;
+  
+  if !.xianyun.burst.ready && .xianyun.skill.ready {
+    xianyun skill, low_plunge;
+  }
+  xianyun burst;
+  gaming burst;
+  for let j = 0; j < 6; j = j + 1 {
+    sleep(45);
+    gaming skill, high_plunge;
+  }
+  sleep(35); 
+  gaming skill, high_plunge;
+
+}

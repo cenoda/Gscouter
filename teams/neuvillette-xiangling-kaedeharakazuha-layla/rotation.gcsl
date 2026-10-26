@@ -1,0 +1,14 @@
+active neuv;
+for let i = 0; i < 3; i = i + 1 {
+  neuv skill, attack:3;
+  kazuha skill, high_plunge, burst;
+  layla burst, attack, skill;
+  xiangling burst, skill, dash;
+  kazuha skill, high_plunge;
+  neuv charge, burst, skill, charge;
+  kazuha skill, high_plunge;
+  xiangling skill, dash, attack;
+  layla attack:2, skill;
+  neuv charge:2;
+}
+wait(173);

@@ -1,0 +1,20 @@
+active kuki;
+for let i=0; i<4; i=i+1 {
+  kuki skill, attack;
+  eula skill, attack;
+  shenhe burst, skill;
+  rosaria skill, burst;
+  eula swap;
+  while !.eula.burst.ready {
+    if .eula.skill.ready {
+      eula skill;
+    } else {
+      eula attack;
+    }
+  }
+  eula burst, walk, attack:4, skill[hold=1], attack:4;
+  shenhe skill, attack;
+  eula attack:2;
+  rosaria skill;
+  eula attack:2;
+}

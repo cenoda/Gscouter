@@ -1,0 +1,34 @@
+active ororon;
+for let r = 0; r < 3; r = r + 1 {
+  
+  ororon skill, burst;
+  
+  if !r {
+    yelan skill[marked=2], burst; 
+  }
+  
+  if r &&.kuki.burst.ready {
+    kuki burst;
+  }
+  
+  if r {
+    yelan burst, attack, skill[marked=2], attack;
+  }
+  
+  alhaitham burst, attack;
+  
+  kuki skill, dash, attack;
+  
+  alhaitham attack:3, dash,
+            attack:3, dash,
+            attack:3, dash,
+            attack:3;
+            
+  yelan skill[marked=2], attack:2;
+  
+  alhaitham skill[hold=1], low_plunge[short=1], 
+            attack:2, charge, dash, 
+            attack:3, charge, dash;
+  
+}
+wait(33);

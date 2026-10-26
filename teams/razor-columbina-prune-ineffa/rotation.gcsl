@@ -1,0 +1,30 @@
+active razor; 
+for let i=0; i<4; i=i+1 {
+  if i > 0  && .ineffa.burst.ready {
+    ineffa skill, burst;
+  } else {
+    ineffa skill;
+  }
+  
+  if i > 0 && .columbina.burst.ready {
+    columbina skill, burst;
+  } else {
+    columbina attack:1, skill; 
+  }
+  
+  prune skill, burst, skill;
+  
+  razor skill, dash, attack:1, burst;
+  razor attack:1, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+  razor attack:3;
+  if i == 1 {
+    razor dash;
+    razor attack:3, dash;
+    razor attack:3;
+  }
+  
+  prune attack:1;
+}

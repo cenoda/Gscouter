@@ -1,0 +1,20 @@
+active freminet; 
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], dash;
+
+  chiori skill:2;
+  
+  if .amy.skill.ready {
+    amy attack:1, skill;
+  } else {
+    amy attack:2, burst;
+  }
+
+  freminet skill, burst,
+         attack:2, skill, skill,
+         attack:2, skill, attack, skill,  
+         attack:2, skill, attack, skill,
+         attack:2, skill;
+         
+  print("done");
+}

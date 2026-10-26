@@ -1,0 +1,14 @@
+active luminedendro;
+for let x = 0; x < 5; x=x+1 {
+  luminedendro skill, burst, attack;
+  yelan skill, burst, attack;
+  xingqiu skill, dash, burst, attack;
+  if .kuki.burst.ready {
+    kuki burst, attack, skill;
+  }
+  else {
+    kuki attack:3, skill;
+  }
+  travelerdendro attack, skill, attack:2;
+  yelan attack:5, skill, attack:10;
+}

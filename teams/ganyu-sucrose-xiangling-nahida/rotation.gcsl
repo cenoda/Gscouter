@@ -1,0 +1,18 @@
+active ganyu;
+ganyu skill;
+for let i=0; i<4; i=i+1 {
+  nahida skill, burst;
+  
+  xiangling attack, skill;
+  sucrose skill;
+  ganyu aim:5, skill;
+  
+  xiangling attack, skill;
+  if i == i / 2 * 2 {
+    sucrose attack, burst;
+  } else {
+    sucrose skill;
+  }
+  ganyu aim:4, skill;
+  print("rotation done");
+}

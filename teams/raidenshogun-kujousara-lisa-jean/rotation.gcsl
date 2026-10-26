@@ -1,0 +1,15 @@
+active raiden;
+raiden skill;
+for let x =0; x<4; x=x+1 { 
+	jean skill, attack;
+	
+	sara skill, aim;
+	
+	lisa burst, skill[hold=1];
+	
+	jean skill, burst;
+	
+	sara burst;
+	
+	raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+}

@@ -1,0 +1,23 @@
+active nahida;
+nahida skill; 
+for {
+  switch {
+    case !.fischl.oz && .fischl.burst.ready && .fischl.swap.ready:
+      fischl attack:2, burst;
+    case !.fischl.oz && .fischl.skill.ready && .fischl.swap.ready:
+      fischl attack, skill;
+    case .sethos.skill.ready && .sethos.energy < 40 && .sethos.swap.ready:
+      sethos skill;
+    case .sethos.skill.cd && .sethos.energy > 20 && .sethos.swap.ready:
+      sethos aim[hold=2];
+    case .aetherelectro.skill.ready && .sethos.energy < .sethos.energymax && .aetherelectro.swap.ready:
+      aetherelectro skill[hits=3, amulet_delay=80];
+    case .aetherelectro.burst.ready && .aetherelectro.swap.ready:
+      aetherelectro burst;
+    case .nahida.skill.ready && .nahida.swap.ready && !.debuff.res.t0.nahida-e:
+      nahida skill, attack, charge;
+
+    default:
+      sethos aim[hold=1];
+  }
+}

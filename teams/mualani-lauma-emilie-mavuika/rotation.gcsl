@@ -1,0 +1,56 @@
+active mav;
+fn mualani_combo1() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<1; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+  mualani walk;
+}
+fn mualani_combo3() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+  mualani walk;
+}
+mualani attack;
+for let i=0; i<7; i=i+1 {
+  mavuika burst, charge:2, dash, charge:2, dash, charge:2, dash, skill;
+  
+  if i > 0 {
+    mualani attack, charge; 
+  }
+  if .verdant-dew > 0 {
+    lauma attack;
+    lauma skill[hold=1];
+  } else {
+    lauma skill, attack;
+  }
+  if i && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie attack, skill;
+  }
+  mualani skill;
+  if .mualani.burst.ready {
+    mualani_combo1();
+    mualani walk[f=1], burst[travel=2];
+    mualani_combo1();
+  }
+  else {
+    mualani_combo3();
+  }
+  
+}

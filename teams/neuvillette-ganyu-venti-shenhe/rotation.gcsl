@@ -1,0 +1,13 @@
+active neuv;
+for let i = 0; i < 3; i = i + 1 {
+  neuv burst;
+  venti attack, skill, burst;
+  shenhe burst, skill[hold=1];
+  ganyu skill, burst;
+  neuv charge, charge, skill, attack:3;
+  venti attack:2, skill, attack;
+  shenhe attack:2, dash, skill[hold=1];
+  ganyu skill, burst;
+  neuv charge, skill, charge;
+}
+wait(173);

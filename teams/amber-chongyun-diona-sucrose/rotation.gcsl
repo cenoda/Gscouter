@@ -1,0 +1,18 @@
+active diona;
+for let i=0; i<4; i=i+1 {
+  diona skill, burst, attack;
+  sucrose attack, attack;
+  if .sucrose.burst.ready {
+    sucrose burst;
+  }
+  sucrose attack;
+  amber burst;
+  sucrose skill;
+  chongyun burst, skill;
+  amber skill, aim[bunny=1], dash;
+  diona skill, dash;
+  amber skill, aim[bunny=1], dash;
+  chongyun attack:4;
+  amber aim[weakspot=1];
+  
+}

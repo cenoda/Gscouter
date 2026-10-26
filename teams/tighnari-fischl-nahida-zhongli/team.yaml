@@ -1,0 +1,17 @@
+id: tighnari-fischl-nahida-zhongli
+name: Tighnari / Fischl / Nahida / Zhongli
+members:
+    - tighnari
+    - fischl
+    - nahida
+    - zhongli
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/hkNpfGnCdtmg
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 51961
+    computed: "2026-10-02"

@@ -1,0 +1,28 @@
+active fischl;
+fischl skill, attack;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  mika burst, attack, skill;
+  
+  fischl attack:1;
+  if .fischl.skill.ready {
+    fischl skill;
+  } else {
+    fischl attack, burst;
+  }
+  
+  while !.furina.skill.ready { 
+    if .xinyan.skill.ready {
+      xinyan skill;
+    } else if .xinyan.burst.ready {
+      xinyan burst;
+    } else if .xinyan.normal == 3 && .stam > 18 {
+      xinyan dash;
+    } else if .xinyan.normal > 4 && .stam > 18 {
+      xinyan dash;
+    } else {
+      xinyan attack;
+    }
+  }
+  
+}

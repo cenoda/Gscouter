@@ -1,0 +1,38 @@
+active chongyun;
+for let i=0; i<4; i=i+1 {
+  chongyun burst;
+  
+  furina skill, dash, burst;
+  
+  chongyun skill;
+  
+  jean skill, burst;
+  
+  rosaria attack, skill, burst;
+  while .debuff.res.t0.vvcryo {
+    if .rosaria.skill.ready {
+      rosaria skill;
+    } else if .rosaria.normal > 1 && .stam > 43 {
+      rosaria charge, dash;
+    } else if .rosaria.normal > 2 && .stam > 18 {
+      rosaria dash;
+    } else {
+      rosaria attack;
+    }
+  }
+  
+  jean attack, skill;
+  
+  while .furina.skill.cd> 60 {
+    if .rosaria.skill.ready {
+      rosaria skill;
+    } else if .rosaria.normal > 1 && .stam > 43 {
+      rosaria charge, dash;
+    } else if .rosaria.normal > 2 && .stam > 18 {
+      rosaria dash;
+    } else {
+      rosaria attack;
+    }
+  }
+  
+}

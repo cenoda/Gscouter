@@ -1,0 +1,22 @@
+active raiden;
+    raiden skill;
+for let i=0; i<4; i=i+1 {
+	diona skill[hold=1], dash;
+	if .diona.skill.ready {
+	  diona skill[hold=1];
+	}
+	eula skill, attack;
+	sara skill, aim;
+	diona burst;
+	eula swap;
+	while !.eula.burst.ready {
+	  if .eula.skill.ready {
+	    eula skill;
+	  } else {
+	    eula attack;
+	  }
+	}
+	eula burst, walk,attack:4,skill[hold=1],attack:4;
+	sara burst;
+	raiden burst,attack:4, skill, attack:4, dash, attack:4;
+}

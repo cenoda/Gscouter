@@ -1,0 +1,15 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  furina attack, skill, dash;
+  xilo burst, skill, attack:2; 
+  yelan burst, attack, skill; pick_up_crystallize("hydro");
+  yelan attack;
+  furina burst, attack;
+  neuvillette charge, skill, charge, burst;
+  xilonen skill, attack:2;
+  yelan attack;
+  yelan skill; pick_up_crystallize("hydro"); 
+  neuvillette charge, charge;
+}
+wait(173);

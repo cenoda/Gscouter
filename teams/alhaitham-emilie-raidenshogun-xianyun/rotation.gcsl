@@ -1,0 +1,26 @@
+active raiden;
+raiden skill;
+for let x = 0; x < 4; x = x + 1 {
+  if .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill;
+  }
+  
+  xianyun skill, low_plunge, burst;
+  
+  haitham skill[hold=1], low_plunge[short=1];
+  
+  while .haitham.status.xianyun-airborne-buff {
+    haitham jump;
+    if .airborne {
+      haitham low_plunge[collision=rand()>0.4];
+    } 
+    haitham attack:1;
+  }
+  haitham burst;
+  
+  raiden burst, attack:4, skill, attack:4;
+  
+  print("done");
+}

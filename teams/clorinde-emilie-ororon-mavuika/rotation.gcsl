@@ -1,0 +1,31 @@
+active emilie;
+for let i=0; i<4; i=i+1 {
+  if i > 0 && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  
+  ororon burst, skill;
+
+  if .mav.burst.ready && i == 0 {
+    mav skill, burst;
+  } else if .mav.burst.ready {
+    mav skill, burst, charge:2, dash;
+  } else {
+    mav skill, attack;
+  }
+  
+  if .clorinde.skill.cd {
+    clorinde attack:2;
+  }
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+  clorinde burst;
+}

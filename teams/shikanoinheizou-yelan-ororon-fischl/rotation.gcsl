@@ -1,0 +1,35 @@
+fn declensionCombo() {
+  switch {
+    case .heizou.normal > 1 && .heizou.skill.ready && .heizou.declension == 4:
+      heizou skill;
+    case .heizou.normal > 1 && .heizou.burst.ready:
+      heizou burst;
+    case .heizou.normal > 1:
+      heizou charge;
+    default:
+      heizou attack;
+  }
+}
+active yelan;
+for let i=0; i<4; i=i+1 {
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  ororon skill, attack, burst;  
+  
+  if .fischl.burst.ready {
+    fischl attack:2, burst;
+  } else {
+    fischl attack, skill;
+  }
+  
+  while .fischl.oz {
+    declensionCombo();
+  }
+  print("done");
+}

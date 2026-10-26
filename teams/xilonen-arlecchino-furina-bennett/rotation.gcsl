@@ -1,0 +1,29 @@
+active arlecchino;
+for let i = 0; i < 4; i = i + 1 {
+  
+  if.arlecchino.skill.ready {
+    arlecchino skill;
+  }
+  furina skill, attack:3, burst;
+  bennett skill, burst, attack:1;
+  
+  if .xilonen.burst.ready {
+    xilonen skill, burst, attack:2;
+  } else {
+    xilonen skill, attack:2;
+  }
+  
+  if .arlecchino.skill.ready {
+    arlecchino skill;
+  }
+  
+  if .arlecchino.burst.ready {
+    arlecchino burst, skill, charge;
+  } else {
+    arlecchino charge;
+  }
+  
+  while .furina.fanfare {
+    arlecchino attack:3, dash;
+  }
+}

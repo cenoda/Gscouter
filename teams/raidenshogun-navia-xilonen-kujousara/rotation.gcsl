@@ -1,0 +1,11 @@
+active navia; 
+raiden skill;
+navia skill;
+for let i=0; i<4; i=i+1 {
+  navia burst;
+  xilonen skill, burst, attack:2;
+  sara skill, burst;
+  navia skill[hold=1], attack:3, skill[hold=1];
+  sara aim;
+  raiden burst, attack:4, skill, attack:3, charge, dash, attack:4;
+}

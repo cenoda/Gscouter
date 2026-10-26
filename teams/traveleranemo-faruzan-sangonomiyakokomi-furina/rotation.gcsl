@@ -1,0 +1,10 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  faruzan skill, burst;
+  kokomi skill, attack:2;
+  aetheranemo skill[hold=1], burst; 
+  faruzan skill, aim:2;
+  kokomi burst, attack:2, walk,attack:2;
+  aetheranemo skill[hold=1];
+}

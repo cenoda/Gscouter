@@ -1,0 +1,24 @@
+active eula;
+for let i=0; i<2; i=i+1 {
+  nahida skill, burst;
+  eula skill;
+  yelan skill, burst, attack;
+  raiden skill, attack;
+  eula swap;
+  while !.eula.burst.ready {
+    if .eula.skill.ready {
+      eula skill;
+    } else {
+      eula attack;
+    }
+  }
+  eula burst, attack:4, skill[hold=1], attack:5;
+  nahida attack: 2;
+  
+  nahida skill, burst;
+  eula skill;
+  yelan skill, burst, attack;
+  raiden skill, attack;
+  eula skill, attack:4, skill[hold=1], attack:5;
+  nahida attack: 2;
+}

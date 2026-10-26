@@ -1,0 +1,21 @@
+active nahida;
+for let i = 0; i < 4; i = i + 1 {
+  nahida attack, skill;
+  if .nahida.burst.ready {
+    nahida burst;
+  }
+  
+  if is_even(i) {
+    fischl attack:2, burst;
+  } else {
+    fischl skill, attack;
+  } 
+  
+  ororon skill, burst; 
+  
+  chasca skill, aim:4, aim[bullets=4];
+  if .chasca.burst.ready{
+    chasca burst;
+  }
+}
+wait(84);

@@ -1,0 +1,17 @@
+id: travelerdendro-xingqiu-bennett-zhongli
+name: Travelerdendro / Xingqiu / Bennett / Zhongli
+members:
+    - luminedendro
+    - xingqiu
+    - bennett
+    - zhongli
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/nGhjRrmgHJqB
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 29225
+    computed: "2026-10-02"

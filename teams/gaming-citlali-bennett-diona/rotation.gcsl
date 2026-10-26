@@ -1,0 +1,23 @@
+active gaming; 
+for let i=0; i<4; i=i+1 {
+  diona skill[hold=1], burst;
+  
+  bennett skill, burst;
+  
+  citlali skill, burst;
+  gaming burst;
+  let plungeCount = 0;
+  for let j = 0; j < 5; j = j + 1 {
+    sleep(45); 
+    gaming skill, high_plunge;
+    plungeCount = plungeCount + 1; print(plungeCount);
+  }
+  sleep(30); 
+  gaming skill, high_plunge; 
+  plungeCount = plungeCount + 1; print(plungeCount);
+  
+  citlali attack:2;
+  
+  gaming skill, high_plunge; 
+  plungeCount = plungeCount + 1; print(plungeCount); 
+}

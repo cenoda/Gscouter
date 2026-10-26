@@ -1,0 +1,24 @@
+active yelan;
+for let i=0; i<4; i=i+1 {
+  yelan skill, burst, attack;
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  if ( i / 2 ) * 2 == i {
+    kazuha burst, attack;
+  } else {
+    kazuha skill, high_plunge, attack;
+  }
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+  kazuha skill, high_plunge;
+  clorinde burst;
+}

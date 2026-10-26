@@ -1,0 +1,13 @@
+active yaemiko;
+for let i=0; i<5; i=i+1 {
+	yae skill:3;
+	if !i {
+		raiden skill, attack;
+	}
+	xingqiu burst, attack;
+	kazuha skill, high_plunge, attack;
+	xingqiu attack, skill, dash, attack:2;
+	yae burst, attack, skill, attack, skill, attack, skill;
+	kazuha attack, skill, high_plunge, attack;
+	raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+}

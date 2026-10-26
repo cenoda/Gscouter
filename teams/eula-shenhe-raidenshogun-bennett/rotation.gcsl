@@ -1,0 +1,19 @@
+active eula;
+for let x=0; x<4; x=x+1 {
+	raiden skill;
+	shenhe attack, skill[hold=1], attack;
+	eula skill, attack;
+	shenhe burst;
+	bennett burst;
+	eula swap;
+	while !.eula.burst.ready {
+	  if .eula.skill.ready {
+		eula skill;
+	  } else {
+		eula attack;
+	  }
+	}
+	eula burst,walk,attack:4,skill[hold=1],attack:4;
+	shenhe skill,attack;
+	raiden burst,  attack:2, charge, attack:2, charge, attack:2, charge;
+}

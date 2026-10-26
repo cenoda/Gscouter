@@ -1,0 +1,17 @@
+id: nahida-xingqiu-raidenshogun-zhongli
+name: Nahida / Xingqiu / Raidenshogun / Zhongli
+members:
+    - nahida
+    - xingqiu
+    - raiden
+    - zhongli
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/N8TdjBGrt9MB
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 73811
+    computed: "2026-10-01"

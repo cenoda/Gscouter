@@ -1,0 +1,9 @@
+active luminedendro;
+for let i=0; i<4; i=i+1 { 
+	luminedendro skill, burst;
+	collei burst, skill;
+	nahida attack:2, skill;
+	tighnari skill, aim:3, burst;
+	luminedendro attack:2, skill;
+	tighnari aim:5;
+}

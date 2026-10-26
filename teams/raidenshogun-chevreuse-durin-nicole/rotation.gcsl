@@ -1,0 +1,16 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 7; i = i + 1 {
+  
+  nicole skill, burst;
+  
+  durin attack, skill, burst, skill, attack;
+  
+  chevreuse skill[hold=1], burst;
+  raiden burst, attack:4, skill;
+  for let c = 0; c < 3; c = c + 1 {
+    raiden attack, charge, dash;
+  }
+  raiden attack:4;
+  
+}

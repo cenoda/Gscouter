@@ -1,0 +1,30 @@
+active ineffa;
+for let i=0; i<4; i=i+1 {
+  ineffa skill;
+  if i && .ineffa.burst.ready {
+    ineffa burst;
+  } else {
+    ineffa attack;
+  }
+ 
+  if is_even(i){
+    furina skill, dash; 
+  } else {
+    furina burst;
+  }
+  
+  ororon skill, burst, attack;
+ 
+  if .ifa.burst.ready {
+    ifa burst;
+  }
+  ifa attack, skill;
+  while .ifa.nightsoul.points > 8 {
+    ifa charge;
+  }
+  if .ifa.burst.ready {
+    ifa burst, attack;
+  } else {
+    ifa attack;
+  }
+}

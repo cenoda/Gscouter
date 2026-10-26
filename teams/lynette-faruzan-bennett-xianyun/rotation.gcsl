@@ -1,0 +1,40 @@
+fn LynettePlunge() {
+  lynette jump;
+  if .airborne {
+    lynette high_plunge[collision=rand()>0.3];
+  }
+}
+active faruzan;
+for let i = 0; i < 4; i = i + 1 {
+  faruzan skill, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  bennett skill, burst;
+  
+  if .lynette.burst.ready {
+    lynette burst;
+  }
+  lynette skill;
+  LynettePlunge(); lynette dash;
+  LynettePlunge(); lynette dash;
+  LynettePlunge(); lynette dash;
+  LynettePlunge(); lynette dash;
+  LynettePlunge(); lynette dash;
+  LynettePlunge();
+
+  while .lynette.skill.cd {
+    if .lynette.normal > 1 {
+      lynette charge;
+    } else {
+      lynette attack;
+    }
+  }
+  lynette skill;
+  LynettePlunge(); lynette dash;
+  LynettePlunge();
+  lynette attack, charge, 
+          attack, charge;
+  
+  bennett skill;
+}

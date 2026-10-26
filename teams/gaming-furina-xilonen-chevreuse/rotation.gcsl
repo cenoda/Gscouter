@@ -1,0 +1,22 @@
+active gaming; 
+furina skill, dash; 
+for let i = 0; i < 4; i = i + 1 {
+  chev burst;
+  
+  chev skill[hold=1]; 
+  
+  xilonen skill, attack:2;
+
+  if .furina.skill.ready {
+    furina skill, dash;
+  }
+  furina burst;
+  
+  gaming burst;
+  for let j = 0; j < 6; j = j + 1 {
+    sleep(45);
+    gaming skill, high_plunge;
+  }
+  sleep(30); 
+  gaming skill, high_plunge;
+}

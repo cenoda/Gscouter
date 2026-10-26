@@ -1,0 +1,11 @@
+active yae;
+for let i = 0; i < 5; i = i + 1 {
+  yae attack, skill:3;
+  fischl skill, attack;
+  diona skill[hold=1], burst;
+  alhaitham skill[hold=1], low_plunge[short=1], attack:3, dash, attack:3;
+  yae attack, burst, skill, skill, attack, skill;
+  alhaitham burst;
+  fischl attack:2, burst;
+  alhaitham attack:3, dash, attack:3, charge, attack:3, dash, attack:3, dash, attack:3, dash, attack:4;
+}

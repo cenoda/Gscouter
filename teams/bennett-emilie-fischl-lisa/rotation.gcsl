@@ -1,0 +1,33 @@
+active bennett;
+for let x = 0; x < 4; x = x + 1 {
+  if .bennett.skill.ready {
+    bennett skill;
+  }
+  bennett burst;
+  
+  if x && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie attack, skill;
+  }
+  
+  if .lisa.burst.ready && .lisa.energy == .lisa.energymax {
+    lisa burst;
+  }
+  
+  if .fischl.skill.ready {
+    fischl attack:1, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  
+  while !.bennett.burst.ready {
+    if .lisa.burst.ready && .lisa.energy == .lisa.energymax {
+      lisa burst;
+    } else if .bennett.skill.ready {
+      bennett skill;
+    } else {
+      bennett attack;
+    }
+  }
+}

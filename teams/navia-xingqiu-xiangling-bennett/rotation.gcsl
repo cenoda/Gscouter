@@ -1,0 +1,21 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+	pick_up_crystallize("any"); 
+  }
+	
+  return _execute_action(char_id, action_id, p);
+}
+active xingqiu;
+for let i=0; i<4; i=i+1 {
+   
+    xingqiu attack, skill, dash, burst, attack;
+    navia burst;
+    bennett attack, burst, skill, dash; 
+    xiangling burst, attack, skill, dash, attack;
+    navia skill[hold=1], attack:3, dash, attack:2;
+    bennett attack, skill, dash;
+    navia skill, attack:3, dash, attack;
+    bennett skill, dash;
+    xiangling attack:2, dash;
+}

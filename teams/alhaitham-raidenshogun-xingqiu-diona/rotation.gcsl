@@ -1,0 +1,20 @@
+active raiden;
+for let i=0; i<4; i=i+1 { 
+  raiden attack,skill;
+  diona skill[hold=1],attack;
+  xingqiu skill,dash,burst,attack;
+  alhaitham burst;
+  diona attack,burst;
+  
+  alhaitham attack:3,dash,
+            attack:3,dash,
+            attack:2,skill,
+            attack:3,dash,
+            attack:3,dash,
+            attack,charge,
+            attack:3,dash,
+            attack:3,dash,
+            attack:3,dash,
+            attack:3;
+         
+}

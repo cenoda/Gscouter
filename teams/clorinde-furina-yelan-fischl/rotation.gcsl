@@ -1,0 +1,28 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active fischl;
+for let r=0; r<3; r=r+1 {
+
+  furina skill, dash, burst;
+  
+  fischl attack, skill;
+  
+  yelan skill, burst, attack;
+  
+  clorinde_combo();
+  
+  fischl attack:2, burst;
+  
+  yelan attack, skill, attack;
+  
+  clorinde_combo();
+  
+}

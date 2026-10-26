@@ -1,0 +1,24 @@
+active zl;
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], dash, attack;
+  
+  nahida skill, attack;
+  if .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  xingqiu skill, dash, burst, attack;
+  
+  lisa attack:1;
+  lisa attack:3, dash, attack:3, dash;
+  lisa attack:3, dash, attack:3, dash;
+  lisa attack:3, dash, attack:3, dash;
+  lisa attack:3, dash, attack:3;
+  if .lisa.burst.ready {
+    lisa burst, attack;
+  } else {
+    lisa dash, attack;
+  }
+}

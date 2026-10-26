@@ -1,0 +1,17 @@
+active yae;
+	
+for let i=0; i<4; i=i+1 {
+    if !i {
+      yae skill:3;
+    } else {
+	  yae skill, attack, skill, attack, skill, attack:2;
+	}
+	kazuha skill, high_plunge, burst;
+	amy attack:2, skill;
+	tighnari skill, aim:3;
+	kazuha skill, high_plunge;
+	yae attack, burst, attack, skill, attack, skill, attack, skill, attack:2;
+	kazuha skill, high_plunge;
+	amy attack, burst;
+	tighnari attack, skill, aim:3, burst;
+}

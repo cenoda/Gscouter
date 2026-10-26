@@ -1,0 +1,20 @@
+active freminet; 
+for let i=0; i<4; i=i+1 {
+  nahida skill, attack, charge;
+  
+  kuki attack, skill; 
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+
+  freminet skill, attack, burst, 
+         attack:2, skill, skill,
+         attack:2, skill, attack, skill,  
+         attack:2, skill, attack, skill,
+         attack:2, skill;
+}

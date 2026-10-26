@@ -1,0 +1,18 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  furina attack, skill, dash, attack;
+  xilo skill, burst, attack:2;
+  if .lanyan.burst.ready && .lanyan.energy == .lanyan.energymax {
+    lanyan burst;
+  } else {
+    lanyan attack;
+  }
+  lanyan skill:2;
+  furina burst;
+  neuvillette charge, skill, charge, burst;
+  xilonen skill, attack:2;
+  lanyan skill:2;
+  neuvillette charge, charge;
+}
+wait(173);

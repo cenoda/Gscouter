@@ -1,0 +1,17 @@
+id: tartaglia-xiangling-bennett-sucrose
+name: Tartaglia / Xiangling / Bennett / Sucrose
+members:
+    - tartaglia
+    - xiangling
+    - bennett
+    - sucrose
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/mTp7RDWwL6PT
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 43090
+    computed: "2026-09-30"

@@ -1,0 +1,29 @@
+active razor; 
+razor skill, dash;
+for let i=0; i<4; i=i+1 {
+  albedo skill, attack;
+  
+  zhongli skill[hold=1], dash;
+  while !.zhongli.mods.favonius-cd && i > 0 {
+    zhongli attack;
+  }
+  if .zhongli.sets.ap {
+    pick_up_crystallize("electro"); 
+  }
+  
+  collei skill, burst;
+  if !.collei.mods.favonius-cd && i > 0 {
+    collei attack;
+  }
+
+  razor skill, dash, attack, burst;
+  razor attack:1, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash; 
+  razor attack:3;
+  
+  print("end");
+}

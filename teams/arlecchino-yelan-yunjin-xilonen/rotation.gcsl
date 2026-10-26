@@ -1,0 +1,11 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  yelan skill, attack, burst, attack;
+  xilonen skill, attack:2;
+  yunjin skill, attack, burst, dash;
+  pick_up_crystallize("hydro");
+  yunjin attack;
+  arle charge, 
+       attack:16;
+}

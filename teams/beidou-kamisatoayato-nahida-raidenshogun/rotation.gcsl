@@ -1,0 +1,10 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  kamisatoayato burst[radius=2];
+  nahida skill, burst;
+  beidou skill[counter=2], burst;
+  kamisatoayato skill, attack:15;
+  raiden skill, attack;
+  kamisatoayato skill, attack:15;
+}

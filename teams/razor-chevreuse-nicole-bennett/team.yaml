@@ -1,0 +1,17 @@
+id: razor-chevreuse-nicole-bennett
+name: Razor / Chevreuse / Nicole / Bennett
+members:
+    - razor
+    - chev
+    - nicole
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/jt9wfNmDn7DK
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 110007
+    computed: "2026-10-01"

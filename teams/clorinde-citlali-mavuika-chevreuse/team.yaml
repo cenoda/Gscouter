@@ -1,0 +1,17 @@
+id: clorinde-citlali-mavuika-chevreuse
+name: Clorinde / Citlali / Mavuika / Chevreuse
+members:
+    - clorinde
+    - citlali
+    - mavuika
+    - chevreuse
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Q96JNW7k8kC9
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 532002
+    computed: "2026-10-01"

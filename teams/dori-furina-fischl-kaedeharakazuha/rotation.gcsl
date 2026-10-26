@@ -1,0 +1,26 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  fischl attack, skill;
+  
+  furina skill, dash, burst;
+  
+  kazuha skill, high_plunge;
+  
+  dori skill, attack:2, dash, attack:2, burst;
+  
+  while .furina.skill.cd {
+    if !.amy.oz && .amy.burst.ready {
+      amy attack:2, burst;
+    } else if .kazuha.burst.ready { 
+      kazuha burst;
+    } else if .kazuha.skill.ready { 
+      kazuha skill, high_plunge;
+    } else if .dori.skill.ready {
+      dori skill;
+    } else if .dori.normal > 2 {
+      dori dash;
+    } else {
+      dori attack;
+    }
+  }
+}

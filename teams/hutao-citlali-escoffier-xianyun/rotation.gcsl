@@ -1,0 +1,32 @@
+let hutaoHighPlunge = true; 
+active esco; 
+for let i=0; i<4; i=i+1 {
+  esco skill;
+  xianyun skill, low_plunge, burst;
+  
+  citlali skill, burst;
+  
+  if hutaoHighPlunge {
+    hutao skill, attack:1;
+    for let p = 6; p > 0; p = p - 1 {
+      hutao jump;
+      if .airborne {
+        hutao high_plunge[collision=rand()>0.5];
+      }
+    }
+    hutao attack:1;
+  } else {
+    hutao skill, attack:1;
+    for let p = 7; p > 0; p = p - 1 {
+      hutao jump;
+      if .airborne {
+        hutao low_plunge[collision=rand()>0.5];
+      }
+    }
+  }
+  if .hutao.burst.ready && .hutao.energy == .hutao.energymax  {
+    hutao burst;
+  } else if .esco.burst.ready && .esco.energy == .esco.energymax {
+    esco burst;
+  }
+}

@@ -1,0 +1,24 @@
+active zhongli;
+for let i = 0; i < 5; i = i + 1 {
+  zhongli attack, skill[hold=1], dash;
+  while !.zhongli.mods.favonius-cd && !(.bennett.burst.ready && .yunjin.burst.ready) {
+    zhongli attack;
+  }
+  bennett skill, burst;
+  yunjin skill, burst;
+  while !.yunjin.mods.favonius-cd {
+    yunjin attack;
+  }
+  wanderer attack, skill;
+  while .wanderer.skydweller-points > 3 {
+    switch {
+    case .wanderer.normal < 3:
+      wanderer attack;
+    case .wanderer.mods.wanderer-a4:
+      wanderer dash;
+    default:
+      wanderer charge;
+    }
+  }
+  wanderer skill;
+}

@@ -1,0 +1,26 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+ if .luminedendro.burst.ready {
+    sucrose attack, skill, dash; 
+  } else {
+    sucrose attack, charge, skill, dash;
+  }
+  if .luminedendro.burst.ready {
+    luminedendro burst, skill, attack;
+  } else {
+    luminedendro attack, burst, skill, attack:2, charge;
+  }
+  sara skill, aim, attack;
+  if .sucrose.skill.ready {
+    sucrose skill, dash;
+  } else {
+    sucrose attack;
+  }
+  sucrose burst, attack:2;
+  sara burst;
+  if .raiden.burst.ready {
+    raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  } else 
+    raiden attack, skill, attack, burst, attack:4, dash, attack:4, dash, attack:4, dash, attack:4;
+  }

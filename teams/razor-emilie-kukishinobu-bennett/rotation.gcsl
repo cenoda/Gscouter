@@ -1,0 +1,28 @@
+active razor; 
+for let i=0; i<4; i=i+1 {
+  kuki skill; 
+  
+  if i > 1 && .kuki.burst.ready { 
+    kuki burst;
+  }
+
+  if i && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack; 
+  }
+  
+  bennett skill, dash, burst;
+  
+  razor skill, dash, attack, burst;
+  razor attack:3, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+  razor attack:3, dash;
+  razor attack:3; 
+  
+  bennett skill;
+  
+  print("done");
+}

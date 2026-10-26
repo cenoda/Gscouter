@@ -1,0 +1,26 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  while !.furina.burst.ready {
+    furina attack;
+  }
+  furina burst;
+  
+  bennett burst, skill;
+  
+  xiangling burst, skill, dash;
+  
+  xianyun skill:1, low_plunge, attack, burst;
+  
+  for let j = 8; j > 0; j = j - 1 {
+    if .xianyun.status.xianyun-airborne-buff {
+      xianyun jump;
+      if .airborne {
+        xianyun high_plunge[collision=rand()>0.5], dash;
+      }
+    }
+  }
+  xianyun attack:1;
+  
+  bennett skill, attack;
+}

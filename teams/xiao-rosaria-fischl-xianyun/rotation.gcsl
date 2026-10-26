@@ -1,0 +1,28 @@
+active xiao; 
+for let x = 0; x < 4; x = x + 1 {
+  amy attack;
+  if .amy.burst.ready { 
+    amy attack, burst; 
+  } else { 
+    amy skill; 
+  }
+  
+  xianyun skill, high_plunge, burst;
+  
+  rosaria skill, burst;
+  
+  while .xiao.skill.ready {
+    xiao skill;
+  }
+  while .xiao.status.xianyun-airborne-buff {
+    xiao jump;
+    if .airborne {
+      xiao high_plunge[collision=rand()>0.5];
+    }
+    if .xiao.status.xianyun-airborne-buff { 
+      xiao dash;
+    }
+  }
+  
+  print("done");
+}

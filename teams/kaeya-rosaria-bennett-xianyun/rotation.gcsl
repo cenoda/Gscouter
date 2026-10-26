@@ -1,0 +1,33 @@
+fn KaeyaPlunge() {
+  kaeya jump;
+  if .airborne {
+    kaeya high_plunge[collision=rand()>0.5];
+  }
+}
+active xianyun;
+for let i = 0; i < 4; i = i + 1 {
+  xianyun skill, low_plunge, burst;
+  
+  bennett skill, burst;
+
+  if .xianyun.sets.vv >= 4 && i == 0 {
+    xianyun attack:2;
+  }
+  
+  rosaria skill, burst;
+  
+  kaeya skill, burst, dash;
+  KaeyaPlunge(); kaeya dash;
+  KaeyaPlunge(); kaeya dash;
+  KaeyaPlunge(); kaeya dash;
+  KaeyaPlunge(); kaeya dash;
+  KaeyaPlunge(); kaeya skill;
+  KaeyaPlunge(); kaeya dash;
+  KaeyaPlunge(); kaeya dash;
+  KaeyaPlunge(); 
+  
+  bennett skill;
+  if !.bennett.mods.favonius-cd && .bennett.weapon == .keys.weapon.favsword{ 
+    bennett attack;
+  }
+}

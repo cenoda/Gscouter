@@ -1,0 +1,24 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill, burst;
+  
+  nicole skill, burst;
+  
+  amy attack:2, skill;
+  
+  alhaitham skill[hold=1], low_plunge[short=1], 
+            attack:2, charge, dash, 
+            attack:3, charge, dash;
+  
+  nahida skill, attack, charge;
+  
+  alhaitham burst;
+  
+  amy attack:2, burst;
+  
+  alhaitham attack:3, dash, 
+            attack:3, charge, dash, 
+            attack:3, dash, 
+            attack:3, dash, 
+            attack:3;
+}

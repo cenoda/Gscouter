@@ -1,0 +1,16 @@
+active cyno;
+cyno skill;
+for let i=0; i<4; i=i+1 {
+  furina skill;
+  xilonen skill, burst, attack:2;
+  furina attack, burst;
+  nahida skill, attack, burst;
+  cyno skill, burst, attack, skill,
+    attack:4, skill, 
+    attack:4, skill, 
+    attack:4, skill,
+    attack:4, skill,
+    attack:4, skill,
+    attack:4, skill,
+    attack:4, skill;
+}

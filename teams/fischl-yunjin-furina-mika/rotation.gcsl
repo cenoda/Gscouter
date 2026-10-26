@@ -1,0 +1,47 @@
+active furina;
+let AIM_CANCEL=true;
+for let i=0; i<4; i=i+1 {
+  
+  furina skill, dash;
+  while !.furina.burst.ready && !.furina.mods.favonius-cd {
+    furina attack;
+  }
+  furina burst;
+ 
+  mika skill, burst;
+  
+  fischl attack;
+  if .fischl.burst.ready {
+    fischl attack, burst;
+  } else {
+    fischl skill;
+  }
+  
+  yunjin skill;
+  while !.yunjin.burst.ready {
+    yunjin attack;
+  }
+  yunjin burst;
+  
+  if AIM_CANCEL {
+    fischl attack:2, aim[hold=0],
+            attack:2, aim[hold=0],
+            attack:2, aim[hold=0],
+            attack:2, aim[hold=0],
+            attack:2, aim[hold=0],
+            attack:2, aim[hold=0],
+            attack:2, aim[hold=0],
+            attack:2, aim[hold=0],
+            attack:2, aim[hold=0],
+            attack:2, aim[hold=0],
+            attack:2, aim[hold=0],
+            attack:2, aim[hold=0];
+  } else {
+    fischl attack:5, dash,
+            attack:5, dash,
+            attack:5, dash,
+            attack:5, dash,
+            attack:5, dash,
+            attack;
+  }
+}

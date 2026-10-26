@@ -1,0 +1,17 @@
+id: mavuika-citlali-rosaria-xilonen
+name: Mavuika / Citlali / Rosaria / Xilonen
+members:
+    - mavuika
+    - citlali
+    - rosaria
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/GnbC6k66HwzB
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 96452
+    computed: "2026-10-02"

@@ -1,0 +1,18 @@
+active yae;
+for let i=0; i<4; i=i+1 {
+  yae skill:3;
+  chevreuse burst, skill[hold=1], skill[hold=1], skill[hold=1];  
+  
+  if .fischl.skill.ready {
+    fischl attack:3, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  if i==1 || i==3 {
+    yae burst, skill:3;
+  }
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  if i==1 || i==3 {
+    yoimiya burst;
+  }
+}

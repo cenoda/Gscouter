@@ -1,0 +1,24 @@
+active fischl;
+fischl aim;
+for let i=0; i<4; i=i+1 {
+  if .chev.burst.ready {
+    chev burst, skill[hold=1], attack;
+  } else {
+    chev attack, skill[hold=1], attack, dash;
+  }
+  xinyan burst, dash;
+  if .fischl.skill.ready {
+    fischl attack:3, skill;
+  } else if i {
+    fischl attack:3, burst;
+  }
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+  clorinde burst;
+}

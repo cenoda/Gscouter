@@ -1,0 +1,17 @@
+active nahida;
+for let i = 0; i < 5; i = i + 1 {
+  nahida burst, skill; 
+  kuki skill;
+  lisa attack, burst;
+  alhaitham skill[hold=1], low_plunge[short=1], 
+            attack:2, charge, dash, 
+            attack:3, charge;
+  lisa skill[hold=1];
+  alhaitham burst;
+  kuki burst;
+  alhaitham attack:3, dash, 
+            attack:3, charge, 
+            attack:3, dash, 
+            attack:3, dash, 
+            attack:4;
+}

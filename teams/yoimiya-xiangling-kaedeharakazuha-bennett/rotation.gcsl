@@ -1,0 +1,14 @@
+active yoimiya;
+for let i=0; i<4; i=i+1 { 
+  if .yoimiya.burst.ready {
+    yoimiya burst;
+  } else {
+    xiangling attack:2;
+  }
+  kazuha skill, high_plunge, burst;
+  bennett burst, skill;
+  xiangling burst, skill;
+  kazuha skill, high_plunge;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5;
+  bennett skill;
+}

@@ -1,0 +1,17 @@
+active lyney;
+for let r=0; r<4; r=r+1 {
+  lyney aim;
+  xilonen skill, attack:2;
+  bennett skill, burst, dash; pick_up_crystallize("pyro");
+  chiori skill:2;
+  lyney aim:3;
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(11);
+    lyney skill;
+  }
+  else {
+    lyney aim;
+  }
+  lyney aim, skill;
+}

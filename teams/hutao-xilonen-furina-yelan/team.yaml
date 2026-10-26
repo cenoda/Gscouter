@@ -1,0 +1,17 @@
+id: hutao-xilonen-furina-yelan
+name: Hutao / Xilonen / Furina / Yelan
+members:
+    - hutao
+    - xilonen
+    - furina
+    - yelan
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/hWwtBj7w66KM
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 135484
+    computed: "2026-10-02"

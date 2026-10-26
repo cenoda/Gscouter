@@ -1,0 +1,11 @@
+active yelan;
+for let x=0; x<4; x=x+1 {
+  yelan attack, skill, burst, attack; 
+  if !.yelan.mods.favonius-cd {
+    yelan attack;
+  }
+  bennett burst, skill[hold=1]; 
+  sucrose skill, dash, attack;  
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  bennett skill, dash;
+}

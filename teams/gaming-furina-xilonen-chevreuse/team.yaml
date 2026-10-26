@@ -1,0 +1,17 @@
+id: gaming-furina-xilonen-chevreuse
+name: Gaming / Furina / Xilonen / Chevreuse
+members:
+    - gaming
+    - furina
+    - xilonen
+    - chevreuse
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/hpc8GhgLzR8F
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 71797
+    computed: "2026-10-02"

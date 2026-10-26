@@ -1,0 +1,146 @@
+fn randy(mean, standardDeviation, min, max, display) {
+  let value = randnorm() * standardDeviation + mean;
+  if value > max {
+    value = max;
+  } else if value < min {
+    value = min;
+  }
+  if display {
+    print(value);
+  }
+  return value;
+}
+let prev_char_id = -1;
+let prev_action_id = -1;
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+
+  if prev_char_id != char_id && action_id != .action.swap {
+    execute_action(char_id, .action.swap, []);
+  }
+
+  if action_id == .action.swap {
+    
+    delay(randy(9.5, 1.5, 5, 17, 0));
+  } else if prev_action_id == .action.attack && action_id != .action.attack && action_id != .action.charge {
+    
+    delay(randy(3, 1, 0, 6, 0));
+  } else if prev_action_id != .action.attack {
+    
+    delay(randy(3, 1, 0, 6, 0));
+  }
+  
+  prev_char_id = char_id;
+  prev_action_id = action_id;
+  return _execute_action(char_id, action_id, p);
+}
+active albedo;
+albedo skill;
+for let r=0; r<4; r=r+1 {
+  
+  let marked = false;
+  if .nahida.skill.ready {
+    nahida skill[hold=1];
+    marked = true;
+  }
+  nahida attack;
+  while !.nahida.burst.ready || (.xingqiu.skill.cd > 120) {
+    if .nahida.skill.ready {
+      nahida skill;
+    } else if .nahida.normal > 2 {
+      nahida charge;
+    } else {
+      nahida attack;
+    }
+  }
+  nahida burst;
+  if !marked && .nahida.skill.ready {
+    nahida skill[hold=1];
+  }
+
+  xingqiu skill, dash;
+  pick_up_crystallize("any");
+  while !.xingqiu.burst.ready {
+    if .xingqiu.skill.ready {
+      xingqiu skill, dash;
+      pick_up_crystallize("any");
+    } else {
+      xingqiu attack;
+    }
+  }
+  xingqiu burst, attack;
+  if .xingqiu.skill.ready {
+    xingqiu skill, dash;
+    pick_up_crystallize("any");
+    xingqiu attack;
+  }
+
+  bennett skill;
+  while !.bennett.burst.ready {
+    if .bennett.skill.ready {
+      bennett skill;
+    } else {
+      bennett attack;
+    }
+  }
+  bennett burst;
+
+  albedo attack, skill, attack;
+  while !.albedo.burst.ready {
+    if .albedo.skill.ready {
+      albedo skill;
+    } else {
+      albedo attack;
+    }
+  }
+  
+  albedo burst, attack;
+
+  while (.xingqiu.skill.cd > 150) && (.albedo.mods.bennett-field > 20 || .status.bennettburst > 60) {
+    switch {
+    
+      case .nahida.swap.ready && .element.t0.hydro:
+        nahida swap;
+        
+        while .element.t0.hydro || !.albedo.swap.ready {
+          if (.gadgets.dendrocore.count >= 2) && .albedo.swap.ready {
+            albedo attack;
+            break;
+          }
+            
+          switch {
+          
+            case .previous-action == .action.charge:
+              nahida dash;
+              pick_up_crystallize("any");
+              
+            case .nahida.skill.ready:
+              nahida skill;
+              
+            case .nahida.normal > 2:
+              nahida charge;
+              
+            default:
+              nahida attack;
+          }
+        }
+
+      case .albedo.normal > 3:
+        if .albedo.skill.ready {
+          albedo skill;
+        } else {
+          albedo charge, dash;
+          pick_up_crystallize("any");
+        }
+        
+      default:
+        albedo attack;
+    }
+  }
+  
+  while !.nahida.swap.ready {
+    albedo attack;
+  }
+  
+  print("Rotation ", r, " done");
+}

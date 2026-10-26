@@ -1,0 +1,13 @@
+active nilou ;
+for let i=0; i<4; i=i+1 {
+  if .nilou.burst.ready {
+  nilou burst;
+  }
+  zhongli skill[hold=1], dash, attack;
+  xingqiu skill, burst, attack;
+  fischl skill, attack;
+  nilou skill, attack:18;
+  zhongli skill[hold=1], dash, attack;
+  fischl attack:2, burst;
+  nilou skill, attack:13;
+}

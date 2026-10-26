@@ -1,0 +1,13 @@
+active freminet; 
+for let i=0; i<4; i=i+1 {
+  raiden attack, skill;
+  
+  xingqiu skill, dash, burst, attack;
+  nahida skill, attack, charge; 
+
+  freminet skill, attack, burst,
+         attack:2, skill, attack, skill,
+         attack:2, skill, attack, skill, 
+         attack:2, skill, attack, skill,
+         attack:3, skill, attack; 
+}

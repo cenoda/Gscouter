@@ -1,0 +1,15 @@
+active nilou;
+for let i=0; i<4; i=i+1 {
+  nilou skill, attack:2, skill;
+  nahida skill, burst, attack;
+  alhaitham burst, attack;
+  kokomi skill, attack;
+  alhaitham attack:3, dash,
+    attack:3, dash,
+    attack:2, charge,
+    attack:3, dash,
+    attack:4;
+  kokomi attack, burst;
+  nahida attack, skill;
+  alhaitham skill[hold=1], low_plunge[short=1], attack:3, dash, attack:3;
+}

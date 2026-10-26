@@ -1,0 +1,27 @@
+active raiden;
+let t = 0;
+raiden skill, attack;
+for let x =0; x< 5; x=x+1 {
+	t = f();
+	xingqiu burst, attack, skill, dash, attack:2;
+	yelan attack, burst, attack;
+	fischl attack:2, burst;
+	yelan attack, skill, attack;
+	raiden burst, attack:4, dash, attack:4, skill, attack:4, dash, attack:4;
+	yelan skill, attack;
+	if .yelan.tags.yelan_breakthrough {
+		yelan attack, aim;
+	} else  {
+		yelan attack:2;
+	}
+	if .fischl.skill.ready {
+		fischl attack, skill;
+	} else  {
+		yelan attack:2;
+	}
+	while f() - t <= 21.2*60 {
+		yelan attack;
+	}
+	xingqiu swap;
+	print("rotation done");
+}

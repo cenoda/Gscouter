@@ -1,0 +1,22 @@
+fn lyneyAim() {
+  if .lyney.weapon == .keys.weapon.crescent { 
+    lyney aim[hold=2, weakspot=rand()>0.5];
+  } else { 
+    lyney aim[hold=2];
+  }
+}
+active nicole;
+for let i = 0; i < 3; i = i + 1 {
+  nicole burst, skill;
+  durin  burst, skill:2;
+  sayu skill[short_hold=1], burst;
+  lyney aim[weakspot=1], aim;
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(11);
+    lyney skill;
+  } else {
+    lyney aim;
+  }
+  lyney aim:2, skill, aim;
+}

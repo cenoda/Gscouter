@@ -1,0 +1,30 @@
+active yae;
+for let i=0; i<4; i=i+1 {
+	yae attack, skill, attack, skill, attack, skill, attack;
+	zhongli skill[hold=1], dash;
+  let startFrame1 = f();
+  while !pick_up_crystallize("electro") && f() - startFrame1 < 45 {
+    if !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    } else {
+      wait(1);
+    }
+  } 
+	collei skill, burst;
+	fischl attack:2, burst;
+	yae attack:2, charge, dash, attack, burst, attack, skill, attack, skill, attack, skill, attack:2;
+	zhongli attack, skill[hold=1], dash;
+  let startFrame2 = f();
+  while !pick_up_crystallize("electro") && f() - startFrame2 < 45 {
+    if !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    } else {
+      wait(1);
+    }
+  } 
+	collei skill, attack;
+	fischl attack:2, skill;
+	yae attack, charge, jump;
+	yae attack:2, charge, dash, attack, charge, dash;
+	print("rotation done");
+}

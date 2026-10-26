@@ -1,0 +1,13 @@
+active ganyu;
+for let i=0; i<4; i=i+1 {
+  ganyu skill, burst;
+  bennett burst, skill;
+  rosaria skill, burst;
+  bennett skill;
+  xiangling burst, skill, dash;
+  ganyu skill, aim:3;
+  rosaria skill;
+  ganyu aim:2;
+  xiangling skill, attack;
+  bennett skill;
+}

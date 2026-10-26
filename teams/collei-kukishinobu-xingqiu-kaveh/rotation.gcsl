@@ -1,0 +1,10 @@
+active collei;
+for let i=0; i<5; i=i+1 {
+    collei burst;
+    xingqiu skill, dash, burst, attack;
+    kuki skill, attack, burst;
+
+    kaveh skill, attack;
+    collei skill, attack;
+    kaveh burst, attack:7, walk, attack:3, skill, attack:4;
+}

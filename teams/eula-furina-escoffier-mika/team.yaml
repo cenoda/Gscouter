@@ -1,0 +1,17 @@
+id: eula-furina-escoffier-mika
+name: Eula / Furina / Escoffier / Mika
+members:
+    - eula
+    - furina
+    - escoffier
+    - mika
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/QPLWPf6cQKBB
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 60340
+    computed: "2026-09-30"

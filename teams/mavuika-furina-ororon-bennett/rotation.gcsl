@@ -1,0 +1,19 @@
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  mavuika skill, attack;
+  bennett skill, burst;
+  if !.element.t0.pyro && !.element.t0.hydro {
+    bennett attack;
+  }
+  ororon skill, burst;
+  mavuika burst;
+  mavuika charge:2, dash;     print("1st C2D done");
+  mavuika charge:2, dash;     print("2nd C2D done");
+  mavuika charge:2, dash;     print("3rd C2D done");
+  mavuika charge:2, dash;     print("4th C2D done");
+  mavuika charge:2, dash;     print("5th C2D done");
+  mavuika charge:2, dash;     print("6th C2D done");
+  mavuika charge:2, dash;     print("7th C2D done");
+  print("rota done");
+}

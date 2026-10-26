@@ -1,0 +1,14 @@
+set_particle_delay("diona", 100);
+active diona;
+for let i=0; i<4; i=i+1 {
+  diona burst, skill[hold=1], dash;
+  ganyu skill, burst;
+  venti skill, burst;
+  ayato burst;
+  ganyu aim[weakspot=1]:2, skill, aim[weakspot=1];
+  venti skill, attack;
+  ayato skill;
+  while !.diona.burst.ready {
+    ayato attack;
+  }
+}

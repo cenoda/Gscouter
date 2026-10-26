@@ -1,0 +1,12 @@
+active nahida;
+for let i = 1; i <=5; i = i + 1 {
+  nahida skill, burst, attack;
+  kuki skill, dash, attack;
+  beidou skill[counter=1], burst;
+  wait(8);								
+  candace attack, burst, attack:3, skill, attack;
+  nahida skill, attack:2, charge;
+  beidou attack, skill[counter=1], attack:2;
+  kuki attack, burst;
+  candace attack:3, skill, attack:3;
+}

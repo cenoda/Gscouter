@@ -1,0 +1,26 @@
+active emilie;
+emilie skill;
+for let i = 0; i < 4; i = i + 1 {
+  bennett skill, burst;
+  
+  if i > 0 && .emilie.burst.ready {
+    emilie burst;
+  } else if .emilie.skill.ready {
+    emilie skill, attack;
+  }
+  
+  if .mav.burst.ready {
+    mav burst, skill, charge:1, dash;
+  } else {
+    mav attack, skill;
+  }
+  
+  bennett skill;
+  
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack:1;
+  if .yoimiya.burst.ready && i > 0 {
+    yoimiya burst;
+  } else {
+    yoimiya attack:3; 
+  }
+}

@@ -1,0 +1,30 @@
+active neuv;
+for let i = 0; i < 4; i = i + 1 {
+  neuv skill;
+  kazuha skill,high_plunge,burst;
+  zhongli skill[hold=1], dash, dash, attack;
+  for let j=0; j<30; j=j+1 {
+    if !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    }
+    if pick_up_crystallize("hydro") {
+      break;
+    }
+    wait(1);
+  } 
+  mona attack:2, skill, burst;
+  neuv charge, skill,charge,burst;
+  kazuha skill,high_plunge;
+  zhongli attack, skill, dash;
+  for let j=0; j<30; j=j+1 {
+    if !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    }
+    if pick_up_crystallize("hydro") {
+      break;
+    }
+    wait(1);
+  } 
+  neuv charge:2;
+}
+wait (173);

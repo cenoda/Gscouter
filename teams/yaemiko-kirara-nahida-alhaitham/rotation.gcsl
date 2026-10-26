@@ -1,0 +1,15 @@
+active yae;
+for let i=0; i<3; i=i+1 {
+  yae skill:3;
+  nahida skill,burst;
+  kirara skill,burst;
+  alhaitham skill[hold=1], low_plunge[short=1], 
+            attack:2, charge, dash, 
+            attack:3, charge, dash;
+  yae skill:2,attack,skill;
+  alhaitham burst;
+  kirara skill;
+  alhaitham attack:3, dash,
+            attack:3, charge,dash,
+            attack:3, dash, attack:3, dash, attack:3;
+}

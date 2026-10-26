@@ -1,0 +1,17 @@
+active kuki;
+for let i=0; i<5; i=i+1 {
+    nahida skill, burst;
+    fischl skill,attack;
+     yelan skill,burst,attack;
+    kuki skill,attack,burst,attack;
+    nahida attack:2,skill,attack,
+            attack:3, dash,
+            attack, dash;
+    fischl attack:2, burst;
+    yelan attack,skill;
+    nahida attack:2, skill,
+            attack:3, dash,
+            attack:3, dash,
+            attack:3, dash,
+            attack:3,charge;
+}

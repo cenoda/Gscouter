@@ -1,0 +1,18 @@
+active kokomi;
+for let i=0; i<4; i=i+1 { 
+    kokomi skill, attack;
+	nahida skill;
+    thoma burst, skill, attack:2;
+    ayaka dash, burst, attack, skill;
+    kokomi burst, attack:2, walk,
+        attack:2, walk,
+        attack:2, walk,
+        attack:2, walk,
+        attack:2, walk,
+        attack:2, walk,
+        attack:2, walk,
+        attack:2, walk,
+        attack:2, walk;
+    ayaka skill, dash, attack, charge;
+    print("done");
+}

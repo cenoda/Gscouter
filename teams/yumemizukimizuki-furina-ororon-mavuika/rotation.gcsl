@@ -1,0 +1,14 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  ororon skill, burst;
+  mav burst, charge:2, dash, charge, dash, skill;
+  mizuki skill;
+  while .mizuki.status.dreamdrifter-state {
+    if .mizuki.burst.ready {
+      mizuki burst;
+    } else {
+      wait(1);
+    }
+  }
+}

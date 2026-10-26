@@ -1,0 +1,27 @@
+active raiden;
+raiden skill;
+for let x = 0; x < 4; x = x + 1 {
+  nahida skill, attack;
+  if .nahida.burst.ready && .nahida.energy == .nahida.energymax {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  xianyun skill, low_plunge, burst;
+  
+  haitham skill[hold=1], low_plunge[short=1];
+  
+  while .haitham.status.xianyun-airborne-buff {
+    haitham jump;
+    if .airborne {
+      haitham low_plunge[collision=rand()>0.4];
+    } 
+    haitham attack:1;
+  }
+  haitham burst;
+  
+  raiden burst, attack:4, skill, attack:4;
+  
+  print("done");
+}

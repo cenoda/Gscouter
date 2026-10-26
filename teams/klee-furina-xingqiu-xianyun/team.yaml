@@ -1,0 +1,17 @@
+id: klee-furina-xingqiu-xianyun
+name: Klee / Furina / Xingqiu / Xianyun
+members:
+    - klee
+    - furina
+    - xingqiu
+    - xianyun
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/76tpkJRtnH7J
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 61091
+    computed: "2026-10-02"

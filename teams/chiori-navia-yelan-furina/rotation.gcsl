@@ -1,0 +1,20 @@
+active chiori;
+chiori skill:2;
+for let x=0; x<4; x=x+1 {
+  navia burst;
+  
+  furina skill, attack, burst, attack;
+  
+  yelan burst;
+  yelan attack, skill, attack, skill, attack:2;
+  
+  navia skill[hold=1], attack:3, dash;
+  navia skill[hold=1], attack:3, dash;
+  
+  if .chiori.burst.ready && .chiori.energy == .chiori.energymax {
+    chiori burst;
+  }
+  chiori skill, attack;
+  chiori attack:3, dash, attack:3, dash;
+  chiori skill:2;
+}

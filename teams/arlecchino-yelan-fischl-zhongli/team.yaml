@@ -1,0 +1,17 @@
+id: arlecchino-yelan-fischl-zhongli
+name: Arlecchino / Yelan / Fischl / Zhongli
+members:
+    - arle
+    - yelan
+    - fischl
+    - zhongli
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/9ck6J9pF88T8
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 64118
+    computed: "2026-09-30"

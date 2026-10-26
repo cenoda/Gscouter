@@ -1,0 +1,27 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+    pick_up_crystallize("any"); 
+  }
+  return _execute_action(char_id, action_id, p);
+}
+active fischl;
+fischl aim;
+for let x=0; x<5; x=x+1 {
+  xilonen skill, attack:2, burst;
+  if !.xilonen.mods.favonius-cd {
+    xilonen attack;
+  }
+  bennett skill, dash, burst;
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  ningguang attack, skill, dash, attack, charge;
+  xilonen skill, attack:2;
+  if !.xilonen.mods.favonius-cd {
+    xilonen attack;
+  }
+  ningguang attack, burst, skill, dash, charge, attack, charge, attack, charge, attack, charge, attack;
+}

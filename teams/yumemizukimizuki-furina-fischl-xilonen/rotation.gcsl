@@ -1,0 +1,20 @@
+active xilo;
+for let i=0; i<4; i=i+1 {
+  xilo burst;
+  furina skill, dash, burst;
+  xilonen skill, attack:2;
+  fischl skill, attack;
+  
+  mizuki attack, skill, burst;
+  while .mizuki.status.dreamdrifter-state > 120 {
+    wait(1);
+  }
+  xilonen attack, skill, attack:2;
+  
+  fischl attack:2, burst;
+  
+  mizuki attack:2, charge, 
+         attack:2, charge, 
+         attack:2, charge, 
+         attack:2, charge;
+}

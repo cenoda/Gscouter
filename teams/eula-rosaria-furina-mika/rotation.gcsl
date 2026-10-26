@@ -1,0 +1,18 @@
+active furina;
+for let i=0; i<4; i=i+1 { 
+  furina skill, dash, burst;
+  rosaria skill;
+  while !.rosaria.mods.favonius-cd {
+    rosaria attack;
+  }
+  eula skill, attack;
+  mika burst;
+  rosaria burst;
+  mika skill, attack;
+  eula attack, burst, walk, attack:4, skill[hold=1], walk[f=11], attack:4, dash, attack:2;
+  rosaria skill;
+  while !.rosaria.mods.favonius-cd {
+    rosaria attack;
+  }
+  eula attack:2, dash, attack:2;
+}

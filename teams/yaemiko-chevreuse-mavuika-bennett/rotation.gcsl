@@ -1,0 +1,32 @@
+active mav; 
+for let i=0; i<4; i=i+1 {
+  if i == 0 {
+    yae skill:3;
+  } else {
+    yae skill, attack, skill, attack, skill;
+  }
+  
+  bennett burst, skill;
+  
+  if .mav.burst.ready {
+    mav burst, skill, dash;
+  } else {
+    mav attack, skill;
+  }
+  
+  chev burst, skill[hold=1]:2; 
+  
+  bennett skill;
+  
+  yae attack:2, charge, dash;
+  yae attack:2, charge, dash;
+  if .yae.burst.ready {
+    yae burst;
+  } else {
+    yae attack:2, dash, attack;
+  }
+  
+  bennett skill, attack:1;
+  
+  yae attack:1;
+}

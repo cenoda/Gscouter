@@ -1,0 +1,9 @@
+active kaveh;
+for let r = 0; r < 4; r = r + 1 {
+  baizhu skill, burst;
+  xingqiu skill, burst;
+  kazuha attack, skill[hold=1], high_plunge, burst;
+  kaveh skill, burst, attack:3, dash, attack:4, skill, attack:4, attack:4, skill; 
+  kazuha skill, high_plunge;
+
+}

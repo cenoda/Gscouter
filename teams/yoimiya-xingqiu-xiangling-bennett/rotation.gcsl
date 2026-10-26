@@ -1,0 +1,9 @@
+active xingqiu;
+for let x=0; x<5; x=x+1 {
+  xingqiu burst, attack, skill, dash, attack:2;
+  bennett skill,burst;
+  xiangling attack, burst, attack, skill;
+  bennett attack, skill;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, burst;
+  bennett skill;
+}

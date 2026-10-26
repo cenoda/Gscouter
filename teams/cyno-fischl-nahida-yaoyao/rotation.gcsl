@@ -1,0 +1,18 @@
+active fischl;
+  for let i=0; i<4; i=i+1 {
+  
+  fischl attack, skill;
+	nahida skill, burst, attack:2;
+	yaoyao attack, skill;
+	fischl attack:2, burst;
+	
+	cyno skill, burst,
+	     attack:2, skill, attack:3, dash,
+	     attack:2, skill, attack:3, dash,
+	     attack:2, skill, attack:3, dash, 
+	     attack:2, skill, attack:3, dash,
+	     attack:2, skill, attack:3, dash,
+	     attack:2, skill, attack:3, dash, 
+	     attack:2, skill;
+	
+  }

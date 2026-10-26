@@ -1,0 +1,31 @@
+active thoma;
+for let i=0; i<4; i=i+1 {
+  thoma skill, attack, burst, attack;
+  if !.thoma.mods.favonius-cd {
+    thoma attack;
+  }
+  
+  bennett skill, burst;
+  
+  if i && .emilie.burst.ready {
+    emilie burst, attack;
+  } else {
+    emilie attack, skill;
+  }
+  
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+  if .clorinde.burst.ready && .clorinde.energy == .clorinde.energymax {
+    clorinde burst;
+  } else {
+    clorinde attack;
+  }
+  
+  bennett skill;
+}

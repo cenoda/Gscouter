@@ -1,0 +1,23 @@
+active xilonen;
+for let i = 0; i < 5; i = i + 1 {
+  xilonen burst;
+  furina skill, dash, burst;
+  yelan burst, attack, skill, attack;
+  xilonen skill, attack:2;
+  wanderer attack, skill;
+  while .wanderer.skydweller-points > 50 {
+    if .wanderer.normal < 3 {
+      wanderer attack;
+    } 
+    else if .wanderer.mods.wanderer-a4 {
+      wanderer dash;
+    } 
+    else {
+      wanderer attack;
+    }
+  }
+  wanderer skill;
+  yelan attack, skill, attack;
+  wanderer attack:4;
+  xilonen skill, attack:2;
+}

@@ -1,0 +1,17 @@
+id: yaemiko-nahida-kukishinobu-tighnari
+name: Yaemiko / Nahida / Kukishinobu / Tighnari
+members:
+    - yae
+    - nahida
+    - kuki
+    - tighnari
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/W9TFKWLQ8NJh
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 47514
+    computed: "2026-10-02"

@@ -1,0 +1,13 @@
+active raiden;
+for let i = 0; i < 4; i = i + 1 {
+  raiden skill, attack;
+  bennett skill, burst;
+  chevreuse burst, skill[hold=1]:3;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  bennett skill, dash;
+  if .yoimiya.burst.ready {
+    yoimiya burst;
+  } else {
+    yoimiya attack:2, dash;
+  }
+}

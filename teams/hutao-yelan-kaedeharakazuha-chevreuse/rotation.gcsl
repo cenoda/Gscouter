@@ -1,0 +1,24 @@
+active yelan;
+for let i=0; i<4; i=i+1 {
+while !.yelan.mods.favonius-cd && !.yelan.burst.ready {
+    yelan attack;
+  }
+    yelan skill, burst, attack;
+    kazuha  burst;
+    chevreuse burst, skill[hold=1], skill;
+    kazuha skill, high_plunge, attack;
+    hutao skill,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:2, charge, dash;
+    kazuha skill, high_plunge;
+   while !.kazuha.mods.favonius-cd {
+   kazuha attack;} 
+    print("done");
+}

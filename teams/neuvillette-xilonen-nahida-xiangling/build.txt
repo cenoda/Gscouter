@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+neuv char lvl=90/90 cons=0 talent=9,9,9;
+neuv add weapon="sacjade" refine=1 lvl=90/90;
+neuv add set="mh" count=4;
+neuv add stats hp=4780 atk=311 hp%=0.466 hydro%=0.466 cd=0.622;
+neuv add stats def=39.36 def%=0.124 hp=507.88 hp%=0.496 atk=33.08 atk%=0.0992 er=0.1102 em=39.64 cr=0.1986 cd=0.662;
+
+xilo char lvl=90/90 cons=0 talent=9,9,9;
+xilo add weapon="favsword" refine=3 lvl=90/90;
+xilo add set="scroll" count=4;
+xilo add stats hp=4780 atk=311 def%=0.583 geo%=0.466 cr=0.311;
+xilo add stats def%=0.372 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=39.64 cr=0.331 cd=0.662;
+
+nahida char lvl=90/90 cons=0 talent=9,9,9;
+nahida add weapon="wanderingevenstar" refine=1 lvl=90/90;
+nahida add set="deepwood" count=4;
+nahida add stats hp=4780 atk=311 em=186.5 em=186.5 em=186.5;
+nahida add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=79.28 cr=0.331 cd=0.7944;
+
+xl char lvl=90/90 cons=6 talent=9,9,9;
+xl add weapon="favlance" refine=3 lvl=90/90;
+xl add set="ap" count=4;
+xl add stats hp=4780 atk=311 em=187 em=187 cr=0.311;
+xl add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.248 er=0.4959 em=39.64 cr=0.331 cd=0.2648;

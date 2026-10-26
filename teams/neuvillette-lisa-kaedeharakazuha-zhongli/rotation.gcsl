@@ -1,0 +1,58 @@
+fn rand_delay(mean, stddev) {
+  let del = randnorm() * stddev + mean;
+  if del > (mean + mean) {
+    del = mean + mean;
+  }
+  delay(del);
+}
+let prev_char_id = -1;
+let prev_action_id = -1;
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+
+  if prev_char_id != char_id && action_id != .action.swap {
+    execute_action(char_id, .action.swap, []);
+  }
+
+  if action_id == .action.swap {
+    
+    rand_delay(12, 3);
+  } else if prev_action_id == .action.attack && action_id != .action.attack && action_id != .action.charge {
+    
+    rand_delay(3, 1);
+  } else if prev_action_id != .action.attack {
+    
+    rand_delay(3, 1);
+  }
+  
+  prev_char_id = char_id;
+  prev_action_id = action_id;
+  return _execute_action(char_id, action_id, p);
+}
+active neuvillette;
+for let x=0; x<4; x=x+1 {
+  neuvillette skill, attack:3;
+  kazuha burst;
+  zhongli skill[hold=1], dash, attack;
+  for let j=0; j<30; j=j+1 {
+    if !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    }
+    if pick_up_crystallize("hydro") {
+      break;
+    }
+    wait(1);
+  } 
+  lisa skill[hold=1], burst;
+  kazuha skill, high_plunge;
+  if !.kazuha.mods.favonius-cd {
+    kazuha attack;
+  }
+  neuvillette charge, burst, skill, charge;
+  kazuha skill, high_plunge;
+  if !.kazuha.mods.favonius-cd {
+    kazuha attack;
+  }
+  neuvillette charge:2;
+}
+wait(173);

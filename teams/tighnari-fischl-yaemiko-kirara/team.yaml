@@ -1,0 +1,17 @@
+id: tighnari-fischl-yaemiko-kirara
+name: Tighnari / Fischl / Yaemiko / Kirara
+members:
+    - tighnari
+    - fischl
+    - yae
+    - kirara
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/njdT8bJKKW7L
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 57575
+    computed: "2026-09-30"

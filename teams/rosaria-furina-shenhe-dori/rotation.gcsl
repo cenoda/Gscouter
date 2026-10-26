@@ -1,0 +1,33 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  dori skill, burst;
+  
+  furina skill, dash, burst;
+  
+  shenhe skill, burst;
+  
+  rosaria skill, burst;
+  
+  while !.shenhe.skill.ready {
+    if .rosaria.skill.ready {
+      rosaria skill;
+    } else if .rosaria.normal > 3 && .stam > 43 {
+      rosaria charge, dash;
+    } else {
+      rosaria attack;
+    }
+  }
+  
+  shenhe skill, attack;
+  
+  while .dori.burst.cd {
+    if .rosaria.skill.ready {
+      rosaria skill;
+    } else if .rosaria.normal > 3 && .stam > 43 {
+      rosaria charge, dash;
+    } else {
+      rosaria attack;
+    }
+  }
+  
+}

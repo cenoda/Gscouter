@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+fischl char lvl=90/90 cons=6 talent=9,9,9;
+fischl add weapon="stringless" refine=3 lvl=90/90;
+fischl add set="tf" count=4;
+fischl add stats hp=4780 atk=311 em=186.5 electro%=0.466 cr=0.311;
+fischl add stats hp=507.88 atk=33.07 def=39.35 hp%=0.0991 atk%=0.0991 def%=0.1239 em=79.26 er=0.1101 cr=0.3305 cd=0.7926;
+
+furina char lvl=90/90 cons=0 talent=9,9,9;
+furina add weapon="fleuve" refine=5 lvl=90/90;
+furina add set="totm" count=4;
+furina add stats hp=4780 atk=311 hp%=0.466 hydro%=0.466 cd=0.622;
+furina add stats hp=507.88 atk=33.07 def=39.35 hp%=0.0991 atk%=0.0991 def%=0.1239 em=39.63 er=0.2202 cr=0.3966 cd=0.6605;
+
+kirara char lvl=90/90 cons=6 talent=9,9,9;
+kirara add weapon="wolffang" refine=1 lvl=90/90;
+kirara add set="deepwood" count=4;
+kirara add stats hp=4780 atk=311 er=0.518 dendro%=0.466 cd=0.622;
+kirara add stats hp=507.88 atk=33.07 def=39.35 hp%=0.1982 atk%=0.0991 def%=0.1239 em=39.63 er=0.1101 cr=0.3966 cd=0.6605;
+
+bennett char lvl=90/90 cons=6 talent=9,9,9;
+bennett add weapon="sapwood" refine=5 lvl=90/90 +params=[pickup_delay=300];
+bennett add set="instructor" count=4;
+bennett add stats hp=3571 atk=232 er=0.387 em=186.5 em=139.3;
+bennett add stats hp=406.3 atk=26.45 def=31.485 hp%=0.07925 atk%=0.07925 def%=0.0991 em=126.84 er=0.08805 cr=0.238 cd=0.1057;

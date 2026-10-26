@@ -1,0 +1,31 @@
+active yoimiya;
+for let x = 0; x < 2; x = x + 1 {
+  yoimiya burst;
+  zhongli burst, skill[hold=1], dash;
+  let startFrame1 = f();
+  while !pick_up_crystallize("pyro") && f() - startFrame1 < 45 {
+    if !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    } else {
+      wait(1);
+    }
+  } 
+  bennett burst, skill;
+  xiangling burst, skill;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack:3;
+  bennett skill;
+  xiangling attack:3;
+  zhongli attack:2, skill[hold=1], dash;
+  let startFrame2 = f();
+  while !pick_up_crystallize("pyro") && f() - startFrame2 < 45 {
+    if !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    } else {
+      wait(1);
+    }
+  } 
+  bennett burst, skill;
+  xiangling burst, skill;
+  yoimiya skill,attack:5, dash ,attack:5, dash,attack:5, dash, attack:2;
+  bennett skill;
+}

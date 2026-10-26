@@ -1,0 +1,23 @@
+active gaming; 
+for let i=0; i<4; i=i+1 {
+  if i > 0  && .ineffa.burst.ready {
+    ineffa skill, burst;
+  } else {
+    ineffa skill;
+  }
+  
+  if i > 0 && .columbina.burst.ready {
+    columbina burst, skill;
+  } else {
+    columbina attack:1, skill; 
+  }
+  
+  bennett burst, skill;
+  
+  gaming burst;
+  for let j = 0; j < 7; j = j + 1 {
+    sleep(45);
+    gaming skill, high_plunge;
+  }
+
+}

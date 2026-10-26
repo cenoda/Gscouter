@@ -1,0 +1,35 @@
+active mualani;
+fn mualani_combo() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+}
+mualani attack;
+for let i=0; i<4; i=i+1 {
+  nahida attack, skill, attack, burst, attack;
+  if !.nahida.mods.favonius-cd {
+    nahida attack;
+  }
+  yelan skill, attack, burst, attack;
+  xiangling burst, skill, jump;
+  let mq=0;
+  if .mualani.burst.ready && .mualani.energy == .mualani.energymax {
+    mualani burst;
+    mq=1;
+  }
+  mualani skill;
+  mualani_combo();
+  if .mualani.nightsoul.state {
+    mualani skill; 
+  }
+  if mq==0 {
+    mualani attack:3;
+  }
+}

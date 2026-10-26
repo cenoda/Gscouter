@@ -1,0 +1,23 @@
+active gaming; 
+furina skill, dash, attack;
+for let i = 0; i < 4; i = i + 1 {
+	ayato skill, attack, burst, attack;
+	
+	if i > 0 {
+		furina skill, dash;
+	}
+  furina burst;
+  
+	bennett burst;
+  
+	gaming burst;
+	gaming skill;
+  sleep(42);
+	gaming low_plunge;
+  for let j = 0; j < 8; j = j + 1 {
+    gaming skill;
+    sleep(17);
+    gaming high_plunge;
+  }
+	gaming dash;
+}

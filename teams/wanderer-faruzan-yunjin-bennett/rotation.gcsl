@@ -1,0 +1,19 @@
+active bennett;
+for let i = 0; i < 5; i = i + 1 {
+  faruzan attack, burst, skill;
+  bennett skill, burst;
+  yunjin skill, burst;
+  wanderer attack, skill;
+  while .wanderer.skydweller-points > 3 {
+    switch {
+    case .wanderer.normal < 3:
+      wanderer attack;
+    case .wanderer.mods.wanderer-a4:
+      wanderer dash;
+    default:
+      wanderer charge;
+    }
+  }
+  wanderer skill;
+  bennett skill,attack:2;
+}

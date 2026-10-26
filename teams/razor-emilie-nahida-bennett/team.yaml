@@ -1,0 +1,17 @@
+id: razor-emilie-nahida-bennett
+name: Razor / Emilie / Nahida / Bennett
+members:
+    - razor
+    - emilie
+    - nahida
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/fpmMDPBcnG9N
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 66862
+    computed: "2026-10-02"

@@ -1,0 +1,26 @@
+active wrio;
+wrio attack;
+for let x=0; x<4; x=x+1 {
+  xilonen skill, attack:2;
+  shenhe skill[hold=1], attack;
+  if is_even(x) {
+    shenhe burst;
+  }
+  if .shenhe.sets.ap >= 4 {
+    shenhe dash; pick_up_crystallize("cryo");
+  }
+  lanyan skill:2;
+
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3;
+  if .wrio.burst.ready {
+    wrio burst;
+  } else {
+    wrio charge;
+  }
+}

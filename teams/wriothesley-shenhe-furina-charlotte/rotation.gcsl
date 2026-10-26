@@ -1,0 +1,18 @@
+active wrio;
+for let x=0; x<4; x=x+1 {
+  furina attack, skill, burst;
+  charlotte skill, burst, attack; 
+  shenhe skill[hold=1], attack, burst;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3;
+  if .wrio.burst.ready {
+    wrio burst;
+  } else {
+    wrio charge, jump, attack;
+  }
+}

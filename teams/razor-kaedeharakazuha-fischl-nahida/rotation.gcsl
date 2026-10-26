@@ -1,0 +1,20 @@
+active fischl;
+for let i=0; i<4; i=i+1 {
+	fischl skill;
+	kazuha skill, high_plunge;
+	nahida attack, skill, burst, attack:2;
+	fischl attack:2, burst;
+	kazuha skill, high_plunge, burst;
+	razor skill, dash, attack, burst;
+    while .fischl.skill.cd > 20 {
+	  if .razor.normal == 4 {
+	    if .razor.skill.ready {
+	      razor skill, dash;
+	    } else {
+	      razor dash;
+	    }
+	  } else {
+        razor attack;
+      }
+    }
+}

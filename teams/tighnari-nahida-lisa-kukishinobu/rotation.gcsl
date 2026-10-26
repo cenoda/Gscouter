@@ -1,0 +1,14 @@
+active tighnari;
+for let i=0; i<4; i=i+1 {
+  tighnari skill;
+  kuki skill, attack;
+  nahida skill, burst, charge;
+  lisa attack:2, burst;
+  tighnari aim:2, burst, aim:2;
+  
+  tighnari skill, attack;
+  kuki burst;
+  nahida attack, skill, attack, charge;
+  lisa skill[hold=1];
+  tighnari aim:5, attack;
+}

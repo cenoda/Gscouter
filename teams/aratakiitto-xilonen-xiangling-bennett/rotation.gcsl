@@ -1,0 +1,10 @@
+active bennett;
+bennett burst, skill;
+xiangling burst, skill;
+xilonen skill, attack:2;
+
+  itto attack, burst[prestack=1],
+       attack, skill,
+       attack:2, charge:5,
+       attack:4, charge:5, skill[travel=0], charge;
+       sleep(21);

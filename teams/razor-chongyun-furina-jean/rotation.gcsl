@@ -1,0 +1,51 @@
+active razor;
+razor skill, dash; 
+  
+for let i=0; i<4; i=i+1 { 
+  chongyun burst, skill;
+  furina burst, skill, dash;
+  jean skill, burst;
+
+  while !.razor.mods.razor-q {
+    
+    if .razor.burst.ready {
+      if .razor.skill.ready {
+        razor skill, dash, attack, burst;
+      } else {
+        razor burst;
+      }
+    } else {
+    
+      if .razor.skill.ready {
+        razor skill, dash, attack:1;
+      } else {
+      
+        if .razor.normal > 3 {
+          if .razor.skill.ready {
+            razor skill, dash;
+          } else {
+            razor dash;
+          }
+        } else {
+          razor attack;
+        }
+      }
+    }
+  }
+  
+  while .razor.mods.razor-q {
+    if .razor.normal > 3 {
+      if .razor.skill.ready {
+        razor skill, dash;
+        if .furina.skill.ready {
+          break;
+        }
+      } else {
+        razor dash;
+      }
+    } else {
+      razor attack;
+    }
+  }
+
+}

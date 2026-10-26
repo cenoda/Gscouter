@@ -1,0 +1,13 @@
+active herexcellencythealmightynarukamiogoshogodofthunder;
+herexcellencythealmightynarukamiogoshogodofthunder skill;
+for let i=0; i<4; i=i+1 {
+  kazuha skill, high_plunge;
+  luminedendro burst, skill, attack:2, charge;
+  kuki burst, skill;
+  if .kazuha.skill.ready {
+    kazuha skill, high_plunge, burst;
+  } else {
+    kazuha burst, skill, high_plunge; 
+  }
+  herexcellencythealmightynarukamiogoshogodofthunder burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+}

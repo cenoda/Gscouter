@@ -1,0 +1,17 @@
+id: nahida-xingqiu-raidenshogun-amber
+name: Nahida / Xingqiu / Raidenshogun / Amber
+members:
+    - nahida
+    - xingqiu
+    - raiden
+    - amber
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/TCfM9rQrL6hp
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 64313
+    computed: "2026-10-01"

@@ -1,0 +1,11 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 { 
+    yae skill:3;
+    furina skill, burst;
+    bennett burst, skill;
+    yae burst, skill:3;
+	raiden burst, attack:4, dash, attack:4, skill, attack:4, dash, attack:4;
+	bennett skill, attack;
+	print("rota done");
+}

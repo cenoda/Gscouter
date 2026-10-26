@@ -1,0 +1,15 @@
+active bennett;
+for let x=0; x<4; x=x+1 {
+  bennett skill, burst;
+  citlali skill, burst;
+  rosaria skill, burst;
+  yoimiya skill;
+  yoimiya attack:5, dash;
+  yoimiya attack:5, dash;
+  yoimiya attack:5, dash;
+  yoimiya attack;
+  rosaria skill, attack;
+  if !.rosaria.mods.favonius-cd {
+    rosaria attack;
+  }
+}

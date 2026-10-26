@@ -1,0 +1,51 @@
+active mualani;
+fn mualani_combo() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+}
+mualani attack; 
+for let i=0; i<2; i=i+1 {
+  kazuha skill, high_plunge;
+  xiangling burst, skill, dash;  
+  candace skill, burst, attack;
+
+    wait(8); 
+  
+  mualani burst;
+  mualani skill;
+  mualani_combo();
+  if .mualani.nightsoul.state {
+    mualani skill; 
+  }
+  while !.element.t0.hydro {
+    mualani attack;
+  }
+  
+  kazuha skill, high_plunge;
+  xiangling attack:3;
+  if !.xiangling.mods.favonius-cd {
+    xiangling attack;
+  }
+  xiangling skill, dash;
+  kazuha burst;
+  candace skill, burst, attack;
+
+    wait(8); 
+  
+  mualani skill;
+  mualani_combo();
+  if .mualani.nightsoul.state {
+    mualani skill; 
+  }
+  while !.element.t0.hydro {
+    mualani attack;
+  }
+}

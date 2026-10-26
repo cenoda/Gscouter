@@ -1,0 +1,26 @@
+active yelan;
+fn mualani_combo() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+}
+for let i=0; i<4; i=i+1 {
+  emilie skill, attack;
+  yelan burst, attack;
+  xiangling burst, skill, dash;
+  yelan skill, attack;
+  mualani skill;
+  mualani_combo();
+  mualani walk[f=1];
+  yelan attack, skill;
+  mualani jump:2; 
+  mualani burst;
+  wait(70);       
+}

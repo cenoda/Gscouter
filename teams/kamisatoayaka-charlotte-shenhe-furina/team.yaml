@@ -1,0 +1,17 @@
+id: kamisatoayaka-charlotte-shenhe-furina
+name: Kamisatoayaka / Charlotte / Shenhe / Furina
+members:
+    - ayaka
+    - charlotte
+    - shenhe
+    - furina
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/qJbWPQQqFFJw
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 61091
+    computed: "2026-10-01"

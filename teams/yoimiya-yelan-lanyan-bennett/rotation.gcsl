@@ -1,0 +1,13 @@
+active yelan;
+for let i=0; i<4; i=i+1 {
+  yelan skill, attack, burst, attack;
+  bennett attack, skill, burst, attack; 
+  lanyan skill:2;
+  delay(1);   
+  lanyan attack, dash;
+  yoimiya skill, 
+          attack:5, dash, 
+          attack:5, dash, 
+          attack:5, dash,
+          attack;  
+}

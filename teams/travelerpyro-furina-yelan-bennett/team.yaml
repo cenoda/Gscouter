@@ -1,0 +1,19 @@
+id: travelerpyro-furina-yelan-bennett
+name: Travelerpyro / Furina / Yelan / Bennett
+members:
+    - aetherpyro
+    - furina
+    - yelan
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/LnDKJQDbwhF6
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    aetherpyro: base_atk_buff=1, skirk_story_buff=1
+reference:
+    dps: 60640
+    computed: "2026-10-02"

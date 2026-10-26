@@ -1,0 +1,24 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+	  pick_up_crystallize("any"); 
+  }
+	
+  return _execute_action(char_id, action_id, p);
+}
+active xilonen;
+for let x=0; x<4; x=x+1 {
+  xilonen burst;
+  yelan skill, burst, attack;
+  xilonen skill, attack:2;
+  chiori skill:2;
+  pick_up_crystallize("hydro");
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  if .chiori.burst.ready {
+    chiori burst;
+  } else if .yoimiya.burst.ready {
+    yoimiya burst;
+  } else {
+    chiori attack:2, dash;
+  }
+}

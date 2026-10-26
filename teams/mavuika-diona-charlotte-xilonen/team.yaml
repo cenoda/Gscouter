@@ -1,0 +1,17 @@
+id: mavuika-diona-charlotte-xilonen
+name: Mavuika / Diona / Charlotte / Xilonen
+members:
+    - mavuika
+    - diona
+    - charlotte
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/LWbhD8hDrQQ7
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 87371
+    computed: "2026-10-02"

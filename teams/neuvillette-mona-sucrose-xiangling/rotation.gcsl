@@ -1,0 +1,15 @@
+active mona;
+for let i=0; i<4; i=i+1 { 
+  mona attack, skill;
+  neuv skill;
+  xl burst, skill, dash;
+  mona burst, attack:4;
+  sucrose skill, dash, attack;
+  neuv charge, skill, charge, burst;
+  mona skill, burst, attack;
+  xl attack, skill, dash;
+  sucrose burst, skill, dash;
+  delay(31);
+  neuv charge:2;
+}
+wait(173);

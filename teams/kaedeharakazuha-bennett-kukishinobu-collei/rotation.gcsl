@@ -1,0 +1,11 @@
+active collei;
+for let i=0; i<4; i=i+1 {
+    kuki skill;
+    bennett skill,burst;
+    collei skill,burst;
+    kazuha skill,high_plunge,burst,attack;
+    kuki burst,attack;
+    bennett skill,attack:2;
+    kazuha skill,high_plunge,attack:3;
+    kuki attack;
+}

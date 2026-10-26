@@ -1,0 +1,28 @@
+active esco;
+for let i=0; i<4; i=i+1 {
+  esco skill;
+  if !is_even(i) {
+    esco burst;
+  }
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  citlali skill, attack, burst;
+  
+  yoimiya attack, skill,
+    attack:5, dash,
+    attack:5, dash,
+    attack:5, dash,
+    attack:1;
+  if .yoimiya.burst.ready {
+    yoimiya burst;
+  } else {
+    yoimiya attack:1;
+  }
+}

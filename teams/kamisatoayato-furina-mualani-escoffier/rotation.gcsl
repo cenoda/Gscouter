@@ -1,0 +1,18 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  escoffier skill, burst;
+  mualani skill, attack, skill;
+  ayato skill, attack:15, burst;
+  mualani skill;
+  while .mualani.momentum < 1 {
+    mualani walk[f=1];
+  }
+  mualani attack;
+  if .mualani.burst.ready {
+    mualani burst;
+  } else {
+    mualani walk;
+  }
+  ayato skill, attack:14;
+}

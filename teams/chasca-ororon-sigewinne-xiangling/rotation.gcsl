@@ -1,0 +1,16 @@
+active xl;
+for let i=0; i<4; i=i+1 {
+  if .xl.burst.ready {
+    xl burst, skill, dash;
+  } else {
+    xl attack, skill, dash;
+  }
+  if .sigewinne.skill.ready {
+    sigewinne skill;
+  } 
+  ororon burst, attack, skill;
+  chasca skill, aim:4, aim[bullets=4];
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } 
+}

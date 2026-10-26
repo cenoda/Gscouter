@@ -1,0 +1,24 @@
+active dori; 
+nahida skill, burst;
+for let i=0; i<4; i=i+1 {
+  if i > 0 && .nahida.burst.ready {
+    nahida burst, charge;
+  } else if i > 0 {
+    nahida skill, attack, charge;
+  }
+  
+  ororon skill, burst;
+  
+  if .mav.burst.ready {
+    mav burst, skill, dash;
+  } else {
+    mav attack, skill;
+  }
+  
+  dori skill, attack:2, dash, attack:2, burst;
+  dori skill, attack:2, dash, attack:2;
+  
+  nahida skill, attack, charge;
+  
+  dori skill, attack:2, dash, attack:2;
+}

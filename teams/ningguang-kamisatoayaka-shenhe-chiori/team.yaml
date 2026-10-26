@@ -1,0 +1,17 @@
+id: ningguang-kamisatoayaka-shenhe-chiori
+name: Ningguang / Kamisatoayaka / Shenhe / Chiori
+members:
+    - ningguang
+    - ayaka
+    - shenhe
+    - chiori
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/ndHKPRzHNgqq
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 49859
+    computed: "2026-10-01"

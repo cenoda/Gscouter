@@ -1,0 +1,17 @@
+id: dehya-bennett-citlali-xilonen
+name: Dehya / Bennett / Citlali / Xilonen
+members:
+    - dehya
+    - bennett
+    - citlali
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/hRg7Jtw7dHKK
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 38553
+    computed: "2026-10-02"

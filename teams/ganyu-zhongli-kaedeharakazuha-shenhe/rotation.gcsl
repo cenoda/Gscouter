@@ -1,0 +1,18 @@
+active ganyu;
+for let i=0; i<4; i=i+1 {
+  ganyu skill;
+  zhongli skill[hold=1], dash, attack;
+  if !pick_up_crystallize("cryo") {
+    zhongli attack;
+  }
+  pick_up_crystallize("cryo");
+  kazuha skill, high_plunge, burst;
+  shenhe skill, burst;
+  ganyu  aim[weakspot=1], skill, burst;
+  kazuha skill, high_plunge;
+  ganyu aim[weakspot=1];
+  shenhe skill, attack;
+  ganyu aim[weakspot=1, travel=0]:2;
+  print("end");
+}
+ganyu skill;

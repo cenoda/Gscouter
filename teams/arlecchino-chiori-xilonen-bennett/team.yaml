@@ -1,0 +1,17 @@
+id: arlecchino-chiori-xilonen-bennett
+name: Arlecchino / Chiori / Xilonen / Bennett
+members:
+    - arle
+    - chiori
+    - xilonen
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/8CfMNdGRKw8D
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 74887
+    computed: "2026-10-02"

@@ -1,0 +1,17 @@
+active bennett;
+for let i=0; i<3; i=i+1 {
+  bennett skill, burst;
+  if .xl.burst.ready {
+    xl burst, skill, dash;
+  } else {
+    xl attack:2, skill, dash;
+  }
+  rosaria skill, burst;
+  chasca skill, aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}
+wait(82);

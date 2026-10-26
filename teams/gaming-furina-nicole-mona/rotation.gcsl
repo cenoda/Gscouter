@@ -1,0 +1,16 @@
+active gaming; 
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  
+  mona burst, attack;
+  
+  nicole skill, burst;
+  
+  mona attack, skill, attack;
+  
+  gaming burst;
+  for let j = 0; j < 7; j = j + 1 {
+    sleep(45);
+    gaming skill, high_plunge;
+  }
+}

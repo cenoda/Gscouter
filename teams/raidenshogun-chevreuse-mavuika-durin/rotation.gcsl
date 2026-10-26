@@ -1,0 +1,31 @@
+active mav; 
+raiden skill, attack;
+for let i = 0; i < 4; i = i + 1 {
+  mav skill, attack;
+  
+  if is_even(i) && .mav.burst.ready {
+    durin skill, burst, skill;
+    
+    chevreuse burst, attack, skill[hold=1]:3;
+    
+    mav burst;
+    mav charge:2, dash;
+    mav charge:2, dash;
+    mav charge:2, dash;
+    mav charge:2, dash;
+    mav charge:2, dash;
+    mav charge:2, dash;
+	
+    raiden skill, attack;
+  } else {
+    durin skill, burst, skill;
+    
+    chevreuse burst, skill[hold=1]:3;
+    
+    raiden burst, 
+    attack:4, skill, 
+    attack:4, dash, 
+    attack:4, dash, 
+    attack:4;
+  }
+}

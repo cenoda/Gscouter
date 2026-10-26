@@ -1,0 +1,17 @@
+id: tartaglia-nahida-raidenshogun-albedo
+name: Tartaglia / Nahida / Raidenshogun / Albedo
+members:
+    - tartaglia
+    - nahida
+    - raiden
+    - albedo
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/RtQTctHhQPjr
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 37916
+    computed: "2026-10-02"

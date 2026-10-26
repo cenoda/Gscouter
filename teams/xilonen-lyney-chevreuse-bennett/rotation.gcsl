@@ -1,0 +1,37 @@
+active lyney;
+for let i=0; i<5; i=i+1 {
+  
+  lyney aim[weakspot=1];
+  
+  if i {
+    lyney aim;
+  }
+  
+  xilonen skill, attack:2;
+  
+  if !.bennett.burst.ready {
+    bennett skill;
+  }
+  
+  bennett burst;
+  
+  if .chev.sets.ap >= 4 {
+    chev dash; pick_up_crystallize("pyro");
+  }
+  if .chev.burst.ready {
+    chev skill[hold=1], burst;
+  } else {
+    chev skill[hold=1], attack;
+  }
+  
+  lyney aim[weakspot=1], aim;
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(11);
+    lyney skill;
+  } else {
+    lyney aim;
+  }
+  lyney aim, skill;
+  
+}

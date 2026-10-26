@@ -1,0 +1,21 @@
+active lyney;
+for let i=0; i<4; i=i+1 {
+  
+  lyney aim[weakspot=1];
+  albedo skill, attack;
+  
+  lynette attack, burst;
+  bennett skill, burst;
+  pick_up_crystallize("any");
+  lyney aim, aim[weakspot=1];
+  lynette skill;
+  lyney aim, aim[weakspot=1];
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(11); 
+    lyney skill;
+  } else {
+    lyney aim;
+  }
+  lyney skill;
+}

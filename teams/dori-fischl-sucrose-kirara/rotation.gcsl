@@ -1,0 +1,17 @@
+active dori;
+for let i=0; i<4; i=i+1 {
+  dori burst;
+    sucrose attack:2, skill, dash;
+    fischl skill, attack;
+    kirara burst;
+  dori skill, attack:2, dash, attack:2;
+    sucrose burst, attack;
+  dori skill, attack:2, dash, attack:2;
+    fischl attack, burst;
+    kirara skill,attack;
+  dori skill, attack:2, dash, attack:2;
+    sucrose attack:2, skill, dash;
+  dori skill, attack:2, dash, attack:1;
+  
+  print("rotation done");
+}

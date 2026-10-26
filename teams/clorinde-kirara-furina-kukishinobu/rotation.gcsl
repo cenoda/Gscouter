@@ -1,0 +1,31 @@
+let isClorindeSkillOnCD = 0; 
+active clorinde;
+clorinde burst;
+for let i=0; i<5; i=i+1 {
+  kirara skill[short_hold=1];
+  if .furina.skill.ready {
+  furina skill, dash, attack, burst;
+  } else {
+    furina attack:2, burst;
+  }
+  if isClorindeSkillOnCD == 0 {
+    kuki skill, dash, attack;
+  } else {
+    kuki skill, dash, attack, burst;
+  }
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+  if .clorinde.burst.ready && .clorinde.energy == .clorinde.energymax {
+    isClorindeSkillOnCD = 0;
+    clorinde burst;
+  } else {
+    isClorindeSkillOnCD = 1;
+    kirara burst;
+  }
+}

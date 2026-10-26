@@ -1,0 +1,29 @@
+active nahida;
+for let i = 0; i < 5; i = i + 1 {
+  nilou skill,attack:2;
+  nilou skill;
+  nahida skill,burst,attack; 
+  if .barbara.skill.ready {
+    barbara skill, dash;
+  } else {
+    barbara attack;
+  }
+  barbara attack:2, charge;
+  luminedendro skill,burst;
+  barbara attack:2, charge;
+  barbara attack:4;
+  barbara attack:1, charge;
+  barbara attack:4;
+  if .barbara.skill.ready {
+    barbara skill, dash;
+  } else {
+    barbara dash, attack;
+  }
+  barbara attack, charge;
+  if .nilou.burst.ready {
+    nilou burst;
+  } else {
+    barbara attack:2;
+  }
+  luminedendro skill, attack;
+}

@@ -1,0 +1,15 @@
+active zhongli;
+for let i=0; i<4; i=i+1 {
+	zhongli attack, skill[hold=1], dash;
+	while !.zhongli.mods.favonius-cd {
+		zhongli attack;
+	}
+	yelan attack, skill;
+	while !.yelan.burst.ready {
+		yelan attack;
+	}
+	yelan burst, attack;
+	bennett skill, attack, burst, attack;
+	yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+	bennett skill;
+}

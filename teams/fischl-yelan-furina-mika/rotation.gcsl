@@ -1,0 +1,35 @@
+active furina;
+furina skill, dash, burst;
+for let i=0; i<4; i=i+1 {
+  if i {
+    furina attack, burst, skill;
+  }
+  
+  yelan burst, attack;
+ 
+  mika burst, attack, skill;
+  
+  yelan attack;
+  while !.yelan.skill.ready {
+    yelan attack;
+  }
+  yelan skill, attack;
+  
+  if .fischl.burst.ready {
+    fischl burst;
+  } else {
+    fischl skill;
+  }
+  
+  fischl attack:5, dash,
+          attack:5, dash,
+          attack:5;
+          
+  yelan attack;     
+  while !.yelan.skill.ready {
+    yelan attack;
+  }  
+  yelan skill, attack;
+  
+  fischl attack:4;
+}

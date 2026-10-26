@@ -1,0 +1,23 @@
+active albedo;
+for let i=0; i<5; i=i+1 {
+    albedo skill, attack;
+  
+    if .nahida.burst.ready {
+      nahida skill, burst, attack;
+    } else {
+      nahida skill, attack, charge;
+    }
+    
+    if .xingqiu.skill.ready {
+      xingqiu skill, burst, attack, charge;
+    } else {
+      xingqiu attack, skill, burst, attack, charge;
+    }
+    
+    thoma skill, attack:2, burst, attack;
+    nahida attack:3, dash, 
+      attack:3, dash, 
+      attack:6, dash, 
+      attack:3, dash, 
+      attack:3;
+}

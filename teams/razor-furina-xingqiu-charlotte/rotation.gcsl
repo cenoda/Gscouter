@@ -1,0 +1,21 @@
+active razor; 
+razor skill, dash;
+  
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  xq skill, dash, burst, attack;
+  
+  charlotte skill, attack, burst, attack;
+  
+  razor skill[hold=1], dash, attack, burst;
+  while .xq.mods.xingqiuburst { 
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+}

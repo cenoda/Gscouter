@@ -1,0 +1,17 @@
+id: dehya-bennett-ganyu-citlali
+name: Dehya / Bennett / Ganyu / Citlali
+members:
+    - dehya
+    - bennett
+    - ganyu
+    - citlali
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/LBhw7MwQw97F
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 40533
+    computed: "2026-10-01"

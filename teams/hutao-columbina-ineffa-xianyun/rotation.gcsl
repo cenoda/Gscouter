@@ -1,0 +1,27 @@
+active ineffa;
+for let i=0; i<5; i=i+1 {
+  if i==0 {
+    ineffa skill;
+  } else if .ineffa.burst.ready {
+    ineffa skill, burst;
+  } else {
+    ineffa attack, skill;
+  }
+  
+  columbina skill;
+  if .columbina.burst.ready {
+    columbina burst;
+  }
+  
+  xianyun skill, low_plunge, attack:1, burst;
+  
+  hutao skill;
+  for let p = 7; p > 0; p = p - 1 {
+    hutao jump;
+    if .airborne {
+      hutao low_plunge[collision=rand()>0.5];
+    }
+  }
+  
+  xianyun attack:2, charge;
+}

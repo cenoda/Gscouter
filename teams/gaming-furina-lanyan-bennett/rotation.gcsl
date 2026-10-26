@@ -1,0 +1,15 @@
+active gaming; 
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  bennett skill, burst, attack;
+  lanyan skill:2;
+  
+  gaming burst;
+  for let j = 0; j < 6; j = j + 1 {
+    sleep(45);
+    gaming skill, high_plunge;
+  }
+  sleep(30);
+  gaming skill, high_plunge; 
+}

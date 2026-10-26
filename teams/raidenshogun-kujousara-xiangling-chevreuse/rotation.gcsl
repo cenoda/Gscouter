@@ -1,0 +1,17 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 3; i = i + 1 {
+  chevreuse burst, skill[hold=1];
+  if i {
+    chevreuse skill[hold=1]:2;
+    xiangling attack:3, dash;
+  }
+  sara skill, burst;
+  xiangling burst, skill, dash;
+  sara aim;
+  raiden burst,
+         attack:4, skill,
+         attack:4, dash,
+         attack:4, dash,
+         attack:4;
+}

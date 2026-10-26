@@ -1,0 +1,26 @@
+active ineffa;
+for let i=0; i<4; i=i+1 {
+  if is_even(i) {
+    ineffa skill;
+  } else {
+    ineffa skill, burst;
+  }
+  mona attack, burst, attack;
+  if .sucrose.burst.ready {
+    sucrose attack, skill, dash, burst;
+  } else if .sucrose.skill.ready {
+    sucrose attack, skill, dash;
+  }
+  mona attack, skill, attack;
+  sethos aim[hold=2], skill, burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2,
+         skill;
+}

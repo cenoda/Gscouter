@@ -1,0 +1,14 @@
+active yae;
+for let i = 0; i < 4; i = i + 1 {
+	yae skill:3, attack;
+	zhongli skill[hold=1],dash,attack;
+	chiori skill:2;
+	tighnari skill,aim:3;
+	if .tighnari.burst.ready {
+	  tighnari burst;
+	} else {
+	  chiori attack,burst;
+	}
+	yae attack,skill,attack:2;
+	tighnari aim:3;
+}

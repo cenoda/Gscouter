@@ -1,0 +1,25 @@
+active freminet; 
+for let i=0; i<4; i=i+1 {
+  kirara skill[short_hold=1];
+  if .kirara.burst.ready {
+    kirara burst;
+  } else {
+    kirara attack;
+  }
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  kuki skill;
+
+  freminet skill, attack, burst,
+         attack:2, skill, attack, skill,
+         attack:2, skill, attack, skill,  
+         attack:2, skill, attack, skill,
+         attack:3, skill; 
+}

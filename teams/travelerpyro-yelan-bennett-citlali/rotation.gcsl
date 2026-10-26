@@ -1,0 +1,30 @@
+active yelan;
+for let i=0; i<4; i=i+1 {
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  bennett skill, burst, attack;
+  
+  citlali skill, attack, burst;
+  
+  aetherpyro skill[hold=1], attack;
+  while .yelan.mods.yelanburst {
+    switch {
+      case .aetherpyro.burst.ready && .aetherpyro.energy == .aetherpyro.energymax:
+        aetherpyro burst;
+      case .aetherpyro.normal > 3 && .stam > 25: 
+        aetherpyro charge;
+      case .aetherpyro.normal > 3 && .aetherpyro.dash.ready && .stam > 18: 
+        aetherpyro dash;
+      default:
+        aetherpyro attack;
+    }
+  }
+  
+  bennett skill;
+}

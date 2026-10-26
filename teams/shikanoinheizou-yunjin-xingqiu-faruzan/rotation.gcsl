@@ -1,0 +1,8 @@
+active xq;
+for let i=0; i<4; i=i+1 {
+  xq skill, burst, attack;
+  faruzan burst, attack;
+  yunjin skill, attack, burst;
+  heizou attack, skill, attack:4, dash, attack:4, dash, attack:4, charge, attack:3, skill, attack:3, burst, attack;
+  print("loop");
+}

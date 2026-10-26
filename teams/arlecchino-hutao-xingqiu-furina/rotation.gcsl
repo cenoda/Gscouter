@@ -1,0 +1,20 @@
+active arlecchino;
+for let i=0; i<4; i=i+1 {
+  arlecchino skill;
+  furina skill, dash, burst;
+  xq skill, dash, burst, attack;
+  hutao skill,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash, attack, charge;
+  if .ht.burst.ready {
+    ht burst;
+  }
+  arle attack, charge,
+       attack:5, dash,
+       attack:5;
+}

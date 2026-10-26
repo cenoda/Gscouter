@@ -1,0 +1,48 @@
+active arlecchino;
+arlecchino skill;
+bennett burst;
+  
+zhongli skill[hold=1], dash;
+  
+pick_up_crystallize("pyro");
+  
+kazuha burst;
+  
+arlecchino charge,
+          attack:3, dash,
+          attack:3, dash,
+          attack:3, dash, 
+          attack:3, dash,
+          attack:3, dash, 
+          attack:3, dash, attack, skill, attack;
+for let i=0; i<3; i=i+1 {
+  
+  if i {
+    arlecchino skill, attack;
+  }
+  
+  if !.bennett.burst.ready {
+    bennett skill, burst;
+  } else {
+    bennett burst;
+  }
+  
+  zhongli skill[hold=1], dash;
+  
+  pick_up_crystallize("pyro");
+  
+  if .kazuha.burst.ready{
+    kazuha burst;
+  } else {
+    kazuha skill, high_plunge;
+  }
+  
+  arlecchino attack:1, charge,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash, 
+             attack:3, dash,
+             attack:3, dash, 
+             attack:3;
+
+}

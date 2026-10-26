@@ -1,0 +1,12 @@
+active neuv;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  furina attack, skill, dash, attack;
+  luminepyro skill[hold=1], burst;
+  baizhu burst, attack, skill;
+  furina burst;
+  neuvillette charge, skill, charge, burst;
+  baizhu skill, attack;
+  neuvillette charge, charge; 
+}
+wait(173);

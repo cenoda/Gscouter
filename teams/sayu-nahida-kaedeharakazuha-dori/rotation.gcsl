@@ -1,0 +1,13 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida burst, skill;
+  
+  dori skill, burst, attack;
+  kazuha skill[hold=1], high_plunge, burst;
+  if .sayu.burst.ready {
+    sayu burst;
+  }
+  sayu skill[hold=600];
+  
+  print("rotation done");
+}

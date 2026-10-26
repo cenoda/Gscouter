@@ -1,0 +1,17 @@
+id: arlecchino-rosaria-kaeya-bennett
+name: Arlecchino / Rosaria / Kaeya / Bennett
+members:
+    - arle
+    - rosaria
+    - kaeya
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/WcBDChCKFwrR
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 60761
+    computed: "2026-10-01"

@@ -1,0 +1,29 @@
+active razor;
+razor skill, dash; 
+for let i=0; i<4; i=i+1 { 
+  
+  nahida skill, attack;
+  if .nahida.burst.ready {
+    nahida burst;
+  }
+  
+  furina skill, dash, burst;
+  
+  baizhu skill, burst;
+
+  razor skill[hold=1], dash, attack, burst, attack, skill, dash;
+  let razorSkills = 1;
+  while razorSkills < 3 { 
+    
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+      razorSkills = razorSkills + 1;
+    
+    } else if .razor.normal > 3 {
+      razor dash;
+    
+    } else {
+      razor attack;
+    }
+  }
+}

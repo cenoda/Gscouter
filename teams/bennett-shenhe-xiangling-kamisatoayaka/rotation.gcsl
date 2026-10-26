@@ -1,0 +1,13 @@
+active ayaka;
+ayaka dash;
+for let i = 0; i < 5; i = i + 1 {
+  bennett burst, skill;
+  shenhe skill, burst;
+  bennett attack, skill;
+  xiangling burst, skill, dash;
+  ayaka skill, dash, burst, attack:2;
+  shenhe attack, skill, attack;
+  ayaka dash, attack:2, dash, attack:2;
+  bennett skill, attack;
+  ayaka attack:3, skill, dash, attack:2, charge;
+}

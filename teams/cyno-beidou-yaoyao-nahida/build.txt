@@ -1,0 +1,21 @@
+# Build from the source config, used to validate the rotation.
+
+cyno char lvl=90/90 cons=0 talent=9,9,9;
+cyno add weapon="deathmatch" refine=1 lvl=90/90;
+cyno add set="thunderingfury" count=4;
+cyno add stats def%=0.124 def=39.36 hp=5287.88 hp%=0.0992 atk=344.08 atk%=0.5652 er=0.22039999999999998 em=39.64 cr=0.3972 cd=1.284 electro%=0.466;
+
+beidou char lvl=90/90 cons=6 talent=9,9,9;
+beidou add weapon="favoniusgreatsword" refine=3 lvl=90/90;
+beidou add set="noblesseoblige" count=4;
+beidou add stats def%=0.124 def=39.36 hp=5287.88 hp%=0.0992 atk=344.08 atk%=0.1984 er=0.6282 em=39.64 cr=0.642 cd=0.7944 electro%=0.466;
+
+yaoyao char lvl=90/90 cons=6 talent=9,9,9;
+yaoyao add weapon="favoniuslance" refine=3 lvl=90/90;
+yaoyao add set="tenacityofthemillelith" count=4;
+yaoyao add stats def%=0.124 def=39.36 hp=5287.88 hp%=0.0992 atk=344.08 atk%=0.6644 er=0.1102 em=39.64 cr=0.642 cd=0.7944 dendro%=0.466;
+
+nahida char lvl=90/90 cons=0 talent=9,9,9;
+nahida add weapon="thewidsith" refine=3 lvl=90/90;
+nahida add set="deepwoodmemories" count=4;
+nahida add stats def%=0.124 def=39.36 hp=5287.88 hp%=0.0992 atk=344.08 atk%=0.0992 er=0.4408 em=600.64 cr=0.331 cd=0.5296;

@@ -1,0 +1,9 @@
+active ganyu;
+for let i=0; i<4; i=i+1 {
+  ganyu skill;
+  furina skill, dash, attack, burst;
+  citlali skill, attack;
+  escoffier skill, burst;
+  ganyu attack:3, aim, skill, burst, aim:4;
+}
+wait(27);

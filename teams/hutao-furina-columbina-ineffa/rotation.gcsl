@@ -1,0 +1,31 @@
+active ineffa;
+for let i=0; i<4; i=i+1 {
+  if i > 0 && .ineffa.burst.ready {
+    ineffa skill, burst;
+  } else {
+    ineffa attack, skill;
+  }
+  
+  furina skill; 
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd && !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  columbina skill, burst; 
+  
+  hutao skill,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump;
+  if .hutao.burst.ready { 
+    hutao attack:1, burst;
+  } else {
+    hutao attack:2, charge, jump;
+  }
+}

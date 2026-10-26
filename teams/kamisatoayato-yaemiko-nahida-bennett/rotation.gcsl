@@ -1,0 +1,22 @@
+active ayato;
+for let x = 10; x; x = x - 1 {
+  if .ayato.burst.ready { 
+    ayato burst; 
+  }
+  nahida skill, attack;
+  if .nahida.burst.ready { 
+    nahida burst; 
+  } else { 
+    nahida attack; 
+  }
+  yae attack, skill:3;
+  bennett skill;
+  if .bennett.burst.ready { 
+    bennett burst; 
+  }
+  if .yae.burst.ready {
+    yae attack:2, burst, skill:3;
+  }
+  ayato skill, attack:15;
+  print("rotation done");
+}

@@ -1,0 +1,34 @@
+active razor; 
+fn RazorPlunge() {
+  razor jump;
+  if .airborne {
+    razor high_plunge[collision=rand()>0.5];
+  }
+}
+for let i = 0; i < 4; i = i + 1 {
+  if i > 0 && .esco.burst.ready && .esco.energy == .esco.energymax {
+    esco burst;
+  } else if i > 0 {
+    esco attack;
+  }
+  esco skill;
+  
+  xianyun skill, low_plunge, burst;
+  
+  rosaria skill, burst;
+  
+  razor skill;
+  if .razor.burst.ready {
+    razor dash, burst; 
+  }
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor skill;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); 
+  
+  rosaria skill;
+}

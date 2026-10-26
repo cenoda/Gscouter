@@ -1,0 +1,25 @@
+active xq; 
+for let i=0; i<4; i=i+1 {
+  xingqiu skill, dash, burst, attack;
+  
+  nahida skill, attack, charge; 
+  
+  kuki skill, attack;
+
+  rosaria burst, attack, skill;
+  while .xingqiu.skill.cd > 150 {
+    if .rosaria.skill.ready {
+      rosaria skill;
+    } else if .rosaria.normal > 3 && .stam > 43 {
+      rosaria charge, dash;
+    } else {
+      rosaria attack;
+    }
+  }
+  if .kuki.burst.ready {
+    kuki attack, burst;
+  } else if .nahida.burst.ready {
+    nahida burst;
+  }
+  
+}

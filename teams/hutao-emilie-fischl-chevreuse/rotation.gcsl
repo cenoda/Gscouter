@@ -1,0 +1,25 @@
+active emilie;
+for let i=0; i<4; i=i+1 {
+  if i > 0 && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie attack, skill;
+  }
+  
+  chev burst, skill[hold=1]:2;
+  
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst; 
+  }
+
+  hutao skill,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:1, charge, jump;
+}

@@ -1,0 +1,13 @@
+active mav;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  fischl skill, attack;
+  mav skill, burst;
+  mizuki attack, skill, burst;
+  while .mizuki.status.dreamdrifter-state > 150 {
+    wait(1);
+  }
+  fischl attack:2, burst;
+  mizuki attack, charge, attack, charge;
+  mizuki attack:9;
+}

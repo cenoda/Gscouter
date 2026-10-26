@@ -1,0 +1,17 @@
+active arle;
+arle skill;
+for let i = 0; i < 4; i = i + 1 {
+  kuki burst, skill; 
+  chevreuse burst, skill[hold=1], attack;
+  beidou burst, skill; 
+  arle charge,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack, 
+       skill;
+  beidou skill, attack:2, jump; 
+}

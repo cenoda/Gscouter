@@ -1,0 +1,16 @@
+active furina;
+for let i=0; i<1; i=i+1 {
+  furina skill, dash, burst;
+  
+  escoffier skill, burst;
+  
+  chongyun skill;
+  
+  ayato skill, attack:16; 
+  ayato burst;
+  ayato attack:1; 
+  
+  chongyun burst;
+  
+  ayato skill, attack:12; 
+}

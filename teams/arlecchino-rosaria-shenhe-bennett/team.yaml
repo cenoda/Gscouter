@@ -1,0 +1,17 @@
+id: arlecchino-rosaria-shenhe-bennett
+name: Arlecchino / Rosaria / Shenhe / Bennett
+members:
+    - arle
+    - rosaria
+    - shenhe
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/dj9QHtpFnhG9
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 66418
+    computed: "2026-10-02"

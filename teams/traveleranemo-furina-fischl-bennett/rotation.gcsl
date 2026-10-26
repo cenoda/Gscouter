@@ -1,0 +1,28 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  bennett skill, burst;
+
+  amy attack;
+  if .amy.burst.ready && .amy.energy == .amy.energymax {
+    amy attack, burst;
+  } else {
+    amy skill;
+  }
+
+  while .furina.skill.cd {
+    switch {
+      case .traveleranemo.skill.ready && .traveleranemo.swap.ready:
+        traveleranemo skill[hold=1];
+      case .traveleranemo.burst.ready && .traveleranemo.swap.ready && .traveleranemo.energy == .traveleranemo.energymax:
+        traveleranemo burst;
+      case .bennett.skill.ready && .bennett.swap.ready:
+        bennett skill;
+      case .bennett.attack.ready && .bennett.onfield:
+        bennett attack;
+      default:
+        traveleranemo attack;
+    }
+  }
+}

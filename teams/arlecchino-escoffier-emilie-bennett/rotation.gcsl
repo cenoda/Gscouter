@@ -1,0 +1,26 @@
+active arle;
+for let i=0; i<4; i=i+1 {
+  arle skill;
+  
+  bennett skill, burst;
+  
+  if i > 0 && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie attack, skill;
+  }
+  
+  if .esco.burst.ready && i > 0 {
+    esco burst, skill;
+  } else {
+    esco skill, attack;
+  }
+  
+  arle attack:1, charge[early_cancel=0], dash:0, 
+       attack:3, dash,
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3;
+}

@@ -1,0 +1,17 @@
+id: ganyu-durin-emilie-nicole
+name: Ganyu / Durin / Emilie / Nicole
+members:
+    - ganyu
+    - durin
+    - emilie
+    - nicole
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/hNNt7n9Wknqb
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 95432
+    computed: "2026-10-01"

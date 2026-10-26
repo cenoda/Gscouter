@@ -1,0 +1,17 @@
+id: raidenshogun-fischl-rosaria-xinyan
+name: Raidenshogun / Fischl / Rosaria / Xinyan
+members:
+    - raiden
+    - fischl
+    - rosaria
+    - xinyan
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/WqwqCrhj8mfh
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 35978
+    computed: "2026-10-01"

@@ -1,0 +1,24 @@
+active zhongli;
+for let x=0; x<4; x=x+1 {
+ zhongli skill[hold=1], dash;
+ chiori skill:2;
+ bennett skill,burst;
+ fischl attack;
+ if .fischl.burst.ready {
+   fischl attack,burst;
+ } else {
+   fischl skill;
+ }
+ 
+ bennett attack:2,skill,attack:3;
+ 
+ if .chiori.burst.ready {
+   chiori burst;
+ } else {
+   chiori attack:3;
+ }
+ chiori attack:3;
+ 
+ bennett skill, attack:3;
+ chiori attack:3;
+}

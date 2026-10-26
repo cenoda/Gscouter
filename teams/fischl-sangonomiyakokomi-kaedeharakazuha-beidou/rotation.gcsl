@@ -1,0 +1,17 @@
+active fischl;
+for let i=0; i<4; i=i+1 {
+	fischl attack:2, skill;
+	kokomi attack, skill, attack;
+	kazuha skill, high_plunge, burst;
+	beidou skill, burst, attack;
+	kokomi attack:2;
+	kazuha skill, high_plunge, attack;
+	fischl attack:2, burst;
+	kokomi burst;
+	for let i = 0; i < 10; i=i+1 {
+		kokomi attack:2, dash, walk[f=2];
+	}
+	kazuha skill, high_plunge;
+	beidou skill;
+
+}

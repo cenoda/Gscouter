@@ -1,0 +1,37 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active amy;
+for let i=0; i<4; i=i+1 {
+  amy attack;
+  if .amy.skill.ready {
+    amy skill;
+  } else {
+    amy attack, burst;
+  }
+  
+  nahida skill, attack;
+  if i > 0 && .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  clorinde_combo();
+  if .clorinde.burst.ready {
+    clorinde burst;
+  }
+  
+  tighnari skill, aim;
+  if .tighnari.burst.ready {
+    tighnari burst, aim:2;
+  } else {
+    tighnari aim:2;
+  }
+}

@@ -1,0 +1,21 @@
+active yae;
+for let i=0; i<4; i=i+1 {
+  yae skill:3;
+  
+  ororon burst, skill;
+  
+  furina skill, dash, burst;
+  
+  sayu burst;
+  
+  yae attack, charge;
+  if .yae.burst.ready {
+    yae burst, skill:3;
+  } else {
+    yae dash, charge, dash, attack, charge, dash, skill:3;
+  }
+  
+  sayu skill[hold=600];
+  
+  print("done");
+}

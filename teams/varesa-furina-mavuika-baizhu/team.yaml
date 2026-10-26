@@ -1,0 +1,17 @@
+id: varesa-furina-mavuika-baizhu
+name: Varesa / Furina / Mavuika / Baizhu
+members:
+    - varesa
+    - furina
+    - mavuika
+    - baizhu
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/rjJDCGq76DgW
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 64739
+    computed: "2026-10-01"

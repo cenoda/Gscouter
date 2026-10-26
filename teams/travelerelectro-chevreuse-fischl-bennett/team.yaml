@@ -1,0 +1,19 @@
+id: travelerelectro-chevreuse-fischl-bennett
+name: Travelerelectro / Chevreuse / Fischl / Bennett
+members:
+    - aetherelectro
+    - chev
+    - fischl
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/zBQjFFBWCMHC
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    aetherelectro: base_atk_buff=3
+reference:
+    dps: 58349
+    computed: "2026-09-30"

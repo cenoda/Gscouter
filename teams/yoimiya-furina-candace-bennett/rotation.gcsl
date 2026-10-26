@@ -1,0 +1,27 @@
+active furina;
+furina skill, dash;
+for let i = 0; i < 4; i = i + 1 {
+  furina burst;
+  if i {
+    furina skill, dash;
+  }
+  bennett skill, burst;
+  if !.element.t0.pyro && !.element.t0.hydro {
+    bennett attack;
+  }
+  candace skill, burst;
+  while !.candace.mods.favonius-cd {
+    candace attack;
+  }
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  if .yoimiya.burst.ready {
+    yoimiya burst;
+  } else {
+    yoimiya attack:3;
+  }
+  candace skill, attack;
+  while !.candace.mods.favonius-cd {
+    candace attack;
+  }
+  bennett skill, dash;
+}

@@ -1,0 +1,21 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  
+  arlecchino skill;
+  bennett skill, burst;
+  albedo skill, attack;
+    pick_up_crystallize("any");
+  lynette attack, skill;
+  if .lynette.burst.ready {
+    lynette burst;
+  } else {
+    albedo burst;
+  }
+  arlecchino attack, charge, 
+             attack:3, dash, 
+             attack:3, dash, 
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3;
+}

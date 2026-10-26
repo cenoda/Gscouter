@@ -1,0 +1,20 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  furina attack, skill, dash, attack;
+  if .lynette.cons >= 4 {
+    lynette burst, skill;
+  } else {
+    lynette attack;
+    if !.lynette.mods.favonius-cd {
+      lynette attack;
+    }
+    lynette burst;
+  }
+  citlali skill, attack:2;
+  furina burst;
+  neuvillette charge, burst, skill, charge;
+  lynette skill, attack;
+  neuvillette charge, charge;
+}
+wait(173);

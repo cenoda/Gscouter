@@ -1,0 +1,10 @@
+active nahida;
+for let i = 0; i < 5; i = i + 1 {
+  nahida skill, attack;
+  if .nahida.burst.ready {nahida burst;}
+  if .alhaitham.burst.ready {alhaitham burst;}
+  fischl skill;
+  alhaitham attack:3, dash, attack:3, charge, attack:3, dash, attack:3, skill[hold=1], low_plunge[short=1], attack:3, dash, attack:2;
+  fischl burst;
+  keqing skill, burst, skill, attack, charge, attack, charge, attack, skill, attack, charge, attack, charge;
+}

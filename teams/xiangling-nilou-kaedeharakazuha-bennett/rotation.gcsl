@@ -1,0 +1,25 @@
+active bennett;
+for let i=0; i<4; i=i+1 {
+  bennett skill,burst;
+  kazuha skill,high_plunge,burst;
+  xiangling swap;
+  while !.xiangling.mods.bennett-field {
+    wait(1);
+  }
+  xiangling skill, burst;
+  nilou skill;
+  nilou attack:3;
+  nilou attack:3;
+  nilou attack:3;
+  nilou attack:3;
+  nilou attack:3;
+  nilou attack:3;
+  xiangling skill,attack;
+  kazuha skill,high_plunge,attack:2;
+  bennett attack,skill;
+  xiangling attack:2;
+  if .nilou.burst.ready
+  {
+    nilou burst;
+  }
+}

@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+xinyan char lvl=90/90 cons=6 talent=9,9,9;
+xinyan add weapon="serpent" refine=1 lvl=90/90 +params=[stacks=5];
+xinyan add set="lno" count=4;
+xinyan add stats hp=4780 atk=311 atk%=0.466 pyro%=0.466 cd=0.622;
+xinyan add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.2204 em=39.64 cr=0.3972 cd=0.662;
+
+furina char lvl=90/90 cons=0 talent=9,9,9;
+furina add weapon="favsword" refine=3 lvl=90/90;
+furina add set="tom" count=4;
+furina add stats hp=4780 atk=311 hp%=0.466 hydro%=0.466 cr=0.311;
+furina add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.551 em=39.64 cr=0.331 cd=0.3972;
+
+bennett char lvl=90/90 cons=6 talent=9,9,9;
+bennett add weapon="alleyflash" refine=1 lvl=90/90;
+bennett add set="no" count=4;
+bennett add stats hp=4780 atk=311 er=0.518 pyro%=0.466 cr=0.311;
+bennett add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.4408 em=39.64 cr=0.2317 cd=0.7282;
+
+xianyun char lvl=90/90 cons=0 talent=9,9,9;
+xianyun add weapon="oathsworn" refine=5 lvl=90/90;
+xianyun add set="ohc" count=4;
+xianyun add stats hp=4780 atk=311 er=0.518 atk%=0.466 atk%=0.466;
+xianyun add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=132.32 atk%=0.3968 er=0.551 em=39.64 cr=0.0662 cd=0.1324;

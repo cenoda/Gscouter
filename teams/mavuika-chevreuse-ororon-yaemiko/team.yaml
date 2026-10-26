@@ -1,0 +1,17 @@
+id: mavuika-chevreuse-ororon-yaemiko
+name: Mavuika / Chevreuse / Ororon / Yaemiko
+members:
+    - mavuika
+    - chevreuse
+    - ororon
+    - yae
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/cL6hpFFgdBwh
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 99749
+    computed: "2026-09-30"

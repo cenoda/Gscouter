@@ -1,0 +1,23 @@
+active furina;
+furina skill, dash, burst;
+for let i=0; i<4; i=i+1 {
+if i > 0 {furina skill, attack, burst;}
+while !.furina.mods.favonius-cd {
+furina attack;}
+xq burst,attack;
+bennett burst, attack, skill;
+xq attack, skill, dash, attack:2;
+hutao skill,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:2, charge, jump, attack;
+    if .hutao.burst.ready { hutao burst; }
+    else {hutao  attack;}
+bennett skill, attack;
+}

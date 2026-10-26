@@ -1,0 +1,14 @@
+active fischl;
+for let x=0; x<4; x=x+1{
+	if .fischl.skill.ready {
+		fischl attack, skill;
+	} else {
+		fischl attack:2, burst;
+	}
+	eula dash, skill, attack;
+	layla burst, attack, skill;
+	shenhe skill, burst;
+	eula burst, walk, attack:4, skill[hold=1], attack:4;
+	shenhe skill, attack:2;
+	eula attack:4;
+}

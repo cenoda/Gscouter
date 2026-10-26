@@ -1,0 +1,27 @@
+active zhongli;
+for let i = 0; i < 4; i = i + 1 {
+  zhongli skill[hold=1], dash, attack:2;
+  if !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  yae attack, skill:3;
+  nahida attack, charge, jump, skill, burst, attack, charge;
+  tighnari skill,aim,burst,aim:2;
+	
+  zhongli skill[hold=1], dash, attack:2;
+  if !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  yae attack, skill:3;
+  nahida attack:2, skill,
+	     attack:2, charge, jump,
+         attack, charge;
+  tighnari skill, aim;
+  if .tighnari.burst.ready && .tighnari.energy == .tighnari.energymax {
+    tighnari burst, aim:2;
+  } else { 
+    tighnari aim:2;
+    nahida attack:2, skill, 
+           attack:2, charge;
+  }
+}

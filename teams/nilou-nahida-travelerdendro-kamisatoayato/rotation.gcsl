@@ -1,0 +1,17 @@
+active nahida;
+for let i = 0; i < 5; i = i + 1 {
+  let frame = f();
+  nahida skill, burst, attack, charge;
+  set_player_pos(0,5);
+  nilou skill, attack:2, skill;
+  wait(15);
+  set_player_pos(0,2);
+  wait(30);
+  set_player_pos(0,1);
+  wait(30);
+  set_player_pos(0,0);
+  luminedendro skill, burst, jump;
+  ayato skill, attack, burst, attack;
+  nilou swap;
+  wait(1200-f()+frame);
+}

@@ -1,0 +1,17 @@
+active arlecchino;
+for let i=0; i<4; i=i+1 {
+  arlecchino skill;
+  rosa skill, attack;
+  bennett skill, attack;
+  while !.rosa.mods.favonius-cd {
+    rosa attack;
+  }
+  rosa burst;
+  lynette skill, attack, burst;
+  bennett burst;
+  arlecchino charge[early_cancel=1], dash;
+  for let j=0; j<5; j=j+1 {
+    arlecchino attack:3, dash;
+  }
+  arlecchino attack:3;
+}

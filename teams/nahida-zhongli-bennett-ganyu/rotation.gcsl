@@ -1,0 +1,31 @@
+active zhongli;
+let go=0;
+for let i=0; i<4; i=i+1 {
+  zl attack, skill[hold_nostele=1], dash;
+  if i {
+    if go {
+      nahida skill;
+    } else {
+      nahida attack, skill;
+    }
+  }
+  if go {
+    nahida burst;
+    go = 0;
+  }
+  bennett swap;
+  bennett skill, burst;
+  nahida swap;
+  if !i {
+    nahida skill;
+  }
+  ganyu aim:6, skill;
+  bennett skill, attack:2;
+  if !.nahida.burst.ready {
+    ganyu aim;
+  } else {
+    zhongli swap;
+    go = 1;
+  }
+  
+}

@@ -1,0 +1,17 @@
+id: eula-shenhe-rosaria-layla
+name: Eula / Shenhe / Rosaria / Layla
+members:
+    - eula
+    - shenhe
+    - rosaria
+    - layla
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/mKH8MjfkQKHC
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 39904
+    computed: "2026-10-02"

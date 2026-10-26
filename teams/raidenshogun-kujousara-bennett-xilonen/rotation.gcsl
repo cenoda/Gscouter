@@ -1,0 +1,12 @@
+active raiden;
+raiden skill;
+for let x = 0; x < 5; x = x + 1 {
+  xilonen burst, skill, attack:2;
+  sara  attack, skill, aim, attack; 
+  bennett skill, burst;
+  sara dash;
+  pick_up_crystallize("electro");
+  sara burst;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  bennett skill;
+}

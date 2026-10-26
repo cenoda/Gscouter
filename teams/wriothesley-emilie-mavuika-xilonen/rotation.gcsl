@@ -1,0 +1,20 @@
+active wrio;
+wrio attack;
+for let i=0; i<4; i=i+1 {
+  
+    emilie skill, attack;
+
+  mavuika burst, charge, skill;
+  xilonen skill, attack:2;
+  wrio skill,
+       attack:5, charge, jump,
+       attack:5, charge, jump,
+       attack:5, charge;
+  if .wrio.burst.ready {
+    wrio dash, attack;
+    wrio burst;
+  } else {
+    wrio jump;
+    wrio attack:5, charge;
+  }
+}

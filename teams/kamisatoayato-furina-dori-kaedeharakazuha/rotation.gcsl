@@ -1,0 +1,11 @@
+active furina;
+for let i = 0; i < 5; i = i + 1 {
+  furina skill, dash, burst;
+  dori skill, burst;
+  kazuha skill, high_plunge, burst;
+  ayato skill, attack:15, burst;
+  dori skill, attack:2;
+  kazuha skill, high_plunge;
+  ayato skill, attack:13;
+
+}

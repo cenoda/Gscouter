@@ -1,0 +1,11 @@
+active ganyu;
+for let i=0; i<4; i=i+1 {
+  ganyu skill;
+  xilonen skill, attack:2;
+	bennett burst, skill, dash;
+	pick_up_crystallize("cryo");
+	xiangling burst, skill;
+	ganyu aim:2, skill, aim:4;
+	bennett skill;
+	xiangling attack:2;
+}

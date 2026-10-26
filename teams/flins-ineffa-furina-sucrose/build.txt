@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+flins char lvl=90/90 cons=0 talent=9,9,9;
+flins add weapon="balladofthefjords" refine=1 lvl=90/90;
+flins add set="nightoftheskysunveiling" count=4;
+flins add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cd=0.622;
+flins add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*3 er=0.0551*4 em=19.82*2 cr=0.0331*11 cd=0.0662*10;
+
+ineffa char lvl=90/90 cons=0 talent=9,9,9;
+ineffa add weapon="balladofthefjords" refine=1 lvl=90/90;
+ineffa add set="silkenmoonsserenade" count=4;
+ineffa add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cd=0.622;
+ineffa add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*12 cd=0.0662*10;
+
+furina char lvl=90/90 cons=0 talent=9,9,9;
+furina add weapon="wolffang" refine=1 lvl=90/90;
+furina add set="totm" count=4;
+furina add stats hp=4780 atk=311 hp%=0.466 hydro%=0.466 cd=0.622;
+furina add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*4 atk=16.54*2 atk%=0.0496*2 er=0.0551*2 em=19.82*2 cr=0.0331*12 cd=0.0662*10;
+
+sucrose char lvl=90/90 cons=6 talent=9,9,9;
+sucrose add weapon="ttds" refine=5 lvl=90/90;
+sucrose add set="vv" count=4;
+sucrose add stats hp=4780 atk=311 em=187 em=187 em=187;
+sucrose add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*12 em=19.82*6 cr=0.0331*8 cd=0.0662*2;

@@ -1,0 +1,28 @@
+fn rand_counter() {
+  let counter = rand();
+  if counter > 0.85 {
+    counter = 2;
+  } else if counter > 0.75 && counter <= 0.85 {
+    counter = 1;
+  } else {
+    counter = 0;
+  }
+  
+  return counter;
+}
+active beidou; 
+for let x=0; x<4; x=x+1 {
+  xingqiu skill, dash, burst, attack;
+  
+  beidou skill[counter=rand_counter()], attack, burst;
+  
+  fischl attack, skill;
+  
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5;
+  
+  beidou skill[counter=rand_counter()];
+  
+  fischl attack:2, burst;
+  
+  yoimiya skill, attack:5, dash, attack:4, burst;
+}

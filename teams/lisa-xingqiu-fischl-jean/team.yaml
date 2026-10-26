@@ -1,0 +1,17 @@
+id: lisa-xingqiu-fischl-jean
+name: Lisa / Xingqiu / Fischl / Jean
+members:
+    - lisa
+    - xingqiu
+    - fischl
+    - jean
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/ckdH7BhhcPGq
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 39225
+    computed: "2026-10-02"

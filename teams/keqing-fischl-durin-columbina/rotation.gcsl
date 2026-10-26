@@ -1,0 +1,16 @@
+active amy;
+for let i=0; i<6; i=i+1 {
+  amy attack, skill, attack;
+  durin skill:2, burst;
+  amy attack:2, burst;
+  bina attack, skill;
+  keq skill, burst, skill, dash,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      skill, skill, dash,
+      attack, charge,
+      attack, charge;
+}

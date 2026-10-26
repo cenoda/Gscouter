@@ -1,0 +1,15 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  furina skill, dash, attack, burst;
+  bennett burst, skill[hold=1, hold_c4=1]; 
+  if !.element.t0.pyro {
+    bennett attack;
+  }
+  sucrose attack, skill, attack:3; 
+  arle charge[early_cancel=1], dash,
+       attack:5, dash, 
+       attack:5, dash,
+       attack:5, dash,
+       attack:3;
+}

@@ -1,0 +1,19 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  if is_even(i) {
+    furina skill, dash;
+  }
+  
+  nahida attack, skill;
+  if .nahida.burst.ready {
+    nahida burst;
+  }
+  
+  ororon attack, skill, burst;  
+  
+  chasca skill, aim:4, aim[bullets=4];
+  if .chasca.burst.ready {
+    chasca burst;
+  }
+}
+wait(84);

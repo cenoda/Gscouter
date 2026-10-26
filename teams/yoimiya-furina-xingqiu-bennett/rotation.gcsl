@@ -1,0 +1,16 @@
+active furina;
+furina skill, dash, burst;
+for let i=0; i<4; i=i+1 {
+if i > 0 {furina  skill, attack, burst;}
+while !.furina.mods.favonius-cd {
+furina attack;}
+xq burst,attack;
+bennett burst, attack, skill;
+xq attack, skill, dash, attack:2;
+ yoimiya skill, attack:5, dash,
+                attack:5, dash,
+                attack:5, dash,
+                attack;
+ if .yoimiya.burst.ready { yoimiya burst; }
+bennett skill, attack;
+}

@@ -1,0 +1,28 @@
+active yae;
+for let x = 0; x < 4; x = x + 1 {
+  yae skill:3;
+  
+  if .amy.skill.ready {
+    amy attack:1, skill;
+  } else {
+    amy attack:2, burst;
+  }
+  
+  xianyun skill, low_plunge, attack:1, burst;
+  
+  haitham skill[hold=1], low_plunge[short=1];
+  while .haitham.status.xianyun-airborne-buff {
+    haitham jump;
+    if .airborne {
+      haitham low_plunge[collision=rand()>0.4], attack:1;
+    }
+  }
+  haitham charge;
+  if .haitham.burst.ready {
+    haitham burst;
+  } else {
+    haitham attack:2;
+  }
+  
+  print("done");
+}

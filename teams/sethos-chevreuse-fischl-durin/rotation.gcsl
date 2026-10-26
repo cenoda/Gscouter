@@ -1,0 +1,25 @@
+active fischl;
+for let i = 0; i < 4; i = i + 1 {
+  if .amy.skill.ready {
+    amy attack:1, skill;
+  } else {
+    amy attack:2, burst;
+  }
+  
+  chev burst, attack, skill[hold=1]:1, attack, skill[hold=1]:2;
+  
+  durin skill, burst, skill;
+  sethos aim[hold=2]:1;
+  sethos skill; 
+  sethos burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk, 
+         attack;
+  sethos skill;
+}

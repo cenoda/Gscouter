@@ -1,0 +1,39 @@
+active bennett;
+bennett skill;
+for let i = 0; i < 4; i = i + 1 {
+  
+  if i > 0 && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie attack, skill;
+  }
+  
+  durin skill, skill, burst;
+  
+  xianyun skill, high_plunge, burst;
+  
+  bennett burst, skill;
+  while .bennett.status.xianyun-airborne-buff {
+    bennett jump;
+    if .airborne {
+      bennett high_plunge[collision=rand()>0.4];
+    }
+    if .bennett.skill.ready {
+      bennett skill;
+    } else if .xianyun.status.xianyun-airborne-buff {
+      bennett dash;
+    }
+  }
+  
+  xianyun attack:2, charge;
+  
+  while .status.bennettburst > 60 {
+    if .bennett.skill.ready {
+      bennett skill;
+    } else if .bennett.normal > 2 {
+      bennett charge, dash;
+    } else {
+      bennett attack;
+    }
+  }
+}

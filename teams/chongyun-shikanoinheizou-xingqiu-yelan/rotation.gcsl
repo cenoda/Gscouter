@@ -1,0 +1,11 @@
+active yelan;
+for let x = 0; x < 5; x = x + 1{
+  yelan burst, attack;
+  chongyun burst, attack, skill;
+  xingqiu attack, burst;
+  yelan attack, skill, attack:2;
+  heizou attack, charge, attack, burst, attack, skill;
+  xingqiu attack, skill, dash, attack:2;
+  yelan attack:4, skill, attack:2;
+  heizou attack, charge, attack;
+}

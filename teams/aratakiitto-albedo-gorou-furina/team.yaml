@@ -1,0 +1,17 @@
+id: aratakiitto-albedo-gorou-furina
+name: Aratakiitto / Albedo / Gorou / Furina
+members:
+    - itto
+    - albedo
+    - gorou
+    - furina
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/bNpRCpp9k8wz
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 54355
+    computed: "2026-10-01"

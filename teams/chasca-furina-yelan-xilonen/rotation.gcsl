@@ -1,0 +1,15 @@
+active xilonen;
+for let i = 0; i < 4; i = i + 1 {
+  xilonen burst;
+  furina skill, dash, burst;
+  xilonen skill, attack:2;
+  yelan burst, attack, skill, attack;
+  chasca skill;
+  while .chasca.nightsoul.points > 5 { 
+    chasca attack;
+  }
+  xilonen skill, attack:2;
+  yelan attack, skill, attack;
+  chasca burst;
+}
+wait(58);

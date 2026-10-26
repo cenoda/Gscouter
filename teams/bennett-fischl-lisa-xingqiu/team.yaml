@@ -1,0 +1,17 @@
+id: bennett-fischl-lisa-xingqiu
+name: Bennett / Fischl / Lisa / Xingqiu
+members:
+    - bennett
+    - fischl
+    - lisa
+    - xingqiu
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/t6jzFhHFqR6c
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 49441
+    computed: "2026-10-01"

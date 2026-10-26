@@ -1,0 +1,19 @@
+active yaoyao;
+for let r = 0; r < 5; r = r + 1 {
+  yaoyao skill;
+  wait(11); 
+  nilou skill, attack:2, skill;
+  alhaitham burst;
+  xingqiu burst, attack;
+  wait(13); 
+  alhaitham attack:3, dash, 
+            attack:3, dash,
+            attack:2, skill,
+            attack:3, dash,
+            attack:3, charge,
+            attack:3, dash,
+            attack:3, dash,
+            attack:3, dash,
+            attack:3;
+  xingqiu skill, dash, attack:2;
+}

@@ -1,0 +1,17 @@
+id: neuvillette-mona-sucrose-xiangling
+name: Neuvillette / Mona / Sucrose / Xiangling
+members:
+    - neuv
+    - mona
+    - sucrose
+    - xl
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/W6fpJqjWjww7
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 81835
+    computed: "2026-10-02"

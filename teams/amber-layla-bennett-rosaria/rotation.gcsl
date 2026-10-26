@@ -1,0 +1,17 @@
+active layla;
+for let i = 0; i < 7; i = i + 1 {
+  layla burst, skill;
+  bennett skill, burst;
+  rosaria skill, burst;
+  for let x = 0; x< 6; x=x+1 {
+    let weak = rand();
+    if x == 4 {
+      amber skill;
+    } else if weak > 0.3 {
+      amber aim[weakspot=1];
+    } else {
+      amber aim;
+    }
+  }
+  print("end");
+}

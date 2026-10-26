@@ -1,0 +1,16 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  yae skill:3;
+  bennett skill, burst;
+  if i && .yae.burst.ready && .yae.energy == .yae.energymax {
+    yae burst, skill:3;
+    chasca skill, aim:4;
+  } else {
+    chasca skill, aim:4, aim[bullets=4];
+  }
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  }
+  bennett skill;
+}

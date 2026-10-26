@@ -1,0 +1,36 @@
+fn lanyanDrivingCombo() {
+  switch {
+    case .lanyan.normal > 1 && .lanyan.burst.ready && .lanyan.energy == .lanyan.energymax:
+      lanyan burst;
+    case .lanyan.normal > 1 && .lanyan.skill.ready:
+      set_player_pos(0, 0); 
+      lanyan skill; set_player_pos(0, -3); 
+      lanyan skill; 
+    case .lanyan.normal > 1 && .previous-action == .action.skill && .stam > 18:
+      lanyan dash; set_player_pos(0, 0); 
+    case .lanyan.normal > 2 && .stam > 18:
+      lanyan dash; set_player_pos(0, 0); 
+    default:
+      lanyan attack;
+  }
+}
+active fischl;
+for let i=0; i<4; i=i+1 {
+  fischl attack, skill;
+  
+  xq skill, dash, burst, attack;
+  
+  yelan skill, burst, attack; 
+  
+  while .fischl.oz {
+    lanyanDrivingCombo();
+  }
+  
+  fischl attack:2, burst;
+
+  yelan attack, skill, attack:4;
+  
+  while .fischl.skill.cd > 30 {
+    lanyanDrivingCombo();
+  }
+}

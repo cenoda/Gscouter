@@ -1,0 +1,17 @@
+id: dehya-bennett-furina-xilonen
+name: Dehya / Bennett / Furina / Xilonen
+members:
+    - dehya
+    - bennett
+    - furina
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/gct99hRLhhf8
+notes: 'Harvested from the KQM gcsim database: 5 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 50756
+    computed: "2026-10-02"

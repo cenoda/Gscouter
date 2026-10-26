@@ -1,0 +1,14 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  bennett skill, burst;
+  kazuha skill, high_plunge;
+  nilou skill, attack:2, skill;
+  arle charge, 
+       attack:3, dash, attack:3, dash,
+       attack:3, dash, attack:3, dash,
+       attack:3, dash;
+  if i < 3 {
+    arle attack:3, dash;
+  }
+}

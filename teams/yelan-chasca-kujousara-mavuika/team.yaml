@@ -1,0 +1,17 @@
+id: yelan-chasca-kujousara-mavuika
+name: Yelan / Chasca / Kujousara / Mavuika
+members:
+    - yelan
+    - chasca
+    - sara
+    - mavuika
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/7c7cnDMJPddt
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 67330
+    computed: "2026-10-02"

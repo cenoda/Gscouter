@@ -1,0 +1,15 @@
+active shenhe;
+for let i=0; i<4; i=i+1 {
+  shenhe skill, burst, attack;
+  bennett burst, skill;
+  rosaria skill, attack, burst;
+  xiangling attack, burst, skill, dash;
+  shenhe attack, skill, attack:2;
+  rosaria skill;
+  bennett attack, skill;
+  xiangling attack:2;
+  bennett attack, skill;
+  xiangling attack:3;
+  rosaria skill;
+  shenhe attack;
+}

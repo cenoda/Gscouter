@@ -1,0 +1,15 @@
+active ayato;
+for let i=0; i<3; i=i+1 {
+  ayato burst;
+  albedo skill, attack;
+  chiori skill, skill;
+  kazuha attack, skill, high_plunge, burst, attack;
+  ayato skill, attack:15;
+  kazuha attack, skill, high_plunge, attack;
+  
+  albedo skill, attack;
+  chiori burst, attack, skill, skill;
+  kazuha attack, skill, high_plunge, burst, attack;
+  ayato skill, attack:15;
+  kazuha attack, skill, high_plunge, attack;
+}

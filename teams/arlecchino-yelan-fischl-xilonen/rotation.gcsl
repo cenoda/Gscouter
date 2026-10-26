@@ -1,0 +1,26 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  
+  xilonen skill, attack:2;
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  if .fischl.skill.ready {
+    fischl skill, attack;
+  } else {
+    fischl attack:2, burst;
+  }
+  
+  arle attack, charge, 
+       attack:5, dash, 
+       attack:5, dash,
+       attack:5, dash,
+       attack:2, charge;
+}

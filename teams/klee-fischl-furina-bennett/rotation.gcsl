@@ -1,0 +1,32 @@
+active furina;
+for let i=0; i<5; i=i+1 {
+  furina skill, dash, burst;
+  if !i {
+    bennett skill, burst;
+  } else {
+    bennett burst, skill;
+  }
+  if .fischl.burst.ready  {
+    fischl attack:2, burst;
+  } else {
+    fischl attack:2, skill;
+  }
+  if i {
+    furina attack:2;
+  }
+  klee attack, burst, walk,
+       attack[travel=6], charge, 
+       attack[travel=6], charge, 
+       attack, skill[bounce=3, mine=8], jump, 
+       attack, walk, attack[travel=6], charge;
+  if .klee.skill.ready {
+    klee attack, skill[bounce=3, mine=8], jump;
+    klee attack[travel=6], charge;
+  } else {
+    klee attack[travel=6], charge;
+  }
+  klee attack[travel=6], charge, 
+       attack, walk, attack[travel=6], charge,
+       attack[travel=6], charge,
+       attack, walk;
+}

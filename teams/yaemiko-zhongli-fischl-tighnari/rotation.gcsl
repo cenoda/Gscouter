@@ -1,0 +1,31 @@
+active yae;
+for let i=0; i<4; i=i+1 {
+  if !i {
+    yae skill, skill, skill;
+  } else {
+	  yae attack, skill, attack, skill, attack, skill, attack:2, charge, dash;
+	}
+	zhongli attack, skill[hold=1], dash, attack;
+  let startFrame1 = f();
+  while !pick_up_crystallize("electro") && f() - startFrame1 < 45 {
+    if !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    } else {
+      wait(1);
+   }
+  } 
+	amy attack:2, skill;
+	tighnari skill, aim:3;
+	yae attack, charge, dash, attack:2, burst, attack, skill, attack, skill, attack, skill, attack;
+	zhongli skill[hold=1], dash, attack;
+	let startFrame2 = f();
+  while !pick_up_crystallize("electro") && f() - startFrame2 < 45 {
+    if !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    } else {
+      wait(1);
+   }
+  } 
+	amy attack:2, burst;
+	tighnari skill, aim, attack, aim:2, burst, attack;
+}

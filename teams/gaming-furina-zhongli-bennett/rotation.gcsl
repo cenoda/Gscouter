@@ -1,0 +1,27 @@
+active gaming; 
+for let i = 0; i < 4; i = i + 1 {
+	zhongli skill[hold=1], dash;
+	if i > 0 {
+		while .zhongli.mods.favonius-cd == 0 {
+			zhongli attack;
+		}
+	}
+	
+  furina skill, dash, burst;
+  
+	bennett burst;
+  
+	gaming swap;
+	while !.element.t0.hydro {
+		sleep(1);
+	}
+	gaming burst;
+	gaming skill;
+  sleep(42);
+	gaming low_plunge;
+  for let j = 0; j < 8; j = j + 1 {
+    gaming skill;
+    sleep(17);
+    gaming high_plunge;
+  }
+}

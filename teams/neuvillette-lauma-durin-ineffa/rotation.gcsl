@@ -1,0 +1,21 @@
+active neuv;
+for let i=0; i<4; i=i+1 { 
+  neuv skill;
+  
+  ineffa burst;
+  
+  lauma skill[hold=.dew>0];
+  
+  durin skill, burst, skill;
+  
+  neuv charge, burst, skill, charge;
+  
+  ineffa skill, attack;
+  
+  lauma skill[hold=1];
+  
+  durin skill:2;
+  
+  neuv charge, charge;
+}
+wait(173);

@@ -1,0 +1,23 @@
+active mavuika; 
+for let i=0; i<5; i=i+1 {
+  
+  ganyu skill;
+  
+	zhongli skill[hold_nostele=1], dash, attack:2;
+	
+	if .zhongli.sets.ap >= 4 {
+	  zhongli dash; pick_up_crystallize("cryo");
+	}
+	
+  mavuika skill, dash;
+  
+  bennett skill, burst;
+  
+  while .mavuika.nightsoul.state {
+    ganyu aim;
+  }
+	if .mavuika.burst.ready {
+	  mavuika burst;
+	}
+	
+}

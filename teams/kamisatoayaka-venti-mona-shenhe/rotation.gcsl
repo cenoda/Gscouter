@@ -1,0 +1,12 @@
+active ayaka;
+ayaka dash;
+for let x = 0; x < 5; x = x + 1 {
+  venti skill, burst, attack;
+  shenhe burst, skill;
+  mona skill, burst;
+  ayaka skill, dash, attack:2, burst, attack:2, charge;
+  venti skill,attack;
+  shenhe skill, attack;
+  ayaka dash, attack:2, charge, skill, attack:2, charge;
+  print("Rotation Done");
+}

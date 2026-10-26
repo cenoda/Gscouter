@@ -1,0 +1,23 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill, attack, burst;
+  furina skill, attack, burst;
+  while !.furina.mods.favonius-cd {
+ furina attack;}
+  kuki skill, attack;
+  wrio skill,
+  attack:3, charge,
+  attack:3, charge,
+  attack:3, charge,
+  attack:3, charge,
+  attack:3, charge;
+ if .wrio.burst.ready {
+   wrio burst;
+ } else {
+   wrio attack:3, charge;
+   }
+ if .kuki.burst.ready {
+   kuki burst;
+ }
+ print("Rotation Done");
+}

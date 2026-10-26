@@ -1,0 +1,17 @@
+id: shikanoinheizou-yelan-yaemiko-fischl
+name: Shikanoinheizou / Yelan / Yaemiko / Fischl
+members:
+    - heizou
+    - yelan
+    - yae
+    - fischl
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/HcbtRcqbdczh
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 46743
+    computed: "2026-10-02"

@@ -1,0 +1,17 @@
+id: ningguang-travelergeo-bennett-chiori
+name: Ningguang / Travelergeo / Bennett / Chiori
+members:
+    - ningguang
+    - luminegeo
+    - bennett
+    - chiori
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/T7B88ctGMKBt
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 57562
+    computed: "2026-09-30"

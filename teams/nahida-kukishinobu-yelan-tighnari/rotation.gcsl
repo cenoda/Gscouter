@@ -1,0 +1,10 @@
+active nahida;
+for let i = 0; i < 6; i = i + 1 {
+nahida skill, burst, attack;
+yelan burst, skill, attack;
+kuki skill, attack;
+tighnari attack:2, skill, attack:2, aim, attack:2, aim, attack:2, aim, attack;
+nahida skill, attack:3, dash, attack:3;
+yelan skill, attack:2;
+tighnari attack:2, skill, attack:2, aim, attack:2, aim, attack:2, aim;
+}

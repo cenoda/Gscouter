@@ -1,0 +1,17 @@
+id: tighnari-nahida-fischl-kukishinobu
+name: Tighnari / Nahida / Fischl / Kukishinobu
+members:
+    - tighnari
+    - nahida
+    - fischl
+    - kuki
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/MKTzfNzCrfTk
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 57347
+    computed: "2026-10-01"

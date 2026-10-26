@@ -1,0 +1,13 @@
+active ayato;
+for let i=0; i<4; i=i+1 {
+  ayato burst;
+	fischl skill, attack;
+	kuki skill;
+  collei burst, skill;
+  ayato skill, attack:16;
+  collei aim:2;
+	fischl attack:2, burst;
+	kuki skill;
+	collei burst, skill;
+	ayato skill, attack:18;
+}

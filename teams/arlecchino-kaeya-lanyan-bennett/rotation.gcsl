@@ -1,0 +1,17 @@
+active arlecchino;
+for let i=0; i<4; i=i+1 {
+  arle skill;
+  bennett skill, burst;
+  if .lanyan.burst.ready { 
+    lanyan burst;
+  }
+  lanyan skill:2;
+  kaeya skill, burst;
+  arle  charge, 
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3;
+}

@@ -1,0 +1,31 @@
+active nahida;
+for let i=0; i<5; i=i+1 {
+  amy attack;
+  if .amy.burst.ready {
+    amy attack, burst;
+  } else {
+    amy skill;
+  }
+  
+  if .xiangling.burst.ready {
+    xiangling burst, skill, dash;
+  } else {
+    xiangling skill, dash, attack; 
+  }
+
+  nahida skill, attack, charge;
+  
+  while .fischl.oz {
+    switch {
+      case .dori.skill.ready:
+        dori skill;
+      case .dori.burst.ready: 
+        dori burst;
+      case .dori.normal > 2 && .dori.dash.ready && .stam > 18:
+        dori dash;
+      default:
+        dori attack;
+    }
+  }
+  
+}

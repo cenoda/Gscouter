@@ -1,0 +1,18 @@
+active durin;
+for let i=0; i<4; i=i+1 {
+  durin skill, attack, burst;
+  
+  esco skill, burst;
+  
+  rosaria skill, burst;
+  
+  ayaka skill, dash, attack, burst,
+        attack, charge;
+  
+  rosaria skill;
+  
+  ayaka dash, attack:2, charge,
+        attack:2, charge, skill;
+        
+  rosaria skill;
+}

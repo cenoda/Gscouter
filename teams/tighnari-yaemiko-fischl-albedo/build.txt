@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+tighnari char lvl=90/90 cons=0 talent=9,9,9;
+tighnari add weapon="favbow" refine=3 lvl=90/90;
+tighnari add set="noblesseoblige" count=4;
+tighnari add stats hp=4780 atk=311 em=187 dendro%=0.466 cr=0.311;
+tighnari add stats def=39.36 def%=0.124 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=79.28 cr=0.331 cd=0.7944;
+
+yaemiko char lvl=90/90 cons=0 talent=9,9,9;
+yaemiko add weapon="hakushinring" refine=5 lvl=90/90;
+yaemiko add set="gildeddreams" count=4;
+yaemiko add stats hp=4780 atk=311 em=187 electro%=0.466 cr=0.311;
+yaemiko add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.331 cd=0.7944;
+
+fischl char lvl=90/90 cons=6 talent=9,9,9;
+fischl add weapon="thestringless" refine=3 lvl=90/90;
+fischl add set="gildeddreams" count=4;
+fischl add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cr=0.311;
+fischl add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.331 cd=0.7944;
+
+albedo char lvl=90/90 cons=0 talent=9,9,9;
+albedo add weapon="cinnabarspindle" refine=5 lvl=90/90;
+albedo add set="archaicpetra" count=4 +params=[stacks=4];
+albedo add stats hp=4780 atk=311 def%=0.583 geo%=0.466 cr=0.311;
+albedo add stats def%=0.248 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=39.64 cr=0.331 cd=0.7944;

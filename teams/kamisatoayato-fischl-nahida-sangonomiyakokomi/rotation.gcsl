@@ -1,0 +1,15 @@
+active ayato;
+for let i=0; i<4; i=i+1 {
+  if .ayato.burst.ready { ayato burst; }
+  fischl skill, attack;
+  nahida skill, attack, burst;
+  kokomi attack, skill;
+  ayato skill, attack:15;
+  
+  fischl attack:2, burst;
+  nahida skill, attack;
+  kokomi burst;
+  for let i = 10; i; i = i - 1 { kokomi attack:2, dash, walk[f=2]; }
+  
+  print("rotation done");
+}

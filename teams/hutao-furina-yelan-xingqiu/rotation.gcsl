@@ -1,0 +1,27 @@
+active furina;
+for let r=0; r<4; r=r+1 {
+  
+  if !r {
+    furina skill, dash, burst;
+  } else {
+    furina attack, skill, dash;
+    xq attack:2;
+  }
+  
+  xq burst, attack, skill, attack;
+  
+  yelan burst, attack, skill, attack;
+  
+  hutao skill,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:2, charge, jump, attack;
+  yelan skill, attack:4, attack:3;
+  
+}

@@ -1,0 +1,20 @@
+active furina;
+for let x=0; x<4; x=x+1 {
+  furina  skill, dash, burst;
+  if .kazuha.burst.ready {
+    kazuha burst;
+  } else {
+    kazuha skill, high_plunge;
+  }
+  noelle  skill, burst;
+  pick_up_crystallize("hydro");
+  yelan   burst, attack, skill, attack;
+  noelle  attack:3, dash;
+  noelle  attack:3;
+  kazuha skill, high_plunge;
+  noelle swap;
+  pick_up_crystallize("hydro");
+  noelle  attack:3;
+  yelan skill, attack;
+  noelle attack:3;
+}

@@ -1,0 +1,12 @@
+active ayato;
+for let i = 0; i < 3; i = i + 1 {
+  ayato burst, attack;
+  luminedendro skill, burst, attack:2;
+  yaoyao skill, attack;
+  kuki skill, attack;
+  ayato skill, attack:15;
+  luminedendro skill, attack:2;
+  yaoyao burst, attack, dash, attack, dash, attack, dash, skill, attack;
+  kuki burst, skill, attack;
+  ayato skill, attack:15;
+}

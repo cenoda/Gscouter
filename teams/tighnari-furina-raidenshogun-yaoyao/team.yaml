@@ -1,0 +1,17 @@
+id: tighnari-furina-raidenshogun-yaoyao
+name: Tighnari / Furina / Raidenshogun / Yaoyao
+members:
+    - tighnari
+    - furina
+    - raiden
+    - yaoyao
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/zh6pJTNH7Jmb
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 58948
+    computed: "2026-10-01"

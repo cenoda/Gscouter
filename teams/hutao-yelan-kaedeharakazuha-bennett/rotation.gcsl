@@ -1,0 +1,21 @@
+active yelan;
+for let i=0; i<4; i=i+1 {
+  yelan skill, skill, burst, attack;
+  bennett skill, attack, burst, attack;
+  kazuha  attack,skill, high_plunge,attack;
+  hutao skill,
+      attack:1, charge, dash,
+      attack:2, charge, dash,
+      attack:2, charge, dash,
+      attack:2, charge, dash,
+      attack:2, charge, dash,
+      attack:2, charge, dash,
+      attack:2, charge, dash,
+      attack:2, charge, dash,
+      attack:2, charge, dash,
+      attack:2, charge, dash;
+  kazuha skill, high_plunge;
+  bennett skill;
+  yelan attack;
+    
+}

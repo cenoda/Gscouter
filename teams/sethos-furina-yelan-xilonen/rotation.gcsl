@@ -1,0 +1,43 @@
+fn sethosCombo() {
+  while .sethos.mods.sethos-burst {
+    if .sethos.skill.ready {
+      sethos skill;
+    } else if .sethos.normal > 2 {
+      sethos walk;
+    } else {
+      sethos attack;
+    }
+  }
+}
+active xilonen;
+for let i = 0; i < 4; i = i + 1 {
+  xilonen burst;
+  
+  if i > 0 {
+    xilonen attack;
+  }
+  
+  furina skill, dash, burst;
+  
+  if !.yelan.burst.ready && .yelan.breakthrough {
+	yelan aim;
+  }
+  yelan burst, attack:1;
+  xilonen skill, attack:2;
+  
+  yelan skill, attack;
+  
+  sethos skill, attack, burst;
+  sethosCombo();
+  while .sethos.energy > 30 {
+    sethos aim[hold=2];
+    if .sethos.skill.ready {
+      sethos skill;
+    }
+  }
+  
+  yelan attack, skill, attack;
+  
+  xilonen skill, attack:2;
+  
+}

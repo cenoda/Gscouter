@@ -1,0 +1,17 @@
+id: kinich-emilie-zhongli-bennett
+name: Kinich / Emilie / Zhongli / Bennett
+members:
+    - kinich
+    - emilie
+    - zhongli
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/G7jg6tcwFLhC
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 75518
+    computed: "2026-10-02"

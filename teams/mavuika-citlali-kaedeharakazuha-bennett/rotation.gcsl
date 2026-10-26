@@ -1,0 +1,13 @@
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  mavuika skill, attack;
+  bennett skill[hold=1], burst; 
+  kazuha skill, high_plunge;
+  citlali skill, burst, attack;
+  mavuika burst;
+  wait(18); 
+  mavuika charge:3, charge[hold=6], charge[final=1], dash;
+  mavuika charge:3, charge[hold=6], charge[final=1], dash; 
+  mavuika charge;
+  delay(11);
+}

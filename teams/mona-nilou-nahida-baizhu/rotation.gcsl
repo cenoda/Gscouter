@@ -1,0 +1,17 @@
+active nilou;
+for let x = 5; x; x = x - 1 {
+  nilou skill, attack:2, skill;
+  nahida skill, burst;
+  mona attack, skill;
+  baizhu skill, attack, burst;
+  nahida skill, attack, charge;
+  mona attack, burst;
+  if .mona.skill.ready {
+    mona skill;
+  }
+  mona attack:2, charge;
+  mona attack:2, charge;
+  baizhu skill, attack;
+  mona attack:2, charge;
+  mona attack:2, charge;
+}

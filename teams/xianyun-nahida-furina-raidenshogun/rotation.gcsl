@@ -1,0 +1,36 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  nahida skill, attack;
+  if .nahida.burst.ready && .nahida.energy == .nahida.energymax {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  furina skill, dash, burst;
+  
+  while .furina.skill.cd > 180 {
+    if .xianyun.skill.ready {
+      xianyun skill, low_plunge;
+    } else if .xianyun.burst.ready && .xianyun.energy == .xianyun.energymax {
+      xianyun burst;
+    } else if .xianyun.status.xianyun-airborne-buff {
+      xianyun jump;
+      if .airborne {
+        xianyun low_plunge[collision=rand()>0.5], attack;
+      }
+    } else {
+    
+      if .xianyun.normal > 2 {
+        xianyun dash;
+      } else {
+        xianyun attack;
+      }
+    }
+  }
+  
+  raiden skill, attack;
+  
+  print("done");
+}

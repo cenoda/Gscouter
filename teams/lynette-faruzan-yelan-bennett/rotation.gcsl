@@ -1,0 +1,20 @@
+active faruzan;
+for let i=0; i<4; i=i+1 {  
+  while !.faruzan.mods.favonius-cd && !.faruzan.burst.ready {
+    faruzan attack;
+  }
+  
+  faruzan burst;
+  yelan burst, attack,skill,attack:4;
+  bennett skill, burst; 
+   
+  lynette burst,skill;
+  lynette attack:3,charge;
+  lynette attack:3,charge;
+  if .lynette.skill.ready
+  {
+    lynette skill,attack,charge;
+  }
+  lynette attack:2,charge;
+  bennett skill;
+}

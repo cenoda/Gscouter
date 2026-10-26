@@ -1,0 +1,30 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active chiori;
+for let i=0; i<4; i=i+1 {
+  if  !.chiori.skill.ready && .chiori.burst.ready {
+    chiori burst;
+  } else if !.chiori.burst.ready {
+    zhongli burst;
+  }
+  chiori skill:2;
+  zhongli skill[hold=1], dash;
+  if .clorinde.burst.ready {
+    clorinde burst;
+  }
+  tighnari skill, aim;
+  if i &&  .tighnari.burst.ready {
+    tighnari burst;
+  }
+  tighnari aim;
+  clorinde_combo();
+  tighnari aim;
+}

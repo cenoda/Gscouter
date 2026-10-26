@@ -1,0 +1,30 @@
+active fischl;
+fischl skill; 
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  bennett skill, burst;
+  
+  amy attack;
+  if .amy.skill.ready { 
+    amy skill; 
+  } else { 
+    amy attack, burst; 
+  }
+
+  while .xinyan.infusion.bennett-fire-weapon || .status.bennettburst { 
+    if .xinyan.skill.ready {
+      xinyan skill;
+    } else if .xinyan.burst.ready {
+      xinyan burst;
+    } else if .xinyan.normal == 3 && .stam > 18 {
+      xinyan dash;
+    } else if .xinyan.normal > 4 && .stam > 18 {
+      xinyan dash;
+    } else {
+      xinyan attack;
+    }
+  }
+  
+  bennett skill;
+}

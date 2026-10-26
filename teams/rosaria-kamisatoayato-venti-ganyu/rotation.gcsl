@@ -1,0 +1,14 @@
+active ayato;
+for let i=0; i<4; i=i+1 {
+  ayato burst;
+  rosaria skill, burst;
+  ganyu skill, burst, aim[weakspot=1];
+  venti skill, burst;
+  rosaria skill;
+  ganyu aim[weakspot=1]:2;
+  venti skill, attack;
+  ayato skill;
+  while !.ayato.burst.ready {
+    ayato attack;
+  }
+}

@@ -1,0 +1,26 @@
+active lisa;
+for let i=0; i<4; i=i+1 { 
+  lisa skill[hold=1], burst; sleep(20);
+  
+  furina skill, dash, attack, burst;
+  if !.furina.mods.favonius-cd {
+    furina attack;
+  }
+  
+  mika burst, skill;
+  if !.mika.mods.favonius-cd {
+    mika attack;
+  }
+  
+  eula skill;
+  if !.eula.burst.ready {
+    eula attack;
+  }
+  eula burst, walk, attack:4, skill[hold=1], walk[f=11], attack:4, dash, attack:2;
+  
+  while !.mika.mods.favonius-cd || .eula.swap.cd {
+    mika attack;
+  }
+  
+  eula attack:2;
+}

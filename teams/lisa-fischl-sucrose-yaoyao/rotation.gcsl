@@ -1,0 +1,12 @@
+active fischl;
+for let i=0; i<4; i=i+1 {
+    fischl burst;
+    yaoyao skill, attack:2;
+  sucrose skill, dash, burst, attack;
+    lisa attack, burst, attack, charge, attack:3, charge, attack:3;
+    fischl attack:2, skill;
+    yaoyao burst, attack, dash, attack;
+  sucrose attack, skill, dash;
+    lisa skill, attack:2, skill, attack:3, charge, skill[hold=1], attack:2;
+    print("rotation done");
+}

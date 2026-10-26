@@ -1,0 +1,19 @@
+active fischl;
+for let i = 0; i < 4; i = i + 1 {
+    
+fischl attack, skill;
+furina skill, dash, burst;
+baizhu skill, burst;
+lynette burst, skill,
+        attack, charge, dash,
+        attack, charge, dash,
+        attack:2;
+fischl attack:2, burst;
+baizhu attack:2, skill;
+lynette skill,
+        attack, charge, dash,
+        attack, charge, dash,
+        attack:3, dash,
+        attack;
+baizhu attack:3;
+}

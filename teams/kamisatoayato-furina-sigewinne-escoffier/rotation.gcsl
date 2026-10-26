@@ -1,0 +1,14 @@
+active escoffier;
+for let i = 0; i < 4; i = i + 1 {
+  escoffier skill, attack;
+  furina skill, dash, burst;
+  sigewinne attack, skill;
+  ayato skill, attack:15, burst;
+  if .escoffier.burst.ready {
+    escoffier burst;
+    ayato attack:2;
+  } else {
+    sigewinne burst;
+  }
+  ayato skill, attack:15;
+}

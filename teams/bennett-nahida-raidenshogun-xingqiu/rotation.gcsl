@@ -1,0 +1,25 @@
+active raiden;
+raiden skill;
+for let x = 0; x < 4; x = x + 1 {
+  nahida skill;
+  if .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  xingqiu skill, dash, burst, attack;
+  
+  bennett burst, attack, skill;
+  
+  while .xingqiu.mods.xingqiuburst > 60 {
+  
+    if .bennett.skill.ready {
+      bennett skill;
+    } else {
+      bennett attack;
+    }
+  }
+  
+  raiden attack, skill;
+}

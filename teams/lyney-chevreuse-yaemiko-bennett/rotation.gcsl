@@ -1,0 +1,21 @@
+active lyney;
+let rotations = 5;
+for let r = rotations; r > 0; r = r - 1 {
+  lyney aim[weakspot=1];  
+  yae skill, skill, skill;
+  bennett skill, burst;
+  chevreuse skill[hold=1];
+  while !.chevreuse.burst.ready {
+    chevreuse attack;
+  }
+  chevreuse burst;
+  lyney aim[weakspot=1], aim;
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(11);
+    lyney skill;
+  } else {
+    lyney aim;
+  }
+  lyney aim, skill;
+}

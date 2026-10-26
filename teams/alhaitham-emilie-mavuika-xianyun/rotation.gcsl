@@ -1,0 +1,36 @@
+active mav; 
+mav skill; 
+for let i=0; i<4; i=i+1 {
+  if i > 0 && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  
+  if .mavuika.burst.ready && .mavuika.skill.ready {
+    mavuika burst, skill, dash;
+  } else if .mavuika.burst.ready {
+    mavuika burst;
+  } else if .mavuika.skill.ready {
+    mavuika attack, skill;
+  }
+  
+  xianyun attack, skill, low_plunge, burst, attack; 
+  
+  haitham skill[hold=1], low_plunge[short=1], attack;
+  
+  while .haitham.status.xianyun-airborne-buff {
+
+      haitham jump;
+      if .airborne {
+        haitham high_plunge[collision=rand()>0.4];
+      }
+      haitham attack:1;
+    
+  }
+  if .haitham.burst.ready {
+    haitham burst;
+  }
+  
+  print("done");
+}

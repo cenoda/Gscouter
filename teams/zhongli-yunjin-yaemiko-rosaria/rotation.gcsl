@@ -1,0 +1,12 @@
+active zhongli;
+for let x=0; x<4; x=x+1 {
+  zhongli skill[hold=1], dash;
+  yaemiko skill, skill, skill;
+  rosaria skill, burst;
+  yunjin skill, burst;
+  zhongli attack:5,dash,
+          attack:5;
+  rosaria skill;
+  zhongli attack:5,dash;
+  zhongli attack:5;
+}

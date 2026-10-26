@@ -1,0 +1,30 @@
+active bennett;
+for {
+ switch {
+ case .bennett.burst.ready && .bennett.swap.ready:
+  bennett burst;
+ case .bennett.skill.ready && .bennett.swap.ready:
+  bennett skill;
+ case .xiangling.burst.ready && .xl.mods.bennett-field:
+  xl burst;
+ case .xiangling.skill.ready:
+  xl skill, dash;
+ case .fischl.skill.ready && !.fischl.oz:
+  fischl attack, skill;
+ case .fischl.burst.ready && !.fischl.oz:
+  fischl attack:2, burst;
+ case .chev.burst.ready:
+  chev burst;
+ case .chev.skill.ready:
+  chev skill[hold=1];
+ case .xl.onfield:
+  xl attack;
+ case .chev.onfield:
+  chev attack;
+ case .bennett.onfield:
+  bennett attack;
+ case .fischl.onfield:
+  fischl attack;
+ 
+  }
+}

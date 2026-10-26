@@ -1,0 +1,17 @@
+active mavuika; 
+for let i=0; i<4; i=i+1 {
+  mavuika skill, attack;
+  if !i {
+    chasca skill:2;
+  }
+  travelerpyro skill[hold=1], burst;
+  bennett skill, burst;
+  mavuika burst, charge, dash;
+  chasca skill, aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}
+wait(82);

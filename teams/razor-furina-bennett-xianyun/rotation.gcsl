@@ -1,0 +1,28 @@
+fn RazorPlunge() {
+  razor jump;
+  if .airborne {
+    razor high_plunge[collision=rand()>0.5];
+  }
+}
+active razor; 
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  bennett skill, dash, burst;
+  
+  razor skill, dash, burst, attack:1; 
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor skill, dash;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); 
+  
+  bennett skill, dash, attack;
+  
+  razor skill, dash;
+}

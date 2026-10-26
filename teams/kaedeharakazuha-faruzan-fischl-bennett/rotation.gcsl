@@ -1,0 +1,31 @@
+active fischl;
+fischl attack, skill;
+for let i = 0; i < 4; i = i + 1 {
+  bennett skill, burst;
+  
+  faruzan skill, burst;
+  
+  kazuha skill, high_plunge[collision=rand()>0.5], burst;
+  
+  faruzan aim:2, skill;
+  
+  kazuha skill, high_plunge[collision=rand()>0.5];
+  
+  bennett skill; 
+  
+  fischl attack;
+  if .fischl.skill.ready {
+    fischl skill;
+  } else {
+    fischl attack, burst;
+  }
+  
+  if .previous-action == .action.skill {
+    faruzan aim;
+  }
+  faruzan aim, skill; 
+  
+  kazuha skill, high_plunge[collision=rand()>0.5];
+  
+  faruzan aim:2;
+}

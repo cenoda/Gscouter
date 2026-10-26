@@ -1,0 +1,20 @@
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  mavuika skill, attack; 
+  
+  xilonen skill, attack:2; 
+  
+  xianyun skill, low_plunge, burst;
+  
+  bennett skill, burst;
+  
+  mavuika burst;
+  while .mavuika.status.xianyun-airborne-buff {
+    mavuika jump;
+    if .airborne {
+      mavuika high_plunge[collision=rand()>0.5], dash;
+    }
+  }
+  mavuika charge:2, dash, 
+          charge, dash;
+}

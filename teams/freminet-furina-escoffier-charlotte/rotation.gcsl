@@ -1,0 +1,24 @@
+active freminet; 
+for let i=0; i<4; i=i+1 { 
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  escoffier skill;
+  if !is_even(i) {
+    esco burst;
+  }
+  
+  if is_even(i) {
+    charlotte burst;
+  }
+  charlotte skill[hold=1];
+
+  freminet skill, burst,
+           attack:2, skill, skill,
+           attack:2, skill, attack:1, skill,  
+           attack:2, skill, attack:1, skill,
+           attack:2, skill;
+}

@@ -1,0 +1,19 @@
+active emilie;
+for let i = 0; i < 6; i = i + 1 {
+  if i && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  chiori skill:2;
+  zhongli skill[hold=1], dash, attack;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack:4, dash;
+  if .yoimiya.burst.ready {
+    yoimiya burst;
+  } else if .chiori.burst.ready {
+    chiori burst, attack;
+  }
+}

@@ -1,0 +1,19 @@
+active amy;
+for let i=0; i<4; i=i+1 {
+  amy attack:2;
+  if .amy.skill.ready {
+  	amy skill;
+  } else {
+  	amy burst;
+  }
+  xingqiu skill, dash, burst, attack;
+  collei attack, skill, attack, burst;
+  razor skill, dash, attack, burst,
+    attack:3, skill, dash,
+    attack:3, dash,
+    attack:3, dash,
+    attack:3, skill, dash,
+    attack:3, dash,
+    attack:2;
+  print("end");
+}

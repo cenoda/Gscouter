@@ -1,0 +1,14 @@
+active mavuika;
+for let i = 0; i < 4; i = i + 1 {
+  mavuika skill;
+  ororon skill, burst;
+  bennett skill, burst;
+  lanyan skill, attack;
+  mavuika burst, charge:2, dash,
+                 charge:2, dash,
+                 charge:2, dash,
+                 charge:2, dash,
+                 charge:2, dash,
+                 charge:2, dash,
+                 charge:2, charge[final=1];
+}

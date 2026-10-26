@@ -1,0 +1,13 @@
+active xingqiu;
+for let x=0; x<4; x=x+1 {
+  xingqiu attack, skill, dash, burst, attack;
+  bennett skill, attack, burst, attack;
+  beidou skill, dash, burst, attack;  
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  beidou skill, dash, attack:2;
+  if .yoimiya.burst.ready {
+    yoimiya burst;
+  } else {
+    bennett skill, attack:2;
+  }
+}

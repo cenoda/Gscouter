@@ -1,0 +1,21 @@
+# Build from the source config, used to validate the rotation.
+
+freminet char lvl=90/90 cons=6 talent=10,10,10;
+freminet add weapon="pines" refine=1 lvl=90/90;
+freminet add set="pf" count=4;
+freminet add stats def=42 hp=5079 atk=338 atk%=0.81 er=0.234 em=23 cr=0.742 cd=0.7769999999999999 phys%=0.583;
+
+xingqiu char lvl=90/90 cons=6 talent=1,8,10;
+xingqiu add weapon="favsword" refine=5 lvl=90/90;
+xingqiu add set="eosf" count=4;
+xingqiu add stats def%=0.124 def=21 hp=5736 atk=311 atk%=0.868 er=0.40199999999999997 em=37 cr=0.563 cd=0.878 hydro%=0.466;
+
+fischl char lvl=90/90 cons=6 talent=1,10,8;
+fischl add weapon="stringless" refine=5 lvl=90/90;
+fischl add set="gt" count=4;
+fischl add stats def%=0.066 def=90 hp=4989 atk=356 atk%=0.8170000000000001 er=0.279 em=37 cr=0.548 cd=0.738 electro%=0.466;
+
+mika char lvl=90/90 cons=6 talent=1,10,8;
+mika add weapon="rightfulreward" refine=5 lvl=90/90;
+mika add set="no" count=4;
+mika add stats def%=0.256 def=39 hp=7947 hp%=1.0430000000000001 atk=338 er=0.41500000000000004 em=21 cr=0.311 cd=0.358 heal=0.359;

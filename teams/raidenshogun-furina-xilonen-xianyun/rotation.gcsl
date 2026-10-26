@@ -1,0 +1,36 @@
+fn RaidenPlunge() {
+  raiden jump;
+  if .airborne {
+    raiden high_plunge[collision=rand()>0.5];
+  }
+}
+fn XilonenPlunge() {
+  xilonen jump;
+  if .airborne {
+    xilonen high_plunge[collision=rand()>0.5];
+  }
+}
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 { 
+  furina skill, dash, burst;
+  
+  xianyun skill, low_plunge, attack, burst;
+
+  xilonen skill;
+  XilonenPlunge(); xilonen attack:1;
+
+  raiden burst;
+  RaidenPlunge(); raiden attack;
+  RaidenPlunge(); raiden attack;
+  RaidenPlunge(); raiden attack;
+  RaidenPlunge(); raiden attack;
+  RaidenPlunge(); raiden attack, skill;
+  
+  xilonen skill;
+  
+  xilonen attack:2;
+  xilonen burst; 
+  
+  print("done");
+}

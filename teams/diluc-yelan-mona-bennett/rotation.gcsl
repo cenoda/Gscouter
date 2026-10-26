@@ -1,0 +1,11 @@
+active yelan;
+for let x=0; x<4; x=x+1 {
+	yelan burst, attack;
+	bennett skill, attack, burst;
+	yelan attack, skill;
+	mona attack, skill, burst;
+	diluc attack, skill, attack, skill, attack, skill, attack:3;
+	yelan skill, attack;
+	bennett skill, attack;
+	diluc burst, attack;
+}

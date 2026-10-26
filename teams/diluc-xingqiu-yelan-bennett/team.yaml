@@ -1,0 +1,17 @@
+id: diluc-xingqiu-yelan-bennett
+name: Diluc / Xingqiu / Yelan / Bennett
+members:
+    - diluc
+    - xingqiu
+    - yelan
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/zC6Cg6Bb8nFj
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 46493
+    computed: "2026-09-24"

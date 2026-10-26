@@ -1,0 +1,14 @@
+active mona;
+for let x=0; x<4; x=x+1 {
+  mona skill;
+  lisa attack, burst;
+  kazuha skill, high_plunge, burst;
+  fischl attack:2, skill;
+  lisa skill[hold=1], attack:3;
+  mona burst, attack, skill;
+  kazuha skill, high_plunge;
+  mona attack:7;
+  fischl attack:2, burst;
+  kazuha skill, high_plunge;
+  mona attack:4, dash, attack:4;
+}

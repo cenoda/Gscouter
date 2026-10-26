@@ -1,0 +1,20 @@
+active shenhe;
+	
+for let x = 0; x < 4; x = x + 1 {
+  shenhe skill, burst;
+  
+  bennett burst, skill;
+  
+  xiangling burst, skill, dash, attack;
+  
+  bennett skill;
+  
+  chongyun burst, skill;
+  
+  shenhe skill, attack; 
+  
+  bennett attack, skill;
+  
+  chongyun attack:4, dash, 
+    attack:4;
+}

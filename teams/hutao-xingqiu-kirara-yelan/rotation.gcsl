@@ -1,0 +1,21 @@
+active xingqiu;
+for let r = 0; r < 4; r = r + 1 {
+  xingqiu burst, attack:2;
+  kirara  skill, attack,burst;
+  yelan attack, burst, attack;     
+  xingqiu skill, dash, attack:2;
+  yelan attack:2, skill;
+   hutao skill, 
+    attack:1, charge, jump,
+    attack:2, charge, jump,
+    attack:1, charge, jump,
+    attack:2, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:2, charge, jump,
+    attack:1, charge,jump,
+    attack:2, charge, jump; 
+    
+  yelan skill, attack;
+  xingqiu attack;
+}

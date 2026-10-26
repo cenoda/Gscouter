@@ -1,0 +1,28 @@
+active ineffa;
+for let i=0; i < 4; i=i+1 {
+  
+  if i > 0 && .ineffa.burst.ready {
+    ineffa skill, burst;
+  } else if i > 0 {
+    ineffa skill;
+  } else {
+    ineffa skill, attack;
+  }
+  if .bina.burst.ready {
+    bina skill, burst;
+  } else {
+    bina attack,skill;
+  }
+  
+  durin skill:2, burst;
+  
+  keq skill, burst, skill, dash,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      skill, skill, dash,
+      attack, charge,
+      attack, charge;
+}

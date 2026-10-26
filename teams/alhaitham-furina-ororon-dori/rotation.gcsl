@@ -1,0 +1,16 @@
+active furina;
+for let r = 0; r < 4; r = r + 1 {
+  ororon burst, skill;
+  
+  furina skill, dash, burst;
+  
+  dori skill, burst;
+  
+  alhaitham burst;
+  alhaitham attack:3, dash, 
+            attack:3, charge, dash,
+            attack:3, charge, dash,
+            attack:1, skill[hold=1], low_plunge[short=1];
+  alhaitham attack:4, charge, dash,
+            attack:4;
+}

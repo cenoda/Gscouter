@@ -1,0 +1,9 @@
+active yaoyao;
+for let x = 4; x; x = x - 1 {
+  yaoyao attack, skill, attack;
+  mona dash, attack;
+  kuki skill, attack:3;
+  mona dash, skill, burst, attack;
+  tighnari skill, aim, burst, aim:2, attack;
+  mona dash, attack;
+}

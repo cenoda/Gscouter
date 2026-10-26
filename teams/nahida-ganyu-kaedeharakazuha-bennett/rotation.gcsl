@@ -1,0 +1,15 @@
+active ganyu;
+for let i=0; i<4; i=i+1 {
+  ganyu aim;
+  nahida skill, burst;
+  if !.element.t0.cryo {
+      kazuha attack;
+  }
+  kazuha skill, high_plunge;
+  bennett skill, burst;
+  kazuha burst;
+  ganyu aim:6;
+  bennett skill;
+  kazuha skill, high_plunge;
+  ganyu skill;
+}

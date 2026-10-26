@@ -1,0 +1,13 @@
+active yelan;
+for let i=0; i<4; i=i+1 {
+  yelan skill, attack:2;
+  fischl attack, skill;
+  sucrose burst, attack:2;
+  tighnari skill, aim, burst, aim:2;
+  sucrose attack, skill, dash, attack, charge;
+  yelan burst, skill, attack:2;
+  fischl attack:2, burst;
+  sucrose attack:3, charge;
+  tighnari attack, skill, attack:2, aim, attack:2, aim, attack:2, aim, attack;
+  sucrose attack, skill, dash, attack:3, charge, attack;
+}

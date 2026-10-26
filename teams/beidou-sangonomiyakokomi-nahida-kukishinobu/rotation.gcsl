@@ -1,0 +1,19 @@
+active kokomi;
+for let i=0; i<4; i=i+1 { 
+  kokomi skill, attack;
+  beidou skill[counter=1], burst, attack;
+  nahida skill, attack, burst, attack, charge;
+  kuki skill, attack;
+  beidou skill[counter=1], attack;
+  nahida skill, attack, charge;
+  kokomi burst, attack:2, walk,
+    attack:2, walk,
+    attack:2, walk,
+    attack:2, walk,
+    attack:2, walk,
+    attack:2, walk,
+    attack:2, walk,
+    attack:2, walk,
+    attack:2;
+  print("done");
+}

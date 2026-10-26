@@ -1,0 +1,33 @@
+fn pre_check_burst() {
+ if .xingqiu.skill.ready || .yelan.burst.ready || .fischl.burst.ready || .fischl.skill.ready {
+   return 1;
+ }
+ return 0;
+}
+fn variable_timing_burst() {
+ if .fischl.burst.ready {
+   fischl attack:2, burst;
+ } else {
+   if .fischl.skill.ready {
+     fischl attack, skill;
+   }
+ }
+ if .xingqiu.skill.ready {
+   xingqiu skill, dash, burst, attack;
+ }
+ if .yelan.burst.ready {
+   yelan skill, burst, attack;
+ }
+}
+active zhongli;
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], dash;
+  for let z=0; z<8; z=z+1 {
+    variable_timing_burst();
+    zhongli attack:4;
+    if z == 4 { zhongli skill; }
+    if pre_check_burst() == 0 {
+      zhongli dash;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+active bennett;
+for let i = 5; i; i = i - 1 {
+  bennett skill, burst;
+  rosaria skill, burst;
+  bennett skill;
+  
+  layla skill, burst;
+  jean skill,
+       attack, charge,
+       attack, charge,
+       attack, charge,
+       attack, charge,
+       attack, charge;
+  print("rotation done");
+}

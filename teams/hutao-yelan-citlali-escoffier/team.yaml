@@ -1,0 +1,17 @@
+id: hutao-yelan-citlali-escoffier
+name: Hutao / Yelan / Citlali / Escoffier
+members:
+    - hutao
+    - yelan
+    - citlali
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/zg7qfC6H9cMG
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 68359
+    computed: "2026-10-01"

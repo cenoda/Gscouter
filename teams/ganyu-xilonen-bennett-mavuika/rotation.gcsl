@@ -1,0 +1,12 @@
+active mavuika; 
+for let i=0; i<4; i=i+1 {
+  ganyu skill, dash;
+  xilo skill, attack:2;
+  mavuika skill, jump;
+  if .bennett.sets.ap > 4 {
+    bennett dash; pick_up_crystallize("cryo");
+  }
+  bennett skill, burst;
+  ganyu aim:6;
+  mavuika burst;
+}

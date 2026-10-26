@@ -1,0 +1,11 @@
+active nahida;
+for let i = 0; i < 1; i = i + 1 {
+     nahida skill, burst;
+     furina skill, burst;
+  if .fischl.burst.ready {
+    fischl attack, burst;
+  } else {
+    fischl skill, attack:2;
+  }
+    kaveh skill, burst, attack:4, attack:4, skill, attack:4, attack:4, skill;
+}

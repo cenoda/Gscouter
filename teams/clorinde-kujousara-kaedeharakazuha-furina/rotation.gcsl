@@ -1,0 +1,26 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active furina;
+for let r=0; r<2; r=r+1 { 
+  
+  furina skill, dash, burst;
+  sara skill, aim, attack;
+  kazuha skill, high_plunge; 
+  sara burst;
+  clorinde_combo();
+  kazuha skill, high_plunge; 
+  sara skill, attack;
+  clorinde burst;
+  kazuha burst; 
+  sara attack, aim;
+  clorinde_combo();
+  
+}

@@ -1,0 +1,23 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill;
+  if .nahida.burst.ready && .nahida.energy == .nahida.energymax {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  furina skill, dash, burst;
+  
+	yelan skill, burst, attack;
+	
+	bennett burst, attack; 
+  while .yelan.mods.yelanburst { 
+    if .bennett.skill.ready {
+      bennett skill;
+    } else {
+      bennett attack;
+    }
+  }
+  print("done");
+}

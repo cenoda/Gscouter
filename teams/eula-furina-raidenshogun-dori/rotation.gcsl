@@ -1,0 +1,15 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  
+  dori skill, burst;
+  
+  eula skill;
+  while !.eula.burst.ready {
+    eula attack;
+  }
+  eula burst, attack:4, skill[hold=1], walk[f=11], attack:4;
+  
+  raiden burst, attack:4, skill, attack:4;
+}

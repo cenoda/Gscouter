@@ -1,0 +1,49 @@
+fn rand_counter() {
+  let counter = rand();
+  if counter > 0.80 {
+    counter = 2;
+  } else if counter > 0.6 && counter <= 0.80 {
+    counter = 1;
+  } 
+  else {
+    counter = 0;
+  }
+  
+  return counter;
+}
+active fischl;
+fischl attack, skill;
+for let i=0; i<4; i=i+1 {
+  if .chev.burst.ready && .chev.energy == .chev.energymax {
+    chev burst, attack, skill[hold=1]:3;
+  } else {
+    chev attack, skill[hold=1];
+  }
+  
+  beidou skill[counter=rand_counter()];
+  if .beidou.burst.cd {
+    beidou attack;
+  }
+  beidou burst;
+  
+  fischl attack;
+  if .fischl.skill.ready {
+    fischl skill;
+  } else {
+    fischl attack, burst;
+  }
+  
+  hutao skill,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:2, charge;
+  if i > 0 && .hutao.burst.ready {
+    hutao burst;
+  } else {
+    hutao jump;
+  }
+}

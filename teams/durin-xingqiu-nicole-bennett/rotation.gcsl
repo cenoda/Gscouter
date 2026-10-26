@@ -1,0 +1,18 @@
+active nicole;
+for let i=0; i<4; i=i+1 {
+  nicole skill, burst;
+  xingqiu skill, jump, burst;
+  bennett skill, burst;
+  durin skill, attack;
+  durin burst;
+  durin attack, charge, dash;
+  durin attack, charge, dash;
+  durin attack, charge;
+  durin attack:4, dash;
+  durin attack, charge, dash;
+  durin attack, charge, dash; 
+  durin attack, charge, dash;
+  durin attack, charge, dash;
+  durin attack, charge;
+  durin attack;
+}

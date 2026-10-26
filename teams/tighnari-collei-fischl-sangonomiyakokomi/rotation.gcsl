@@ -1,0 +1,19 @@
+active kokomi;
+for let i=0; i<4; i=i+1 {
+  if !.status.kokomiskill && .kokomi.skill.ready { kokomi skill; }
+  if .fischl.skill.ready { fischl skill; }
+  else { fischl burst; }
+  collei attack;
+  if .collei.burst.ready { collei burst; }
+  collei skill;
+  
+  tighnari skill, aim:3; wait(10);
+  if .tighnari.burst.ready { tighnari burst; }
+  
+  while .fischl.oz {
+    if .status.kokomiskill && .kokomi.burst.ready { kokomi burst; }
+  
+    if .kokomi.normal == 3 { kokomi dash, walk[f=2]; }
+    kokomi attack;
+  }
+}

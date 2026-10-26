@@ -1,0 +1,36 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  mika burst;
+  
+  rosaria skill, burst;
+  
+  yelan burst, attack, skill;
+  
+  mika attack, skill;
+  
+  rosaria attack;
+  while !.yelan.skill.ready {
+    if .rosaria.skill.ready {
+      rosaria skill;
+    } else if .rosaria.normal > 3 && .stam > 43 {
+      rosaria charge, dash;
+    } else {
+      rosaria attack;
+    }
+  }
+  
+  yelan skill, attack;
+  
+  while !.furina.burst.ready {
+    if .rosaria.skill.ready {
+      rosaria skill;
+    } else if .rosaria.normal > 3 && .stam > 43 {
+      rosaria charge, dash;
+    } else {
+      rosaria attack;
+    }
+  }
+  
+}

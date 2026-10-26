@@ -1,0 +1,13 @@
+active lyney;
+for let r = 4; r > 0; r = r - 1 {
+  lyney aim[weakspot=1];
+  dehya skill,attack;
+  bennett burst, skill;
+  xiangling burst, skill, dash;
+  lyney aim, aim[weakspot=1], aim, burst;
+  
+  delay(11); 
+  
+  lyney skill, aim, skill, aim;
+  bennett skill;
+}

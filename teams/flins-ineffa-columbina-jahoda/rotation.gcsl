@@ -1,0 +1,24 @@
+active ineffa;
+for let i=0; i<6; i=i+1 {
+  if !is_even(i) {
+    ineffa skill, burst;
+    columbina skill, attack;
+  } else {
+    ineffa skill;
+    if i {
+      ineffa attack;
+    }
+    columbina skill, burst;
+  }
+  
+  jahoda skill;
+  
+  flins skill, attack, 
+        skill, burst, 
+        attack:4, dash, attack:2, 
+        skill, attack, burst, 
+        attack:4, dash, attack:2, 
+        skill, attack, burst, 
+        attack;
+  jahoda burst, attack; 
+}

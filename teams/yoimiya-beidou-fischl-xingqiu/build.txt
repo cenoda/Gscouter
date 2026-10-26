@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+yoimiya char lvl=90/90 cons=0 talent=9,9,9;
+yoimiya add weapon="rust" refine=3 lvl=90/90;
+yoimiya add set="tf" count=4;
+yoimiya add stats hp=4780 atk=311 em=187 em=187 em=187;
+yoimiya add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1653 em=118.92 cr=0.331 cd=0.5958;
+
+beidou char lvl=90/90 cons=6 talent=9,9,9;
+beidou add weapon="serpent" refine=1 lvl=90/90 +params=[stacks=5];
+beidou add set="emblem" count=4;
+beidou add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cd=0.622;
+beidou add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.2755 em=39.64 cr=0.3972 cd=0.5958;
+
+fischl char lvl=90/90 cons=6 talent=9,9,9;
+fischl add weapon="stringless" refine=3 lvl=90/90;
+fischl add set="gt" count=4;
+fischl add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cr=0.311;
+fischl add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.331 cd=0.7944;
+
+xingqiu char lvl=90/90 cons=6 talent=9,9,9;
+xingqiu add weapon="favsword" refine=3 lvl=90/90;
+xingqiu add set="no" count=4;
+xingqiu add stats hp=4780 atk=311 atk%=0.466 hydro%=0.466 cr=0.311;
+xingqiu add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=99.1 cr=0.331 cd=0.7282;

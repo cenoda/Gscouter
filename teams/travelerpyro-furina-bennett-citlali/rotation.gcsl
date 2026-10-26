@@ -1,0 +1,28 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd && !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  bennett skill, burst;
+  
+  citlali skill, burst;
+  
+  aetherpyro skill[hold=1], attack, charge;
+  while .aetherpyro.mods.bennett-field || .status.bennettburst { 
+    switch {
+      case .aetherpyro.burst.ready: 
+        aetherpyro burst;
+      case .aetherpyro.normal > 2 && .stam > 25: 
+        aetherpyro charge;
+      case .aetherpyro.normal > 3 && .aetherpyro.dash.ready && .stam > 18: 
+        aetherpyro dash;
+      default:
+        aetherpyro attack;
+    }
+  }
+  
+  bennett skill;
+}

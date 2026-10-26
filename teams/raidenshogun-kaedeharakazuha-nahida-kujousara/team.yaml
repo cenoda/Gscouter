@@ -1,0 +1,17 @@
+id: raidenshogun-kaedeharakazuha-nahida-kujousara
+name: Raidenshogun / Kaedeharakazuha / Nahida / Kujousara
+members:
+    - raiden
+    - kazuha
+    - nahida
+    - sara
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/qfKmPkWzLkr7
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 54395
+    computed: "2026-09-30"

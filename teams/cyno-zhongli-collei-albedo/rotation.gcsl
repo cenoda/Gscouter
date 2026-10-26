@@ -1,0 +1,19 @@
+active cyno;
+for let i=0; i<4; i=i+1 {
+  cyno skill;
+  albedo skill, attack;
+  zhongli attack, skill[hold=1], dash, attack;
+  collei skill, burst;
+  cyno burst;
+  
+  while .cyno.burst.cd > 280 {
+    if .cyno.skill.ready {
+      cyno skill;
+    } else if .cyno.normal == 3 {
+      cyno dash;
+    } else {
+      cyno attack;
+    }
+  }
+  print("end");
+}

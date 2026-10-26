@@ -1,0 +1,10 @@
+active furina;
+for let r = 4; r > 0; r = r - 1 {
+  furina skill, burst;
+  bennett burst, skill;
+  xiangling burst, skill, dash;
+  lyney aim[weakspot=1], aim, aim, aim, burst;
+  delay(11);
+  lyney skill, skill, aim;
+  bennett skill;
+  }

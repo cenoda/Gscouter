@@ -1,0 +1,21 @@
+active xq;
+for let i=0; i<4; i=i+1 { 
+  xingqiu skill, dash, burst, attack;
+  kazuha burst;
+  yelan attack, burst, attack;
+  kazuha skill, high_plunge, attack;
+  yelan  skill, attack;
+  hutao skill,
+    attack:2, charge, dash,
+    attack:2, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:2, charge, jump, attack; 
+  yelan  skill, attack;
+ 
+ kazuha skill, high_plunge;
+}

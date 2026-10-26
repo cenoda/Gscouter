@@ -1,0 +1,17 @@
+id: wriothesley-yelan-kaedeharakazuha-shenhe
+name: Wriothesley / Yelan / Kaedeharakazuha / Shenhe
+members:
+    - wrio
+    - yelan
+    - kazuha
+    - shenhe
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/KbcJW7tQDDtR
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 43818
+    computed: "2026-10-02"

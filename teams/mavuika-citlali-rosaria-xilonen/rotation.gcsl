@@ -1,0 +1,24 @@
+let Mav6C2DC2 = true;
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  mavuika skill;
+  
+  xilonen skill, attack:2; pick_up_crystallize("any");
+  
+  citlali skill, burst;
+  
+  rosaria skill, attack, burst; 
+  
+  mavuika burst;
+  if Mav6C2DC2 == true {
+    mavuika charge:2, dash;
+    mavuika charge:2, dash;
+    mavuika charge:2, dash;
+    mavuika charge:2, dash;
+    mavuika charge:2, dash;
+    mavuika charge:2, dash;
+    mavuika charge:2;
+  } else {
+    mavuika charge:13, dash;
+  }
+}

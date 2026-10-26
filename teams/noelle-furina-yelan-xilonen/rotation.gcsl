@@ -1,0 +1,37 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || ( char_id == .keys.char.yelan && action_id == .action.skill ) || ( char_id == .keys.char.xilonen && action_id == .action.skill ) {
+    pick_up_crystallize("any");
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+active noelle; 
+for let i = 0; i < 4; i = i + 1 {
+  if i > 0 {
+    xilonen burst;
+  }
+  
+  furina skill, dash, burst;
+  
+  yelan burst, attack, skill, attack;
+  
+  xilonen skill, attack:2;
+  
+  noelle skill, attack, burst;
+  pick_up_crystallize("hydro");
+  while !.yelan.skill.ready {
+    if .noelle.normal > 3 {
+      noelle dash;
+    } else {
+      noelle attack;
+    }
+  }
+  
+  yelan attack, skill;
+  
+  noelle attack:3;
+  pick_up_crystallize("hydro");
+  
+  xilonen skill, attack:2;
+}

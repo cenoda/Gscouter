@@ -1,0 +1,30 @@
+active mavuika;
+fn mualani_combo() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+}
+for let i=0; i<4; i=i+1 {
+  mona skill, attack;
+  xilonen skill, attack:2;
+  if .mona.sets.ap >=4 {
+    mona dash; pick_up_crystallize("hydro");
+  }
+  mona burst;
+  mavuika burst, charge, skill;
+  mualani skill;
+  mualani_combo();
+  mualani walk[f=1];
+  if is_even(i) {
+    mualani burst;
+  } else {
+    mona jump:2;          
+  }
+}

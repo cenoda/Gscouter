@@ -1,0 +1,14 @@
+active bennett;
+for let i=0; i<5; i=i+1 { 
+  bennett skill;
+  layla skill, burst, attack;
+  kazuha skill, high_plunge, burst;
+  bennett burst, skill;
+  xiangling burst, skill;
+  kazuha attack, skill, high_plunge;
+  bennett attack:3, skill;
+  xiangling attack:2;
+  bennett skill, attack;
+  kazuha skill, high_plunge;
+  bennett skill, attack, charge;
+}

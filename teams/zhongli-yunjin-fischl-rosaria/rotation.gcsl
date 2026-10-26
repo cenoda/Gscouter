@@ -1,0 +1,16 @@
+active zhongli;
+  zhongli skill[hold=1], dash;
+for let i=0; i<4; i=i+1 {
+  fischl attack;
+  if .fischl.burst.ready {
+    fischl attack, burst;
+  } else {
+    fischl skill;
+  }
+  yunjin skill, burst;
+  rosaria skill, burst;
+  zhongli attack:5, dash, attack:5, dash, attack:5;
+  rosaria skill, attack;
+  zhongli attack:5, skill[hold=1], dash;
+  print("end");
+}

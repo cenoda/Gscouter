@@ -1,0 +1,34 @@
+fn YaePlunge() {
+  yae jump;
+  if .airborne {
+    yae high_plunge[collision=rand()>0.5];
+  }
+}
+active yae;
+for let x=0; x<4; x=x+1 {
+  yae skill:3;
+  
+  xilonen skill, attack:2; 
+  
+  furina skill, dash, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  YaePlunge(); yae dash;
+  YaePlunge(); yae dash;
+  YaePlunge(); yae skill;
+  
+  xilonen skill, attack:2;
+
+  xianyun attack:2, charge;
+
+  YaePlunge(); yae dash;
+  YaePlunge(); yae dash;
+  YaePlunge(); yae dash;
+  YaePlunge(); yae dash;
+  YaePlunge();
+  
+  if .yae.burst.ready && .yae.energy == .yae.energymax {
+    yae burst;
+  }
+}

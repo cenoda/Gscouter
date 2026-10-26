@@ -1,0 +1,33 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+    pick_up_crystallize("any");
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+active albedo;
+for let i = 0; i < 4; i = i + 1 {
+  albedo skill;
+  if i > 0 {
+    albedo attack;
+  }
+  
+  furina skill, dash, attack, burst;
+  xianyun skill, low_plunge, attack, burst;
+  while !.xianyun.mods.favonius-cd {
+    xianyun attack;
+  }
+  
+  itto burst, skill, attack;
+  while .xianyun.status.xianyun-airborne-buff {
+    itto jump;
+    if .airborne {
+      itto high_plunge[collision=rand()>0.5];
+    }
+    if .xianyun.status.xianyun-airborne-buff {
+      itto dash;
+    }
+  }
+  itto attack, charge:3, skill;
+}

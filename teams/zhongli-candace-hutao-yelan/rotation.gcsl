@@ -1,0 +1,17 @@
+active zhongli;
+for let i=0; i<4; i=i+1 {
+  zhongli  skill[hold=1], dash;
+  yelan skill, burst, attack;
+  candace skill, attack, burst, attack;
+  hutao skill;
+  for let x=0; x<8; x=x+1 {
+    hutao attack:2, charge;
+    if x != 7 || !.hutao.burst.ready {
+      hutao jump;
+    } 
+  }
+  if .hutao.burst.ready {
+    hutao burst;
+  }
+  candace skill, attack:3;
+}

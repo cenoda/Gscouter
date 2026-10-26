@@ -1,0 +1,21 @@
+active dori; 
+for let i=0; i<4; i=i+1 {
+  
+  if i > 0 && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  
+  ororon skill, burst;
+  
+  if .mav.burst.ready {
+    mav skill, burst, dash;
+  } else {
+    mav skill, attack;
+  }
+  
+  dori skill, attack:2, dash, attack:2, burst;
+  dori skill, attack:2, dash, attack:2;
+  dori skill, attack:2, dash, attack:2;
+}

@@ -1,0 +1,12 @@
+active raiden;
+raiden skill;
+nahida skill;
+for let x=0; x<5; x=x+1 {
+  
+  furina skill, dash, burst;
+  nahida attack, burst, attack, skill, attack;
+  yelan burst, skill;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  yelan skill, attack:2;
+  nahida attack:2, skill, attack;
+}

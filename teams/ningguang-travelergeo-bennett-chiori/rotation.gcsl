@@ -1,0 +1,39 @@
+let normal_attack_state = 1;
+let c_left = 0;
+let c_twirl = 2;
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || action_id == .action.walk {
+  	pick_up_crystallize("any"); 
+  }
+  return _execute_action(char_id, action_id, p);
+}
+active bennett;
+for {
+  switch {
+     case .bennett.burst.ready && .bennett.swap.ready:
+      bennett skill, burst;
+    case .luminegeo.skill.ready && .luminegeo.swap.ready:
+      luminegeo attack, skill[short_hold=1];
+    case .chiori.skill.ready && .chiori.swap.ready:
+      chiori skill:2;
+    case .luminegeo.burst.ready && .luminegeo.swap.ready:
+      luminegeo burst, dash;
+    case .ningguang.skill.ready && .ningguang.swap.ready:
+      ningguang skill, dash;
+    case .ningguang.burst.ready && .ningguang.swap.ready:
+      ningguang burst, walk;
+    case .ningguang.jadeCount == 7 && .ningguang.swap.ready:
+      ningguang charge;
+    case .ningguang.onfield && .state == normal_attack_state:
+      if .ningguang.prevAttack == c_left || .ningguang.prevAttack == c_twirl {
+        ningguang charge;
+      } else {
+        ningguang walk;
+      }
+    case .chiori.burst.ready && .chiori.swap.ready:
+      chiori burst;
+    default:
+      ningguang attack;
+  }
+}

@@ -1,0 +1,15 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  bennett attack:2, dash, skill, burst; 
+  xinyan skill, burst;
+  kazuha skill, high_plunge;
+  arle charge, 
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack;
+}

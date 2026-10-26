@@ -1,0 +1,19 @@
+active yae;
+for let i=0; i<4; i=i+1 {
+  yae skill:3;
+  
+  fischl attack, skill;
+  
+  furina skill, dash, burst;
+  
+  sayu burst;
+  
+  yae attack, charge,
+      burst, skill:3;
+  
+  fischl attack:2, burst;
+  
+  sayu skill[hold=600];
+  
+  print("done");
+}

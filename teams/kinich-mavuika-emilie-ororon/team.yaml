@@ -1,0 +1,17 @@
+id: kinich-mavuika-emilie-ororon
+name: Kinich / Mavuika / Emilie / Ororon
+members:
+    - kinich
+    - mavuika
+    - emilie
+    - ororon
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/pNtKmH8Pptmc
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 83622
+    computed: "2026-09-30"

@@ -1,0 +1,17 @@
+id: durin-nicole-xilonen-bennett
+name: Durin / Nicole / Xilonen / Bennett
+members:
+    - durin
+    - nicole
+    - xilonen
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Mf6pngCN8pWp
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 80700
+    computed: "2026-10-01"

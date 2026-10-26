@@ -1,0 +1,13 @@
+active raiden;
+raiden skill;
+for let i=0; i<6; i=i+1 {
+  furina skill, dash, attack, burst; 
+  kazuha burst, skill, high_plunge;
+  kokomi burst, attack:2, skill;
+  raiden burst, 
+         attack:4, skill, 
+         attack:4, dash, 
+         attack:4, dash, 
+         attack:4;
+  kazuha skill, high_plunge;
+}

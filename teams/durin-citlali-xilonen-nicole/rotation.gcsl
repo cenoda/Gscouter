@@ -1,0 +1,21 @@
+active durin;
+for let i=0; i<4; i=i+1 {
+  durin swap;
+  let StartFrame = f();
+  durin skill, attack;
+  nicole skill, attack;
+  xilonen skill, attack:2;
+  citlali skill, attack;
+  durin burst;
+  while f() - StartFrame < 665 {
+    wait(1);
+  }
+  xilonen skill, attack:2;
+  durin swap;
+  while f() - StartFrame < 1080 {
+    wait(1);
+  }
+  if !i {
+    wait(39);
+  }
+}

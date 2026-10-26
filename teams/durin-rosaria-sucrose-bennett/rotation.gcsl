@@ -1,0 +1,26 @@
+active bennett;
+for let i = 0; i < 4; i = i + 1 {
+  bennett skill, burst;
+  
+  rosaria burst;
+  durin skill, attack;
+  sucrose attack, charge;
+  durin burst;
+  rosaria skill;
+  sucrose attack, skill, dash; 
+  if .sucrose.burst.ready {
+    sucrose burst;
+  }
+  durin swap;
+  while .rosaria.skill.cd > 40 {
+    wait(1);
+  }
+  rosaria attack, skill;
+  while !.rosaria.mods.favonius-cd {
+    rosaria attack;
+  } 
+  if .rosaria.energy != .rosaria.energymax {
+    wait(89); 
+  }
+  
+}

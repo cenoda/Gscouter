@@ -1,0 +1,20 @@
+active bennett;
+for let i=0; i<4; i=i+1 {
+  bennett skill, burst;
+  if !.element.t0.cryo && !.element.t0.pyro {
+    bennett attack;
+  }
+  xilonen skill, attack:2;
+  if !is_even(i) {
+    escoffier skill, attack:3;  
+  } else {
+    escoffier skill, burst;
+  }
+  chasca skill;
+  chasca aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}

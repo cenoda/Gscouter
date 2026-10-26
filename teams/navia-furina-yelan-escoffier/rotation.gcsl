@@ -1,0 +1,36 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || ( char_id == .keys.char.yelan && action_id == .action.skill ) {
+    pick_up_crystallize("any");
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+fn naviaSkill() {
+  if .navia.shrapnel >=3 { 
+    navia skill;
+  } else {
+    navia skill[hold=1];
+  }
+}
+active navia; 
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  esco skill, burst;
+  
+  navia burst;
+  
+  yelan burst, attack, skill, attack;
+  naviaSkill();
+  navia attack:2, dash, attack:2, dash, attack:2;
+  navia skill, attack:2, dash, attack:2, dash, attack:2;
+  
+  yelan attack, skill, attack:2;
+  
+  if is_even(i) {
+    navia skill, attack:2;
+  } else {
+    yelan attack:2;
+  }
+}

@@ -1,0 +1,28 @@
+active mav; 
+for let i=0; i<4; i=i+1 { 
+  xianyun skill, low_plunge, burst;
+
+  if .mavuika.burst.ready && .mavuika.skill.ready && i > 0 {
+    mavuika burst, skill, dash;
+
+  } else if .mavuika.skill.ready {
+    mavuika attack, skill;
+  }
+  
+  bennett burst, skill;
+
+  xianyun attack:2; wait(20); 
+
+  kazuha skill, high_plunge[collision=1];
+  while .xianyun.status.xianyun-airborne-buff {
+    kazuha jump;
+    if .airborne {
+      kazuha high_plunge[collision=rand()>0.3];
+    }
+    if .kazuha.status.xianyun-airborne-buff {
+      kazuha dash;
+    }
+  }
+
+  kazuha skill, high_plunge[collision=1]; 
+}

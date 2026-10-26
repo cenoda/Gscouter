@@ -1,0 +1,17 @@
+id: arlecchino-furina-yelan-xilonen
+name: Arlecchino / Furina / Yelan / Xilonen
+members:
+    - arle
+    - furina
+    - yelan
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/fzKM9gNqgMrz
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 80092
+    computed: "2026-10-02"

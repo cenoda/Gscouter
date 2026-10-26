@@ -1,0 +1,21 @@
+active arlecchino;
+for let i=0; i<4; i=i+1 {
+  
+  arlecchino skill;
+  
+  yae skill;
+  yae attack; 
+  yae skill:2;
+  
+  bennett skill, burst;
+ 
+  chevreuse skill[hold=1], burst; 
+  
+  arlecchino attack:2, charge,
+             attack:2, charge,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3;  
+}

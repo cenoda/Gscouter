@@ -1,0 +1,21 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  xingqiu burst, attack, skill, dash, attack;
+  
+  yelan burst, attack;
+  
+  lanyan burst, attack, skill:2;
+  
+  yelan attack, skill, attack;
+  
+  raiden burst, attack:4, dash, attack:4, skill, attack:4, dash, attack:4;
+  
+  yelan skill, attack;
+  
+  if .lanyan.skill.ready {
+    lanyan skill:2;
+  } else {
+    lanyan attack, charge;
+  }
+}

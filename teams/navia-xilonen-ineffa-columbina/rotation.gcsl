@@ -1,0 +1,25 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || ( char_id == .keys.char.xilonen && action_id == .action.skill ) {
+    pick_up_crystallize("any"); 
+  }
+  return _execute_action(char_id, action_id, p);
+}
+active navia; 
+for let i=0; i<4; i=i+1 {
+  if is_even(i) {
+    ineffa skill, attack;
+    columbina skill, burst;
+  } else {
+    ineffa skill, burst;
+    columbina skill, charge, dash;
+  }
+  xilonen burst, skill, attack:2;
+  navia burst;                                             print(.navia.shrapnel);
+  navia skill, attack:2, dash, attack:2, dash, attack:2;   print(.navia.shrapnel);
+  xilonen skill, attack:2;                                 print(.navia.shrapnel);
+  navia skill, attack:2, dash, attack:2, dash, attack:2;   print(.navia.shrapnel);
+  if ( i / 3 ) * 3 == i {
+    navia skill, attack;
+  }
+}

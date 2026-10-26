@@ -1,0 +1,18 @@
+active arle;
+ for let i=0; i<6; i=i+1 {
+  arle skill;
+  if .fischl.skill.ready {
+    fischl skill, attack;
+  } else {
+    fischl attack:2, burst;
+  }
+  chevreuse burst, skill[hold=1];
+  razor skill, dash;
+  arle attack:2, charge,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3;
+}

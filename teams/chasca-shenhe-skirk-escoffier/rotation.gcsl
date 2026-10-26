@@ -1,0 +1,23 @@
+active escoffier;
+for let i=0; i<4; i=i+1 {
+  if .escoffier.burst.ready && .escoffier.energy == .escoffier.energymax {
+    escoffier skill, burst;
+  } else {
+    escoffier skill, attack;
+  }
+  shenhe skill[hold=1];
+  if .shenhe.burst.ready {
+    shenhe burst;
+  }
+  skirk skill[hold=1];
+  if is_even(i) {
+    skirk burst;
+  }
+  chasca skill, aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca skill, burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}
+wait(82);

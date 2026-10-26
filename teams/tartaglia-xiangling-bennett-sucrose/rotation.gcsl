@@ -1,0 +1,24 @@
+active tartaglia;
+for let i = 0; i < 4; i = i + 1 {
+  tartaglia walk, skill, attack;
+  bennett burst;
+  xiangling jump, skill;
+  sucrose attack:2, skill;
+  xiangling burst;
+  tartaglia burst, walk, skill,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash;
+  bennett skill;
+  xiangling skill, attack;
+  tartaglia aim;
+  sucrose attack, skill, dash;
+  bennett skill;
+  xiangling attack:2;
+  tartaglia aim;
+  bennett skill;
+  tartaglia aim;
+  print("end");
+}

@@ -1,0 +1,11 @@
+active ayato;
+for let i = 0; i < 5; i = i + 1 {
+  ayato attack, burst;
+  furina skill, dash, burst;
+  jean skill, burst;
+  yelan burst, attack, skill, attack;
+  ayato skill, attack:15;
+  jean attack, skill, attack;
+  yelan attack:4, skill, attack:4;
+
+}

@@ -1,0 +1,18 @@
+active kaeya;
+for let i=0; i<4; i=i+1 {
+  if i {
+    kaeya attack:3;
+  }
+  kaeya skill;
+  bennett burst, skill;
+  rosaria skill, attack, burst;
+  xiangling burst, skill;
+  kaeya skill, burst;
+  rosaria attack, skill;
+  bennett attack, skill;
+  xiangling attack:3;
+  kaeya skill;
+  rosaria attack:2,dash, skill;
+  bennett attack, skill;
+  
+}

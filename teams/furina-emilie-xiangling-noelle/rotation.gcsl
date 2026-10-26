@@ -1,0 +1,13 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, burst;
+  xiangling burst, skill, dash;
+  if .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack; 
+  }
+  noelle skill, burst, attack:3, dash, attack:3, dash, attack:3;    
+  xiangling attack, skill, dash, attack;
+  noelle attack:3, dash, attack:4;
+}

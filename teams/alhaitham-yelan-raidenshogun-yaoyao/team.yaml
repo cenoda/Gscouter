@@ -1,0 +1,17 @@
+id: alhaitham-yelan-raidenshogun-yaoyao
+name: Alhaitham / Yelan / Raidenshogun / Yaoyao
+members:
+    - alhaitham
+    - yelan
+    - raiden
+    - yaoyao
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/DJ9F8pwwgNMb
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 63959
+    computed: "2026-10-02"

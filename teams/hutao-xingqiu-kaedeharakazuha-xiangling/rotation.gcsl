@@ -1,0 +1,23 @@
+active xiangling;
+for let i=0; i<4; i=i+1 {
+  xiangling skill;
+    xingqiu burst, attack, skill, dash, attack:2;
+    kazuha swap;
+    wait(3);
+    kazuha attack, burst, skill, high_plunge;
+    xiangling attack, burst, attack;
+    hutao skill,
+        attack:2, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump;
+    kazuha attack, skill, high_plunge;
+    xiangling attack:2;
+    print("done");
+}
+wait (21);

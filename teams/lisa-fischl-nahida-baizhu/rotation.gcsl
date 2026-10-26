@@ -1,0 +1,12 @@
+active nahida;
+for let i=0; i<6; i=i+1 {
+    nahida skill, burst;
+    fischl attack, burst;
+    baizhu skill, burst, attack;
+    lisa attack, burst, attack, charge, attack:2, charge, attack:2;
+    nahida skill, attack, charge;
+    baizhu skill, attack:2;
+    fischl skill, attack;
+    lisa skill, attack:3, skill, attack:3, charge, skill[hold=1], attack;
+    print("rotation done");
+}

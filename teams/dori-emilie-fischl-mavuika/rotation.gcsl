@@ -1,0 +1,25 @@
+active dori; 
+for let i=0; i<4; i=i+1 {
+  
+  if i > 0 && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst, attack;
+  } else {
+    emilie skill, attack;
+  }
+  
+  if .mav.burst.ready {
+    mav burst, skill;
+  } else {
+    mav skill, attack;
+  }
+  
+  if .fischl.skill.ready {
+    fischl attack, skill, attack;
+  } else {
+    fischl attack:2, burst;
+  }
+  
+  dori skill, attack:2, dash, attack:2, burst;
+  dori skill, attack:2, dash, attack:2;
+  dori skill, attack:2, dash, attack:2;
+}

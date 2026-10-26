@@ -1,0 +1,20 @@
+active arlecchino;
+arle skill;
+delay(25);
+for let i=0; i<4; i=i+1 {
+  kazuha skill, high_plunge;
+  rosaria skill;
+  kazuha burst;
+  bennett skill, burst; 
+  kazuha skill, high_plunge;
+  rosaria skill, burst;
+  arle charge, 
+       attack:3, dash,
+       attack:3, dash;
+  delay(3);
+  arle attack:3;
+  rosaria skill;
+  arle attack:3, dash,
+       attack:2, skill;
+ 
+}

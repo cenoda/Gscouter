@@ -1,0 +1,30 @@
+active albedo;
+for let x=0; x<4; x=x+1 {
+  if x==0 {
+    albedo skill;
+  } else {
+    albedo attack, skill;
+  }
+  
+  furina skill, dash, burst;
+  
+  yelan burst, attack, skill, attack;
+
+  noelle skill, attack, burst;
+  pick_up_crystallize("hydro");
+  
+  while !.yelan.skill.ready {
+    if .noelle.normal > 3 {
+        noelle dash;
+        pick_up_crystallize("hydro");
+    } else {
+      noelle attack;
+    }
+  }
+
+  yelan skill, attack;
+
+  noelle attack:4;
+  pick_up_crystallize("hydro");
+
+}

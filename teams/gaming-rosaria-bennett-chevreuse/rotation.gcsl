@@ -1,0 +1,19 @@
+active gaming;
+for let i=0; i<4; i=i+1 {
+  if .chevreuse.burst.ready {
+    chevreuse skill[hold=1], burst;
+  } else {
+    chevreuse attack, skill[hold=1];
+  }
+  
+  bennett skill, burst;
+  
+  rosaria skill, burst;
+  
+  gaming burst;
+  for let j = 0; j < 6; j = j + 1 {
+    sleep(52); 
+    gaming skill, high_plunge;
+  }
+  gaming skill, high_plunge, dash;
+}

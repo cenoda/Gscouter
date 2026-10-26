@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+eula char lvl=90/90 cons=0 talent=9,9,9;
+eula add weapon="serpentspine" refine=1 lvl=90/90 +params=[stacks=5];
+eula add set="paleflame" count=4;
+eula add stats hp=4780 atk=311 atk%=0.466 phys%=0.583 cd=0.622;
+eula add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.2204 em=39.64 cr=0.3972 cd=0.662;
+
+rosaria char lvl=90/90 cons=6 talent=9,9,9;
+rosaria add weapon="favoniuslance" refine=3 lvl=90/90;
+rosaria add set="noblesseoblige" count=5;
+rosaria add stats hp=4780 atk=311 atk%=0.466 cryo%=0.466 cr=0.311;
+rosaria add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.2204 em=39.64 cr=0.331 cd=0.7944;
+
+diona char lvl=90/90 cons=6 talent=9,9,9;
+diona add weapon="favoniuswarbow" refine=5 lvl=90/90;
+diona add set="tenacityofthemillelith" count=2;
+diona add stats hp=4780 atk=311 hp%=0.466 cryo%=0.466 cr=0.311;
+diona add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.2204 em=39.64 cr=0.331 cd=0.7944;
+
+shenhe char lvl=90/90 cons=0 talent=9,9,9;
+shenhe add weapon="favoniuslance" refine=3 lvl=90/90;
+shenhe add set="bs" count=4;
+shenhe add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 atk%=0.466;
+shenhe add stats def=39.36 def%=0.124 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.2976 er=0.3306 em=39.64 cr=0.1986 cd=0.662;

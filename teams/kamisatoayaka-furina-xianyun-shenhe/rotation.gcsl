@@ -1,0 +1,23 @@
+active furina;
+for let i = 0; i < 4; i = i + 1{
+  furina burst, skill;
+  shenhe burst, skill;
+  xianyun skill, low_plunge, burst;
+  ayaka dash, skill, attack, burst, jump;
+  if .airborne {
+    ayaka low_plunge[collision=1];
+  }
+  xianyun attack, jump;
+  if .airborne {
+    xianyun low_plunge;
+  }
+  shenhe attack, skill;
+  ayaka dash, jump;
+  if .airborne {
+    ayaka low_plunge[collision=1];
+  } else {
+    ayaka attack;
+  }
+  ayaka attack, charge, skill, attack:2, charge;
+  print("rotation done");
+}

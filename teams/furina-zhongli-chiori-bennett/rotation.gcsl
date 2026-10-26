@@ -1,0 +1,31 @@
+active furina;
+for let x=0; x<4; x=x+1 {
+  if .furina.skill.ready {
+    furina skill, dash;
+  }
+  else {
+    furina attack:3, skill, dash;
+  }
+  zhongli skill[hold=1],dash;
+  while !pick_up_crystallize("hydro") {
+    wait(1);
+  }
+   if !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  } 
+  furina burst;
+  bennett burst, skill;
+  chiori attack, skill:2;
+  bennett attack, skill;
+  furina attack:3;
+  chiori attack:2, charge;
+  if .chiori.burst.ready {
+    chiori burst;
+  }
+  zhongli attack, burst;
+  while !pick_up_crystallize("hydro") {
+    wait(1);
+  }
+  chiori attack:2, charge;
+  bennett attack, skill;
+}

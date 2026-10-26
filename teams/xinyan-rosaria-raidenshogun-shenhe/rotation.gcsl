@@ -1,0 +1,19 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  shenhe skill[hold=0], burst;
+  
+  rosaria skill, burst;
+  
+  if .xinyan.skill.cd {
+    xinyan attack;
+  }
+  xinyan skill, burst;
+  xinyan attack:2;
+  
+  rosaria skill;
+  
+  shenhe skill[hold=0], attack;
+  
+  raiden burst, attack:4, dash, attack:4, skill, attack:4, dash, attack:4;
+}

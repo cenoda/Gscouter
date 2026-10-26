@@ -1,0 +1,17 @@
+id: razor-furina-xingqiu-charlotte
+name: Razor / Furina / Xingqiu / Charlotte
+members:
+    - razor
+    - furina
+    - xingqiu
+    - charlotte
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/9rtG7Jwmzk7f
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 60117
+    computed: "2026-10-01"

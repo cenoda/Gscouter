@@ -1,0 +1,32 @@
+fn declensionCombo() {
+  switch {
+    case .heizou.skill.ready && .heizou.declension == 4:
+      heizou skill;
+    case .heizou.normal > 1 && .heizou.burst.ready:
+      heizou burst;
+    case .heizou.normal > 1:
+      heizou charge;
+    default:
+      heizou attack;
+  }
+}
+active fischl;
+for let i=0; i<4; i=i+1 {
+  fischl skill, attack;
+  
+  nahida skill, attack, burst;
+  
+  furina skill, dash, burst;
+  
+  while .fischl.oz {
+    declensionCombo();
+  }
+  
+  fischl attack:2, burst;
+  
+  while .fischl.skill.cd > 30 {
+    declensionCombo();
+  }
+  
+  print("done");
+}

@@ -1,0 +1,15 @@
+active ganyu;
+for let i=0; i<6; i=i+1 {
+	ganyu aim[weakspot=1];
+	kazuha skill, high_plunge;
+	zhongli skill[hold=1], dash, attack;
+	if !pick_up_crystallize("cryo") {
+		zhongli dash;
+	}
+	pick_up_crystallize("cryo");
+	rosaria burst, skill;
+	ganyu skill, burst;
+	kazuha skill, high_plunge;
+	ganyu aim[weakspot=1];
+	rosaria skill;
+}

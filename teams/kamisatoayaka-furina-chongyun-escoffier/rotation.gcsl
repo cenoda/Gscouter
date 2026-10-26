@@ -1,0 +1,18 @@
+active chongyun;
+for let i=0; i<4; i=i+1 {
+  chongyun skill, burst;
+  furina skill, dash, burst;
+  if !.furina.mods.favonius-cd && .furina.weapon == .keys.weapon.favsword {
+    furina attack;
+  }
+  escoffier burst, skill, attack;
+  if !.escoffier.mods.favonius-cd && .escoffier.weapon == .keys.weapon.favlance {
+    escoffier attack;
+  }
+  ayaka skill, dash, attack, burst,
+        attack, charge, dash,
+        attack:2, charge,
+        attack:2, charge;
+  ayaka skill, dash, 
+        attack, charge;
+}

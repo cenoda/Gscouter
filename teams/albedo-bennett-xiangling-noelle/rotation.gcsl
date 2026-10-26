@@ -1,0 +1,12 @@
+active albedo;
+for let x = 0; x < 4; x = x + 1 {
+  albedo skill, attack;
+  bennett burst, skill;
+  xiangling burst, skill;
+  noelle burst, skill;
+  noelle attack:4;
+  bennett attack, skill;
+  noelle attack:4;
+  bennett attack, skill;
+  noelle attack:4;
+}

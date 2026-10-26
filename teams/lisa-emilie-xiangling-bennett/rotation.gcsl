@@ -1,0 +1,24 @@
+active lisa;
+for let i=0; i<4; i=i+1 {
+  lisa skill[hold=1], burst; sleep(20); 
+
+  if i && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie attack, skill;
+  }
+  
+  bennett burst, skill;
+  
+  xiangling burst, skill, dash;
+  
+  bennett skill;
+  while .bennett.burst.cd {
+    if .bennett.skill.ready {
+      bennett skill;
+    } else {
+      bennett attack;
+    }
+  }
+  
+}

@@ -1,0 +1,23 @@
+# Build from the source config, used to validate the rotation.
+
+lisa char lvl=90/90 cons=6 talent=9,9,9;
+lisa add weapon="widsith" refine=3 lvl=90/90;
+lisa add set="gilded" count=4;
+lisa add stats def%=0.124 def=39.36 hp=5287.88 hp%=0.0992 atk=344.08 atk%=0.6644 er=0.1102 em=39.64 cr=0.642 cd=0.7944 electro%=0.466;
+
+fischl char lvl=90/90 cons=6 talent=9,9,9;
+fischl add weapon="thestringless" refine=3 lvl=90/90;
+fischl add set="ts" count=4;
+fischl add stats def%=0.124 def=39.36 hp=5287.88 hp%=0.0992 atk=344.08 atk%=0.6644 er=0.1102 em=39.64 cr=0.642 cd=0.7944 electro%=0.466;
+
+yaoyao char lvl=90/90 cons=6 talent=9,9,9;
+yaoyao add weapon="favlance" refine=3 lvl=90/90;
+yaoyao add set="instructor" count=5;
+yaoyao add stats hp=3571 atk=232 atk%=0.346 dendro%=0.466 cr=0.232;
+yaoyao add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.496 er=0.1102 em=39.64 cr=0.1324 cd=0.2648;
+
+kazuha char lvl=90/90 cons=0 talent=9,9,9;
+kazuha add weapon="xiphos" refine=5 lvl=90/90;
+kazuha add set="viridescentvenerer" count=5;
+kazuha add stats hp=4780 atk=311 em=186.5 em=186.5 em=186.5;
+kazuha add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.4408 em=118.92 cr=0.3972 cd=0.1324;

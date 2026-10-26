@@ -1,0 +1,22 @@
+active albedo;
+for let i=0; i<4; i=i+1 {
+	albedo skill, attack;
+	rosaria skill;
+	eula skill, attack;
+	zhongli skill[hold=1], dash;
+	rosaria burst;
+	eula swap;
+	while !.eula.burst.ready {
+	  if .eula.skill.ready {
+	    eula skill;
+	  } else {
+	    eula attack;
+	  }
+	}
+	eula burst, walk,attack:4,skill[hold=1],attack:4;
+    wait(22);
+	rosaria skill;
+	eula attack:2; 
+	zhongli skill, attack:2;
+	eula attack:2;
+}

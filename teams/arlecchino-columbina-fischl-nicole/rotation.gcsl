@@ -1,0 +1,27 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  if is_even(i) {
+    columbina skill, burst; 
+    nicole attack, skill;
+  } else {
+    columbina skill, attack;
+    nicole burst, skill;
+  }
+  if is_even(i) {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  arle attack:2, charge,
+       attack:3, charge,
+       attack:3, charge,
+       attack:3, charge,
+       attack:3, charge,
+       attack:3;
+  if is_even(i) {
+    arle dash, attack:2;
+  } else {  
+    arle charge, attack:2;
+  }
+}

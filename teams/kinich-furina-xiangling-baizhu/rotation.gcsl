@@ -1,0 +1,21 @@
+active furina;
+fn kinich_combo() {
+  kinich skill;
+  kinich attack;
+  while .kinich.nightsoul.state {
+    if .kinich.nightsoul.points == 20 {
+      kinich skill[hold=1];
+      continue;
+    }
+    kinich attack;
+  }
+}
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  baizhu skill, attack, burst, attack;
+  xiangling burst, skill, dash, attack:2;
+  kinich_combo();
+  if .kinich.burst.ready && .kinich.energy == .kinich.energymax {
+    kinich burst;
+  }
+}

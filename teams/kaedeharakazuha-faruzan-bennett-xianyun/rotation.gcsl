@@ -1,0 +1,22 @@
+active faruzan;
+for let i=0; i<4; i=i+1 {
+  faruzan skill, burst;
+  
+  xianyun skill:3, high_plunge, burst;
+  
+  bennett skill, burst;
+  
+  kazuha skill[hold=1], high_plunge[collision=1], burst;
+  while .kazuha.status.xianyun-airborne-buff {
+    if .kazuha.skill.ready {
+      kazuha skill, high_plunge[collision=1];
+    } else { 
+      kazuha jump;
+      if .airborne {
+        kazuha high_plunge[collision=rand()>0.3], dash;
+      }
+    }
+  }
+  
+  bennett skill;
+}

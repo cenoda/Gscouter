@@ -1,0 +1,43 @@
+active nilou;
+for {
+  switch {
+  case .status.kokomiburst && .collei.status.collei-burst:
+    switch {
+    case .kokomi.normal < 3:
+      kokomi attack;
+    default:
+      kokomi attack, dash;
+    }
+  
+  case .nilou.skill.ready && .nilou.swap.ready && !.nilou.status.tranquilityaura:
+    nilou skill, attack:2, skill;
+  case !.element.t0.dendro && .collei.skill.ready && .collei.swap.ready
+    && !(.collei.status.collei-skill || .collei.status.collei-a1):
+    collei skill;
+  case !.element.t0.hydro && .kokomi.skill.ready && .kokomi.swap.ready
+    && !.status.kokomiskill:
+    kokomi skill;
+  case !.element.t0.dendro && .kirara.skill.ready && .kirara.swap.ready:
+    kirara skill[short_hold=1];
+  case !.element.t0.dendro && .kirara.burst.ready && .kirara.swap.ready:
+    kirara burst;
+  case !.element.t0.hydro && .nilou.burst.ready && .nilou.swap.ready:
+    nilou burst;
+  case !.element.t0.dendro && .collei.burst.ready && .collei.swap.ready
+    && !.collei.status.collei-skill:
+    collei burst;
+  case !.element.t0.hydro && .kokomi.burst.ready && .kokomi.swap.ready
+    && .collei.status.collei-burst && (.collei.status.collei-skill || .collei.status.collei-a1):
+    kokomi burst;
+  case .kokomi.onfield:
+    switch {
+    case .kokomi.normal < 3:
+      kokomi attack;
+    default:
+      kokomi walk;
+    }
+  case .nilou.onfield: if .nilou.swap.ready { kokomi swap; } else { nilou attack; }
+  case .collei.onfield: if .collei.swap.ready { kokomi swap; } else { collei attack; }
+  case .kirara.onfield: if .kirara.swap.ready { kokomi swap; } else { kirara attack; }
+  }
+}

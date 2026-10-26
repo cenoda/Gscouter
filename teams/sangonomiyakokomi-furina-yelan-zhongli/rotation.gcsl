@@ -1,0 +1,36 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+ furina skill, dash;
+ if i {
+   furina attack;
+ }
+ 
+ zhongli skill[hold=1], dash;
+ pick_up_crystallize("any");
+ 
+ kokomi skill, dash, attack:2;
+ 
+ furina burst;
+ 
+ yelan burst, attack;
+ 
+ zhongli attack:3;
+ pick_up_crystallize("any");
+ 
+ yelan skill;
+ 
+ kokomi attack, burst,
+        attack:2, dash,
+        attack:2, dash,
+        attack:2, walk,
+        attack:2, dash,
+        attack:2, dash,
+        attack:2, walk,
+        attack:2, dash,
+        attack:2, dash,
+        attack:2, walk,
+        attack:2, dash,
+        attack:2; 
+        
+ yelan skill, attack:2;
+}

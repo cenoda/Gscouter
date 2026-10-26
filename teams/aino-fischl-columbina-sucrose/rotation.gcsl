@@ -1,0 +1,27 @@
+active columbina;
+for let i=0; i<6; i=i+1 {
+  columbina skill;
+  if .columbina.burst.ready {
+    columbina burst;
+  }
+  if .fischl.skill.ready {
+    fischl skill;
+  } else {
+    fischl attack,burst;
+  }
+  sucrose attack;
+  if .sucrose.skill.ready {
+    sucrose skill;
+  }
+  aino skill,burst;
+  columbina charge,attack,dash;
+  columbina attack:3,dash;
+  sucrose attack;
+  if .sucrose.skill.ready {
+    sucrose skill;
+  }
+  columbina charge;
+  while !.columbina.skill.ready {
+    columbina attack;
+  }
+}

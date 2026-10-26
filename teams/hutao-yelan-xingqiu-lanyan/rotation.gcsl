@@ -1,0 +1,31 @@
+active xq;
+for let i=0; i<4; i=i+1 { 
+  xingqiu skill, dash, burst, attack;
+  
+  lanyan attack:2;
+  
+  yelan burst, attack;
+  
+  lanyan skill:2, attack;
+  
+  yelan attack, skill, attack;
+  
+  hutao skill,
+    attack:2, charge, dash,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump, 
+    attack:1;
+    
+  yelan skill, attack;
+  
+  if .lanyan.burst.ready && .lanyan.energy == .lanyan.energymax {
+    lanyan burst;
+  } else {
+    lanyan attack:1;
+  }
+}

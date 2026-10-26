@@ -1,0 +1,13 @@
+active raiden;
+raiden skill;
+for let i=0; i<6; i=i+1 { 
+  xilonen skill, attack:2, burst;
+  xilonen dash;     pick_up_crystallize("any");
+  furina skill, dash, attack, burst;
+  ororon skill, burst;
+  xilonen skill, attack:2;
+  xilonen dash;     pick_up_crystallize("any");
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  raiden dash;
+  print("rota done");
+}

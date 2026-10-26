@@ -1,0 +1,22 @@
+active ganyu;
+    ganyu burst;
+for let i=0; i<4; i=i+1 {
+	
+	nahida skill;
+	if .nahida.burst.ready {
+		nahida burst;
+	} else {
+		nahida attack:2;
+	}
+	bennett burst, skill;
+	xiangling burst, skill;
+	ganyu skill, aim[weakspot=1], aim:3;
+	if .ganyu.burst.ready {
+		ganyu burst;
+	} else {
+		ganyu aim[weakspot=1];
+	}
+	ganyu skill;
+	bennett skill;
+	xiangling attack:3;
+}

@@ -1,0 +1,28 @@
+active lauma;
+for let i=0; i<4; i=i+1 {
+  lauma skill[hold=.dew>1];
+  
+  mona attack, skill, burst, attack;
+  
+  if .fischl.skill.ready {
+    fischl skill, attack;
+  } else {
+    fischl attack:2, burst;
+  }
+  
+  mona attack:3;
+  
+  sethos aim[hold=2], skill, burst,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2;
+  if .sethos.sets.dpc >= 4 {
+    sethos walk, attack;
+  }
+  sethos skill;
+}

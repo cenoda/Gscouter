@@ -1,0 +1,19 @@
+active kuki;
+for let i=0; i<4; i=i+1 {
+  kuki skill;
+  collei skill, burst;
+  fischl skill;   
+  kazuha skill, high_plunge, burst;
+  fischl attack:4;
+  kazuha attack:2, skill, high_plunge;
+  kazuha attack:3;
+  kuki burst;
+  kuki skill;
+  collei skill, burst;
+  fischl attack, burst;
+  kazuha skill, high_plunge, burst;
+  fischl attack:4;
+  kazuha attack:2, skill, high_plunge;
+  kazuha attack:3;
+  kuki burst;
+}

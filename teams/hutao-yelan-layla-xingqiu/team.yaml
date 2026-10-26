@@ -1,0 +1,19 @@
+id: hutao-yelan-layla-xingqiu
+name: Hutao / Yelan / Layla / Xingqiu
+members:
+    - hutao
+    - yelan
+    - layla
+    - xingqiu
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/tQWwzRhbGCGm
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    hutao: start_hp=1
+reference:
+    dps: 66310
+    computed: "2026-10-01"

@@ -1,0 +1,19 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 4; i = i + 1 {
+  if i > 0 {
+    ineffa skill, burst;
+  } else {
+    ineffa attack, skill;
+  }
+
+    columbina skill, burst;
+
+  nicole skill, burst;
+  
+  raiden burst, 
+         attack:4, skill, 
+         attack:4, dash, 
+         attack:4, dash, 
+         attack:4;
+}

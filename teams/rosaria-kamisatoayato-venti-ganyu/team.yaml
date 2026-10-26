@@ -1,0 +1,17 @@
+id: rosaria-kamisatoayato-venti-ganyu
+name: Rosaria / Kamisatoayato / Venti / Ganyu
+members:
+    - rosaria
+    - ayato
+    - venti
+    - ganyu
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/f9JGkGRR6BQk
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 29756
+    computed: "2026-10-01"

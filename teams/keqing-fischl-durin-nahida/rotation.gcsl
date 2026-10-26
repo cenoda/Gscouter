@@ -1,0 +1,27 @@
+active nahida;
+for let i=0; i<6; i=i+1 {
+  if .nahida.burst.ready {
+    nahida skill, burst;
+  } 
+  else {
+    nahida skill, attack:2;
+  }
+  durin skill:2, burst;
+  fischl attack, skill, attack;
+  keqing skill, burst, skill,
+         attack, charge,
+         attack, charge,
+         attack, charge,
+         attack, charge,
+         attack, charge,
+         skill, skill,
+         attack, charge,
+         attack, charge,
+         attack, charge;
+  fischl attack:2, burst;
+  keqing burst, skill, skill, 
+         attack, charge,
+         attack, charge, 
+         attack, charge,
+         attack;
+}

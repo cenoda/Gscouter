@@ -1,0 +1,17 @@
+active bennett;
+for let x=0; x<4; x=x+1 {
+  bennett swap;
+  if !.element.t0.hydro {
+    bennett skill, dash;
+  } else {
+    bennett skill[hold_c4=1]; 
+  }
+  xilonen skill, attack:2;
+  yelan skill, burst, attack;
+  bennett skill, burst;
+  yoimiya attack; 
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  if .yoimiya.burst.ready {
+    yoimiya burst; 
+  }
+}

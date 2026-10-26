@@ -1,0 +1,17 @@
+id: lyney-sayu-durin-nicole
+name: Lyney / Sayu / Durin / Nicole
+members:
+    - lyney
+    - sayu
+    - durin
+    - nicole
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/MjrGKqkPWRK7
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 79052
+    computed: "2026-10-02"

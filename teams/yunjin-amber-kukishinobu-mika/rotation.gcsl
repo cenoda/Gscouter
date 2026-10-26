@@ -1,0 +1,25 @@
+active kuki;
+for let i=0; i<4; i=i+1 {
+  kuki skill;
+
+  if .mika.burst.ready {
+    mika burst;
+  }
+  mika skill;
+  
+  while !.yunjin.burst.ready && !.yunjin.mods.favonius-cd {
+    while !.yunjin.skill.cd {
+      yunjin skill;
+    }
+    yunjin attack;
+  }
+  yunjin burst;
+  
+  if .amber.burst.ready {
+    amber burst;
+  }
+  amber skill;
+  while .amber.mods.yunjin-c6 {
+    amber attack: 5, dash;
+  }
+}

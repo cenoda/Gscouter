@@ -1,0 +1,17 @@
+id: raidenshogun-yaemiko-kaedeharakazuha-sangonomiyakokomi
+name: Raidenshogun / Yaemiko / Kaedeharakazuha / Sangonomiyakokomi
+members:
+    - raiden
+    - yaemiko
+    - kazuha
+    - kokomi
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/7CTFFBb98NJP
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 45553
+    computed: "2026-09-30"

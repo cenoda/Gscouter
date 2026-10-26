@@ -1,0 +1,22 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  
+  arle skill;
+  if.lynette.burst.ready && .lynette.energy == .lynette.energymax {
+    lynette attack, burst;
+  } else { 
+    lynette attack, skill;
+  }
+  bennett skill, burst;
+  xiangling burst, skill, dash;
+  lynette attack, skill;
+  arle attack, charge, 
+       attack:3, dash,
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack;
+  bennett skill;
+}

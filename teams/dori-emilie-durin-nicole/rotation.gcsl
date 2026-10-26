@@ -1,0 +1,17 @@
+active emilie; 
+for let i=0; i<4; i=i+1 {
+  
+  if i > 0 && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  
+  nicole burst, skill;
+  
+  durin skill:2, burst;
+  
+  dori skill, attack:2, dash, attack:2, burst; 
+  dori skill, attack:2, dash, attack:2;
+  dori skill, attack:2, dash, attack:2;
+}

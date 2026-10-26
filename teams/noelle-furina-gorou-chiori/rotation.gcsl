@@ -1,0 +1,12 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, burst;
+  gorou skill, burst;
+  while !.gorou.mods.favonius-cd { 
+    gorou attack;
+  }
+  chiori skill, skill;
+  noelle skill, burst, attack:3, dash, attack:3;
+  gorou skill, attack;
+  noelle attack:3, dash, attack:3, dash, attack:3, dash, attack:2;    
+}

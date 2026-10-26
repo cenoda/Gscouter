@@ -1,0 +1,25 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if .furina.burst.ready {
+    furina burst;
+  }
+  ororon skill, burst;
+  if .sucrose.skill.ready {
+    sucrose skill;
+  }
+  sucrose attack, burst;
+  mizuki skill;
+  while .mizuki.status.dreamdrifter-state {
+    if .mizuki.burst.ready {
+      mizuki burst;
+    } else {
+      wait(1);
+    }
+  }
+  if .sucrose.skill.ready {
+    sucrose skill;
+  }
+  sucrose attack:2, charge, attack:2, charge;
+  
+}

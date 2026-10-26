@@ -1,0 +1,36 @@
+active amy;
+for let i=0; i<5; i=i+1 {
+  amy attack;
+  if .amy.skill.ready {
+    amy skill;
+  } else {
+    amy attack, burst;
+  }
+  
+  while !.element.t0.electro {
+    sucrose attack;
+  }
+  if .sucrose.skill.ready {
+    sucrose skill, dash;
+  }
+  if .sucrose.burst.ready {
+    sucrose burst;
+  }
+  
+  tighnari skill, aim;
+  if .tighnari.burst.ready && !is_even(i) {
+    tighnari burst;
+  }
+  
+  keqing skill, burst, skill, attack, charge, attack, skill, attack, charge;
+  
+  sucrose attack;
+  if .sucrose.skill.ready {
+    sucrose skill, dash;
+  } else {
+    sucrose attack:2;
+  }
+  
+  tighnari aim:2;
+  
+}

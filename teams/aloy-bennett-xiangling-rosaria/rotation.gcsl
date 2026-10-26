@@ -1,0 +1,16 @@
+active aloy;
+for let x=0; x<5; x=x+1 {
+  aloy skill;
+  bennett burst,skill;
+  rosaria skill, attack, burst;
+  xiangling attack, burst, skill;
+  aloy attack, burst;
+  rosaria attack, skill;
+  bennett attack, skill;
+  xiangling attack:2;
+  bennett attack, skill;
+  xiangling attack:2;
+  rosaria skill;
+  bennett skill;
+  xiangling attack:2;
+}

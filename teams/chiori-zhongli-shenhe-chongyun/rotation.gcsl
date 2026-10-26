@@ -1,0 +1,28 @@
+active chiori;
+chiori skill:2;
+for let x=0; x<4; x=x+1 {
+  zhongli attack,skill[hold=1],dash;
+  if !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  if x == 0 || x == 2 {
+      shenhe skill;
+  }
+  shenhe skill[hold=1], burst;
+  
+  chongyun attack,burst;
+  if !.chongyun.mods.favonius-cd {
+    chongyun attack;
+  }
+  chongyun skill;
+  
+  if .chiori.burst.ready && .chiori.energy == .chiori.energymax {
+    chiori burst;
+  }
+  chiori skill, attack;
+  chiori attack:3, dash, attack:3, dash;
+  chiori skill, attack;
+  chiori attack:3, dash, attack:3, dash;
+  
+  chiori skill:2;
+}

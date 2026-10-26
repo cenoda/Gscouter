@@ -1,0 +1,19 @@
+set_particle_delay("ororon", 60);
+active mavuika; 
+for let i=0; i<4; i=i+1{
+  mavuika skill;
+  bennett skill;
+  emilie skill, attack;
+  ororon skill, dash, burst;
+  bennett skill, burst;
+  if is_even(i){
+    emilie burst;
+  }
+  mavuika burst;
+  mavuika charge:2, dash, 
+          charge:2, dash, 
+          charge:2, dash, 
+          charge:2, dash, 
+          charge:2, dash,
+          charge[final=1];
+}

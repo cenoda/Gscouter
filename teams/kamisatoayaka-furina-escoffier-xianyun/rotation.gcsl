@@ -1,0 +1,37 @@
+fn AyakaPlunge() {
+  ayaka jump;
+  if .airborne {
+    ayaka high_plunge[collision=rand()>0.5];
+  }
+}
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, attack, burst;
+  
+  if is_even(i) {
+    esco burst;
+  }
+  esco skill;
+  
+  if .xianyun.skill.cd {
+    xianyun attack:2;
+  }
+  xianyun skill, low_plunge, burst;
+  
+  ayaka skill, dash; 
+  if !.ayaka.burst.ready {
+    ayaka attack;
+  }
+  ayaka burst; 
+  AyakaPlunge(); ayaka attack, dash;
+  AyakaPlunge(); ayaka attack;
+  AyakaPlunge(); ayaka attack;
+  AyakaPlunge();
+  
+  xianyun skill, low_plunge;
+  
+  ayaka skill, dash;
+  AyakaPlunge(); ayaka attack;
+  AyakaPlunge(); ayaka attack;
+  AyakaPlunge();
+}

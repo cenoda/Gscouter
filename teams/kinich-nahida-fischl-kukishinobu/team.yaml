@@ -1,0 +1,17 @@
+id: kinich-nahida-fischl-kukishinobu
+name: Kinich / Nahida / Fischl / Kukishinobu
+members:
+    - kinich
+    - nahida
+    - fischl
+    - kuki
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/bmc7h6PBb9Ph
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 60243
+    computed: "2026-10-02"

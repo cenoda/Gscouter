@@ -1,0 +1,10 @@
+active raiden;
+  raiden skill;
+for let i=0; i<4; i=i+1 {
+  albedo skill, burst;
+  zhongli attack, skill[hold=1], dash;
+  luminedendro attack, skill, burst, attack;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;        
+  luminedendro skill, attack:2; 
+  zhongli attack, burst;             
+}

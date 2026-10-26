@@ -1,0 +1,25 @@
+active furina;
+for let i=0; i<6; i=i+1 {
+  furina attack, skill, dash, burst;
+  bennett burst, skill;
+  if !.element.t0.pyro {
+    bennett attack;
+  }
+  sucrose attack, skill, dash, attack; 
+  if .sucrose.burst.ready {
+    sucrose burst;
+  } else {
+    sucrose attack:2; 
+  }
+  yoimiya skill, attack:5, dash,
+                 attack:5, dash,
+                 attack:5, dash,
+                 attack;
+  if .yoimiya.burst.ready {
+    yoimiya burst;
+  } else {
+    yoimiya attack:3;
+    bennett attack;
+  }
+  bennett skill, attack;
+}

@@ -1,0 +1,24 @@
+active emilie;
+for let x=0; x<4; x=x+1 {
+  
+  if x==0 || !.emilie.burst.ready {
+  emilie skill, attack;
+  } else {
+  emilie burst;
+  }
+  
+  bennett skill, burst;
+  
+  dehya attack, skill;
+  
+  ganyu aim:6;
+  if !.dehya.mods.sacrificial-cd {
+    if .ganyu.burst.ready {
+    ganyu skill, burst;
+    } else {
+    ganyu aim, skill;
+    }
+  } else {
+    ganyu skill;
+  }
+}

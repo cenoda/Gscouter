@@ -1,0 +1,22 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  if ( i / 2 ) * 2 == i {
+    emilie skill, attack;
+  } else {
+    emilie burst;
+  }
+  thoma skill, burst;
+  while !.thoma.mods.favonius-cd {
+    thoma attack;
+  }
+  bennett skill, burst;
+  arle charge, 
+       attack:3, dash,
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:2;
+}

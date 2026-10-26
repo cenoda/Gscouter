@@ -1,0 +1,35 @@
+active mona;
+let mona_normal = 0; 
+for {
+  switch {
+    case .mona.burst.ready:
+      mona burst, attack;
+      let mona_normal = 1;
+    case .mona.skill.ready:
+      mona skill, attack;
+      let mona_normal = mona_normal + 1;
+    case .ineffa.skill.ready:
+      ineffa skill;
+      if .ineffa.burst.ready {
+        ineffa burst;
+      } else {
+        ineffa attack;
+      }
+    case .durin.skill.ready:
+      durin skill:2;
+    case .durin.burst.ready:
+      durin burst;
+    case .kazuha.skill.ready:
+      kazuha skill, high_plunge;
+    case .kazuha.burst.ready:
+      kazuha burst;
+    case .mona.normal < 4:
+      mona attack;
+    case .kazuha.cons == 6 && .kazuha.normal >= 2 && .kazuha.charge.ready:
+      kazuha charge;
+    case .kazuha.cons == 6:
+      kazuha attack;
+    default:
+      mona attack;
+  }
+}

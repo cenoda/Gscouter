@@ -1,0 +1,43 @@
+active mualani;
+fn mualani_combo() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+}
+for let i=0; i<2; i=i+1 {
+  mualani attack;
+  xilonen skill, attack:2;
+  sucrose swap; wait(23);
+  sucrose skill, dash;
+  mavuika burst, charge;
+  if .mavuika.sets.ap >= 4 {
+    pick_up_crystallize("hydro");
+  }
+  mavuika skill;
+  mualani skill;
+  mualani_combo();
+  mualani walk[f=1];
+  sucrose swap; wait(23);  
+  sucrose skill, dash;     
+  mualani burst;
+  
+  mualani attack;
+  xilonen skill, attack:2;
+  sucrose swap; wait(23);
+  sucrose skill, dash;
+  mavuika skill[hold=1];
+  if .mavuika.sets.ap >= 4 {
+    pick_up_crystallize("hydro");
+  }
+  mavuika charge, dash;
+  mualani skill;
+  mualani_combo();
+  mualani skill;
+}

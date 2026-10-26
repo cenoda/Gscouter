@@ -1,0 +1,16 @@
+active nahida;
+for let i=0; i<3; i=i+1 { 
+  nahida skill, burst;
+  xingqiu skill, dash, burst, attack;
+  kirara skill[hold=4], burst, attack;
+  cyno skill, burst, attack, skill;
+   while .cyno.burst.cd>260{
+   if .cyno.skill.ready {
+      cyno skill;
+    } else if .cyno.normal == 4 {
+      cyno dash;
+    } else {
+      cyno attack;
+    }
+    }
+}

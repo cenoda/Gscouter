@@ -1,0 +1,12 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuv skill, attack;
+  raiden attack, skill;
+  nahida skill, burst, attack:2, charge; 
+  dehya attack, skill:2;
+  neuv charge;
+  neuv burst, skill, charge; 
+  nahida skill, attack:2;
+  neuv charge, charge;
+}
+ wait(173);

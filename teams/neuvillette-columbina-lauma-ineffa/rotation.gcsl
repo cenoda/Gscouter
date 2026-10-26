@@ -1,0 +1,14 @@
+active lauma;
+lauma attack;
+for let i=0; i<4; i=i+1 {
+  neuv skill, attack;
+  columbina skill, attack;
+  ineffa attack, skill; wait(12);
+  lauma skill[hold=1], burst;
+  columbina burst;
+  neuv attack, charge, skill, charge, burst;
+  lauma skill[hold=1];
+  ineffa burst;
+  neuv attack, charge:2;
+}
+wait(173);

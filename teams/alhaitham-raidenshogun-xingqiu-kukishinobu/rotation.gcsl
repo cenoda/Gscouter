@@ -1,0 +1,19 @@
+active raiden;
+for let r = 0; r < 5; r = r + 1 {
+  raiden attack,skill;
+  xingqiu skill,dash,burst,attack;
+  alhaitham burst;
+  kuki attack,skill;
+  
+  alhaitham attack:3,dash,
+            attack:3,dash,
+            attack:2,skill,
+            attack:3,dash,
+            attack:3,dash,
+            attack,charge,
+            attack:3,dash,
+            attack:3,dash,
+            attack:3,dash,
+            attack:3;
+         
+}

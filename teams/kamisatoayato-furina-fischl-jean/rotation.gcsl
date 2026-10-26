@@ -1,0 +1,14 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  fischl attack, skill;
+  jean burst, skill;
+  ayato skill, attack:15, burst;
+  jean attack:2, skill, attack;
+  fischl attack:2, burst;
+  if !.ayato.skill.ready {
+    ayato attack;
+  }
+  ayato skill, attack:15;
+  jean skill, attack;
+}

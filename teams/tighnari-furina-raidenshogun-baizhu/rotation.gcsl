@@ -1,0 +1,10 @@
+active raiden;
+for let i=0; i<3; i=i+1 {
+  raiden skill, attack:2;
+	furina skill, dash, burst;
+	baizhu skill, attack, burst, attack;
+	tighnari skill, aim, burst, aim:2;
+	raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+	baizhu skill, attack;
+	tighnari skill, aim, burst, aim:2;
+}

@@ -1,0 +1,35 @@
+active razor; 
+fn RazorPlunge() {
+  razor jump;
+  if .airborne {
+    razor high_plunge[collision=rand()>0.5];
+  }
+}
+for let x = 0; x < 4; x = x + 1 {
+  xianyun skill, low_plunge, burst;
+  
+  if .amy.skill.ready { 
+    amy attack:1, skill; 
+  } else { 
+    amy attack:2, burst; 
+  }
+  
+  rosaria skill;
+  if !.rosaria.mods.favonius-cd {
+    rosaria attack;
+  }
+  rosaria burst;
+  
+  razor skill;
+  if .razor.burst.ready {
+    razor dash, burst, skill;
+  }
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor skill;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor attack;
+}

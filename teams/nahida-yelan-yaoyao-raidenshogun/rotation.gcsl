@@ -1,0 +1,14 @@
+active nahida;
+for let r = 0; r < 5; r = r + 1 {
+  nahida skill, burst, attack;
+  if !r {
+    raiden skill, attack;
+  }
+  yelan skill;
+  while !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  yaoyao skill,attack, burst, attack;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+}

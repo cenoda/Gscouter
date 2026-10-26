@@ -1,0 +1,14 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  bennett skill, attack;
+  chiori skill:2;
+  xilonen skill, attack:2;
+  bennett burst, skill, dash;
+  pick_up_crystallize("pyro");
+  arle charge, 
+       attack:5, dash, 
+       attack:5, dash,
+       attack:5, dash,
+       attack;
+}

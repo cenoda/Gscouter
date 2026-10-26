@@ -1,0 +1,42 @@
+active arlecchino;
+  arlecchino skill;
+  kazuha skill, high_plunge;
+  bennett burst;
+  xiangling burst, skill, dash;
+  
+  kazuha burst;
+  
+  arlecchino charge,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash, 
+             attack:3, dash,
+             attack:3, dash, 
+             attack:3;
+ for let i=0; i<4; i=i+1 {
+  
+  arlecchino skill;
+  
+  bennett burst;
+  
+  if .xiangling.burst.ready{
+    xiangling burst, skill, dash;
+  } else {
+    xiangling attack, skill, dash, attack;
+  }
+  
+  if .kazuha.burst.ready{
+    kazuha burst;
+  } else {
+    kazuha skill, high_plunge;
+  }
+
+  arlecchino charge,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash, 
+             attack:3, dash,
+             attack:3, dash, 
+             attack:3;
+
+}

@@ -1,0 +1,17 @@
+id: yoimiya-yelan-citlali-xilonen
+name: Yoimiya / Yelan / Citlali / Xilonen
+members:
+    - yoimiya
+    - yelan
+    - citlali
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/wwttB6WTChkG
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 52399
+    computed: "2026-09-30"

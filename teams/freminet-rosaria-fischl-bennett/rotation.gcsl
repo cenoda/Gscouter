@@ -1,0 +1,20 @@
+active freminet; 
+fischl skill, attack;
+for let i = 0; i < 4; i = i + 1 {
+  bennett skill, burst;
+  
+  rosaria skill, burst;
+  
+  amy attack;
+  if .amy.burst.ready && .amy.energy == .amy.energymax { 
+    amy attack:1, burst; 
+  } else { 
+    amy skill; 
+  }
+  
+  freminet skill, attack, burst,
+         attack:2, skill, skill,
+         attack:2, skill, attack, skill,  
+         attack:2, skill, attack, skill,
+         attack:2, skill;
+}

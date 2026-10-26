@@ -1,0 +1,37 @@
+let ttds_extend = 0;
+active varka;
+for let x=0; x<6; x=x+1 {
+  furina skill, dash;
+  if .furina.burst.ready && .furina.energy == .furina.energymax  {
+    furina burst;
+    ttds_extend = 1;
+  } else {
+    furina attack;
+    ttds_extend = 0;
+  }
+  prune burst, skill;
+  mona skill, burst, attack;
+  if ttds_extend == 1 { 
+    
+    varka skill, 
+          attack, charge, walk, 
+          attack, charge, walk, 
+          attack, charge, walk, 
+          attack:2, skill,
+          attack, charge, walk, 
+          attack, charge, walk, 
+          attack, charge, walk, 
+          attack, skill, 
+          attack:2; 
+  } else {
+
+    varka skill, 
+          attack, charge, walk,
+          attack:4, skill, 
+          attack, charge, walk,
+          attack, charge, walk,
+          attack, charge, walk,
+          attack, skill, 
+          attack:2;
+  }
+}

@@ -1,0 +1,18 @@
+active fischl;
+for let i=0; i<4; i=i+1{
+  nahida skill, attack;
+  fischl attack:2, burst;
+  if i {
+    yae attack, burst;
+  }
+  yae skill, attack, skill, attack, skill; 
+
+  mizuki skill, burst;
+  while .mizuki.status.dreamdrifter-state {
+    wait(1);
+  }
+  fischl attack, skill;
+  yae attack, skill, attack, skill, attack, skill;
+  nahida skill, attack, burst, charge;
+  mizuki attack:3, dash, attack:3;
+}

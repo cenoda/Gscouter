@@ -1,0 +1,25 @@
+active gorou;
+  lisa skill[hold=1], burst;
+  gorou skill, burst;
+  albedo attack, skill, attack;
+  itto attack,burst[prestack=1],
+    attack,skill[travel=0],
+    attack:2,charge:5,
+    attack:4,charge:5,
+    skill[travel=0],charge;
+  wait(20);
+for let i=0; i<4; i=i+1 {
+  gorou attack:2, skill;
+  albedo attack, skill,attack;
+  lisa skill[hold=1];
+  while !.lisa.burst.ready {
+    lisa attack;
+  }
+  lisa burst;
+  gorou attack, burst;
+  itto attack,burst[prestack=1],
+    attack,skill[travel=0],charge:4,
+    attack:3,charge:4,
+    attack:3,skill[travel=0],charge:4;
+  wait(1);
+}

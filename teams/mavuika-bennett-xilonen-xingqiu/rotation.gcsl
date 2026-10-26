@@ -1,0 +1,32 @@
+active mavuika;
+mavuika skill;
+for let i = 0; i<4; i=i+1 {
+  if i {
+    bennett skill;
+  }
+  bennett burst;
+  xilonen skill, attack:2;
+  if .xingqiu.skill.ready {
+    xingqiu skill, dash;
+  } else {
+    xingqiu burst, attack, dash;
+  }
+  pick_up_crystallize("pyro");
+  mavuika burst, 
+          charge, dash, attack,
+          charge, dash, attack, 
+          charge, dash, attack,
+          charge, dash, attack,
+          charge, dash, attack,
+          charge, dash, attack;
+  if i {
+    mavuika skill;
+    wait(33);
+  }
+  mavuika charge, dash, attack;
+  if !i { 
+    mavuika skill;
+  }
+  mavuika charge:3;
+        
+}

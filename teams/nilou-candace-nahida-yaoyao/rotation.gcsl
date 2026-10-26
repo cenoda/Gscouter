@@ -1,0 +1,22 @@
+active nilou;
+for let i = 0; i < 5; i = i + 1 {
+  nilou skill, attack:2, skill;
+  nahida skill, attack, burst, attack, charge;
+  candace skill, burst, attack:2;
+  yaoyao burst, dash,
+   attack, dash,
+   attack, jump,
+   attack, jump,
+   attack, dash,
+   attack, dash,
+   attack, jump,
+   skill;
+  nahida skill, attack, charge;
+  candace skill, attack:3;
+  nilou attack;
+  if .nilou.burst.ready {
+    nilou burst;
+  } else {
+    nilou attack:2;
+  }
+}

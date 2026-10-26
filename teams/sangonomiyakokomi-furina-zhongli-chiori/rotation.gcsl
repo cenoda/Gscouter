@@ -1,0 +1,31 @@
+active kokomi;
+for let x=0; x<4; x=x+1 {
+  kokomi skill;
+  furina skill;
+  zhongli attack,skill[hold=1],dash;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  pick_up_crystallize("hydro");
+  furina attack,burst;
+  chiori skill:2;
+  
+  kokomi attack, burst,
+        attack:2, dash,
+        attack:2, dash,
+        attack:2, walk,
+        attack:2, dash,
+        attack:2, dash,
+        attack:2, walk,
+        attack:2, dash,
+        attack:2, dash,
+        attack:2, walk,
+        attack:2, dash,
+        attack:2; 
+  if .chiori.burst.ready {
+    chiori burst;
+  } else {
+    kokomi attack:3;
+  }
+  kokomi attack:3;
+}

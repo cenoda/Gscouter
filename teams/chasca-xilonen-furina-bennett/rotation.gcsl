@@ -1,0 +1,23 @@
+active furina;
+furina skill, dash; 
+for let i=0; i<4; i=i+1 {
+  xilonen skill, attack:2, burst, attack;
+  if i {
+    furina skill, dash;
+  } else {
+    xilonen attack:2;
+  }
+  furina attack, burst;
+  bennett skill, burst;
+  if !.element.t0.pyro && !.element.t0.hydro {
+    bennett attack;
+  } 
+  xilonen skill, attack:2;
+  chasca skill;
+  chasca aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}

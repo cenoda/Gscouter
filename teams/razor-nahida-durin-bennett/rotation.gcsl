@@ -1,0 +1,27 @@
+active razor; 
+for let i=0; i<4; i=i+1 {
+  
+  nahida skill;
+  if i > 0 && .nahida.burst.ready && .nahida.energy == .nahida.energymax {
+    nahida burst;
+  } else {
+    nahida attack, charge;
+  }
+  
+  durin skill:2, burst; 
+  bennett skill, dash, burst;
+  
+  if i == 0 {
+    razor skill;
+  } else {
+    razor skill[hold=1];
+  }
+  razor dash, attack, burst;
+  razor attack:1, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+}

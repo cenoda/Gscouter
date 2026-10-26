@@ -1,0 +1,38 @@
+active furina;
+fn kinich_combo() {
+  kinich skill;
+  while .kinich.nightsoul.state {
+    switch .kinich.nightsoul.points {
+      case 20:
+        kinich skill[hold=1];
+      default:
+        if .kinich.blind_spot {
+          kinich attack[direction=.kinich.blind_spot];
+        } else {
+          kinich attack;
+        }
+    }
+  }
+}
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  if !.furina.mods.favonius-cd {
+    furina attack;
+  }
+  
+  baizhu skill, attack, burst;
+  if !.baizhu.mods.favonius-cd {
+    baizhu attack;
+  }
+  
+  thoma skill, burst;
+  if !.thoma.mods.favonius-cd {
+    thoma attack;
+  }
+  
+  kinich_combo();
+  kinich attack;
+  if .kinich.burst.ready && .kinich.energy == .kinich.energymax {
+    kinich burst;
+  }
+}

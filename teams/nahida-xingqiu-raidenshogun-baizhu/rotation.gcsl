@@ -1,0 +1,15 @@
+active raiden;
+raiden skill;
+ 
+for let i = 0; i < 4; i = i + 1 {
+xingqiu skill, burst, attack;
+nahida skill, attack, burst, attack;
+baizhu attack, burst, attack, skill, attack;
+raiden burst,
+       attack:4, dash,
+       attack:4, skill,
+       attack:4, dash,
+       attack:4;
+baizhu skill, attack;
+nahida attack, charge, jump;
+}

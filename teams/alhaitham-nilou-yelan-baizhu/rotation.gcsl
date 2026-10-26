@@ -1,0 +1,13 @@
+active nilou;
+for let r = 0; r < 6; r = r + 1 {
+  nilou skill, attack:2, skill;
+  baizhu skill, burst, attack;
+  yelan skill, burst, attack;
+  alhaitham skill, attack:3, charge, attack:4;
+  
+  baizhu attack, skill, attack;
+  alhaitham burst;
+  yelan skill, attack:2;
+  alhaitham attack:3, jump,
+            attack:3, jump, attack:2;
+}

@@ -1,0 +1,13 @@
+active lisa;
+    lisa attack;
+for let i=0; i<5; i=i+1 {
+    kazuha skill, high_plunge, burst;
+    fischl attack, burst;
+    kirara skill, burst;
+    lisa attack, burst, attack, charge, attack:2, charge, attack:2;
+    kazuha skill, high_plunge;
+    kirara skill[short_hold=1];
+    fischl attack, skill;
+    lisa skill, attack:3, skill, attack:3, charge, skill[hold=1], attack;
+    print("rotation done");
+}

@@ -1,0 +1,16 @@
+active diluc; 
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  chevreuse attack, skill[hold=1], burst;
+  
+  xianyun attack, skill, low_plunge, burst, attack;
+  
+  diluc skill, burst, skill:2;
+  delay (15);
+  for let h = 0; h < 8; h = h + 1 {
+    diluc dash, jump;
+    if .airborne { 
+      diluc high_plunge[collision=rand()>0.5];
+    }
+  }
+}

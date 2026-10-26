@@ -1,0 +1,20 @@
+active tartaglia;
+for let i=0; i<4; i=i+1 {
+  if .tartaglia.skill.ready {
+    tartaglia walk, skill, attack;
+    diona burst;
+  } else {
+    diona burst;
+    tartaglia aim;
+  }
+  kazuha burst, skill, high_plunge;
+  ayaka dash, skill, burst;
+  tartaglia burst, walk, skill,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:3, charge, dash;
+  kazuha skill[hold=1], high_plunge;
+  ayaka dash, skill, attack;
+  diona attack, skill[hold=1];
+  ayaka attack:2, charge;
+}

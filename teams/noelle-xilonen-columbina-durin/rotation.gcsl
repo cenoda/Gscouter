@@ -1,0 +1,22 @@
+active noelle; 
+for let i=0; i<4; i=i+1 {
+  durin skill, attack, burst;  
+  
+  if .columbina.burst.ready {
+    columbina skill, burst;
+  } else {
+    columbina attack, skill;
+  }
+  
+  xilonen skill, attack:2;
+  
+  noelle skill, burst, attack:3, dash, attack:3, dash, attack:2;
+  
+  xilonen skill, attack:2;
+  
+  noelle attack:3, dash, attack:3, dash, attack:1;
+  
+  if is_even(i) {
+    noelle attack;
+  }
+}

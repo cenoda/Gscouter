@@ -1,0 +1,17 @@
+id: chasca-xilonen-furina-bennett
+name: Chasca / Xilonen / Furina / Bennett
+members:
+    - chasca
+    - xilonen
+    - furina
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Th7tPNnBwqRM
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 66795
+    computed: "2026-10-01"

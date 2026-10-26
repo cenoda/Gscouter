@@ -1,0 +1,24 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill; delay(11);
+  bennett skill, burst;
+  let eq=0;
+  if i && .emilie.burst.ready {
+    emilie burst;
+    eq=1;
+  } else {
+    emilie skill, attack;
+  }
+  kazuha skill, high_plunge;
+  if eq==0 && .kaz.burst.ready {
+    kaz burst;
+  }
+  arle charge, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3;
+  
+}

@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+dehya char lvl=90/90 cons=1 talent=9,9,9;
+dehya add weapon="serpentspine" refine=1 lvl=90/90 +params=[stacks=5];
+dehya add set="eosf" count=4;
+dehya add stats hp=4780 atk=311 er=0.518 pyro%=0.466 cd=0.622;
+dehya add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.2204 em=39.64 cr=0.3972 cd=0.662;
+
+bennett char lvl=90/90 cons=6 talent=9,9,9;
+bennett add weapon="alleyflash" refine=1 lvl=90/90;
+bennett add set="no" count=4;
+bennett add stats hp=4780 atk=311 er=0.518 pyro%=0.466 cr=0.311;
+bennett add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1653 em=79.28 cr=0.2979 cd=0.7944;
+
+citlali char lvl=90/90 cons=0 talent=9,9,9;
+citlali add weapon="favcodex" refine=3 lvl=90/90;
+citlali add set="scroll" count=4;
+citlali add stats hp=4780 atk=311 em=187 em=187 cr=0.311;
+citlali add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.3857 em=39.64 cr=0.331 cd=0.5958;
+
+kazuha char lvl=90/90 cons=0 talent=9,9,9;
+kazuha add weapon="favsword" refine=3 lvl=90/90;
+kazuha add set="vv" count=4;
+kazuha add stats hp=4780 atk=311 er=0.518 em=187 em=187;
+kazuha add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.2204 em=158.56 cr=0.3972 cd=0.2648;

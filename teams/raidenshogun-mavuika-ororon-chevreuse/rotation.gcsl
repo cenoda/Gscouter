@@ -1,0 +1,14 @@
+active mavuika;
+for let i = 0; i < 4; i = i + 1 {
+  ororon skill, burst;
+  chev burst, skill[hold=1];
+  mavuika burst, charge:2, dash, charge:2, dash, charge:2, dash, charge:2, dash, charge, dash, skill; 
+  if !i {
+    raiden skill;
+  }
+  raiden burst;
+  for let x = 0; x < 5; x = x + 1 {
+     raiden attack, charge, dash;
+  }
+  raiden attack, charge, skill;
+}

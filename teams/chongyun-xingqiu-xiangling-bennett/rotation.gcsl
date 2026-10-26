@@ -1,0 +1,17 @@
+active chongyun;
+	
+for let i=0; i<4; i=i+1 {
+  chongyun attack, skill;
+  bennett burst, skill;                 
+  chongyun burst, dash;                 
+  xiangling burst, dash;
+  set_player_pos (0,-1);                
+  xingqiu burst, dash;
+  set_player_pos (0,0);
+  xingqiu skill, dash, attack:2;        
+  xiangling skill, dash, attack:2;
+  bennett skill, attack;
+  xiangling attack:3, dash, attack:3;   
+  bennett skill, attack;
+  xingqiu attack:3;
+}

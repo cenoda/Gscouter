@@ -1,0 +1,26 @@
+active durin;
+for let i=0; i<4; i=i+1 {
+  durin skill, skill, burst;
+  bennett skill, burst;
+  if is_even(i) {
+    fischl attack, skill, attack;
+  } else {
+    fischl attack:2, burst;
+  }
+  lyney aim:3;
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(11);
+    lyney skill;
+  } else {
+    lyney aim;
+  }
+  if i<3 {
+    lyney skill;
+    lyney aim:2;
+  } else {
+    lyney aim:2;
+    lyney skill;
+  }
+  
+}

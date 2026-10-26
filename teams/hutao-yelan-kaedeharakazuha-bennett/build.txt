@@ -1,0 +1,21 @@
+# Build from the source config, used to validate the rotation.
+
+hutao char lvl=90/90 cons=1 talent=10,10,10;
+hutao add weapon="staffofthescarletsands" refine=1 lvl=90/90;
+hutao add set="shimenawasreminiscence" count=4;
+hutao add stats def%=0.124 def=39.36 hp=5287.88 hp%=0.0992 atk=344.08 atk%=0.0992 er=0.1102 em=266.28 cr=0.3972 cd=1.284 pyro%=0.466;
+
+yelan char lvl=90/90 cons=2 talent=10,10,10;
+yelan add weapon="elegyfortheend" refine=1 lvl=90/90;
+yelan add set="emblemofseveredfate" count=4;
+yelan add stats def%=0.124 def=39.36 hp=5287.88 hp%=0.6644 atk=344.08 atk%=0.0992 er=0.1102 em=39.64 cr=0.642 cd=0.7944 hydro%=0.466;
+
+kazuha char lvl=90/90 cons=0 talent=10,10,10;
+kazuha add weapon="xiphosmoonlight" refine=1 lvl=90/90;
+kazuha add set="viridescentvenerer" count=4;
+kazuha add stats def%=0.124 def=39.36 hp=5287.88 hp%=0.0992 atk=344.08 atk%=0.0992 er=0.1102 em=679.92 cr=0.3641 cd=0.5958;
+
+bennett char lvl=90/90 cons=6 talent=10,10,10;
+bennett add weapon="alleyflash" refine=1 lvl=90/90;
+bennett add set="instructor" count=4;
+bennett add stats def%=0.124 def=39.36 hp=4078.88 hp%=0.0992 atk=265.08 atk%=0.0992 er=0.9588000000000001 em=39.64 cr=0.3644 cd=0.3972 pyro%=0.348;

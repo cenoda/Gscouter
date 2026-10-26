@@ -1,0 +1,17 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+	furina skill, attack, burst;
+	
+	bennett burst, skill;
+	
+	yelan burst, skill;
+	while !.yelan.mods.favonius-cd {
+		yelan attack;
+	}
+	wrio  skill,
+				attack:5, charge, dash,
+				attack:5, charge, dash,
+				attack:5, charge, dash;  
+	
+	yelan skill, attack:6;
+}

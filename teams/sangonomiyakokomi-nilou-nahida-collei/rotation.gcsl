@@ -1,0 +1,11 @@
+active nahida;
+for let i=0; i<5; i=i+1 {
+  nahida skill, burst;
+  kokomi skill, attack;
+  nilou skill:4;
+  collei skill, burst;
+  kokomi burst;
+  kokomi attack:15;
+  nahida attack:2, charge;
+  print("done");
+}

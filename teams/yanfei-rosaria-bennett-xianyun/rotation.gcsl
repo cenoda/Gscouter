@@ -1,0 +1,26 @@
+fn yanfei_plunge() {
+  yanfei jump;
+  if.airborne{
+    yanfei high_plunge[collision=rand()>0.5];
+  }
+}
+active yanfei;
+yanfei skill;
+for let x = 0; x < 4; x = x + 1 {
+  xianyun skill, low_plunge, burst;
+  
+  bennett skill, burst;
+  
+  rosaria skill, burst;
+
+  yanfei_plunge(); yanfei dash;
+  yanfei_plunge(); wait(50);
+  yanfei_plunge(); wait(65);
+  yanfei_plunge(); wait(65);
+  yanfei_plunge(); wait(65);
+  yanfei_plunge(); yanfei attack;
+  yanfei skill;
+  
+  bennett skill;
+  
+}

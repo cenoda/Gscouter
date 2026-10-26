@@ -1,0 +1,19 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  xilonen burst;
+  
+  furina skill, dash, burst;
+  
+  citlali skill, burst;
+  
+  xilonen skill, attack:2; pick_up_crystallize("any");
+  
+  freminet skill, burst, skill;
+  freminet skill:2, attack:2;
+  freminet skill:2, attack:2;
+  freminet skill:2, attack:2;
+  freminet skill:2, attack:2;
+  freminet skill:2;
+  
+  xilonen skill, attack:2;
+}

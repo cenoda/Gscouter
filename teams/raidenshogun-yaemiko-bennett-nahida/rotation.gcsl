@@ -1,0 +1,9 @@
+active raiden;
+  raiden skill;
+for let rot=0; rot<5; rot=rot+1 {
+  yae skill:3;
+  nahida skill, burst;
+  bennett skill, burst;
+  yae attack, burst, skill:3;
+  raiden attack, burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;                                
+}

@@ -1,0 +1,19 @@
+active gaming; 
+gaming skill, high_plunge; 
+for let x = 0; x < 4; x = x + 1 {
+  xianyun skill, low_plunge, burst;
+  
+  bennett skill, burst;
+  
+  chongyun burst, skill;
+  
+  gaming skill, high_plunge, attack, burst;
+  for let p=0; p<3; p=p+1 {
+    while !.element.t0.cryo && .status.chongyunfield {
+      gaming attack;
+    }
+    gaming skill, high_plunge;
+  }
+  
+  bennett skill;
+}

@@ -1,0 +1,17 @@
+id: yaemiko-furina-ororon-xianyun
+name: Yaemiko / Furina / Ororon / Xianyun
+members:
+    - yae
+    - furina
+    - ororon
+    - xianyun
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/7tb6mrGBFhDp
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 70398
+    computed: "2026-10-02"

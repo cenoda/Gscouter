@@ -1,0 +1,49 @@
+fn mualani_combo() {
+  mualani skill;
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 { 
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+}
+active mavuika; 
+for let i=0; i<3; i=i+1 {
+  if (i==0) {
+    candace skill, burst;
+  } else {
+    candace skill, burst, attack:2;
+  }
+  
+  if .sucrose.skill.ready { 
+    sucrose skill;
+  } else {
+    sucrose attack:2; 
+  }
+  
+  mavuika burst, charge, skill, dash;
+  mualani_combo();
+  mualani burst;
+  mualani attack;
+  
+  if .sucrose.skill.ready { 
+    sucrose skill;
+  } else {
+    sucrose attack:2; 
+  }
+  
+  candace attack, skill, burst;
+  
+  mavuika burst, charge, skill, dash;
+  mualani_combo();
+  mualani skill;
+
+  if .sucrose.skill.ready { 
+    sucrose attack, skill;
+  } else {
+    sucrose attack, charge; 
+  }
+}

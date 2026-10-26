@@ -1,0 +1,34 @@
+active kokomi;
+for let i = 0; i < 4; i = i + 1 {
+  kokomi skill;
+
+  nahida skill, attack, charge; 
+  
+  furina skill, dash, burst;
+  
+  if .mav.burst.ready {
+    mav burst, dash, charge, skill, dash;
+  } else {
+    mav attack, skill;
+  }
+  
+  kokomi attack, burst;
+  while .status.kokomiburst {
+    if .kokomi.normal > 2 {
+      kokomi walk;
+    } else {
+      kokomi attack;
+    }
+  }
+
+  nahida attack:2, charge; 
+
+  while .kokomi.skill.cd {
+    if .nahida.normal > 2 {
+      nahida walk;
+    } else {
+      nahida attack;
+    }
+  }
+  print("done");
+}

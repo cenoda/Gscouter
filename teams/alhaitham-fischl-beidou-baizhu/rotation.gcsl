@@ -1,0 +1,39 @@
+let stddev = 3;
+let mean = 12;
+fn swap_delay() {
+  let del = randnorm() * stddev + mean;
+  delay(del);
+}
+	
+active beidou;
+for let i = 0; i < 3; i = i + 1 {
+  fischl attack:2, skill;
+  swap_delay();
+  baizhu skill, attack, burst;
+  swap_delay();
+  beidou skill, burst;
+  swap_delay();
+  alhaitham skill, 
+            attack:3, charge,
+            attack:3, dash,
+            attack:2;
+  swap_delay();
+  fischl attack:2, burst;
+  swap_delay();
+  beidou skill, attack;
+  swap_delay();
+  alhaitham burst;
+  swap_delay();
+  baizhu attack, skill;
+  wait(7);                 
+  swap_delay();
+  alhaitham attack:3, dash,
+            attack:3, charge, 
+            attack:3, dash,
+            attack:3, dash, 
+            attack:2;
+  if (i < 2) {
+    swap_delay();
+    fischl swap;
+  }
+}

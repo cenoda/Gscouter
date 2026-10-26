@@ -1,0 +1,33 @@
+active bennett;
+for let i=0; i<4; i=i+1 {
+  bennett skill, burst;
+
+  if !.amy.skill.ready {
+    amy attack:2, burst;
+  } else {
+    amy attack, skill;
+  }
+
+  if .chev.burst.ready {
+    chev burst, skill[hold=1]:2;
+  } else {
+    chev skill[hold=1], attack;
+  }
+  
+  while .aetherpyro.mods.bennett-field || .status.bennettburst { 
+    switch {
+      case .aetherpyro.skill.ready:
+        aetherpyro skill[hold=1], attack:1, charge;
+      case .aetherpyro.burst.ready: 
+        aetherpyro burst;
+      case .aetherpyro.normal > 2 && .stam > 25: 
+        aetherpyro charge;
+      case .aetherpyro.normal > 3 && .aetherpyro.dash.ready && .stam > 18: 
+        aetherpyro dash;
+      default:
+        aetherpyro attack;
+    }
+  }
+  
+  print("done");
+}

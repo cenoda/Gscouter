@@ -1,0 +1,13 @@
+active xilonen;
+for let i=0; i<4; i=i+1 {
+  xilonen burst;
+  furina skill, attack, burst;
+  xilonen skill, attack:2;
+  yunjin skill, attack, burst, attack, dash;
+  pick_up_crystallize("hydro");
+  yoimiya skill, 
+          attack:5, dash,
+          attack:5, dash,
+          attack:5, dash,
+          attack:3;
+}

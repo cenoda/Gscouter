@@ -1,0 +1,55 @@
+fn rand_delay(mean, stddev, min, max) {
+  
+  let del = randnorm() * stddev + mean;
+
+  if del < min {
+    del = min;
+  } else if del > max {
+    del = max;
+  }
+
+  delay(del);
+}
+let prev_char_id = -1;
+let prev_action_id = -1;
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+
+  if prev_char_id != char_id && action_id != .action.swap {
+    execute_action(char_id, .action.swap, []);
+  }
+
+  if action_id == .action.swap {
+
+    rand_delay(14, 4, 6, 20);
+  } else if prev_action_id != .action.swap  {
+
+    rand_delay(2, 4, 0, 8);
+  } else if prev_action_id == .action.swap {
+
+    rand_delay(12, 6, 6, 18);
+  }
+  
+  prev_char_id = char_id;
+  prev_action_id = action_id;
+  return _execute_action(char_id, action_id, p);
+}
+active wrio;
+wrio attack;
+for let rot=0; rot<4; rot=rot+1 {
+  zhongli skill[hold=1], dash;
+  chiori skill:2;
+  shenhe skill[hold=1]; pick_up_crystallize("cryo");
+  if .shenhe.energy == .shenhe.energymax {
+    shenhe burst;
+  }
+  wrio skill;
+  for let n3cj=0; n3cj<5; n3cj=n3cj+1 {
+    wrio attack:3, charge, jump;
+  }
+  if .wrio.energy == .wrio.energymax {
+    wrio burst;
+  } else {
+    wrio attack:2, charge;
+  }
+}

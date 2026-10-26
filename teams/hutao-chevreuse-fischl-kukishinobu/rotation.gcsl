@@ -1,0 +1,31 @@
+active kuki;
+for let i=0; i<4; i=i+1 {
+  kuki skill;
+  if .chev.burst.ready && .chev.energy == .chev.energymax {
+    chev burst, skill[hold=1]:3;
+  } else {
+    chev skill[hold=1];
+  }
+  
+  fischl attack;
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack, burst;
+  }
+  
+  hutao skill,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:3, charge, jump,
+        attack:2;
+  if .hutao.burst.ready && .hutao.energy == .hutao.energymax {
+    hutao burst;
+  } else { 
+    hutao charge, jump;
+  }
+  
+}

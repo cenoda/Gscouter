@@ -1,0 +1,9 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 4; i = i + 1
+{ lisa attack, burst;
+  xingqiu burst, skill, dash, attack:2;
+  xiangling burst, attack, skill, dash;
+  raiden attack, burst, attack:4, dash, attack:4, dash, attack:4, dash, attack:4;
+  raiden skill, attack:2;
+  lisa attack:1, skill[hold=1], attack:2; }

@@ -1,0 +1,22 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  
+  dori skill, attack:2;
+  
+  if i == 0 {
+    lauma attack, skill[hold=0];
+  } else {
+    lauma attack, skill[hold=1];
+  }
+  
+  alhaitham burst;
+  
+  dori burst;
+  
+  haitham attack:3, dash,
+          attack:3;
+  haitham skill, attack:3, charge,
+          attack:3, charge,
+          attack:3, charge;
+}

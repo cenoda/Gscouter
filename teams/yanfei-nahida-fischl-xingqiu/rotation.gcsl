@@ -1,0 +1,38 @@
+active fischl;
+for let i=0; i<4; i=i+1 {
+  fischl attack, skill;
+  nahida skill, attack, burst;
+
+  xingqiu skill, dash, burst, attack;
+
+  yanfei attack;
+  if .yanfei.burst.ready {
+    yanfei burst;
+  }
+  while .fischl.oz {
+    if .yanfei.skill.ready && .yanfei.mods.yanfei-a1 && .previous-action == .action.attack {
+      yanfei skill;
+    } else if .yanfei.mods.yanfei-seal && .stam > 25 && .previous-action == .action.attack {
+      yanfei charge;
+    } else {
+      yanfei attack;
+    }
+  }
+  
+  fischl attack:2, burst;
+  
+  yanfei attack;
+  while .xingqiu.mods.xingqiuburst {
+  
+    if .yanfei.skill.ready && .yanfei.mods.yanfei-a1 && .previous-action == .action.attack {
+      yanfei skill;
+    } else if .yanfei.burst.ready && .previous-action == .action.attack && .yanfei.energy == .yanfei.energymax {
+      yanfei burst;
+    } else if .yanfei.mods.yanfei-seal && .stam > 25 && .previous-action == .action.attack {
+      yanfei charge;
+    } else {
+      yanfei attack;
+    }
+  }
+  
+}

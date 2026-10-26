@@ -1,0 +1,24 @@
+active dori;
+  dori skill, burst;
+  gorou skill, burst;
+  albedo attack, skill;
+  
+  itto attack, burst[prestack=1], 
+       attack, skill, attack:2, charge:5, 
+       attack:4, charge:5, 
+       skill[travel=0], charge;
+       sleep(21); 
+
+  for let i=0; i<4; i=i+1 {
+  
+  while !.dori.status.favonius-cd { dori attack; }
+  dori skill, burst;
+  gorou attack:2, skill, burst;
+  albedo attack, skill, attack;
+  
+  itto attack, burst[prestack=1], 
+       attack, skill, charge:4,
+       attack:3, charge:4, 
+       attack:3, skill, charge:4; 
+
+  }

@@ -1,0 +1,19 @@
+active baizhu;
+for let i=0; i<4; i=i+1 {
+  baizhu attack, dash, burst;
+  xingqiu skill, dash, burst, attack:2;
+  if .kuki.burst.ready {
+    kuki burst;
+  }
+  baizhu attack, skill;
+  alhaitham burst, attack;
+  kuki attack, skill;
+  alhaitham attack:3, dash,
+            attack:3, dash,
+            attack, charge,
+            attack:3;
+  baizhu attack, skill, attack;
+  alhaitham skill[hold=1], low_plunge,
+            attack:3, dash,
+            attack:3, charge;
+}

@@ -1,0 +1,28 @@
+active ineffa;
+for let i = 0; i < 4; i = i + 1 {
+  if i > 0  && .ineffa.burst.ready {
+    ineffa skill, burst;
+  } else {
+    ineffa skill;
+  }
+  
+  furina skill, dash, burst;
+  
+  bennett burst, skill, dash, attack; 
+  
+  if .fischl.skill.ready { 
+    fischl attack:1, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  
+  while .status.bennettburst || .bennett.infusion.bennett-fire-weapon {
+    if .bennett.skill.ready {
+      bennett skill;
+    } else if .bennett.normal > 2 {
+      bennett charge, dash;
+    } else {
+      bennett attack;
+    }
+  }
+}

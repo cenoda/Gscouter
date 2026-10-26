@@ -1,0 +1,23 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  if is_even(i){
+    furina skill, dash; 
+    albedo skill, attack;
+  } else {
+    furina burst;
+  }
+  if i > 0 && .albedo.burst.ready {
+    
+  } else {
+    
+  }
+  citlali skill, burst; 
+  chasca skill, aim:4;
+  
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  } 
+}
+wait(82);

@@ -1,0 +1,39 @@
+active gorou;
+for let i=0; i<4; i=i+1 {
+  gorou skill;
+  if .gorou.burst.ready {
+    gorou burst;
+  }
+  if !.gorou.mods.favonius-cd {
+    gorou attack;
+  }
+  albedo skill;
+  if i > 0 && .albedo.burst.ready {
+    albedo burst;
+  } else {
+    albedo attack;
+  }
+  
+  if i > 0 && .chiori.burst.ready {
+    chiori burst;
+  }
+  while .chiori.skill.cd {
+    if .chiori.normal > 1 {
+      chiori charge;
+    } else {
+      chiori attack;
+    }
+  }
+  chiori skill:2;
+  
+  if .gorou.burst.ready && .xilonen.skill.cd {
+    gorou burst;
+  }
+  xilonen skill;
+  while .xilonen.nightsoul.state {
+    xilonen attack;
+    if .xilonen.burst.ready {
+      xilonen burst;
+    }
+  }
+}

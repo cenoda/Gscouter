@@ -1,0 +1,17 @@
+id: yoimiya-yelan-ororon-bennett
+name: Yoimiya / Yelan / Ororon / Bennett
+members:
+    - yoimiya
+    - yelan
+    - ororon
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/zHndjhRCT9kP
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 60076
+    computed: "2026-09-30"

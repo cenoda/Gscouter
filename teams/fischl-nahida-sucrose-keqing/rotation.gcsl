@@ -1,0 +1,104 @@
+let n = 2;
+let m = 6;
+fn rand_delay() {
+  let del = rand() * (m - n + 1) + n;
+  delay(del);
+  print(del);
+}
+active fischl;
+for let r = 0; r < 4; r = r + 1 { 
+  rand_delay();
+  fischl attack:2;
+  rand_delay();
+  fischl burst;
+  rand_delay();
+  nahida swap;
+  rand_delay();
+  nahida skill;
+  rand_delay();
+  nahida burst;
+  rand_delay();
+  sucrose swap;
+  rand_delay();
+  sucrose attack;
+  while !.element.t0.electro {
+    sucrose attack;
+  }
+  rand_delay();
+  sucrose skill;
+  rand_delay();
+  sucrose dash;
+  rand_delay();
+  if .sucrose.burst.ready {
+    rand_delay();
+    sucrose burst;
+    rand_delay();
+  }
+  keqing swap;
+  rand_delay();
+  keqing skill;
+  rand_delay();
+  keqing burst;
+  rand_delay();
+  keqing skill;
+  rand_delay();
+  keqing attack, charge;
+  rand_delay();
+  keqing attack, charge;
+  rand_delay();
+  keqing attack, skill;
+  rand_delay();
+  keqing attack, charge;
+  rand_delay();
+  keqing attack, charge;
+
+  rand_delay();
+  fischl swap;
+  rand_delay();
+  fischl skill;
+  rand_delay();
+  fischl attack;
+  rand_delay();
+  nahida swap;
+  rand_delay();
+  nahida skill;
+  rand_delay();
+  nahida attack:2;
+  rand_delay();
+  sucrose swap;
+  rand_delay();
+  while !.element.t0.electro {
+    sucrose attack;
+    if .element.t0.electro {
+      rand_delay();
+    }
+  }
+  sucrose skill;
+  rand_delay();
+  sucrose dash;
+  rand_delay();
+  sucrose attack;
+  rand_delay();
+  keqing swap;
+  rand_delay();
+  keqing skill;
+  rand_delay();
+  keqing burst;
+  rand_delay();
+  keqing skill;
+  rand_delay();
+  keqing attack, charge;
+  rand_delay();
+  keqing attack, charge;
+  rand_delay();
+  keqing attack, skill;
+  rand_delay();
+  keqing attack, charge;
+  rand_delay();
+  keqing attack, charge;
+  
+  if (r > 1) {
+    rand_delay();
+    fischl swap;
+  }
+}

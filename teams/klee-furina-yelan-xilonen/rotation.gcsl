@@ -1,0 +1,33 @@
+active klee;
+klee attack; 
+for let i = 0; i < 5; i = i + 1 {
+  
+  xilonen skill, attack:2, burst;
+  furina skill, dash,  burst;
+  yelan burst, attack;
+  if i && .yelan.breakthrough {
+    yelan aim;
+  } else if i {
+    yelan attack:2;
+  }
+  xilonen skill, attack:2;
+  yelan skill, attack;
+  
+  klee attack, burst, walk,
+       attack[travel=6], charge, 
+       attack[travel=6], charge;
+  if !i {
+    klee attack, skill[bounce=3, mine=8], jump;
+  }
+  klee attack[travel=6], charge,
+       attack, skill[bounce=3, mine=8], jump;
+  if i {
+    klee attack[travel=6], charge;
+  }
+  klee attack[travel=6], charge, 
+       attack[travel=6], charge,
+       attack;
+  
+  yelan skill, attack:2;
+  
+}

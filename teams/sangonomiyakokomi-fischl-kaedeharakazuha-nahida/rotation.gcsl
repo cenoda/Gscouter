@@ -1,0 +1,18 @@
+active fischl;
+for let i=0; i<4; i=i+1 {
+    fischl skill;
+    kazuha attack, skill, high_plunge;
+    kokomi attack, skill;
+    nahida skill[hold=1], burst;
+    kazuha attack, skill, high_plunge, burst;
+    fischl burst;
+    nahida attack:2, skill;
+    
+    kokomi burst;
+    while .fischl.oz {
+        if .kokomi.normal == 3 { kokomi dash, walk[f=2]; }
+        kokomi attack;
+    }
+    while !.fischl.skill.ready { fischl attack; }
+
+}

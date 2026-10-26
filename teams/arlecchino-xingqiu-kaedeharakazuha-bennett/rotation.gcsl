@@ -1,0 +1,17 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill, attack;
+  xingqiu attack, skill, dash, burst, attack;
+  bennett skill, dash;
+  set_player_pos(0,-2);
+  bennett burst;
+  kazuha skill[hold=1], high_plunge;
+  set_player_pos(0,0);
+  arle attack, charge[early_cancel=1], dash, 
+       attack:5, dash,
+       attack:5, dash, 
+       attack:5, dash,
+       attack;
+  bennett skill, attack;
+  kazuha skill, high_plunge, attack;
+}

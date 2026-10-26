@@ -1,0 +1,33 @@
+active fischl;
+fischl skill, attack;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  faruzan skill, attack;
+  
+  bennett skill, burst;
+
+  amy attack;
+  if .amy.burst.ready && .amy.energy == .amy.energymax {
+    amy attack, burst;
+  } else {
+    amy skill;
+  }
+
+  while .furina.skill.cd {
+    switch {
+      case .faruzan.burst.ready && .faruzan.swap.ready && .faruzan.energy == .faruzan.energymax:
+        faruzan burst;
+      case .faruzan.hurricane-count && .faruzan.swap.ready || (.faruzan.hurricane-count && .faruzan.onfield):
+        faruzan aim[weakspot=rand()>0.7];
+      case .faruzan.skill.ready && .faruzan.swap.ready:
+        faruzan skill;
+      case .bennett.skill.ready && .bennett.swap.ready:
+        bennett skill;
+      case .bennett.attack.ready && .bennett.onfield:
+        bennett attack;
+      default:
+        faruzan attack;
+    }
+  }
+}

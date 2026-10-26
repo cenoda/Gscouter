@@ -1,0 +1,22 @@
+id: alhaitham-furina-albedo-kukishinobu
+name: Alhaitham / Furina / Albedo / Kukishinobu
+members:
+    - alhaitham
+    - furina
+    - albedo
+    - kuki
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/NNpGtBgcJtjn
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    albedo: start_hp%=80
+    alhaitham: start_hp%=90
+    furina: start_hp%=70
+    kuki: start_hp%=60
+reference:
+    dps: 64103
+    computed: "2026-10-02"

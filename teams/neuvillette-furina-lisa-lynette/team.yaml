@@ -1,0 +1,17 @@
+id: neuvillette-furina-lisa-lynette
+name: Neuvillette / Furina / Lisa / Lynette
+members:
+    - neuvillette
+    - furina
+    - lisa
+    - lynette
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/ddTpQjPhPGzb
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 78596
+    computed: "2026-10-02"

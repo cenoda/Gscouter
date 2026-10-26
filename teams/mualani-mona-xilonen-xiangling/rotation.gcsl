@@ -1,0 +1,34 @@
+active mona;
+for let i=0; i<3; i=i+1 {
+  
+  mona skill, attack;
+ 
+  xilonen skill, attack:2;
+  
+  xiangling burst, skill, dash;
+  pick_up_crystallize("hydro");
+  
+  mona burst;
+  
+  mualani skill,
+          walk[f=2], burst,
+          walk[f=46], attack,
+          walk[f=90], attack,
+          skill;
+
+  xilonen burst;
+  
+  mona attack, charge; 
+  
+  xilonen skill, attack:2;
+  
+  xiangling skill, dash, attack;
+  pick_up_crystallize("hydro");
+  
+  mualani skill,
+          walk[f=90], attack,
+          walk[f=90], attack,
+          walk[f=90], attack,
+          skill;
+  
+}

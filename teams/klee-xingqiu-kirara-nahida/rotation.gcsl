@@ -1,0 +1,16 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill, burst;
+  xingqiu skill, dash, burst, attack;
+  if .kirara.burst.ready {
+    kirara burst, attack, skill;
+  } else {
+    kirara attack:2, skill;
+  }
+  while .xingqiu.skill.cd>180 {
+    if .klee.skill.ready {
+      klee attack, skill[bounce=3, mine=8];
+    }
+    klee attack, walk; 
+  }
+}

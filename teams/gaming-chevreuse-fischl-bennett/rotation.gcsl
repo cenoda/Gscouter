@@ -1,0 +1,31 @@
+active gaming; 
+for let i=0; i<4; i=i+1 {
+  bennett skill, burst;
+
+  amy attack;
+  if !.amy.skill.ready {
+    amy attack, burst;
+  } else {
+    amy skill;
+  }
+
+  if .chev.burst.ready {
+    chev burst, skill[hold=1]:2;
+  } else {
+    chev skill[hold=1], attack:1;
+  }
+  
+  gaming skill, high_plunge, burst;
+  while .gaming.mods.bennett-field || .status.bennettburst { 
+    switch {
+      case .gaming.skill.ready:
+        gaming skill, high_plunge;
+      case .gaming.normal > 4 && .gaming.dash.ready && .stam > 18:
+        gaming dash;
+      default:
+        gaming attack;
+    }
+  }
+  
+  print("done");
+}

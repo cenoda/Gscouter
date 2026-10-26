@@ -1,0 +1,22 @@
+active nicole;
+for let i = 0; i < 6; i = i + 1 {
+  nicole attack:2, skill;
+  if .fischl.skill.ready {
+    fischl skill, attack;
+  } else {
+    fischl attack:2, burst;
+  }
+  chevreuse skill[hold=1], burst;
+  let StartFrame = f();
+  yanfei skill, attack;
+  if .yanfei.burst.ready {
+    yanfei burst;
+  }
+  while f() - StartFrame < 700 {
+    if .yanfei.mods.yanfei-seal && .stam > 25 && .previous-action == .action.attack {
+      yanfei charge;
+    } else {
+      yanfei attack;
+    }
+  }
+}

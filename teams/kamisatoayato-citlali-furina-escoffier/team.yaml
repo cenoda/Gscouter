@@ -1,0 +1,17 @@
+id: kamisatoayato-citlali-furina-escoffier
+name: Kamisatoayato / Citlali / Furina / Escoffier
+members:
+    - ayato
+    - citlali
+    - furina
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/QQnzN7dtnF8Q
+notes: 'Harvested from the KQM gcsim database: 4 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 69540
+    computed: "2026-10-02"

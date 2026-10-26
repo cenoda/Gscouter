@@ -1,0 +1,26 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || ( char_id == .keys.char.xilonen && action_id == .action.skill ) || ( char_id == .keys.char.mavuika && action_id == .action.charge ) {
+    pick_up_crystallize("any"); 
+  }
+  return _execute_action(char_id, action_id, p);
+}
+fn naviaskill() {
+  if .navia.shrapnel >=3 { 
+    navia skill;
+  } else {
+    navia skill[hold=1];
+  }
+}
+active navia; 
+for let i=0; i<4; i=i+1 {
+  xilonen skill, burst, attack:2;
+  furina skill, dash, attack, burst;
+  navia burst;
+  mavuika burst, skill;                    print(.navia.shrapnel);
+  xilonen skill, attack:2;                 print(.navia.shrapnel);
+  naviaskill();
+  navia attack:3, dash, attack:2;          print(.navia.shrapnel);
+  naviaskill();
+  navia attack:3, dash, attack:2;          print(.navia.shrapnel);
+}

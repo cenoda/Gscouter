@@ -1,0 +1,45 @@
+active furina;
+let rotations = 5;
+for let r = rotations; r > 0; r = r - 1 {
+  if r != rotations { 
+    lyney aim;
+  }
+  if .furina.skill.ready { 
+    if !.furina.burst.ready {
+      bennett skill;
+    }
+    while !.furina.burst.ready {
+      furina attack;
+    }
+    furina skill, dash;
+    delay(2);
+    furina burst;
+  }
+  
+  zhongli skill[hold=1], dash;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  
+  bennett burst, skill, dash, walk;
+
+  if .gadgets.crystallizeshard.pyro {
+    pick_up_crystallize("pyro"); 
+  } else if .gadgets.crystallizeshard.hydro {
+    pick_up_crystallize("hydro");
+  }  
+  
+  lyney aim[weakspot=1], aim, aim, aim[weakspot=1];
+  
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(11); 
+    lyney skill;
+  } 
+  else {
+    lyney aim;
+  }
+  
+  lyney skill;
+  
+}

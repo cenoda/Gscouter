@@ -1,0 +1,13 @@
+active xingqiu;
+for let i = 0; i < 5; i = i + 1 {
+  xingqiu burst, attack, skill, dash;
+  luminedendro skill, attack, burst;
+  yaoyao attack:2, skill, attack;
+  cyno burst, attack, skill,
+       attack:4, skill, 
+       attack:3, skill, 
+       attack:4, skill,
+       attack:4, skill,
+       attack:4, skill,
+       attack:3, skill, attack;
+}

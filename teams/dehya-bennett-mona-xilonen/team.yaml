@@ -1,0 +1,17 @@
+id: dehya-bennett-mona-xilonen
+name: Dehya / Bennett / Mona / Xilonen
+members:
+    - dehya
+    - bennett
+    - mona
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/dWwgrqNkBpqr
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 28106
+    computed: "2026-10-01"

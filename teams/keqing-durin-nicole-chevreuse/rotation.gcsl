@@ -1,0 +1,19 @@
+active keqing;
+keqing skill;
+for let i = 0; i < 6; i = i + 1 { 
+  
+  nicole skill, burst;
+  durin skill:2;
+  chev skill[hold=1], burst;
+  durin burst;
+  keq skill, burst, skill, dash,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      skill, skill, 
+      attack, charge,
+      attack, charge;
+      
+}

@@ -1,0 +1,40 @@
+fn modulo(a, b) {
+  return a - a/b*b;
+}
+let normal_counter = 0;
+fn durin_nc(){
+  normal_counter = 1;
+  durin attack;
+  while !.durin.charge.ready || !normal_counter {
+    durin attack;
+    normal_counter = normal_counter + 1;
+    modulo(normal_counter, 4);
+  }
+  durin charge;
+}
+fn durin_ncd(){
+  normal_counter = 1;
+  durin attack;
+  while !.durin.charge.ready || !normal_counter {
+    durin attack;
+    normal_counter = normal_counter + 1;
+    modulo(normal_counter, 4);
+  }
+  durin charge, dash;
+}
+active nicole;
+for let i=0; i<4; i=i+1 {
+  nicole skill, burst;
+  bennett skill, burst;
+  kazuha skill, high_plunge;
+  durin skill;
+  durin burst, skill;
+  durin_nc();
+  durin_ncd();
+  kazuha skill, high_plunge;
+  durin_ncd();
+  durin_ncd();
+  durin_ncd();
+  durin_ncd();
+  durin attack, charge;
+}

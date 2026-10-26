@@ -1,0 +1,17 @@
+id: mualani-zhongli-kaedeharakazuha-xiangling
+name: Mualani / Zhongli / Kaedeharakazuha / Xiangling
+members:
+    - mualani
+    - zhongli
+    - kazuha
+    - xiangling
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/9PhKhChfm9bL
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 58434
+    computed: "2026-10-02"

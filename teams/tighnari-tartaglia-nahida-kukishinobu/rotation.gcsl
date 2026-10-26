@@ -1,0 +1,35 @@
+active nahida;
+nahida burst, attack, skill;
+let cnt = 0;
+for {
+  if .tartaglia.mods.tartagliamelee && cnt < 3 {
+    tartaglia attack:2, charge, dash;
+    cnt = cnt + 1;
+    continue;
+  }
+  switch {
+  case !.debuff.res.t0.nahida-e && .nahida.swap.ready:
+    nahida skill, attack:2;
+  case .nahida.burst.ready && .nahida.swap.ready:
+    nahida burst, attack;
+  case .kuki.burst.ready && .kuki.swap.ready:
+    kuki burst;
+  case .kuki.skill.ready && .kuki.swap.ready:
+    kuki skill, attack;
+   case .tighnari.skill.ready && .tighnari.swap.ready:
+    tighnari skill, aim:1;
+    if .tighnari.burst.ready {
+    tighnari burst, aim:2;
+  } else {
+    tighnari aim:2;}
+  case .tartaglia.burst.ready && .tartaglia.swap.ready:
+    tartaglia burst;
+  case .tighnari.burst.ready && .tighnari.swap.ready:
+    tighnari burst;
+  case .tartaglia.skill.ready && .tartaglia.swap.ready:
+    tartaglia walk, skill;
+    cnt = 0;
+  default:
+    tartaglia aim;
+  }
+}

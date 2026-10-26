@@ -1,0 +1,28 @@
+active nahida;
+for let r=0; r<4; r=r+1 {
+	nahida skill;
+	if .nahida.burst.ready{
+	  nahida burst;
+	}
+	nahida attack;
+	bennett burst, skill;
+	xiangling burst, skill;
+	wrio skill,
+		   attack:3, charge, jump,
+		   attack:3, charge, jump, 
+		   attack:3, charge, jump,
+		   attack:3, charge, jump,
+		   attack:3, charge, jump,
+		   attack:3;
+	if .wrio.burst.ready  {
+		wrio burst;
+	} else {
+		wrio charge;
+	}
+  bennett skill;
+	xiangling attack:2;
+	while !.xl.mods.favonius-cd {
+    xl attack;
+  }
+	
+}

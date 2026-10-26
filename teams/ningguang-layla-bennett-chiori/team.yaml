@@ -1,0 +1,17 @@
+id: ningguang-layla-bennett-chiori
+name: Ningguang / Layla / Bennett / Chiori
+members:
+    - ningguang
+    - layla
+    - bennett
+    - chiori
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/jMpt9BQN9p6Q
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 50181
+    computed: "2026-10-02"

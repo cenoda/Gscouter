@@ -1,0 +1,28 @@
+fn EulaPlunge() {
+  eula jump;
+  if .airborne {
+    eula high_plunge[collision=rand()>0.5];
+  }
+}
+active eula; 
+for let i = 0; i < 4; i = i + 1 {
+  xianyun skill, low_plunge, burst;
+  
+  bennett skill, burst;
+  
+  rosaria skill, burst;
+  
+  eula swap;
+  EulaPlunge(); eula dash; 
+  EulaPlunge(); eula skill; 
+  EulaPlunge(); eula dash; 
+  EulaPlunge(); eula dash; wait(30); 
+  EulaPlunge(); eula dash; 
+  EulaPlunge(); eula skill; 
+  EulaPlunge(); eula dash; wait(35); 
+  EulaPlunge(); 
+  
+  rosaria skill; 
+  
+  bennett skill;
+}

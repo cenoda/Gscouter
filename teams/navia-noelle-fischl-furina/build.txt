@@ -1,0 +1,22 @@
+# Build from the source config, used to validate the rotation.
+
+navia char lvl=90/90 cons=0 talent=6,8,6;
+navia add weapon="verdict" lvl=90/90 refine=1;
+navia add set="shimenawasreminiscence" count=2;
+navia add set="gladiatorsfinale" count=2;
+navia add stats hp=4780 atk=377.14 atk%=0.7516 def%=0.3207 cr=0.6688 cd=0.9093 em=39.629997 er=0.0648 geo%=0.466;
+
+noelle char lvl=90/90 cons=6 talent=10,9,10;
+noelle add weapon="skywardpride" lvl=90/90 refine=1;
+noelle add set="huskofopulentdreams" count=4 +params=[stacks=4];
+noelle add stats hp=4780 hp%=0.1108 atk=361.57 atk%=0.0933 def=32.4 def%=1.3410001 cr=0.54429996 cd=0.64479995 er=0.24600002 geo%=0.466;
+
+fischl char lvl=90/90 cons=6 talent=9,9,9;
+fischl add weapon="thestringless" lvl=90/90 refine=5;
+fischl add set="goldentroupe" count=4;
+fischl add stats hp=5287.88 hp%=0.0408 atk=382.97 atk%=0.466 def=99.54 def%=0.1603 cr=0.6493 cd=0.8158 em=86.25 electro%=0.466;
+
+furina char lvl=90/90 cons=0 talent=6,10,10;
+furina add weapon="festeringdesire" lvl=90/90 refine=5;
+furina add set="goldentroupe" count=4;
+furina add stats hp=5048.88 hp%=0.8740001 atk=347.96002 atk%=0.105 def=16.2 def%=0.1968 cr=0.5404 cd=0.69159997 em=60.61 er=0.1879 hydro%=0.466;

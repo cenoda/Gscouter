@@ -1,0 +1,11 @@
+active nahida;
+  nahida skill;
+  
+for let r = 0; r <7; r = r + 1 {
+  
+  nilou skill, attack:2, skill;
+  baizhu attack, skill, burst; 
+  xingqiu skill, dash, burst;
+  nahida attack, skill, attack:2, dash, attack:16, skill, attack:3, charge;
+  
+}

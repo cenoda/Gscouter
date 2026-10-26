@@ -1,0 +1,13 @@
+active xingqiu;
+for let x=0; x<4; x=x+1 {
+  xingqiu burst, attack;
+  bennett burst, attack, skill;
+  if .fischl.burst.ready {
+    fischl attack:2, burst;
+  } else {
+    fischl attack, skill;
+  }
+  diluc attack, skill, attack, skill, attack, skill, attack:2;
+  xingqiu skill, dash, attack:2;
+  diluc attack:4, skill, attack, skill, attack, burst;
+}

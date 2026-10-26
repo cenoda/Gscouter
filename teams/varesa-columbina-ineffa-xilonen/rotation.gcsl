@@ -1,0 +1,33 @@
+fn varesa_combo(amt) {
+  for let j = 0; j < amt; j = j + 1 {
+    if .varesa.skill.ready {
+      varesa skill, attack, high_plunge[collision=1]; 
+
+    } else {
+      varesa charge, high_plunge[collision=1]; 
+    }
+    if .varesa.energy >= 30 && .varesa.status.apex-drive {
+      varesa burst;
+    }
+  }
+}
+active ineffa;
+for let i=0; i<4; i=i+1 {
+  if i > 0 && .ineffa.burst.ready {
+    ineffa skill, burst;
+  } else if i > 0 {
+    ineffa skill, attack;
+  } else {
+    ineffa skill;
+  }
+  
+  if i > 0 && .columbina.burst.ready {
+    columbina skill, burst;
+  } else {
+    columbina skill, attack;
+  }
+  
+  xilonen skill, attack:2;
+  
+  varesa_combo(7);
+}

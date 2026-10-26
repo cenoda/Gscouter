@@ -1,0 +1,19 @@
+id: lyney-furina-kaedeharakazuha-bennett
+name: Lyney / Furina / Kaedeharakazuha / Bennett
+members:
+    - lyney
+    - furina
+    - kazuha
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/BqCGPMMMfMQD
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    lyney: start_hp=13000
+reference:
+    dps: 77790
+    computed: "2026-10-02"

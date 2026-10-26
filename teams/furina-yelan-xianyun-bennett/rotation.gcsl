@@ -1,0 +1,33 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  yelan burst, attack, skill, attack;
+  
+  xianyun skill, low_plunge, attack, burst, attack;
+  
+  bennett skill, burst, attack;
+  for let p=0; p<3; p=p+1 {
+    furina jump;
+    if .airborne {
+      furina high_plunge[collision=1];
+      if p < 2 {
+        furina dash;
+      }
+    }
+  }
+  
+  yelan attack, skill, attack;
+  
+  for let p=0; p<5; p=p+1 {
+    if .furina.status.xianyun-airborne-buff {
+      furina jump;
+      if .airborne {
+        furina high_plunge[collision=1];
+        if p < 4 {
+          furina dash;
+        }
+      }
+    }
+  }
+}

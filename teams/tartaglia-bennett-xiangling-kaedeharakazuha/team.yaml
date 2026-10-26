@@ -1,0 +1,17 @@
+id: tartaglia-bennett-xiangling-kaedeharakazuha
+name: Tartaglia / Bennett / Xiangling / Kaedeharakazuha
+members:
+    - tartaglia
+    - bennett
+    - xiangling
+    - kazuha
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/jn8qcb8TjjqK
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 65553
+    computed: "2026-10-02"

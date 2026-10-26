@@ -1,0 +1,34 @@
+fn DoriPlunge() {
+  dori jump;
+  if .airborne {
+    dori high_plunge[collision=rand()>0.5];
+  }
+}
+active dori; 
+for let i = 0; i < 4; i = i + 1 {
+  nahida skill;
+  if i > 0 && .nahida.burst.ready && .nahida.energy == .nahida.energymax {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  furina skill, dash, attack, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  dori skill;
+  DoriPlunge(); dori dash;
+  DoriPlunge(); dori attack, burst;
+  
+  xianyun attack:2; sleep(20); 
+  
+  dori skill, attack;
+  DoriPlunge(); dori dash;
+  DoriPlunge(); dori dash;
+  DoriPlunge();
+  dori skill, attack;
+  DoriPlunge(); dori dash;
+  DoriPlunge(); dori dash;
+  DoriPlunge();
+}

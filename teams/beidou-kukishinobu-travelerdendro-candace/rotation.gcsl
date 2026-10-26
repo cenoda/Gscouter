@@ -1,0 +1,21 @@
+active kuki;
+kuki skill, dash;
+aetherdendro skill, attack, burst;
+beidou skill[counter=1], burst;
+wait(8);								
+candace attack, burst, attack:3, skill, attack:2;
+aetherdendro attack, skill;
+beidou attack, skill[counter=1], attack:2;
+kuki attack, burst;
+candace attack:3, skill, attack:3;
+for let i = 1; i <=4; i = i + 1 {
+kuki attack, skill, dash, attack;
+aetherdendro skill, attack:2, burst;
+beidou skill[counter=1], burst;
+wait(8);								
+candace attack, burst, attack:3, skill, attack:2;
+aetherdendro attack, skill;
+beidou attack, skill[counter=1], attack:2;
+kuki attack, burst;
+candace attack:3, skill, attack:3;
+}

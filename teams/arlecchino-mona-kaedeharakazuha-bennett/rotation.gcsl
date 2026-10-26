@@ -1,0 +1,20 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill, attack;
+  bennett skill, burst;
+  kazuha attack, skill, high_plunge;
+  if !.kazuha.mods.favonius-cd {
+    kazuha attack;
+  }
+  mona attack, skill, burst;
+  arle charge, 
+       attack:3, dash,
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3, dash;
+  kazuha attack, skill, high_plunge;
+  if !.kazuha.mods.favonius-cd {
+    kazuha attack;
+  }
+  arle attack:3;
+}

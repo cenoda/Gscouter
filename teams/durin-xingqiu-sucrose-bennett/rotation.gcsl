@@ -1,0 +1,22 @@
+active xingqiu;
+for let i=0; i<4; i=i+1 {
+  xingqiu skill, burst, attack;
+  bennett skill, burst;
+  durin skill, attack, burst;
+  if .sucrose.burst.ready {
+    sucrose attack, burst;
+  } else {
+    sucrose attack, skill, dash;
+  }
+  durin attack, charge,
+        attack, charge,
+        attack, charge,
+        attack, charge,
+        attack, charge,
+        attack, charge,
+        attack, charge,
+        attack, charge;
+  bennett skill, attack;
+  durin attack, charge;
+  
+}

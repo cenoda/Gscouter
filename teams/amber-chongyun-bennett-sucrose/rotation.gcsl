@@ -1,0 +1,13 @@
+active chongyun;
+for let i=0; i<4; i=i+1 {
+  chongyun skill, attack;
+  sucrose skill, dash;
+  bennett skill, burst;
+  amber burst;
+  chongyun burst, attack:4;
+  amber swap;
+  wait(6);
+  amber skill, aim[bunny=1], aim;
+  bennett skill;
+  sucrose attack;
+}

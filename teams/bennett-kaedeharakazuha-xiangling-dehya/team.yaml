@@ -1,0 +1,17 @@
+id: bennett-kaedeharakazuha-xiangling-dehya
+name: Bennett / Kaedeharakazuha / Xiangling / Dehya
+members:
+    - bennett
+    - kazuha
+    - xiangling
+    - dehya
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/NkbLzGjmBt6G
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 36904
+    computed: "2026-10-01"

@@ -1,0 +1,14 @@
+active freminet;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  bennett burst, skill;
+  
+  xl burst, skill, dash;
+  
+  freminet skill, burst,
+           attack:2, skill, skill,
+           attack:2, skill, attack:1, skill,  
+           attack:2, skill, attack:1, skill,
+           attack:2, skill;
+}

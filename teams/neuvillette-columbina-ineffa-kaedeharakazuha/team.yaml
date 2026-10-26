@@ -1,0 +1,17 @@
+id: neuvillette-columbina-ineffa-kaedeharakazuha
+name: Neuvillette / Columbina / Ineffa / Kaedeharakazuha
+members:
+    - neuvillette
+    - columbina
+    - ineffa
+    - kazuha
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/djprtcCPkdtP
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 121053
+    computed: "2026-10-02"

@@ -1,0 +1,15 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+	nahida skill, attack;
+    kokomi skill, attack;
+    thoma burst, skill, attack:2;
+    rosaria skill, burst, attack;
+    kokomi burst, attack:3, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3;
+    rosaria attack, skill, attack;
+    print("done");
+}

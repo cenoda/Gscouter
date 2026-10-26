@@ -1,0 +1,14 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  kazuha skill[hold=1], high_plunge, attack:2;
+  bennett burst;
+  kazuha burst;
+  lisa burst;
+  
+  raidenshogun burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  bennett skill, attack:2, dash;
+  lisa skill[hold=1];
+  
+  print("Rotation Done");
+}

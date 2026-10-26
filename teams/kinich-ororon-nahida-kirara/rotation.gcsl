@@ -1,0 +1,41 @@
+fn kinich_combo() {
+  kinich skill;
+  while .kinich.nightsoul.state {
+    switch .kinich.nightsoul.points {
+      case 20:
+        kinich skill[hold=1];
+      default:
+        if .kinich.blind_spot {
+          kinich attack[direction=.kinich.blind_spot];
+        } else {
+          kinich attack;
+        }
+    }
+  }
+}
+active kinich; 
+for let i = 0; i < 4; i = i + 1 {
+  nahida skill;
+  if is_even(i) {
+    nahida burst;
+  } else {
+    nahida attack, charge;
+  }
+  
+  kirara skill[short_hold=1];
+  if .kirara.burst.ready {
+    kirara burst;
+  } else {
+    if !.kirara.mods.favonius-cd {
+      kirara attack;
+    }
+  }
+  
+  ororon skill, burst, attack;
+  
+  kinich_combo();
+  if .kinich.burst.ready {
+    kinich burst;
+  }
+  
+}

@@ -1,0 +1,21 @@
+active zhongli;
+ 
+for let i=0; i<5; i=i+1 {
+  zhongli skill[hold=1], dash;
+  
+  if .chongyun.burst.ready {
+    chongyun burst;
+  }
+    bennett burst, skill;
+    sucrose swap;
+    
+    sucrose skill, dash;
+    chongyun swap;
+    delay(5);
+    chongyun skill;
+    bennett attack:1, skill,
+            attack:3, skill,
+            attack:3, skill,   
+            attack:3, skill,
+            attack:3, skill;  
+}

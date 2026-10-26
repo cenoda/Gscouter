@@ -1,0 +1,23 @@
+active cyno;
+cyno skill;
+for let i=0; i<4; i=i+1 {
+  kirara skill, burst;
+  fischl attack:2, burst;
+  tighnari skill, aim:3, burst, attack;
+  kirara attack, skill;   
+  cyno skill, burst,
+	   attack:2, skill, attack:3, dash,
+	   attack:2, skill, attack:3, dash,
+	   attack:2, skill, attack:3, dash, 
+       attack:2, skill;       
+       
+  kirara skill, burst;
+  fischl skill, attack;
+  tighnari skill, aim:3, burst, attack;
+  kirara attack, skill;   
+  cyno skill, burst,
+	   attack:2, skill, attack:3, dash,
+	   attack:2, skill, attack:3, dash,
+	   attack:2, skill, attack:3, dash, 
+       attack:2, skill;                                       
+}

@@ -1,0 +1,25 @@
+fn kinich_combo() {
+  kinich skill;
+  kinich attack;
+  while .kinich.nightsoul.state {
+    if .kinich.nightsoul.points == 20 {
+      kinich skill[hold=1];
+      continue;
+    }
+    kinich attack;
+  }
+}
+active kinich;
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], dash, attack:2;
+  if i && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  thoma attack, skill, burst, attack;
+  kinich_combo();
+  if i && .kinich.burst.ready {
+    kinich burst;
+  }
+}

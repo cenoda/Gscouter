@@ -1,0 +1,14 @@
+active keqing;
+keqing skill;
+for let i=0; i<4; i=i+1 {
+  kazuha skill, high_plunge, burst;
+  baizhu attack, skill, burst;
+  sara skill, aim;
+ wait(11);
+  kazuha skill, high_plunge;
+  sara burst;
+  keqing skill,burst,skill,dash,attack,charge,attack,skill, dash, attack,charge, attack, charge;
+  kazuha skill, high_plunge;
+  sara skill, aim;
+  keqing skill:2, dash, attack, charge, attack, charge;
+  }

@@ -1,0 +1,39 @@
+active yae;
+  
+for let i=0; i<4; i=i+1 {
+  if i == 0 {
+    yae skill:3;
+  } else {
+    yae skill, attack, skill, attack, skill;
+  }
+  
+  lanyan attack, skill:2;
+  
+  fischl attack, skill;
+  
+  tighnari skill;
+  while .tighnari.mods.vijnanasuffusion {
+    tighnari aim;
+    if .tighnari.burst.ready {
+      tighnari burst;
+    }
+  }
+  
+  yae attack, burst;
+  yae skill, attack, skill, attack, skill;
+  
+  lanyan attack, skill:2;
+  
+  fischl attack:2, burst;
+  
+  tighnari skill;
+  while .tighnari.mods.vijnanasuffusion {
+    tighnari aim;
+    if .tighnari.burst.ready {
+      tighnari burst;
+    }
+  }
+  
+  yae attack:2, charge, dash;
+  yae attack:1, charge, dash; 
+}

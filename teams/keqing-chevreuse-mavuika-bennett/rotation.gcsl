@@ -1,0 +1,25 @@
+active mav; 
+keqing skill:2; 
+for let i=0; i<4; i=i+1 {
+  bennett skill, burst;
+  
+  chev burst, skill[hold=1]:2;
+  
+  if .mav.burst.ready {
+    mav burst, skill, dash;
+  } else {
+    mav attack, skill;
+  }
+  
+  keqing skill, burst, skill,
+        attack, charge,
+        attack, charge,
+        attack, charge,
+        attack, charge,
+        attack, charge;
+  
+  bennett skill;
+  
+  keqing skill:2,
+        attack:2, charge;
+}

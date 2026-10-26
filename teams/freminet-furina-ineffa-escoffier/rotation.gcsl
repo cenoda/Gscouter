@@ -1,0 +1,18 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  if i > 0  && .ineffa.burst.ready {
+    ineffa skill, burst;
+  } else {
+    ineffa skill;
+  }
+  
+  furina skill, dash, burst;
+  
+  esco skill, burst;
+  
+  freminet skill, attack, burst,
+           attack:2, skill, skill,
+           attack:2, skill, attack:1, skill, 
+           attack:2, skill, attack:1, skill,
+           attack:2, skill;
+}

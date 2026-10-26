@@ -1,0 +1,19 @@
+active eula;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  eula attack, skill;
+  layla burst, skill;
+  yelan burst, attack, skill, attack;
+  eula skill;
+  while !.eula.burst.ready {
+    if .eula.skill.ready {
+      eula skill;
+    } else {
+      eula attack;
+    }
+  }
+  eula burst, walk, attack:4, skill[hold=1], attack:4;
+  layla burst, skill;
+  yelan attack, skill, attack;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4;
+}

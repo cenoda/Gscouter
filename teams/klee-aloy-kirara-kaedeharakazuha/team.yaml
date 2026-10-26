@@ -1,0 +1,17 @@
+id: klee-aloy-kirara-kaedeharakazuha
+name: Klee / Aloy / Kirara / Kaedeharakazuha
+members:
+    - klee
+    - aloy
+    - kirara
+    - kazuha
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/LFnGhRRNNftC
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 22367
+    computed: "2026-10-02"

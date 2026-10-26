@@ -1,0 +1,31 @@
+active shenhe;
+let go=0;
+for let x = 0; x < 6; x = x + 1 {
+  shenhe attack, skill[hold=1], attack;
+  if x > 0 {
+    if go {
+      nahida skill;
+    } else {
+      nahida attack, skill;
+    }
+  }
+  if go {
+    nahida burst;
+    go = 0;
+  }
+  bennett swap;
+  bennett skill, burst;
+  nahida swap;
+  if !x {
+    nahida skill;
+  }
+  ganyu aim:6, skill;
+  bennett skill, attack:2;
+  if !.nahida.burst.ready {
+    ganyu aim;
+  } else {
+    shenhe swap;
+    go = 1;
+  }
+  
+}

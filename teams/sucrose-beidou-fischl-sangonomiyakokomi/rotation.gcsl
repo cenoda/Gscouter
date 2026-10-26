@@ -1,0 +1,20 @@
+active kokomi;
+for let i=0; i<4; i=i+1 {
+    kokomi skill;
+    fischl skill;
+    sucrose attack:2, skill;
+    if .sucrose.burst.ready {
+      sucrose burst;
+    } else {
+      sucrose dash;
+    }
+    sucrose attack:2;
+    beidou attack, skill[counter=1], burst;
+    fischl burst;
+    kokomi burst;
+    for let c = 10; c; c = c - 1 { kokomi attack:2, dash, walk[f=2]; }
+    sucrose attack:2, skill,
+            attack:2, dash,
+            attack:2;
+    beidou attack, skill[counter=1], attack:2;
+}

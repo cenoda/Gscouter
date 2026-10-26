@@ -1,0 +1,31 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  if i == 0 {
+    nahida skill, burst;
+  } else {
+    nahida skill, attack, burst;
+  }
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  ororon skill, attack, burst, attack;
+  
+  sethos skill, attack; 
+  sethos burst;
+  sethos attack:2, dash,
+         attack:2, dash,
+         attack:2, dash,
+         attack:2, dash,
+         attack:2, dash,
+         attack:2, dash,
+         attack:2, dash,
+         attack:2, walk,
+         skill;
+  sethos attack, aim[hold=2]:2, attack;
+}

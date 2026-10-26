@@ -1,0 +1,18 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arlecchino skill;
+  yelan attack, skill, burst, attack;
+  while !.yelan.mods.favonius-cd {
+    yelan attack;
+  }
+  chiori skill:2;
+  zhongli skill[hold=1], dash, attack;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  arlecchino charge, 
+             attack:5, dash, 
+             attack:5, dash, 
+             attack:5, dash,
+             attack:3;
+}

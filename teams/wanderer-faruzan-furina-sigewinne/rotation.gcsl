@@ -1,0 +1,25 @@
+active furina;
+for let i = 0; i < 4; i = i + 1  {
+  furina skill, dash, burst;
+  
+  sigewinne skill, dash;
+  
+  faruzan skill, burst;
+  wanderer attack, skill, attack;	
+  while .wanderer.skydweller-points > 3 {
+    if .wanderer.normal < 3 {
+      wanderer attack;
+    } else if .wanderer.mods.wanderer-a4 {
+      wanderer dash;
+    } else if .wanderer.skydweller-points > 2 {
+      wanderer charge;
+    } else {
+      wanderer attack;
+    }
+  } 
+  if .wanderer.status.windfavored-state && .wanderer.burst.ready {
+    wanderer burst, attack;
+  } else if .wanderer.status.windfavored-state && !.wanderer.burst.ready {
+    wanderer skill, low_plunge;
+  }
+}

@@ -1,0 +1,28 @@
+active bennett;
+for let r = 4; r > 0; r = r - 1 {
+  bennett skill, burst;
+  fischl attack:1;
+  if .fischl.skill.ready {
+    fischl skill;
+  } else {
+    fischl attack, burst;
+  }
+  if .chev.burst.ready {
+    chev burst, skill[hold=1]:3;
+  } else {
+    chev attack, skill[hold=1];
+
+  }
+  
+  cyno skill, attack, burst;
+  while .cyno.mods.cyno-q > 280 {
+    if .cyno.mods.cyno-a1 && .cyno.skill.ready {
+      cyno skill;
+    } else if .cyno.normal == 4 && .stam > 20 {
+      cyno dash;
+    } else {
+      cyno attack;
+    }
+  }
+    
+}

@@ -1,0 +1,27 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  albedo skill;
+  if .albedo.burst.ready {
+    albedo burst;
+  } else {
+    albedo dash;
+  }
+  zhongli skill[hold=1], dash, attack;
+  let startFrame = f();
+  while f() - startFrame < 45 {
+    while !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    }
+    if pick_up_crystallize("pyro") {
+      break;
+    }
+    wait(1);
+  }
+  rosaria attack, skill, burst;
+  while !.rosaria.mods.favonius-cd {
+    rosaria attack;
+  }
+  arle charge[early_cancel=1], dash, 
+       attack:15;
+}

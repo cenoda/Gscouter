@@ -1,0 +1,17 @@
+active escoffier;
+for let i = 0; i < 6; i = i + 1 {
+  escoffier skill, attack;
+  bennett skill, burst;
+  if i && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack:2;
+  }
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  bennett skill, attack;
+  if is_even(i) {
+    yoimiya burst;
+  } else {
+    yoimiya attack:3, dash;
+  }
+}

@@ -1,0 +1,33 @@
+active razor; 
+fischl skill, attack;
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], dash, attack:2; 
+  
+  if .gadgets.crystallizeshard.electro {
+    pick_up_crystallize("electro"); 
+  }
+  
+  nahida skill, attack;
+  if .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  if .amy.burst.ready {
+    amy attack:2, burst;
+  } else {
+    amy attack:1, skill;
+  }
+
+  razor skill, dash, attack, burst;
+  razor attack:1, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash; 
+  razor attack:3;
+  
+  print("done");
+}

@@ -1,0 +1,17 @@
+id: lisa-fischl-zhongli-travelerdendro
+name: Lisa / Fischl / Zhongli / Travelerdendro
+members:
+    - lisa
+    - fischl
+    - zhongli
+    - luminedendro
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/hmHF9RbRtBTH
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 56521
+    computed: "2026-10-01"

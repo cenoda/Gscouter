@@ -1,0 +1,14 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill, attack;
+  sucrose swap;
+  wait(20);
+  sucrose skill, dash;
+  citlali skill, burst;
+  xiangling skill, dash, burst;
+  neuvillette charge, burst, skill, charge;
+  sucrose skill, dash, burst;
+  xiangling attack:2, skill, dash;
+  neuvillette charge, charge;
+}
+wait(173);

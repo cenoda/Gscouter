@@ -1,0 +1,14 @@
+active neuv;
+for let i = 0; i < 3; i = i + 1 {
+  neuv skill;
+  kazuha skill, high_plunge, burst;
+  shenhe burst, skill[hold=1];
+  rosaria skill, burst;
+  kazuha skill, high_plunge;
+  neuv charge, skill, charge, burst;
+  kazuha skill, high_plunge;
+  shenhe attack:2, skill[hold=1];
+  rosaria skill, burst;
+  neuv charge, charge;
+}
+wait(173);

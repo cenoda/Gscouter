@@ -1,0 +1,23 @@
+active columbina;
+for let i=0; i<6; i=i+1 {
+  columbina skill,burst;
+  if .ineffa.burst.ready {
+    ineffa skill,burst;
+  } else {
+    ineffa attack,skill;
+  }
+  sucrose attack;
+  if .sucrose.skill.ready {
+    sucrose skill;
+  }
+  aino burst,skill;
+  columbina charge,attack:2,dash;
+  columbina attack:3,dash;
+  sucrose attack;
+  if .sucrose.skill.ready {
+    sucrose skill;
+  }
+  while !.columbina.skill.ready {
+    columbina attack;
+  }
+}

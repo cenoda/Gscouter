@@ -1,0 +1,18 @@
+active raiden;
+  raiden skill;
+for let i=0; i<4; i=i+1 {
+  fischl attack, burst;
+  xingqiu burst, attack, skill, dash, attack:2;
+  hutao attack, skill, attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump;
+  fischl attack, skill;
+  raiden attack, burst, attack:4, dash, attack:4, skill, attack:4, dash, attack:4;
+  print ("done");
+}

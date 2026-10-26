@@ -1,0 +1,28 @@
+let stddev = 3;
+let mean = 12;
+fn rand_delay() {
+  let del = randnorm() * stddev + mean;
+  delay(del);
+}
+active nilou;
+for let i=0; i<5; i=i+1 { 
+  nilou skill, attack:2, skill;
+  
+  rand_delay(); 
+  nahida swap;
+  
+  nahida skill, attack:2, charge;
+  
+  rand_delay();
+  xingqiu swap;
+  
+  xingqiu skill, dash, burst, attack;
+  
+  rand_delay();
+  kaveh swap;
+  
+  kaveh burst, skill, attack:12, skill, attack:4;
+  
+  rand_delay();
+  nilou swap;
+}

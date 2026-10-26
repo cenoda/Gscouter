@@ -1,0 +1,23 @@
+active durin;
+for let i=0; i<4; i=i+1 {
+  nicole skill, burst;
+  
+  durin skill:2, burst;
+  
+  faruzan skill, burst;
+  
+  if .xianyun.skill.ready {
+    xianyun skill:3, high_plunge, attack;
+  }
+  xianyun burst;
+  while .xianyun.status.xianyun-airborne-buff {
+    if .xianyun.skill.ready {
+      xianyun skill:3, high_plunge;
+    } else if .xianyun.status.xianyun-airborne-buff {
+      xianyun jump;
+      if .airborne {
+        xianyun high_plunge[collision=rand()>0.5], dash;
+      }
+    }
+  }
+}

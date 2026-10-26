@@ -1,0 +1,12 @@
+active ayaka;
+for let i=0; i<4; i=i+1 {
+  ayaka dash, attack:2, skill, attack:3, charge;
+  lumineanemo skill[hold_ticks=2], burst;
+  shenhe skill, burst;
+  kokomi skill;
+  ayaka dash, skill, attack:2, burst, attack, charge;
+  lumineanemo skill[hold_ticks=2];
+  shenhe skill, attack;
+  ayaka dash, attack, charge;
+  print("rotation done");
+}

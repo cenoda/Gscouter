@@ -1,0 +1,22 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill, attack;
+  if .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  xingqiu skill, dash, burst, attack;
+  
+  kokomi skill, attack;
+  
+  lisa attack:3, dash ,attack:3, dash;
+  lisa attack:3, dash, attack:3, dash; 
+  lisa attack:3, dash, attack:3, dash; 
+  lisa attack:3, dash, attack:3, dash;
+  lisa attack:4;
+  if.lisa.burst.ready {
+    lisa burst;
+  }
+}

@@ -1,0 +1,13 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  childe skill, attack:2;
+  yelan skill, attack, burst, attack;
+  bennett skill, burst;
+  arle attack:3, charge,
+       attack:3, charge,
+       attack:3, charge,
+       attack:3, charge,
+       attack:3, charge,
+       attack:3;
+}

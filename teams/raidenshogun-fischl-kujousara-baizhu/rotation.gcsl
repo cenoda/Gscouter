@@ -1,0 +1,19 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  baizhu skill, burst;
+  
+  sara skill, aim;
+  
+  amy attack:2, burst;
+  sara burst;
+  
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  
+  while .baizhu.burst.cd > 40 {
+    if .amy.skill.ready {
+      amy attack, skill;
+    }
+    baizhu attack;
+  }
+}

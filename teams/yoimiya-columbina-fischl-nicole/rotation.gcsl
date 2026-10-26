@@ -1,0 +1,24 @@
+active columbina;
+for let i = 0; i < 4; i = i + 1 {
+  if is_even(i) {
+    columbina skill, burst;
+    nicole attack, skill;
+    fischl burst;
+    wait(90);
+  } else {
+    columbina skill, attack;
+    nicole burst, skill;
+    fischl attack, skill;
+  }
+  yoimiya swap;
+  yoimiya attack;
+  while !.yoimiya.skill.ready {
+    wait(1);
+  }
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  if is_even(i) {
+    yoimiya burst;
+  } else {
+    yoimiya attack:2;
+  }
+}

@@ -1,0 +1,26 @@
+active furina;
+let odd = true;
+for let i = 0; i < 5; i = i + 1 {
+  furina burst, skill, dash, attack;
+  kazuha skill, high_plunge;
+  if !i {
+    yelan skill;
+  }
+  yelan burst;
+  if odd {
+    fischl attack:2, burst;
+  } else {
+    fischl attack, skill;
+    while !.fischl.mods.favonius-cd {
+      fischl attack;
+    }
+  }
+  furina attack, charge, attack:2, charge;
+  if odd {
+    kazuha attack, burst;
+  } else {
+    kazuha attack, skill, high_plunge;
+  }
+  yelan attack, skill, attack:4, skill, attack:4, dash, attack:4, dash, attack;
+  odd = !odd;
+}

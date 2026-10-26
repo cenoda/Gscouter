@@ -1,0 +1,21 @@
+active furina;
+  
+for let i=0; i<4; i=i+1 {
+  
+  furina skill, burst;
+        
+  jean burst, skill;
+  
+  faruzan skill, attack;
+  
+  bennett skill, burst;
+  
+  faruzan burst, aim[weakspot=1], aim, skill, aim:2;
+  
+  bennett attack, skill;
+    
+  jean attack:2, skill;
+    
+  faruzan attack, skill, aim, aim[weakspot=1];
+    
+}

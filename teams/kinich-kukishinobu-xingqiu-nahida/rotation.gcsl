@@ -1,0 +1,28 @@
+fn kinich_combo(i) {
+  kinich skill;
+  set_player_pos(0, -3); 
+  kinich attack;
+  while .kinich.nightsoul.state {
+    if .kinich.nightsoul.points == 20 {
+      kinich skill[hold=1];
+      continue;
+    }
+    kinich attack;
+  }
+}
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill, burst, attack;
+  xingqiu skill, dash, attack, burst, attack;
+  kuki skill, attack;
+  kinich_combo(i);
+  if is_even(i) {
+    kinich burst;
+    kinich dash;  set_player_pos(0, 0); 
+    nahida attack, charge, jump;
+  } else {
+    kinich dash;  set_player_pos(0, 0); 
+    kuki burst;
+    nahida attack:2, charge, jump, attack:2;
+  }
+}

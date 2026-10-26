@@ -1,0 +1,12 @@
+active albedo;
+for let i=0; i<4; i=i+1 { 
+  albedo attack, skill;
+  ganyu aim[weakspot=1];
+  zhongli attack, skill[hold=1], dash;
+
+  pick_up_crystallize("any");
+  shenhe burst, skill;
+  ganyu burst, skill, aim[weakspot=1]:3;
+  shenhe attack:2, skill, attack;
+  ganyu aim, skill;
+}

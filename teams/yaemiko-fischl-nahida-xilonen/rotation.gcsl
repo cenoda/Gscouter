@@ -1,0 +1,30 @@
+active yae;
+for let i=0; i<3; i=i+1 {
+  if !i {
+    yae skill:3;
+  } else {
+    yae skill:2, attack, skill; 
+  }
+  
+  xilonen skill, attack:2;
+  
+  nahida skill, dash; pick_up_crystallize("any"); 
+  nahida burst;
+  
+  fischl attack, skill;
+  
+  yae attack:2, charge, dash, attack:2,
+      burst, skill, attack, skill, attack, skill;
+      
+  xilonen skill, attack:2;
+  
+  nahida skill, attack, dash; pick_up_crystallize("any");
+  
+  fischl attack:2, burst;
+  
+  yae attack:2, charge, dash, attack:2, charge, jump;
+  
+  nahida skill, attack, charge;
+  
+  yae attack:2, charge, jump, attack:2;
+}

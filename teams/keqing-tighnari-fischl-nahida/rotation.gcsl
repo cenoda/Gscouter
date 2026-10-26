@@ -1,0 +1,25 @@
+active nahida;
+for let i=0; i<6; i=i+1 {
+  amy attack;
+  if .amy.skill.ready {
+    amy skill;
+  } else {
+    amy attack, burst;
+  }
+  
+  nahida skill, attack;
+  if i > 0 && .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  keqing skill, burst, skill, attack, charge, attack, skill, attack, charge;
+  
+  tighnari skill, aim;
+  if .tighnari.burst.ready {
+    tighnari burst, aim:2;
+  } else {
+    tighnari aim:2;
+  }
+}

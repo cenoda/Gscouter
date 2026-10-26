@@ -1,0 +1,21 @@
+active lisa;
+for let i=0; i<4; i=i+1 {
+  if i {
+      lisa skill[hold=1], attack;
+  }
+  lisa burst;
+  xingqiu burst, attack;
+  yelan burst, attack, skill;
+  hutao skill,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:1, charge, jump,
+      attack:2, charge, jump;
+  yelan attack, skill;
+  xingqiu attack, skill, dash, attack;
+}

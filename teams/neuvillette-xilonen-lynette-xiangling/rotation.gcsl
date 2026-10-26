@@ -1,0 +1,14 @@
+active neuvillette;
+neuvillette skill, attack;
+for let x=0; x<4; x=x+1 {
+  xilonen skill, attack:2;
+  lynette skill, attack;
+  xiangling burst, skill, dash;
+  pick_up_crystallize("hydro");
+  neuvillette charge, burst, skill, charge;
+  xilonen skill, attack:2;
+  lynette burst, skill;
+  xiangling attack:2, skill, dash;
+  pick_up_crystallize("hydro");
+  neuvillette charge, charge, skill, attack:2, dash, attack:2; 
+}

@@ -1,0 +1,18 @@
+active xingqiu;
+for let x=0; x<4; x=x+1 {
+  xingqiu burst, attack:2;
+  zhongli attack, skill[hold=1], dash;
+  let startFrame = f();
+  while !pick_up_crystallize("hydro") && f() - startFrame < 45 {
+    if !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    } else {
+      wait(1);
+    }
+  } 
+  yelan attack, burst;
+  xingqiu attack, skill, dash, attack:3;
+  yelan skill, attack;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5;
+  yelan attack:2, skill, attack:2;
+}

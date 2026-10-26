@@ -1,0 +1,37 @@
+active ineffa;
+for let i=0; i<6; i=i+1 {
+  ineffa swap;
+  let StartFrame = f();
+  if is_even(i) {
+    ineffa skill, attack;
+    columbina burst, skill;
+    fischl attack, skill, attack;
+  } else {
+    ineffa skill, burst;
+    columbina skill, attack:2;
+    fischl attack:2, burst;
+  }
+  durin skill, burst, skill;
+  durin swap;
+  if is_even(i) {
+    while f() - StartFrame < 1030 {
+      if .durin.normal == 4 && .stam > 20 {
+        durin dash;
+      }
+      durin attack;
+      if .durin.normal == 2 && .stam > 50 {
+        durin charge, dash;
+      }
+    }
+  } else {
+    while f() - StartFrame < 1080 {
+      if .durin.normal == 4 && .stam > 20 {
+        durin dash;
+      }
+      durin attack;
+      if .durin.normal == 2 && .stam > 50 {
+        durin charge, dash;
+      }
+    }
+  }
+}

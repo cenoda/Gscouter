@@ -1,0 +1,25 @@
+active nicole;
+for let i = 0; i < 4; i = i + 1 {
+	nicole burst, skill;
+	if is_even(i) {
+	  fischl attack, skill, attack;
+	} else {
+	  fischl attack:2, burst;
+	}
+	durin skill:2, burst;
+	yanfei swap;
+	let StartFrame = f();
+  yanfei skill, attack;
+  if is_even(i) {
+    yanfei burst;
+  }
+  while f() - StartFrame < 690 {
+    if .yanfei.skill.cd < 30 && .yanfei.mods.yanfei-a1 {
+      yanfei skill;
+    } else if .yanfei.mods.yanfei-seal && .stam > 25 && .previous-action == .action.attack {
+      yanfei charge;
+    } else {
+      yanfei attack;
+    }
+  }
+}

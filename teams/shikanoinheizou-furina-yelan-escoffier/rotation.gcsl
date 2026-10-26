@@ -1,0 +1,34 @@
+fn declensionCombo() {
+  switch {
+    case .heizou.normal > 1 && .heizou.skill.ready && .heizou.declension == 4:
+      heizou skill;
+    case .heizou.normal > 1 && .heizou.burst.ready:
+      heizou burst;
+    case .heizou.normal > 1:
+      heizou charge;
+    default:
+      heizou attack;
+  }
+}
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  if .esco.burst.ready && .esco.energy == .esco.energymax  {
+    esco burst;
+  }
+  esco skill;
+  
+  yelan skill, burst, attack; 
+  
+  while .yelan.skill.cd {
+    declensionCombo();
+  }
+
+  yelan attack:1, skill, attack:4;
+  
+  while .yelan.skill.cd > 280 {
+    declensionCombo();
+  }
+  print("done");
+}

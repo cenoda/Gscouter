@@ -1,0 +1,18 @@
+active escoffier;
+for let i = 0; i < 4; i = i + 1 {
+  escoffier skill;
+  
+  shenhe skill[hold=1];
+  if is_even(i) {
+    shenhe burst;
+  }
+  
+  ororon attack, skill, burst;
+  chasca skill;
+  if .chasca.burst.ready {
+    chasca burst, aim:4;
+  } else{ 
+    chasca aim:4, aim[bullets=4];
+  }
+}
+wait(84);

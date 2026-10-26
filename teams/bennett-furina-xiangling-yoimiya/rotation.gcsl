@@ -1,0 +1,19 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill;
+  if .furina.burst.ready {
+    furina burst;
+  } else {
+    furina attack:2;
+  }
+  bennett burst,skill;
+  xiangling burst,skill,dash;
+  if .yoimiya.burst.ready {
+    yoimiya burst;
+  }
+  yoimiya skill;
+  yoimiya attack:5,dash,attack:5,dash,attack:5;
+  bennett attack:2,skill;
+  xiangling attack:3;
+  
+}

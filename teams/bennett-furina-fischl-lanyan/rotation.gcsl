@@ -1,0 +1,37 @@
+active fischl;
+fischl skill;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  bennett skill, burst;
+
+  while .lanyan.skill.ready {
+    lanyan skill:2;
+  }
+  if .lanyan.burst.ready {
+    lanyan burst;
+  }
+  
+  if .amy.skill.ready {
+    amy attack, skill;
+  } else {
+    amy attack:2, burst;
+  }
+
+  if i > 0 {
+    lanyan attack:2;
+  }
+  
+  bennett skill;
+  while .furina.skill.cd {
+    if .bennett.skill.ready {
+      bennett skill;
+    } else {
+      bennett attack;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+active bennett;
+let weakspot_skill_issue = 0.5;
+for let i = 0; i < 7; i = i + 1 {
+  bennett skill, burst;
+  sucrose skill, dash, attack;
+  rosaria skill, burst;
+  for let j = 0; j < 4; j = j + 1 {
+    if rand() < weakspot_skill_issue {
+      amber aim;
+    } else {
+      amber aim[weakspot=1];
+    }
+  }
+  amber skill;
+  for let j = 0; j < 2; j = j + 1 {
+    if rand() < weakspot_skill_issue {
+      amber aim;
+    } else {
+      amber aim[weakspot=1];
+    }
+  }
+  print("end");
+}

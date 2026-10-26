@@ -1,0 +1,65 @@
+fn randy(mean, standardDeviation, min, max, display) {
+  let value = randnorm() * standardDeviation + mean;
+  if value > max {
+    value = max;
+  } else if value < min {
+    value = min;
+  }
+  if display {
+    print(value);
+  }
+  return value;
+}
+let prev_char_id = -1;
+let prev_action_id = -1;
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+
+  if prev_char_id != char_id && action_id != .action.swap {
+    execute_action(char_id, .action.swap, []);
+  }
+
+  if action_id == .action.swap {
+    
+    delay(randy(9.5, 1.5, 5, 17, 0));
+  } else if prev_action_id == .action.attack && action_id != .action.attack && action_id != .action.charge {
+    
+    delay(randy(3, 1, 0, 6, 0));
+  } else if prev_action_id != .action.attack {
+    
+    delay(randy(3, 1, 0, 6, 0));
+  }
+  
+  prev_char_id = char_id;
+  prev_action_id = action_id;
+  return _execute_action(char_id, action_id, p);
+}
+active fischl;
+for let r=0; r<4; r=r+1 {
+  if .fischl.skill.ready {
+    fischl skill;
+  }
+  raiden skill;
+  xingqiu skill, dash;
+  while !.xingqiu.burst.ready {
+    xingqiu attack;
+  }
+  xingqiu burst, attack;
+  alhaitham swap;
+  while !.alhaitham.burst.ready {
+    alhaitham attack;
+  }
+  alhaitham burst;
+  fischl attack:2;
+  if .fischl.burst.ready {
+    fischl burst;
+  }
+  alhaitham attack:3, dash,
+            attack:3, skill,
+            attack:3, dash,
+            attack:3, charge, dash,
+            attack:3, dash,
+            attack:3, dash,
+            attack:3, dash,
+            attack:3, charge;
+}

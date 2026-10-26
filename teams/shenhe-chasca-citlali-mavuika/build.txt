@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+shenhe char lvl=90/90 cons=0 talent=9,9,9;
+shenhe add weapon="wavebreaker" refine=1 lvl=90/90;
+shenhe add set="no" count=4;
+shenhe add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 atk%=0.466;
+shenhe add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.2976 er=0.6612 em=39.64 cr=0.2317 cd=0.1986;
+
+chasca char lvl=90/90 cons=0 talent=9,9,9;
+chasca add weapon="chainbreaker" refine=5 lvl=90/90;
+chasca add set="obsidiancodex" count=4;
+chasca add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cd=0.622;
+chasca add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.3968 er=0.1102 em=59.46 cr=0.2317 cd=0.662;
+
+citlali char lvl=90/90 cons=0 talent=9,9,9;
+citlali add weapon="evenstar" refine=1 lvl=90/90;
+citlali add set="scroll" count=4;
+citlali add stats hp=4780 atk=311 er=0.518 em=187 em=187;
+citlali add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=158.56 cr=0.3641 cd=0.4634;
+
+mavuika char lvl=90/90 cons=0 talent=9,9,9;
+mavuika add weapon="mailedflower" refine=5 lvl=90/90;
+mavuika add set="obsidiancodex" count=4;
+mavuika add stats hp=4780 atk=311 atk%=0.466 pyro%=0.466 cd=0.622;
+mavuika add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=79.28 cr=0.3972 cd=0.662;

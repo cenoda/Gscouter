@@ -1,0 +1,34 @@
+fn kinich_combo() {
+  kinich skill;
+  while .kinich.nightsoul.state {
+    kinich attack[direction=1]:2;
+    while .kinich.nightsoul.points < 20 && .kinich.nightsoul.state {
+      wait(1);
+    }
+    if .kinich.nightsoul.state {
+      kinich skill[hold=1];
+    }
+  }
+}
+active kinich; 
+for let i=0; i<4; i=i+1 {
+  if i > 0  && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill;
+  }
+  
+  escoffier skill;
+  if i && .escoffier.burst.ready {
+    escoffier burst;
+  } else {
+    escoffier attack:2;
+  }
+  
+  mavuika burst, dash, skill, charge, dash;
+  
+  kinich_combo();
+  if .kinich.burst.ready {
+    kinich burst;
+  }
+}

@@ -1,0 +1,17 @@
+id: raidenshogun-chevreuse-durin-bennett
+name: Raidenshogun / Chevreuse / Durin / Bennett
+members:
+    - raiden
+    - chevreuse
+    - durin
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/KWR7phbqTFrh
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 79638
+    computed: "2026-10-02"

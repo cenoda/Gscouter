@@ -1,0 +1,23 @@
+active kokomi;
+for let i=0; i<4; i=i+1 {
+  
+    kokomi skill;
+    raiden attack, skill;
+    yelan burst, attack;
+    collei attack, skill, attack, burst;
+    yelan attack, skill, attack;
+    kokomi burst;
+    kokomi attack:2, walk;
+    kokomi attack:2, walk;
+    kokomi attack:2, walk;
+    kokomi attack:2, walk;
+    kokomi attack:2, walk;
+    kokomi attack:2, walk;
+    kokomi attack:2, walk;
+    kokomi attack:2, walk;
+    kokomi attack:2, walk;
+    kokomi attack:2, walk;
+    yelan attack:2, skill;
+    yelan attack:4;
+    print("done");
+}

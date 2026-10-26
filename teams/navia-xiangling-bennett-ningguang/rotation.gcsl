@@ -1,0 +1,22 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+	pick_up_crystallize("any"); 
+  }
+	
+  return _execute_action(char_id, action_id, p);
+}
+active navia; 
+navia skill; 
+for let x=0; x<4; x=x+1 {
+  navia burst;
+  ning skill, dash, attack;
+  bennett burst, skill;
+  xl burst, skill, dash;
+  ningguang burst, walk, skill, dash;
+  ningguang attack, charge;
+  navia skill[hold=1], attack:3;
+  navia skill[hold=1], attack:3;
+  bennett skill;
+  xl attack:3;
+}

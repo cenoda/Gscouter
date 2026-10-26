@@ -1,0 +1,15 @@
+active furina;
+for let i = 0; i < 5; i = i + 1 {
+  furina skill, dash, burst;
+  xianyun attack, skill, low_plunge, burst;
+  xingqiu skill, dash, burst, attack;
+  yelan attack, burst, attack, skill, attack:4;
+  xianyun attack:2, walk, attack:2;
+  yelan 
+    attack:4, dash,
+    attack:4, dash,
+    attack:4, dash,
+    attack:2,
+    skill, attack:4;
+  xianyun attack:2, walk, attack:2;
+}

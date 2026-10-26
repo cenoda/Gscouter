@@ -1,0 +1,16 @@
+active albedo ;
+for let x = 0; x < 5; x = x + 1 {
+albedo attack, skill;
+xingqiu burst, attack;
+bennett skill, attack, burst;
+xiangling attack, burst, attack, skill, dash;
+xingqiu attack:3;
+bennett attack, skill;
+xingqiu skill, dash, attack:2;
+bennett attack:3, skill;
+xingqiu attack:2;
+bennett attack:2, skill, attack:3, skill, attack;
+xiangling attack:2;
+albedo swap;
+print("Rotation Done");
+}

@@ -1,0 +1,18 @@
+active kokomi;
+ 
+for let i=0; i<4; i=i+1 {
+  nahida skill[hold=2.5], burst;
+  kokomi attack, skill, dash;
+  xiangling attack, skill, dash;
+  beidou swap;
+  delay(2); 
+  beidou skill[counter=2]; 
+  beidou attack:2,burst;
+  xiangling burst, attack;
+  kokomi attack, burst;
+  kokomi attack, charge:3;
+  kokomi attack:4, charge:2;
+  kokomi attack:4, charge:1;
+  kokomi attack; 
+  nahida attack:3; 
+}

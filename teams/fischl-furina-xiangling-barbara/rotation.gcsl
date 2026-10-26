@@ -1,0 +1,22 @@
+active furina;
+for let x=0; x<4; x=x+1{
+  furina skill, dash, burst;
+  
+  barbara burst;
+  if .barbara.skill.ready {
+    barbara skill, dash;
+  } else {
+    barbara attack;
+  }
+  
+  fischl attack:2, skill;
+  xiangling burst, skill, dash;
+  
+  barbara attack:4, dash, attack:4, dash, attack:4, dash, attack:4, dash, attack:4, dash;
+  
+  fischl attack:2, burst;
+  xiangling attack:2, skill, dash;
+  furina attack:2;
+  
+  barbara attack:4, dash, attack:4, dash, attack:4, dash;
+}

@@ -1,0 +1,19 @@
+active dehya;
+for let i=0; i<4; i=i+1 {
+  dehya skill, attack;
+  if i && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  bennett skill, attack;
+  zhongli skill[hold=1], dash, attack;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  dehya skill, attack;
+  bennett burst, skill;
+  pick_up_crystallize("pyro");
+  dehya burst, skill:15;
+  bennett skill, attack;
+}

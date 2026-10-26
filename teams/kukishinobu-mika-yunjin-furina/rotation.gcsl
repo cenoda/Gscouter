@@ -1,0 +1,20 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, attack:2, burst;
+  mika burst;
+  yunjin skill, burst;
+  mika skill[hold=1], attack;
+  if .kuki.burst.ready {
+    kuki burst;
+  }
+  kuki skill,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:2;
+}

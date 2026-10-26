@@ -1,0 +1,38 @@
+let weak = 1; 
+active bennett;
+for let i = 0; i < 5; i = i + 1 {
+  if i { 
+    lyney aim[weakspot=weak];
+  }
+    
+  if !i || !.bennett.burst.ready {
+    bennett skill;
+  }
+  bennett burst;
+  
+  if .kazuha.burst.ready {
+    kazuha burst;
+  } else {
+    kazuha skill[hold=1], high_plunge;
+  }   
+  
+  if .chev.burst.ready {
+    chev skill[hold=1], burst;
+  } else {
+    chev skill[hold=1], attack;
+  }
+  if !.chev.mods.favonius-cd {
+    chev attack;
+  }
+  
+  lyney aim[weakspot=weak], aim, aim;
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(11); 
+    lyney skill;
+  } else {
+    lyney aim;
+  }
+  lyney skill; 
+  
+}

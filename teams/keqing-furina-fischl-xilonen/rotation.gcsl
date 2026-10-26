@@ -1,0 +1,35 @@
+active fischl;
+for let i=0; i<4; i=i+1 {
+  if i > 0 {
+      fischl attack;
+  }
+  fischl skill;
+  
+  xilonen skill; pick_up_crystallize("any");
+  xilonen attack:2, burst;
+  
+  furina skill, dash, burst;
+  
+  keqing skill, burst, skill;
+  keqing attack, charge,
+         attack, charge,
+         attack, charge;
+  
+  fischl attack:2, burst;
+  xilonen skill, attack:2; pick_up_crystallize("any");
+  
+  while .fischl.skill.cd > 30 {
+  
+    if .keq.burst.ready {
+      keq burst;
+    } else if .keq.skill.ready {
+      keq skill;
+    } else if .keq.normal > 1 && .stam > 25 {
+      keq charge;
+    } else if .keq.normal > 3 && .stam > 18 {
+      keq dash;
+    } else {
+      keq attack;
+    }
+  }
+}

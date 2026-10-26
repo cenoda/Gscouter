@@ -1,0 +1,14 @@
+active furina;
+for let x=0; x<4; x=x+1 {
+ furina  skill,attack;
+  xingqiu burst,attack,skill,attack,dash;
+  kokomi skill,attack;
+ furina burst;
+ yelan attack,burst,attack,skill;
+ kokomi attack,burst;
+  for let x = 10; x; x = x - 1 {
+    kokomi attack:2, walk;
+   
+  }
+  yelan skill,attack:2;
+}

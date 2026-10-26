@@ -1,0 +1,25 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if .furina.burst.ready && .furina.energy == .furina.energymax {
+    furina burst;
+  } else {
+    furina attack:4;
+  }
+  bennett burst, skill;
+  xiangling burst, skill;
+  hutao skill,
+        attack:3, charge, jump,
+        attack:2, charge, jump,
+        attack:2, charge, jump,
+        attack:2, charge, jump,
+        attack:2, charge, jump,
+        attack:2, charge, jump,
+        attack:3, charge;
+  if .hutao.burst.ready && .tao.energy == .tao.energymax {
+    hutao burst;
+  } else {
+    hutao jump, attack:3, charge, jump;
+  }
+  bennett skill;
+}

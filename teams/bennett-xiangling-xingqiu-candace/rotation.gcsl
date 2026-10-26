@@ -1,0 +1,21 @@
+active xq;
+for let i=0; i<4; i=i+1 {
+  xq skill, dash, burst, attack;
+  
+  candace skill, burst;
+  
+  bennett burst, attack, skill;
+  
+  xiangling burst, attack, skill, dash;
+  
+  bennett attack:3; 
+  while !.xq.skill.ready {
+    if .bennett.skill.ready {
+      bennett skill;
+    } else {
+      bennett attack;
+    }
+  }
+  
+  print("Done");
+}

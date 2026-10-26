@@ -1,0 +1,11 @@
+active sara;
+for let r = 0; r < 5; r = r + 1 {
+  sara skill, aim;
+  kazuha attack, skill, high_plunge, burst;
+  nahida skill, burst;
+  kokomi skill;
+  sara aim, skill, aim, burst;
+  kazuha skill, high_plunge;
+  sara aim:3, attack:2;
+  wait(1);
+}

@@ -1,0 +1,14 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 4; i = i + 1 {
+  nicole skill, attack, burst;
+  
+  durin attack, skill, burst, skill, attack; 
+  
+  xiangling burst, skill, dash;
+  raiden burst, 
+         attack:4, skill, 
+         attack:4, dash, 
+         attack:4, dash, 
+         attack:4;
+}

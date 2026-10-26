@@ -1,0 +1,17 @@
+id: arlecchino-yelan-mona-bennett
+name: Arlecchino / Yelan / Mona / Bennett
+members:
+    - arle
+    - yelan
+    - mona
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/N6rNrrgfCpFF
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 68840
+    computed: "2026-10-01"

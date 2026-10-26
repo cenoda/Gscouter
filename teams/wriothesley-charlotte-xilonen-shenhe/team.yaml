@@ -1,0 +1,17 @@
+id: wriothesley-charlotte-xilonen-shenhe
+name: Wriothesley / Charlotte / Xilonen / Shenhe
+members:
+    - wrio
+    - charlotte
+    - xilonen
+    - shenhe
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/mtNjpt8dTjJt
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 42569
+    computed: "2026-10-01"

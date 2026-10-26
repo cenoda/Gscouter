@@ -1,0 +1,19 @@
+active emilie;
+for let i=0; i<5; i=i+1 {
+  if .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie attack, skill; 
+  }
+  bennett burst, skill;
+  xiangling burst, skill;
+  ayaka dash,attack,skill,burst;
+  ayaka dash,attack:3,charge;
+  ayaka dash,attack:3,charge;
+  bennett skill;
+  xiangling attack:2;
+  while !.xl.mods.favonius-cd {
+    xl attack;
+  }
+  ayaka skill,dash,attack:3,charge;
+}

@@ -1,0 +1,31 @@
+active furina;
+for let i=0; i<3; i=i+1 {
+  if i {
+    lyney aim:2;
+    furina attack;
+  }
+  
+  furina skill, dash, burst; 
+  
+  bennett burst, skill;
+  
+  sucrose attack, skill;
+  if .sucrose.skill.ready{
+   sucrose skill, dash;
+  } else {
+    sucrose dash;
+  }
+  if .sucrose.burst.ready{
+    sucrose burst;
+  }
+  
+  lyney aim:3;
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(12); 
+    lyney skill;
+  } else {
+    lyney aim;
+  }
+  lyney aim, skill;
+}

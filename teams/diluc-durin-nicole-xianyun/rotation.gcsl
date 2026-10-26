@@ -1,0 +1,24 @@
+fn DulicPlunge() {
+  diluc jump;
+  if .airborne {
+    diluc high_plunge[collision=rand()>0.5];
+  }
+}
+active diluc; 
+for let i = 0; i < 4; i = i + 1 {
+  nicole burst, skill;
+  
+  durin skill, burst, skill;
+  
+  xianyun skill, low_plunge, burst;
+  
+  diluc skill, burst, skill;
+  DulicPlunge(); diluc skill;
+  DulicPlunge(); diluc dash;
+  DulicPlunge(); diluc dash;
+  DulicPlunge(); diluc dash;
+  DulicPlunge(); diluc dash;
+  DulicPlunge(); diluc dash;
+  DulicPlunge(); diluc skill;
+  DulicPlunge(); diluc skill;
+}

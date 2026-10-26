@@ -1,0 +1,26 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+furina skill, burst,attack:2;
+  yelan burst, attack;
+  kazuha attack;
+  if .kazuha.burst.ready {
+    kazuha burst;
+  } else {
+    kazuha skill,high_plunge;
+  
+  }
+  
+  yelan attack,skill, attack, skill, attack:2;
+  hutao skill,
+    attack:2, charge,dash,
+    attack:2, charge,dash,
+    attack:2, charge,dash,
+    attack:2, charge,dash,
+    attack:2, charge,dash,
+    attack:2, charge,dash,
+    attack:2, charge,dash,
+    attack:2, charge,dash,
+    attack:2, charge,dash,
+    attack:2, charge,dash;
+kazuha skill,high_plunge;
+}

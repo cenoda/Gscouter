@@ -1,0 +1,19 @@
+active dehya;
+for let i=0; i<6; i=i+1 {
+  dehya skill;
+  bina skill;
+  if .bina.burst.ready {
+    bina burst;
+  } else {
+    bina attack;
+  }
+  mona burst, attack;
+  if .fischl.skill.ready {
+    fischl skill, attack;
+  } else {
+    fischl attack:2, burst;
+  }
+  mona attack, skill, attack;
+  dehya attack, burst, attack:15;
+  mona attack:3;
+}

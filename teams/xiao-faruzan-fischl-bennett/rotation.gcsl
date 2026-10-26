@@ -1,0 +1,15 @@
+active faruzan;
+for let i=0; i<4; i=i+1 {
+  faruzan burst;
+  bennett skill, burst;
+  amy attack;
+  if !.amy.skill.ready {
+    amy attack, burst;
+  } else {
+    amy skill;
+  }
+  xiao skill:2, burst;
+  for let h = 11; h > 0; h = h - 1 {
+    xiao jump, high_plunge[collision=rand()>0.5];
+  }
+}

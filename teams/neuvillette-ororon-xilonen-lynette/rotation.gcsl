@@ -1,0 +1,22 @@
+active neuvillette;
+for let x=0; x<4; x=x+1 {
+  neuvillette skill, attack;
+  lynette burst;
+  xilonen skill, attack:2;
+  if .xilonen.sets.ap >= 4 {
+    xilonen dash; pick_up_crystallize("hydro");
+  }
+  ororon skill, burst;
+  while !.ororon.mods.favonius-cd {
+    ororon attack;
+  }
+  lynette skill, attack;
+  neuvillette charge, burst, skill, charge;
+  lynette attack, skill, dash;
+  xilonen skill, attack:2;
+  if .xilonen.sets.ap >= 4 {
+    xilonen dash; pick_up_crystallize("hydro");
+  }
+  neuvillette charge, charge;
+}
+wait(173);

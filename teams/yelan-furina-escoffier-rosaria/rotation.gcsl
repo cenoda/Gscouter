@@ -1,0 +1,14 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  escoffier skill, burst;
+  rosaria burst, skill;
+  yelan burst, attack, skill;
+  yelan attack:4, dash;
+  rosaria attack, skill;
+  yelan attack:4, dash;
+  yelan attack:4, dash;
+  yelan attack:2;
+  rosaria attack, skill;
+  yelan skill, attack:2, dash;
+}

@@ -1,0 +1,17 @@
+id: alhaitham-durin-fischl-dori
+name: Alhaitham / Durin / Fischl / Dori
+members:
+    - alhaitham
+    - durin
+    - fischl
+    - dori
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/MWh7gtmCCB9H
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 71563
+    computed: "2026-09-30"

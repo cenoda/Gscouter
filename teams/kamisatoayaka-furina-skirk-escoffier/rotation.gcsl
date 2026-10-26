@@ -1,0 +1,20 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack;
+  escoffier skill, attack:3, dash;  
+  skirk skill[hold=1], burst;
+  ayaka dash, attack:2;
+  furina burst;
+  escoffier burst;
+  ayaka skill, dash, attack, burst,
+        attack:2, charge;
+  escoffier skill, attack;          wait(8); 
+  ayaka dash, attack:2;
+  skirk skill[hold=1], burst;
+  ayaka dash, skill, dash,
+        attack, charge, 
+        attack, charge,
+        attack, charge, dash,
+        attack, charge,
+        attack, charge;
+}

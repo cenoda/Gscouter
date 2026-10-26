@@ -1,0 +1,19 @@
+active arle;
+for let i=0; i<4; i=i+1 {
+  arle skill;
+  if i && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie attack, skill;
+  }
+  nicole skill, burst;
+  durin skill:2, burst;
+  arle charge;
+  arle attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3;
+}

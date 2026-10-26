@@ -1,0 +1,17 @@
+id: arlecchino-yelan-diona-bennett
+name: Arlecchino / Yelan / Diona / Bennett
+members:
+    - arle
+    - yelan
+    - diona
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/hTTM6tT7zMdB
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 59798
+    computed: "2026-10-02"

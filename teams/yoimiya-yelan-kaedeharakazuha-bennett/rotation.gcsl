@@ -1,0 +1,20 @@
+active yelan;
+for let i=0; i<4; i=i+1 {
+  yelan skill, burst, attack;
+  if !.yelan.mods.favonius-cd {
+    yelan attack;
+  } 
+  bennett skill, burst;
+  kazuha attack, skill[hold=1], high_plunge, attack;
+    
+  yoimiya skill, 
+          attack:5, dash, 
+          attack:5, dash, 
+          attack:5, dash,
+          attack;  
+          
+  kazuha skill, high_plunge;
+  if !.kazuha.mods.favonius-cd {
+    kazuha attack;
+  }   
+}

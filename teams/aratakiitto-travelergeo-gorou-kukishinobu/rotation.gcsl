@@ -1,0 +1,20 @@
+active kuki;
+  kuki skill;
+  aethergeo burst;
+  gorou attack, burst, skill;
+  itto attack, burst[prestack=1],
+    attack, skill[travel=0], 
+    attack:2, charge:5,
+    attack:4, charge:5, 
+    skill[travel=0], charge;
+  wait(20);
+for let i=0; i<4; i=i+1 {
+  kuki skill;
+  aethergeo burst, skill[short_hold=1];
+  itto swap; wait(40); itto attack;
+  gorou attack, burst, skill;
+  itto attack, burst[prestack=1],
+    attack, skill[travel=0], charge:4, 
+    attack:3, charge:4, 
+    attack:3, skill[travel=0], charge:4;
+}

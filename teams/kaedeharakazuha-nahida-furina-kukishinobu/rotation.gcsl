@@ -1,0 +1,31 @@
+fn TFCombo() {
+  
+  if .kazuha.skill.ready {
+    kazuha skill, high_plunge[collision=rand()>0.3];
+  } else if .kazuha.burst.ready && .kazuha.energy == .kazuha.energymax {
+    kazuha burst;
+  } else {
+    kazuha attack;
+  }
+}
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  kuki skill;
+
+  nahida skill, attack;
+  if .nahida.burst.ready && .nahida.energy == .nahida.energymax {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+
+    kuki burst;
+
+  kazuha attack;
+  while .furina.skill.cd {
+    TFCombo();
+  }
+  print("done");
+}

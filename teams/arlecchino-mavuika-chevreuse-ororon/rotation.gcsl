@@ -1,0 +1,13 @@
+active mavuika;
+for let i=0; i<5; i=i+1 {
+  arlecchino skill;
+  ororon skill, burst;
+  chevreuse skill[hold=1], burst;
+  mavuika skill, burst, charge:2, dash, charge:2, dash, charge:2, dash;
+  arlecchino charge,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3;
+}

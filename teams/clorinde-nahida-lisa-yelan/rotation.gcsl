@@ -1,0 +1,37 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active lisa;
+for let i=0; i<4; i=i+1 {
+  lisa burst;
+  
+  nahida skill; 
+  if .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  clorinde_combo();
+  
+  yelan attack, skill, attack;
+  
+  lisa skill[hold=1];
+  
+  clorinde_combo();
+}

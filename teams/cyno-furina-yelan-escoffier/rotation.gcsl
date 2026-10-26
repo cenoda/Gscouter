@@ -1,0 +1,36 @@
+fn CynoCpike() {
+  switch {
+  case .cyno.skill.ready:
+    cyno skill;
+  case .cyno.normal > 3 && .stam > 43:
+    cyno charge, dash;
+  case .cyno.normal > 3 && .stam > 18:
+    cyno dash;
+  default:
+    cyno attack;
+  }
+}
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  escoffier skill, burst;
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  while !.yelan.skill.ready {
+    CynoCpike();
+  }
+  
+  yelan attack, skill, attack;
+  
+  while .yelan.skill.cd > 360 {
+    CynoCpike();
+  }
+}

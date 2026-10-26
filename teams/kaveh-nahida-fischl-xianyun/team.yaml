@@ -1,0 +1,17 @@
+id: kaveh-nahida-fischl-xianyun
+name: Kaveh / Nahida / Fischl / Xianyun
+members:
+    - kaveh
+    - nahida
+    - fischl
+    - xianyun
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Pr6B9K8zBRDd
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 48570
+    computed: "2026-10-02"

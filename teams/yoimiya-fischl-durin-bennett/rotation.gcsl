@@ -1,0 +1,18 @@
+active durin;
+for let i=0; i<4; i=i+1 {
+  durin skill, skill, burst;
+  bennett skill, burst;
+  if is_even(i) {
+    fischl attack, skill, attack;
+  } else {
+    fischl attack:2, burst;
+    yoimiya attack;
+  } 
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  if is_even(i) {
+    yoimiya burst;
+  } else {
+    
+  }
+  bennett skill, attack;
+}

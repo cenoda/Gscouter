@@ -1,0 +1,17 @@
+active furina;
+for let r = 0; r < 4; r = r + 1 {
+  furina skill, burst;
+  nilou skill, attack:2, skill;
+  alhaitham burst;
+  kokomi attack, skill;
+  alhaitham attack:3, dash, 
+    attack:3, dash, 
+    attack:3, charge, 
+    attack:2, charge, 
+    attack:3;
+  kokomi burst,attack;
+  alhaitham skill[hold=1], low_plunge[short=1], 
+     attack:3,dash,
+     attack, charge,
+     attack:3, dash;
+}

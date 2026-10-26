@@ -1,0 +1,20 @@
+active bennett;
+for let i=0; i<4; i=i+1 {
+  diona skill[hold=1], burst;
+  bennett burst, skill;
+  xiangling burst, skill;
+  tartaglia burst, walk[f=13], skill,
+            attack:2, charge, dash,
+            attack:2, charge, dash,
+            attack:2, charge, dash,
+            attack:2, charge, dash,
+            attack:2, charge, dash,
+            attack:2, charge, dash;
+  diona attack:3, skill;
+  bennett skill;
+  xiangling attack, skill;
+  tartaglia aim;
+  bennett skill;
+  xiangling attack:2;
+  tartaglia aim;
+}

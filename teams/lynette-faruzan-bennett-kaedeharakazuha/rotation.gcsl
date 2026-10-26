@@ -1,0 +1,12 @@
+active faruzan;
+for let i = 0; i < 4; i = i + 1 {
+  faruzan skill, burst;
+  bennett skill, burst;
+  kazuha skill, high_plunge, burst;
+  lynette burst, skill, attack:2, charge, attack:2, charge;
+  kazuha skill, high_plunge;
+  bennett skill, attack:2;
+  lynette skill, attack:2, charge, attack:2, charge,attack, charge;
+  kazuha skill, high_plunge;
+  lynette attack, charge;
+}

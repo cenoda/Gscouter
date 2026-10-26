@@ -1,0 +1,32 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  chiori skill:2;
+  zhongli skill[hold=1], dash, attack;
+  let startFrame = f();
+  while f() - startFrame < 45 {
+    while !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    }
+    if pick_up_crystallize("pyro") {
+      break;
+    }
+    wait(1);
+  }
+  if .yunjin.weapon != .keys.weapon.favoniuslance {
+    yunjin skill[hold=1], burst;
+  } else {
+    yunjin skill, attack, burst, attack;
+    while !.yunjin.mods.favonius-cd {
+      yunjin attack; 
+    }
+  }
+  arle charge,
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack;
+}

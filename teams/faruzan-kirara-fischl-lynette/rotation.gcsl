@@ -1,0 +1,16 @@
+active fischl;
+for let i = 0; i < 5; i = i + 1 {
+  fischl skill, attack;
+  faruzan skill, attack;
+  faruzan attack, burst, aim[weakspot=1]:2;
+  kirara skill[hold=10];
+  faruzan skill, aim:2;
+  lynette skill, burst;
+  fischl attack:2, burst;
+  faruzan attack, skill, aim[weakspot=1]:2;
+  lynette skill, attack;
+  kirara skill, burst;
+  faruzan skill, attack, aim;
+  lynette attack:3, charge;
+  faruzan attack, aim[weakspot=1];
+}

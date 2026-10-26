@@ -1,0 +1,14 @@
+active zhongli;
+for let x=0; x< 4; x=x+1 {
+	zhongli attack, skill[hold_nostele=1], dash;
+	while !.zhongli.mods.favonius-cd {
+	  zhongli attack;
+	}
+	ganyu skill, aim;
+	kazuha skill, high_plunge;
+	bennett burst;
+	kazuha burst;
+	ganyu aim:5;
+	bennett skill[hold_c4=1];
+	kazuha skill, high_plunge, attack;
+}

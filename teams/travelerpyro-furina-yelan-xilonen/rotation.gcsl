@@ -1,0 +1,26 @@
+active xilonen;
+for let i=0; i<4; i=i+1 {
+  xilonen burst;
+  
+  furina skill, dash, burst;
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  xilonen skill, attack:2; pick_up_crystallize("any");
+  
+  aetherpyro skill[hold=1], attack, burst;
+  aetherpyro attack:3, dash;
+  aetherpyro attack:3, dash;
+  aetherpyro attack:3, dash;
+  aetherpyro attack:3, dash;
+  aetherpyro attack:3, dash;
+  aetherpyro attack:3;
+  
+  xilonen skill, attack:2;
+}

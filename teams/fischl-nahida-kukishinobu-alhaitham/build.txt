@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+fischl char lvl=90/90 cons=6 talent=9,9,9;
+fischl add weapon="stringless" refine=3 lvl=90/90;
+fischl add set="gt" count=4;
+fischl add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cr=0.311;
+fischl add stats def=39.36 def%=0.124 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1488 er=0.1653 em=39.64 cr=0.331 cd=0.7944;
+
+nahida char lvl=90/90 cons=0 talent=9,9,9;
+nahida add weapon="wanderingevenstar" refine=1 lvl=90/90;
+nahida add set="deepwood" count=4;
+nahida add stats hp=4780 atk=311 em=187 dendro%=0.466 em=187;
+nahida add stats def=39.36 def%=0.124 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=118.92 cr=0.2979 cd=0.7282;
+
+kuki char lvl=90/90 cons=6 talent=9,9,9;
+kuki add weapon="sapwoodblade" refine=5 lvl=90/90 +params=[pickup_delay=60];
+kuki add set="instructor" count=4;
+kuki add stats hp=3571 atk=232 em=140.25 electro%=0.466 cr=0.23325;
+kuki add stats def=31.488 def%=0.0992 hp=406.304 hp%=0.07936 atk=26.464 atk%=0.07936 er=0.08816 em=31.712 cr=0.28466 cd=0.43692;
+
+alhaitham char lvl=90/90 cons=0 talent=9,9,9;
+alhaitham add weapon="harbingerofdawn" refine=5 lvl=90/90;
+alhaitham add set="gildeddreams" count=4;
+alhaitham add stats hp=4780 atk=311 em=187 dendro%=0.466 cr=0.311;
+alhaitham add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=79.28 cr=0.331 cd=0.7944;

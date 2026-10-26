@@ -1,0 +1,17 @@
+id: hutao-furina-kaedeharakazuha-chevreuse
+name: Hutao / Furina / Kaedeharakazuha / Chevreuse
+members:
+    - tao
+    - furina
+    - kazuha
+    - chev
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/gNbqQj8HT9pB
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 64145
+    computed: "2026-10-01"

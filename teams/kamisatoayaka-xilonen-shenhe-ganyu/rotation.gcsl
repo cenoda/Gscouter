@@ -1,0 +1,18 @@
+active ganyu;
+for let i=0; i<3; i=i+1 {
+  if i {
+    ayaka charge;
+  }
+  ganyu aim[weakspot=1];
+  xilonen skill, attack:2;
+  
+  shenhe skill, dash; pick_up_crystallize("cryo");
+  shenhe burst;
+  ganyu skill, burst;
+  pick_up_crystallize("cryo");
+  ayaka skill, dash, burst;
+  xilonen skill, attack:2;
+  shenhe skill, dash; pick_up_crystallize("cryo");
+  ganyu aim[weakspot=1], skill;
+  ayaka dash, attack, charge, skill, attack:2;
+}

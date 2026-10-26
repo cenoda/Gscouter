@@ -1,0 +1,27 @@
+active xingqiu;
+for let x=6; x;x = x - 1 {
+    xingqiu skill, dash, burst, attack;
+    kazuha burst, attack;
+    amber burst;
+    wait (50);
+    kazuha skill, high_plunge, attack;
+    hutao skill,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge;
+    if .hutao.burst.ready {
+      hutao burst; }
+    else {
+      hutao dash, attack; }
+    kazuha skill, high_plunge;
+    while .xingqiu.skill.cd > 12 {
+    wait (1); }
+    print("done");
+}

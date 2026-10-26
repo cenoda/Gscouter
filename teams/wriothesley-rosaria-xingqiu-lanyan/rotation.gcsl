@@ -1,0 +1,18 @@
+active xingqiu;
+for let x=0; x<4; x=x+1 {
+  xingqiu skill, burst, attack:2;
+  rosaria skill, attack, burst;
+  lanyan attack, skill:2, attack; 
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:4;
+  if .wrio.burst.ready {
+    wrio burst;
+  } else {
+    wrio charge;
+  }
+}

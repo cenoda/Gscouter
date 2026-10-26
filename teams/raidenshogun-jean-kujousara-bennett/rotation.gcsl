@@ -1,0 +1,12 @@
+active raiden;
+raiden skill;
+for let x = 0; x < 5; x = x + 1 {
+  jean skill;
+  kujousara skill, aim;
+  wait(22);
+  bennett skill, burst;
+  jean burst, skill;
+  kujousara burst;
+  raidenshogun burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  bennett attack, skill, attack:2;
+}

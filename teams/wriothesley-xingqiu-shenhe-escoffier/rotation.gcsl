@@ -1,0 +1,18 @@
+active xingqiu;
+for let i=0; i<4; i=i+1 {
+  xingqiu skill, dash, attack, burst, attack;
+  escoffier skill, attack, burst;
+  shenhe attack, skill[hold=1], attack, burst;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:4;
+  if .wrio.burst.ready  {
+    wrio burst; 
+  } else {
+    wrio charge; 
+  }
+}

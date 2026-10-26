@@ -1,0 +1,17 @@
+id: kinich-yaemiko-fischl-xilonen
+name: Kinich / Yaemiko / Fischl / Xilonen
+members:
+    - kinich
+    - yae
+    - fischl
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/FW7wL8KWGQhP
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 56150
+    computed: "2026-10-01"

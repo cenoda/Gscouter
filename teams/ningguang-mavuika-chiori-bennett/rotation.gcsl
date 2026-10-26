@@ -1,0 +1,36 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || ( char_id == .keys.char.mavuika && action_id == .action.charge ) || ( char_id == .keys.char.chiori && action_id == .action.skill ) || ( char_id == .keys.char.ningguang && action_id == .action.walk ) {
+    pick_up_crystallize("any"); 
+  }
+  return _execute_action(char_id, action_id, p);
+}
+active mavuika; 
+for let i = 0; i < 4; i = i + 1 {
+  mavuika skill, attack;
+  
+  chiori skill:2; 
+  
+  bennett skill, burst;
+  
+  mavuika burst, charge:1, dash;
+
+  ningguang attack, skill, dash, 
+            attack, walk, 
+            attack, 
+            charge;
+  ningguang burst, skill, dash, 
+            charge,
+            attack, walk, 
+            attack, walk, 
+            attack, 
+            charge, 
+            attack; 
+            
+  if .chiori.burst.ready {
+    chiori burst;
+  } else {
+    ningguang walk, attack, charge;
+  }
+  
+}

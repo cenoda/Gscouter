@@ -1,0 +1,29 @@
+active mav; 
+raiden skill, attack;
+for let i=0; i<4; i=i+1 {
+  bennett skill, burst;
+  
+  if i > 0 && .mav.burst.ready {
+    mav burst, charge:2, dash,
+               charge:2, dash,
+               skill, dash;
+  } else {
+    mav skill, attack;
+  }
+  
+  emilie burst;
+  
+  bennett skill;
+  
+  if .raiden.burst.cd {
+    emilie attack, skill;
+  }
+  raiden burst,
+         attack:4, skill,
+         attack:4, dash,
+         attack:4, dash,
+         attack:2;
+  if !is_even(i) {
+    raiden attack:2;
+  }
+}

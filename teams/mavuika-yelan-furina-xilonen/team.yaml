@@ -1,0 +1,17 @@
+id: mavuika-yelan-furina-xilonen
+name: Mavuika / Yelan / Furina / Xilonen
+members:
+    - mavuika
+    - yelan
+    - furina
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Hn6Ft9bMwzdr
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 88111
+    computed: "2026-10-01"

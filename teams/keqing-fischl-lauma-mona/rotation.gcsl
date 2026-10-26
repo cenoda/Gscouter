@@ -1,0 +1,28 @@
+active lauma;
+for let i=0; i<4; i=i+1 {
+  if !i {
+    lauma attack, skill;
+  } else {
+    lauma skill[hold=1], attack;
+  }
+  fischl attack, skill;
+  mona burst, attack, skill;
+  keq skill, burst, skill, dash,
+      attack, charge,
+      attack, charge;
+  mona attack:3;
+  keqing attack, charge,
+         attack;
+  
+  lauma attack, burst, skill[hold=1], attack;
+  fischl attack:2, burst;
+  mona dash, burst, attack, skill;
+  keq skill, burst, skill, dash,
+      attack, charge;
+  mona attack:3;
+  keq attack, charge,
+      attack, charge,
+      attack, charge;
+  mona attack:2, dash;
+  
+}

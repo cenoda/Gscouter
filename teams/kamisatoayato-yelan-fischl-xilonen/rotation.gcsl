@@ -1,0 +1,28 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if ( char_id == .keys.char.xilonen && action_id == .action.skill ) {
+    pick_up_crystallize("any");
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+active yelan;
+yelan aim[hold=1];
+for let i = 0; i < 4; i = i + 1 {
+  xilonen burst;
+  xilonen skill, attack:2;
+  
+  yelan skill, burst, attack;
+  
+  fischl skill, attack;
+  
+  ayato skill, attack:15, burst;
+  
+  yelan attack, skill, attack;
+  
+  xilonen skill, attack:2;
+  
+  fischl attack:2, burst;
+  
+  ayato skill, attack:15;
+}

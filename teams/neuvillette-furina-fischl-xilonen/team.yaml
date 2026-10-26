@@ -1,0 +1,17 @@
+id: neuvillette-furina-fischl-xilonen
+name: Neuvillette / Furina / Fischl / Xilonen
+members:
+    - neuvillette
+    - furina
+    - fischl
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/wFn8tJMf7pnk
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 84426
+    computed: "2026-09-30"

@@ -1,0 +1,17 @@
+id: lisa-fischl-kaedeharakazuha-kirara
+name: Lisa / Fischl / Kaedeharakazuha / Kirara
+members:
+    - lisa
+    - fischl
+    - kazuha
+    - kirara
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/BKqJLFKrNwB8
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 63982
+    computed: "2026-10-02"

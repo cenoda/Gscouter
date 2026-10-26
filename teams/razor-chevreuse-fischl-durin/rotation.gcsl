@@ -1,0 +1,26 @@
+active razor; 
+amy attack, skill;
+for let i=0; i<4; i=i+1 {
+  
+  if i == 0 {
+    chev burst, skill[hold=1]:2;
+  } else {
+    chev attack, skill[hold=1];
+  }
+  
+  durin skill:2, burst; 
+  
+  if .amy.skill.ready && i != 0 {
+    amy attack:1, skill;
+  } else {
+    amy attack:2, burst;
+  }
+  razor skill, dash, attack:1, burst;
+  razor attack:0, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+}

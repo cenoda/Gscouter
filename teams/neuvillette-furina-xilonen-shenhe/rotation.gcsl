@@ -1,0 +1,18 @@
+active neuvillette;	
+for let i = 0; i < 4; i = i + 1 {
+  neuvillette skill;
+  furina attack, skill, dash, attack;
+  xilonen skill, burst, attack:2;
+  shenhe skill[hold=1], attack:2;
+  if !.shenhe.mods.favonius-cd {
+    shenhe attack;
+  }
+  if .shenhe.sets.ap >=4 {
+    shenhe dash; pick_up_crystallize("hydro");
+  }
+  furina burst;
+  neuvillette charge, skill, charge, burst;
+  xilonen skill, attack:2;
+  neuvillette charge, charge;
+}
+wait(173);

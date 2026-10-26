@@ -1,0 +1,29 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  baizhu skill, attack, burst;
+  
+  yelan burst, attack;
+  if !.yelan.skill.ready && .yelan.breakthrough {
+    yelan aim;
+  }
+  yelan skill, attack;
+  
+  sethos skill, attack; 
+  sethos burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2;
+  
+  yelan attack, skill, attack;
+  
+  sethos skill;
+  sethos attack, aim[hold=2];
+  sethos aim[hold=1]:1, attack;
+}

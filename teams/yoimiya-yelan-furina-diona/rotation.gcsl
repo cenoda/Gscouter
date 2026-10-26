@@ -1,0 +1,15 @@
+active furina;
+for let x=0; x<4; x=x+1 {
+  furina skill, dash, burst;
+  diona skill[hold=1], burst;
+  yelan burst, attack; 
+  diona attack:4;      
+  yelan attack, skill;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  yelan skill, attack;
+  if .yoimiya.burst.ready {
+    yoimiya burst;
+  } else {
+    yelan attack:2;
+  }
+}

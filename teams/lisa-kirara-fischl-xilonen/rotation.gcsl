@@ -1,0 +1,19 @@
+active lisa;
+lisa attack;
+for let i=0; i<4; i=i+1 {
+  xilonen skill, attack:2;
+
+  kirara skill[short_hold=1]; pick_up_crystallize("any");
+  kirara burst;
+  fischl skill, attack:2;
+  
+  lisa attack, burst, attack, charge, dash, attack:2, charge, dash, attack:2;
+  
+  xilonen skill, attack:2;
+  
+  kirara skill[short_hold=1]; pick_up_crystallize("any");
+  
+  fischl attack:2, burst;
+  
+  lisa skill, attack:1, skill, attack:3, charge, dash, skill[hold=1], attack:1, charge;
+}

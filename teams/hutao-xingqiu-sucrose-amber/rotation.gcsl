@@ -1,0 +1,26 @@
+let k = 0;
+let t = 0;
+active xingqiu;
+for let i=0; i<4; i=i+1 {
+  t = f();
+  xingqiu burst, attack:1, skill, dash, attack:2;
+  amber burst;
+  wait (33);
+  sucrose attack, skill, jump;
+  hutao attack,skill, attack:2, charge, jump,
+  	attack:2, charge, jump,
+  	attack:2, charge, jump,
+  	attack:2, charge, jump,
+  	attack:2, charge, jump,
+  	attack:2, charge, jump,
+  	attack:2, charge, jump,
+  	attack:2, charge, jump;
+  k=0;
+  while .amber.mods.favonius-cd<1 && k <=6 {
+  	amber attack;
+  	k = k + 1;
+  }
+  while f() - t <=21.16*60 {
+  	sucrose attack;
+  }
+}

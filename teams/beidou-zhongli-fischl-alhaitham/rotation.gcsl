@@ -1,0 +1,15 @@
+active zhongli;
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], burst; 
+  fischl attack;
+  if .fischl.skill.ready {
+    fischl skill;
+  } else {
+    fischl burst;
+  }
+  beidou skill[counter=1], burst;
+  alhaitham burst;
+  alhaitham attack:3, dash, attack:3, charge, attack:3, dash, attack:3, skill[hold=1], low_plunge, attack:3, dash, attack:2;
+  beidou skill[counter=1];
+  
+}

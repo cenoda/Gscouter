@@ -1,0 +1,12 @@
+active zhongli;
+for let i=0; i<4; i=i+1 {
+  zhongli attack, skill[hold=1], dash;
+  yelan skill, burst, attack;
+  candace skill, attack, burst, attack;
+  yoimiya skill;
+  for let x=0; x<3; x=x+1 {
+    yoimiya attack:5, dash;
+  }
+  yoimiya attack;
+  candace skill, attack:2;
+}

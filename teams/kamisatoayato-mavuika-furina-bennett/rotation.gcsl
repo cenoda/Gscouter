@@ -1,0 +1,9 @@
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  bennett skill, burst;
+  mavuika skill, attack;
+  ayato skill, attack:15, burst;
+  mavuika burst, charge:3, dash;
+  ayato skill, attack:15;
+}

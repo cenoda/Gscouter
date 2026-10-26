@@ -1,0 +1,16 @@
+active fischl;
+for let i=0; i<4; i=i+1 {
+  fischl skill, attack:2;
+  nahida skill, burst;
+  lisa attack, burst;
+  fischl attack:2, burst;
+  cyno burst;
+  while .fischl.skill.cd > 40 {
+    if .cyno.normal == 5 {
+      cyno skill;
+    } else {
+      cyno attack;
+    }
+  }
+  print("done!");
+}

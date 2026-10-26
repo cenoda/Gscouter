@@ -1,0 +1,16 @@
+active shenhe;
+for let i=0; i<4; i=i+1 {
+  shenhe skill, burst;
+  
+  xilonen skill, attack:2;
+  
+  kazuha skill, high_plunge, burst;
+  ayaka skill, dash, burst, attack, charge;
+  
+  shenhe skill, attack;
+  
+  xilonen skill, attack:2, burst;
+  
+  kazuha skill, high_plunge;
+  ayaka skill, dash, attack:2, charge, attack:2, charge;
+}

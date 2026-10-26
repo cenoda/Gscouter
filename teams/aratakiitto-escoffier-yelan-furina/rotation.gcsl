@@ -1,0 +1,11 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  escoffier skill, burst;
+  yelan burst, attack, skill, attack;
+  itto attack, burst[prestack=1],
+       attack, skill,
+       attack:2, charge:5, dash,
+       attack:3, charge:4, skill[travel=0], charge;
+       delay(21); 
+}

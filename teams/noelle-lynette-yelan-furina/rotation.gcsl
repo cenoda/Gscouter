@@ -1,0 +1,21 @@
+active furina;
+for let x=0; x<4; x=x+1 {
+  furina  skill, dash, burst;
+  lynette skill, burst;
+  noelle  skill, burst;
+  while !pick_up_crystallize("hydro") {
+    wait(1);
+  }
+  yelan   burst, attack, skill, attack;
+  noelle  attack:3, dash;
+  noelle  attack:3;
+  lynette skill;
+  noelle swap;
+  
+  while !pick_up_crystallize("hydro") {
+    wait(1);
+  }
+  noelle  attack:3;
+  yelan skill, attack;
+  noelle attack:3;
+}

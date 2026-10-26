@@ -1,0 +1,15 @@
+active escoffier;
+for let i = 0; i < 4; i = i + 1 {
+  escoffier skill;
+  
+  yelan attack, skill, burst;
+  mavuika skill, burst, charge, dash;
+  
+  chasca attack, skill, aim:3;
+  if .chasca.burst.ready{
+    chasca burst, aim:1;
+  } else{
+    chasca aim:2;
+  }
+}
+wait(100);

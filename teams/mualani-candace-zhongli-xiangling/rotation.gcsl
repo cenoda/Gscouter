@@ -1,0 +1,37 @@
+active mualani;
+fn mualani_combo() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+}
+mualani attack; 
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], dash, attack;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  xiangling burst, skill, dash, attack;
+  candace skill, burst, attack, dash;
+  pick_up_crystallize("hydro");
+  let mq=0;
+  if .mualani.burst.ready && .mualani.energy == .mualani.energymax {
+    mualani burst;
+    mq=1;
+  }
+  mualani skill;
+  mualani_combo();
+  if .mualani.nightsoul.state {
+    mualani skill; 
+  }
+  candace attack, skill, attack:2, dash;
+  if mq==0 {
+    candace attack:3; 
+  }
+}

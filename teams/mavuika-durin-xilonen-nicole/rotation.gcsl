@@ -1,0 +1,16 @@
+active mavuika;
+mavuika skill;
+for let i = 0; i < 4; i = i + 1 {
+  nicole skill, burst;
+  durin skill, burst, skill;
+  xilonen skill, attack:4;
+  mavuika burst;
+  mavuika charge:2, dash, 
+          charge:2, dash, 
+          charge:2, dash,  
+          charge:2, dash, 
+          charge:2, dash,
+          charge:2, dash,
+          charge, dash,
+          skill;
+}

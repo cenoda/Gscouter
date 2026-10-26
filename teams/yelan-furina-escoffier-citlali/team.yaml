@@ -1,0 +1,17 @@
+id: yelan-furina-escoffier-citlali
+name: Yelan / Furina / Escoffier / Citlali
+members:
+    - yelan
+    - furina
+    - escoffier
+    - citlali
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/6thffzfBtTdR
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 95612
+    computed: "2026-09-30"

@@ -1,0 +1,11 @@
+active nahida;
+for let x = 5; x; x = x - 1 {
+  nahida burst, attack, skill;
+  mona dash, attack;
+  kuki skill, attack;
+  if .kuki.burst.ready { kuki burst; }
+  else { kuki attack:2; }
+  mona dash, skill, burst, attack;
+  tighnari skill, aim, burst, aim:2;
+  mona dash, attack;
+}

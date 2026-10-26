@@ -1,0 +1,17 @@
+id: wriothesley-rosaria-kaedeharakazuha-bennett
+name: Wriothesley / Rosaria / Kaedeharakazuha / Bennett
+members:
+    - wrio
+    - rosaria
+    - kazuha
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/nb8rCcTQG7Jq
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 43573
+    computed: "2026-10-02"

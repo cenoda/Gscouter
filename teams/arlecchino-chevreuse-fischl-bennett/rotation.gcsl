@@ -1,0 +1,21 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill; delay(11);
+  bennett skill, burst;
+  if !i {
+    fischl attack, skill;
+  }
+  chevreuse burst, skill[hold=1], attack;
+  if i && .fischl.skill.ready {
+    fischl attack, skill;
+  } else if i {
+    fischl attack:2, burst;
+  }
+  arle charge,
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3;
+}

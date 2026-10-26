@@ -1,0 +1,17 @@
+id: wriothesley-layla-shenhe-escoffier
+name: Wriothesley / Layla / Shenhe / Escoffier
+members:
+    - wrio
+    - layla
+    - shenhe
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/TFGP9QJ9Tqgg
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 61345
+    computed: "2026-10-02"

@@ -1,0 +1,14 @@
+active raiden;
+raiden skill;
+for let i=0; i<4;i=i+1 {
+  chev burst, skill[hold=1]:2;
+  durin skill, burst, skill;
+  fischl attack:2, burst;
+  raiden attack, burst, attack:4, dash, attack:4, skill, attack:4, dash, attack:4;
+  if is_even(i) {
+    raiden dash, attack:2;
+    fischl attack, skill;
+  } else {
+    raiden dash, attack:2;
+  }
+}

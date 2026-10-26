@@ -1,0 +1,23 @@
+active razor; 
+razor skill, dash;
+for let i=0; i<4; i=i+1 {
+  xingqiu skill, dash, burst, attack;
+  
+  diona skill[hold=1], attack, burst, attack;
+  
+  ororon skill, attack, burst, attack;
+
+  razor skill, dash, attack, burst;
+  
+  while .xingqiu.mods.xingqiuburst || .xingqiu.skill.cd {
+  
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+  
+}

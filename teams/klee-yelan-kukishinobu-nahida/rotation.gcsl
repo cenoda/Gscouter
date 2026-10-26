@@ -1,0 +1,23 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill, burst, attack;
+  yelan skill, burst, attack;
+  if .kuki.burst.ready { 
+    kuki burst; 
+  }
+  kuki skill;
+  nahida attack:2, skill;
+  if .klee.burst.ready { 
+    klee attack, burst, walk; 
+  }
+  klee attack, skill[bounce=3, mine=8];
+  if .klee.skill.ready {
+    klee jump, attack, skill[bounce=3, mine=8], jump;
+  } else {
+    klee jump, attack[travel=6], charge;
+  }
+  for let c = 5; c; c = c - 1 {
+    klee attack[travel=6], charge;
+  }
+  klee attack, walk, attack, walk, attack, walk, attack;
+}

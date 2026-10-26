@@ -1,0 +1,12 @@
+active mavuika;
+mavuika skill;
+for let i=0; i<5; i=i+1 {
+  bennett skill, burst, attack;
+  citlali skill, burst, attack;
+  skirk burst, skill[hold=1];
+  mavuika burst;
+  delay(18);
+  mavuika charge:3, charge[hold=6], charge[final=1], dash;
+  mavuika charge:3, charge[hold=6], charge[final=1], dash, skill;
+  skirk skill[hold=1], attack:2;
+}

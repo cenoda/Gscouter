@@ -1,0 +1,15 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida attack:2,skill,burst;
+  kokomi attack,skill,dash;
+  bennett skill,burst;
+  jean skill,attack,burst;
+  kokomi burst;
+  kokomi attack:2,charge;
+  kokomi attack:2,charge;
+  kokomi attack:2,charge;
+  kokomi attack:2,charge;
+  bennett skill, attack;
+  jean skill, attack:3;
+}
+wait(11);

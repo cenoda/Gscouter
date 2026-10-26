@@ -1,0 +1,23 @@
+active klee;
+klee attack;
+for let r = 5; r > 0; r = r - 1 {
+  kazuha skill, high_plunge, burst;
+  bennett burst, skill;
+  xiangling burst, skill;
+  kazuha skill, high_plunge;
+  klee attack, burst, walk, attack, skill[bounce=3, mine=8];
+  if .klee.skill.ready {
+    klee jump, attack, skill[bounce=3, mine=8], jump;
+  } else {
+    klee attack[travel=6], charge;
+  }
+  for let r = 5; r > 0; r = r - 1 {
+    klee attack[travel=6], charge; 
+  }  
+  klee attack;
+  
+  if (r > 1) {
+    bennett skill; 
+  }
+}
+wait(25);

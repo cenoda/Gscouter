@@ -1,0 +1,34 @@
+active raiden;
+fn suc_stuffs() { 
+  if .sucrose.skill.ready {
+      sucrose attack:2, skill, dash;
+  } else {
+      sucrose attack:2, dash;
+  }
+}
+raiden skill;
+sucrose skill, jump;
+for let i=0; i<4; i=i+1 {
+  let src = f();
+  collei skill;
+  xingqiu burst, attack:2;
+  sucrose attack:3, dash;
+  suc_stuffs();
+  suc_stuffs();
+  sucrose attack:3, dash;
+  sucrose attack:2, burst;
+  raiden skill, attack;
+  collei burst, attack, skill;
+  xingqiu attack, skill, dash, attack:2;
+  suc_stuffs();
+  raiden attack;
+  while f() - src <= 24.8*60 { 
+    if .raiden.burst.ready {
+      raiden burst;
+    }
+    if .raiden.normal > 4 {
+      raiden dash;
+    }
+    raiden attack;
+  }
+}

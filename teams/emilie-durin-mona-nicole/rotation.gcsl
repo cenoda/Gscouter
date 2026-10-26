@@ -1,0 +1,18 @@
+active emilie;
+for let i = 0; i < 4; i = i + 1 {
+  if !is_even(i) {
+    emilie burst;
+  } else {
+    emilie skill, attack; 
+  }
+  nicole skill, burst;
+  mona skill, attack;
+  durin skill, skill, burst;
+  mona swap; delay(16);
+  mona burst;
+  mona charge;
+  mona charge; 
+  mona charge; delay(16);
+  mona charge; delay(6);
+  mona charge; delay(11);
+}

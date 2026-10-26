@@ -1,0 +1,20 @@
+active herexcellencythealmightynarukamiogoshogodofthunder;
+herexcellencythealmightynarukamiogoshogodofthunder skill;
+for let x = 0; x < 5; x = x + 1 {
+  
+sara skill, aim, attack;
+  
+  sucrose skill, dash;
+   if .sucrose.skill.ready {
+    sucrose skill, dash;
+  } else {
+    sucrose attack;
+  }
+  sucrose burst, attack:2;
+  bennett skill, dash, burst;
+  kujousara burst;
+  herexcellencythealmightynarukamiogoshogodofthunder burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  bennett skill, attack:2, dash;
+  
+   print("Rotation Done");
+}

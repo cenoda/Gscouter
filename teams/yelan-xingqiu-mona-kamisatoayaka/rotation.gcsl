@@ -1,0 +1,12 @@
+active xingqiu;
+for let x=0; x<5; x=x+1 {
+    xingqiu burst, attack;
+    yelan skill, attack, burst, attack;
+    ayaka dash, attack, skill, attack;
+    mona skill, burst;
+    ayaka dash, attack, burst, attack;
+    yelan skill, attack;
+    ayaka dash, attack:3, skill, attack:2;
+    xingqiu attack, skill, dash, attack:2;
+    yelan attack:4, dash, attack:2;
+}

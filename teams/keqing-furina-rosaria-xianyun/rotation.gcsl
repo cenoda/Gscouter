@@ -1,0 +1,39 @@
+fn KeqingPlunge() {
+  keqing jump;
+  if .airborne {
+    keqing high_plunge[collision=rand()>0.5];
+  }
+}
+active furina;
+for let x = 0; x < 4; x = x + 1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  rosaria skill, burst;
+
+  keq skill;
+  keqing attack, charge;
+  
+  while .keqing.status.xianyun-airborne-buff {
+    if .previous-action == .action.skill {
+      keqing attack, charge;
+    } else {
+      KeqingPlunge();
+      if .keqing.skill.ready {
+        keqing skill;
+      } else if !.keqing.status.xianyun-airborne-buff { 
+        rosaria swap;
+      } else {
+        keqing dash;
+      }
+    }
+  }
+  
+  rosaria skill;
+  print("done");
+}

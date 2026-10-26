@@ -1,0 +1,33 @@
+active furina;
+for let i = 0; i < 4; i = i + 1  {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  esco skill, burst;
+  
+  faruzan skill, burst;
+  if !.faruzan.mods.favonius-cd {
+    faruzan attack;
+  }
+  
+  wanderer attack, skill, attack;
+  while .wanderer.skydweller-points > 3 {
+    switch {
+      case .wanderer.normal < 3:
+        wanderer attack;
+      case .wanderer.mods.wanderer-a4:
+        wanderer dash;
+      default:
+        wanderer charge;
+    }
+  }
+  if .wanderer.status.windfavored-state && .wanderer.burst.ready {
+    wanderer burst, attack:1;
+  } else if .wanderer.status.windfavored-state {
+    wanderer skill;
+    
+  }
+}

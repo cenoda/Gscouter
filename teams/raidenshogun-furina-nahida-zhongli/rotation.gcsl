@@ -1,0 +1,19 @@
+active furina;
+for {
+  switch 1 {
+    case .furina.skill.ready:
+      furina skill, dash;
+    case .furina.burst.ready:
+      furina burst;
+    case .zhongli.skill.ready:
+      zhongli skill[hold=1], dash;
+    case .nahida.skill.ready:
+      nahida skill;
+    case .nahida.burst.ready:
+      nahida burst;
+    case .raiden.skill.ready:
+      raiden skill;
+    default:
+      sleep(1);
+  }
+}

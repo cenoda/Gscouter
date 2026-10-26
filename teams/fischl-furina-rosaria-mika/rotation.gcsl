@@ -1,0 +1,41 @@
+let AIM_CANCEL=true;
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+ 
+  mika burst, attack, skill;
+  
+  rosaria skill, burst;
+  
+  fischl attack;
+  if .fischl.burst.ready {
+    fischl attack, burst;
+  } else {
+    fischl skill;
+  }
+  
+  if AIM_CANCEL {
+    fischl attack:2, aim[hold=0],
+            attack:2, aim[hold=0],
+            attack:2, aim[hold=0],
+            attack:2, aim[hold=0],
+            attack:2, aim[hold=0],
+            attack:2, aim[hold=0],
+            attack:2, aim[hold=0],
+            attack:2, aim[hold=0],
+            attack:2, aim[hold=0],
+            attack:2, aim[hold=0];
+            
+  } else {
+    fischl attack:5, dash,
+            attack:5, dash,
+            attack:5, dash,
+            attack:5, dash,
+            attack:2;
+            
+  }
+}

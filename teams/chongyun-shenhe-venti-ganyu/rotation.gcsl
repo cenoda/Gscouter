@@ -1,0 +1,12 @@
+active chongyun;
+for let x=0; x<6; x=x+1 {
+	chongyun burst, skill;
+	shenhe skill, burst;
+	ganyu skill, burst;
+	venti skill, burst;
+	ganyu aim[weakspot=1];
+	shenhe skill, attack;
+	ganyu aim[weakspot=1];
+	venti skill, attack;
+	ganyu aim[travel=0];
+}

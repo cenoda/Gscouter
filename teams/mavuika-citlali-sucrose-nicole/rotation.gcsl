@@ -1,0 +1,18 @@
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  mavuika skill, attack; 
+  delay(7); 
+  nicole skill, attack;  
+  sucrose swap;
+  wait(20);
+  sucrose skill, dash;
+  citlali skill, burst, attack;
+  mavuika swap;
+  mavuika skill[recast=1], charge, dash, attack, charge;  
+  mavuika burst;
+  delay(24); 
+  mavuika charge:3, charge[hold=6], charge[final=1], dash;
+  mavuika charge:3, charge[hold=6], charge[final=1], dash; 
+  
+  mavuika charge, dash;
+}

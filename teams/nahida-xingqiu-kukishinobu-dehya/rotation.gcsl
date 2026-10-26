@@ -1,0 +1,18 @@
+active nahida;
+    nahida skill;
+for let i=0; i<4; i=i+1 {
+    dehya skill, skill;
+    xingqiu skill, dash, burst, attack;
+    kuki skill, attack;
+    nahida  attack:4,
+            skill,
+            attack:4, jump,
+            attack:4,
+            skill,
+            attack:4, jump,
+            attack:4,
+            skill,
+            attack:3, jump,
+            attack:2;
+    print("done");
+}

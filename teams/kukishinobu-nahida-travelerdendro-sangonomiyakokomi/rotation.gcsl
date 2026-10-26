@@ -1,0 +1,15 @@
+active nahida;
+nahida skill;
+for let i = 0; i < 4; i = i + 1 {
+  kokomi attack, skill, dash;
+  luminedendro skill, burst, attack:2;
+  kuki attack,skill;
+  nahida skill, attack:2;
+  if .nahida.burst.ready {
+      nahida burst,attack;
+    }
+  kokomi attack, burst;
+  while .kokomi.skill.cd > 85 {
+      kokomi attack:2, dash, walk[f=2];
+    }
+}

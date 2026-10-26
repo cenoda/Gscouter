@@ -1,0 +1,27 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+	  pick_up_crystallize("any"); 
+  }
+  return _execute_action(char_id, action_id, p);
+}
+active zhongli;
+for let x=0; x<4; x=x+1 {
+  zhongli skill[hold_nostele=1], dash;
+  while !.zhongli.mods.favonius-cd { 
+    zhongli attack; 
+  }
+  if !x {
+    navia skill,attack:2; 
+  }
+  navia burst;
+  if .fischl.burst.ready {
+    fischl  attack,burst; pick_up_crystallize("any");
+    sara attack, burst;
+  } else {
+    sara skill, aim[weakspot=1];
+    fischl skill,attack;
+  }
+  navia skill[hold=1],attack:3, dash, attack:3;
+  navia skill[hold=1], attack:3, dash, attack:3; 
+}

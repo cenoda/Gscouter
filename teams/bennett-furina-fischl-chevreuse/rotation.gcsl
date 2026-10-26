@@ -1,0 +1,24 @@
+active fischl;
+fischl skill;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  
+  bennett skill, burst;
+  
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  
+  chev burst, skill[hold=1]:1, attack, skill[hold=1]:2;
+  
+  bennett attack:2, skill;
+  while .status.bennettburst || .bennett.infusion.bennett-fire-weapon {
+    if .bennett.skill.ready {
+      bennett skill;
+    } else {
+      bennett attack;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+active furina;
+furina skill, dash, burst;
+for let i=0; i<3; i=i+1 {
+  if i { 
+    furina skill, dash, attack, burst; 
+  }
+  if !i {
+    bennett skill, burst;
+  } else {
+    bennett burst, skill;
+  }
+  yelan burst;
+  if !i { 
+    yelan attack; 
+  } else {
+    furina attack:2; 
+  } 
+  yelan skill, attack;
+  klee attack, burst, walk,
+       attack[travel=6], charge, 
+       attack[travel=6], charge, 
+       attack, skill[bounce=3, mine=8], jump,
+       attack[travel=6], charge;
+  if .klee.skill.ready {
+    klee attack, skill[bounce=3, mine=8], jump;
+  } else {
+    klee attack[travel=6], charge;
+  }
+  klee attack[travel=6], charge, 
+       attack[travel=6], charge,
+       attack, walk;
+  yelan skill, attack:2;
+  bennett skill;
+  if !i { 
+    bennett attack;
+  } 
+}

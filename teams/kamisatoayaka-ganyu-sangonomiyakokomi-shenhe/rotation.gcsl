@@ -1,0 +1,10 @@
+active shenhe;
+for let i=0; i<4; i=i+1 {
+	shenhe burst, skill;
+	ganyu skill, burst;
+	kokomi skill, dash;
+	ayaka dash, attack:2, skill, attack, burst, attack;
+	shenhe attack:2, skill;
+	ganyu attack, skill, attack;
+	ayaka dash, attack:2, charge, attack:2, charge, skill, dash, attack:2, charge;
+}

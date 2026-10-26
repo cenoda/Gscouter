@@ -1,0 +1,28 @@
+fn IttoPlunge() {
+  itto jump;
+  if .airborne {
+    itto high_plunge[collision=rand()>0.5];
+  }
+}
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  bennett skill, burst, attack;
+  
+  xianyun attack:2; sleep(20);
+  
+  itto skill;
+  IttoPlunge(); itto dash; wait(15);
+  IttoPlunge(); itto dash; wait(15);
+  IttoPlunge(); itto dash; wait(15);
+  IttoPlunge(); itto dash; wait(15);
+  IttoPlunge(); itto dash; wait(15);
+  IttoPlunge(); itto dash; wait(15);
+  IttoPlunge(); itto dash; wait(15);
+  IttoPlunge();
+  
+  bennett skill, attack:2;
+}

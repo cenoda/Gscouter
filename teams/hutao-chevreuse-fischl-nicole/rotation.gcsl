@@ -1,0 +1,27 @@
+active fischl;
+for let i=0; i<4; i=i+1 {
+  nicole skill, burst;
+  
+  fischl attack;
+  if is_even(i) {
+    fischl skill;
+  } else {
+    fischl attack, burst;
+  }
+  
+  chev burst, skill[hold=1]:3;
+  
+  hutao skill,
+    attack:3, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge;
+  if .hutao.burst.ready {
+    hutao dash, burst;
+  } else {
+    hutao jump, attack:2, charge, jump;
+  }
+}

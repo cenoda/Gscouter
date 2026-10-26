@@ -1,0 +1,18 @@
+active durin;
+for let i = 0; i < 4; i = i + 1 {
+  nicole skill, burst;
+
+  faruzan skill, burst;
+  
+  durin skill:2, burst;
+
+  kazuha skill, high_plunge[collision=1];
+  
+  faruzan aim:2, skill, aim:1;
+  
+  kazuha skill, high_plunge[collision=1], burst;
+  
+  faruzan aim:1, skill, aim:1; 
+  
+  kazuha skill, high_plunge[collision=1];
+}

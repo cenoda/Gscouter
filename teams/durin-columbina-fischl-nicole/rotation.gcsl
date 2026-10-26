@@ -1,0 +1,23 @@
+active fischl;
+for let i=0; i<8; i=i+1 {
+  fischl attack, skill;
+  
+  if is_even(i) {
+    columbina skill, burst;
+  } else {
+    columbina skill, attack;
+  }
+  nicole skill, burst;
+  fischl attack, burst;
+  let StartFrame = f();
+  durin skill, attack, burst;
+  while f() - StartFrame < 680 {
+    if .durin.normal == 4 {
+      durin dash;
+    }
+    durin attack;
+    if .durin.normal == 2 && .stam > 50 {
+      durin charge, dash;
+    }
+  }
+}

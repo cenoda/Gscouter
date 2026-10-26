@@ -1,0 +1,17 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  xingqiu burst, attack:2; 
+  zhongli skill[hold=1], dash, attack;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack; 
+  }
+  xingqiu skill, dash, attack:2;
+  bennett skill, burst, attack;
+  arle charge, 
+       attack:5, dash, 
+       attack:5, dash,
+       attack:5, dash,
+       attack:5, dash, 
+       attack;
+}

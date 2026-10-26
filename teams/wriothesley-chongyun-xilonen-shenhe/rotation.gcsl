@@ -1,0 +1,21 @@
+active chongyun;
+for let x=0; x<4; x=x+1 {
+  chongyun skill;
+  shenhe attack, skill[hold=1], burst;
+  xilonen skill, attack:2;
+  if !.xilonen.mods.favonius-cd {
+    xilonen attack;
+  }
+  chongyun burst;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump;
+  if .wrio.burst.ready && .wrio.energy == .wrio.energymax {
+    wrio burst;
+  } else {
+    wrio attack:3, charge;
+  }
+}

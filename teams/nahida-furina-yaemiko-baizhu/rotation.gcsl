@@ -1,0 +1,31 @@
+active yae;
+for let x = 0; x < 3; x = x + 1 {
+  if x==0 {
+    yae skill:3;
+  } else {
+    yae  skill, attack, skill, attack, skill;
+  }
+  
+  furina skill, dash, burst;
+  nahida skill, attack, burst;
+  baizhu skill, burst, attack;
+  
+  yae attack, charge, dash;
+  
+  if .yae.burst.ready { yae  burst; }
+  
+  else {yae attack:2, charge, jump, attack:2;}
+  
+  yae skill:3,
+      attack:1, charge, dash,
+      attack:2; 
+  
+  baizhu  attack, skill;
+  
+  yae attack:1, charge, jump,
+      attack:1, charge, jump, 
+      attack:2, charge, jump, attack;
+  
+  print("Rotation Done");
+}
+yae attack;

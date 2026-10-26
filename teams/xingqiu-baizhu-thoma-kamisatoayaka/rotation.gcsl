@@ -1,0 +1,11 @@
+active xingqiu; 
+for let i = 0; i < 4; i = i + 1 {
+    xingqiu skill, dash, attack, burst, attack;
+    thoma burst, attack, skill, attack:2;
+    baizhu attack, skill, attack, burst, attack;
+    ayaka dash, attack, skill, dash, attack, burst,
+        attack:3, charge, dash,
+        attack:3, charge, dash,
+        attack:3, charge, skill;
+    print("done");
+}

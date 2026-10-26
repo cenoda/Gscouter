@@ -1,0 +1,18 @@
+active tartaglia;
+for let i = 0; i < 4; i = i + 1 {
+  tartaglia aim;
+  citlali attack, skill, attack, burst;
+  bennett burst, skill;
+  xiangling burst, skill, dash;
+  tartaglia walk, burst, walk[f=11], skill,
+    attack:2, charge, jump,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge;
+  bennett attack, skill;
+  xiangling attack, skill, dash;
+  childe aim;
+  bennett skill;
+}

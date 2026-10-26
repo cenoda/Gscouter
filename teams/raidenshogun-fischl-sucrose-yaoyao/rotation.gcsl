@@ -1,0 +1,27 @@
+active herexcellencythealmightynarukamiogoshogodofthunder;
+herexcellencythealmightynarukamiogoshogodofthunder skill;
+for let i=0; i<3; i=i+1 {
+  yaoyao burst, skill;
+  sucrose burst;
+  if .sucrose.skill.ready {
+    sucrose attack, skill, dash;
+  } else {
+    sucrose attack, charge;
+  }
+  fischl attack:2, burst;
+  if .sucrose.skill.ready {
+    sucrose attack, skill, dash;
+  } else {
+    sucrose attack, charge;
+  }
+  herexcellencythealmightynarukamiogoshogodofthunder burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  if .sucrose.skill.ready {
+    sucrose attack, skill, dash;
+  } else {
+    sucrose attack, charge;
+  }
+  if .fischl.skill.ready {
+    fischl skill, attack;
+    sucrose attack:2, skill, dash, attack, charge;
+  } 
+}

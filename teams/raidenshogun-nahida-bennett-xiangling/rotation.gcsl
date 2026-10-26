@@ -1,0 +1,10 @@
+active raiden;
+raiden skill;
+for let r = 0; r < 5; r = r + 1 {
+  nahida skill, burst;
+  bennett skill, burst;
+  xiangling burst, skill;
+  raiden burst, attack:4, dash, attack:4, dash, attack:4, skill, attack:4;
+  bennett attack,skill;
+  xiangling attack:3;
+}

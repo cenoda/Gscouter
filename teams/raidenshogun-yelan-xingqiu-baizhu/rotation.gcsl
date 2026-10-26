@@ -1,0 +1,26 @@
+active baizhu;
+for let x = 0; x< 5; x=x+1 {
+    baizhu  attack, skill, burst, attack;
+    xingqiu burst, attack:2;
+    raiden  skill, attack;
+    wait(3);
+    while !.yelan.skill.ready {
+        yelan attack;
+    }
+    yelan  skill, attack, burst, attack;
+    baizhu attack:2, dash, attack:2;
+    if !.baizhu.skill.ready {
+        baizhu walk, attack;
+    }
+    baizhu  skill, attack:2, dash;
+    xingqiu attack, skill, dash, attack:2;
+    baizhu  attack:2,dash;
+    if .yelan.tags.yelan_breakthrough {
+        yelan aim:1, attack:2, skill, attack;
+    } else {
+        yelan attack:2, skill, attack; 
+    } 
+    baizhu attack:2, walk[f=3], attack:4, dash;
+    print("Done");
+  
+}

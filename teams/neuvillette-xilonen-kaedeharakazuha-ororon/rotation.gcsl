@@ -1,0 +1,14 @@
+active neuvillette;
+for let x=0; x<4; x=x+1 {
+  neuvillette skill, attack;
+  kazuha skill, high_plunge, burst;
+  xilonen skill, burst, attack:2; 
+  xilonen dash; pick_up_crystallize("hydro");
+  ororon burst, skill;
+  neuvillette charge, skill, charge, burst;
+  kazuha skill, high_plunge;
+  xilonen skill, attack:2;
+  xilonen dash; pick_up_crystallize("hydro");
+  neuvillette charge:2;
+}
+wait(173);

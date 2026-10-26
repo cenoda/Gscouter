@@ -1,0 +1,17 @@
+id: chasca-escoffier-chongyun-bennett
+name: Chasca / Escoffier / Chongyun / Bennett
+members:
+    - chasca
+    - escoffier
+    - chongyun
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/qTQNR6gdck69
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 61213
+    computed: "2026-10-01"

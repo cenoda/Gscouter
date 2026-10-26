@@ -1,0 +1,26 @@
+active fischl;
+fischl skill;
+for let i = 0; i < 4; i = i + 1 {
+  arlecchino skill;
+  if ( i / 2 ) * 2 != i {
+    emilie burst;
+  } else {
+    emilie skill, attack:3;
+  }
+  chev burst, skill[hold=1], attack;
+  if i && .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  arlecchino charge,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack;
+  
+  print("done");
+}

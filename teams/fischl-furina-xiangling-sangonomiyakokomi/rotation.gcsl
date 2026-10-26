@@ -1,0 +1,20 @@
+active furina;
+for let x=0; x<4; x=x+1{
+  furina skill, dash, burst;
+  kokomi attack, skill;
+  fischl attack:2, skill;
+  xiangling burst, skill, dash;
+  kokomi attack:2, burst;
+  for let x=0; x<8; x=x+1 {
+    kokomi attack:2, dash, walk[f=2];
+  }
+  kokomi attack:2, dash, attack:2;
+  fischl attack:2, burst;
+  xiangling attack:2, skill, dash;
+  furina attack:2;
+  kokomi attack:2, dash,
+         attack:2, jump,
+         attack:2, dash,
+         attack:2, jump,
+         attack:2;
+}

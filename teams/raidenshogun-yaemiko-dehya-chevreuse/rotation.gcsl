@@ -1,0 +1,10 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 4; i = i + 1 {
+  yae skill:3;
+  dehya skill:2;
+  chevreuse skill[hold=1], burst, attack;
+  yae burst, skill:3;
+  dehya burst, skill:3, jump;
+  raiden burst, attack:4, dash, attack:4, skill, attack:4, dash, attack:4;
+}

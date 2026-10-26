@@ -1,0 +1,17 @@
+id: neuvillette-beidou-fischl-lanyan
+name: Neuvillette / Beidou / Fischl / Lanyan
+members:
+    - neuvillette
+    - beidou
+    - fischl
+    - lanyan
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/mkbRM9q6bthG
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 89279
+    computed: "2026-10-01"

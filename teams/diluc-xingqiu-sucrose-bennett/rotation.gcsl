@@ -1,0 +1,21 @@
+active xingqiu;
+for let i=0; i<6; i=i+1 {
+  
+  set_player_pos(0,-1); 
+  xingqiu burst, attack:2;
+  bennett burst, attack, skill;
+  sucrose skill, dash, attack;
+  
+  set_player_pos(0,0); 
+  
+  diluc attack, skill, burst, attack, skill, attack, skill, attack;
+  
+  if .sucrose.burst.ready {
+    sucrose attack, burst;
+  } else if .sucrose.skill.ready {
+    sucrose attack, skill, jump;
+  }
+  
+  xingqiu attack, skill, dash, attack:2;
+  diluc attack, skill, attack, skill, attack, skill, attack;
+}

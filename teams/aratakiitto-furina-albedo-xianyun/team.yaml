@@ -1,0 +1,17 @@
+id: aratakiitto-furina-albedo-xianyun
+name: Aratakiitto / Furina / Albedo / Xianyun
+members:
+    - itto
+    - furina
+    - albedo
+    - xianyun
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/kLN7w6mF8dmD
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 58629
+    computed: "2026-10-02"

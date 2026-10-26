@@ -1,0 +1,29 @@
+active freminet; 
+for let i=0; i<4; i=i+1 {
+  
+  if rand() > 0 {
+    zhongli skill[hold=1], dash;
+  } else {
+    zhongli skill[hold_nostele=1], dash;
+  }  
+  
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  
+  ororon skill, burst;
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  freminet skill, attack, burst,
+           attack:2, skill, skill,
+           attack:2, skill, attack, skill,  
+           attack:2, skill, attack, skill,
+           attack:2, skill;
+}

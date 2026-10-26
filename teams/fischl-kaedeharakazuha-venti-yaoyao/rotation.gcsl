@@ -1,0 +1,24 @@
+active venti;
+for let i=0; i<5; i=i+1 {
+    venti burst;
+    if .fischl.skill.ready {
+        fischl skill, attack;
+    } else {
+        fischl attack:2, burst;
+    }
+    venti skill, attack;
+    yaoyao skill, attack:2;
+    kaedeharakazuha skill, high_plunge, burst;
+    
+    wait(10); 
+    kaedeharakazuha skill;
+    wait(10); 
+    kaedeharakazuha high_plunge;    
+    yaoyao burst, attack:2;
+    venti skill, attack;
+    kaedeharakazuha attack:4;
+    wait(3); 
+    kaedeharakazuha skill, high_plunge;
+    kaedeharakazuha attack:2;
+    print("done");
+}

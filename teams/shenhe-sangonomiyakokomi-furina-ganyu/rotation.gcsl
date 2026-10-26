@@ -1,0 +1,14 @@
+active furina;
+for let x = 0; x < 4; x = x + 1 {
+	furina skill, dash;
+	if !.furina.burst.ready {
+	  furina attack;
+	} 
+	furina burst;
+	shenhe skill, burst;
+	kokomi skill, dash;
+	ganyu skill, burst, aim[weakspot=1]:2;
+	shenhe skill, attack;
+	ganyu aim:2, skill, aim[weakspot=1]:2;
+}
+ganyu jump;

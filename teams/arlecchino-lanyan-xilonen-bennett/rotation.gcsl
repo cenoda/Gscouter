@@ -1,0 +1,15 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  bennett swap; delay(11);  
+  bennett skill, burst;
+  xilonen skill, attack:2;
+  lanyan skill:2;
+  arle attack:2, charge, 
+       attack:3, dash, 
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3;
+}

@@ -1,0 +1,13 @@
+active diluc; 
+for let i=0; i<4; i=i+1 {
+  durin burst;
+  fischl skill, attack;
+  mona burst, attack;
+  diluc burst, attack, skill;
+  fischl attack:2, burst;
+  mona attack:2, charge;
+  diluc skill, attack, skill;
+  mona attack, skill, attack:2;
+  durin skill:2;
+  diluc attack, skill, skill, skill;
+}

@@ -1,0 +1,24 @@
+active lauma;
+for let i=0; i<4; i=i+1 {
+  lauma skill, attack, charge;
+  
+  nicole skill, burst;
+  
+  amy skill, attack:1;
+  
+  alhaitham skill[hold=1], low_plunge[short=1], 
+            attack:3, charge, dash, 
+            attack:3, charge, dash;
+  
+  lauma skill, attack;
+  
+  alhaitham burst;
+  
+  amy attack:2, burst;
+  
+  alhaitham attack:3, dash, 
+            attack:3, charge, dash, 
+            attack:3, dash, 
+            attack:3, dash, 
+            attack:3;
+}

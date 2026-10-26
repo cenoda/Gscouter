@@ -1,0 +1,24 @@
+let weak = 1; 
+active bennett;
+for let i=0; i<4; i=i+1 {
+  if i { 
+    lyney aim[weakspot=weak];
+  }
+  bennett skill, burst;
+  xilonen skill, attack:2;
+  
+  if .kazuha.burst.ready {
+    kazuha burst;
+  } else {
+    kazuha skill, high_plunge;
+  }
+  lyney aim[weakspot=weak], aim:2;
+  if .lyney.burst.ready {
+    lyney burst;
+    delay(11); 
+    lyney skill;
+  } else {
+    lyney aim;
+  }
+  lyney skill;
+}

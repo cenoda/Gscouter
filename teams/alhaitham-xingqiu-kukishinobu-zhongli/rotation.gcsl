@@ -1,0 +1,32 @@
+active zhongli;
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], dash;
+  xingqiu skill, dash, burst, attack;
+  alhaitham burst;
+  kuki skill, dash;
+  alhaitham swap;
+  wait(48);
+  let a = f();
+  while f()-a < 240 {
+    alhaitham attack;
+  }
+  if .alhaitham.skill.ready {
+    alhaitham skill;
+  } else {
+    alhaitham charge;
+  }
+  let b = f();
+  while f()-b < 240 {
+    alhaitham attack;
+  }
+  if .alhaitham.skill.ready {
+    alhaitham skill;
+  } else {
+    alhaitham charge;
+  }
+  let t = f();
+  while f()-t < 240 {
+    alhaitham attack;
+  }
+  
+}

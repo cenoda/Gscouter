@@ -1,0 +1,76 @@
+fn randy(mean, standardDeviation, min, max, display) {
+  let value = randnorm() * standardDeviation + mean;
+  if value > max {
+    value = max;
+  } else if value < min {
+    value = min;
+  }
+  if display {
+    print(value);
+  }
+  return value;
+}
+let prev_char_id = -1;
+let prev_action_id = -1;
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+
+  if prev_char_id != char_id && action_id != .action.swap {
+    execute_action(char_id, .action.swap, []);
+  }
+
+  if action_id == .action.swap {
+    
+    delay(randy(9.5, 1.5, 5, 17, 0));
+  } else if prev_action_id == .action.attack && action_id != .action.attack && action_id != .action.charge {
+    
+    delay(randy(3, 1, 0, 6, 0));
+  } else if prev_action_id != .action.attack {
+    
+    delay(randy(3, 1, 0, 6, 0));
+  }
+  
+  prev_char_id = char_id;
+  prev_action_id = action_id;
+  return _execute_action(char_id, action_id, p);
+}
+active raiden;
+let weave = true; 
+for let r=0; r<4; r=r+1 {
+  raiden skill;
+  while !.xingqiu.burst.ready {
+    xingqiu attack;
+  }
+  xingqiu burst;
+  if weave {
+    xingqiu attack;
+  }
+  xingqiu skill, dash;
+  if (!.xingqiu.mods.favonius-cd && .xingqiu.weapon == .keys.weapon.favoniussword) || weave {
+    xingqiu attack;
+  }
+  yelan swap;
+  while !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst;
+  if weave {
+    yelan attack;
+  }
+  yelan skill;
+  if (!.yelan.mods.favonius-cd && .yelan.weapon == .keys.weapon.favoniuswarbow) || weave {
+    yelan attack;
+  }
+  alhaitham swap;
+  while !.alhaitham.burst.ready {
+    alhaitham attack;
+  }
+  alhaitham burst;
+  xingqiu attack:2;
+  alhaitham attack:3, dash,
+            attack:3, skill,
+            attack:3, dash,
+            attack:3, charge, dash,
+            attack:3, dash,
+            attack:3, charge;
+}

@@ -1,0 +1,28 @@
+active arle;
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arlecchino skill;
+  bennett swap; delay(12);  
+  bennett skill, burst;
+  fischl attack;
+  if .fischl.skill.ready {
+    fischl skill;
+  } else {
+    fischl attack, burst;
+  }
+  if ( i / 2 ) * 2 != i {
+    emilie attack, burst;
+  } else {
+    emilie attack:2, skill;
+  }
+  arlecchino charge,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack;
+  
+  print("done");
+}

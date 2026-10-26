@@ -1,0 +1,27 @@
+let C2F = true;
+active mavuika; 
+for let i=0; i<4; i=i+1 {
+  mavuika skill;
+  yae skill:3;
+  
+  ororon skill, burst;
+  
+  if .chev.burst.ready {
+    chev burst, skill[hold=1]:3;
+  } else {
+    chev skill[hold=1], burst;
+  }
+  if C2F == true { 
+    mavuika burst, 
+      charge:2, charge[final=1], dash, 
+      charge:2, charge[final=1], dash,
+      charge:2, charge[final=1], dash, 
+      charge:2, charge[final=1], dash,
+      charge:1, charge[final=1];
+  } else { 
+    
+    mavuika burst, 
+      charge:14, dash; 
+  }
+  
+}

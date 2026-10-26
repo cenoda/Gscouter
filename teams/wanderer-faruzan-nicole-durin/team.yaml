@@ -1,0 +1,17 @@
+id: wanderer-faruzan-nicole-durin
+name: Wanderer / Faruzan / Nicole / Durin
+members:
+    - wanderer
+    - faruzan
+    - nicole
+    - durin
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/9Dp6RbkTkN7c
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 89758
+    computed: "2026-10-02"

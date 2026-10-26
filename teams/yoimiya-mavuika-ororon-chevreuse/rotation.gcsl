@@ -1,0 +1,10 @@
+active mav;
+for let i=0; i<4; i=i+1 { 
+  ororon burst, skill;
+  chev burst, skill[hold=1];
+  mav skill, burst, charge:2 ,dash, charge:2, dash;
+  yoi skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  if .yoi.burst.ready {
+    yoi burst;
+  }
+}

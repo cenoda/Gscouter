@@ -1,0 +1,16 @@
+active xq;
+for let i=0; i<4; i=i+1 {
+xq skill, dash, burst, attack;
+  mika skill, attack, burst;
+   if .amy.skill.ready { 
+    amy skill, attack; 
+  } else { 
+    amy attack:2, burst; 
+  }
+  freminet skill, burst,
+           attack:2, skill, skill,
+           attack:2, skill, attack:2, skill,  
+           attack:2, skill, attack:2, skill,
+           attack:3, skill, attack;
+
+}

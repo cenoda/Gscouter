@@ -1,0 +1,26 @@
+active nahida;
+nahida skill;
+for let i = 0; i < 4; i = i + 1 {
+  if i > 0 {
+    nahida skill, burst;
+  }
+  
+  furina skill, dash, burst;
+  
+  baizhu skill, attack, burst;
+  
+  keqing skill, burst, skill;
+  keqing attack, charge,
+         attack, charge,
+         attack, charge,
+         attack, charge,
+         attack, charge;
+  
+  baizhu skill, attack;
+  
+  keqing skill:2;
+  keqing attack, charge,
+         attack, charge,
+         attack, charge,
+         attack, charge;
+}

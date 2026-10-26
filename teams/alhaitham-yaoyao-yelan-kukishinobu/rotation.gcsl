@@ -1,0 +1,19 @@
+active yaoyao;
+ 
+  for let r = 0; r < 5; r = r + 1 {
+  yaoyao skill;
+  if .kuki.burst.ready {kuki burst;}
+  yelan burst, skill, attack;
+  alhaitham burst;
+  kuki attack, skill;
+  alhaitham attack:3,jump,
+            attack:3,jump,
+            attack:3,jump,
+            attack:2;
+  yelan attack, skill, attack;
+  if .yaoyao.burst.ready {yaoyao burst, attack, dash;}
+  alhaitham skill[hold=1], low_plunge[short=1], 
+            attack:2, charge, dash, 
+            attack:3, charge, dash;
+  
+            }

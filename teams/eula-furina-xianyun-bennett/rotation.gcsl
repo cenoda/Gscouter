@@ -1,0 +1,25 @@
+active eula;
+for let r = 0; r < 4; r = r + 1 {
+  furina skill, dash, burst;
+  xianyun skill, low_plunge, burst;
+  bennett burst, skill, attack;
+  xianyun attack:2;
+  wait(20); 
+  eula skill;
+  for let h = 0; h < 4; h = h + 1 {
+    eula jump;
+    if .airborne {
+      eula high_plunge[collision=rand()>0.5], dash;
+    }
+  }
+  
+  eula skill[hold=1];
+  for let h = 0; h < 4; h = h + 1 {
+    eula jump;
+    if .airborne {
+      eula high_plunge[collision=rand()>0.5], dash;
+    }
+  }
+  eula attack:2;
+  bennett skill, attack:2;
+}

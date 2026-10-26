@@ -1,0 +1,38 @@
+fn LynetteCombo() {
+  
+  if .lynette.skill.ready {
+    lynette attack, skill;
+  } else if .lynette.burst.ready && .lynette.energy == .lynette.energymax {
+    lynette attack, burst;
+  } else if .lynette.normal > 4 && .stam > 25 {
+    lynette charge;
+  } else {
+    lynette attack;
+  }
+}
+active fischl;
+fischl skill, attack;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  
+  if i > 0 {
+    bennett attack;
+  }
+  bennett skill, burst;
+
+  amy attack;
+  if .amy.burst.ready && .amy.energy == .amy.energymax {
+    amy attack:1, burst;
+  } else {
+    amy skill;
+  }
+  
+  lynette burst, attack;
+  
+  while .fischl.oz { 
+    LynetteCombo();
+  }
+  
+  bennett skill;
+  print("done");
+}

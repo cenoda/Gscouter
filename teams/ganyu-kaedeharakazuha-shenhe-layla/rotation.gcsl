@@ -1,0 +1,12 @@
+active ganyu;
+ganyu skill;
+for let x =0 ; x<5; x=x+1 {
+  kazuha skill, high_plunge, burst;
+  layla skill, burst;
+  shenhe skill, burst;
+  ganyu aim[weakspot=1], burst, skill, aim[weakspot=1];
+  kazuha skill, high_plunge;
+  layla skill, burst;
+  shenhe skill, attack;
+  ganyu aim[weakspot=1]:2, skill, aim[weakspot=1];
+}

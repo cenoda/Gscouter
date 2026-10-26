@@ -1,0 +1,10 @@
+active yoimiya;
+for let i=0; i<4; i=i+1 { 
+  yoimiya burst;
+  xingqiu burst, attack, skill, dash, attack;
+  yelan attack, burst, attack;
+  xiangling burst, attack, skill, dash;
+  yelan attack, skill, attack:2;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5;
+  yelan skill, attack:2;
+}

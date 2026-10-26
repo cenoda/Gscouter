@@ -1,0 +1,18 @@
+active ororon;
+for let i=0; i<4; i=i+1 {
+  ororon burst, skill;
+  if !.ororon.mods.favonius-cd {
+    ororon attack;
+  }
+  diona skill[hold=1], attack, burst, attack;
+  bennett skill, burst;
+  chasca skill;
+  chasca aim:4;
+  chasca aim[bullets=4];
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca attack:3;
+  }
+  bennett skill, attack:2, dash;
+}

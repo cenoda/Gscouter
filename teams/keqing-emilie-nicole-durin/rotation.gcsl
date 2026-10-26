@@ -1,0 +1,26 @@
+active emilie;
+for let i = 0; i < 6; i = i + 1 { 
+  if i && .emilie.burst.ready{
+    emilie burst, skill;
+  } 
+  else {
+    emilie skill, attack;
+  }
+  if i && .nicole.burst.ready{
+    nicole burst, skill;
+  } 
+  else {
+    nicole skill;
+  }
+  durin skill, skill, burst;
+  keqing skill, burst, skill, dash,
+         attack, charge,
+         attack, charge,
+         attack, charge,
+         attack, charge,
+         attack, charge,
+         skill, skill,
+         attack, charge,
+         attack, charge,
+         attack, charge;
+}

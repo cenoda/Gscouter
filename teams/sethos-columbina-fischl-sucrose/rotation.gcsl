@@ -1,0 +1,46 @@
+active amy;
+for let i=0; i<4; i=i+1 {
+  if .amy.skill.ready { 
+    amy attack, skill;
+  } else {
+    amy attack:2, burst;
+  }
+  
+  if .columbina.burst.ready {
+    columbina skill, burst;
+  } else {
+    columbina skill, attack;
+  }
+  
+  if !is_even(i) && .sucrose.burst.ready {
+    if .sucrose.weapon == .keys.weapon.sacfrags && .sucrose.skill.ready {
+      sucrose burst, attack:1, skill, dash;
+    } else {
+      sucrose attack:1, burst;
+    }
+  } else {
+    sucrose skill, dash, attack;
+  }
+  
+  sethos skill; 
+  sethos burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:1;
+  sethos skill, attack:1;
+  
+  sucrose attack;
+  if .sucrose.skill.ready {
+    sucrose skill, dash;
+  } else {
+    sucrose attack;
+  }
+  
+  sethos aim[hold=2]:2;
+}

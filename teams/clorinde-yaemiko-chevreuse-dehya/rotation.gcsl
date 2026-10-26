@@ -1,0 +1,21 @@
+active yae;
+for let i=0; i<4; i=i+1 {
+  yae skill:3;
+  chev burst, skill[hold=1], attack;
+  if ( i / 2 ) * 2 == i {
+    yae burst, skill:3;
+  } else {
+    yae attack:2, charge;
+  }
+  dehya skill:2;
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+  clorinde burst;
+  clorinde attack:4; 
+}

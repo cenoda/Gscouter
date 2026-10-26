@@ -1,0 +1,50 @@
+let normal_attack_state = 1;
+let skill_state = 4;
+let c_right = 1;
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+	pick_up_crystallize("any"); 
+  }
+  return _execute_action(char_id, action_id, p);
+  
+}
+active bennett;
+for let i=0; i<4; i=i+1 {
+  if .bennett.burst.ready {
+    bennett burst;
+  }
+  if i==0 || !.emilie.burst.ready {
+  emilie skill, attack;
+  } else {
+  emilie burst;
+  }
+  bennett skill;
+  if .chiori.burst.ready {
+    chiori burst;
+  }
+  chiori skill:2;
+  ningguang attack, skill, dash;
+  let start = f();
+  while f() - start < 700 {
+    switch {
+    case .ningguang.burst.ready:
+      ningguang burst, walk, charge;
+    case .ningguang.skill.ready:
+      ningguang skill, dash;
+    case .state == normal_attack_state:
+      switch .ningguang.prevAttack {
+    case c_right:
+	    ningguang walk;
+    default:
+	    ningguang charge;
+      }
+    default:
+      ningguang attack;
+      if .bennett.skill.ready {
+        bennett skill;
+      }
+    }
+  } 
+  print("end");
+}

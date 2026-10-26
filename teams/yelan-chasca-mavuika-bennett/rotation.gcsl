@@ -1,0 +1,17 @@
+active mavuika;
+for let i = 0; i < 4; i = i + 1 {
+  
+  yelan attack:2, skill, burst, attack;
+  
+  bennett skill, attack, burst, attack;
+  
+  mavuika skill, attack, burst, charge, dash;
+  
+  chasca attack, skill, aim:2;
+  if .chasca.burst.ready {
+    chasca burst, aim:1;
+  } else {
+    chasca aim:2;
+  }
+}
+wait(125);

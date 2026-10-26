@@ -1,0 +1,23 @@
+active citlali;
+for let i=0; i<4; i=i+1 {
+  citlali skill, burst, attack;
+  
+  bennett skill, burst, attack;
+  
+  barbara swap; wait(20);   
+  if .barbara.skill.ready { 
+    barbara attack:2, skill;
+  } else {
+    barbara attack:2;
+  }
+  
+  chasca skill;
+  set_player_pos(0,-2);  
+  chasca aim:4, aim[bullets=4];
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  }
+  
+  bennett skill, attack:2, dash;
+  set_player_pos(0,0);
+}

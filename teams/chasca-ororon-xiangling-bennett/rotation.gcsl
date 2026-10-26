@@ -1,0 +1,17 @@
+active ororon;
+for let i=0; i<4; i=i+1 {
+  ororon burst, skill;
+  bennett skill, burst;
+  if .xiangling.burst.ready {
+    xiangling burst, skill, dash;
+  } else {
+    xiangling attack:2, skill, dash;
+  }
+  chasca skill, aim:4;
+  if .chasca.burst.ready {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}
+wait(82);

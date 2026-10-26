@@ -1,0 +1,32 @@
+active fischl;
+for {
+  switch {
+    
+    case .fischl.skill.ready:
+      fischl skill, attack;
+    case .fischl.burst.ready && !.fischl.oz:
+      fischl attack:2, burst;
+
+    case .xingqiu.burst.ready && .xingqiu.skill.ready:
+      xingqiu skill, dash, burst, attack;
+
+    case .ororon.skill.ready:
+      ororon skill, attack:2;
+    case .ororon.burst.ready:
+      ororon burst, attack;
+
+    case .sucrose.burst.ready:
+      if .sucrose.skill.ready {
+        sucrose skill, dash, burst, attack;
+      } else { 
+        sucrose burst, attack;
+      }
+    case .sucrose.skill.ready:
+      sucrose skill, dash, attack;
+
+    case .sucrose.normal == 3:
+      sucrose walk;
+    default:
+      sucrose attack;
+  }
+}

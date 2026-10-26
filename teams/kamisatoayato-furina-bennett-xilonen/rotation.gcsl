@@ -1,0 +1,30 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  if i > 0 {
+    xilonen burst;
+  }
+  
+  furina skill, dash, burst;
+  
+  xilonen skill, attack:2;
+  
+  bennett skill, burst;
+  if .bennett.sets.ap >= 4 {
+    bennett dash; 
+    pick_up_crystallize("any");
+  }
+  
+  ayato skill, attack:15, burst;
+  
+  xilonen skill, attack:2;
+  
+  bennett skill, attack:2;
+  if .bennett.sets.ap >= 4 {
+    bennett dash; 
+    pick_up_crystallize("any");
+  } else {
+    ayato attack;
+  }
+  
+  ayato skill, attack:15;
+}

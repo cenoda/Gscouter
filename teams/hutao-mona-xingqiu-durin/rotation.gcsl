@@ -1,0 +1,22 @@
+active durin;
+for let i=0; i<4; i=i+1 {
+  durin skill, attack, burst;
+  xingqiu skill, dash, burst, attack;
+  mona burst, attack, skill, attack;
+  hutao skill,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash, 
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash, 
+    attack:3, charge;       
+  if .tao.burst.ready && .tao.energy == .tao.energymax  {
+    tao burst, attack:2;
+  } else {
+    xingqiu attack:2;
+  }
+}

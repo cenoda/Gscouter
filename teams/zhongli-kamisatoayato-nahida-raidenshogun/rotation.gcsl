@@ -1,0 +1,12 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  kamisatoayato burst;
+  nahida skill, burst;
+  zhongli skill[hold=1],dash;
+  kamisatoayato skill, attack:15;
+  nahida attack:3, skill, attack:3, charge;
+  raiden skill, attack;
+  zhongli attack,skill[hold=1],dash;
+  kamisatoayato skill, attack:15;
+}

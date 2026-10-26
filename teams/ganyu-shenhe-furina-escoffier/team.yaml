@@ -1,0 +1,17 @@
+id: ganyu-shenhe-furina-escoffier
+name: Ganyu / Shenhe / Furina / Escoffier
+members:
+    - ganyu
+    - shenhe
+    - furina
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/JbmNbJPrHfhP
+notes: 'Harvested from the KQM gcsim database: 4 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 83277
+    computed: "2026-10-02"

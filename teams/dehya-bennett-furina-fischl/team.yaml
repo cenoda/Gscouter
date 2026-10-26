@@ -1,0 +1,17 @@
+id: dehya-bennett-furina-fischl
+name: Dehya / Bennett / Furina / Fischl
+members:
+    - dehya
+    - bennett
+    - furina
+    - fischl
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/tpf7bB6BjNRW
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 51303
+    computed: "2026-10-01"

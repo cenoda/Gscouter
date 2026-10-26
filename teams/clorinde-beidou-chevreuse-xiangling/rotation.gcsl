@@ -1,0 +1,16 @@
+active beidou;
+for let i=0; i<4; i=i+1 {
+  beidou skill, attack:2;
+  chev burst, skill[hold=1], attack;
+  xiangling burst, skill, dash, attack;
+  beidou burst, attack, skill;
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+  clorinde burst, attack;
+}

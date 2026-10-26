@@ -1,0 +1,54 @@
+active razor;
+razor skill, dash; 
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  jean skill, burst;
+  bennett skill, burst;
+
+  while !.razor.mods.razor-q {
+    
+    if .razor.burst.ready {
+      if .razor.skill.ready {
+        razor skill, dash, attack, burst;
+      } else {
+        razor burst;
+      }
+    } else {
+    
+      if .razor.skill.ready {
+        razor skill, dash, attack;
+      } else {
+      
+        if .razor.normal > 3 {
+          if .razor.skill.ready {
+            razor skill, dash;
+          } else {
+            razor dash;
+          }
+        } else {
+          razor attack;
+        }
+      }
+    }
+  }
+  while .razor.infusion.bennett-fire-weapon { 
+    if .razor.normal > 3 {
+      if .razor.skill.ready {
+        razor skill, dash;
+      } else {
+        razor dash;
+      }
+    } else {
+      razor attack;
+    }
+  }
+  
+  if .razor.normal < 3 {
+    razor attack;
+  }
+
+  jean skill, attack;
+  bennett skill, attack;
+  razor skill, dash;
+
+}

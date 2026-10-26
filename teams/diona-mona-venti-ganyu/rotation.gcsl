@@ -1,0 +1,12 @@
+active diona;
+for let x=0; x<6;x=x+1 {
+	diona skill[hold=1], dash;
+	ganyu attack, skill, burst;
+	venti skill, burst;
+	mona attack, skill, burst;
+	ganyu aim[weakspot=1]:2;
+	venti skill, attack;
+	ganyu aim[weakspot=1, travel=0];
+	diona swap;
+	wait(8);
+}

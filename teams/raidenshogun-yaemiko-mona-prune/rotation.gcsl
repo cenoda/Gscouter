@@ -1,0 +1,16 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 4; i = i + 1 {
+  yae skill:3;
+  prune burst;
+  mona burst, attack, skill;
+  yae burst, skill:2;
+  prune skill:2;
+  mona attack:3;
+  raiden burst,
+         attack:4, skill,
+         attack:4, dash,
+         attack:4, dash,
+         attack:3;
+    
+}

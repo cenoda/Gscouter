@@ -1,0 +1,28 @@
+active xilonen;
+for let i=0; i<4; i=i+1 {
+  xilonen burst;
+  
+  furina skill, dash, burst;
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  }
+  yelan burst, attack;
+  
+  xilonen skill, attack:2;
+  
+	if .yanfei.burst.ready {
+	  yanfei burst;
+	}
+  while .furina.skill.cd {
+    if .yanfei.skill.ready && .yanfei.mods.yanfei-a1 && .previous-action == .action.attack {
+      yanfei skill;
+    } else if .yanfei.mods.yanfei-seal && .stam > 25 && .previous-action == .action.attack {
+      yanfei charge;
+    } else {
+      yanfei attack;
+    }
+  }
+  
+}

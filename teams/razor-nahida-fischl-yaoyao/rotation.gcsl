@@ -1,0 +1,30 @@
+active razor; 
+for let i=0; i<4; i=i+1 {
+  if .amy.burst.ready && .amy.skill.ready {
+    amy attack, skill;
+  }
+  
+  nahida skill, attack;
+  if .nahida.burst.ready {
+    nahida burst;
+  }
+  nahida attack;
+  
+  yaoyao skill;
+	
+  if .amy.burst.ready {
+    amy attack:2, burst;
+  } else {
+    amy attack:1, skill;
+  }
+
+  razor skill, dash, attack, burst;
+  razor attack, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+  razor attack:3, dash;
+  razor attack:3, skill, dash;
+  razor attack:3, dash;
+  razor attack:3;
+
+}

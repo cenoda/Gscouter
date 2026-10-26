@@ -1,0 +1,29 @@
+active yelan;
+for let i = 0; i < 5; i = i + 1 {
+  zhongli attack, skill[hold=1], dash;
+  while (!.zhongli.mods.favonius-cd) {
+    zhongli attack;
+  }
+  yelan skill, burst, attack;
+  while (!.yelan.mods.favonius-cd) {
+    yelan attack;
+  }
+  bennett skill, burst, attack;
+  wanderer attack, skill;
+  while .wanderer.skydweller-points > 3 {
+    switch {
+    case .wanderer.normal < 3:
+      wanderer attack;
+    case .wanderer.mods.wanderer-a4:
+      wanderer dash;
+    default:
+      wanderer charge;
+    }
+  }
+  if .wanderer.burst.ready {
+    wanderer burst;
+  } else {
+    wanderer low_plunge;
+  }
+  bennett skill;
+}

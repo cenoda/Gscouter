@@ -1,0 +1,36 @@
+active mav;
+for let i=0; i<4; i=i+1 {
+  xianyun skill, low_plunge, attack, burst;
+  
+  if .mav.burst.ready && i > 0 {
+    mav burst, skill, dash;
+  } else if .mav.skill.ready {
+    mav skill, dash;
+  }
+
+  xl burst, skill, dash;
+
+  if .charlotte.burst.ready && .charlotte.energy == .charlotte.energymax {
+    charlotte burst;
+  }
+  
+  let j=0;
+  while .xianyun.status.xianyun-airborne-buff {
+    if .xianyun.status.xianyun-airborne-buff {
+      charlotte jump;
+      if .airborne {
+        charlotte high_plunge[collision=rand()>0.5];
+        j = j + 1;
+      }
+      if j < 3 { 
+        charlotte attack;
+      } else if j == 8 {
+        charlotte attack;
+      } else {
+        charlotte dash;
+      }
+    }
+  }
+  charlotte attack, skill[hold=1];
+
+}

@@ -1,0 +1,29 @@
+fn DulicPlunge() {
+  diluc jump;
+  if .airborne {
+    diluc high_plunge[collision=rand()>0.5];
+  }
+}
+active diluc; 
+for let i = 0; i < 4; i = i + 1 {
+  
+  if i > 0 && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie attack, skill;
+  }
+  
+  durin skill, skill, burst;
+  
+  xianyun skill, high_plunge, attack, burst;
+  
+  diluc skill, burst, skill;
+  DulicPlunge(); diluc skill;
+  DulicPlunge(); diluc dash;
+  DulicPlunge(); diluc dash;
+  DulicPlunge(); diluc dash;
+  DulicPlunge(); diluc dash;
+  DulicPlunge(); diluc dash;
+  DulicPlunge(); diluc skill;
+  DulicPlunge(); diluc skill;
+}

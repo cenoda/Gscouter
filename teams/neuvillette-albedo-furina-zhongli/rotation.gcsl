@@ -1,0 +1,33 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  furina skill, attack; 
+  albedo skill, attack, dash;
+  if .zhongli.burst.ready { 
+    zhongli burst;
+  } else if .albedo.burst.ready {
+    albedo burst;
+  }
+  zhongli skill[hold=1], dash;
+  let startFrame1 = f();
+  while !pick_up_crystallize("hydro") && f() - startFrame1 < 30 {
+    if !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    } else {
+      wait(1);
+    }
+  } 
+  furina burst;
+  neuvillette charge, skill, charge, burst;
+  zhongli attack:2, skill, dash;
+  let startFrame2 = f();
+  while !pick_up_crystallize("hydro") && f() - startFrame2 < 30 {
+    if !.zhongli.mods.favonius-cd {
+      zhongli attack;
+    } else {
+      wait(1);
+    }
+  } 
+  neuvillette charge, charge;
+}
+wait(173);

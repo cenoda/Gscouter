@@ -1,0 +1,25 @@
+active lauma;
+lauma attack;
+for let i=0; i<5; i=i+1 {
+  if .columbina.burst.ready {
+    columbina burst;
+  }
+  if i {
+    columbina skill;
+  } else {
+    columbina skill, attack;
+  }
+
+  ineffa skill;
+  nahida skill, attack;
+  if !is_even(i) {
+    nahida burst;
+  }
+  
+  lauma attack, skill[hold=.dew>0], burst;
+  columbina attack, charge, dash, charge, dash, 
+            attack, charge, dash, charge, dash,
+            attack, charge, dash, charge, dash, 
+            attack, charge;
+}
+columbina dash, attack;

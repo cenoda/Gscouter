@@ -1,0 +1,14 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  columbina skill, burst;
+  ineffa skill, burst;
+  sucrose skill, dash, burst, attack:2, charge;
+  raiden burst, attack:4, charge, attack:4, charge, attack:2, charge, skill;
+  sucrose swap;
+  if .sucrose.skill.ready {
+    sucrose skill, dash, attack:2;
+  } else {
+    sucrose attack, charge;
+  }
+}

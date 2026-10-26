@@ -1,0 +1,17 @@
+id: xianyun-furina-faruzan-bennett
+name: Xianyun / Furina / Faruzan / Bennett
+members:
+    - xianyun
+    - furina
+    - faruzan
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/WGPKTfBWKctj
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 53886
+    computed: "2026-10-02"

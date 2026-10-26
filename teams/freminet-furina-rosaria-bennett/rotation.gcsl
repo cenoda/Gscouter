@@ -1,0 +1,18 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  while !.furina.burst.ready {
+    furina attack;
+  }
+  furina burst;
+  
+  bennett skill, burst;
+  
+  rosaria skill, burst;
+  
+  freminet skill, burst,
+           attack:2, skill, skill,
+           attack:2, skill, attack:1, skill,  
+           attack:2, skill, attack:1, skill,
+           attack:2, skill;
+}

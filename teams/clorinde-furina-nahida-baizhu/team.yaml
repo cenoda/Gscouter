@@ -1,0 +1,17 @@
+id: clorinde-furina-nahida-baizhu
+name: Clorinde / Furina / Nahida / Baizhu
+members:
+    - clorinde
+    - furina
+    - nahida
+    - baizhu
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/WbLfRjdzTtBp
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 67436
+    computed: "2026-10-02"

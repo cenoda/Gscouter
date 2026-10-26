@@ -1,0 +1,21 @@
+active yelan;
+for let x = 5; x; x = x - 1 {
+  yelan skill;
+  kazuha skill, high_plunge;
+  kokomi skill;
+  yelan burst, attack;
+  if .kazuha.burst.ready {
+    kazuha burst, attack;
+  } else {
+    kazuha attack:3;
+  }
+  kazuha skill, high_plunge;
+  yunjin attack, skill, burst;
+  yelan attack, skill;
+  
+  kokomi attack, burst;
+  for let x = 10; x; x = x - 1 {
+    kokomi attack:2, dash, walk[f=2];
+  }
+  yunjin skill;
+}

@@ -1,0 +1,17 @@
+id: sangonomiyakokomi-xiangling-nahida-travelerdendro
+name: Sangonomiyakokomi / Xiangling / Nahida / Travelerdendro
+members:
+    - kokomi
+    - xiangling
+    - nahida
+    - luminedendro
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/FcW8gp67tjHW
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 36986
+    computed: "2026-10-02"

@@ -1,0 +1,41 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  baizhu skill, burst;
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  while !.yelan.skill.ready {
+    if .keq.skill.ready && .previous-action != .action.skill {
+      keq skill;
+    } else if .keq.normal > 1 && .stam > 25 {
+      keq charge;
+    } else if .keq.normal > 3 && .stam > 18 {
+      keq dash;
+    } else {
+      keq attack;
+    }
+  }
+
+  yelan attack, skill, attack;
+  
+  while .yelan.mods.yelanburst {
+    if .keq.skill.ready && .previous-action != .action.skill {
+      keq skill;
+    } else if .keq.normal > 1 && .stam > 25 {
+      keq charge;
+    } else if .keq.normal > 3 && .stam > 18 {
+      keq dash;
+    } else {
+      keq attack;
+    }
+  }
+  
+}

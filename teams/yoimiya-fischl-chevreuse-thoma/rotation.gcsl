@@ -1,0 +1,19 @@
+active fischl;
+fischl skill, attack:2, dash;
+for let i=0; i<4; i=i+1 {
+  chevreuse burst, skill[hold=1], attack:2;
+  thoma attack, burst, skill, attack;
+  fischl attack;
+  if .fischl.skill.ready {
+    fischl skill;
+  } else {
+    fischl attack, burst; 
+  }
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  if .yoimiya.burst.ready && .yoimiya.energy == .yoimiya.energymax {
+    yoimiya burst;
+  } else {
+    yoimiya attack:3;
+  }
+  
+}

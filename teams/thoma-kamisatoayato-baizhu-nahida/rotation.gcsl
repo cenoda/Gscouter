@@ -1,0 +1,19 @@
+active ayato;
+for let i=0; i<4; i=i+1 {
+  while !.ayato.burst.ready {
+    ayato attack;
+  }
+  ayato burst;
+  nahida skill, burst;
+  thoma skill, burst;
+  baizhu skill, burst;
+  ayato skill, attack:15;
+  nahida attack, skill, charge;
+  thoma skill, attack:2;
+  baizhu attack, skill;
+  while .ayato.skill.cd > 30 {
+    baizhu attack;
+  }
+  ayato skill, attack:15;
+    print("done");
+}

@@ -1,0 +1,14 @@
+active furina;
+for let i=0; i<3; i=i+1 {
+  
+ if (i == 0) {
+  furina skill, burst;} else {
+  furina attack, burst, skill; }
+  yelan burst, attack, skill, attack;
+  bennett burst, attack, skill;
+  xiangling burst, attack, skill, attack;
+  bennett attack, skill, attack:3, skill, attack;
+  yelan attack, skill, attack;
+  bennett attack, skill;
+  bennett attack:3, skill, attack:3;
+}

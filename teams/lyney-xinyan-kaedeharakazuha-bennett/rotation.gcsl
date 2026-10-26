@@ -1,0 +1,14 @@
+active lyney;
+for let r = 4; r > 0; r = r - 1 {
+  xinyan skill, burst;
+  bennett skill, burst;
+  if .kazuha.burst.ready {
+    kazuha burst;
+  } else {
+    kazuha skill, high_plunge;
+  }
+  lyney aim[weakspot=1], aim, burst;
+  delay(11);
+  lyney skill, aim[weakspot=1], skill, aim:3;
+}
+sleep(46);

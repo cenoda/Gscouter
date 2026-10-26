@@ -1,0 +1,19 @@
+active escoffier;
+for let i=0; i<6; i=i+1 {
+  if .escoffier.weapon == .keys.weapon.symphonistofscents && .escoffier.burst.ready { 
+    escoffier burst;
+  }
+  escoffier skill, attack, dash; 
+  bennett skill, burst, attack;  
+  if !.bennett.mods.favonius-cd {
+    bennett attack;
+  }
+  citlali skill, burst;
+  chasca skill;
+  chasca aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}

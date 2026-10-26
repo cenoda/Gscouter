@@ -1,0 +1,18 @@
+active kokomi;
+for let i = 0; i < 5; i = i + 1 {
+  kokomi skill;
+  nahida skill, burst, attack;
+  nilou skill:3, skill;
+  yaoyao skill, attack:2;
+  kokomi attack, burst;
+  kokomi attack:2, charge;
+  kokomi attack:2, charge;
+  kokomi attack:2, charge;
+  kokomi attack:2, charge;
+  kokomi attack:2, charge, attack:2;
+  if .nilou.burst.ready {
+	nilou burst;
+  } else {
+	kokomi charge, attack:2, charge;
+  }
+}

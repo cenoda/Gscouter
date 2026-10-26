@@ -1,0 +1,14 @@
+active lisa;
+for let i=0; i<4; i=i+1 {
+  lisa skill[hold=1], burst; sleep(20); 
+  
+  furina skill, dash, burst;
+  
+  esco skill, burst;
+  
+  freminet skill, burst,
+           attack:2, skill, skill,
+           attack:2, skill, attack:1, skill,  
+           attack:2, skill, attack:1, skill,
+           attack:2, skill;
+}

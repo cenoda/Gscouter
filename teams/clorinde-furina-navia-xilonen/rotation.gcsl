@@ -1,0 +1,35 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || ( char_id == .keys.char.clorinde && action_id == .action.skill ) || ( char_id == .keys.char.xilonen && action_id == .action.skill ) {
+    pick_up_crystallize("any");
+  }
+  return _execute_action(char_id, action_id, p);
+}
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active furina;
+for let i=0; i<4; i=i+1 {
+  
+  if .furina.skill.ready { 
+    xilo burst;
+    furina skill, dash, burst;
+  } else {
+    navia burst; 
+  }
+  xilonen skill, attack:2;
+  navia skill, attack:2;
+  clorinde_combo();
+  if .clorinde.burst.ready { 
+    clorinde burst;
+  } 
+  navia skill;
+  
+}

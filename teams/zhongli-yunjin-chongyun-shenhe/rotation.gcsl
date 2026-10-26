@@ -1,0 +1,8 @@
+active zhongli;
+for let i=0; i<4; i=i+1 {
+	zhongli skill[hold=1], dash;
+	yunjin skill, burst, attack;
+	chongyun burst, skill;
+	shenhe skill[hold=1], burst;
+	zhongli attack:5, dash, attack:5, dash, attack:5, dash, attack:5, dash, attack:3;
+}

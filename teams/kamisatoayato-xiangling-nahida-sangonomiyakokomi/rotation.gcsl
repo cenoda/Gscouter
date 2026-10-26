@@ -1,0 +1,12 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida attack, skill, burst;
+  xiangling attack, skill, burst;
+  kokomi attack, skill, dash;
+  ayato skill, attack:15, burst;
+  kokomi burst, attack;
+  xiangling skill, attack;
+  nahida attack, skill, charge;
+  ayato skill, attack:15;
+  print("rotation done");
+}

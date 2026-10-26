@@ -1,0 +1,21 @@
+active xq;
+for let r = 0; r < 4; r = r + 1 {
+  xingqiu attack, skill, dash, burst, attack;
+  bennett skill, dash;
+  set_player_pos(0,-1); 
+  bennett burst;
+  xianyun attack;
+  set_player_pos(0,0);  
+  xianyun skill, low_plunge, attack, burst;
+  diluc swap;
+  for let h = 0; h < 6; h = h + 1 {
+    diluc attack, jump;
+    if .airborne {
+      diluc high_plunge[collision=1];
+    } else {
+      break;
+    }
+  }
+  diluc skill, attack, skill:2;
+  bennett skill, attack:2;
+}

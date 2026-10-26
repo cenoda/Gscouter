@@ -1,0 +1,27 @@
+active wrio;
+wrio attack;
+for let i=0; i<4;i=i+1 {
+  kazuha skill, high_plunge;
+  escoffier skill, burst;
+  shenhe skill[hold=1], attack, burst;
+  if !.shenhe.mods.favonius-cd {
+    shenhe attack;
+  }
+  if .kazuha.burst.ready {
+    kazuha burst;
+  } else {
+    kazuha skill, high_plunge;    
+  }
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3;
+  if is_even(i) {
+    wrio burst;
+  } else {
+    wrio attack;
+  }
+}

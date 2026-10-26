@@ -1,0 +1,40 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill;
+  if i > 0 && .nahida.burst.ready {
+    nahida attack, burst;
+  } else if i > 0 {
+    nahida attack, charge;
+  }
+  
+  if i > 0  && .ineffa.burst.ready && .ineffa.energy == .ineffa.energymax {
+    ineffa attack, burst, skill;
+  } else {
+    ineffa skill;
+  }
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  sethos skill, attack; 
+  sethos burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:1;
+  sethos skill, attack;
+  sethos aim[hold=2]:1;
+  sethos attack;
+  sethos aim[hold=2]:1;
+  sethos attack;
+}

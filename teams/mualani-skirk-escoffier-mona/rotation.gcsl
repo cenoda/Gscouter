@@ -1,0 +1,11 @@
+active escoffier;
+for let i=0; i<4; i=i+1 {
+  escoffier skill, burst;
+  mona skill, burst;
+  skirk skill[hold=1], burst;
+  mualani skill,
+          walk[f=1], burst,
+          walk[f=46], attack,
+          walk[f=90], attack,
+          skill;
+}

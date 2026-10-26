@@ -1,0 +1,25 @@
+active chongyun; 
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], dash;
+  
+  chongyun burst, skill;
+  
+  if .chongyun.skill.ready {
+    chongyun skill;
+  }
+  
+  chiori skill:2;
+  
+  kaeya skill, dash, burst;
+  while .chiori.skill.cd > 120 {
+    if .kaeya.skill.ready {
+      kaeya skill, dash;
+    } else if .kaeya.normal > 3 && .stam > 18 {
+      kaeya dash;
+    } else {
+      kaeya attack;
+    }
+  }
+  
+  print("done");
+}

@@ -1,0 +1,24 @@
+active yae;
+for let i=0; i<4; i=i+1 {
+  if i==0 {
+  yae skill:3; 
+  } else {
+  yae attack, skill, attack, skill, attack, skill, attack;
+  }
+  kirara burst, skill[hold=34];  
+  nahida attack, skill, burst;
+  tighnari skill, aim, burst, aim:2;
+  
+  yae attack, skill, attack, skill, attack, skill, attack;
+  kirara skill[hold=34];
+  nahida attack, skill, 
+         attack, charge, dash,
+         attack, charge;
+  tighnari skill, aim;
+  if .tighnari.burst.ready {
+    tighnari burst, aim:2;
+  } else {
+    tighnari aim:2;
+    nahida attack:2, charge;
+  }
+}

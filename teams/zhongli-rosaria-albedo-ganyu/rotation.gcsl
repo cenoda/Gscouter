@@ -1,0 +1,14 @@
+active rosaria;
+for let i=0; i<4; i=i+1 {
+  albedo skill, attack;
+  ganyu aim[weakspot=1];
+  zhongli attack, skill[hold=1], dash;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  pick_up_crystallize("cryo");
+  rosaria burst, skill;
+  ganyu skill, burst, aim[weakspot=1]:2;
+  rosaria skill;
+  ganyu aim;
+}

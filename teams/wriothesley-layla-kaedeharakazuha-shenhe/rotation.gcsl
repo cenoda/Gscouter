@@ -1,0 +1,25 @@
+active layla;
+ 
+for let x=0; x<4; x=x+1 {
+  layla burst, skill;  
+  kazuha skill, high_plunge;
+  if .kazuha.burst.ready{
+    kazuha burst;
+  } 
+
+  shenhe skill[hold=1];
+  if .shenhe.burst.ready{
+    shenhe burst;
+  }
+  wrio skill,
+       attack:3, charge, dash,
+       attack:3, charge, dash,
+       attack:3, charge, dash,
+       attack:3, charge, jump,
+       attack:3, charge, jump;
+  if .wrio.burst.ready {
+    wrio burst;
+  } else {
+    wrio attack;
+  }
+}

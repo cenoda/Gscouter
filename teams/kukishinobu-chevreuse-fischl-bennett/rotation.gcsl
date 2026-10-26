@@ -1,0 +1,26 @@
+active bennett;
+for let r = 0; r < 4; r = r + 1 {
+  bennett skill, burst;
+
+  if .fischl.burst.ready {
+    fischl attack:2, burst;
+  } else if .fischl.skill.ready {
+    fischl attack, skill;
+  }
+
+  chevreuse skill[hold=1], burst, attack;
+  while !.chev.mods.favonius-cd {
+    chev attack;
+  }
+
+  kuki skill,
+  attack, charge,
+  attack, charge, 
+  attack, charge, 
+  attack, charge, 
+  attack, charge,
+  attack, charge,
+  attack, charge,
+  attack, charge;
+
+}

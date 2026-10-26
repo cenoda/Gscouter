@@ -1,0 +1,17 @@
+id: gaming-columbina-ineffa-xianyun
+name: Gaming / Columbina / Ineffa / Xianyun
+members:
+    - gaming
+    - columbina
+    - ineffa
+    - xianyun
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/LP8WDCcz7hz8
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 103627
+    computed: "2026-10-01"

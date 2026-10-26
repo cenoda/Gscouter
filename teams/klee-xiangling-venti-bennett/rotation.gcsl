@@ -1,0 +1,28 @@
+active klee;
+let rotations = 5;
+klee attack;
+while rotations {
+  venti attack, skill, burst;
+  bennett burst, skill;
+  xiangling burst, skill;
+  venti skill, attack;
+  klee attack, burst, walk,
+    attack, skill[bounce=3, mine=8];
+  if .klee.skill.ready {
+    klee jump, attack, skill[bounce=3, mine=8], jump;
+  } else {
+    klee attack[travel=6], charge; 
+  }
+  let klee_n1c_sequences = 5;
+  while klee_n1c_sequences {
+    klee attack[travel=6], charge;
+    klee_n1c_sequences = klee_n1c_sequences - 1;
+  }
+  klee attack;
+  print("Rotation done");
+  rotations = rotations - 1;
+  if (rotations) {
+    bennett attack, skill;
+  }
+}
+wait(25);

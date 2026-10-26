@@ -1,0 +1,26 @@
+active faruzan;
+for let x = 0; x < 5; x = x + 1  {
+  while !.faruzan.mods.favonius-cd && !.faruzan.burst.ready {
+    faruzan attack;
+  }
+  faruzan burst;
+  yelan skill, burst, attack;
+  candace skill, attack, burst, attack;
+  wanderer attack, skill;
+  while .wanderer.skydweller-points > 3 {
+    if .wanderer.normal < 3 {
+      wanderer attack;
+    } else if .wanderer.mods.wanderer-a4 {
+      wanderer dash;
+    } else if .wanderer.skydweller-points > 9 {
+      wanderer charge;
+    } else {
+      break;
+    }
+  }
+  if .wanderer.burst.ready {
+  wanderer skill, burst, attack;
+  } else {
+  wanderer skill;
+  }
+}

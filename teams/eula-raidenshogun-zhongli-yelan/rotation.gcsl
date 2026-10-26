@@ -1,0 +1,18 @@
+active eula;
+for let i=0; i<4; i=i+1 {
+  raiden skill;
+  zhongli attack, skill[hold=1], dash;
+  yelan burst, attack, skill, attack;
+  eula skill, attack;
+  while !.eula.burst.ready {
+    if .eula.skill.ready {
+      eula skill;
+    } else {
+      eula attack;
+    }
+  }
+  eula burst, walk, attack:4, skill[hold=1], attack:4;
+  yelan skill, attack;
+  eula attack:2;
+  raiden burst,  attack:4, dash, attack:4, dash, attack:3;
+}

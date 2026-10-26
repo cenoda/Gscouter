@@ -1,0 +1,23 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  kirara burst, skill[short_hold=1];
+  if !.kirara.mods.favonius-cd {
+    kirara attack;
+  }  
+  nahida attack, skill, burst;
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+  nahida attack, skill, attack;
+  if .clorinde.burst.ready && .clorinde.energy == .clorinde.energymax {
+    clorinde burst;
+  } else {
+    clorinde attack:3, dash;
+  }                   
+}

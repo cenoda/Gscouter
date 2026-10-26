@@ -1,0 +1,32 @@
+fn KavehPlunge() {
+  if !.element.t0.hydro {
+    
+  }
+  kaveh jump;
+  if .airborne {
+    kaveh high_plunge[collision=rand()>0.5];
+  }
+}
+active kaveh; 
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  
+  xianyun skill, low_plunge, attack, burst;
+  
+  bennett skill, burst, attack;
+  
+  xianyun attack, attack, charge;
+  
+  kaveh swap;
+  KavehPlunge(); kaveh dash;
+  KavehPlunge(); kaveh dash;
+  KavehPlunge(); kaveh dash;
+  KavehPlunge(); kaveh dash;
+  KavehPlunge(); kaveh dash;
+  KavehPlunge(); kaveh dash;
+  KavehPlunge(); kaveh dash;
+  KavehPlunge(); kaveh attack;
+  kaveh skill;
+  
+  bennett skill;
+}

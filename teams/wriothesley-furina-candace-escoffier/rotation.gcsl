@@ -1,0 +1,19 @@
+active candace;
+for let i=0; i<4; i=i+1 {
+  candace attack, skill, attack;
+  furina skill, dash, burst;
+  escoffier skill, attack, burst;
+  candace skill, burst;
+  wrio skill, 
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3;
+  if .wrio.burst.ready && .wrio.energy == .wrio.energymax {
+    wrio burst;
+  } else {
+    wrio attack, charge;
+  }
+}

@@ -1,0 +1,22 @@
+active razor;
+razor skill, dash;
+for let i=0; i<4; i=i+1 {
+  xilonen skill, attack:2, burst;
+  
+  nahida skill, attack, burst;
+  
+  furina skill, dash, burst;
+  
+  xilonen skill, attack:2;
+  
+  razor skill, dash, attack, burst;
+  while .razor.mods.razor-q > 240 { 
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+}

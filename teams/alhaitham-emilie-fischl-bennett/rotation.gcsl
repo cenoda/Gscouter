@@ -1,0 +1,30 @@
+active emilie;
+for let i=0; i<4; i=i+1 {
+  if i > 0 && .emilie.burst.ready && .emilie.energy == .emilie.energymax {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  
+  bennett skill, burst;
+
+    haitham burst;
+
+  amy attack;
+  if .amy.skill.ready {
+    amy skill;
+  } else {
+    amy attack, burst;
+  }
+  
+  alhaitham attack:3, charge, dash, 
+            attack:3, dash,
+            attack:3, charge, dash,
+            attack:1;
+  
+  bennett skill;
+  
+  alhaitham skill[hold=1], low_plunge[short=1],
+            attack:4, charge, dash,
+            attack:2;
+}

@@ -1,0 +1,26 @@
+fn ganyuAim() {
+  if .ganyu.weapon == .keys.weapon.crescent { 
+    ganyu aim[hold=2, weakspot=rand()>0.2];
+  } else { 
+    ganyu aim[hold=2];
+  }
+}
+active furina;
+for let x = 0; x < 4; x = x + 1 {
+  furina skill, dash, burst;
+  
+  kazuha skill, high_plunge;
+  
+  esco skill, burst;
+  
+  ganyuAim();
+  ganyu skill, burst; 
+  
+  kazuha skill, high_plunge, burst;
+  
+  ganyuAim();
+  ganyuAim();
+  ganyuAim();
+  ganyu skill;
+  ganyuAim();
+}

@@ -1,0 +1,16 @@
+active zhongli;
+for let r = 0; r < 5; r = r + 1 {
+  zhongli skill[hold=1], dash;
+  yelan burst, skill, attack;
+  alhaitham burst, attack;
+  raiden skill, attack;
+  alhaitham attack:3,dash,
+            attack:3,dash,
+            attack:3,dash,
+            attack:3;
+  yelan skill, attack;
+  alhaitham skill, attack, charge,
+            attack:3,charge,
+            attack:3,charge,
+            attack;
+}

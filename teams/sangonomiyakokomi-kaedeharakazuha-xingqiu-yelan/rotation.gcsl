@@ -1,0 +1,23 @@
+active koko;
+  
+for let i=0; i<4; i=i+1 {
+  kokomi skill;
+  xq burst, attack, skill, dash, attack:2;
+  yelan burst, attack;
+  kazuha burst;
+  yelan attack, skill;
+  kokomi attack, burst,
+         attack:2, dash,
+         attack:2, dash,
+         attack:2, walk,
+         attack:2, dash,
+         attack:2, dash,
+         attack:2, walk,
+         attack:2, dash,
+         attack:2, dash,
+         attack:2, walk,
+         attack:2, dash,
+         attack:2;
+  yelan skill, attack;
+  kazuha skill, high_plunge;
+}

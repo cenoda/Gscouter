@@ -1,0 +1,21 @@
+active xilo;
+for let i=0; i<4; i=i+1 { 
+  
+  xilonen burst;
+  furina skill, dash, burst;
+  ororon burst, skill;
+  xilonen skill, attack:2;
+  pick_up_crystallize("any");
+  
+  cyno skill, burst, attack:4, skill;
+  
+  while .cyno.burst.cd > 180 {
+    if .cyno.skill.ready && .cyno.mods.cyno-a1 {
+      cyno skill;
+    } else if .cyno.normal == 5 {
+      cyno dash;
+    } else {
+      cyno attack;
+    }
+  }
+}

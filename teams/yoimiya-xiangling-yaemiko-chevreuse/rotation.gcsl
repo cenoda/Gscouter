@@ -1,0 +1,17 @@
+active yae;
+for let i=0; i<4; i=i+1 {
+  yae skill:3;
+  chevreuse burst, skill[hold=1], skill[hold=1], attack;
+  xiangling burst, skill;
+  if i==0 || i==2 {
+    yae burst, skill:3;
+  }
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  if i==0 || i==2 {
+    yae attack:3;
+  }
+  if i==1 || i==3 {
+    yoimiya burst;
+    yae attack:3, dash;
+  }
+}

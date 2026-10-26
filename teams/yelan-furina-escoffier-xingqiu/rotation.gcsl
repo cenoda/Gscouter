@@ -1,0 +1,21 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  xingqiu skill, dash, burst, attack;
+  
+  escoffier skill, attack, burst;
+  while !.escoffier.mods.favonius-cd{
+    escoffier attack;
+  }
+  
+  yelan burst, attack, skill,
+        attack:4, dash,
+        attack:4, dash,
+        attack:4, dash,
+        attack:4, dash,
+        attack:4,
+        skill, 
+	      attack:4, dash, 
+	      attack:3;
+}

@@ -1,0 +1,34 @@
+active gaming;
+gaming skill, low_plunge; 
+for let i=0; i<4; i=i+1 {
+  xianyun skill, low_plunge, burst;
+  bennett skill, burst;
+  while !.bennett.mods.favonius-cd {
+    bennett attack;
+  }
+  citlali skill, burst;
+  gaming burst;
+  gaming skill;
+  wait(45);
+  gaming high_plunge; 
+  gaming skill;
+  wait(18);
+  gaming high_plunge; 
+  gaming skill;
+  wait(18);
+  gaming high_plunge; 
+  gaming skill;
+  wait(18);
+  gaming high_plunge; 
+  gaming skill;
+  wait(18);
+  gaming high_plunge; 
+  gaming skill;
+  wait(33); 
+  gaming high_plunge; 
+  if i != 3 {
+    gaming skill;
+    wait(5); 
+    gaming high_plunge; 
+  }
+}

@@ -1,0 +1,18 @@
+active neuv;
+for let i=0;i<4;i=i+1 {
+  neuv attack, skill;
+  furina skill, dash, burst;
+  zhongli skill[hold=1], dash;
+  
+  for let x=0; x<60; x=x+1 {
+    if pick_up_crystallize("hydro") {
+      break;
+    }
+    wait(1);
+  }
+  navia skill, burst;
+  neuv charge, burst, skill, charge;
+  navia skill, attack, skill;
+  neuv charge:2;
+}
+wait(172);

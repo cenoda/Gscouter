@@ -1,0 +1,17 @@
+active mona;
+mona skill;
+for let i = 0; i < 4; i = i + 1 {
+  
+  nicole skill, burst;
+  xiangling skill, burst;
+  mona burst, attack;
+  sucrose skill, jump, attack;
+  mona charge:5, attack, skill;
+  
+  nicole skill, burst;
+  xl attack:2, skill;
+  mona burst, attack;
+  sucrose skill, jump, attack, burst;
+  mona charge:5, skill, attack;
+  
+}

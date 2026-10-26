@@ -1,0 +1,13 @@
+active mavuika;
+  
+for let i=0; i<4; i=i+1 {
+  neuvillette skill; 
+  xilonen burst;
+  furina skill, dash, burst; 
+  mavuika skill, burst, charge, dash;
+  xilonen skill, attack:2; pick_up_crystallize("hydro");
+  neuvillette charge, skill, charge, burst;
+  xilonen skill, attack:2; pick_up_crystallize("hydro");
+  neuvillette charge, charge;
+}
+wait(173);

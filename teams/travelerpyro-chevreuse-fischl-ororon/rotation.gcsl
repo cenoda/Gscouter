@@ -1,0 +1,21 @@
+active ororon;
+for let i=0; i<4; i=i+1 {
+  ororon skill, burst;
+  
+  chev burst, skill[hold=1]:2;
+  
+  if !.fischl.skill.ready {
+    fischl attack:2, burst;
+  } 
+  else {
+    fischl attack, skill;
+  }
+  
+  luminepyro skill;
+  for let i=0; i<2; i=i+1 {
+    if .luminepyro.burst.ready{
+      luminepyro burst;
+    }
+    luminepyro attack:2, charge, attack:3, charge;
+  }
+}

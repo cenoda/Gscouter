@@ -1,0 +1,26 @@
+active xilonen;
+for let i = 0; i < 4; i = i + 1 {
+  xilonen burst;
+  
+  furina skill, dash, burst;
+  
+  yelan burst, attack:1;
+  if .yelan.breakthrough {
+    yelan aim;
+  }
+  
+  xilonen skill, attack:2;
+  
+  yelan skill, attack:2;
+  
+  diluc burst;
+  pick_up_crystallize("hydro"); 
+  diluc attack, skill, attack, skill, attack:2, skill, attack:3;
+  
+  yelan skill, attack;
+  
+  xilonen skill, attack:2;
+  if !.xilonen.mods.favonius-cd {
+    xilonen attack;
+  }
+}

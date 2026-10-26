@@ -1,0 +1,11 @@
+active layla;
+for let i=0; i<4; i=i+1 {
+  layla skill, attack, burst;
+  bennett skill, burst;
+  shenhe skill[hold=1], attack, burst;
+  chasca skill, aim:4, aim[bullets=4];
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  }
+  bennett skill, attack:2;
+}

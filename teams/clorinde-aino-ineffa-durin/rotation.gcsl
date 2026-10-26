@@ -1,0 +1,26 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active ineffa;
+for let i=0; i<4; i=i+1 {
+  if i > 0  && .ineffa.burst.ready {
+    ineffa skill, burst;
+  } else {
+    ineffa skill, attack;
+  }
+  
+  aino skill, burst;
+  
+  durin skill, skill, burst;
+  
+  clorinde_combo();
+  clorinde burst;
+  clorinde attack; 
+}

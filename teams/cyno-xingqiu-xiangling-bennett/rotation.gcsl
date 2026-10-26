@@ -1,0 +1,19 @@
+active xingqiu;
+for let i=0; i<4; i=i+1 {
+  xingqiu skill, dash, burst, attack;
+  bennett burst, attack, skill, attack;
+  xiangling burst, attack, skill, attack;
+  cyno burst;
+  
+  while .cyno.burst.cd > 480 {
+    if .cyno.skill.ready {
+      cyno skill;
+    } else if .cyno.normal == 3 {
+      cyno dash;
+    } else {
+      cyno attack;
+    }
+  }
+  bennett skill;
+  xiangling attack:2;
+}

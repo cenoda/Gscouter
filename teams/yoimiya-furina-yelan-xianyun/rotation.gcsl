@@ -1,0 +1,19 @@
+active furina;
+for let i = 0; i < 6; i = i + 1 {
+  if !i {
+    furina skill, dash, burst;
+  } else {
+    furina attack, burst, skill, dash;
+  }
+  yelan burst, attack;
+  xianyun skill, low_plunge, attack, burst;
+  if !.xianyun.mods.favonius-cd {
+    xianyun attack;
+  }
+  yelan attack, skill, attack;
+  yoimiya skill, 
+          attack:5, dash, 
+          attack:5, dash, 
+          attack:5;
+  yelan skill, attack:3, dash;
+}

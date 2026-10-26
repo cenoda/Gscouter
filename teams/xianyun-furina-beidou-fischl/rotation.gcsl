@@ -1,0 +1,61 @@
+fn rand_counter() {
+  let counter = rand();
+  if counter > 0.5 {
+    counter = 2;
+  } else {
+    counter = 0;
+  }
+  
+  return counter;
+}
+fn xianyunCombo() {
+  if .xianyun.skill.ready {
+      xianyun skill, low_plunge;
+  } else {
+    
+    if .xianyun.normal > 1 && .xianyun.jump.ready && .xianyun.mods.xianyun-airborne-buff {
+      xianyun jump;
+      if .airborne {
+        xianyun high_plunge[collision=rand()>0.5];
+      }
+    } else {
+      xianyun attack;
+      if .xianyun.normal > 2 && .xianyun.dash.ready {
+        xianyun dash;
+      } else if .xianyun.normal > 2 && !.xianyun.dash.ready {
+        xianyun charge;
+      }
+    }
+  }
+}
+active fischl;
+for let i=0; i<4; i=i+1 {
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  
+  furina skill, dash, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  beidou skill[counter=rand_counter()], burst;
+  
+  while .fischl.oz {
+    xianyunCombo();
+  }
+  
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst;
+  }
+  
+  beidou attack, skill[counter=rand_counter()];
+  
+  xianyun attack;
+  while .fischl.oz {
+    xianyunCombo();
+  }
+}

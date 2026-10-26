@@ -1,0 +1,17 @@
+id: neuvillette-furina-citlali-escoffier
+name: Neuvillette / Furina / Citlali / Escoffier
+members:
+    - neuvillette
+    - furina
+    - citlali
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/8MQwnbJjfbzb
+notes: 'Harvested from the KQM gcsim database: 4 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 100514
+    computed: "2026-09-30"

@@ -1,0 +1,24 @@
+# Build from the source config, used to validate the rotation.
+
+lisa char lvl=90/90 cons=6 talent=9,9,9;
+lisa add weapon="favoniuscodex" refine=5 lvl=90/90;
+lisa add set="flowerofparadiselost" count=4;
+lisa add stats def%=0.124 def=39.36 hp=5287.88 hp%=0.0992 atk=344.08 atk%=0.4464 er=0.6061 em=679.92 cr=0.0662 cd=0.1324;
+
+barbara char lvl=90/90 cons=6 talent=9,9,9;
+barbara add weapon="favcodex" refine=5 lvl=90/90;
+barbara add set="tf" count=4;
+barbara add stats hp=4780 atk=311 em=187 em=187 cr=0.311;
+barbara add stats def=39.36 def%=0.124 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.331 cd=0.7944;
+
+aetherdendro char lvl=90/90 cons=6 talent=9,9,9;
+aetherdendro add weapon="favoniussword" refine=5 lvl=90/90;
+aetherdendro add set="deepwood" count=4;
+aetherdendro add stats hp=4780 atk=311 er=0.518 dendro%=0.466 cr=0.311;
+aetherdendro add stats def=39.36 def%=0.124 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.331 cd=0.7944;
+
+collei char lvl=90/90 cons=6 talent=9,9,9;
+collei add weapon="favoniuswarbow" refine=5 lvl=90/90;
+collei add set="instructor" count=5;
+collei add stats hp=3571 atk=232 er=0.348 dendro%=0.466 cr=0.23325;
+collei add stats def=39.36 def%=0.124 hp=507.88 hp%=0.0992 atk=26.5 atk%=0.0794 er=0.0882 em=31.71 cr=0.2648 cd=0.6355;

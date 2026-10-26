@@ -1,0 +1,16 @@
+active keqing;
+for let i = 0; i < 5; i = i + 1 {
+  keqing skill, skill, attack;
+  kazuha burst, skill, high_plunge;
+  bennett burst, skill;
+  xiangling burst, attack, skill, dash;
+  kazuha skill, high_plunge;
+  keqing skill, burst, skill,
+    attack, charge, 
+    attack, skill, 
+    attack, charge,
+    attack, charge,
+    attack, charge;
+  kazuha skill, high_plunge;
+  bennett skill;
+}

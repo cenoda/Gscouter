@@ -1,0 +1,22 @@
+active yae;
+for let i = 0; i < 5; i = i + 1 {
+  yae skill:3;
+  bennett skill, burst;
+
+  chevreuse burst, skill[hold=1]:2;
+  sara skill;
+  if .sara.burst.ready{
+    sara burst;
+  }
+  yae attack, charge, dash,
+      attack, charge, dash,
+      attack, charge, dash;
+  bennett skill, attack;
+  sara aim;
+  if.yae.burst.ready{
+    yae burst;
+  } else {
+    yae attack, charge, jump;
+  }
+}
+yae skill:3;

@@ -1,0 +1,12 @@
+active eula;
+for let i = 0; i < 5; i = i + 1 {
+    eula attack:2,skill;
+    bennett attack,skill,burst;
+    rosaria skill,burst;
+    eula burst,walk,attack:3,skill[hold=1],walk[f=11],attack:4;
+    lumineelectro skill[hits=3];
+    eula attack:2;
+    rosaria skill;
+    bennett skill;
+    lumineelectro skill[hits=3];
+}

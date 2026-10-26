@@ -1,0 +1,21 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill;
+  nilou skill,attack:2,skill;
+  switch {
+    case .kokomi.skill.ready:
+        kokomi skill,attack;
+    case .kokomi.burst.ready:
+        kokomi burst,attack;
+        }
+  nahida skill,burst,attack;
+  xingqiu skill,burst;
+  nahida skill,attack:5;
+  switch {
+    case .kokomi.skill.ready:
+        kokomi skill,attack;
+    case .kokomi.burst.ready:
+        kokomi burst,attack;
+        }
+  nahida skill,attack:8;
+}

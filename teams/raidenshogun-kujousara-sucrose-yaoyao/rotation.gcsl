@@ -1,0 +1,20 @@
+active raiden;
+raiden skill;
+  
+for let i=0; i<4; i=i+1 {
+  sucrose attack, skill, dash;
+  
+  yaoyao attack, burst, skill;
+  
+  sara skill, aim, attack; 
+  
+  if .sucrose.skill.ready {
+    sucrose attack, skill, dash, burst, attack:2, charge;
+  } else {
+    sucrose attack, charge, burst, attack:2, charge;
+  }
+  
+  sara burst; 
+  
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+}

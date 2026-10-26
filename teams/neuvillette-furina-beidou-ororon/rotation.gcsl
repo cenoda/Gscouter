@@ -1,0 +1,13 @@
+active neuvillette;
+for let x=0; x<4; x=x+1 {
+  neuvillette skill;
+  furina attack, skill, dash, attack;
+  ororon burst, skill;
+  beidou skill, burst, dash;
+  furina burst;
+  neuvillette charge, burst, skill, charge;
+  beidou skill, attack;
+
+  neuvillette charge:2;
+}
+wait(173);

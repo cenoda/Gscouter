@@ -1,0 +1,18 @@
+active zhongli;
+for let r = 4; r > 0; r = r - 1 {
+  
+  zhongli skill[hold=1], dash;
+  while (.zhongli.mods.favonius-cd==0) {
+    zhongli attack;
+  }
+  if r < 4 {
+    lyney aim[weakspot=1];
+  }
+  bennett skill, burst;
+  rosaria skill, burst;
+  lyney aim, aim[weakspot=1], aim, burst;
+  delay(11);
+  lyney skill, aim, skill, aim;
+  bennett skill;
+  
+}

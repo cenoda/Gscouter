@@ -1,0 +1,10 @@
+active beidou;
+for let i = 0; i < 5; i = i + 1 {
+  beidou skill[counter=2];
+  ayato burst[radius=2];
+  nahida burst, attack:2, skill; 
+  lisa skill[hold=1], attack:3, burst;
+  beidou burst, attack, skill[counter=2];
+  nahida attack:3, skill, attack:3, charge;
+  ayato skill, attack:15;
+}

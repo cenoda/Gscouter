@@ -1,0 +1,18 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  furina skill, burst;
+  baizhu  skill,attack,burst;
+ 
+  alhaitham skill[hold=1], low_plunge[short=1], 
+            attack:2, charge, dash, 
+            attack:3, charge;
+  raiden skill;
+  alhaitham burst;
+  baizhu  skill,attack;
+  alhaitham attack:3, dash,
+           attack:3, charge,dash, 
+           attack:3, dash, 
+           attack:3, dash,
+           attack:2, charge,dash;
+}

@@ -1,0 +1,16 @@
+active mavuika;
+for let i=0; i<6; i=i+1 {
+  
+  if i {
+    mavuika charge, dash, charge:5, dash;
+  }
+  mavuika skill;
+  xilonen skill, attack:2;
+  cyno attack:2, skill, dash; pick_up_crystallize("pyro");
+  kaeya skill, dash, burst;
+  mav burst, charge:2, dash,
+             charge:2, dash,
+             charge:2, dash,
+             charge:2, dash,
+             charge;
+}

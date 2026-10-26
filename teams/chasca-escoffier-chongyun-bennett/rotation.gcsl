@@ -1,0 +1,15 @@
+active escoffier;
+for let i=0; i<4; i=i+1 {
+  escoffier skill, attack;
+  chongyun skill, attack;
+  bennett attack, skill, burst;
+  chongyun burst;
+  chasca skill;
+  chasca aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}
+wait(82);

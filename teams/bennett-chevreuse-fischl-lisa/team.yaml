@@ -1,0 +1,17 @@
+id: bennett-chevreuse-fischl-lisa
+name: Bennett / Chevreuse / Fischl / Lisa
+members:
+    - bennett
+    - chev
+    - fischl
+    - lisa
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/RNGHNKrfkDqT
+notes: 'Harvested from the KQM gcsim database: 4 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 68844
+    computed: "2026-10-01"

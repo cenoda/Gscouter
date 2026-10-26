@@ -1,0 +1,40 @@
+fn LynetteCombo() {
+  
+  if .lynette.skill.ready {
+    lynette attack, skill;
+  } else if .lynette.burst.ready && .lynette.energy == .lynette.energymax {
+    lynette attack, burst;
+  } else if .lynette.normal > 4 && .stam > 25 {
+    lynette charge;
+  } else {
+    lynette attack;
+  }
+}
+active fischl;
+for let i=0; i<4; i=i+1 {
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  bennett burst, attack, skill;
+
+  amy attack;
+  if .amy.burst.ready && .amy.energy == .amy.energymax {
+    amy attack:1, burst;
+  } else {
+    amy skill;
+  }
+  
+  lynette attack, burst;
+  
+  while .fischl.oz { 
+    LynetteCombo();
+  }
+  
+  bennett skill;
+  print("done");
+}

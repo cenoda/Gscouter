@@ -1,0 +1,44 @@
+active furina;
+furina skill, dash, burst;
+xilonen burst, skill, attack:2;
+yelan burst, attack, skill, attack;
+hutao skill,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash;
+        
+yelan skill, attack:2;
+xilonen skill, attack:2;
+for let i = 0; i < 4; i = i + 1 {
+  xilonen burst;
+  
+  furina burst, skill, attack;
+  
+  yelan burst;
+  xilonen attack, skill, attack:2;
+  yelan skill, attack;
+  hutao skill,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash;
+  yelan skill, attack:2;
+  
+  xilonen skill, attack:2;
+ 
+}

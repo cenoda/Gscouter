@@ -1,0 +1,17 @@
+id: alhaitham-fischl-albedo-kukishinobu
+name: Alhaitham / Fischl / Albedo / Kukishinobu
+members:
+    - alhaitham
+    - fischl
+    - albedo
+    - kuki
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/tt7Q7r9kfjzj
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 57457
+    computed: "2026-09-30"

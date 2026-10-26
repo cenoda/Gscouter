@@ -1,0 +1,25 @@
+active kokomi;
+for let i=0; i<4; i=i+1 {
+  kokomi skill, dash;
+  
+  citlali skill, burst;
+  
+  furina skill, dash, burst;
+  
+  rosaria skill, burst;
+  
+  kokomi attack, burst,
+        attack:2, dash,
+        attack:2, dash,
+        attack:2, walk,
+        attack:2, dash,
+        attack:2, dash,
+        attack:2, walk,
+        attack:2, dash,
+        attack:2, dash,
+        attack:2, walk,
+        attack:2, dash,
+        attack:2; 
+        
+  rosaria skill;
+}

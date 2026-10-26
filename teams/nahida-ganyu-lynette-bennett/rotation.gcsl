@@ -1,0 +1,16 @@
+active ganyu;
+for let i=0; i<4; i=i+1 {
+  ganyu aim;
+  nahida skill;
+  if .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  lynette skill, attack;
+  bennett skill, burst;
+  lynette burst;
+  ganyu aim:6;
+  lynette skill, attack;
+  ganyu skill;
+}

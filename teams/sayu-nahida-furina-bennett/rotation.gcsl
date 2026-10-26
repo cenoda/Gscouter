@@ -1,0 +1,25 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  nahida skill;
+  if .nahida.burst.ready && .nahida.energy == .nahida.energymax {
+    nahida burst;
+  } else {
+    nahida attack, charge;
+  }
+  
+  bennett burst, skill;
+  while .sayu.skill.cd > 80 {
+    if .bennett.skill.ready {
+      bennett skill;
+    } else {
+      bennett attack;
+    }
+  }
+  
+  sayu burst;
+  sayu skill[hold=600];
+  
+  print("done");
+}

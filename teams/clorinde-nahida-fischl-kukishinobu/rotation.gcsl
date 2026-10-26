@@ -1,0 +1,35 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active fischl;
+for let i=0; i<4; i=i+1 {
+  fischl attack;
+  if .fischl.burst.ready {
+    fischl attack:1, burst;
+  } else {
+    fischl skill;
+  }
+  nahida skill; 
+  if i > 0 && .nahida.burst.ready { 
+    nahida attack, burst, charge;
+  } else if i == 0 {
+    nahida attack, charge;
+  } else {
+    nahida attack, charge, dash, charge;
+  }
+  
+  kuki skill, attack;
+  if .kuki.burst.ready {
+    kuki burst;
+  }
+  
+  clorinde_combo();
+  clorinde burst;
+}

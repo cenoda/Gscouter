@@ -1,0 +1,17 @@
+id: neuvillette-shenhe-kaedeharakazuha-zhongli
+name: Neuvillette / Shenhe / Kaedeharakazuha / Zhongli
+members:
+    - neuvillette
+    - shenhe
+    - kazuha
+    - zhongli
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/gLC7PTPTKqGm
+notes: 'Harvested from the KQM gcsim database: 10 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 112189
+    computed: "2026-10-02"

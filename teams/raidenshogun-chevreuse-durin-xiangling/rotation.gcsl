@@ -1,0 +1,18 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 4; i = i + 1 {
+  chevreuse burst, attack, skill[hold=1]:3;
+  
+  if i == 0 {
+    durin skill, burst, skill;
+  } else {
+    durin attack, skill, burst, skill, attack;
+  }
+  
+  xiangling burst, attack, skill, dash;
+  raiden burst, 
+         attack:4, skill, 
+         attack:4, dash, 
+         attack:4, dash, 
+         attack:4;
+}

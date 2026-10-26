@@ -1,0 +1,9 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+kokomi skill, attack;
+furina skill, burst;
+amber skill, dash, aim[bunny=1], burst;
+xiangling burst, skill;
+kokomi burst, attack:3,dash, attack:3,dash, attack:3,dash, attack:3, dash, attack:2;
+amber skill, dash, aim[bunny=1];
+}

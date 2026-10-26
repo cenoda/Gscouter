@@ -1,0 +1,17 @@
+id: kinich-ororon-fischl-thoma
+name: Kinich / Ororon / Fischl / Thoma
+members:
+    - kinich
+    - ororon
+    - fischl
+    - thoma
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/dMpbp6TPLmwj
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 66583
+    computed: "2026-10-01"

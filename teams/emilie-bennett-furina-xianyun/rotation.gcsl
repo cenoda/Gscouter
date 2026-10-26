@@ -1,0 +1,27 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, attack, burst;
+  
+  xianyun skill, low_plunge, burst;
+  
+  bennett skill, burst;
+
+  if .emilie.skill.ready {
+    emilie skill;
+  } else {
+    emilie attack, burst;
+  }
+
+  let plunges = 0;
+  while .emilie.status.xianyun-airborne-buff {
+    emilie jump;
+    if .airborne {
+      emilie high_plunge[collision=rand()>0.5];
+      plunges = plunges + 1; print(plunges);
+      if .emilie.infusion.bennett-fire-weapon {
+        emilie attack;
+      }
+    }
+  }
+  bennett attack, skill;
+}

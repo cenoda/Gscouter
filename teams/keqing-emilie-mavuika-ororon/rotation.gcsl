@@ -1,0 +1,20 @@
+active emilie;
+for let i=0; i<4; i=i+1 { 
+  if i && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill;
+  }
+  ororon skill, burst;
+  mav burst, skill;
+  keq skill, burst, skill,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      skill:2,
+      attack, charge,
+      attack, charge,
+      attack;
+}

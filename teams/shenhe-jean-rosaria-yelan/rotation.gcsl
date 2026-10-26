@@ -1,0 +1,11 @@
+active shenhe;
+for let x =0 ; x<5; x=x+1 {
+shenhe burst,skill;
+yelan burst,attack,skill;
+jean attack,burst,attack, skill;
+rosaria attack,skill,attack,burst,attack;
+shenhe skill,attack;
+yelan attack,skill,attack;
+jean skill, attack;
+rosaria attack,skill,attack;
+}

@@ -1,0 +1,17 @@
+active yae;
+	
+for let i=0; i<4; i=i+1 {
+    if !i {
+      yae skill:3;
+    } else {
+	  yae skill, attack, skill, attack:2, skill, attack:2;
+	}
+	yaoyao attack, skill, attack:2;
+	amy attack:2, skill;
+	tighnari skill, aim:3, burst;
+	
+	yae attack, burst, attack, skill, attack, skill, attack, skill, attack:2;
+	yaoyao burst, dash, attack;
+	amy attack:2, burst;
+	tighnari skill, aim:3, burst;
+}

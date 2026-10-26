@@ -1,0 +1,17 @@
+id: fischl-kamisatoayato-kukishinobu-collei
+name: Fischl / Kamisatoayato / Kukishinobu / Collei
+members:
+    - fischl
+    - ayato
+    - kuki
+    - collei
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/dmbwRjq77PKG
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 50403
+    computed: "2026-10-02"

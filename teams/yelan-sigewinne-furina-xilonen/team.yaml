@@ -1,0 +1,17 @@
+id: yelan-sigewinne-furina-xilonen
+name: Yelan / Sigewinne / Furina / Xilonen
+members:
+    - yelan
+    - sigewinne
+    - furina
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/zhbtdpgJBFQk
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 73252
+    computed: "2026-09-30"

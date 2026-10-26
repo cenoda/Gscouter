@@ -1,0 +1,12 @@
+active ayato;
+for let i=0; i<4; i=i+1 {
+  ayato burst[radius=2];
+  xingqiu skill, dash, burst, attack;
+  yelan burst, attack, skill, attack:3;
+  zhongli skill[hold=1], attack:2;
+  pick_up_crystallize("any");
+  ayato skill, attack:15;
+  yelan attack, skill, attack:3;
+  zhongli burst, attack:2;
+  pick_up_crystallize("any");
+}

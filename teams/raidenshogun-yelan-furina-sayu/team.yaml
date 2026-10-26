@@ -1,0 +1,19 @@
+id: raidenshogun-yelan-furina-sayu
+name: Raidenshogun / Yelan / Furina / Sayu
+members:
+    - raiden
+    - yelan
+    - furina
+    - sayu
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/FQhzmJctq7Nz
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    raiden: start_hp=10000
+reference:
+    dps: 66479
+    computed: "2026-10-02"

@@ -1,0 +1,31 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill; 
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd && !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  if .furina.weapon == .keys.weapon.favsword && !.furina.mods.favonius-cd {
+    furina attack;
+  }
+  
+  esco skill, burst;
+  
+  citlali skill, burst;
+  
+  hutao skill,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:1, charge, jump,
+        attack:2, charge, jump, attack;
+  if .hutao.burst.ready {
+    hutao burst;
+  } else {
+    hutao attack:1;
+  }
+}

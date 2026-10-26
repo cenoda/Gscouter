@@ -1,0 +1,30 @@
+active emilie;
+for let i=0; i<4; i=i+1 {
+  if i==0 {
+    emilie skill;
+    dehya skill;
+  }
+  nahida attack, skill, burst;
+  if .emilie.burst.ready {
+      emilie burst;
+  } else if i {
+    emilie skill;
+  }
+  if i {
+    dehya skill;
+  }
+  dehya skill;
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+  if .clorinde.burst.ready { 
+    clorinde attack, burst;
+  } else {
+    clorinde attack, charge;
+  }
+}

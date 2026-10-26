@@ -1,0 +1,11 @@
+active kuki;
+for let r = 0; r < 5; r = r + 1 {
+  kuki skill;
+  xingqiu burst, attack;
+  nahida attack, skill, attack, burst, attack, charge;
+  diluc skill, attack, burst, attack, skill, attack:2, skill, attack;
+  xingqiu skill, dash, attack:2;
+  kuki attack, burst;
+  diluc attack, skill, attack, skill, attack, skill;
+         
+}

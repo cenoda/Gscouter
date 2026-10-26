@@ -1,0 +1,25 @@
+active neuvillette;
+for let i=0; i<3; i=i+1 {
+  neuvillette skill;
+  if i {
+    xilonen burst;
+  }
+  xilonen skill, attack:2;
+  kazuha skill, high_plunge;
+  xinyan dash, skill, burst; pick_up_crystallize("hydro");
+  kazuha burst;
+  neuvillette charge, dash;
+  kazuha skill[glide_cancel=1];
+  wait(46);
+  neuvillette skill, charge, burst;
+  
+  xilonen skill, attack:2;
+  kazuha skill, high_plunge;
+  xinyan dash, skill, burst; pick_up_crystallize("hydro");
+  kazuha burst;
+  neuvillette charge, dash;
+  kazuha skill, high_plunge;
+  wait(20);
+  neuvillette charge;
+}
+wait(173);

@@ -1,0 +1,17 @@
+id: raidenshogun-lisa-xiangling-chevreuse
+name: Raidenshogun / Lisa / Xiangling / Chevreuse
+members:
+    - raiden
+    - lisa
+    - xiangling
+    - chevreuse
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Qprpb7CQwmmn
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 54421
+    computed: "2026-10-02"

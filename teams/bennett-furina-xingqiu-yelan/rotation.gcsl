@@ -1,0 +1,14 @@
+active xq;    
+for let i=0; i<4; i=i+1 {
+  xingqiu burst, attack;
+	furina skill, attack, burst;
+	bennett burst, attack, skill, attack;
+	yelan burst, attack, skill;
+	xingqiu attack, skill, dash, attack:2;
+	bennett attack:2, skill,
+	        attack:3, skill,
+	        attack:3, skill,
+	        attack:3, skill;
+	yelan attack, skill, attack;
+	bennett skill, attack;
+}

@@ -1,0 +1,14 @@
+active shenhe;
+for let i=0; i<4; i=i+1 {
+  shenhe attack:2, skill[hold=1], burst;
+  bennett skill, burst, attack;
+  citlali skill, burst;
+  chasca skill;
+  chasca aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+  bennett skill, attack;
+}

@@ -1,0 +1,15 @@
+active raiden;
+for let x=0; x<4; x=x+1 {
+  raiden attack,skill;
+  xingqiu burst, attack, skill, dash, attack;
+  yelan burst, attack;
+  sayu skill, attack, burst;
+  yelan attack, skill;
+  raiden burst,
+       attack:4, dash,
+  	   attack:4, dash,
+  	   attack:4, dash,
+  	   attack:1, charge;
+  yelan attack, skill,attack;
+  sayu skill,attack:2;
+}

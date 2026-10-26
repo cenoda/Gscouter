@@ -1,0 +1,40 @@
+active ineffa;
+for let i=0; i<4; i=i+1 {
+  if i > 0  && .ineffa.burst.ready && .ineffa.energy == .ineffa.energymax {
+    ineffa skill, burst;
+  } else {
+    ineffa skill;
+  }
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  if i > 0 && .sucrose.burst.ready {
+    sucrose burst, attack;
+  } else {
+    sucrose skill, dash, attack;
+  }
+  
+  sethos skill, attack; 
+  sethos burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:1;
+  sethos skill, attack;
+  
+  sucrose skill, dash, attack;
+  
+  sethos aim[hold=2]:1, attack;
+  sethos aim[hold=2]:1, attack;
+}

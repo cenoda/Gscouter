@@ -1,0 +1,27 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  kokomi skill, dash, attack;
+  
+  furina skill, dash, burst;
+  
+  yelan burst, attack; 
+  
+  mavuika skill, attack, burst, dash;
+  
+  yelan attack, skill; 
+  
+  kokomi attack, burst,
+        attack:2, dash,
+        attack:2, dash,
+        attack:2, walk,
+        attack:2, dash,
+        attack:2, dash,
+        attack:2, walk,
+        attack:2, dash,
+        attack:2, dash,
+        attack:2, walk,
+        attack:2, dash,
+        attack:2; 
+ 
+  yelan skill, attack;
+}

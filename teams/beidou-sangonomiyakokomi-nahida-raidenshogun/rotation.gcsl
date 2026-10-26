@@ -1,0 +1,29 @@
+active kokomi;
+  kokomi skill;
+  raiden attack, skill;
+  nahida skill, burst;
+  
+  beidou skill[counter=1],burst;
+  kokomi attack, burst;
+  let kokomi_n2w_sequences = 14;
+    while kokomi_n2w_sequences {
+    kokomi attack:2, walk;
+    kokomi_n2w_sequences = kokomi_n2w_sequences - 1;
+  }
+  
+  beidou skill[counter=1];
+  
+for let i=0; i<4; i=i+1 {
+  
+  kokomi skill, attack;
+  raiden attack, skill;
+  nahida attack, skill, attack:2, burst;
+  beidou skill[counter=1], burst;
+  kokomi attack, burst;
+  let kokomi_n2w_sequences = 12;
+    while kokomi_n2w_sequences {
+    kokomi attack:2, walk;
+    kokomi_n2w_sequences = kokomi_n2w_sequences - 1;
+  }
+  beidou skill[counter=1];
+}

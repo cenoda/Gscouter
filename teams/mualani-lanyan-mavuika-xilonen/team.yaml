@@ -1,0 +1,17 @@
+id: mualani-lanyan-mavuika-xilonen
+name: Mualani / Lanyan / Mavuika / Xilonen
+members:
+    - mualani
+    - lanyan
+    - mavuika
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/KPBbHPMRQcNK
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 90999
+    computed: "2026-10-02"

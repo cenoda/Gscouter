@@ -1,0 +1,28 @@
+active gaming;
+bennett skill;
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], dash;
+  while .zhongli.mods.favonius-cd == 0 {
+    zhongli attack;
+  }
+  if i>0 {
+    bennett skill; 
+  }
+  bennett dash; pick_up_crystallize("pyro");
+  bennett burst;
+  rosaria skill, burst;
+  gaming burst;
+  wait(45);
+  for let p=0; p<4; p=p+1 {
+    gaming skill;
+    wait(20);
+    gaming low_plunge;
+  }
+  for let p=0; p<2; p=p+1 {
+    gaming skill;
+    wait(40);
+    gaming low_plunge;
+  }
+  gaming skill, low_plunge;
+  gaming dash;
+}

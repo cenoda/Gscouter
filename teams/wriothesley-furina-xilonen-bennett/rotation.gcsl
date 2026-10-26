@@ -1,0 +1,18 @@
+active wrio;
+wrio attack;
+for let i=0; i<4; i=i+1 {
+  xilonen skill, attack:2, burst;
+  furina attack, skill, burst;
+  bennett skill, burst;
+  xilonen skill, attack:2;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump, 
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3;
+  if .wrio.burst.ready && .wrio.energy == .wrio.energymax  {
+    wrio burst;
+  }
+}

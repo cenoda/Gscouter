@@ -1,0 +1,10 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill, burst;
+  zhongli attack, skill[hold=1], dash;
+  yelan skill, burst, attack;
+  cyno skill, attack, burst;
+  for let i = 0; i < 5; i=i+1 {
+    cyno attack:4, skill;
+  }
+}

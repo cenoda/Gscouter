@@ -1,0 +1,14 @@
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  xilonen skill, attack:2, burst;
+  furina skill, dash, attack, burst;
+  mavuika burst, skill;
+  xilonen skill, attack:2;
+  chasca skill;
+  chasca aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}

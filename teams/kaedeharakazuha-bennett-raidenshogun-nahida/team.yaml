@@ -1,0 +1,17 @@
+id: kaedeharakazuha-bennett-raidenshogun-nahida
+name: Kaedeharakazuha / Bennett / Raidenshogun / Nahida
+members:
+    - kazuha
+    - bennett
+    - raiden
+    - nahida
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/zgjdz7KMf9ht
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 85973
+    computed: "2026-10-01"

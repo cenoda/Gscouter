@@ -1,0 +1,19 @@
+active gaming; 
+for let i=0; i<4; i=i+1{
+  if i > 0 || .previous-action == .action.high_plunge || .previous-action == .action.aim {
+    xilonen skill, attack:2;
+  }
+  xilonen burst;
+  
+  furina skill, dash, burst;
+  
+  yelan skill, burst, attack;
+  
+  xilonen skill, attack:2;
+  
+  gaming burst, attack:2;
+  for let i=0; i<6; i=i+1 {
+    gaming skill, high_plunge, attack;
+  }
+  gaming skill, high_plunge, dash;
+}

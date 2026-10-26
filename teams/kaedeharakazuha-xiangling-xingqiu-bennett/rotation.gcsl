@@ -1,0 +1,19 @@
+active bennett;
+for let x=0; x<5; x=x+1 {
+  bennett burst, skill;
+  kazuha skill,high_plunge;
+  
+  xiangling burst, skill;
+  xingqiu burst,attack,skill,attack:2;
+  
+  bennett attack,skill, attack;
+  xiangling attack:2;
+  
+  kazuha attack:2,skill,high_plunge,attack,burst;
+  
+  bennett attack,skill, attack;
+  xiangling attack:2;
+  
+  xingqiu attack:2;
+  kazuha attack:2;
+}

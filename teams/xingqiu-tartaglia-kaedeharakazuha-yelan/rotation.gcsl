@@ -1,0 +1,17 @@
+let rotations = 5;
+active xingqiu;
+for let i=0; i<4; i=i+1 {
+  xingqiu burst, attack;
+  kazuha attack, burst, attack;
+  yelan burst, attack, skill, attack;
+  kazuha skill, high_plunge, attack;
+  tartaglia burst, walk, skill,
+	attack:2, charge, dash,
+	attack:2, charge, dash,
+	attack:2, charge, dash,
+	attack:2, charge, dash,
+	attack:1, charge, dash;
+  yelan attack, skill, attack:2;
+  xingqiu skill, dash, attack:2;
+  kazuha skill, high_plunge, attack;
+}

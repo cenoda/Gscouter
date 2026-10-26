@@ -1,0 +1,25 @@
+active razor;
+razor skill, dash;
+for let i = 0; i < 4; i = i + 1 {
+  chevreuse burst, skill[hold=1];
+  
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else {
+    fischl attack:2, burst; 
+  }
+  
+  xl burst, skill, dash;
+  
+  razor skill, dash, attack, burst;
+  
+  while .razor.mods.razor-q > 300 { 
+    if .razor.normal > 3 && .razor.skill.ready {
+      razor skill, dash;
+    } else if .razor.normal > 3 {
+      razor dash;
+    } else {
+      razor attack;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+id: hutao-yelan-xingqiu-citlali
+name: Hutao / Yelan / Xingqiu / Citlali
+members:
+    - hutao
+    - yelan
+    - xingqiu
+    - citlali
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/cdCJKgCC6r6w
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 69719
+    computed: "2026-10-02"

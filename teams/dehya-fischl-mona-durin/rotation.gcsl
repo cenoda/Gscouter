@@ -1,0 +1,14 @@
+active dehya;
+for let i=0; i<4; i=i+1 {
+  dehya skill;
+  fischl skill, attack;
+  if !i {
+    durin skill, burst, attack;
+  } else {
+    durin skill:2, burst;
+  }
+  mona attack, burst, attack;
+  fischl attack, burst;
+  mona attack, skill, attack;
+  dehya burst, attack:15, skill;
+}

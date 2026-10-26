@@ -1,0 +1,14 @@
+active navia; 
+for let i = 0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  if !i {
+    navia skill;
+  }
+  navia burst;
+  yelan burst, attack, skill; pick_up_crystallize("any");
+  bennett attack, skill, attack, burst, attack;
+  navia skill, attack:3, dash, attack:2; pick_up_crystallize("any");
+  bennett attack, skill, attack:2;
+  yelan attack:2, skill; pick_up_crystallize("any");
+  navia attack, skill, attack:3;
+}

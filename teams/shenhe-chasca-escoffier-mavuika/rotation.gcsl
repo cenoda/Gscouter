@@ -1,0 +1,20 @@
+active mavuika;
+for let i = 0; i < 4; i = i + 1 {
+  mavuika skill;
+  escoffier skill;
+  
+  shenhe skill[hold=1];
+  if !is_even(i) { 
+    shenhe burst;
+  }
+  
+  mavuika burst, charge;
+  
+  chasca skill, aim:4;
+  if .chasca.burst.ready {
+    chasca burst;
+  } else {
+    chasca aim;
+  }
+}
+wait(105);

@@ -1,0 +1,19 @@
+active raiden;
+raiden skill;
+ 
+for let i = 0; i < 4; i = i + 1 {
+nahida skill, burst, attack;
+baizhu skill, burst;
+yelan burst, attack:2, skill;
+raiden attack, burst,
+       attack:4, dash,
+       attack:4, skill,
+       attack:4, dash,
+       attack:4;
+              
+if .yelan.tags.yelan_breakthrough {
+  yelan aim;
+} 
+yelan attack, skill;
+nahida attack, charge, jump, attack, charge, jump;
+}

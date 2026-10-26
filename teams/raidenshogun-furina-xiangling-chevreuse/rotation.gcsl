@@ -1,0 +1,8 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, attack, burst;
+  chevreuse burst, skill[hold=1]:2, attack;
+  xiangling attack:3, burst, skill;
+  raiden burst, attack:4, dash, attack:4, skill, attack:4, dash, attack:4, dash;
+}

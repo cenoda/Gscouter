@@ -1,0 +1,21 @@
+active kokomi;	
+for let i = 0; i<4; i=i+1 {
+    kokomi skill;
+	furina skill, dash, burst;
+	yelan burst;
+	kokomi attack, burst, attack:2, walk, attack:2, walk, attack:2;
+	yelan skill, attack;
+	
+	hutao skill,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:1, charge, jump,
+    attack:2, charge, jump, attack;
+	yelan skill, attack;
+	
+}

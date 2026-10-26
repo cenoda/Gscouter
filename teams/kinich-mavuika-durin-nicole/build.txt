@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+kinich char lvl=90/90 cons=6 talent=10,10,10;
+kinich add weapon="fangofthemountainking" refine=5 lvl=90/90;
+kinich add set="obsidiancodex" count=4;
+kinich add stats hp=4780 atk=311 atk%=0.466 dendro%=0.466 cd=0.622;
+kinich add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.3972 cd=0.662;
+
+mavuika char lvl=90/90 cons=6 talent=10,10,10;
+mavuika add weapon="tbs" refine=5 lvl=90/90;
+mavuika add set="no" count=4;
+mavuika add stats hp=4780 atk=311 atk%=0.466 pyro%=0.466 cr=0.311;
+mavuika add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.331 cd=0.7944;
+
+durin char lvl=90/90 cons=6 talent=10,10,10;
+durin add weapon="athameartis" refine=5 lvl=90/90;
+durin add set="deepwood" count=4;
+durin add stats hp=4780 atk=311 atk%=0.466 pyro%=0.466 cr=0.311;
+durin add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.248 er=0.1102 em=39.64 cr=0.2979 cd=0.7944;
+
+nicole char lvl=90/90 cons=6 talent=10,10,10;
+nicole add weapon="angelosheptades" refine=5 lvl=90/90;
+nicole add set="gift" count=4;
+nicole add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 atk%=0.466;
+nicole add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=165.4 atk%=0.2976 er=0.1102 em=39.64 cr=0.2979 cd=0.1986;

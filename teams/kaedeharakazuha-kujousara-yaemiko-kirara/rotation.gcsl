@@ -1,0 +1,13 @@
+active yae;
+yae skill:3;
+for let i = 1; i <= 5; i = i + 1 {
+kazuha skill, high_plunge,burst;
+kirara skill,burst;
+sara skill,aim,burst;
+yae attack,burst,skill,skill,skill;
+kazuha skill,high_plunge;
+kirara skill[hold=34];
+sara  attack:2,skill, aim;
+yae attack,charge,dash,attack:2,charge,dash;
+yae skill,skill,attack,skill;
+}

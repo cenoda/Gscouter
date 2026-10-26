@@ -1,0 +1,17 @@
+id: rosaria-furina-shenhe-escoffier
+name: Rosaria / Furina / Shenhe / Escoffier
+members:
+    - rosaria
+    - furina
+    - shenhe
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/pL8wMfBgBtfj
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 69754
+    computed: "2026-10-01"

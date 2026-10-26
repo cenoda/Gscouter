@@ -1,0 +1,17 @@
+id: candace-fischl-kaedeharakazuha-kamisatoayato
+name: Candace / Fischl / Kaedeharakazuha / Kamisatoayato
+members:
+    - candace
+    - fischl
+    - kazuha
+    - ayato
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/JFqttMMLRKjf
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 41944
+    computed: "2026-10-01"

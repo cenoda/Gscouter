@@ -1,0 +1,23 @@
+active furina;
+for let x = 0; x < 4; x = x + 1 {
+  furina skill, dash;
+  if !.furina.mods.favonius-cd || !.furina.burst.ready {
+    furina attack;
+  }
+  furina burst;
+  
+  shenhe burst, skill;
+  
+  charlotte skill, burst;
+  
+  ganyu aim[hold=2, weakspot=rand()>0.2], burst, skill;
+  ganyu aim[hold=2, weakspot=rand()>0.2], 
+        aim[hold=2, weakspot=rand()>0.2];
+  
+  shenhe skill, attack;
+  
+  ganyu aim[hold=2, weakspot=rand()>0.2],
+        aim[hold=2, weakspot=rand()>0.2],
+        aim[hold=2, weakspot=rand()>0.2],
+        skill;
+}

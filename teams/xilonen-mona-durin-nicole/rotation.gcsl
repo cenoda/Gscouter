@@ -1,0 +1,13 @@
+active mona;
+mona skill;
+for let i = 0; i < 5; i = i + 1 {
+  
+  nicole skill, burst;
+  xilonen skill, attack:2;
+  mona attack, burst, attack;
+  durin skill, attack, burst;
+  mona charge;
+  xilonen skill, attack:2;
+  mona charge:4, skill, attack;
+
+}

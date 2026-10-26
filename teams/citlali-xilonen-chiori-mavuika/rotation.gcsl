@@ -1,0 +1,37 @@
+fn chiori_combo(){
+  for let i = 0; i < 3; i = i + 1 {
+    chiori skill, attack;
+    while !.chiori.skill.ready {
+      if .chiori.burst.ready { 
+        chiori burst; 
+      }
+      if .chiori.normal == 4 {
+        chiori dash;
+      } else {
+        chiori attack;
+      }
+    }
+  }
+}
+active chiori;
+chiori skill:2;
+for let i = 0; i < 4; i = i + 1 {
+  mavuika skill, attack;
+  
+  xilonen skill, attack:2; 
+  
+  citlali skill;
+  if .citlali.burst.ready && is_even(i){
+    citlali burst;
+  }
+  citlali attack;
+  
+  mavuika burst;
+
+  if !.citlali.burst.ready && is_even(i){
+    wait(17);
+  }
+  mavuika charge:2, dash;
+  
+  chiori_combo();
+}

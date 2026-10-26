@@ -1,0 +1,36 @@
+fn RaidenCpike() {
+  switch {
+  case .raiden.normal > 3 && .stam > 25:
+    raiden charge;
+  case .raiden.normal > 4 && .stam > 18:
+    raiden dash;
+  default:
+    raiden attack;
+  }
+}
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  escoffier skill, burst;
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  while !.yelan.skill.ready {
+    RaidenCpike();
+  }
+  
+  yelan attack, skill, attack;
+  
+  raiden skill;
+  while .yelan.skill.cd > 360 {
+    RaidenCpike();
+  }
+}

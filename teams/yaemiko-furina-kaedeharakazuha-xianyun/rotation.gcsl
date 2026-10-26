@@ -1,0 +1,40 @@
+active yae;
+fn YaePlunge() {
+  yae jump;
+  if .airborne {
+    yae high_plunge[collision=rand()>0.5];
+  }
+}
+for let i=0; i<4; i=i+1 {
+  yae skill:3;
+  
+  furina skill, dash;
+  
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  xianyun skill, low_plunge, burst;
+
+  kazuha skill, high_plunge, burst;
+  
+  YaePlunge(); yae dash;
+  YaePlunge(); yae dash;
+  YaePlunge(); yae skill;
+
+  xianyun attack:2; sleep(20); 
+
+  YaePlunge(); yae dash;
+  YaePlunge(); yae dash;
+  YaePlunge(); yae dash;
+  YaePlunge();
+  
+  if .yae.burst.ready && .yae.energy == .yae.energymax {
+    yae burst;
+    
+    kazuha skill, high_plunge;
+  } else if .kazuha.skill.ready {
+    kazuha skill, high_plunge;
+  }
+}

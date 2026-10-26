@@ -1,0 +1,35 @@
+fn XinyanCombo() {
+  
+  if .xinyan.burst.ready && .xinyan.energy == .xinyan.energymax {
+    xinyan burst;
+  } else if .xinyan.normal > 4 && .stam > 18 {
+    xinyan dash;
+  } else {
+    xinyan attack;
+  }
+}
+active xinyan;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  if i > 0 {
+	  furina attack;
+  }
+  bennett skill, burst;
+  
+  rosaria skill, burst;
+  
+  xinyan skill;
+  while .rosaria.skill.cd {
+    XinyanCombo();
+  }
+  
+  rosaria skill;
+  
+  while .rosaria.skill.cd {
+    XinyanCombo();
+  }
+  
+  rosaria skill;
+  bennett skill, dash;
+}

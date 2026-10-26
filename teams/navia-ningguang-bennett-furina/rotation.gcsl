@@ -1,0 +1,31 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || ( char_id == .keys.char.bennett && action_id == .action.skill ) {
+    pick_up_crystallize("any");
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+active navia;
+for let i=0; i<4; i=i+1 {
+  if i {
+    bennett skill;
+  }
+  furina skill, dash, burst; 
+  if !i {
+    navia skill;
+  }
+  navia burst;
+  bennett burst, skill, dash;
+  ning skill, dash, attack;
+  navia attack, skill, attack:3, dash, attack;
+  ning attack; 
+  wait(4);
+  ning burst, walk, skill, dash, charge;
+  navia attack, skill, attack:2;
+  if .navia.skill.ready {
+    navia skill[hold=1];
+  } else {
+    navia attack;
+  }
+}

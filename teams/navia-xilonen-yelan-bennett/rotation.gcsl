@@ -1,0 +1,18 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+    pick_up_crystallize("any"); 
+  }
+  return _execute_action(char_id, action_id, p);
+}
+active yelan;
+for let x=0; x<4; x=x+1 {
+  yelan skill, burst, attack;
+  xilonen skill, attack:2;
+  navia   burst;
+  bennett skill, burst;
+  navia   skill[hold=1], attack:3, dash, attack:2;
+  xilonen skill, attack:2;
+  navia   skill[hold=1], attack:3, dash, attack:2; 
+
+}

@@ -1,0 +1,17 @@
+id: mavuika-citlali-kaeya-xilonen
+name: Mavuika / Citlali / Kaeya / Xilonen
+members:
+    - mavuika
+    - citlali
+    - kaeya
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/HWPkP9WLPHc8
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 97271
+    computed: "2026-10-01"

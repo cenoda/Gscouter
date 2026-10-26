@@ -1,0 +1,8 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, attack, burst;
+  bennett burst, skill;
+  yunjin attack, skill, burst;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack:3;
+  yunjin skill, attack:3;
+}

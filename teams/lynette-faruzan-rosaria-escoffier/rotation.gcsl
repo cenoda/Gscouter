@@ -1,0 +1,21 @@
+active rosaria;
+for let i = 0; i < 4; i = i + 1 {
+  esco skill, burst;
+  
+  rosaria skill, burst;
+  
+  faruzan skill, burst;
+  
+  lynette burst, skill, 
+          attack:2, charge,
+          attack:2, charge,
+          attack:1;
+          
+  rosaria skill;
+  
+  faruzan skill, aim:1;
+  
+  lynette skill, attack:2, charge, 
+          attack:1, charge,
+          attack:1, charge;
+}

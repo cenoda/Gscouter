@@ -1,0 +1,28 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || ( char_id == .keys.char.mavuika && action_id == .action.charge ) || ( char_id == .keys.char.xilonen && action_id == .action.skill ) {
+    pick_up_crystallize("any");
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+active chiori;
+chiori skill:2;
+for let i=0; i<5; i=i+1 {
+  
+  mavuika skill, attack;
+  
+  xilonen skill, attack:2; pick_up_crystallize("any");
+    
+  furina skill, dash, attack, burst, attack;
+    
+  chiori skill:2;
+  
+  mavuika burst, charge:2;
+  
+  chiori attack, skill, attack, burst, attack;
+  
+  xilonen skill, attack:2; pick_up_crystallize("any");
+  
+  chiori skill, attack:3, dash, attack:3, dash, attack, skill:2; 
+}

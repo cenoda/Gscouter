@@ -1,0 +1,26 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || ( char_id == .keys.char.yelan && action_id == .action.skill ) {
+    pick_up_crystallize("any"); 
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+active navia;
+navia skill;
+for let x=0; x<4; x=x+1 {
+  navia burst;
+  yelan attack, skill, burst, attack;
+  while !.yelan.mods.favonius-cd {
+    yelan attack;
+  }
+  chiori skill:2;
+  zhongli attack, skill[hold=1], dash, attack;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  print(.navia.shrapnel);
+  navia skill[hold=1], attack:2, dash, attack:2, dash, attack:2;
+  print(.navia.shrapnel);
+  navia skill[hold=1], attack:2, dash, attack:2, dash, attack:2;
+}

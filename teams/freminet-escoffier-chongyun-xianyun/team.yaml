@@ -1,0 +1,17 @@
+id: freminet-escoffier-chongyun-xianyun
+name: Freminet / Escoffier / Chongyun / Xianyun
+members:
+    - freminet
+    - escoffier
+    - chongyun
+    - xianyun
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/kpRrg8gfjB6F
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 53009
+    computed: "2026-09-30"

@@ -1,0 +1,10 @@
+active dehya;
+for let i=0; i<4; i=i+1 {
+	dehya skill,attack,skill;
+	kazuha skill,high_plunge,burst;
+	lisa skill[hold=1],burst,attack;
+	bennett skill, burst;
+	kazuha skill,high_plunge;
+	dehya burst, skill:10;
+	bennett skill;
+}

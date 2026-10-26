@@ -1,0 +1,17 @@
+id: albedo-bennett-xiangling-noelle
+name: Albedo / Bennett / Xiangling / Noelle
+members:
+    - albedo
+    - bennett
+    - xiangling
+    - noelle
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/fLwb8RLW6WNp
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 30030
+    computed: "2026-10-02"

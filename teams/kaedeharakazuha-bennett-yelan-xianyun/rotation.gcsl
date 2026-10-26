@@ -1,0 +1,18 @@
+active xianyun;
+for let i=0;i<4;i=i+1 {
+xianyun skill, low_plunge; 
+yelan skill, skill, burst; 
+xianyun burst;
+kazuha attack, burst;
+bennett skill, dash;
+bennett burst; kazuha skill, high_plunge; 
+kazuha attack, jump, high_plunge;
+kazuha attack, jump, high_plunge;
+kazuha attack, jump, high_plunge;
+kazuha attack, skill, high_plunge;
+kazuha attack, jump, high_plunge;
+kazuha attack, jump, high_plunge;
+xianyun skill, low_plunge;
+kazuha skill, high_plunge;
+bennett skill, attack:2;
+}

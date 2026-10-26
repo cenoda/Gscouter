@@ -1,0 +1,24 @@
+let Xilo_Use_Dash = false; 
+active xilonen;
+for let i=0; i<4; i=i+1{
+  xilonen burst;
+  furina skill, dash, burst;
+  xilonen skill, attack:2;
+  if .xilonen.sets.ap >=4 {
+    if Xilo_Use_Dash {
+      xilonen dash;
+    }
+    pick_up_crystallize("hydro");
+  }
+  citlali skill, attack;
+  ayato skill, attack:15, burst;
+  xilonen skill, attack:2;
+  if .xilonen.sets.ap >=4 {
+    if Xilo_Use_Dash {
+      xilonen dash;
+    }
+    pick_up_crystallize("hydro");
+  }
+  citlali burst;
+  ayato skill, attack:15;
+}

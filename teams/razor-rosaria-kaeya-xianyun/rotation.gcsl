@@ -1,0 +1,27 @@
+active razor; 
+fn RazorPlunge() {
+  razor jump;
+  if .airborne {
+    razor high_plunge[collision=rand()>0.5];
+  }
+}
+for let x = 0; x < 4; x = x + 1 {
+  xianyun skill, low_plunge, burst;
+  
+  kaeya skill, burst;
+  
+  rosaria skill, burst;
+  
+  razor skill;
+  if .razor.burst.ready {
+    razor dash, burst;
+  }
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor skill;
+  RazorPlunge(); razor dash;
+  RazorPlunge(); razor dash;
+  RazorPlunge();
+}

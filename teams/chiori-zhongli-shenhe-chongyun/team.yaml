@@ -1,0 +1,17 @@
+id: chiori-zhongli-shenhe-chongyun
+name: Chiori / Zhongli / Shenhe / Chongyun
+members:
+    - chiori
+    - zhongli
+    - shenhe
+    - chongyun
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Tf7WmhG9q6g9
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 121825
+    computed: "2026-10-02"

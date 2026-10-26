@@ -1,0 +1,31 @@
+active yae;
+for let i = 0; i < 5; i = i + 1 {
+  yae skill:3;
+  if !.chevreuse.burst.ready{
+    chev attack;
+  }
+  chevreuse burst, skill[hold=1]:2;
+  if i==0 || i==2 || i==4 { 
+    sara skill;
+  }
+  if i==0 || i==2 || i==4 { 
+    xiangling burst, skill, dash;
+  } else {
+    xiangling attack:2, skill, attack:2;
+  }
+  if i==1 || i==3 || i==5 { 
+    sara skill;
+  } else {
+    sara burst; 
+  }
+  yae attack, charge, dash,
+      attack, charge, jump,
+      attack, charge, dash;
+  sara aim;
+  if i==0 || i==2 || i==4 { 
+    yae burst;
+  } else {
+    yae attack, charge, jump, attack;
+  }
+}
+yae skill:3;

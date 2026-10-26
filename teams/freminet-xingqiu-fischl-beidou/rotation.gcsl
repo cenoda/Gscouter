@@ -1,0 +1,25 @@
+active freminet; 
+fischl skill;
+for let i=0; i<4; i=i+1 {
+  xingqiu skill, dash, burst, attack;
+  
+  beidou skill, attack, burst, attack;
+  
+  if .amy.burst.ready {
+    amy attack:2, burst;
+  } else if .amy.skill.ready {
+    amy attack:1, skill;
+  }
+  
+  freminet skill, attack, burst,
+         attack:2, skill, attack, skill,
+         attack:2, skill, attack, skill,  
+         attack:2, skill, attack, skill,
+         attack:2, skill;
+  
+  if .amy.burst.ready {
+    amy attack:2, burst;
+  } else if .amy.skill.ready {
+    amy attack:1, skill;
+  }
+}

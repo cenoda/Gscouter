@@ -1,0 +1,11 @@
+active ayaka;
+for let i=0; i<4; i=i+1 {
+	ayaka dash, attack, skill;
+	layla burst, skill;
+	shenhe burst, skill;
+	ganyu aim[weakspot=1], skill, burst;
+	ayaka dash, attack, skill, burst, attack;
+    shenhe attack, skill;
+	ganyu aim[weakspot=1], skill, aim[weakspot=1];
+	ayaka swap; 
+}

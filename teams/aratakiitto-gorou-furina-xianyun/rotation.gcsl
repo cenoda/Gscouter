@@ -1,0 +1,27 @@
+active furina;
+for let i = 0; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  
+  while !.furina.mods.favonius-cd {
+    furina attack;
+  }
+  
+  xianyun skill, low_plunge, burst;
+  
+  gorou attack, skill, burst;
+  
+  while !.gorou.mods.favonius-cd {
+    gorou attack;
+  }
+  
+  itto attack, burst[prestack=1], skill;
+  
+  for let p = 8; p > 0; p = p - 1 {
+    itto jump;
+    if .airborne {
+    itto high_plunge[collision=rand()>0.5], dash;
+    }
+  }
+  
+  itto charge:4, skill, charge;
+}

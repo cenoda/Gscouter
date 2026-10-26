@@ -1,0 +1,22 @@
+active xingqiu;
+for let i = 0; i < 5; i = i + 1 {
+  xingqiu skill, dash, burst, attack;
+  yelan skill, attack, burst, attack;
+  faruzan burst;
+  wanderer attack, skill;
+  while .wanderer.skydweller-points > 3 {
+    switch {
+    case .wanderer.normal < 3:
+      wanderer attack;
+    case .wanderer.mods.wanderer-a4:
+      wanderer dash;
+    default:
+      wanderer charge;
+    }
+  }
+  if .wanderer.burst.ready {
+    wanderer burst;
+  } else {
+    wanderer skill;
+  }
+}

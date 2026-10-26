@@ -1,0 +1,19 @@
+id: alhaitham-xingqiu-yelan-kukishinobu
+name: Alhaitham / Xingqiu / Yelan / Kukishinobu
+members:
+    - alhaitham
+    - xingqiu
+    - yelan
+    - kuki
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/zgptTgHTgzPc
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    kuki: start_hp%=30
+reference:
+    dps: 76609
+    computed: "2026-09-30"

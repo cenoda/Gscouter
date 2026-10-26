@@ -1,0 +1,12 @@
+active nicole;
+for let i=0; i<4; i=i+1 {
+  nicole skill, burst;
+  
+  citlali skill, burst, attack;
+  
+  durin skill, attack, burst;
+  
+  chongyun skill, burst,
+           attack:4, dash,
+           attack:4, dash;
+}

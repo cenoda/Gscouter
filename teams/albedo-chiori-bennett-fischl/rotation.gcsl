@@ -1,0 +1,29 @@
+active albedo;
+for let x=0; x<4; x=x+1 {
+   albedo skill,attack;
+   chiori skill:2;
+   bennett skill,burst;
+   bennett dash;
+   
+   pick_up_crystallize("any");
+  
+   fischl attack;
+   if .fischl.burst.ready {
+     fischl attack,burst;
+   } else {
+     fischl skill;
+   }
+   
+   bennett attack:2,skill,attack:3;
+   
+   if .chiori.burst.ready {
+     chiori burst;
+   } else {
+     chiori attack:3;
+   }
+   chiori attack:3,dash;
+   pick_up_crystallize("any");
+   
+   bennett skill, attack:3;
+   chiori attack:3;
+}

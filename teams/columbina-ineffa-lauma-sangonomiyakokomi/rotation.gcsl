@@ -1,0 +1,26 @@
+active lauma;
+lauma attack;
+for let i=0; i<6; i=i+1 {
+  
+  if is_even(i) {
+    columbina burst;
+  } 
+  columbina skill;
+  
+  ineffa skill;
+  if .ineffa.burst.ready {
+    ineffa burst;
+  } 
+  
+  kokomi skill, attack;
+  
+  lauma attack, skill[hold=.dew>0], burst;
+  
+  columbina attack, charge, dash, charge, dash, charge;
+  
+  kokomi attack, charge;
+  
+  columbina attack, charge, dash, charge, dash;
+  columbina attack, charge;
+}
+columbina dash, attack;

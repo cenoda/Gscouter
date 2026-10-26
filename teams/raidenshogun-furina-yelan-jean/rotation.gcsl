@@ -1,0 +1,23 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 5; i = i + 1 {
+  if i == 0 {
+    furina skill, dash, burst;
+  } else {
+    furina skill, dash, attack, burst;
+  }
+  
+  jean burst;
+  
+  yelan burst, attack;
+  
+  jean skill, attack;
+  
+  yelan skill, attack;
+  
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:3;
+  
+  yelan skill, attack:1;
+  
+  jean attack, skill, attack;
+}

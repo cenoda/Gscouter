@@ -1,0 +1,20 @@
+active durin;
+for let i = 0; i < 4; i = i + 1 {
+  durin skill:2, burst;
+  
+  faruzan burst, skill; print("faru_ft_1");
+  
+  nicole skill, burst;
+  
+  lanyan skill:2;
+  
+  faruzan aim:2, skill; print("faru_ft_2");
+  
+  lanyan skill:2;
+  if .lanyan.burst.ready && .lanyan.energy == .lanyan.energymax {
+    lanyan burst;
+  } else {
+    lanyan charge;
+  }
+  faruzan aim:2, skill, aim:2; print("faru_ft_3");
+}

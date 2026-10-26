@@ -1,0 +1,21 @@
+active nahida;
+let normal_attack_state = 1;
+nahida skill;
+for {
+  switch {
+  case .xingqiu.burst.ready && .xingqiu.swap.ready:
+    xingqiu burst, attack;
+    raiden skill, attack;
+  case .xingqiu.skill.ready:
+    if .nahida.onfield && .state == normal_attack_state {
+      nahida charge;
+    }
+    xingqiu skill, dash, attack:2;
+  case .nahida.skill.ready && .nahida.swap.ready && .nahida.normal == 3:
+    nahida skill;
+  case .nahida.normal == 4:
+    nahida dash;
+  default:
+    nahida attack;
+  }
+}

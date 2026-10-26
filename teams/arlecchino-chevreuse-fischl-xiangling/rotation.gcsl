@@ -1,0 +1,25 @@
+active amy;
+amy aim; 
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  
+  chevreuse burst, skill[hold=1]:2;
+  
+  if .amy.skill.ready {
+    amy attack, skill;
+  } else {
+    amy attack:2, burst; 
+  }
+
+  if .xl.burst.ready { 
+    xl burst;
+  }
+  xl skill, dash;
+  arle charge,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3;
+}

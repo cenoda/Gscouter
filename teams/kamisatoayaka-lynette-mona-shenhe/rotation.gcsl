@@ -1,0 +1,11 @@
+active ayaka;
+for let x = 0; x < 5; x = x + 1 {
+  ayaka dash, attack:2, skill, attack:2;
+  shenhe burst, skill;
+  lynette skill, burst; 
+  mona burst, skill;
+  ayaka dash, attack, burst, skill, attack:2, charge;
+  shenhe attack, skill, attack;
+  lynette attack, skill;
+  ayaka dash, attack:2, charge, dash, attack:2, charge;
+}

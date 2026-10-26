@@ -1,0 +1,19 @@
+active gaming; 
+for let i = 0; i < 4; i = i + 1 {
+  if i > 0 {
+    xingqiu attack;
+  }
+  xingqiu skill, dash, burst, attack;
+  bennett skill, dash;
+  set_player_pos(0,-2.5);
+  bennett burst;
+  sucrose skill, dash;
+  set_player_pos(0,0);
+  sucrose attack:2;
+  gaming burst, attack:2;
+  for let i=0; i<6; i=i+1 {
+    gaming skill, high_plunge, attack;
+  }
+  gaming skill, high_plunge, dash;
+  sucrose attack:2;
+}

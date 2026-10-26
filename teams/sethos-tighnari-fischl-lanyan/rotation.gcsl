@@ -1,0 +1,41 @@
+fn sethosCombo() {
+  sethos burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, skill;
+}
+active sethos;
+sethos aim[hold=2];
+for let i=0; i<4; i=i+1 {
+  
+	tighnari skill, aim;
+	if .tighnari.burst.ready {
+	  tighnari burst, aim:2;
+	} else {
+	  tighnari aim:2;
+	}
+	
+  if .amy.skill.ready { 
+    amy attack, skill;
+  } else {
+    amy attack:2, burst;
+  }
+  
+  lanyan attack, skill:2;
+  sethos skill; 
+  sethosCombo();
+  sethos aim[hold=2]:1;
+  
+  if .lanyan.skill.ready {
+    lanyan skill:2;
+  } else if .lanyan.burst.ready && .lanyan.energy == .lanyan.energymax {
+    lanyan burst;
+  } else {
+    lanyan attack:2;
+  }
+}

@@ -1,0 +1,47 @@
+fn EulaPlunge() {
+  eula jump;
+  if .airborne {
+    eula high_plunge[collision=rand()>0.5];
+  }
+}
+fn EulaLowPlunge() {
+  eula jump;
+  if .airborne {
+    eula low_plunge[collision=rand()>0.5];
+  }
+}
+active eula; 
+for let i = 0; i < 4; i = i + 1 {
+  
+  if i {
+    bennett skill;
+    while !.bennett.mods.favonius-cd {
+      bennett attack;
+    }
+  }
+  
+  xianyun skill, low_plunge, burst;
+  
+  bennett skill, dash, burst;
+  
+  xianyun swap;
+  delay(47); 
+  xianyun attack;
+  
+  citlali skill, burst;
+  
+  eula swap;
+  delay(4);
+  EulaPlunge(); eula dash;
+  EulaPlunge(); eula dash;
+  delay(14);
+  EulaPlunge(); eula skill;
+  EulaPlunge(); eula dash; 
+  delay(15); 
+  EulaPlunge(); eula dash;
+  delay(16);
+  EulaPlunge(); eula skill;
+  EulaLowPlunge(); eula dash;
+  EulaLowPlunge(); eula dash;
+  
+}

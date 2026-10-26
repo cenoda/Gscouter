@@ -1,0 +1,17 @@
+id: gaming-citlali-sucrose-bennett
+name: Gaming / Citlali / Sucrose / Bennett
+members:
+    - gaming
+    - citlali
+    - sucrose
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/btCNhrLRkKzk
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 90074
+    computed: "2026-10-01"

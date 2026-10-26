@@ -1,0 +1,17 @@
+id: kaeya-furina-chongyun-escoffier
+name: Kaeya / Furina / Chongyun / Escoffier
+members:
+    - kaeya
+    - furina
+    - chongyun
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/dbGRbFnPLDQ7
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 62733
+    computed: "2026-10-01"

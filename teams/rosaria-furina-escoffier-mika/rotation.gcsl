@@ -1,0 +1,32 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  esco skill;
+  if !is_even(i) {
+    esco burst;
+  }
+  
+  if is_even(i) {
+    mika burst, attack, skill;
+  } else {
+    mika attack, skill[hold=1];
+  }
+  
+  rosaria skill, burst;
+  while .furina.skill.cd {
+    if .rosaria.skill.ready {
+      rosaria skill;
+    } else if .rosaria.normal > 3 && .stam > 43 {
+      rosaria charge, dash;
+    } else if .rosaria.normal > 4 && .stam > 18 {
+      rosaria attack, dash;
+    } else {
+      rosaria attack;
+    }
+  }
+}

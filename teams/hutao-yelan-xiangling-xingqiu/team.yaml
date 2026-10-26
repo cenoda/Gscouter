@@ -1,0 +1,19 @@
+id: hutao-yelan-xiangling-xingqiu
+name: Hutao / Yelan / Xiangling / Xingqiu
+members:
+    - hutao
+    - yelan
+    - xiangling
+    - xingqiu
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/KtJcDqmrrhbd
+notes: 'Harvested from the KQM gcsim database: 4 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    hutao: start_hp=1
+reference:
+    dps: 70629
+    computed: "2026-10-01"

@@ -1,0 +1,26 @@
+active yelan;
+for let i = 0; i < 4; i = i + 1 {
+  let fy = 0;
+  while fy < 2 && !.yelan.mods.favonius-cd{
+    yelan attack;
+    fy = fy+1;
+  }
+  yelan skill, burst, attack;
+  
+  sara skill, attack;
+  
+  mavuika attack, skill, burst, charge, dash;
+  
+  if .sara.burst.ready{
+     sara attack, burst;
+  } else{
+    sara attack, aim;
+  }
+  chasca attack, skill, aim:1;
+  if .chasca.burst.ready{
+    chasca burst,aim:2;
+  } else{
+    chasca aim:3;
+  }
+}
+wait(125);

@@ -1,0 +1,29 @@
+active nicole;
+for let i = 0; i < 4; i = i + 1 {
+  nicole attack:2, skill;
+  
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  mona skill, burst, attack;
+  
+  hutao skill,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump;
+  if .hutao.burst.ready {
+    hutao attack:2, burst;
+  } else {
+    hutao attack:2, charge, jump;
+  }
+}

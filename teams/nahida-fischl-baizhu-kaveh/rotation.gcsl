@@ -1,0 +1,7 @@
+active kaveh;
+for let i=0; i<3; i=i+1 {
+  fischl skill;
+  nahida skill, burst;
+  baizhu skill, burst;
+  kaveh skill, burst, attack:4, attack:4, skill, attack:4, attack:4, skill;
+}

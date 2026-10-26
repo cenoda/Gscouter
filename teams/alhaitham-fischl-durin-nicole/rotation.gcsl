@@ -1,0 +1,24 @@
+active durin;
+for let i=0; i<4; i=i+1 {
+  durin skill, burst, skill;
+  
+  nicole skill, burst;
+  
+  amy attack:1, skill;
+  
+  alhaitham skill[hold=1], low_plunge[short=1],
+            attack:2, charge, dash,
+            attack:3, charge, dash:1;
+  
+  durin skill:2;
+  
+  alhaitham burst;
+  
+  amy attack:2, burst;
+  
+  alhaitham attack:3, dash,
+            attack:3, charge, dash,
+            attack:3, dash,
+            attack:3, dash,
+            attack:3;
+}

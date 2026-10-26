@@ -1,0 +1,21 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+ furina skill, attack, burst;
+ while !.furina.mods.favonius-cd {
+ furina attack;}
+ 
+ ganyu skill, burst;
+ while !.ganyu.mods.favonius-cd {
+ ganyu attack;}
+ 
+ jean skill, burst;
+ 
+  wrio  skill,
+        attack:5, charge, dash,
+        attack:5, charge, dash,
+        attack:5, charge, dash;  
+  if .wrio.burst.ready && .wrio.energy == .wrio.energymax  {
+    wrio burst;
+  }
+  jean skill, attack:2;
+}

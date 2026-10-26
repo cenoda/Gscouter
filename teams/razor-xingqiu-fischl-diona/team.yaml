@@ -1,0 +1,17 @@
+id: razor-xingqiu-fischl-diona
+name: Razor / Xingqiu / Fischl / Diona
+members:
+    - razor
+    - xingqiu
+    - fischl
+    - diona
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/QPgkzgMTCFFg
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 47397
+    computed: "2026-10-02"

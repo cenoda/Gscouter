@@ -1,0 +1,26 @@
+active escoffier;
+for let i=0; i<4;i=i+1 {
+  if is_even(i) {
+    escoffier skill, burst;
+  } else {
+    escoffier skill, attack:3;
+  }
+  yelan skill, attack, burst, attack;
+  if is_even(i) {
+    charlotte skill, attack:4;
+  } else {
+    charlotte skill, attack, burst, attack;
+  }
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:4;
+  if is_even(i) {
+    wrio burst;
+  } else {
+    wrio charge, jump;
+  }
+}

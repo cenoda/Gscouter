@@ -1,0 +1,28 @@
+active rosaria;
+set_particle_delay("diona", 60);
+for let i=0; i<4; i=i+1 {
+	
+	rosaria skill;
+	if .fischl.skill.ready {
+		fischl skill;
+	} else {
+		fischl burst;
+	}
+	diona skill[hold=1], dash;
+	if .diona.skill.ready {
+	  diona skill[hold=1];
+	}
+	eula skill, attack;
+	rosaria burst;
+	eula swap;
+	while !.eula.burst.ready {
+	  if .eula.skill.ready {
+	    eula skill;
+	  } else {
+	    eula attack;
+	  }
+	}
+	eula burst, walk, attack:4, skill[hold=1], attack:4;
+	rosaria skill;
+	eula attack:4, dash, attack:2;
+}

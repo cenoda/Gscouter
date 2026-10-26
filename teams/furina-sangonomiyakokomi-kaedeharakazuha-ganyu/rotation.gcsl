@@ -1,0 +1,15 @@
+active furina ;
+for let i=0; i<4; i=i+1 {
+	furina skill, dash;
+	if !.furina.burst.ready {
+	  furina attack;
+	} 
+	furina burst;
+	kokomi skill, dash;
+	ganyu aim[weakspot=1];
+	kazuha skill, high_plunge, burst;
+	ganyu skill, burst, aim:3;
+	kazuha skill, high_plunge;
+	ganyu attack, skill, aim[weakspot=1];
+}
+wait(34);

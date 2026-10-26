@@ -1,0 +1,11 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill, attack:3;
+  zhongli skill[hold=1], attack;
+  albedo skill, burst;
+  xiangling skill,burst;
+  neuvillette charge, skill, burst, charge;
+  xiangling attack, skill;
+  neuvillette charge:2;
+}
+wait(173);

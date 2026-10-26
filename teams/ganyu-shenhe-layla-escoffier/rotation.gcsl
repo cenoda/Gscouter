@@ -1,0 +1,13 @@
+active shenhe;
+for let i=0; i<4; i=i+1 {
+  if is_even(i) {
+    shenhe burst;
+  } else {
+    ganyu aim;
+  }
+  escoffier skill, attack, burst;
+  layla burst, skill;
+  shenhe attack, skill[hold=1];
+  ganyu skill, burst, aim:3;
+}
+wait(27);

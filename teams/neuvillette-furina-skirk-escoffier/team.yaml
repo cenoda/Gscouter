@@ -1,0 +1,19 @@
+id: neuvillette-furina-skirk-escoffier
+name: Neuvillette / Furina / Skirk / Escoffier
+members:
+    - neuvillette
+    - furina
+    - skirk
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Cwc9CmrTM9pL
+notes: 'Harvested from the KQM gcsim database: 4 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    skirk: start_serpents_subtlety=100
+reference:
+    dps: 113922
+    computed: "2026-10-02"

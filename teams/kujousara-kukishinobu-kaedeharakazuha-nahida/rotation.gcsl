@@ -1,0 +1,11 @@
+active sara;
+sara skill;
+for let i=0; i<4; i=i+1 {
+  kazuha skill, high_plunge, burst;
+  nahida attack, skill, burst;
+  sara aim, attack, skill, burst;
+  kuki skill, dash, burst;
+  kazuha  skill, high_plunge;
+  sara  aim:2, skill, aim:4, skill;
+  print("rotation done");
+}

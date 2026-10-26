@@ -1,0 +1,19 @@
+active furina;
+for let x=0; x<5; x=x+1 {
+  furina skill, burst;
+  baizhu skill, burst, attack;
+  yelan burst, aim, skill, attack;
+  if !.yelan.mods.favonius-cd {
+    yelan attack;
+  }
+  
+  if (.yoimiya.burst.ready) {
+    yoimiya burst;
+  }
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5;
+  yelan attack, skill, attack:2;
+  if !.yelan.mods.favonius-cd {
+    yelan attack;
+  }
+  baizhu attack:2;
+}

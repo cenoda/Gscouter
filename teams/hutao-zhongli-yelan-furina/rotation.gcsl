@@ -1,0 +1,16 @@
+active furina;
+furina skill, burst, charge;
+yelan skill, burst, skill;
+zhongli skill[hold=1];
+furina charge;
+hutao skill,
+  attack:2, charge, dash,
+  attack:2, charge, dash,
+  attack:2, charge, dash,
+  attack:2, charge, dash,
+  attack:2, charge, dash,
+  attack:2, charge, dash,
+  attack:2, charge, dash,
+  attack:2, charge, dash,
+  attack:2, charge, dash,
+  attack:2, charge, dash, burst;

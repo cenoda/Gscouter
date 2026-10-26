@@ -1,0 +1,15 @@
+active neuvillette;
+for let x=0; x<4; x=x+1 {
+  neuvillette skill;
+  furina attack, skill, dash, attack:2;
+  ororon skill, attack, burst;
+  furina burst;
+  sayu skill, burst;
+  neuvillette charge, skill, charge, burst;
+  sayu skill;
+  if !.sayu.mods.favonius-cd {
+    sayu attack;
+  }
+  neuvillette charge:2;
+}
+wait(173);

@@ -1,0 +1,42 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || ( char_id == .keys.char.yelan && action_id == .action.skill ) {
+    pick_up_crystallize("any"); 
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+									
+fn naviaCombo() {
+  navia skill;
+  for let h =4; h > 0; h = h - 1 {
+    navia jump;
+    if .airborne {
+        navia high_plunge[collision=rand()>0.5], dash;
+    }
+  }
+}
+active navia;
+for let i = 0; i < 3; i = i + 1 {
+  
+  furina skill, dash, burst;
+  while .furina.mods.favonius-cd == 0 {
+    furina attack;
+  }
+  
+  xianyun skill, low_plunge, burst;
+  
+  if !i {
+    navia skill;
+  }
+  navia burst;
+  
+  ningguang skill, dash;
+  
+  naviaCombo();
+  
+  ningguang burst, walk, skill;
+  
+  naviaCombo();
+}
+navia skill;

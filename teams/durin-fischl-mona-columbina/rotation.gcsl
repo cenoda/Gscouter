@@ -1,0 +1,23 @@
+active bina;
+for let i=0; i<6; i=i+1 {
+  bina skill;
+  if .bina.burst.ready {
+    bina burst;
+  } else {
+    bina attack;
+  }
+  fischl skill, attack;
+  mona burst, attack;
+  if !i {
+    durin skill, burst, attack;
+  } else {
+    durin skill:2, burst;
+  }
+  fischl attack:2, burst;
+  mona attack, skill, attack;
+  durin attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge;
+  mona attack, charge;
+  durin attack:2, charge;
+}

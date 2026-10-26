@@ -1,0 +1,16 @@
+active mavuika;
+for let i=0;i<4;i=i+1 {
+  mavuika skill;
+  furina attack, skill, dash, burst;
+  bennett skill, burst;
+  citlali skill, burst;
+  mavuika burst;
+  mavuika charge, dash, attack;
+  delay(1);
+  mavuika charge, dash, attack,
+          charge, dash, attack,
+          charge, dash, attack,
+          charge, dash, attack,
+          charge, dash, attack,
+          charge:2, dash, attack;
+}

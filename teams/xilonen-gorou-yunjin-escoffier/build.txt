@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+xilonen char lvl=90/90 cons=0 talent=9,9,9;
+xilonen add weapon="harbinger" refine=5 lvl=90/90;
+xilonen add set="oc" count=4;
+xilonen add stats hp=4780 atk=311 def%=0.583 geo%=0.466 cd=0.622;
+xilonen add stats def%=0.496 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=39.64 cr=0.2648 cd=0.662;
+
+gorou char lvl=90/90 cons=6 talent=9,9,9;
+gorou add weapon="favbow" refine=4 lvl=90/90;
+gorou add set="exile" count=4;
+gorou add stats hp=3571 atk=232 er=0.387 def%=0.348 cr=0.311;
+gorou add stats def%=0.31248 def=33.0624 hp=426.619 hp%=0.083328 atk=27.7872 atk%=0.083328 er=0.092568 em=33.2976 cr=0.27804 cd=0.111216;
+
+yunjin char lvl=90/90 cons=6 talent=9,9,9;
+yunjin add weapon="footprint" refine=5 lvl=90/90;
+yunjin add set="scroll" count=4;
+yunjin add stats hp=4780 atk=311 def%=0.583 def%=0.583 def%=0.583;
+yunjin add stats def%=0.372 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.6061 em=39.64 cr=0.2979 cd=0.1324;
+
+escoffier char lvl=90/90 cons=0 talent=9,9,9;
+escoffier add weapon="deathmatch" refine=1 lvl=90/90;
+escoffier add set="gt" count=4;
+escoffier add stats hp=4780 atk=311 atk%=0.466 cryo%=0.466 cd=0.622;
+escoffier add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.248 er=0.1102 em=39.64 cr=0.3641 cd=0.662;

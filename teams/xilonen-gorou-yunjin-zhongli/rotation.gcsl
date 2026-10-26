@@ -1,0 +1,29 @@
+active zhongli;
+for let i=0; i<4; i=i+1 {
+  zhongli skill[hold=1], dash;
+  if i > 0 && .zhongli.burst.ready {
+    zhongli burst;
+  }
+  
+  gorou skill;
+  if .gorou.burst.ready {
+    gorou burst;
+  }
+  if !.gorou.mods.favonius-cd{
+    gorou attack;
+  }
+  
+  yunjin skill, dash, burst;
+  
+  if .gorou.burst.ready {
+    gorou burst;
+  }
+  
+  xilonen skill;
+  while .xilonen.nightsoul.state{
+    xilonen attack;
+    if .xilonen.burst.ready {
+      xilonen burst;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+active nahida;
+for let i = 0; i < 2; i = i + 1 {
+  nahida skill;
+  if !i {
+    furina burst;
+  }
+  furina skill, dash, attack;
+  mavuika attack, skill;
+  chasca skill, aim:4, skill, burst;
+  
+  nahida attack, skill;
+  mavuika burst, charge, skill, dash;
+  chasca skill, aim:4, aim[bullets=4];
+}
+wait(84);

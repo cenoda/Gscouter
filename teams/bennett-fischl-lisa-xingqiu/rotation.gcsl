@@ -1,0 +1,21 @@
+active xingqiu;
+for let x = 0; x < 5; x = x + 1 {
+  xingqiu skill, dash, burst, attack;
+  bennett skill, attack, burst;
+  fischl attack:2, burst;
+  lisa burst;
+  bennett walk, attack, skill,
+          attack, skill,
+          attack, skill,
+          attack, skill,
+          attack, skill,
+          attack, skill,
+          attack, skill,
+          attack, skill,
+          attack, skill,
+          attack, skill,
+          attack, skill;
+  fischl skill, attack;
+  lisa skill[hold=1];
+  bennett skill, attack;
+}

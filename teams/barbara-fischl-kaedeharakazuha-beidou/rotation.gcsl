@@ -1,0 +1,14 @@
+active barbara;
+for let x=0; x<4; x=x+1 {
+  barbara skill;
+  beidou skill[counter=2];
+  kazuha skill, high_plunge, burst;
+  fischl attack, skill;
+  beidou burst, attack:2, skill[counter=2];
+  barbara attack:2, dash, attack:3;
+  kazuha skill, high_plunge;
+  barbara attack:4, dash, attack:4;
+  fischl attack:2, burst;
+  kazuha skill, high_plunge;
+  barbara attack:4, dash, attack:4;
+}

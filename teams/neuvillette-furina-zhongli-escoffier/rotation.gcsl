@@ -1,0 +1,14 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  furina attack, skill, dash, attack;
+  zhongli skill[hold=1], dash, attack:2, dash;
+  pick_up_crystallize("hydro");
+  escoffier skill, burst;
+  furina burst;
+  neuvillette charge, skill, charge, burst;
+  zhongli skill, attack, dash;
+  pick_up_crystallize("hydro");
+  neuvillette charge, charge; 
+}
+wait(173);

@@ -1,0 +1,22 @@
+active wrio;
+wrio attack;
+for let x=0; x<4; x=x+1 {
+  xilonen skill, attack:2;
+  mavuika burst, skill;
+  yunjin skill[hold=1], burst;
+  if .yunjin.sets.ap >= 4 {
+    yunjin dash; pick_up_crystallize("cryo"); 
+  } else {
+    yunjin dash; pick_up_crystallize("any"); 
+  }
+  xilonen burst, skill, attack:2;  
+  wrio skill,
+       attack:5, charge, dash,
+       attack:5, charge, dash,
+       attack:5, charge, dash;
+  if .wrio.burst.ready {
+    wrio burst;
+  } else {
+    wrio attack:3;
+  }
+}

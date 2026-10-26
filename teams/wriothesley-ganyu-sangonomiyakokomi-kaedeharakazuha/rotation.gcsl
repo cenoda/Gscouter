@@ -1,0 +1,19 @@
+active wrio;
+wrio attack;
+for let i=0; i<4; i=i+1 {
+  kazuha skill, high_plunge, attack:2;
+  ganyu skill, burst;
+  kazuha burst, skill[hold=1], high_plunge;
+  kokomi skill;
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump;
+  if is_even(i) {
+    wrio attack:2, burst;
+  } else {
+    wrio attack:4;
+  }
+}

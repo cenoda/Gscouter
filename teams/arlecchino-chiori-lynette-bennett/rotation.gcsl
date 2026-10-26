@@ -1,0 +1,20 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  
+  arlecchino skill;
+  bennett skill, burst;
+  chiori skill:2;
+  lynette attack, skill;
+  if .lynette.burst.ready {
+    lynette burst, attack;
+  } else {
+    chiori burst;
+  }
+  arlecchino attack, charge, 
+             attack:3, dash, 
+             attack:3, dash, 
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3;
+}

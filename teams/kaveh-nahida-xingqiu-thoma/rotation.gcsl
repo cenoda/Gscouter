@@ -1,0 +1,8 @@
+active nahida;
+for let r = 0; r < 5; r = r + 1 {
+  nahida skill, attack, charge;
+  xingqiu skill, burst, attack:2;
+  thoma attack, skill, attack, burst, attack;
+  kaveh skill, burst, attack:3, dash, attack:3, walk, attack:3, skill, attack:5;
+  
+}

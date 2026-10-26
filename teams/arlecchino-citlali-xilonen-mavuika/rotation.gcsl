@@ -1,0 +1,51 @@
+active arlecchino;
+fn WaitForCryo() {
+  let StartFrame = f();
+  if !.element.t0.pyro {      
+    while !.element.t0.cryo && f() - StartFrame < 120 {   
+      wait(1);
+    }
+  }
+}
+let sss = true; 
+for let i = 0; i < 4; i = i + 1 {
+  let StartFrame = f();
+  if .arle.weapon == .keys.weapon.crimsonmoonssemblance {
+    arle charge;
+  }
+  arlecchino skill;
+  if .arle.weapon == .keys.weapon.crimsonmoonssemblance {
+    arle attack;
+  }
+  xilonen skill, attack:2; pick_up_crystallize("pyro");
+  citlali dash, skill;
+  mavuika burst;
+  if sss == false {
+    delay(2);       
+  }
+  arle swap;
+  arle charge[early_cancel=1], dash;
+  wait(47); 
+  
+  WaitForCryo();
+  arle attack:3, dash;
+  WaitForCryo();
+  arle attack:2, dash;
+  WaitForCryo();
+  arle attack:3, dash;
+  WaitForCryo();
+  arle attack:3;
+  if i<3 {
+    arle dash;
+    WaitForCryo();
+    arle attack:3, dash;
+    WaitForCryo();
+    arle attack;
+    if f()-StartFrame < 1080 {  
+      print("loremipsum");
+      arle attack:2, dash;
+    }
+  } else {
+    arle burst;
+  }
+}

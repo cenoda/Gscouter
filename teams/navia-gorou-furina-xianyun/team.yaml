@@ -1,0 +1,17 @@
+id: navia-gorou-furina-xianyun
+name: Navia / Gorou / Furina / Xianyun
+members:
+    - navia
+    - gorou
+    - furina
+    - xianyun
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/L9JtJfQrjwNL
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 65187
+    computed: "2026-09-30"

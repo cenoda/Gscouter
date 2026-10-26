@@ -1,0 +1,23 @@
+active furina;
+for let i=0; i<3; i=i+1 {
+  
+  if i {
+    xiangling attack:3;
+  }
+  
+  furina skill, dash, burst;
+  
+  xingqiu burst, attack;
+  
+  bennett burst, attack, skill;
+  
+  xiangling burst, attack, skill, attack;
+  
+  xingqiu attack, skill, dash, attack:2;
+  
+  bennett attack:2, skill,
+          attack:3, skill,
+          attack:3, skill,
+          attack:3, skill;
+  
+}

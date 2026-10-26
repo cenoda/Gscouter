@@ -1,0 +1,36 @@
+active gaming;
+let rotations = 3;
+for let r = rotations; r > 0; r = r - 1 {
+  
+  furina skill, dash;
+  while !.furina.burst.ready {
+    furina attack;
+  }
+  furina burst;
+
+  while !.bennett.burst.ready {
+    bennett attack;
+  }
+  bennett burst, skill;
+  
+  sucrose skill, burst, attack:2;
+  
+  while !.gaming.burst.ready {
+    gaming attack;
+  }
+  gaming burst;
+  
+  gaming skill;
+  sleep(45);
+  gaming high_plunge;  
+  
+  for let j = 0; j < 7; j = j + 1 {
+    gaming skill;
+    sleep(20);
+    gaming high_plunge;
+
+  }
+  
+  gaming dash;
+  
+}

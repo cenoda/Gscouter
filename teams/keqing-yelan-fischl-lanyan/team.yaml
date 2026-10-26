@@ -1,0 +1,17 @@
+id: keqing-yelan-fischl-lanyan
+name: Keqing / Yelan / Fischl / Lanyan
+members:
+    - keqing
+    - yelan
+    - fischl
+    - lanyan
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/9CtB9j7HfLpW
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 42710
+    computed: "2026-10-01"

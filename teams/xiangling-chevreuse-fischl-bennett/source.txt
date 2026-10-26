@@ -1,0 +1,4 @@
+# Conditions of the source config, used to validate the rotation.
+
+options swap_delay=12 iteration=1000;
+target lvl=100 type=aeonblightdrake[hp_mult=3.00] radius=2 pos=0,3;

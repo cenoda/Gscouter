@@ -1,0 +1,22 @@
+active yelan;
+for let i=0; i<4; i=i+1 {
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } else if !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst, attack;
+  
+  xilonen skill, attack:2; pick_up_crystallize("any");
+  
+  citlali skill, attack, burst;
+  
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  
+  if .xilonen.burst.ready {
+    xilonen burst;
+  } else if .yoimiya.burst.ready {
+    yoimiya burst;
+  }
+}

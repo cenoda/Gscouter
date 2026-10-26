@@ -1,0 +1,13 @@
+active lauma;
+lauma attack;   
+for let i=0; i<4; i=i+1 {
+  neuvillette skill, attack;
+  furina skill, dash, attack;
+  lauma attack, burst, skill[hold=1], attack;
+  ineffa attack, skill; wait(6);  
+  furina burst;
+  neuvillette attack, charge, skill, charge, burst;
+  lauma skill[hold=1];
+  neuvillette attack, charge:2;
+}
+wait(173);

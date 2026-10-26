@@ -1,0 +1,14 @@
+active freminet; 
+for let i=0; i<4; i=i+1 {
+  dori skill, burst, attack;
+  
+  furina skill, dash, burst;
+  
+  shenhe skill[hold=1], burst;
+  
+  freminet skill, attack:0, burst,
+           attack:2, skill, skill,
+           attack:2, skill, attack:1, skill,  
+           attack:2, skill, attack:2, skill,
+           attack:3, skill;
+}

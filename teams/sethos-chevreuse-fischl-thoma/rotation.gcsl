@@ -1,0 +1,35 @@
+fn sethosCombo() {
+  sethos burst;
+  sethos attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack:2, walk,
+         attack;
+}
+active sethos;
+sethos aim[hold=2];
+for let i=0; i<4; i=i+1 {
+  thoma skill, attack, burst, attack;
+  if !.thoma.mods.favonius-cd {
+    thoma attack;
+  }
+  
+  amy attack;
+  if !.amy.skill.ready {
+    amy attack, burst;
+  } else {
+    amy skill;
+  }
+
+  chev burst, attack, skill[hold=1], 
+              attack, skill[hold=1], 
+              attack, skill[hold=1];
+  
+  sethos skill; 
+  sethosCombo();
+  sethos aim[hold=2];
+}

@@ -1,0 +1,27 @@
+active gaming; 
+gaming skill, low_plunge;
+for let i=0; i<4; i=i+1 {
+  xilonen skill, attack:2;
+  
+  bennett burst, skill;
+  
+  xiangling burst, skill, dash;
+  
+  bennett skill;
+  
+  gaming burst, attack:2,
+         skill, low_plunge;
+  wait(40);
+  gaming skill, low_plunge;
+  wait(40);
+  gaming skill, low_plunge;
+  wait(40);
+  gaming skill, low_plunge;
+  wait(40);
+  gaming skill, low_plunge,
+         skill, low_plunge,
+         skill, low_plunge;
+  gaming dash, attack;
+  
+  xilonen attack;
+}

@@ -1,0 +1,24 @@
+active escoffier;
+for let i=0; i<4; i=i+1 {
+  escoffier skill, burst;
+  ganyu burst, skill;
+  shenhe burst, skill;
+  for let j=0; j<2; j=j+1 {
+    if !.shenhe.mods.favonius-cd && .shenhe.weapon == .keys.weapon.favlance {
+      shenhe attack;
+    }
+  }
+  ayaka skill, dash, attack, burst,
+        attack, charge, dash,
+        attack, charge,
+        attack, charge;
+  ganyu skill, dash, attack;
+  shenhe attack, skill;
+  for let j=0; j<2; j=j+1 {
+    if !.shenhe.mods.favonius-cd && .shenhe.weapon == .keys.weapon.favlance {
+      shenhe attack;
+    }
+  }
+  ayaka skill, dash, 
+        attack:3, charge;
+}

@@ -1,0 +1,35 @@
+active yelan;
+for let i = 0; i < 5; i = i + 1 {
+  yelan skill;
+  if !.yelan.burst.ready && .yelan.breakthrough {
+    yelan aim;
+  } 
+  while !.yelan.burst.ready {
+    yelan attack;
+  }
+  yelan burst;
+  if i==0 {
+    ineffa skill;
+  } else {
+    if .ineffa.burst.ready {
+      ineffa burst;
+    } else {
+      ineffa skill, attack;
+    }
+  }
+  if i == 0 {
+    flins burst, skill, attack; 
+  } else {
+    flins skill, skill, burst;
+  }
+  hutao attack, skill,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2, charge, jump,
+    attack:2;
+}

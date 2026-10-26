@@ -1,0 +1,18 @@
+active xingqiu;
+for let i=0; i<4; i=i+1 {
+xingqiu burst, attack, skill, dash, attack:2;
+kazuha attack, burst;
+bennett attack, skill, burst, attack;
+kazuha skill[hold=1], high_plunge;
+hutao attack, skill,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump,
+      attack:2, charge, jump;
+      kazuha skill, high_plunge;
+print ("done");
+}

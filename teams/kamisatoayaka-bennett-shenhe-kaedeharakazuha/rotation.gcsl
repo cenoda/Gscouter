@@ -1,0 +1,11 @@
+active ayaka;
+for let x=0; x<4; x=x+1 {
+ayaka skill, attack, charge;
+kazuha skill, high_plunge, burst;
+shenhe skill, burst;
+bennett burst, skill;
+ayaka dash, skill, attack, burst;
+kazuha skill, high_plunge;
+shenhe attack, skill;
+ayaka dash, attack:2, charge, dash, attack:2, charge;
+}

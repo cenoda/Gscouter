@@ -1,0 +1,30 @@
+active emilie;
+for let i=0; i<4; i=i+1 { 
+  if is_even(i) {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  
+  kuki skill;
+  if is_even(i) { 
+    kuki burst;
+  }
+  
+  if is_even(i) {
+    mav burst, charge, skill, dash; 
+  } else {
+    mav skill, dash;
+  }
+  
+  cyno burst, attack:2, skill;
+  while .cyno.mods.cyno-q > 260 {  
+    if .cyno.mods.cyno-a1 && .cyno.skill.ready {
+      cyno skill;
+    } else if .cyno.normal == 4 && .stam > 20 {
+      cyno dash;
+    } else {
+      cyno attack;
+    }
+  }
+}

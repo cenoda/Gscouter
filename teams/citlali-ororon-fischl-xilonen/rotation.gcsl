@@ -1,0 +1,24 @@
+active citlali;
+for let i=0; i<4; i=i+1 {
+  citlali skill, burst;
+  
+  xilo skill, attack:2;
+  
+  amy attack;
+  if .amy.burst.ready {
+    amy attack:1, burst;
+  } else {
+    amy skill;
+  }
+  
+  ororon skill, burst;
+  
+  while .citlali.skill.cd {
+    switch {
+      case .citlali.normal > 1 && .stam > 50:
+        citlali charge;
+      default:
+        citlali attack;
+    }
+  }
+}

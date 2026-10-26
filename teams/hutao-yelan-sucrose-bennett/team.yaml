@@ -1,0 +1,17 @@
+id: hutao-yelan-sucrose-bennett
+name: Hutao / Yelan / Sucrose / Bennett
+members:
+    - hutao
+    - yelan
+    - sucrose
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/wcfkwQLggQbk
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 62936
+    computed: "2026-10-01"

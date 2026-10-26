@@ -1,0 +1,21 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+    neuvillette skill;
+    furina skill, dash, burst;
+    zhongli skill[hold=1], dash;
+        
+    while !pick_up_crystallize("hydro") {
+      wait(1);
+    }
+    
+    heizou skill, burst;
+    neuvillette charge, burst, skill, charge;
+    zhongli skill[hold=1], dash;
+            
+    while !pick_up_crystallize("hydro") {
+      wait(1);
+    }
+    heizou burst, skill;
+    neuvillette charge, charge;
+}
+  wait(173);

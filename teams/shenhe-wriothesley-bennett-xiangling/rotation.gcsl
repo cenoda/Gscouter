@@ -1,0 +1,33 @@
+active shenhe;
+  
+for let i=0; i<4; i=i+1 {
+  shenhe skill[hold=1];
+  if !.shenhe.burst.ready{
+    shenhe attack;
+  }
+  shenhe burst;
+  while !.shenhe.mods.favonius-cd {
+    shenhe attack;
+  }
+  bennett burst, skill;
+  if !.xl.burst.ready{
+    xl attack;
+  }
+  xiangling burst, skill, attack;
+  if !.xl.mods.favonius-cd {
+    xl attack;
+  }
+  wriothesley skill,
+              attack:3, charge, jump,
+              attack:3, charge, dash,
+              attack:3, charge, jump,
+              attack:3, charge, jump,
+              attack:3, charge;
+  if .wriothesley.burst.ready{
+    wriothesley burst;
+  } else {
+    wrio jump, attack:3;
+  }
+  bennett skill;
+  shenhe attack;
+}

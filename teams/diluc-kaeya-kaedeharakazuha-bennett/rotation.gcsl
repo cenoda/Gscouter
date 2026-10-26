@@ -1,0 +1,13 @@
+active kaeya;
+for let i=0; i<4; i=i+1 {
+  kaeya attack,skill;
+  kazuha attack,burst;
+  bennett burst,skill,attack;
+  kazuha skill,high_plunge;
+  kaeya burst,skill;
+  diluc attack,skill,
+        attack,skill,
+        attack,skill,
+        burst;
+  kazuha skill,high_plunge,attack; wait(1); 
+}

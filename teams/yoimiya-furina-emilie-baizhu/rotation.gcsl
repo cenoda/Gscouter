@@ -1,0 +1,20 @@
+active furina;
+for let i = 0; i < 6; i = i + 1 {
+  furina skill, dash, attack, burst;
+  baizhu attack, skill, burst;
+  if ( i / 2 ) * 2 != i {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  yoimiya skill, 
+          attack:5, dash, 
+          attack:5, dash, 
+          attack:5, dash,
+          attack:3;
+  if ( i / 2 ) * 2 == i {
+    yoimiya burst;
+  } else {
+    yoimiya attack:2, dash, attack;
+  }
+}

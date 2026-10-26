@@ -1,0 +1,51 @@
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash || ( char_id == .keys.char.yelan && action_id == .action.skill ) || ( char_id == .keys.char.noelle && action_id == .action.attack ) {
+    pick_up_crystallize("any");
+  }
+    
+  return _execute_action(char_id, action_id, p);
+}
+active noelle; 
+for let i = 0 ; i < 4; i = i + 1 {
+  furina skill, dash, burst;
+  while !.furina.mods.favonius-cd {
+    furina attack;
+  }
+  
+  if i == 0 {
+    navia skill;
+  }
+  if .navia.burst.ready && .navia.energy == .navia.energymax {
+    navia burst;
+  }
+  
+  xianyun skill, low_plunge; pick_up_crystallize("any");
+  xianyun burst;
+  
+  navia attack, skill;
+  
+  noelle burst;
+  if .noelle.skill.ready {
+    noelle skill;
+  }
+  for let h = 0; h < 4; h = h + 1 {
+    noelle jump;
+    if .airborne {
+      noelle high_plunge[collision=rand()>0.5], dash;
+    }
+  }
+  
+  furina attack:2;
+  while !.furina.mods.favonius-cd {
+    furina attack;
+  }
+  
+  navia skill, attack;
+  for let h = 0; h < 4; h = h + 1 {
+    noelle jump;
+    if .airborne {
+      noelle high_plunge[collision=rand()>0.5], dash;
+    }
+  }
+}

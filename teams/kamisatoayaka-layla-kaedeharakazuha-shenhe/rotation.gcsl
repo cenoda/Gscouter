@@ -1,0 +1,15 @@
+active ayaka;
+ayaka dash, attack, skill, attack, charge;
+ 
+for let x=0; x<5; x=x+1 {
+   
+    kazuha skill, high_plunge, burst;
+    shenhe skill, burst;
+    layla burst, skill;
+    ayaka dash, attack, skill, attack, burst, attack:2, charge;
+    shenhe attack, skill;
+    kazuha skill, high_plunge;
+    
+    ayaka dash, attack:2, charge,jump, attack, skill, attack, charge;
+   
+}

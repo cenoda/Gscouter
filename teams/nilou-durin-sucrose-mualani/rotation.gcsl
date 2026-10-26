@@ -1,0 +1,36 @@
+fn mualani_combo3() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+  mualani walk[f=1];
+}
+active nilou;
+for let i=0; i<6; i=i+1 {
+  
+  nilou skill, attack:3, burst;
+  
+  durin skill, attack, burst;
+  
+  if (.sucrose.burst.ready && .mualani.burst.cd == 0) {
+    sucrose skill, dash, burst;
+  } else {
+    sucrose attack, skill, dash;
+  }
+  
+  mualani skill;
+  if .mualani.burst.ready {
+    mualani walk, burst[travel=0];
+  }
+  mualani_combo3();
+   
+  if .mualani.burst.cd == 0 && i != 5 {
+    sucrose attack, charge;
+  }
+}

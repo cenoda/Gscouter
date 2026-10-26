@@ -1,0 +1,29 @@
+active nahida;
+for let i=0; i<4; i=i+1 { 
+  nahida skill;
+  if i > 0 && .nahida.burst.ready  && .nahida.energy == .nahida.energymax {
+    nahida burst;
+  } else {
+    nahida attack:2;
+  }
+  
+  xingqiu skill, dash, burst, attack;
+  
+  baizhu skill, attack, burst;
+  
+  while .xingqiu.mods.xingqiuburst {
+    switch {
+      case (.previous-action == .action.charge || .previous-action == .action.skill) && .stam > 18:
+        klee dash;
+      case .klee.skill.ready:
+        klee attack, skill[bounce=3, mine=8];
+      case .klee.mods.a1-spark && .previous-action == .action.walk:
+        klee attack, charge, jump;
+      case .previous-action == .action.attack:
+        klee walk;
+      default:
+        klee attack;
+    }
+  }
+  
+}

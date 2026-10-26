@@ -1,0 +1,19 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill;
+  if i > 0 && .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida attack, charge;
+  }
+  
+  furina skill, dash, burst;
+  
+  baizhu skill, attack, burst;
+  
+  lisa attack, burst, attack, charge, attack:1, charge, attack:1, charge; 
+  
+  baizhu skill, attack;
+  
+  lisa attack, skill[hold=1], charge; 
+}

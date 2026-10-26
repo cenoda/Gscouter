@@ -1,0 +1,19 @@
+id: mualani-furina-skirk-escoffier
+name: Mualani / Furina / Skirk / Escoffier
+members:
+    - mualani
+    - furina
+    - skirk
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/FNLWWGqGjnr9
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+params:
+    skirk: start_serpents_subtlety=100
+reference:
+    dps: 97322
+    computed: "2026-10-02"

@@ -1,0 +1,26 @@
+let UseXilonenDash = false;  
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  mavuika skill, attack;
+  xilonen skill, attack:2;
+  if UseXilonenDash == true {
+    xilonen dash;   
+  }
+  pick_up_crystallize("pyro");
+  sucrose swap; wait(23);
+  sucrose skill, dash;
+  citlali skill, burst, attack;
+  mavuika burst;
+  wait(18); 
+  mavuika charge:3, charge[hold=6], charge[final=1], dash;
+  mavuika charge:3, charge[hold=6], charge[final=1], dash; 
+  
+  mavuika charge:3;
+  if UseXilonenDash == false {   
+    mavuika charge[final=1];
+    delay(5);
+  } else {
+    mavuika dash;
+    delay(9);
+  }
+}

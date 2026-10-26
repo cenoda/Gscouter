@@ -1,0 +1,18 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  charlotte skill, burst;
+  
+  kazuha skill, high_plunge; 
+  kazuha burst; 
+  
+  freminet skill, burst, skill;
+  freminet skill:2,attack:2;
+  freminet skill:2,attack:2;
+  freminet skill:2,attack:2;
+  freminet skill:2,attack:2;
+  freminet skill:2;
+  
+  kazuha skill, high_plunge; 
+}

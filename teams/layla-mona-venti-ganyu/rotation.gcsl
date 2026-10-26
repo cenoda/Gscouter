@@ -1,0 +1,11 @@
+active ganyu;
+for let x=0; x<6;x=x+1 {
+	ganyu skill, burst;
+	venti skill, burst;
+	layla burst, skill;
+	mona attack, skill, burst;
+	ganyu aim[weakspot=1];
+	venti skill,  attack;
+	ganyu aim[weakspot=1, travel=0]:2;
+}
+wait(33);

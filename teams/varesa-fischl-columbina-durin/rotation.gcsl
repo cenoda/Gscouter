@@ -1,0 +1,29 @@
+fn varesa_combo(amt) {
+  for let j = 0; j < amt; j = j + 1 {
+    if .varesa.skill.ready {
+      varesa skill, attack, high_plunge[collision=1];
+    } else {
+      varesa charge, high_plunge[collision=1];
+    }
+    if .varesa.energy >= 30 && .varesa.status.apex-drive {
+      varesa burst;
+    }
+  }
+}
+active durin;
+for let i=0; i<4; i=i+1 {
+  durin skill, burst, skill;
+  columbina skill;
+  if is_even(i) {
+    columbina burst;
+  } else {
+    columbina attack;
+  }
+  if .fischl.skill.ready {
+    fischl attack, skill, attack;
+  } else {
+    fischl attack:2, burst;
+    varesa attack;
+  }
+  varesa_combo(6);
+}

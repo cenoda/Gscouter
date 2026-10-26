@@ -1,0 +1,20 @@
+active ororon;
+for let i=0; i<4; i=i+1 {
+  ororon burst, skill;
+  if !.ororon.mods.favonius-cd {
+    ororon attack;
+  }
+  bennett skill, burst;
+  rosaria skill, burst;
+  if !.rosaria.mods.favonius-cd {
+    rosaria attack;
+  }
+  chasca skill;
+  chasca aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}
+wait(82);

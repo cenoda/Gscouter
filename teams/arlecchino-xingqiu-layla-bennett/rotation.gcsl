@@ -1,0 +1,14 @@
+active arle;
+for let i = 0; i < 4; i = i + 1 {
+  arle skill;
+  xingqiu burst, attack; wait(15); 
+  bennett skill, burst;
+  xingqiu skill, dash, attack:2;
+  layla burst, attack, skill, attack;
+  arle attack, charge[early_cancel=1], dash, 
+       attack:5, dash, 
+       attack:5, dash,
+       attack:5, dash;
+  bennett skill, attack:3;
+  arle attack;
+}

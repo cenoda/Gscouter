@@ -1,0 +1,13 @@
+active fischl;
+for let i = 0; i < 4; i=i+1 {
+    if .fischl.skill.ready {
+        fischl attack:2, skill;
+    }
+    yae attack:2, skill:3;
+    raiden skill, attack;
+    bennett skill, burst;
+    fischl attack, burst;
+    yae burst, skill:3;
+    raidenshogun burst, attack:4, dash, attack:4, dash, attack:4, dash, attack:4;
+    bennett skill;
+}

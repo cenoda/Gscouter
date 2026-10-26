@@ -1,0 +1,17 @@
+id: kaveh-nahida-fischl-kirara
+name: Kaveh / Nahida / Fischl / Kirara
+members:
+    - kaveh
+    - nahida
+    - fischl
+    - kirara
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/BcB9K8GBNcc7
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 40357
+    computed: "2026-10-02"

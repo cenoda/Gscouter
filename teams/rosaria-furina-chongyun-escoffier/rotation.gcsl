@@ -1,0 +1,22 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  esco skill, burst;
+  
+  chongyun burst, skill;
+  
+  rosaria skill, burst;
+  while .furina.skill.cd {
+    switch {
+      case .rosaria.skill.ready:
+        rosaria skill;
+      case .rosaria.normal > 2 && .stam > 43:
+        rosaria charge, dash;
+      case .rosaria.normal > 2 && .stam > 18:
+        rosaria dash;
+      default:
+        rosaria attack;
+    }
+  }
+}

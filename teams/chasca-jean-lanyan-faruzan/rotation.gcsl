@@ -1,0 +1,13 @@
+active chasca;
+for let i=0; i<4; i=i+1 {
+  faruzan skill, aim, burst;
+  jean skill, burst;
+  lanyan burst, skill, attack;
+  chasca skill,
+         aim:4,
+         aim[bullets=4];
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  }
+}
+wait(61);

@@ -1,0 +1,18 @@
+active furina;
+for let x=0; x<3; x=x+1 {
+ furina skill;
+ jean skill;
+ while !.jean.mods.favonius-cd {
+ jean attack;}
+ xingqiu burst,attack,skill,dash;
+ furina burst;
+ yelan attack,burst, attack;
+ jean burst,attack,skill;
+ yelan attack,skill,attack:8;
+ jean attack,skill;
+ while !.jean.mods.favonius-cd {
+  jean attack;}
+ yelan attack:8,skill,attack;
+ 
+}
+wait(25);

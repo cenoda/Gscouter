@@ -1,0 +1,22 @@
+active diona;
+for let i=0; i<4; i=i+1 {
+	diona skill[hold=1, travel=0];
+	if .diona.skill.ready {
+		diona skill[hold=1, travel=0];
+	}
+	eula skill, attack;
+	shenhe burst, skill;
+	rosaria skill, burst;
+	while !.eula.burst.ready {
+		if .eula.skill.ready {
+			eula skill;
+		} else {
+			eula attack;
+		}
+	}
+	eula burst, walk, attack:4, skill[hold=1], attack:4;
+	shenhe skill, attack;
+	eula attack:2;
+	rosaria skill;
+	eula attack:2;
+}

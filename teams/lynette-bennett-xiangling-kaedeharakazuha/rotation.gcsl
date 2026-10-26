@@ -1,0 +1,17 @@
+active bennett;
+for let rot=0; rot<5; rot=rot+1 {
+  bennett burst,skill;
+  lynette skill;
+  if .lynette.skill.ready
+  {
+    lynette skill;
+  }
+  lynette burst,attack:2;
+  kazuha skill,high_plunge,burst;
+  xiangling burst, skill;
+  bennett attack:3,skill;
+  xiangling attack:3;
+  bennett attack:2,skill;
+  xiangling attack:3;
+  kazuha skill,high_plunge,attack:2;
+}

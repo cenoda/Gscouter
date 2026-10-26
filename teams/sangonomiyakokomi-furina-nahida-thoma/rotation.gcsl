@@ -1,0 +1,30 @@
+active kokomi;
+for let i = 0; i < 4; i = i + 1 {
+  kokomi skill;
+
+  nahida skill, attack, charge; 
+  
+  furina skill, dash, burst;
+  
+  thoma skill, attack:1, burst;
+  
+  kokomi attack, burst;
+  while .status.kokomiburst {
+    if .kokomi.normal > 2 {
+      kokomi walk;
+    } else {
+      kokomi attack;
+    }
+  }
+
+  nahida attack:2, charge; 
+
+  while .kokomi.skill.cd {
+    if .kokomi.normal > 2 {
+      kokomi walk;
+    } else {
+      kokomi attack;
+    }
+  }
+  print("done");
+}

@@ -1,0 +1,26 @@
+active emilie;
+for let r=0; r<4; r=r+1 {
+  if r && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill, attack;
+  }
+  shenhe attack, skill[hold=1], burst;
+  thoma skill, attack, burst;
+  while !.thoma.mods.favonius-cd {
+    thoma attack;
+  }
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump, 
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:4;
+  if r && .wrio.burst.ready && .wrio.energy == .wrio.energymax  {
+    wrio burst;
+  } else {
+    wrio charge, jump;
+  }
+}
+wait(24);

@@ -1,0 +1,10 @@
+active raiden;
+for let x=0; x<4; x=x+1 {
+  raiden attack, skill;
+  nahida skill, burst;
+  lynette skill, burst;
+  neuvillette attack, skill, charge, burst, attack;
+  lynette skill, attack;
+  neuvillette attack, charge, attack, skill, charge:2;
+}
+wait(173);

@@ -1,0 +1,55 @@
+fn rand_delay(mean, stddev) {
+  let del = randnorm() * stddev + mean;
+  if del > (mean + mean) {
+    del = mean + mean;
+  }
+  delay(del);
+}
+let prev_char_id = -1;
+let prev_action_id = -1;
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+
+  if prev_char_id != char_id && action_id != .action.swap {
+    execute_action(char_id, .action.swap, []);
+  }
+
+  if action_id == .action.swap {
+    
+    rand_delay(12, 3);
+  } else if prev_action_id == .action.attack && action_id != .action.attack && action_id != .action.charge {
+    
+    rand_delay(3, 1);
+  } else if prev_action_id != .action.attack {
+    
+    rand_delay(3, 1);
+  }
+  
+  prev_char_id = char_id;
+  prev_action_id = action_id;
+  return _execute_action(char_id, action_id, p);
+}
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  furina skill, dash, burst;    
+  jean skill, burst;
+  if !.jean.mods.favonius-cd {
+    jean attack; 
+  }
+  layla attack, skill;
+  if !.layla.mods.favonius-cd {
+    layla attack;
+  }    
+  neuvillette charge, burst, skill, charge; 
+  jean attack, skill;
+  if !.jean.mods.favonius-cd {
+    jean attack;
+  }
+  layla burst, skill;
+  if !.layla.mods.favonius-cd {
+    layla attack;
+  }        
+  neuvillette charge, charge;
+}
+wait(173);

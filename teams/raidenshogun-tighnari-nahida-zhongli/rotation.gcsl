@@ -1,0 +1,11 @@
+active raiden;
+raiden skill;
+for let i = 0; i < 4; i = i + 1 {
+  zhongli skill[hold=1], dash;
+  while !.zhongli.mods.favonius-cd {
+    zhongli attack;
+  }
+  nahida skill, burst;
+  tighnari skill, aim, burst, aim:2;
+  raiden burst, attack:4, dash, attack:4, skill, attack:4, dash, attack:4;
+}

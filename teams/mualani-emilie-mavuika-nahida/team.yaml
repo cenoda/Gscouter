@@ -1,0 +1,17 @@
+id: mualani-emilie-mavuika-nahida
+name: Mualani / Emilie / Mavuika / Nahida
+members:
+    - mualani
+    - emilie
+    - mavuika
+    - nahida
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/mc77ndPMtzmb
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+reference:
+    dps: 75082
+    computed: "2026-10-02"

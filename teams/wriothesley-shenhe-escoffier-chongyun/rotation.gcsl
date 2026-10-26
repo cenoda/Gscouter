@@ -1,0 +1,28 @@
+active chongyun; 
+for let i=0; i<4; i=i+1 {
+  chongyun skill, attack; 
+  
+  escoffier skill, attack;
+  
+  shenhe skill[hold=1];
+  if.shenhe.burst.ready{
+    shenhe burst;
+  } else {
+    shenhe attack, burst;
+  } 
+  
+  chong burst; 
+  
+  wrio skill,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3, charge, jump,
+       attack:3;
+  if .wrio.burst.ready {
+    wrio burst;
+  } else {
+    wrio charge;
+  }
+}

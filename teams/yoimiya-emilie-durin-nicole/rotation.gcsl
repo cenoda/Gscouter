@@ -1,0 +1,19 @@
+active emilie;
+for let i=0; i<4; i=i+1 {
+  if is_even(i) {
+    emilie skill, attack;
+    nicole attack:3;
+  } else {
+    emilie burst;
+  }
+  nicole skill, burst;
+  durin skill:2, burst;
+  yoimiya skill,
+          attack:5, dash,
+          attack:5, dash,
+          attack:5, dash,
+          attack;
+  if is_even(i) {
+    yoimiya burst;
+  }
+}

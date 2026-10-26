@@ -1,0 +1,19 @@
+active yae;
+for let i=0; i<4; i=i+1 {
+    if (i == 0) {
+      yae attack, skill:3;} else {
+      yae attack, skill, attack, skill, attack, skill;}
+    kazuha skill, high_plunge, burst;
+    kirara skill, burst;
+    fischl attack, skill;
+    yae burst,
+      attack, skill, attack, skill, attack, skill, attack, charge, jump;
+    kazuha skill, high_plunge;
+    kirara attack, skill;
+    yae attack, charge, jump;
+    fischl attack:2, burst;
+    yae attack, charge, jump;
+    kazuha skill, high_plunge;
+    yae attack, charge, jump;
+    print("done");
+}

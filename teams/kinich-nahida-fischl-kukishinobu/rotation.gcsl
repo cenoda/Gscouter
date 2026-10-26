@@ -1,0 +1,43 @@
+fn kinich_combo() {
+  kinich skill;
+  while .kinich.nightsoul.state {
+    switch .kinich.nightsoul.points {
+      case 20:
+        kinich skill[hold=1];
+      default:
+        if .kinich.blind_spot {
+          kinich attack[direction=.kinich.blind_spot];
+        } else {
+          kinich attack;
+        }
+    }
+  }
+}
+active kuki;
+for let i=0; i<4; i=i+1 {
+  kuki skill, attack;
+
+  nahida skill, attack;
+  if  i > 0 && .nahida.burst.ready && .nahida.energy == .nahida.energymax {
+    nahida burst, charge;
+  } else {
+    nahida charge;
+  }
+  
+  amy attack;
+  if .amy.burst.ready {
+    amy attack:1, burst;
+  } else {
+    amy skill;
+  }
+  
+  if .previous-action == .action.skill {
+    fischl attack;
+  }
+  kinich_combo();
+  if .kuki.burst.ready {
+    kuki attack, burst;
+  } else if .kinich.burst.ready {
+    kinich burst;
+  }
+}

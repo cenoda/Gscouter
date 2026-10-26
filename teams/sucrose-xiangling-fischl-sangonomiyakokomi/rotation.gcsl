@@ -1,0 +1,27 @@
+active kokomi;
+for let i=0; i<4; i=i+1 {
+    let t = f();	
+	fischl attack:2, skill;
+	kokomi attack, skill;
+	xiangling skill, attack;
+	sucrose attack, skill, dash, attack:2;
+	if .sucrose.skill.ready {
+	  sucrose skill, dash, attack:2;
+	}
+	xiangling burst;
+	kokomi attack, burst, attack:2, walk, attack:2, walk, attack:2, walk, attack:2, walk, attack:2, walk, attack:2;
+	fischl attack:2, burst;
+	xiangling skill, attack;
+	sucrose attack, skill, dash;
+	if .sucrose.burst.ready {
+		sucrose burst;
+	}
+	while f() - t < 26*60 {
+	  switch {
+	  case .sucrose.normal == 4:
+	    sucrose dash;
+	  default:
+	    sucrose attack;
+	  }
+	}
+}

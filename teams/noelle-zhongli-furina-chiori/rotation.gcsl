@@ -1,0 +1,38 @@
+let shield = -20*60;
+active zhongli;
+for {
+  switch {
+    case .zhongli.swap.ready && .zhongli.skill.ready && (f() - shield) > 15*60:
+      zhongli skill[hold=1], dash;
+      shield = f();
+      while !.zhongli.mods.favonius-cd { 
+        zhongli attack; 
+      }
+    case .furina.burst.ready && .furina.skill.ready && .furina.swap.ready:
+      furina skill, dash, burst;
+    case .chiori.burst.ready && .chiori.swap.ready && .furina.fanfare > 200:
+      chiori burst;
+    case .chiori.skill.ready && .chiori.swap.ready:
+      chiori skill:2;
+    case .noelle.skill.ready && .noelle.swap.ready:
+      noelle skill;
+      if .noelle.status.noelle-burst { 
+        noelle attack:2;
+      }
+    case .noelle.burst.ready && .noelle.swap.ready && !.noelle.status.noelle-burst:
+      noelle burst;
+      noelle attack:2;
+    case .noelle.normal == 4:
+      noelle dash;
+    case .noelle.status.noelle-burst:
+      noelle attack;
+    case .noelle.onfield:
+      noelle attack;
+    case .zhongli.onfield:
+      zhongli attack;
+    case .chiori.onfield:
+      chiori attack;
+    case .furina.onfield:
+      furina attack;
+  }
+}

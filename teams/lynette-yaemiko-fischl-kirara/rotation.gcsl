@@ -1,0 +1,18 @@
+active yae;
+for let i=0; i<4; i=i+1 {
+  yae skill:3;
+  fischl attack, skill;
+  kirara skill[short_hold=1], burst;
+  lynette skill, 
+          attack:2, charge,
+          attack:2, charge;
+  yae burst, attack, skill:3, attack;
+  fischl attack:2, burst;
+  kirara skill[hold=34];
+  lynette burst, skill, 
+          attack:2, charge, 
+          attack:2, charge, 
+          attack:2, charge, 
+          attack:2, charge;
+  
+}

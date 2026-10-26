@@ -1,0 +1,26 @@
+active xinyan; 
+for let x = 0; x < 4; x = x + 1 {
+  xianyun skill, low_plunge, burst;
+  
+  bennett skill, burst;
+  
+  rosaria skill, burst;
+  
+  xinyan skill;
+  if .xinyan.burst.ready {
+    xinyan burst;
+  }
+  while .xinyan.status.xianyun-airborne-buff {
+    xinyan jump;
+    if .airborne {
+      xinyan high_plunge[collision=rand()>0.5];
+    }
+    if .xinyan.status.xianyun-airborne-buff {
+      xinyan dash;
+    }
+  }
+  
+  rosaria skill;
+  
+  bennett skill;
+}

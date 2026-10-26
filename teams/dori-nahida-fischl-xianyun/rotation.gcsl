@@ -1,0 +1,40 @@
+fn DoriPlunge() {
+  dori jump;
+  if .airborne {
+    dori high_plunge[collision=rand()>0.5];
+  }
+}
+active dori; 
+dori burst;
+for let i=0; i<4; i=i+1 {
+  nahida skill, attack, charge, burst;
+  
+  amy attack:2, burst; 
+
+  xianyun skill, low_plunge, attack, burst;
+  
+  dori skill;
+  dori attack;
+  DoriPlunge(); dori dash;
+  DoriPlunge(); dori dash;
+  DoriPlunge(); dori dash;
+  dori skill;
+  dori attack;
+  DoriPlunge(); dori dash;
+  DoriPlunge(); dori dash;
+  DoriPlunge();
+  
+  amy attack, skill; 
+
+  xianyun attack:2; sleep(20); 
+
+  dori skill;
+  dori attack;
+  DoriPlunge(); dori dash;
+  DoriPlunge();
+  dori attack, burst;
+  
+  nahida attack, charge, dash;
+  
+  print("done");
+}
