@@ -60,12 +60,12 @@ func init() {
 		"score.load_opponent":   "Gegner laden",
 
 		"teams.title":       "Unterstützte Teams · Gscouter",
-		"teams.placeholder": "Charakternamen (z. B. hutao, furina)",
+		"teams.placeholder": "Charakternamen (z. B. Hu Tao, Furina)",
 		"teams.search":      "Suchen",
 		"teams.matching":    "%[2]d Teams mit „%[1]s“ (von %[3]d)",
 		"teams.total":       "%d Teams",
 		"teams.found":       "%d Teams gefunden (von %d)",
-		"teams.hint":        "Suche nach gcsim-Schlüsselnamen. Trenne mehrere Charaktere durch Leerzeichen, um nur Teams mit allen davon anzuzeigen.",
+		"teams.hint":        "Suche nach Namen im Spiel oder gcsim-Schlüsseln. Trenne mehrere Charaktere durch Leerzeichen, um nur Teams mit allen davon anzuzeigen.",
 		"teams.supported":   "unterstützt",
 		"teams.blocked":     "von der Engine nicht unterstützt",
 
@@ -117,7 +117,7 @@ func init() {
 		"tl.label_steady":  "Wertungsfenster",
 		"tl.note_cycle":    "Ein Durchlauf der Rotation mit voller Energie.",
 		"tl.note_cycle_to": "Die ersten %.0f Sekunden eines Durchlaufs der Rotation mit voller Energie.",
-		"tl.note_steady":   "%[2].0f Sekunden des gewerteten Endloskampfs (ab %[1].0f s). Zeit, in der Charaktere auf Energie, Abklingzeiten oder Ausdauer warten, ist schraffiert.",
+		"tl.note_steady":   "%.0[2]f Sekunden des gewerteten Endloskampfs (ab %.0[1]f s). Zeit, in der Charaktere auf Energie, Abklingzeiten oder Ausdauer warten, ist schraffiert.",
 		"tl.note_filled":   " Die Wartezeiten werden mit Fähigkeiten und Normalen Angriffen gefüllt.",
 		"tl.span":          "Fenster",
 		"tl.seconds":       "%s s",

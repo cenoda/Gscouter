@@ -60,12 +60,12 @@ func init() {
 		"score.load_opponent":   "Tải đối thủ",
 
 		"teams.title":       "Đội hình được hỗ trợ · Gscouter",
-		"teams.placeholder": "Tên nhân vật (vd: hutao, furina)",
+		"teams.placeholder": "Tên nhân vật (vd: Hu Tao, Furina)",
 		"teams.search":      "Tìm",
 		"teams.matching":    "%[2]d đội hình có \"%[1]s\" (trên tổng %[3]d)",
 		"teams.total":       "%d đội hình",
 		"teams.found":       "Tìm thấy %d đội hình (trên tổng %d)",
-		"teams.hint":        "Tìm theo tên khóa gcsim. Nhập nhiều nhân vật cách nhau bằng dấu cách để chỉ hiện các đội hình có tất cả họ.",
+		"teams.hint":        "Tìm theo tên trong game hoặc khóa gcsim. Nhập nhiều nhân vật cách nhau bằng dấu cách để chỉ hiện các đội hình có tất cả họ.",
 		"teams.supported":   "được hỗ trợ",
 		"teams.blocked":     "engine chưa hỗ trợ",
 
@@ -117,7 +117,7 @@ func init() {
 		"tl.label_steady":  "Khoảng tính điểm",
 		"tl.note_cycle":    "Một lượt vòng xoay từ lúc đầy năng lượng.",
 		"tl.note_cycle_to": "%.0f giây đầu của một lượt vòng xoay từ lúc đầy năng lượng.",
-		"tl.note_steady":   "%[2].0f giây của trận đấu lặp lại được tính điểm (từ giây %[1].0f). Thời gian nhân vật đứng chờ năng lượng, hồi chiêu hoặc thể lực được tô sọc.",
+		"tl.note_steady":   "%.0[2]f giây của trận đấu lặp lại được tính điểm (từ giây %.0[1]f). Thời gian nhân vật đứng chờ năng lượng, hồi chiêu hoặc thể lực được tô sọc.",
 		"tl.note_filled":   " Thời gian chờ được lấp bằng kỹ năng và tấn công thường.",
 		"tl.span":          "Khoảng",
 		"tl.seconds":       "%s giây",

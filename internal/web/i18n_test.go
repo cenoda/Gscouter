@@ -36,7 +36,7 @@ func TestNegotiate(t *testing.T) {
 }
 
 // verbs are the format verbs of a message, in order.
-var verbs = regexp.MustCompile(`%(\[\d\])?[-+#0]*[\d.]*[a-zA-Z%]`)
+var verbs = regexp.MustCompile(`%[-+#0]*(\[\d\])?[\d.]*(\[\d\])?[a-zA-Z%]`)
 
 func TestCatalogComplete(t *testing.T) {
 	for _, l := range langs {
@@ -122,5 +122,35 @@ func TestLanguage(t *testing.T) {
 	}
 	if loc := pick("en", ts.URL+"//example.com/").Header.Get("Location"); loc != "/" {
 		t.Errorf("location %q", loc)
+	}
+}
+
+// TestEveryLanguage renders each page in each language, looking for
+// format errors and for messages the catalog lacks.
+func TestEveryLanguage(t *testing.T) {
+	ts := newTestServer(t)
+	v := url.Values{"a": {"800000001:hutao,yelan,xingqiu,zhongli"}, "b": {"800000002:zhongli,xingqiu,yelan,hutao"}}
+	for _, l := range langs {
+		for _, path := range []string{"/?uid=800000001", "/teams?q=hutao", "/score?a=" + url.QueryEscape(v.Get("a")), "/versus?" + v.Encode(),
+			"/score?a=" + url.QueryEscape("800000001:hutao,yelan,xingqiu,amber"), "/score?uid=800000001&c=hutao"} {
+			req, _ := http.NewRequest("GET", ts.URL+path, nil)
+			req.AddCookie(&http.Cookie{Name: langCookie, Value: l.Code})
+			resp, err := ts.Client().Do(req)
+			if err != nil {
+				t.Fatal(err)
+			}
+			body, _ := io.ReadAll(resp.Body)
+			resp.Body.Close()
+			page := string(body)
+			if !strings.Contains(page, `<html lang="`+l.Code+`">`) {
+				t.Errorf("%s %s: not in the language", l.Code, path)
+			}
+			for _, bad := range []string{"%!", "%(", "tl.", "index.", "vs.", "team.", "err.", "problem."} {
+				if strings.Contains(page, bad) {
+					i := strings.Index(page, bad)
+					t.Errorf("%s %s: %q in %q", l.Code, path, bad, page[max(0, i-60):min(len(page), i+60)])
+				}
+			}
+		}
 	}
 }

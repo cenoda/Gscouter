@@ -60,12 +60,12 @@ func init() {
 		"score.load_opponent":   "相手を読み込む",
 
 		"teams.title":       "対応編成 · Gscouter",
-		"teams.placeholder": "キャラクター名 (例: hutao, furina)",
+		"teams.placeholder": "キャラクター名 (例: 胡桃、フリーナ)",
 		"teams.search":      "検索",
 		"teams.matching":    "「%s」を含む編成 %d件 (全%d件)",
 		"teams.total":       "全%d件",
 		"teams.found":       "%d件見つかりました (全%d件)",
-		"teams.hint":        "gcsimのキー名で検索します。複数のキャラクターをスペースで区切ると、全員を含む編成だけを表示します。",
+		"teams.hint":        "ゲーム内の名前かgcsimのキー名で検索します。複数のキャラクターをスペースで区切ると、全員を含む編成だけを表示します。",
 		"teams.supported":   "対応",
 		"teams.blocked":     "エンジン未対応",
 

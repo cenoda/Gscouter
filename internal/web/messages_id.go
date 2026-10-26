@@ -60,12 +60,12 @@ func init() {
 		"score.load_opponent":   "Muat lawan",
 
 		"teams.title":       "Tim yang didukung · Gscouter",
-		"teams.placeholder": "Nama karakter (mis. hutao, furina)",
+		"teams.placeholder": "Nama karakter (mis. Hu Tao, Furina)",
 		"teams.search":      "Cari",
 		"teams.matching":    "Tim dengan \"%s\": %d (dari %d)",
 		"teams.total":       "%d tim",
 		"teams.found":       "%d tim ditemukan (dari %d)",
-		"teams.hint":        "Cari dengan nama kunci gcsim. Pisahkan beberapa karakter dengan spasi untuk menampilkan hanya tim yang berisi semuanya.",
+		"teams.hint":        "Cari dengan nama dalam game atau kunci gcsim. Pisahkan beberapa karakter dengan spasi untuk menampilkan hanya tim yang berisi semuanya.",
 		"teams.supported":   "didukung",
 		"teams.blocked":     "tidak didukung engine",
 
@@ -117,7 +117,7 @@ func init() {
 		"tl.label_steady":  "Rentang skor",
 		"tl.note_cycle":    "Satu putaran rotasi dari Energy penuh.",
 		"tl.note_cycle_to": "%.0f detik pertama dari satu putaran rotasi dari Energy penuh.",
-		"tl.note_steady":   "%[2].0f detik dari pertarungan berulang yang dinilai (mulai detik %[1].0f). Waktu karakter berdiri menunggu Energy, cooldown, atau Stamina diberi arsiran.",
+		"tl.note_steady":   "%.0[2]f detik dari pertarungan berulang yang dinilai (mulai detik %.0[1]f). Waktu karakter berdiri menunggu Energy, cooldown, atau Stamina diberi arsiran.",
 		"tl.note_filled":   " Waktu tunggu diisi dengan skill dan Normal Attack.",
 		"tl.span":          "Rentang",
 		"tl.seconds":       "%s dtk",

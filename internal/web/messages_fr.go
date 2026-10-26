@@ -60,12 +60,12 @@ func init() {
 		"score.load_opponent":   "Charger l'adversaire",
 
 		"teams.title":       "Équipes prises en charge · Gscouter",
-		"teams.placeholder": "Noms de personnages (ex. : hutao, furina)",
+		"teams.placeholder": "Noms de personnages (ex. : Hu Tao, Furina)",
 		"teams.search":      "Rechercher",
 		"teams.matching":    "%[2]d équipes avec « %[1]s » (sur %[3]d)",
 		"teams.total":       "%d équipes",
 		"teams.found":       "%d équipes trouvées (sur %d)",
-		"teams.hint":        "Recherchez par noms de clés gcsim. Séparez plusieurs personnages par des espaces pour n'afficher que les équipes qui les contiennent tous.",
+		"teams.hint":        "Recherchez par nom en jeu ou par clé gcsim. Séparez plusieurs personnages par des espaces pour n'afficher que les équipes qui les contiennent tous.",
 		"teams.supported":   "pris en charge",
 		"teams.blocked":     "non pris en charge par le moteur",
 
@@ -117,7 +117,7 @@ func init() {
 		"tl.label_steady":  "Fenêtre de score",
 		"tl.note_cycle":    "Un passage de la rotation avec l'énergie au maximum.",
 		"tl.note_cycle_to": "Les %.0f premières secondes d'un passage de la rotation avec l'énergie au maximum.",
-		"tl.note_steady":   "%[2].0f secondes du combat en boucle qui est noté (à partir de %[1].0f s). Le temps où les personnages attendent l'énergie, un temps de recharge ou l'endurance est hachuré.",
+		"tl.note_steady":   "%.0[2]f secondes du combat en boucle qui est noté (à partir de %.0[1]f s). Le temps où les personnages attendent l'énergie, un temps de recharge ou l'endurance est hachuré.",
 		"tl.note_filled":   " Les attentes sont comblées par des compétences et des Attaques normales.",
 		"tl.span":          "Fenêtre",
 		"tl.seconds":       "%s s",

@@ -60,12 +60,12 @@ func init() {
 		"score.load_opponent":   "โหลดคู่เทียบ",
 
 		"teams.title":       "ทีมที่รองรับ · Gscouter",
-		"teams.placeholder": "ชื่อตัวละคร (เช่น hutao, furina)",
+		"teams.placeholder": "ชื่อตัวละคร (เช่น Hu Tao, Furina)",
 		"teams.search":      "ค้นหา",
 		"teams.matching":    "ทีมที่มี \"%s\" %d ทีม (จากทั้งหมด %d)",
 		"teams.total":       "%d ทีม",
 		"teams.found":       "พบ %d ทีม (จากทั้งหมด %d)",
-		"teams.hint":        "ค้นหาด้วยชื่อคีย์ของ gcsim เว้นวรรคระหว่างชื่อตัวละครหลายตัว เพื่อแสดงเฉพาะทีมที่มีครบทุกตัว",
+		"teams.hint":        "ค้นหาด้วยชื่อในเกมหรือคีย์ของ gcsim เว้นวรรคระหว่างชื่อตัวละครหลายตัว เพื่อแสดงเฉพาะทีมที่มีครบทุกตัว",
 		"teams.supported":   "รองรับ",
 		"teams.blocked":     "เอนจินไม่รองรับ",
 

@@ -60,12 +60,12 @@ func init() {
 		"score.load_opponent":   "Carica avversario",
 
 		"teams.title":       "Squadre supportate · Gscouter",
-		"teams.placeholder": "Nomi dei personaggi (es. hutao, furina)",
+		"teams.placeholder": "Nomi dei personaggi (es. Hu Tao, Furina)",
 		"teams.search":      "Cerca",
 		"teams.matching":    "%[2]d squadre con \"%[1]s\" (su %[3]d)",
 		"teams.total":       "%d squadre",
 		"teams.found":       "%d squadre trovate (su %d)",
-		"teams.hint":        "Cerca per nomi chiave di gcsim. Separa più personaggi con spazi per vedere solo le squadre che li contengono tutti.",
+		"teams.hint":        "Cerca per nome nel gioco o chiave gcsim. Separa più personaggi con spazi per vedere solo le squadre che li contengono tutti.",
 		"teams.supported":   "supportata",
 		"teams.blocked":     "non supportata dal motore",
 
@@ -117,7 +117,7 @@ func init() {
 		"tl.label_steady":  "Finestra di punteggio",
 		"tl.note_cycle":    "Un passaggio della rotazione con energia piena.",
 		"tl.note_cycle_to": "I primi %.0f secondi di un passaggio della rotazione con energia piena.",
-		"tl.note_steady":   "%[2].0f secondi del combattimento ciclico che riceve il punteggio (da %[1].0f s). Il tempo in cui i personaggi restano fermi ad aspettare energia, ricariche o resistenza è tratteggiato.",
+		"tl.note_steady":   "%.0[2]f secondi del combattimento ciclico che riceve il punteggio (da %.0[1]f s). Il tempo in cui i personaggi restano fermi ad aspettare energia, ricariche o resistenza è tratteggiato.",
 		"tl.note_filled":   " Le attese sono riempite con abilità e Attacchi normali.",
 		"tl.span":          "Finestra",
 		"tl.seconds":       "%s s",

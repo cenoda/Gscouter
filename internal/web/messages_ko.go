@@ -60,12 +60,12 @@ func init() {
 		"score.load_opponent":   "상대 불러오기",
 
 		"teams.title":       "지원하는 파티 · Gscouter",
-		"teams.placeholder": "캐릭터 이름 (예: hutao, furina)",
+		"teams.placeholder": "캐릭터 이름 (예: 호두, 푸리나)",
 		"teams.search":      "찾기",
 		"teams.matching":    "\"%s\"이(가) 들어간 파티 %d개 (전체 %d개)",
 		"teams.total":       "전체 %d개",
 		"teams.found":       "찾은 파티 %d개 (전체 %d개)",
-		"teams.hint":        "gcsim 키 이름으로 찾습니다. 여러 캐릭터를 띄어 쓰면 모두 들어간 파티만 보여 줍니다.",
+		"teams.hint":        "게임 속 이름이나 gcsim 키로 찾습니다. 여러 캐릭터를 띄어 쓰면 모두 들어간 파티만 보여 줍니다.",
 		"teams.supported":   "지원",
 		"teams.blocked":     "엔진 미지원",
 

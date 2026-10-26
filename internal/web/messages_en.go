@@ -60,12 +60,12 @@ func init() {
 		"score.load_opponent":   "Load opponent",
 
 		"teams.title":       "Supported teams · Gscouter",
-		"teams.placeholder": "Character names (e.g. hutao, furina)",
+		"teams.placeholder": "Character names (e.g. Hu Tao, Furina)",
 		"teams.search":      "Search",
 		"teams.matching":    "%[2]d teams with \"%[1]s\" (of %[3]d)",
 		"teams.total":       "%d teams",
 		"teams.found":       "%d teams found (of %d)",
-		"teams.hint":        "Search by gcsim key names. Separate several characters with spaces to show only the teams with all of them.",
+		"teams.hint":        "Search by in-game name or gcsim key. Separate several characters with spaces to show only the teams with all of them.",
 		"teams.supported":   "supported",
 		"teams.blocked":     "not supported by the engine",
 
@@ -117,7 +117,7 @@ func init() {
 		"tl.label_steady":  "Scoring window",
 		"tl.note_cycle":    "One pass of the rotation from full energy.",
 		"tl.note_cycle_to": "The first %.0f seconds of one pass of the rotation from full energy.",
-		"tl.note_steady":   "%[2].0f seconds of the looped fight that is scored (from %[1].0f s). Time characters stand waiting for energy, cooldowns or stamina is hatched.",
+		"tl.note_steady":   "%.0[2]f seconds of the looped fight that is scored (from %.0[1]f s). Time characters stand waiting for energy, cooldowns or stamina is hatched.",
 		"tl.note_filled":   " The waits are filled with skills and normal attacks.",
 		"tl.span":          "Window",
 		"tl.seconds":       "%ss",

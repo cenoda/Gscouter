@@ -60,12 +60,12 @@ func init() {
 		"score.load_opponent":   "載入對手",
 
 		"teams.title":       "支援的隊伍 · Gscouter",
-		"teams.placeholder": "角色名稱（例：hutao, furina）",
+		"teams.placeholder": "角色名稱（例：胡桃, 芙寧娜）",
 		"teams.search":      "搜尋",
 		"teams.matching":    "包含「%s」的隊伍 %d 支（共 %d 支）",
 		"teams.total":       "共 %d 支",
 		"teams.found":       "找到 %d 支隊伍（共 %d 支）",
-		"teams.hint":        "依 gcsim 的鍵名搜尋。以空格分隔多個角色，只顯示包含所有角色的隊伍。",
+		"teams.hint":        "依遊戲內名稱或 gcsim 鍵名搜尋。以空格分隔多個角色，只顯示包含所有角色的隊伍。",
 		"teams.supported":   "支援",
 		"teams.blocked":     "引擎不支援",
 
