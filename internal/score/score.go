@@ -31,6 +31,10 @@ type Options struct {
 	Workers    int     // 0 means runtime.NumCPU()
 	Warmup     float64 // seconds excluded from the score (T1)
 	Seed       int64   // iteration i uses Seed+i, so results are reproducible
+	// First is the index of the first iteration to run, for running a
+	// share of them elsewhere (RunIterations): iterations First to
+	// First+Iterations-1 run.
+	First int
 }
 
 type Result struct {
@@ -58,20 +62,31 @@ type Character struct {
 	Waits map[string]float64
 }
 
-// iteration is the part of one gcsim run that the score needs.
-type iteration struct {
-	dps        float64
-	firstHalf  float64 // DPS in the first half of the window
-	secondHalf float64 // DPS in the second half of the window
-	charDPS    []float64
-	waits      []map[string]float64 // seconds within the window, by reason
-	frames     int
-	names      []string
+// Iteration is the part of one gcsim run that the score needs. Iterations
+// run in separate places (browser workers) are merged by Aggregate.
+type Iteration struct {
+	DPS        float64              `json:"dps"`
+	FirstHalf  float64              `json:"first"`  // DPS in the first half of the window
+	SecondHalf float64              `json:"second"` // DPS in the second half of the window
+	CharDPS    []float64            `json:"chars"`
+	Waits      []map[string]float64 `json:"waits"` // seconds within the window, by reason
+	Frames     int                  `json:"frames"`
+	Names      []string             `json:"names"`
 }
 
 // Run simulates cfg and returns its steady-state DPS. The fight duration is
 // taken from the config's options line and must be longer than the warmup.
 func Run(ctx context.Context, cfg string, opts Options) (*Result, error) {
+	its, err := RunIterations(ctx, cfg, opts)
+	if err != nil {
+		return nil, err
+	}
+	return Aggregate(its, opts.Warmup), nil
+}
+
+// RunIterations simulates opts.Iterations iterations of cfg, from
+// opts.First on, and returns each one's share of the score in order.
+func RunIterations(ctx context.Context, cfg string, opts Options) ([]Iteration, error) {
 	if opts.Iterations <= 0 {
 		return nil, errors.New("iterations must be positive")
 	}
@@ -98,7 +113,7 @@ func Run(ctx context.Context, cfg string, opts Options) (*Result, error) {
 	defer cancel()
 
 	jobs := make(chan int)
-	results := make([]iteration, opts.Iterations)
+	results := make([]Iteration, opts.Iterations)
 	var (
 		wg       sync.WaitGroup
 		errOnce  sync.Once
@@ -109,10 +124,11 @@ func Run(ctx context.Context, cfg string, opts Options) (*Result, error) {
 		go func() {
 			defer wg.Done()
 			for i := range jobs {
-				res, err := simulate(file, simcfg, gcsl, opts.Seed+int64(i))
+				seed := opts.Seed + int64(opts.First+i)
+				res, err := simulate(file, simcfg, gcsl, seed)
 				if err != nil {
 					errOnce.Do(func() {
-						firstErr = fmt.Errorf("iteration %d (seed %d): %w", i, opts.Seed+int64(i), err)
+						firstErr = fmt.Errorf("iteration %d (seed %d): %w", opts.First+i, seed, err)
 						cancel()
 					})
 					continue
@@ -137,7 +153,7 @@ feed:
 	if err := ctx.Err(); err != nil {
 		return nil, err
 	}
-	return aggregate(results, startBucket), nil
+	return results, nil
 }
 
 func simulate(file *ast.File, simcfg *info.ActionList, gcsl ast.Node, seed int64) (stats.Result, error) {
@@ -176,17 +192,17 @@ func Once(cfg string, seed int64) (*stats.Result, error) {
 }
 
 // summarize reduces one run to the damage dealt from startBucket onwards.
-func summarize(res *stats.Result, startBucket int) iteration {
+func summarize(res *stats.Result, startBucket int) Iteration {
 	startFrame := startBucket * bucketFrames
 	window := float64(res.Duration-startFrame) / 60
 	midBucket := (startFrame + res.Duration) / 2 / bucketFrames
 	midFrame := midBucket * bucketFrames
 
-	it := iteration{
-		charDPS: make([]float64, len(res.Characters)),
-		waits:   make([]map[string]float64, len(res.Characters)),
-		frames:  res.Duration,
-		names:   make([]string, len(res.Characters)),
+	it := Iteration{
+		CharDPS: make([]float64, len(res.Characters)),
+		Waits:   make([]map[string]float64, len(res.Characters)),
+		Frames:  res.Duration,
+		Names:   make([]string, len(res.Characters)),
 	}
 
 	// cumulative[i] is the team damage dealt in buckets 0..i.
@@ -197,14 +213,14 @@ func summarize(res *stats.Result, startBucket int) iteration {
 		cumulative[i] = sum
 		switch {
 		case i >= midBucket:
-			it.secondHalf += d
+			it.SecondHalf += d
 		case i >= startBucket:
-			it.firstHalf += d
+			it.FirstHalf += d
 		}
 	}
-	it.dps = (it.firstHalf + it.secondHalf) / window
-	it.firstHalf /= float64(midFrame-startFrame) / 60
-	it.secondHalf /= float64(res.Duration-midFrame) / 60
+	it.DPS = (it.FirstHalf + it.SecondHalf) / window
+	it.FirstHalf /= float64(midFrame-startFrame) / 60
+	it.SecondHalf /= float64(res.Duration-midFrame) / 60
 
 	// charCumulative returns a character's damage dealt in buckets 0..i.
 	charCumulative := func(c, i int) float64 {
@@ -217,36 +233,42 @@ func summarize(res *stats.Result, startBucket int) iteration {
 
 	last := len(cumulative) - 1
 	for c := range res.Characters {
-		it.names[c] = res.Characters[c].Name
+		it.Names[c] = res.Characters[c].Name
 		if last >= 0 {
-			it.charDPS[c] = (charCumulative(c, last) - charCumulative(c, startBucket-1)) / window
+			it.CharDPS[c] = (charCumulative(c, last) - charCumulative(c, startBucket-1)) / window
 		}
-		it.waits[c] = map[string]float64{}
+		it.Waits[c] = map[string]float64{}
 		for _, f := range res.Characters[c].FailedActions {
 			if overlap := min(f.End, res.Duration) - max(f.Start, startFrame); overlap > 0 {
-				it.waits[c][f.Reason] += float64(overlap) / 60
+				it.Waits[c][f.Reason] += float64(overlap) / 60
 			}
 		}
 	}
 	return it
 }
 
-func aggregate(its []iteration, startBucket int) *Result {
+// Aggregate merges iterations, in iteration order, into a score; warmup
+// is the one they were run with.
+func Aggregate(its []Iteration, warmup float64) *Result {
+	startBucket := int(warmup*60) / bucketFrames
+	if len(its) == 0 {
+		return &Result{}
+	}
 	n := float64(len(its))
 	r := &Result{Iterations: len(its)}
 
 	var mean, frames, firstHalf, secondHalf float64
 	for _, it := range its {
-		mean += it.dps
-		frames += float64(it.frames)
-		firstHalf += it.firstHalf
-		secondHalf += it.secondHalf
+		mean += it.DPS
+		frames += float64(it.Frames)
+		firstHalf += it.FirstHalf
+		secondHalf += it.SecondHalf
 	}
 	mean /= n
 	frames /= n
 	var variance float64
 	for _, it := range its {
-		variance += (it.dps - mean) * (it.dps - mean)
+		variance += (it.DPS - mean) * (it.DPS - mean)
 	}
 	if len(its) > 1 {
 		variance /= n - 1
@@ -260,11 +282,11 @@ func aggregate(its []iteration, startBucket int) *Result {
 	}
 
 	minutes := r.Window / 60
-	for c, name := range its[0].names {
+	for c, name := range its[0].Names {
 		ch := Character{Name: name, Waits: map[string]float64{}}
 		for _, it := range its {
-			ch.DPS += it.charDPS[c]
-			for reason, w := range it.waits[c] {
+			ch.DPS += it.CharDPS[c]
+			for reason, w := range it.Waits[c] {
 				ch.Waits[reason] += w / (n * minutes)
 			}
 		}

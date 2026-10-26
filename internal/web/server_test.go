@@ -44,6 +44,14 @@ func hutaoTeam() []enka.Character {
 
 func newTestServer(t *testing.T) *httptest.Server {
 	t.Helper()
+	ts := httptest.NewServer(newTestSite(t).Handler())
+	t.Cleanup(ts.Close)
+	return ts
+}
+
+// newTestSite is the site with two players, scoring with few iterations.
+func newTestSite(t *testing.T) *Server {
+	t.Helper()
 	lib, err := library.LoadLibrary(teams.FS)
 	if err != nil {
 		t.Fatal(err)
@@ -59,9 +67,7 @@ func newTestServer(t *testing.T) *httptest.Server {
 	if err != nil {
 		t.Fatal(err)
 	}
-	ts := httptest.NewServer(srv.Handler())
-	t.Cleanup(ts.Close)
-	return ts
+	return srv
 }
 
 // get fetches path in English, the language of browsers the site does

@@ -24,6 +24,17 @@ go run ./cmd/server          # http://localhost:8080
 | `-duration` | 450 | Length of the looped fight in seconds |
 | `-concurrent` | 1 | Simulations running at once |
 | `-queue` | 8 | Simulations waiting before requests are rejected |
+| `-static` | `$GSCOUTER_STATIC` | Directory of the browser build; when set, visitors' browsers calculate results |
+
+Without `-static`, the server calculates every result. To have browsers calculate them, as the Docker image does:
+
+```sh
+mkdir -p static
+GOOS=js GOARCH=wasm go build -o static/gscouter.wasm ./cmd/wasm
+gzip -9 -k static/gscouter.wasm
+cp "$(go env GOROOT)/lib/wasm/wasm_exec.js" static/
+go run ./cmd/server -static static
+```
 
 Deployment: see [deploy/README.md](deploy/README.md).
 
@@ -89,6 +100,7 @@ The `add-team` skill (`.claude/skills/add-team/SKILL.md`) describes the workflow
 ```
 cmd/gscouter/       CLI
 cmd/server/         website
+cmd/wasm/           browser build: calculates results in visitors' browsers
 cmd/harvest/        team library harvest from the community gcsim database
 cmd/import/         team import from gcsim share links
 cmd/validate/       team library checks

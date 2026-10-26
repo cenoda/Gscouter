@@ -19,9 +19,14 @@ func init() {
 			`Genshin Impact and related names are trademarks of HoYoverse; character images are © HoYoverse, loaded from <a href="https://enka.network">Enka.Network</a>.`,
 		"js.copied":      "Link copied",
 		"js.link":        "Link",
+		"js.progress":    "simulation %d · %d%%",
 		"js.calculating": "Calculating… This can take up to a minute.",
 
-		"team.stderr":       "standard error",
+		"team.stderr": "standard error",
+
+		"team.pending": "Calculating in your browser…",
+
+		"client.server":     "Calculate on the server instead",
 		"team.one_rotation": "One rotation (full energy): %s DPS",
 		"team.character":    "Character",
 		"team.share":        "Share",

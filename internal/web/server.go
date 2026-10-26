@@ -66,6 +66,7 @@ type Server struct {
 	results   *cache[string, *score.Result]
 	timelines *cache[string, *timeline.Timeline]
 	cards     *cache[string, []byte] // link preview PNGs by URL
+	client    *clientFiles           // nil: the server calculates every result
 }
 
 func New(lib *library.Library, profiles ProfileSource, settings Settings) (*Server, error) {
@@ -73,7 +74,7 @@ func New(lib *library.Library, profiles ProfileSource, settings Settings) (*Serv
 	for code := range catalog {
 		for _, auto := range []bool{false, true} {
 			l := localizer{Lang: code, Auto: auto}
-			tmpl, err := template.New("").Funcs(funcs).Funcs(localeFuncs(l)).ParseFS(templateFS, "templates/*.html")
+			tmpl, err := parseTemplates(l)
 			if err != nil {
 				return nil, err
 			}
@@ -101,6 +102,7 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("POST /lang", s.handleLang)
 	mux.HandleFunc("GET /card/score.png", s.handleScoreCard)
 	mux.HandleFunc("GET /card/versus.png", s.handleVersusCard)
+	mux.HandleFunc("GET /static/{file}", s.handleStatic)
 	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("ok"))
 	})
@@ -194,7 +196,39 @@ type teamResult struct {
 	Problem string
 }
 
+// Simulator runs the simulations of a score: the server's own, queued
+// and cached, or a browser's workers (cmd/wasm).
+type Simulator interface {
+	// Score is score.Run of cfg with the given warmup and iterations.
+	Score(ctx context.Context, cfg string, warmup float64, iterations int) (*score.Result, error)
+	// Timeline runs cfg once (seed 1) and reduces seconds [from, to).
+	Timeline(ctx context.Context, cfg string, from, to float64) (*timeline.Timeline, error)
+}
+
+// serverSim is the server's own Simulator.
+type serverSim struct{ *Server }
+
+func (s serverSim) Score(ctx context.Context, cfg string, warmup float64, iterations int) (*score.Result, error) {
+	return s.score(ctx, cfg, warmup, iterations)
+}
+
+func (s serverSim) Timeline(ctx context.Context, cfg string, from, to float64) (*timeline.Timeline, error) {
+	return s.timeline(ctx, cfg, from, to)
+}
+
+// evaluate prepares and calculates a team on the server.
 func (s *Server) evaluate(ctx context.Context, l localizer, sel selection) teamResult {
+	tr := s.prepare(ctx, l, sel)
+	if tr.Problem == "" {
+		compute(ctx, l, serverSim{s}, s.settings, &tr)
+	}
+	return tr
+}
+
+// prepare looks up a selection's characters and library team: the cheap
+// part of a score, which the server always does. A team without a
+// Problem is ready for compute.
+func (s *Server) prepare(ctx context.Context, l localizer, sel selection) teamResult {
 	tr := teamResult{Selection: sel}
 	p, err := s.profiles.Profile(ctx, sel.UID)
 	if err != nil {
@@ -219,9 +253,18 @@ func (s *Server) evaluate(ctx context.Context, l localizer, sel selection) teamR
 		return tr
 	case tr.Team.Status == library.StatusBlocked:
 		tr.Problem = l.T("problem.blocked", tr.Team.Notes)
-		return tr
 	}
+	return tr
+}
 
+// exploreIterations is the iterations of the runs that try fillers for a
+// rotation that stands still (steady.Score): enough to rank them. The
+// best is then run again with the full iterations.
+const exploreIterations = 20
+
+// compute calculates a prepared team with sim, filling in its score, or
+// its Problem when the calculation fails.
+func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *teamResult) {
 	var build strings.Builder
 	renames := map[string]string{}
 	for _, c := range tr.Chars {
@@ -240,28 +283,52 @@ func (s *Server) evaluate(ctx context.Context, l localizer, sel selection) teamR
 	for _, m := range tr.Team.Members {
 		members = append(members, cmp.Or(renames[m], m))
 	}
-	once := config.Assemble(config.Conditions{Iterations: s.settings.Iterations}, build.String(), rotation)
+	once := config.Assemble(config.Conditions{Iterations: set.Iterations}, build.String(), rotation)
+	looped := func(rotation string, iterations int) (*score.Result, error) {
+		cfg := config.Assemble(config.Conditions{Iterations: iterations, Duration: set.Duration}, build.String(), rotation)
+		return sim.Score(ctx, cfg, set.Warmup, iterations)
+	}
 
-	out, err := steady.Score(rotation, members, func(looped string) (*score.Result, error) {
-		cfg := config.Assemble(config.Conditions{Iterations: s.settings.Iterations, Duration: s.settings.Duration}, build.String(), looped)
-		res, err := s.score(ctx, cfg, s.settings.Warmup)
-		if errors.Is(err, errBusy) {
+	// The rotation as written runs with the full iterations; most teams
+	// stop there. Fillers are only ranked, with fewer.
+	var first *steady.Outcome
+	out, err := steady.Score(rotation, members, func(rotation string) (*score.Result, error) {
+		iterations := set.Iterations
+		if first != nil {
+			iterations = min(iterations, exploreIterations)
+		}
+		res, err := looped(rotation, iterations)
+		if err != nil && (errors.Is(err, errBusy) || ctx.Err() != nil) {
 			return nil, steady.Fatal(err)
+		}
+		if err == nil && first == nil {
+			first = &steady.Outcome{Result: res, Looped: rotation}
 		}
 		return res, err
 	})
+	if err == nil && out.Filled && out.Result.Iterations < set.Iterations {
+		var res *score.Result
+		if res, err = looped(out.Looped, set.Iterations); err == nil {
+			out.Result = res
+			// Ranked on fewer iterations, the filler can come out
+			// below the rotation as written.
+			if res.DPS <= first.Result.DPS {
+				out = first
+			}
+		}
+	}
 	var oneRes *score.Result
 	if err == nil {
-		oneRes, err = s.score(ctx, once, 0)
+		oneRes, err = sim.Score(ctx, once, 0, set.Iterations)
 	}
 	if err != nil {
 		if errors.Is(err, errBusy) {
 			tr.Problem = l.T("problem.busy")
 		} else {
-			slog.Error("score failed", "team", tr.Team.ID, "uid", sel.UID, "err", err)
+			slog.Error("score failed", "team", tr.Team.ID, "uid", tr.Selection.UID, "err", err)
 			tr.Problem = l.T("problem.failed")
 		}
-		return tr
+		return
 	}
 	res := out.Result
 	tr.Filler = fillerNote(l, out)
@@ -269,18 +336,17 @@ func (s *Server) evaluate(ctx context.Context, l localizer, sel selection) teamR
 	tr.OneRotation = oneRes
 	tr.Warnings = warnings(l, tr.Team, res)
 	tr.Rotation = rotation
-	tr.Timelines = s.cycleViews(ctx, l, sel, tr.Team, once, config.Assemble(config.Conditions{Iterations: 1, Duration: s.settings.Duration}, build.String(), out.Looped), out.Filled)
+	tr.Timelines = cycleViews(ctx, l, sim, set, *tr, once, config.Assemble(config.Conditions{Iterations: 1, Duration: set.Duration}, build.String(), out.Looped), out.Filled)
 	for _, c := range tr.Chars {
 		if c.UnknownSets > 0 {
 			tr.Warnings = append(tr.Warnings, l.T("warn.unknown_sets", l.charName(c.Key), c.UnknownSets))
 		}
 	}
-	return tr
 }
 
 // score runs a simulation, reusing the cached result for the same config.
-func (s *Server) score(ctx context.Context, cfg string, warmup float64) (*score.Result, error) {
-	sum := sha256.Sum256(fmt.Appendf(nil, "%v\n%s", warmup, cfg))
+func (s *Server) score(ctx context.Context, cfg string, warmup float64, iterations int) (*score.Result, error) {
+	sum := sha256.Sum256(fmt.Appendf(nil, "%v %v\n%s", warmup, iterations, cfg))
 	key := hex.EncodeToString(sum[:])
 	if res, ok := s.results.get(key); ok {
 		return res, nil
@@ -300,7 +366,7 @@ func (s *Server) score(ctx context.Context, cfg string, warmup float64) (*score.
 
 	start := time.Now()
 	res, err := score.Run(ctx, cfg, score.Options{
-		Iterations: s.settings.Iterations,
+		Iterations: iterations,
 		Warmup:     warmup,
 		Seed:       1,
 	})
@@ -314,10 +380,10 @@ func (s *Server) score(ctx context.Context, cfg string, warmup float64) (*score.
 
 // cycleViews lays out one run of the one pass and of the looped fight
 // from the warmup on, for as long as one pass takes.
-func (s *Server) cycleViews(ctx context.Context, l localizer, sel selection, team *library.Team, once, looped string, filled bool) []*timelineView {
-	cycle, err := s.timeline(ctx, once, 0, maxCycle)
+func cycleViews(ctx context.Context, l localizer, sim Simulator, set Settings, tr teamResult, once, looped string, filled bool) []*timelineView {
+	cycle, err := sim.Timeline(ctx, once, 0, maxCycle)
 	if err != nil {
-		slog.Warn("timeline failed", "team", team.ID, "uid", sel.UID, "err", err)
+		slog.Warn("timeline failed", "team", tr.Team.ID, "uid", tr.Selection.UID, "err", err)
 		return nil
 	}
 	note := l.T("tl.note_cycle")
@@ -326,11 +392,11 @@ func (s *Server) cycleViews(ctx context.Context, l localizer, sel selection, tea
 	}
 	views := []*timelineView{layoutTimeline(l, "cycle", l.T("tl.label_cycle"), note, cycle)}
 
-	from := s.settings.Warmup
+	from := set.Warmup
 	to := from + min(max(cycle.End, minSteady), maxSteady)
-	steady, err := s.timeline(ctx, looped, from, to)
+	steady, err := sim.Timeline(ctx, looped, from, to)
 	if err != nil {
-		slog.Warn("timeline failed", "team", team.ID, "uid", sel.UID, "err", err)
+		slog.Warn("timeline failed", "team", tr.Team.ID, "uid", tr.Selection.UID, "err", err)
 		return views
 	}
 	note = l.T("tl.note_steady", from, to-from)

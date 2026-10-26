@@ -19,9 +19,14 @@ func init() {
 			`Genshin Impact và các tên liên quan là thương hiệu của HoYoverse; hình ảnh nhân vật thuộc © HoYoverse, được tải từ <a href="https://enka.network">Enka.Network</a>.`,
 		"js.copied":      "Đã sao chép liên kết",
 		"js.link":        "Liên kết",
+		"js.progress":    "mô phỏng %d · %d%%",
 		"js.calculating": "Đang tính… Có thể mất đến một phút.",
 
-		"team.stderr":       "sai số chuẩn",
+		"team.stderr": "sai số chuẩn",
+
+		"team.pending": "Đang tính trong trình duyệt của bạn…",
+
+		"client.server":     "Tính trên máy chủ",
 		"team.one_rotation": "Một vòng xoay (đầy năng lượng): %s DPS",
 		"team.character":    "Nhân vật",
 		"team.share":        "Tỷ trọng",

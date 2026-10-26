@@ -26,6 +26,7 @@ func main() {
 	flag.Float64Var(&s.Duration, "duration", s.Duration, "fight duration in seconds")
 	flag.IntVar(&s.MaxConcurrent, "concurrent", s.MaxConcurrent, "simulations running at once")
 	flag.IntVar(&s.MaxQueue, "queue", s.MaxQueue, "simulations waiting before requests are rejected")
+	static := flag.String("static", os.Getenv("GSCOUTER_STATIC"), "directory of the browser build (cmd/wasm); browsers then calculate results")
 	flag.Parse()
 
 	lib, err := library.LoadLibrary(teams.FS)
@@ -37,6 +38,14 @@ func main() {
 	if err != nil {
 		slog.Error("init server", "err", err)
 		os.Exit(1)
+	}
+
+	if *static != "" {
+		if err := srv.ServeClient(*static); err != nil {
+			slog.Error("browser build", "dir", *static, "err", err)
+			os.Exit(1)
+		}
+		slog.Info("browsers calculate results", "dir", *static)
 	}
 
 	httpSrv := &http.Server{

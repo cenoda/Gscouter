@@ -19,9 +19,14 @@ func init() {
 			`원신 및 관련 명칭은 HoYoverse의 상표이며, 캐릭터 이미지는 © HoYoverse로 <a href="https://enka.network">Enka.Network</a>에서 불러옵니다.`,
 		"js.copied":      "링크를 복사했습니다",
 		"js.link":        "링크",
+		"js.progress":    "시뮬레이션 %d · %d%%",
 		"js.calculating": "계산 중입니다… 최대 1분 정도 걸릴 수 있습니다.",
 
-		"team.stderr":       "표준오차",
+		"team.stderr": "표준오차",
+
+		"team.pending": "브라우저에서 계산 중입니다…",
+
+		"client.server":     "서버에서 계산하기",
 		"team.one_rotation": "로테이션 1회(에너지 가득): %s DPS",
 		"team.character":    "캐릭터",
 		"team.share":        "비중",

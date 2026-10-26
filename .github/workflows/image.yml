@@ -26,6 +26,8 @@ jobs:
           go-version-file: go.mod
       - run: go vet ./...
       - run: go test ./...
+      - name: browser build
+        run: GOOS=js GOARCH=wasm go vet ./cmd/wasm && GOOS=js GOARCH=wasm go build -o /dev/null ./cmd/wasm
       # Fully validate the teams this push or pull request changes; with
       # none, 10 random teams. A bulk change (a harvest, validated in full
       # locally) is sampled: 30 of its teams.

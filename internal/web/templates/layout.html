@@ -202,6 +202,8 @@ details.rotation pre { background: var(--bg); border-radius: 8px; padding: 12px;
 .busy div { background: var(--card); color: var(--text); border-radius: 12px; padding: 18px 22px; display: flex; gap: 12px; align-items: center; max-width: calc(100% - 32px); }
 .busy i { width: 22px; height: 22px; flex: none; border: 3px solid var(--accent-soft); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
+.pending { display: flex; gap: 10px; align-items: center; padding: 12px 0; }
+.pending i { width: 22px; height: 22px; flex: none; border: 3px solid var(--accent-soft); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; }
 </style>
 </head>
 <body>
@@ -322,6 +324,8 @@ function copyLink(btn) {
 {{if .Team}}<div class="team-head">{{if .Chars}}{{template "faces" (keys .Chars)}}{{end}}<h2 class="team-title">{{template "members" .Team.Members}} {{teamName .Team}}</h2></div>{{end}}
 {{if .Problem}}
 <div class="bad">{{.Problem}}</div>
+{{else if not .Result}}
+<div class="pending"><i></i><span>{{t "team.pending"}} <span class="muted progress"></span></span></div>
 {{else}}
 <div class="score">{{thousands .Result.DPS}} <span class="muted">DPS</span></div>
 <p class="muted">±{{thousands .Result.StdErr}} ({{t "team.stderr"}}){{with .Team.Archetype}} · {{.}}{{end}}</p>
@@ -343,4 +347,111 @@ function copyLink(btn) {
 </table>
 </div>
 {{end}}
+{{end}}
+
+{{define "client"}}
+<noscript><div class="card"><a href="{{.Fallback}}">{{t "client.server"}}</a></div></noscript>
+<script>
+// Calculates this page's teams in the browser (internal/web/client.go):
+// a lead worker runs the page's calculation and asks for simulations,
+// whose iterations are shared out among helper workers. Browsers that
+// cannot, or a calculation that fails here, get the server's page.
+(function () {
+  var job = {{.Job}}, v = {{.Version}}, fallback = {{.Fallback}};
+  var progress = {{t "js.progress"}};
+  var workers = [], done = false;
+  function fail(err) {
+    if (done) return;
+    done = true;
+    if (window.console) console.error("Gscouter: calculating in the browser failed, using the server", err);
+    workers.forEach(function (w) { w.terminate(); });
+    location.replace(fallback);
+  }
+  if (!window.WebAssembly || !window.Worker || !window.Promise || !window.fetch) return fail("unsupported");
+
+  var wasm = "/static/gscouter.wasm?v=" + v;
+  function compile() {
+    var bytes = function () {
+      return fetch(wasm).then(function (r) {
+        if (!r.ok) throw new Error("wasm: HTTP " + r.status);
+        return r.arrayBuffer();
+      }).then(function (b) { return WebAssembly.compile(b); });
+    };
+    if (!WebAssembly.compileStreaming) return bytes();
+    return WebAssembly.compileStreaming(fetch(wasm)).catch(bytes);
+  }
+
+  function spawn(module) {
+    var w = new Worker("/static/worker.js?v=" + v);
+    w.onerror = function (e) { fail(e.message || "worker error"); };
+    w.postMessage({type: "init", module: module});
+    workers.push(w);
+    return w;
+  }
+
+  // Simulations the lead asked for, split into chunks of iterations.
+  var queue = [], runs = {}, count = 0, idle = [];
+  function pump() {
+    while (idle.length && queue.length) {
+      var w = idle.shift(), c = queue.shift();
+      w.postMessage({type: "slice", run: c.run, index: c.index, cfg: c.cfg, warmup: c.warmup, seed: c.seed, first: c.first, count: c.count});
+    }
+  }
+  function show(run) {
+    var pct = Math.round(100 * run.finished / run.iterations);
+    var args = [run.n, pct];
+    var text = progress.replace(/%(%|d)/g, function (_, c) { return c === "%" ? "%" : args.shift(); });
+    document.querySelectorAll(".pending .progress").forEach(function (el) { el.textContent = text; });
+  }
+
+  compile().then(function (module) {
+    var lead = spawn(module);
+    var n = Math.max(1, Math.min(navigator.hardwareConcurrency || 2, 6));
+    var helpers = [];
+    for (var i = 0; i < n; i++) helpers.push(spawn(module));
+    helpers.forEach(function (h) {
+      h.onmessage = function (e) {
+        var m = e.data;
+        if (m.type === "ready") { idle.push(h); pump(); return; }
+        if (m.type === "error") return fail(m.error);
+        var run = runs[m.run];
+        run.parts[m.index] = m.result.slice(1, -1);
+        run.finished += m.count;
+        show(run);
+        if (--run.left === 0) {
+          delete runs[m.run];
+          lead.postMessage({type: "runResult", id: run.id, result: "[" + run.parts.filter(Boolean).join(",") + "]"});
+        }
+        idle.push(h);
+        pump();
+      };
+    });
+    lead.onmessage = function (e) {
+      var m = e.data;
+      switch (m.type) {
+      case "ready":
+        lead.postMessage({type: "job", job: job});
+        break;
+      case "run":
+        var key = count++, size = Math.max(1, Math.ceil(m.iterations / (2 * helpers.length)));
+        var run = runs[key] = {id: m.id, n: count, iterations: m.iterations, finished: 0, left: 0, parts: []};
+        for (var first = 0; first < m.iterations; first += size) {
+          queue.push({run: key, index: run.left++, cfg: m.cfg, warmup: m.warmup, seed: m.seed, first: first, count: Math.min(size, m.iterations - first)});
+        }
+        show(run);
+        pump();
+        break;
+      case "done":
+        done = true;
+        workers.forEach(function (w) { w.terminate(); });
+        document.getElementById("page-body").innerHTML = m.body;
+        if (m.title) document.title = m.title;
+        break;
+      case "error":
+        fail(m.error);
+      }
+    };
+  }).catch(fail);
+})();
+</script>
 {{end}}
