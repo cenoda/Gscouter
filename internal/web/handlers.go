@@ -18,18 +18,8 @@ import (
 )
 
 var funcs = template.FuncMap{
-	"thousands": func(v float64) string {
-		s := fmt.Sprintf("%.0f", v)
-		var b strings.Builder
-		for i, r := range s {
-			if i > 0 && (len(s)-i)%3 == 0 {
-				b.WriteByte(',')
-			}
-			b.WriteRune(r)
-		}
-		return b.String()
-	},
-	"percent": func(v float64) string { return fmt.Sprintf("%.1f%%", v*100) },
+	"thousands": thousands,
+	"percent":   func(v float64) string { return fmt.Sprintf("%.1f%%", v*100) },
 	"oneDecimal": func(v float64) string {
 		return fmt.Sprintf("%.1f", v)
 	},
@@ -45,6 +35,7 @@ var funcs = template.FuncMap{
 	"neg":     func(v float64) float64 { return -v },
 	"element": element,
 	"face":    face,
+	"meta":    metaOf,
 	"keys": func(chars []enka.Character) []string {
 		out := make([]string, len(chars))
 		for i, c := range chars {
@@ -54,6 +45,20 @@ var funcs = template.FuncMap{
 	},
 	// members lists a team's member names and canonical names, for search.
 	"members": func(t *library.Team) string { return strings.Join(searchNames(t), " ") },
+}
+
+// thousands formats a number rounded to an integer with thousands
+// separators, e.g. "85,512".
+func thousands(v float64) string {
+	s := fmt.Sprintf("%.0f", v)
+	var b strings.Builder
+	for i, r := range s {
+		if i > 0 && (len(s)-i)%3 == 0 {
+			b.WriteByte(',')
+		}
+		b.WriteRune(r)
+	}
+	return b.String()
 }
 
 var elementCache sync.Map // canonical name -> element
@@ -189,6 +194,7 @@ func (s *Server) handleTeams(w http.ResponseWriter, r *http.Request) {
 
 type scoreData struct {
 	Team teamResult
+	Meta pageMeta
 }
 
 func (s *Server) handleScore(w http.ResponseWriter, r *http.Request) {
@@ -204,7 +210,8 @@ func (s *Server) handleScore(w http.ResponseWriter, r *http.Request) {
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 90*time.Second)
 	defer cancel()
-	s.render(w, "score.html", scoreData{Team: s.evaluate(ctx, sel)})
+	tr := s.evaluate(ctx, sel)
+	s.render(w, "score.html", scoreData{Team: tr, Meta: scoreMeta(tr)})
 }
 
 type versusData struct {
@@ -213,6 +220,7 @@ type versusData struct {
 	Diff   float64
 	Scored bool
 	Tie    bool
+	Meta   pageMeta
 }
 
 // tieThreshold is the relative difference below which two scores are shown
@@ -243,6 +251,7 @@ func (s *Server) handleVersus(w http.ResponseWriter, r *http.Request) {
 		data.Diff = (data.A.Result.DPS - data.B.Result.DPS) / data.B.Result.DPS
 		data.Tie = math.Abs(data.Diff) < tieThreshold
 	}
+	data.Meta = versusMeta(data)
 	s.render(w, "versus.html", data)
 }
 

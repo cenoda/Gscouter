@@ -3,8 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{.}}</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%233b6fd8' stroke-width='2.5'/%3E%3Ccircle cx='12' cy='12' r='3' fill='%233b6fd8'/%3E%3C/svg%3E">
+{{with meta .}}<title>{{.Title}}</title>
+<meta property="og:site_name" content="Gscouter">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{.Title}}">
+{{with .Description}}<meta name="description" content="{{.}}">
+<meta property="og:description" content="{{.}}">
+{{end}}{{with .Image}}<meta property="og:image" content="{{.}}">
+{{end}}<meta name="twitter:card" content="summary">
+{{end}}<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%233b6fd8' stroke-width='2.5'/%3E%3Ccircle cx='12' cy='12' r='3' fill='%233b6fd8'/%3E%3C/svg%3E">
 <style>
 :root {
   --bg: #f4f6f9; --card: #fff; --text: #1d2330; --muted: #667085;

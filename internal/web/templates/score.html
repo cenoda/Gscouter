@@ -1,4 +1,4 @@
-{{template "head" "Gscouter 결과"}}
+{{template "head" .Meta}}
 <div class="card">{{template "team" .Team}}
 <div class="actions">
 {{if .Team.Result}}<button type="button" class="secondary" onclick="copyLink(this)"><svg class="icon"><use href="#i-link"/></svg>결과 링크 복사</button>{{end}}

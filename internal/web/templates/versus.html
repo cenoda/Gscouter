@@ -1,4 +1,4 @@
-{{template "head" "Gscouter 비교"}}
+{{template "head" .Meta}}
 {{if .Scored}}
 <div class="card verdict">
 {{if .Tie}}비슷합니다 <span class="muted">(차이 {{percent .Diff}}, 2% 미만)</span>

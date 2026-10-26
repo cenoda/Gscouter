@@ -119,6 +119,9 @@ func TestScoreFromPicker(t *testing.T) {
 		t.Fatalf("status %d: %s", code, body)
 	}
 	mustContain(t, body, "DPS", "hutao", "staffofhoma", "검증 전", "https://enka.network/ui/UI_AvatarIcon_Hutao.png")
+	// Link previews show the score and the members.
+	mustContain(t, body, `<meta property="og:title" content="Strong의 파티 `, `<meta property="og:description" content="hutao C0 `,
+		`<meta property="og:image" content="https://enka.network/ui/UI_AvatarIcon_Hutao.png">`)
 }
 
 func TestScoreUnsupportedTeam(t *testing.T) {
@@ -152,7 +155,8 @@ func TestVersus(t *testing.T) {
 	if code != http.StatusOK {
 		t.Fatalf("status %d", code)
 	}
-	mustContain(t, body, "왼쪽 파티가", "높습니다", "Strong", "Weak", `href="#el-pyro"`)
+	mustContain(t, body, "왼쪽 파티가", "높습니다", "Strong", "Weak", `href="#el-pyro"`,
+		`<meta property="og:title" content="Strong vs Weak: Strong 파티가 `)
 
 	v.Set("b", v.Get("a"))
 	_, body = get(t, ts, "/versus?"+v.Encode())
