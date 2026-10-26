@@ -48,10 +48,10 @@ func TestFind(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if lib.Find([]string{"escoffier", "furina", "yelan", "skirk"}) == nil {
-		t.Error("Skirk team not found")
+	if lib.Find([]string{"zhongli", "xingqiu", "yelan", "hutao"}) == nil {
+		t.Error("Hu Tao team not found")
 	}
-	if lib.Find([]string{"amber", "furina", "yelan", "skirk"}) != nil {
+	if lib.Find([]string{"amber", "xingqiu", "yelan", "hutao"}) != nil {
 		t.Error("unexpected match")
 	}
 }

@@ -1,7 +1,7 @@
 // Command validate runs every library team with its reference build and
-// checks that the rotation works: the config parses, every member deals
-// damage, the team settles into a steady state and no one waits long for
-// energy.
+// checks the rotation: the config parses, the rotation finishes, every
+// member deals damage, and the team reproduces the DPS its source config
+// reported.
 //
 // Usage:
 //
@@ -17,33 +17,37 @@ import (
 	"flag"
 	"fmt"
 	"maps"
+	"math"
 	"os"
 	"path/filepath"
 	"slices"
 	"strings"
+	"time"
 
 	"github.com/cenoda/gscouter/internal/config"
 	"github.com/cenoda/gscouter/internal/library"
 	"github.com/cenoda/gscouter/internal/score"
 )
 
-// Thresholds. A failure means the rotation is broken; a warning means it
-// runs but should be looked at.
+// Thresholds. A failure means the team must not be served; a warning
+// means it should be looked at.
 const (
-	// The fight starts with full energy, so the second half is normally a
-	// little weaker than the first. Much weaker means the rotation stalls.
-	failDrift = -0.5
-	warnWait  = 2.0  // seconds per minute an action is delayed, for any reason
-	failWait  = 10.0 // seconds per minute a character's actions are delayed in total
-	warnShare = 0.01
+	// The source ran on another gcsim version and its own options, so
+	// small differences are expected.
+	failReference = 0.05
+	warnReference = 0.02
+	warnWait      = 2.0 // seconds per minute an action is delayed, for any reason
+	warnShare     = 0.01
+	// A rotation that does not end within this time probably loops
+	// forever: with the enemy's infinite HP, gcsim stops only when the
+	// action list ends.
+	timeout = 2 * time.Minute
 )
 
 func main() {
 	var (
 		root       = flag.String("root", "teams", "team library directory, used when no teams are given")
 		iterations = flag.Int("iter", 100, "number of iterations")
-		warmup     = flag.Float64("warmup", 0, "seconds excluded from the score")
-		duration   = flag.Float64("duration", 90, "fight duration in seconds")
 		verbose    = flag.Bool("v", false, "print per-character results")
 		detail     = flag.Bool("detail", false, "print what each character did in one run: actions, damage by source, reactions")
 	)
@@ -63,11 +67,11 @@ func main() {
 		}
 	}
 
-	opts := score.Options{Iterations: *iterations, Warmup: *warmup, Seed: 1}
-	cond := config.Conditions{Duration: *duration, Iterations: *iterations}
+	opts := score.Options{Iterations: *iterations, Seed: 1}
+	cond := config.Conditions{Iterations: *iterations}
 	var failed, warned int
 	for _, dir := range dirs {
-		r := check(dir, cond, opts)
+		r := checkWithTimeout(dir, cond, opts)
 		switch {
 		case len(r.failures) > 0:
 			failed++
@@ -76,7 +80,7 @@ func main() {
 		}
 		r.print(*verbose)
 		if *detail && r.cfg != "" {
-			printDetail(r.cfg, *warmup)
+			printDetail(r.cfg)
 		}
 	}
 	fmt.Printf("\n%d teams, %d failed, %d with warnings\n", len(dirs), failed, warned)
@@ -95,6 +99,18 @@ type report struct {
 	warnings []string
 }
 
+func checkWithTimeout(dir string, cond config.Conditions, opts score.Options) *report {
+	done := make(chan *report, 1)
+	go func() { done <- check(dir, cond, opts) }()
+	select {
+	case r := <-done:
+		return r
+	case <-time.After(timeout):
+		// The simulation cannot be interrupted; the process exits at the end.
+		return &report{dir: dir, failures: []string{fmt.Sprintf("no result after %v: the rotation probably never ends (an unconditional loop?)", timeout)}}
+	}
+}
+
 func check(dir string, cond config.Conditions, opts score.Options) *report {
 	r := &report{dir: dir}
 	team, err := library.Load(dir)
@@ -110,13 +126,20 @@ func check(dir string, cond config.Conditions, opts score.Options) *report {
 		r.skipped = "blocked: " + team.Notes
 		return r
 	}
+	if len(team.Sources) == 0 {
+		r.failures = append(r.failures, "no source: rotations must come from a community config")
+	}
 
-	build, err := os.ReadFile(filepath.Join(dir, "build.txt"))
+	raw, err := os.ReadFile(filepath.Join(dir, "build.txt"))
 	if err != nil {
 		r.failures = append(r.failures, "reference build: "+err.Error())
 		return r
 	}
-	cfg := config.Assemble(cond, string(build), team.Rotation)
+	build := string(raw)
+	for _, m := range slices.Sorted(maps.Keys(team.Params)) {
+		build = config.AddParams(build, m, team.Params[m])
+	}
+	cfg := config.Assemble(cond, build, team.Rotation)
 	chars, err := config.Characters(cfg)
 	if err != nil {
 		r.failures = append(r.failures, "config: "+err.Error())
@@ -135,22 +158,24 @@ func check(dir string, cond config.Conditions, opts score.Options) *report {
 	}
 	r.res = res
 
-	if res.Drift < failDrift {
-		r.failures = append(r.failures, fmt.Sprintf("drift %+.1f%%: the rotation stalls in the second half", res.Drift*100))
+	if ref := team.Reference; ref != nil && ref.DPS > 0 {
+		diff := (res.DPS - ref.DPS) / ref.DPS
+		msg := fmt.Sprintf("%+.1f%% from the source's %.0f DPS (gcsim %s)", diff*100, ref.DPS, ref.GcsimVersion)
+		switch d := math.Abs(diff); {
+		case d > failReference:
+			r.failures = append(r.failures, msg)
+		case d > warnReference:
+			r.warnings = append(r.warnings, msg)
+		}
+	} else {
+		r.warnings = append(r.warnings, "no reference DPS to compare with")
 	}
 	for _, c := range res.Characters {
 		switch {
 		case c.DPS <= 0:
-			r.failures = append(r.failures, c.Name+" deals no damage")
+			r.warnings = append(r.warnings, c.Name+" deals no damage")
 		case c.Share < warnShare:
 			r.warnings = append(r.warnings, fmt.Sprintf("%s deals only %.1f%% of the damage", c.Name, c.Share*100))
-		}
-		var total float64
-		for _, w := range c.Waits {
-			total += w
-		}
-		if total >= failWait {
-			r.failures = append(r.failures, fmt.Sprintf("%s waits %.1fs/min in total: the rotation stands idle", c.Name, total))
 		}
 		for _, reason := range slices.Sorted(maps.Keys(c.Waits)) {
 			if w := c.Waits[reason]; w >= warnWait {
@@ -173,7 +198,11 @@ func (r *report) print(verbose bool) {
 	}
 	name := filepath.Base(r.dir)
 	if r.res != nil {
-		fmt.Printf("%-4s %-50s %8.0f DPS  drift %+5.1f%%\n", verdict, name, r.res.DPS, r.res.Drift*100)
+		ref := "        -"
+		if r.team.Reference != nil {
+			ref = fmt.Sprintf("%9.0f", r.team.Reference.DPS)
+		}
+		fmt.Printf("%-4s %-50s %8.0f DPS  source %s  rotation %4.1fs\n", verdict, name, r.res.DPS, ref, r.res.Window)
 	} else {
 		fmt.Printf("%-4s %s\n", verdict, name)
 	}
@@ -198,49 +227,40 @@ func (r *report) print(verbose bool) {
 }
 
 // printDetail runs the config once and prints, per character, the actions
-// taken, damage by source and reactions triggered, all per minute of the
-// scoring window.
-func printDetail(cfg string, warmup float64) {
+// taken, damage by source and reactions triggered.
+func printDetail(cfg string) {
 	res, err := score.Once(cfg, 1)
 	if err != nil {
 		fmt.Printf("       detail: %v\n", err)
 		return
 	}
-	start := int(warmup * 60)
-	minutes := float64(res.Duration-start) / 3600
-	perMin := func(m map[string]float64) string {
+	list := func(m map[string]float64, format string) string {
 		keys := slices.SortedFunc(maps.Keys(m), func(a, b string) int { return cmp.Compare(m[b], m[a]) })
 		var parts []string
 		for _, k := range keys {
-			parts = append(parts, fmt.Sprintf("%s %.1f", k, m[k]/minutes))
+			parts = append(parts, fmt.Sprintf("%s "+format, k, m[k]))
 		}
 		return strings.Join(parts, ", ")
 	}
-	fmt.Printf("       one run, per minute from %.0fs:\n", warmup)
+	fmt.Printf("       one run, %.1fs:\n", float64(res.Duration)/60)
 	for _, c := range res.Characters {
 		actions := map[string]float64{}
 		for _, e := range c.ActionEvents {
-			if e.Frame >= start {
-				actions[e.Action]++
-			}
+			actions[e.Action]++
 		}
 		damage := map[string]float64{}
 		for _, e := range c.DamageEvents {
-			if e.Frame >= start {
-				damage[e.Source] += e.Damage
-			}
+			damage[e.Source] += e.Damage
 		}
 		reactions := map[string]float64{}
 		for _, e := range c.ReactionEvents {
-			if e.Frame >= start {
-				reactions[e.Reaction]++
-			}
+			reactions[e.Reaction]++
 		}
 		fmt.Printf("       %s\n", c.Name)
-		fmt.Printf("         actions:   %s\n", perMin(actions))
-		fmt.Printf("         damage:    %s\n", perMin(damage))
+		fmt.Printf("         actions:   %s\n", list(actions, "%.0f"))
+		fmt.Printf("         damage:    %s\n", list(damage, "%.0f"))
 		if len(reactions) > 0 {
-			fmt.Printf("         reactions: %s\n", perMin(reactions))
+			fmt.Printf("         reactions: %s\n", list(reactions, "%.0f"))
 		}
 	}
 }

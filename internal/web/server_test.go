@@ -32,12 +32,12 @@ func char(key, weapon string, set string, stats map[string]float64) enka.Charact
 	}
 }
 
-func skirkTeam() []enka.Character {
+func hutaoTeam() []enka.Character {
 	return []enka.Character{
-		char("skirk", "azurelight", "finaleofthedeepgalleries", map[string]float64{"hp": 4780, "atk": 311, "atk%": 0.6, "cryo%": 0.466, "cr": 0.6, "cd": 1.2}),
-		char("yelan", "favoniuswarbow", "emblemofseveredfate", map[string]float64{"hp": 4780, "atk": 311, "hp%": 0.6, "er": 0.6, "cr": 0.6, "cd": 0.8}),
-		char("furina", "festeringdesire", "goldentroupe", map[string]float64{"hp": 4780, "atk": 311, "hp%": 1.0, "er": 0.2, "cr": 0.6, "cd": 0.8}),
-		char("escoffier", "favoniuslance", "goldentroupe", map[string]float64{"hp": 4780, "atk": 311, "atk%": 0.6, "cryo%": 0.466, "er": 0.4, "cr": 0.6, "cd": 0.8}),
+		char("hutao", "staffofhoma", "crimsonwitchofflames", map[string]float64{"hp": 4780, "atk": 311, "hp%": 0.6, "pyro%": 0.466, "cr": 0.65, "cd": 0.8}),
+		char("yelan", "favoniuswarbow", "emblemofseveredfate", map[string]float64{"hp": 4780, "atk": 311, "hp%": 0.6, "hydro%": 0.466, "er": 0.6, "cr": 0.6, "cd": 0.8}),
+		char("xingqiu", "sacrificialsword", "emblemofseveredfate", map[string]float64{"hp": 4780, "atk": 311, "atk%": 0.6, "hydro%": 0.466, "er": 0.3, "cr": 0.6, "cd": 0.8}),
+		char("zhongli", "blacktassel", "tenacityofthemillelith", map[string]float64{"hp": 4780, "atk": 311, "hp%": 1.4}),
 	}
 }
 
@@ -47,14 +47,14 @@ func newTestServer(t *testing.T) *httptest.Server {
 	if err != nil {
 		t.Fatal(err)
 	}
-	strong := skirkTeam()
-	weak := skirkTeam()
+	strong := hutaoTeam()
+	weak := hutaoTeam()
 	weak[0].Stats = map[string]float64{"hp": 4780, "atk": 311, "cr": 0.1, "cd": 0.3}
 	profiles := fakeProfiles{
 		"800000001": {UID: "800000001", Nickname: "Strong", Characters: append(strong, char("amber", "skywardharp", "noblesseoblige", nil))},
 		"800000002": {UID: "800000002", Nickname: "Weak", Characters: weak},
 	}
-	srv, err := New(lib, profiles, Settings{Iterations: 4, Warmup: 30, Duration: 90, MaxConcurrent: 1, MaxQueue: 4})
+	srv, err := New(lib, profiles, Settings{Iterations: 4, MaxConcurrent: 1, MaxQueue: 4})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -89,7 +89,7 @@ func TestIndexSuggestsTeams(t *testing.T) {
 	if code != http.StatusOK {
 		t.Fatalf("status %d", code)
 	}
-	mustContain(t, body, "Strong", "바로 계산할 수 있는 파티", "Skirk / Yelan / Furina / Escoffier", "amber")
+	mustContain(t, body, "Strong", "바로 계산할 수 있는 파티", "Hutao / Yelan / Xingqiu / Zhongli", "amber")
 }
 
 func TestIndexUnknownUID(t *testing.T) {
@@ -101,22 +101,22 @@ func TestIndexUnknownUID(t *testing.T) {
 func TestScoreFromPicker(t *testing.T) {
 	ts := newTestServer(t)
 	// The picker form redirects to a shareable URL, which the client follows.
-	code, body := get(t, ts, "/score?uid=800000001&c=skirk&c=yelan&c=furina&c=escoffier")
+	code, body := get(t, ts, "/score?uid=800000001&c=hutao&c=yelan&c=xingqiu&c=zhongli")
 	if code != http.StatusOK {
 		t.Fatalf("status %d: %s", code, body)
 	}
-	mustContain(t, body, "DPS", "skirk", "azurelight", "검증 전")
+	mustContain(t, body, "DPS", "hutao", "staffofhoma", "검증 전")
 }
 
 func TestScoreUnsupportedTeam(t *testing.T) {
 	ts := newTestServer(t)
-	_, body := get(t, ts, "/score?a="+url.QueryEscape("800000001:skirk,yelan,furina,amber"))
+	_, body := get(t, ts, "/score?a="+url.QueryEscape("800000001:hutao,yelan,xingqiu,amber"))
 	mustContain(t, body, "아직 지원하지 않는 파티")
 }
 
 func TestScoreMissingCharacter(t *testing.T) {
 	ts := newTestServer(t)
-	_, body := get(t, ts, "/score?a="+url.QueryEscape("800000002:skirk,yelan,furina,amber"))
+	_, body := get(t, ts, "/score?a="+url.QueryEscape("800000002:hutao,yelan,xingqiu,amber"))
 	mustContain(t, body, "amber 캐릭터가 쇼케이스에 없습니다")
 }
 
@@ -132,8 +132,8 @@ func TestScoreRejectsWrongCount(t *testing.T) {
 func TestVersus(t *testing.T) {
 	ts := newTestServer(t)
 	v := url.Values{
-		"a": {"800000001:skirk,yelan,furina,escoffier"},
-		"b": {"800000002:escoffier,furina,yelan,skirk"},
+		"a": {"800000001:hutao,yelan,xingqiu,zhongli"},
+		"b": {"800000002:zhongli,xingqiu,yelan,hutao"},
 	}
 	code, body := get(t, ts, "/versus?"+v.Encode())
 	if code != http.StatusOK {

@@ -29,18 +29,14 @@ var templateFS embed.FS
 // Settings control the simulation cost per score.
 type Settings struct {
 	Iterations    int
-	Warmup        float64 // seconds
-	Duration      float64 // seconds
-	MaxConcurrent int     // simulations running at once
-	MaxQueue      int     // simulations waiting before requests are rejected
+	MaxConcurrent int // simulations running at once
+	MaxQueue      int // simulations waiting before requests are rejected
 }
 
-// DefaultSettings measure 90 s from full energy, as players measure on a
-// training dummy (design §3.1).
+// DefaultSettings: one rotation from full energy per iteration, as in
+// community gcsim configs (design §3.1).
 var DefaultSettings = Settings{
 	Iterations:    100,
-	Warmup:        0,
-	Duration:      90,
 	MaxConcurrent: 1,
 	MaxQueue:      8,
 }
@@ -176,16 +172,18 @@ func (s *Server) evaluate(ctx context.Context, sel selection) teamResult {
 	var build strings.Builder
 	renames := map[string]string{}
 	for _, c := range tr.Chars {
-		build.WriteString(c.Config())
-		build.WriteString("\n")
+		line := c.Config()
 		for _, m := range tr.Team.Members {
 			if library.Canonical(m) == library.Canonical(c.Key) {
 				renames[m] = c.Key
+				line = config.AddParams(line, c.Key, tr.Team.Params[m])
 			}
 		}
+		build.WriteString(line)
+		build.WriteString("\n")
 	}
 	rotation := config.RenameCharacters(tr.Team.Rotation, renames)
-	cfg := config.Assemble(config.Conditions{Duration: s.settings.Duration, Iterations: s.settings.Iterations}, build.String(), rotation)
+	cfg := config.Assemble(config.Conditions{Iterations: s.settings.Iterations}, build.String(), rotation)
 
 	res, err := s.score(ctx, cfg)
 	if err != nil {
@@ -230,7 +228,6 @@ func (s *Server) score(ctx context.Context, cfg string) (*score.Result, error) {
 	start := time.Now()
 	res, err := score.Run(ctx, cfg, score.Options{
 		Iterations: s.settings.Iterations,
-		Warmup:     s.settings.Warmup,
 		Seed:       1,
 	})
 	if err != nil {

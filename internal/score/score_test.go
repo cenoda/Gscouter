@@ -13,11 +13,11 @@ import (
 
 func testConfig(t *testing.T, duration float64) string {
 	t.Helper()
-	build, err := os.ReadFile("../../teams/skirk-yelan-furina-escoffier/build.txt")
+	build, err := os.ReadFile("testdata/build.txt")
 	if err != nil {
 		t.Fatal(err)
 	}
-	rotation, err := os.ReadFile("../../teams/skirk-yelan-furina-escoffier/rotation.gcsl")
+	rotation, err := os.ReadFile("testdata/rotation.gcsl")
 	if err != nil {
 		t.Fatal(err)
 	}

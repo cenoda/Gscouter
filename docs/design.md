@@ -27,8 +27,8 @@ A user submits the builds of their party members, and Gscouter computes the team
 | Score | A single absolute DPS value | Team choice (meta) counts as skill. No score relative to a baseline build. |
 | Constellations / refinements | Included in the score | Investment is part of building |
 | Enemy | Lv. 100, 10% resistance to all elements and physical, single target | Matches the KQM standard, so results can be cross-checked against community calcs |
-| Fight duration | 90 s starting with full energy | How players measure team DPS on a training dummy, and the gcsim community default, so scores can be checked against community numbers |
-| Rotation | A fixed standard rotation per team | Removes player control from the equation |
+| Fight duration | One rotation starting with full energy | How community gcsim configs and players on a training dummy measure team DPS, so scores match community numbers |
+| Rotation | A fixed rotation per team, taken from a community gcsim config | Removes player control from the equation; community configs are the accepted standard |
 | Teams not in the library | Marked "unsupported" and not computed | Early on, library quality comes first |
 | Library management | Manual authoring/approval + automated validation | Rotation quality *is* fairness |
 | Simulation engine | [gcsim](https://github.com/genshinsim/gcsim) (MIT license) | Frame-level simulator, community standard, fast to add new characters |
@@ -37,30 +37,28 @@ A user submits the builds of their party members, and Gscouter computes the team
 ### Rules these decisions create (to be communicated to users)
 
 - A single target favors **hypercarry teams**. The best team in Gscouter may differ from the team that feels strongest in multi-target content. That is a rule, not a bug.
-- If insufficient Energy Recharge delays the rotation within 90 s, DPS drops accordingly. Managing ER is part of building.
+- If insufficient Energy Recharge delays the rotation, DPS drops accordingly. Managing ER is part of building.
 
 ## 3. Score Definition
 
 ### 3.1 Score
 
 ```
-score = average team DPS over the first 90 s, starting with full energy
+score = team DPS over one pass of the team's rotation, starting with full energy
 ```
 
-This is how players measure team DPS on a training dummy with infinite HP: start with full energy and measure for a minute or two. It is also the default length of community gcsim configs, so scores can be checked against them.
+This is how community gcsim configs measure a team, and how players measure on a training dummy with infinite HP. The enemy is given practically infinite HP, which puts gcsim in damage mode: the run ends when the rotation's action list ends, and DPS is the damage over that time.
 
 - Each iteration `i` uses seed `base + i`, so the same build always gets the same score. This is required for caching and for repeatable comparisons.
 - Randomness such as crits is handled by averaging iterations. The result stores the standard deviation and the standard error.
-- The score package can still exclude an opening interval (`Warmup`), measured by window slicing over gcsim's 0.5 s damage buckets; the site does not use it.
+- Check: the imported Hu Tao / Yelan / Xingqiu / Zhongli config scores 103.8k with 1000 iterations against the 103.2k its gcsim share reports.
 
-Measurements (Skirk / Yelan / Furina / Escoffier, prototype rotation, reference build):
+| Setting | Standard error | Time (4 cores) |
+|---|---|---|
+| 1000 iterations (CLI) | ±0.2% | 0.65 s |
+| **100 iterations (site default)** | ±0.5% | about 0.07 s |
 
-| Setting | DPS | Standard error | Time (4 cores) |
-|---|---|---|---|
-| 1000 iterations (validation) | 107.4k | ±0.07% | 1.6 s |
-| **100 iterations (site default)** | 107.4k | ±0.2% | 0.18 s |
-
-History: the prototype scored steady-state DPS over infinite cycles (the window after 150–300 s). It was dropped because it does not match how players measure, and it hid how much a team gains from starting with full energy.
+History: the prototype scored steady-state DPS over infinite looping rotations, then 90 s from full energy. Both scored community teams far below what players and community configs report, mainly because the looping rotations were not the community ones.
 
 ### 3.2 Common simulation conditions
 
@@ -69,9 +67,9 @@ History: the prototype scored steady-state DPS over infinite cycles (the window 
 | Enemy level | 100 |
 | Enemy resistance | 10% for all elements + physical |
 | Number of targets | 1 |
-| Enemy HP | Infinite (time-based termination) |
-| Fight duration | 90 s from full energy (§3.1) |
-| Iterations | Site: 100 (±0.2%). Validation: 1000 (±0.07%) |
+| Enemy HP | Practically infinite (`hp=999999999`); the run ends with the rotation |
+| Fight duration | One rotation from full energy (§3.1) |
+| Iterations | Site: 100 (±0.5%). CLI: 1000 (±0.2%) |
 | Energy | 1 clear particle every 8–12 s (`energy every interval=480,720 amount=1`). Provisional, see §9 |
 | Swap delay | 12 frames |
 
@@ -89,7 +87,7 @@ energy every interval=480,720 amount=1;
 [Input]               [Normalize]       [Match]               [Compute]           [Output]
 Enka UID ──┐
            ├─► build normalization ─► team matching ─┬─► config assembly ─► gcsim ×2 ─► score / report
-GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation)   (90 s)  
+GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation)   (1 rotation)
                                                      └─► "unsupported" + request tally
 ```
 
@@ -122,13 +120,13 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
 ### 4.4 Config assembly and execution
 
 - Combine the common conditions (§3.2) + the user's build (§4.2) + the library rotation (§5) into a gcsim config.
-- Run the config for 90 s per iteration and average the team DPS (§3.1).
+- Run the rotation once per iteration from full energy and average the team DPS (§3.1).
 - **Cache key** = hash of the assembled config. The config contains the build, the rotation and the conditions, and the gcsim version is fixed per deployment, so the same build is never recomputed.
 - Characters are compared by canonical name: gcsim aliases resolve to one key (`kazuha` = `kaedeharakazuha`), and both Traveler genders fold into `traveler<element>`. When the player's key differs from the library's (e.g. `aethercryo` vs. `travelercryo`), the rotation is rewritten to the player's key.
 
 ### 4.5 Results
 
-- **Score**: team DPS over 90 s from full energy
+- **Score**: team DPS over one rotation from full energy
 - **Per-character contribution**: DPS and share
 - **Warnings**
   - Insufficient ER: time each character spent waiting for energy, in seconds per minute of the scoring window
@@ -152,30 +150,37 @@ One directory per team.
 
 ```
 teams/
-  skirk-yelan-furina-escoffier/
-    team.yaml        # metadata
-    rotation.gcsl    # rotation (actions only, no character stats)
-    reference.yaml   # reference build and expected DPS range for validation
+  hutao-yelan-xingqiu-zhongli/
+    team.yaml        # metadata, character params, source and its DPS
+    rotation.gcsl    # rotation from the source config (actions only)
+    build.txt        # the source config's build, used for validation
 ```
 
-Example `team.yaml`:
+Example `team.yaml` (written by `cmd/import`):
 
 ```yaml
-id: skirk-yelan-furina-escoffier
-name: Skirk / Yelan / Furina / Escoffier
-members: [skirk, yelan, furina, escoffier]
-archetype: Cryo hypercarry
-status: supported        # supported | draft | blocked
+id: hutao-yelan-xingqiu-zhongli
+name: Hutao / Yelan / Xingqiu / Zhongli
+members: [hutao, yelan, xingqiu, zhongli]
+archetype: Pyro vaporize hypercarry
+status: draft            # supported | draft | blocked
 rotation_version: 1
 gcsim_commit: 2350be9    # gcsim version used for validation
 sources:
-  - <links to referenced community configs/calcs>
-notes: ""
+  - https://gcsim.app/db/fjPG7F9FpwDQ
+  - https://gcsim.app/sh/bKtD798PKDfW
+notes: Imported from a gcsim share.
+params:
+  hutao: start_hp=1      # added to the player's character line
+reference:
+  dps: 103157            # what the source reported with its own build
+  gcsim_version: 4ed9d50
 ```
 
 ### 5.2 Rotation authoring rules
 
-- The rotation loops for the whole fight, and must not stall.
+- The rotation is the source config's action list, run once. It must not loop forever.
+- Character params the rotation assumes (e.g. Hu Tao `start_hp=1`) are stored in `team.yaml` and added to the player's build.
 - One rotation is used regardless of the user's build.
   - If an action can't be performed due to insufficient ER, rely on gcsim's wait/delay behavior and surface the delay as a warning.
 - Aim for a near-optimal standard rotation for the team. Uneven rotation quality across teams is itself unfairness.
@@ -185,15 +190,15 @@ notes: ""
 | Step | Mode | Description |
 |---|---|---|
 | 1. Candidate selection | Automated | Tally "unsupported" requests per 4-character set into a priority list |
-| 2. Draft | Semi-automated | Import shared gcsim community configs for the same set; never write rotations from scratch without a source |
+| 2. Import | Automated | `cmd/import <gcsim share link>`; never write rotations from scratch |
 | 3. Validation | Automated | Check the items below |
 | 4. Approval | Manual | After PR review, set `status: supported` |
 | 5. Regression tests | Automated | Re-run everything on gcsim updates or game patches; flag teams whose DPS shifts more than ±N% for review |
 
 Step 3 automated checks:
-- The rotation does not stall: second-half DPS is at least half of the first half
+- The team reproduces the source's DPS with the source's build within 5%
+- The rotation finishes
 - No failed actions or burst delays with the reference build
-- The result falls within the expected range in `reference.yaml` (compared against public calcs such as KQM)
 
 ## 6. Initial Library
 
@@ -256,7 +261,7 @@ All characters confirmed supported in gcsim (commit `2350be9`).
 ## 9. Open Questions
 
 - [x] Where to run: server-side Go on one small VM (§4.6)
-- [x] Fight length: 90 s from full energy; site 100 iterations, validation 1000 (§3.1)
+- [x] Fight length: one rotation from full energy, as in community configs (§3.1)
 - [ ] Enemy energy particle drops
   - The prototype uses `energy every interval=480,720 amount=1`, as many community gcsim configs do.
   - This directly affects ER requirements, so the same value must apply across the whole library. Confirm before the first library batch.
@@ -265,10 +270,9 @@ All characters confirmed supported in gcsim (commit `2350be9`).
 
 ## 10. Next Steps
 
-1. ~~gcsim execution prototype~~ Done: `cmd/gscouter` scores a build file against a library team (see README). Remaining for this step:
-   - Validate the Skirk team rotation against community calcs and set it to `supported`.
+1. ~~gcsim execution prototype~~ Done: `cmd/gscouter` scores a build file against a library team (see README).
 2. ~~Enka UID → gcsim config converter~~ Done (`internal/enka`). Artifact substats come from Enka's rounded display values; crit rate differs from Enka's final stats by under 0.1%p.
 3. ~~Website with versus view~~ Done (`cmd/server`, `internal/web`), deployed at https://gscouter.altsky.info (§4.6).
-4. ~~Library format and automated validation script~~ Done: `cmd/validate` runs every team with its reference `build.txt` and reports failures (no parse, a member with no damage, drift over 10%) and warnings (drift, action waits by reason, members under 1% of damage); `-detail` shows actions, damage by source and reactions. CI runs it. The `add-team` skill describes how to add a team.
-5. Author the first library batch (64 common teams, all `draft`)
+4. ~~Library format, import and validation~~ Done: `cmd/import` adds a team from a gcsim share link; `cmd/validate` checks that each team reproduces its source's DPS (§5.3). CI runs it. The `add-team` skill describes the workflow.
+5. First library batch from gcsim share links. A batch of 64 agent-written rotations was removed: written without sources, they scored a third of the community numbers.
 6. Display names (Korean character and weapon names instead of gcsim keys)

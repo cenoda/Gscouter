@@ -2,7 +2,7 @@
 //
 // Usage:
 //
-//	gscouter -team teams/skirk-yelan-furina-escoffier -build teams/skirk-yelan-furina-escoffier/build.txt
+//	gscouter -team teams/hutao-yelan-xingqiu-zhongli -build teams/hutao-yelan-xingqiu-zhongli/build.txt
 package main
 
 import (
@@ -22,8 +22,6 @@ func main() {
 		teamDir    = flag.String("team", "", "team library directory")
 		buildPath  = flag.String("build", "", "build file (gcsim character setup lines)")
 		iterations = flag.Int("iter", 1000, "number of iterations")
-		warmup     = flag.Float64("warmup", 0, "seconds excluded from the score")
-		duration   = flag.Float64("duration", 90, "fight duration in seconds")
 		seed       = flag.Int64("seed", 1, "seed of the first iteration")
 		dump       = flag.Bool("dump", false, "print the assembled gcsim config and exit")
 	)
@@ -32,13 +30,13 @@ func main() {
 		flag.Usage()
 		os.Exit(2)
 	}
-	if err := run(*teamDir, *buildPath, *iterations, *warmup, *duration, *seed, *dump); err != nil {
+	if err := run(*teamDir, *buildPath, *iterations, *seed, *dump); err != nil {
 		fmt.Fprintln(os.Stderr, "error:", err)
 		os.Exit(1)
 	}
 }
 
-func run(teamDir, buildPath string, iterations int, warmup, duration float64, seed int64, dump bool) error {
+func run(teamDir, buildPath string, iterations int, seed int64, dump bool) error {
 	team, err := library.Load(teamDir)
 	if err != nil {
 		return err
@@ -51,7 +49,11 @@ func run(teamDir, buildPath string, iterations int, warmup, duration float64, se
 		return fmt.Errorf("team %q is blocked: %s", team.ID, team.Notes)
 	}
 
-	cfg := config.Assemble(config.Conditions{Duration: duration, Iterations: iterations}, string(raw), team.Rotation)
+	build := string(raw)
+	for m, p := range team.Params {
+		build = config.AddParams(build, m, p)
+	}
+	cfg := config.Assemble(config.Conditions{Iterations: iterations}, build, team.Rotation)
 	chars, err := config.Characters(cfg)
 	if err != nil {
 		return fmt.Errorf("config: %w", err)
@@ -67,7 +69,6 @@ func run(teamDir, buildPath string, iterations int, warmup, duration float64, se
 	start := time.Now()
 	res, err := score.Run(context.Background(), cfg, score.Options{
 		Iterations: iterations,
-		Warmup:     warmup,
 		Seed:       seed,
 	})
 	if err != nil {
@@ -76,8 +77,7 @@ func run(teamDir, buildPath string, iterations int, warmup, duration float64, se
 
 	fmt.Printf("Team:      %s (rotation v%d, %s)\n", team.Name, team.RotationVersion, team.Status)
 	fmt.Printf("Score:     %.0f DPS ± %.0f (1 s.e.; s.d. %.0f)\n", res.DPS, res.StdErr, res.StdDev)
-	fmt.Printf("Window:    %.0fs–%.0fs, %d iterations, %s\n", warmup, warmup+res.Window, res.Iterations, time.Since(start).Round(time.Millisecond))
-	fmt.Printf("Drift:     %+.2f%% (second half vs. first half of the window)\n", res.Drift*100)
+	fmt.Printf("Rotation:  %.1fs from full energy, %d iterations, %s\n", res.Window, res.Iterations, time.Since(start).Round(time.Millisecond))
 	fmt.Println()
 	fmt.Printf("%-12s %10s %7s %14s\n", "Character", "DPS", "Share", "Energy wait")
 	for _, c := range res.Characters {

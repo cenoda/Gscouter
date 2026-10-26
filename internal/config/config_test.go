@@ -10,3 +10,15 @@ func TestRenameCharacters(t *testing.T) {
 		t.Errorf("got:\n%s\nwant:\n%s", got, want)
 	}
 }
+
+func TestAddParams(t *testing.T) {
+	build := "hutao char lvl=90/90 cons=1 talent=10,9,10;\nhutao add weapon=\"staffofhoma\" refine=1 lvl=90/90;\n"
+	got := AddParams(build, "hutao", "start_hp=1")
+	want := "hutao char lvl=90/90 cons=1 talent=10,9,10 +params=[start_hp=1];\nhutao add weapon=\"staffofhoma\" refine=1 lvl=90/90;\n"
+	if got != want {
+		t.Errorf("got:\n%s\nwant:\n%s", got, want)
+	}
+	if again := AddParams(got, "hutao", "start_hp=1"); again != got {
+		t.Errorf("params added twice:\n%s", again)
+	}
+}

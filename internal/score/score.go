@@ -83,7 +83,8 @@ func Run(ctx context.Context, cfg string, opts Options) (*Result, error) {
 	if len(simcfg.Errors) > 0 {
 		return nil, fmt.Errorf("invalid config: %w", errors.Join(simcfg.Errors...))
 	}
-	if simcfg.Settings.Duration <= opts.Warmup {
+	// A config without a duration runs until its action list ends.
+	if simcfg.Settings.Duration > 0 && simcfg.Settings.Duration <= opts.Warmup {
 		return nil, fmt.Errorf("duration %vs must be longer than warmup %vs", simcfg.Settings.Duration, opts.Warmup)
 	}
 	startBucket := int(opts.Warmup*60) / bucketFrames

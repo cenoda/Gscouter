@@ -32,9 +32,21 @@ type Team struct {
 	GcsimCommit     string   `yaml:"gcsim_commit"`
 	Sources         []string `yaml:"sources"`
 	Notes           string   `yaml:"notes"`
+	// Params are gcsim character params the rotation assumes, by member
+	// key, e.g. {hutao: "start_hp=1"}. They are added to the player's
+	// character line.
+	Params map[string]string `yaml:"params,omitempty"`
+	// Reference is what the source config scored with its own build. The
+	// validator checks that the library reproduces it.
+	Reference *Reference `yaml:"reference,omitempty"`
 
 	// Rotation is the contents of rotation.gcsl.
 	Rotation string `yaml:"-"`
+}
+
+type Reference struct {
+	DPS          float64 `yaml:"dps"`           // mean team DPS reported by the source
+	GcsimVersion string  `yaml:"gcsim_version"` // gcsim commit the source ran on
 }
 
 // Load reads team.yaml and rotation.gcsl from dir on disk.
