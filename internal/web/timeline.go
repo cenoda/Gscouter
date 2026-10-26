@@ -224,7 +224,7 @@ func layoutTimeline(l localizer, id, label, note string, t *timeline.Timeline) *
 			}
 			h := c.Buckets[i] / peak * (chartH - chartInset)
 			if c.Buckets[i] >= 0.5 {
-				fmt.Fprintf(&tip, "\n%s %s", c.Name, thousands(c.Buckets[i]))
+				fmt.Fprintf(&tip, "\n%s %s", l.charName(c.Name), thousands(c.Buckets[i]))
 			}
 			// A 1px surface gap between stacked segments.
 			drawn := math.Max(h-1, 0.5)
@@ -239,18 +239,19 @@ func layoutTimeline(l localizer, id, label, note string, t *timeline.Timeline) *
 	}
 
 	for slot, c := range t.Characters {
+		name := l.charName(c.Name)
 		ln := lane{Slot: slot, Name: c.Name, Y: v.LaneTop + float64(slot*laneH)}
 		ln.Mid = ln.Y + laneH/2
 		for _, f := range c.Field {
 			ln.Field = append(ln.Field, rect{X: x(f.Start), W: (f.End - f.Start) * pxPerSec,
-				Tip: l.T("tl.tip_field", c.Name, f.Start, f.End, seconds(f.End-f.Start))})
+				Tip: l.T("tl.tip_field", name, f.Start, f.End, seconds(f.End-f.Start))})
 		}
 		for _, w := range c.Waits {
 			ln.Waits = append(ln.Waits, rect{X: x(w.Start), W: math.Max((w.End-w.Start)*pxPerSec, 2),
-				Tip: l.T("tl.tip_wait", c.Name, seconds(w.End-w.Start), l.name("wait.", w.Reason))})
+				Tip: l.T("tl.tip_wait", name, seconds(w.End-w.Start), l.name("wait.", w.Reason))})
 		}
 		for _, a := range c.Actions {
-			m := mark{X: x(a.Time), Kind: "minor", Tip: l.T("tl.tip_action", a.Time, c.Name, l.name("action_long.", a.Kind))}
+			m := mark{X: x(a.Time), Kind: "minor", Tip: l.T("tl.tip_action", a.Time, name, l.name("action_long.", a.Kind))}
 			switch a.Kind {
 			case "skill":
 				m.Kind, m.Label = "skill", "E"
@@ -280,7 +281,7 @@ func layoutTimeline(l localizer, id, label, note string, t *timeline.Timeline) *
 		for slot, d := range s.Damage {
 			if d > 0 && s.Total > 0 {
 				sv.Parts = append(sv.Parts, part{Slot: slot, Name: t.Characters[slot].Name, Width: d / s.Total * 100,
-					Tip: fmt.Sprintf("%s %s (%.0f%%)", t.Characters[slot].Name, thousands(d), d/s.Total*100)})
+					Tip: fmt.Sprintf("%s %s (%.0f%%)", l.charName(t.Characters[slot].Name), thousands(d), d/s.Total*100)})
 			}
 		}
 		v.Stints = append(v.Stints, sv)

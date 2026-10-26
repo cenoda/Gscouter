@@ -8,7 +8,7 @@
 <p class="muted" id="team-count">{{if .Query}}{{t "teams.matching" .Query (len .Teams) .Total}}{{else}}{{t "teams.total" .Total}}{{end}}</p>
 <p class="muted">{{t "teams.hint"}}</p>
 <ul class="teams" id="team-list">
-{{range .Teams}}<li data-m="{{members .}}">{{.Name}}{{if eq .Status "supported"}} <span class="muted">· {{t "teams.supported"}}</span>{{else if eq .Status "blocked"}} <span class="muted">· {{t "teams.blocked"}}</span>{{end}}</li>{{end}}
+{{range .Teams}}<li data-m="{{members .}}">{{teamName .}}{{if eq .Status "supported"}} <span class="muted">· {{t "teams.supported"}}</span>{{else if eq .Status "blocked"}} <span class="muted">· {{t "teams.blocked"}}</span>{{end}}</li>{{end}}
 </ul>
 </div>
 <script>

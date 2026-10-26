@@ -8,7 +8,8 @@ import (
 )
 
 // The data files come from gcsim's UI package at the version pinned in
-// go.mod (MIT license). Regenerate them after upgrading gcsim.
+// go.mod (MIT license), names.json from Enka.Network's store data (see
+// gennames). Regenerate them after upgrading gcsim.
 //
 //go:generate ./gen.sh
 //go:embed data/*.json

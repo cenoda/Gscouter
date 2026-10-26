@@ -111,16 +111,16 @@ func (s *Server) serveCard(w http.ResponseWriter, r *http.Request, draw func(con
 
 // cardMember is one character as a card shows it.
 type cardMember struct {
-	Name, Element string
-	Cons, Refine  int
-	Share         float64
+	Key, Name, Element string // Name is the English in-game name
+	Cons, Refine       int
+	Share              float64
 }
 
 // cardMembers lists a team's members by damage share, highest first.
 func cardMembers(tr teamResult) []cardMember {
 	var out []cardMember
 	for i, c := range tr.Result.Characters {
-		m := cardMember{Name: c.Name, Element: element(c.Name), Share: c.Share}
+		m := cardMember{Key: c.Name, Name: english.charName(c.Name), Element: element(c.Name), Share: c.Share}
 		if i < len(tr.Chars) {
 			m.Cons, m.Refine = tr.Chars[i].Cons, tr.Chars[i].Weapon.Refine
 		}
@@ -264,7 +264,7 @@ func (c *canvas) face(ctx context.Context, m cardMember, cx, cy, d int) {
 	r := float32(d) / 2
 	circle(float32(cx), float32(cy), r+5).Draw(c.img, c.img.Bounds(), image.NewUniform(col), image.Point{})
 	circle(float32(cx), float32(cy), r).Draw(c.img, c.img.Bounds(), image.NewUniform(cardLine), image.Point{})
-	icon := faceImage(ctx, face(m.Name))
+	icon := faceImage(ctx, face(m.Key))
 	if icon == nil {
 		c.centered(strings.ToUpper(m.Name[:1]), cx, cy+d/6, float64(d)/2, true, cardText)
 		return

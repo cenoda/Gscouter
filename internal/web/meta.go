@@ -41,7 +41,7 @@ func (tr teamResult) owner() string {
 
 // summary lists the members by damage share with their constellation,
 // e.g. "hutao C1 52% · yelan C0 24% · ...".
-func (tr teamResult) summary() string {
+func (tr teamResult) summary(l localizer) string {
 	type member struct {
 		score.Character
 		cons string
@@ -57,7 +57,7 @@ func (tr teamResult) summary() string {
 	slices.SortStableFunc(ms, func(a, b member) int { return cmp.Compare(b.Share, a.Share) })
 	var parts []string
 	for _, m := range ms {
-		parts = append(parts, fmt.Sprintf("%s%s %.0f%%", m.Name, m.cons, m.Share*100))
+		parts = append(parts, fmt.Sprintf("%s%s %.0f%%", l.charName(m.Name), m.cons, m.Share*100))
 	}
 	return strings.Join(parts, " · ")
 }
@@ -79,7 +79,7 @@ func scoreMeta(l localizer, tr teamResult, base string) pageMeta {
 	}
 	m := pageMeta{
 		Title:       l.T("meta.score_title", tr.owner(), thousands(tr.Result.DPS)),
-		Description: tr.summary(),
+		Description: tr.summary(l),
 		Image:       base + "/card/score.png?" + url.Values{"a": {tr.Selection.String()}}.Encode(),
 	}
 	if tr.OneRotation != nil {
@@ -103,8 +103,8 @@ func versusMeta(l localizer, d versusData, base string) pageMeta {
 	return pageMeta{
 		Title: fmt.Sprintf("%s vs %s: %s · Gscouter", d.A.owner(), d.B.owner(), verdict),
 		Description: fmt.Sprintf("%s %s DPS (%s) vs %s %s DPS (%s)",
-			d.A.owner(), thousands(d.A.Result.DPS), d.A.summary(),
-			d.B.owner(), thousands(d.B.Result.DPS), d.B.summary()),
+			d.A.owner(), thousands(d.A.Result.DPS), d.A.summary(l),
+			d.B.owner(), thousands(d.B.Result.DPS), d.B.summary(l)),
 		Image: base + "/card/versus.png?" + url.Values{"a": {d.A.Selection.String()}, "b": {d.B.Selection.String()}}.Encode(),
 	}
 }

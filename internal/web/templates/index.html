@@ -31,7 +31,7 @@
 <h3>{{t "index.suggested"}} <span class="muted">{{t "index.suggested_count" (len $.Suggested)}}</span></h3>
 <ul class="suggest">
 {{range $.Suggested}}
-<li><a href="{{if $.VS}}/versus?a={{$.VS}}&amp;b={{.Selection.String}}{{else}}/score?a={{.Selection.String}}{{end}}">{{template "faces" .Selection.Chars}}<span>{{.Team.Name}}</span></a></li>
+<li><a href="{{if $.VS}}/versus?a={{$.VS}}&amp;b={{.Selection.String}}{{else}}/score?a={{.Selection.String}}{{end}}">{{template "faces" .Selection.Chars}}<span>{{teamName .Team}}</span></a></li>
 {{end}}
 </ul>
 {{else}}
@@ -43,7 +43,7 @@
 {{if $.VS}}<input type="hidden" name="a" value="{{$.VS}}">{{end}}
 <div class="chars">
 {{range .Characters}}
-<label><input type="checkbox" name="c" value="{{.Key}}">{{template "face" .Key}}<span><span class="name">{{template "el" (element .Key)}}{{.Key}}</span><span class="muted">Lv.{{.Level}} C{{.Cons}} · {{.Weapon.Key}} R{{.Weapon.Refine}}</span></span></label>
+<label><input type="checkbox" name="c" value="{{.Key}}">{{template "face" .Key}}<span><span class="name">{{template "el" (element .Key)}}{{name .Key}}</span><span class="muted">Lv.{{.Level}} C{{.Cons}} · {{weapon .Weapon.Key}} R{{.Weapon.Refine}}</span></span></label>
 {{end}}
 </div>
 <div class="picker-bar">

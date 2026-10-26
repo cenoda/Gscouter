@@ -1,6 +1,7 @@
 package web
 
 import (
+	"cmp"
 	"context"
 	"fmt"
 	"html/template"
@@ -45,8 +46,6 @@ var funcs = template.FuncMap{
 		}
 		return out
 	},
-	// members lists a team's member names and canonical names, for search.
-	"members": func(t *library.Team) string { return strings.Join(searchNames(t), " ") },
 }
 
 // thousands formats a number rounded to an integer with thousands
@@ -81,33 +80,67 @@ func element(name string) string {
 	return e
 }
 
-var faceCache sync.Map // name -> icon URL
+var enkaKeys sync.Map // name -> Enka data key
 
-// face returns the URL of a character's face icon, or "". The Traveler
-// of a library team ("travelercryo") is shown as Aether.
-func face(name string) string {
-	if v, ok := faceCache.Load(name); ok {
+// enkaKey returns the gcsim key Enka's data knows a character by: a
+// showcase or result name as is, a library member name by its canonical
+// key. The Traveler of a library team ("travelercryo") is Aether.
+func enkaKey(name string) string {
+	if v, ok := enkaKeys.Load(name); ok {
 		return v.(string)
 	}
 	key := strings.ToLower(name)
-	u := enka.IconURL(key)
-	if u == "" {
+	if enka.IconURL(key) == "" {
 		key = library.Canonical(name)
 		if elem, ok := strings.CutPrefix(key, "traveler"); ok {
 			key = "aether" + elem
 		}
-		u = enka.IconURL(key)
 	}
-	faceCache.Store(name, u)
-	return u
+	enkaKeys.Store(name, key)
+	return key
 }
 
-func searchNames(t *library.Team) []string {
+// face returns the URL of a character's face icon, or "".
+func face(name string) string { return enka.IconURL(enkaKey(name)) }
+
+// charName returns a character's in-game name in l's language, or name
+// itself when the game data doesn't know it.
+func (l localizer) charName(name string) string {
+	return cmp.Or(enka.CharacterName(enkaKey(name), l.Lang), name)
+}
+
+// charNames is charName of each name, joined by ", ".
+func (l localizer) charNames(names []string) string {
+	out := make([]string, len(names))
+	for i, n := range names {
+		out[i] = l.charName(n)
+	}
+	return strings.Join(out, ", ")
+}
+
+// weaponName is charName for a weapon's gcsim key.
+func (l localizer) weaponName(key string) string {
+	return cmp.Or(enka.WeaponName(key, l.Lang), key)
+}
+
+// teamName names a library team by its members' in-game names.
+func (l localizer) teamName(t *library.Team) string {
+	out := make([]string, len(t.Members))
+	for i, m := range t.Members {
+		out[i] = l.charName(m)
+	}
+	return strings.Join(out, " / ")
+}
+
+// searchNames lists what finds a team's members: gcsim names, canonical
+// keys, and in-game names in l's language and in English.
+func (l localizer) searchNames(t *library.Team) []string {
 	var out []string
 	for _, m := range t.Members {
-		out = append(out, strings.ToLower(m))
-		if c := library.Canonical(m); c != strings.ToLower(m) {
-			out = append(out, c)
+		for _, n := range []string{m, library.Canonical(m), l.charName(m), english.charName(m)} {
+			if n = strings.ToLower(n); !slices.Contains(out, n) {
+				out = append(out, n)
+			}
 		}
 	}
 	return out
@@ -181,18 +214,23 @@ type teamsData struct {
 // handleTeams lists the library, or the teams that have, for every word
 // of the query, a character whose name contains it.
 func (s *Server) handleTeams(w http.ResponseWriter, r *http.Request) {
+	l := localizerFor(r)
 	data := teamsData{Query: strings.TrimSpace(r.URL.Query().Get("q")), Total: len(s.lib.Teams)}
 	words := strings.Fields(strings.ToLower(data.Query))
 	for _, t := range s.lib.Teams {
-		names := searchNames(t)
+		names := l.searchNames(t)
 		if !slices.ContainsFunc(words, func(w string) bool {
 			return !slices.ContainsFunc(names, func(n string) bool { return strings.Contains(n, w) })
 		}) {
 			data.Teams = append(data.Teams, t)
 		}
 	}
-	slices.SortFunc(data.Teams, func(a, b *library.Team) int { return strings.Compare(a.Name, b.Name) })
-	s.render(w, localizerFor(r), "teams.html", data)
+	names := map[*library.Team]string{}
+	for _, t := range data.Teams {
+		names[t] = l.teamName(t)
+	}
+	slices.SortFunc(data.Teams, func(a, b *library.Team) int { return strings.Compare(names[a], names[b]) })
+	s.render(w, l, "teams.html", data)
 }
 
 type scoreData struct {

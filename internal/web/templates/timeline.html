@@ -18,7 +18,7 @@
 <div class="tl">
 <div class="tl-labels" style="padding-top: {{px .ChartTop 0}}px">
 <div class="tl-chart-label" style="height: {{px .LaneTop (neg .ChartTop)}}px">{{t "tl.chart"}}</div>
-{{range .Lanes}}<div class="tl-lane-label" title="{{.Name}}"><i class="sw s{{.Slot}}"></i>{{template "face" .Name}}</div>{{end}}
+{{range .Lanes}}<div class="tl-lane-label" title="{{name .Name}}"><i class="sw s{{.Slot}}"></i>{{template "face" .Name}}</div>{{end}}
 </div>
 <div class="tl-scroll">
 <svg class="tl-svg" width="{{px .Width 0}}" height="{{px .Height 0}}" viewBox="0 0 {{px .Width 0}} {{px .Height 0}}" role="img" aria-label="{{t "tl.aria" .Label}}">
@@ -36,7 +36,7 @@
 </div>
 </div>
 <div class="tl-legend muted">
-{{range .Lanes}}<span><i class="sw s{{.Slot}}"></i>{{.Name}}</span>{{end}}
+{{range .Lanes}}<span><i class="sw s{{.Slot}}"></i>{{name .Name}}</span>{{end}}
 <span><svg viewBox="0 0 20 20"><circle class="key" cx="10" cy="10" r="7.5"/><text x="10" y="13.5">E</text></svg>{{t "tl.skill"}}</span>
 <span><svg viewBox="0 0 20 20"><rect class="key" x="2" y="2" width="16" height="16" rx="4"/><text x="10" y="13.5">Q</text></svg>{{t "tl.burst"}}</span>
 <span><svg viewBox="0 0 20 20"><rect class="key-fill" x="9" y="5" width="2" height="10" rx="1"/></svg>{{t "tl.normal"}} · <svg viewBox="0 0 20 20"><rect class="key-fill" x="9" y="2" width="2" height="16" rx="1"/></svg>{{t "tl.heavy"}}</span>
@@ -51,7 +51,7 @@
 <span class="when">{{oneDecimal .Start}}<small>s</small></span>
 <span class="who"><i class="sw s{{.Slot}}"></i>{{template "face" .Name}}</span>
 <div class="body">
-<div class="top"><b>{{.Name}}</b><span class="muted">{{t "tl.seconds" (oneDecimal .Duration)}}</span><span class="acts">{{range .Actions}}<span class="chip">{{.}}</span>{{end}}</span></div>
+<div class="top"><b>{{name .Name}}</b><span class="muted">{{t "tl.seconds" (oneDecimal .Duration)}}</span><span class="acts">{{range .Actions}}<span class="chip">{{.}}</span>{{end}}</span></div>
 <div class="dmg"><span class="stack-wrap"><span class="stack" style="width: {{printf "%.1f" .Scale}}%">{{range .Parts}}<i class="f{{.Slot}}" style="width: {{printf "%.1f" .Width}}%" data-tip="{{.Tip}}"></i>{{end}}</span></span><span class="num">{{thousands .Total}} <span class="muted">· {{percent .Share}}</span></span></div>
 </div>
 </li>{{end}}
@@ -60,7 +60,7 @@
 <h3>{{t "tl.sources"}}</h3>
 <div class="sources">
 {{range .Sources}}<div class="src">
-<div class="src-head"><i class="sw s{{.Slot}}"></i>{{template "face" .Name}}<b>{{.Name}}</b><span class="num">{{thousands .Damage}} <span class="muted">· {{percent .Share}}</span></span></div>
+<div class="src-head"><i class="sw s{{.Slot}}"></i>{{template "face" .Name}}<b>{{name .Name}}</b><span class="num">{{thousands .Damage}} <span class="muted">· {{percent .Share}}</span></span></div>
 {{if .Sources}}<table>
 <thead><tr><th>{{t "tl.ability"}}</th><th class="num">{{t "tl.hits"}}</th><th class="num">{{t "tl.crit"}}</th><th class="num">{{t "tl.dmg"}}</th></tr></thead>
 <tbody>{{range .Sources}}<tr><td>{{.Name}}<span class="bar"><i style="width: {{width .Share}}%"></i></span></td><td class="num">{{.Hits}}</td><td class="num">{{percent .CritRate}}</td><td class="num">{{thousands .Damage}}<br><span class="muted">{{percent .Share}}</span></td></tr>{{end}}</tbody>

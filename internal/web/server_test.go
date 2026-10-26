@@ -110,7 +110,7 @@ func TestIndexSuggestsTeams(t *testing.T) {
 	if code != http.StatusOK {
 		t.Fatalf("status %d", code)
 	}
-	mustContain(t, body, "Strong", "바로 계산할 수 있는 파티", "Hutao / Xingqiu / Zhongli / Yelan", "amber")
+	mustContain(t, body, "Strong", "바로 계산할 수 있는 파티", "호두 / 행추 / 종려 / 야란", "엠버", "호마의 지팡이")
 }
 
 func TestTeamsFilter(t *testing.T) {
@@ -119,9 +119,17 @@ func TestTeamsFilter(t *testing.T) {
 	if code != http.StatusOK {
 		t.Fatalf("status %d", code)
 	}
-	mustContain(t, body, "Hutao / Xingqiu / Zhongli / Yelan")
+	mustContain(t, body, "Hu Tao / Xingqiu / Zhongli / Yelan")
 	if strings.Contains(body, "Skirk") {
 		t.Error("team without the character listed")
+	}
+	// In-game names find teams too, in the page's language and English.
+	for _, q := range []string{"hu tao", "호두 야란", "胡桃"} {
+		lang := map[string]string{"hu tao": "", "호두 야란": "ko", "胡桃": "ja"}[q]
+		_, body := getLang(t, ts, "/teams?q="+url.QueryEscape(q), lang)
+		if !strings.Contains(body, "Xingqiu") && !strings.Contains(body, "행추") && !strings.Contains(body, "行秋") {
+			t.Errorf("%q (%s) finds no Hu Tao team", q, lang)
+		}
 	}
 }
 
@@ -140,9 +148,9 @@ func TestScoreFromPicker(t *testing.T) {
 	if code != http.StatusOK {
 		t.Fatalf("status %d: %s", code, body)
 	}
-	mustContain(t, body, "DPS", "hutao", "staffofhoma", "검증 전", "https://enka.network/ui/UI_AvatarIcon_Hutao.png")
+	mustContain(t, body, "DPS", "호두", "호마의 지팡이", "검증 전", "https://enka.network/ui/UI_AvatarIcon_Hutao.png")
 	// Link previews show the score and the members.
-	mustContain(t, body, `<meta property="og:title" content="Strong의 파티 `, `<meta property="og:description" content="hutao C0 `,
+	mustContain(t, body, `<meta property="og:title" content="Strong의 파티 `, `<meta property="og:description" content="호두 C0 `,
 		`<meta property="og:image" content="http://127.0.0.1:`)
 	i := strings.Index(body, `og:image" content="`)
 	card := strings.ReplaceAll(body[i+len(`og:image" content="`):][:strings.Index(body[i+len(`og:image" content="`):], `"`)], "&amp;", "&")
@@ -165,7 +173,7 @@ func TestScoreUnsupportedTeam(t *testing.T) {
 func TestScoreMissingCharacter(t *testing.T) {
 	ts := newTestServer(t)
 	_, body := getKo(t, ts, "/score?a="+url.QueryEscape("800000002:hutao,yelan,xingqiu,amber"))
-	mustContain(t, body, "amber 캐릭터가 쇼케이스에 없습니다")
+	mustContain(t, body, "엠버 캐릭터가 쇼케이스에 없습니다")
 }
 
 func TestScoreRejectsWrongCount(t *testing.T) {

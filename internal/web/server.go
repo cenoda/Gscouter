@@ -205,7 +205,7 @@ func (s *Server) evaluate(ctx context.Context, l localizer, sel selection) teamR
 	for _, want := range sel.Chars {
 		i := slices.IndexFunc(p.Characters, func(c enka.Character) bool { return c.Key == want })
 		if i < 0 {
-			tr.Problem = l.T("problem.missing", want)
+			tr.Problem = l.T("problem.missing", l.charName(want))
 			return tr
 		}
 		tr.Chars = append(tr.Chars, p.Characters[i])
@@ -272,7 +272,7 @@ func (s *Server) evaluate(ctx context.Context, l localizer, sel selection) teamR
 	tr.Timelines = s.cycleViews(ctx, l, sel, tr.Team, once, config.Assemble(config.Conditions{Iterations: 1, Duration: s.settings.Duration}, build.String(), out.Looped), out.Filled)
 	for _, c := range tr.Chars {
 		if c.UnknownSets > 0 {
-			tr.Warnings = append(tr.Warnings, l.T("warn.unknown_sets", c.Key, c.UnknownSets))
+			tr.Warnings = append(tr.Warnings, l.T("warn.unknown_sets", l.charName(c.Key), c.UnknownSets))
 		}
 	}
 	return tr
@@ -358,7 +358,7 @@ func warnings(l localizer, team *library.Team, res *score.Result) []string {
 	}
 	for _, c := range res.Characters {
 		if c.EnergyWait >= 1 {
-			out = append(out, l.T("warn.energy", c.Name, c.EnergyWait))
+			out = append(out, l.T("warn.energy", l.charName(c.Name), c.EnergyWait))
 		}
 	}
 	return out
@@ -393,7 +393,7 @@ func fillerNote(l localizer, o *steady.Outcome) string {
 	}
 	var parts []string
 	for _, g := range o.ByFiller() {
-		chars := strings.Join(g.Chars, ", ")
+		chars := l.charNames(g.Chars)
 		switch g.How {
 		case config.FillSkip:
 			parts = append(parts, l.T("filler.skip", chars))
@@ -404,7 +404,7 @@ func fillerNote(l localizer, o *steady.Outcome) string {
 		}
 	}
 	if len(o.Skill) > 0 {
-		parts = append(parts, l.T("filler.skill", strings.Join(o.Skill, ", ")))
+		parts = append(parts, l.T("filler.skill", l.charNames(o.Skill)))
 	}
 	return l.T("filler.wrap", strings.Join(parts, l.T("filler.sep")))
 }
