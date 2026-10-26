@@ -1,0 +1,23 @@
+let First_Rot_Nuke = true;  
+active rosaria;
+for let i=0; i<4; i=i+1 {
+  rosaria skill;
+  candace skill, attack, burst; wait(2); 
+  layla burst, attack, skill;
+  rosaria burst, skill;
+  if i == 0 && First_Rot_Nuke == true {
+    skirk burst;
+    skirk skill,
+          attack:5, dash,
+          attack:5, dash,
+          attack:4, dash;
+  } else {
+    skirk skill,
+          attack:5, dash,
+          attack:5, dash,
+          
+          attack:2, burst,
+          attack:5, dash,
+          attack:2;
+  }
+}

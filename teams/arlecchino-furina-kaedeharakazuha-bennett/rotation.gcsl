@@ -1,16 +1,20 @@
 active arle;
-arle skill;
 for let i = 0; i < 4; i = i + 1 {
-  furina skill, dash,burst,charge;
+  arle skill, attack;
+  furina skill, dash, attack, burst;
   kazuha burst;
-  bennett burst,skill;
-  furina charge,attack;
-  kazuha skill, high_plunge;
+  wait(23); 
+  bennett skill, burst;
+  if !.element.t0.pyro { 
+    kazuha skill[hold=1], high_plunge;
+  } else {
+    kazuha skill, high_plunge; 
+  }
   arle charge, 
        attack:3, dash,
        attack:3, dash, 
        attack:3, dash,
        attack:3, dash,
-       attack:3,skill;
-  kazuha skill, high_plunge;
+       attack:3;
+  kazuha skill, high_plunge, attack:2; 
 }

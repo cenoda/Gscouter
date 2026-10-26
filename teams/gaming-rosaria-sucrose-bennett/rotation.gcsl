@@ -1,16 +1,62 @@
 active gaming; 
-for let i=0; i<1; i=i+1 {
-  bennett burst;
+for let i=0; i<4; i=i+1 {
+  bennett skill, burst;
   
   rosaria burst;
   
-  sucrose skill, dash, burst;
-  
-  gaming burst;
-  wait(25);
-  for let p=0; p<5; p=p+1 {
+  sucrose skill, dash;
+  if .sucrose.burst.ready {
+    sucrose burst;
+    
+    gaming burst;
+    wait(25);
+    for let p=0; p<5; p=p+1 {
+      gaming skill;
+      wait(17); 
+      gaming low_plunge;
+    }
     gaming skill;
-    wait(17);
+    wait(21);
     gaming low_plunge;
+  }
+  else {
+    sucrose attack;
+    while .sucrose.swap.cd > 0 {
+      wait(1);
+    }
+    
+    gaming burst;
+    wait(25);
+    for let j = 0; j < 4; j = j + 1 {
+      wait(50); 
+      gaming skill, low_plunge;
+    } 
+    wait(50);
+    gaming skill;
+    wait(11);
+    gaming low_plunge, skill, low_plunge;
+  }
+  
+  if i<3 {
+    if !.element.t0.pyro {
+      bennett skill;
+    }
+   
+    if is_even(i) {
+      sucrose skill, dash, attack;
+    }
+    else {
+      sucrose attack, dash;
+    }
+   
+    rosaria skill;
+    while !.rosaria.mods.favonius-cd {
+      rosaria attack;
+    } 
+    if .rosaria.energy != .rosaria.energymax {
+      wait(89); 
+    }
+    
+    gaming skill, low_plunge;
   }
 }

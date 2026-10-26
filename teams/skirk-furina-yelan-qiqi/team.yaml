@@ -1,0 +1,19 @@
+id: skirk-furina-yelan-qiqi
+name: Skirk / Furina / Yelan / Qiqi
+members:
+    - skirk
+    - furina
+    - yelan
+    - qiqi
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/G7rGFJz96Jgt
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest constellations and refinements.'
+params:
+    skirk: start_serpents_subtlety=100
+reference:
+    dps: 89934
+    computed: "2026-10-01"

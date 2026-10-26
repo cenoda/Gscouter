@@ -1,0 +1,33 @@
+active bennett;
+  
+for let r = 4; r > 0; r = r - 1 {
+  if .bennett.skill.ready {
+    bennett skill;
+  }
+  bennett burst;
+  
+  fischl attack;
+  if .fischl.skill.ready {
+    fischl skill;
+  } else {
+    fischl attack, burst;
+  }
+  
+  chevreuse burst, skill[hold=1]:3;
+
+  while !.bennett.burst.ready {
+    if .xinyan.burst.ready && .xinyan.skill.ready {
+      xinyan skill, burst;
+    } else if .xinyan.burst.ready {
+      xinyan burst;
+    } else if .xinyan.skill.ready && .xinyan.onfield {
+      xinyan skill;
+    } else if .bennett.skill.ready {
+      bennett skill;
+    } else {
+      bennett attack;
+    }
+  }
+  
+  print("done");
+}

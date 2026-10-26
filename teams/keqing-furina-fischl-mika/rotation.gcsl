@@ -1,27 +1,35 @@
-active furina;
-furina skill, attack, burst;
+active fischl;
 for let i=0; i<4; i=i+1 {
-    if i {
-        furina burst, skill;
+  fischl attack, skill;
+  
+  furina skill, dash, burst;
+  
+  mika burst, attack, skill[hold=0];
+  
+  keq skill;
+  while .fischl.oz {
+    if .keq.normal > 2 && .stam > 25 {
+      keq charge;
+    } else if .keq.normal > 4 && .stam > 18 {
+      keq dash;
+    } else {
+      keq attack;
     }
-    mika burst, skill;
-    fischl attack, skill;
-    keq skill, burst;
-    while .fischl.skill.cd > 940 {
-        if .stam > 25 {
-            keq attack, charge;
-        } else {
-            keq attack:4, charge;
-        }
+  }
+  
+  fischl attack:2, burst;
+  
+  keq skill;
+  while .furina.skill.cd {
+  
+    if .keq.normal > 1 && .stam > 25 {
+      keq charge;
+    } else if .keq.normal > 4 && .stam > 18 {
+      keq dash;
+    } else {
+      keq attack;
     }
-    fischl attack:2, burst;
-    while !.furina.burst.ready {
-        if .stam > 25 {
-            keq attack, charge;
-        } else if .keq.skill.ready {
-            keq skill, burst;
-        } else {
-            keq attack:4, charge;
-        }
-    }
+  }
+  keq burst;
+  
 }

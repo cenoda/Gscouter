@@ -1,0 +1,17 @@
+id: yunjin-fischl-rosaria-zhongli
+name: Yunjin / Fischl / Rosaria / Zhongli
+members:
+    - yunjin
+    - fischl
+    - rosaria
+    - zhongli
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/F8NfFcLqp9Hr
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest constellations and refinements.'
+reference:
+    dps: 24165
+    computed: "2026-10-01"

@@ -10,8 +10,8 @@ status: draft
 rotation_version: 1
 gcsim_commit: 2350be9
 sources:
-    - https://db.kqm.gg/db/BnmK9LRQBbWw
-notes: 'Harvested from the KQM gcsim database: 4 accepted entries use this team; this one has the lowest constellations and refinements.'
+    - https://db.kqm.gg/db/fbQMpbmLW86J
+notes: 'Harvested from the KQM gcsim database: 4 entries use this team; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest constellations and refinements.'
 reference:
-    dps: 69935
-    computed: "2026-10-02"
+    dps: 66498
+    computed: "2026-10-01"

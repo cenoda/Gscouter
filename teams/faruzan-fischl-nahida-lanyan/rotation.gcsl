@@ -1,0 +1,30 @@
+active fischl;
+fischl skill;
+nahida skill, attack, burst;
+for {
+  switch {
+    
+    case !.fischl.oz && .fischl.burst.ready && .fischl.swap.ready:
+      fischl attack:2, burst;
+    case !.fischl.oz && .fischl.skill.ready && .fischl.swap.ready:
+      fischl attack, skill;
+    
+    case .faruzan.hurricane-count && .faruzan.swap.ready:
+      faruzan aim;
+    
+    case .lanyan.skill.ready && .lanyan.swap.ready:
+      lanyan attack, skill:2;
+    case .lanyan.burst.ready && .lanyan.swap.ready && .lanyan.energy == .lanyan.energymax:
+      lanyan burst;
+    
+    case .nahida.skill.ready && .nahida.swap.ready && !.debuff.res.t0.nahida-e:
+      nahida skill, attack;
+    
+    case .faruzan.burst.ready && .faruzan.swap.ready:
+      faruzan burst;
+    case .faruzan.skill.ready && .faruzan.swap.ready:
+      faruzan skill;
+    default:
+      lanyan attack;
+  }
+}

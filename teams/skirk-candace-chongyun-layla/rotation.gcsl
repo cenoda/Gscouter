@@ -1,0 +1,23 @@
+let First_Rot_Nuke = true;  
+active chongyun;
+for let i=0; i<4; i=i+1 {
+  chongyun skill, attack;
+  candace skill, attack:2, burst;
+  layla burst, attack, skill;
+  chongyun burst;
+  if i == 0 && First_Rot_Nuke == true {
+    skirk burst;
+    skirk skill,
+          attack:5, dash,
+          attack:5, dash,
+          attack:4, dash;
+  } else {
+    skirk skill,
+          attack:5, dash,
+          attack:5, dash,
+          
+          attack:2, burst,
+          attack:5, dash,
+          attack:3;
+  }
+}

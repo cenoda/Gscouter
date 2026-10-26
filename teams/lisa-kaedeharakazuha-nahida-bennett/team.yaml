@@ -1,0 +1,17 @@
+id: lisa-kaedeharakazuha-nahida-bennett
+name: Lisa / Kaedeharakazuha / Nahida / Bennett
+members:
+    - lisa
+    - kazuha
+    - nahida
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/zbkRRTDM9JRK
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest constellations and refinements.'
+reference:
+    dps: 105957
+    computed: "2026-09-30"

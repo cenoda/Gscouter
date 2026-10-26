@@ -1,0 +1,19 @@
+id: skirk-yelan-xingqiu-charlotte
+name: Skirk / Yelan / Xingqiu / Charlotte
+members:
+    - skirk
+    - yelan
+    - xingqiu
+    - charlotte
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/K7jFbLcwRHzR
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest constellations and refinements.'
+params:
+    skirk: start_serpents_subtlety=100
+reference:
+    dps: 76075
+    computed: "2026-10-02"

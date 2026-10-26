@@ -1,0 +1,19 @@
+id: skirk-furina-dahlia-escoffier
+name: Skirk / Furina / Dahlia / Escoffier
+members:
+    - skirk
+    - furina
+    - dahlia
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Mt7LWKrdWQFk
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest constellations and refinements.'
+params:
+    skirk: start_serpents_subtlety=100
+reference:
+    dps: 124803
+    computed: "2026-10-01"

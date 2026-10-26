@@ -1,10 +1,9 @@
-active bennett;
+active xiangling;
 for let i=0; i<4; i=i+1 {
-  bennett skill;
-  xiangling swap; wait(55);
-  lanyan skill:2;
+  xiangling skill, dash;
   bennett burst, skill;
-  xiangling burst, skill, dash;
+  xiangling burst, attack;
+  lanyan skill:2;
   wrio skill,
        attack:3, charge, jump,
        attack:3, charge, jump, 
@@ -17,4 +16,7 @@ for let i=0; i<4; i=i+1 {
   } else {
     wrio charge, jump; 
   }
+  bennett skill, attack;
+  xiangling swap;
+  wait(73);  
 }

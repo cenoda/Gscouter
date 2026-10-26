@@ -1,0 +1,19 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+ 
+  furina skill, dash, burst, attack;
+  yelan skill:2, burst;
+  bennett attack, burst;
+  
+  if i {
+    arle attack;
+  }
+  
+  arle skill, attack, burst, 
+       skill, attack, charge,
+       attack:3, dash,
+       attack:3, dash,
+       attack:4, dash,
+       attack:4;
+ 
+}

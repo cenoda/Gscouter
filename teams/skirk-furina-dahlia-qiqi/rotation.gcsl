@@ -1,0 +1,41 @@
+let First_Rot_Nuke = true;  
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  if is_even(i) {
+    qiqi skill, attack:2;
+  } else {
+    qiqi burst;
+    if !.qiqi.mods.favonius-cd && .qiqi.weapon == .keys.weapon.favsword {
+      qiqi attack;
+    }
+  }
+  dahlia attack, skill, attack, burst;
+  if i == 0 && First_Rot_Nuke == true {
+    skirk burst;
+    skirk skill,
+          attack:5, dash,
+          
+          attack:2, charge, dash,
+    
+          attack:5, dash,
+          attack:5, dash,
+          
+          attack:2, charge, dash,
+          
+          attack:5, dash,
+          attack:4;
+  } else {
+    skirk skill,
+          attack:2, burst,
+          
+          attack:5, dash,
+          attack:5, dash,
+          attack:5, dash,
+          
+          attack:2, charge, dash,
+          
+          attack:5, dash,
+          attack:4;
+  }
+}

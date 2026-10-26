@@ -1,0 +1,37 @@
+let First_Rot_Nuke = true;  
+active dahlia;
+for let i=0; i<4; i=i+1 {
+  dahlia attack, skill, attack;
+  if !.dahlia.mods.favonius-cd {
+    dahlia attack;
+  }
+  xingqiu skill, dash, attack, burst, attack:3;
+  dahlia attack, burst;
+  citlali skill, attack;
+  if i == 0 && First_Rot_Nuke == true {
+    skirk burst;
+    skirk skill,
+          attack:2, charge, dash,
+          
+          attack:5, dash,
+          attack:5, dash,
+          attack:5, dash,
+          
+          attack:2, charge, dash,
+          
+          attack:5, dash,
+          attack:4;
+  } else {
+    skirk skill,
+          attack:2, burst,
+          
+          attack:5, dash,
+          attack:5, dash,
+          attack:5, dash,
+          
+          attack, charge, dash,
+          
+          attack:5, dash,
+          attack:5, dash;
+  }
+}

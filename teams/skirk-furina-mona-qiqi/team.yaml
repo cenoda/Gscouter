@@ -1,0 +1,19 @@
+id: skirk-furina-mona-qiqi
+name: Skirk / Furina / Mona / Qiqi
+members:
+    - skirk
+    - furina
+    - mona
+    - qiqi
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/D77WJMr8QTwF
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest constellations and refinements.'
+params:
+    skirk: start_serpents_subtlety=100
+reference:
+    dps: 84729
+    computed: "2026-10-02"

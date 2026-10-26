@@ -3,39 +3,26 @@ fn KazuPlunge(){
   if .airborne {
     kazuha high_plunge[collision=rand()>0.5];
   }
+  wait(45); 
 }
 active bennett;
 for let i=0; i<4; i=i+1 {
-  bennett skill; 
+  bennett skill, attack:2; 
   
   xianyun skill, low_plunge, burst;
   
+  bennett skill, dash, burst;
+  
   citlali skill, burst;
   
-  kazuha burst;
-  
-  bennett burst;
-  wait(6); 
-  bennett attack;
-  
-  kazuha swap;
-  wait(11); 
-  kazuha skill, high_plunge[collision=1]; 
-  wait(12); 
-  KazuPlunge(); kazuha dash;
-  KazuPlunge(); kazuha dash;
-  KazuPlunge(); kazuha dash;
+  kazuha skill, high_plunge[collision=1];
   KazuPlunge();
-  kazuha skill, high_plunge[collision=1], dash;
   KazuPlunge();
-  KazuPlunge(); 
-
-  if i != 3 { 
-    bennett skill;
-    wait(54); 
-    
-    xianyun skill, low_plunge;
-    
-    kazuha skill, high_plunge[collision=1];
-  }
+  KazuPlunge();
+  kazuha skill, high_plunge[collision=1];
+  wait(45); 
+  KazuPlunge();
+  KazuPlunge();
+  kazuha attack:2; 
+  kazuha skill, high_plunge[collision=1];
 }

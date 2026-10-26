@@ -1,0 +1,50 @@
+let first_Rot_Nuke = true; 
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  
+    furina attack;
+  
+  furina burst;
+  
+  mika skill[hold=1];
+  if .mika.weapon == .keys.weapon.favspear && (!.mika.mods.favonius-cd || !.mika.burst.ready) {
+    mika attack;
+  }
+  mika burst;
+  
+  citlali skill;
+  if i > 0 {
+    citlali burst;
+  } else {
+    citlali attack:2;
+  }
+  
+  if i == 0 && first_Rot_Nuke == true {
+    skirk burst;
+    skirk skill,
+          attack:5, dash,
+          
+          attack:2, charge, dash,
+    
+          attack:5, dash,
+          attack:5, dash,
+          
+          attack:2, charge, dash,
+          
+          attack:5, dash,
+          attack:3, dash;
+  } else {
+    skirk skill,
+          attack:2, burst,
+          
+          attack:5, dash,
+          attack:5, dash,
+          attack:5, dash,
+          
+          attack:2, charge, dash,
+          
+          attack:5, dash,
+          attack:3, dash;
+  }
+}

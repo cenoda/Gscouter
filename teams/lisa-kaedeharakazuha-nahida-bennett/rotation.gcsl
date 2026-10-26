@@ -1,0 +1,32 @@
+active nahida;
+for let i=0; i<4; i=i+1 {
+  nahida skill;
+  if .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida attack, charge;
+  }
+  
+  if i > 0 {
+    lisa attack;
+  }
+  lisa skill[hold=1], burst; sleep(20); 
+  
+  bennett skill, burst;
+  
+  kazuha skill, high_plunge, burst;
+  
+  bennett attack:2;
+  while .bennett.burst.cd {
+    if .kazuha.skill.ready {
+      kazuha skill, high_plunge;
+    } else if .bennett.skill.ready && .bennett.swap.ready {
+      bennett skill;
+    } else if .kazuha.onfield {
+      kazuha attack;
+    } else {
+      bennett attack;
+    }
+  }
+  
+}

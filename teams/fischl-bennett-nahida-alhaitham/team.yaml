@@ -1,0 +1,17 @@
+id: fischl-bennett-nahida-alhaitham
+name: Fischl / Bennett / Nahida / Alhaitham
+members:
+    - amy
+    - bennett
+    - nahida
+    - alhaitham
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/jBcWnH6pdw9B
+notes: 'Harvested from the KQM gcsim database: 3 entries use this team; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest constellations and refinements.'
+reference:
+    dps: 66130
+    computed: "2026-10-02"

@@ -1,0 +1,40 @@
+let First_Rot_Nuke = true;  
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, attack, burst;
+  sigewinne skill[hold=1], dash[pickup_droplets=2];
+  citlali skill, attack;
+  if i && .citlali.burst.ready {
+    citlali burst;
+  } else {
+    citlali attack;
+  }
+  if i == 0 && First_Rot_Nuke == true {
+    skirk burst;
+    skirk skill,
+          attack:5, dash,
+          
+          attack:2, charge, dash,
+    
+          attack:5, dash,
+          attack:5, dash,
+          
+          attack:2, charge, dash,
+          
+          attack:5, dash,
+          attack;
+  } else {
+    skirk skill,
+          attack:2, burst,
+          
+          attack:5, dash,
+          attack:5, dash,
+          attack:5, dash,
+               
+          attack:2, charge, dash,
+        
+          attack:5, dash,
+          attack:2;
+          
+  }
+}

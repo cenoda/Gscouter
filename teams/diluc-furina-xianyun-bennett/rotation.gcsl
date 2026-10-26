@@ -1,23 +1,21 @@
-active diluc; 
+active furina;
 for let r = 0; r < 4; r = r + 1 { 
   furina skill, dash, burst;
   
   xianyun skill, low_plunge, burst;
   
   bennett burst, skill, attack;
-  xianyun attack:3, charge;
   
-  for let h=0; h<1; h=h+1 { 
-    diluc dash, jump;
+  xianyun attack:3;
+  
+  diluc skill:2;
+  for let h = 0; h < 8; h = h + 1 { 
+    diluc jump;
     if .airborne {
-      diluc high_plunge[collision=rand()>0.5], dash, skill:3;
+      diluc high_plunge[collision=rand()>0.5], dash;
     }
   }
-  for let h=0; h<7; h=h+1 { 
-    diluc dash, jump;
-    if .airborne {
-      diluc high_plunge[collision=rand()>0.5];
-    }
-  }
+  diluc attack:2;
   
+  bennett skill;
 }

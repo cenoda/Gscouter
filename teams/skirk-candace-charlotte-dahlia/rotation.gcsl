@@ -1,0 +1,39 @@
+let First_Rot_Nuke = true;  
+active candace;
+for let i=0; i<4; i=i+1 {
+  candace skill, attack:2, burst;
+  dahlia skill, attack:2, burst;
+  if is_even(i) {
+    charlotte attack, skill, attack, burst, attack;
+  } else {
+    charlotte attack:2, skill, attack:2, dash, attack, dash;
+  }
+  if i == 0 && First_Rot_Nuke == true {
+    skirk burst;
+    skirk skill,
+          attack:5, dash,
+          
+          attack, charge, dash,
+          
+          attack:5, dash,
+          attack:5, dash,
+          
+          attack, charge, dash,
+          
+          attack:5;
+    skirk attack:3; 
+  } else {
+    skirk skill,
+          attack:2, burst,
+          
+          attack:5, dash,
+          attack:5, dash,
+          attack:5, dash,
+          
+          attack:2, charge, dash,
+          
+          attack:5, dash,
+          attack:2;
+    skirk attack:3; 
+  }
+}

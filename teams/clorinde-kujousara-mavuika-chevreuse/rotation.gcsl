@@ -1,0 +1,33 @@
+active kujousara;
+  fn clorinde_combo() {
+    clorinde skill;
+    while .clorinde.status.clorinde-night-watch {
+      if .clorinde.bolratio >= 1 {
+        clorinde skill;
+      } else {
+        clorinde attack;
+      }
+    }
+  }
+  
+  for let x=0; x<3; x=x+1 {
+    sara skill;
+    mavuika skill[hold=1];
+    chevreuse skill[hold=1], attack;
+    mavuika burst, charge:1, dash;
+    sara burst;
+    clorinde_combo();
+    sara skill;
+    clorinde burst, attack:2;
+    
+    if.chevreuse.burst.ready{
+      chevreuse burst, skill[hold=1];
+    } else {
+      chevreuse skill[hold=1], attack;
+    }
+    
+    mavuika skill[hold=1], charge:2, dash, charge:2, dash;
+    sara skill, aim;
+    clorinde_combo();
+    clorinde attack:2;
+  }

@@ -1,7 +1,7 @@
 id: alhaitham-furina-fischl-baizhu
 name: Alhaitham / Furina / Fischl / Baizhu
 members:
-    - alhaitham
+    - haitham
     - furina
     - fischl
     - baizhu
@@ -10,13 +10,8 @@ status: draft
 rotation_version: 1
 gcsim_commit: 2350be9
 sources:
-    - https://db.kqm.gg/db/FDb9NddjrnLm
-notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
-params:
-    alhaitham: start_hp%=80
-    baizhu: start_hp%=80
-    fischl: start_hp%=80
-    furina: start_hp%=80
+    - https://db.kqm.gg/db/mhRKKCGctWJz
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest constellations and refinements.'
 reference:
-    dps: 65642
-    computed: "2026-10-01"
+    dps: 73035
+    computed: "2026-10-02"

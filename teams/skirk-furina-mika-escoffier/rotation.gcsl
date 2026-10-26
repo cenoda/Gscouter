@@ -1,0 +1,38 @@
+let First_Rot_Nuke = true;  
+active furina;
+for let i=0; i<4; i=i+1 { 
+  furina skill, dash, burst;
+  if is_even(i) {
+    escoffier skill, burst;
+  } else {
+    escoffier skill, attack:3;
+  }
+  mika attack, burst, skill;
+  if i == 0 && First_Rot_Nuke == true {
+    skirk burst;
+    skirk skill,
+          attack:5, dash,
+          
+          attack:2, charge, dash,
+    
+          attack:5, dash,
+          attack:5, dash,
+          
+          attack:2, charge, dash,
+          
+          attack:5, dash,
+          attack:3, dash;
+  } else {
+    skirk skill,
+          attack:2, burst,
+          
+          attack:5, dash,
+          attack:5, dash,
+          attack:5, dash,
+          
+          attack:2, charge, dash,
+          
+          attack:5, dash,
+          attack:4, dash;
+  }
+}

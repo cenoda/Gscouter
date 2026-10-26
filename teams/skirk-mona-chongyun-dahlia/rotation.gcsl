@@ -1,0 +1,41 @@
+let First_Rot_Nuke = true;  
+active dahlia;
+for let i=0; i<4; i=i+1 {
+  dahlia skill, attack:2, burst;
+  chongyun burst, skill;
+  mona skill, burst;
+  if i == 0 && First_Rot_Nuke == true {
+    skirk burst;
+    skirk skill,
+          attack:2, charge, dash,
+          
+          attack:5, dash,
+          attack:5, dash,
+          attack:5, dash,
+          
+          attack:2, charge, dash,
+          
+          attack:5, dash,
+          attack;
+    dahlia swap;
+    wait(27); 
+  } else {
+    skirk skill,
+          attack:2, burst,
+          
+          attack:5, dash,
+          attack:5, dash,
+          attack:5, dash,
+          
+          attack:2, charge, dash,
+          
+          attack:5, dash,
+          attack:2;
+    if .skirk.serpents_subtlety > 1 {
+      skirk attack:3, dash;
+    } else {
+      dahlia swap;
+      wait(51); 
+    }
+  }
+}

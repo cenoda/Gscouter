@@ -1,0 +1,61 @@
+let n = 2;
+let m = 6;
+fn rand_delay() {
+  let del = rand() * (m - n + 1) + n;
+  delay(del);
+  print(del);
+}
+active lyney;
+rand_delay();
+lyney aim[weakspot=1];
+for let r = 4; r > 0; r = r - 1 {
+  rand_delay();
+  kazuha swap;
+  rand_delay();
+  kazuha skill, high_plunge;
+  rand_delay();
+  while !.kazuha.mods.favonius-cd && !.kazuha.burst.ready {
+      kazuha attack;
+  }
+  rand_delay();
+  kazuha burst;
+  rand_delay();
+  bennett swap;
+  bennett burst;
+  rand_delay();
+  bennett skill;
+  rand_delay();
+  xiangling swap;
+  xiangling burst, skill;
+  rand_delay();
+  xiangling dash;
+  rand_delay();
+  kazuha swap;
+  rand_delay();
+  kazuha skill, high_plunge;
+  rand_delay();
+  lyney swap;
+  rand_delay();
+  lyney aim[weakspot=1];
+  rand_delay();
+  lyney aim;
+  rand_delay();
+  lyney burst;
+  delay(11);
+  rand_delay();
+  lyney skill;
+  rand_delay();
+  lyney aim;
+  rand_delay();
+  lyney skill;
+  rand_delay();
+  lyney aim;
+  rand_delay();
+  bennett swap;
+  rand_delay();
+  bennett skill;
+  if (r > 1) {
+    rand_delay();
+    kazuha swap;
+  }
+}

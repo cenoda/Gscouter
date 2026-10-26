@@ -1,0 +1,31 @@
+let First_Rot_Nuke = true;  
+active dahlia;
+for let i=0; i<4; i=i+1 {
+  dahlia skill, attack:2;
+  candace skill, attack, burst; wait(2); 
+  rosaria skill, burst;
+  dahlia attack, burst;
+  if i == 0 && First_Rot_Nuke == true {
+    skirk burst;
+    skirk skill,
+          attack:5, dash,
+          attack:5, dash,
+          
+          attack:2, charge, dash,
+          
+          attack:5, dash,
+          attack:5, dash,
+          attack:2;
+  } else {
+    skirk skill,
+          attack:5, dash,
+          attack:5, dash,
+          
+          attack:2, burst,
+          
+          attack:5, dash,
+          attack:5, dash,
+          attack:2;
+  }
+  delay(16);    
+}

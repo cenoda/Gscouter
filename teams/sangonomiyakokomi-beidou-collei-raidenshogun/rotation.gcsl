@@ -1,5 +1,5 @@
 active raiden;
-for let i=0; i<4; i=i+1 {
+for let i = 0; i < 4; i = i + 1 {
   let t = f();
   raiden skill, attack;
   kokomi attack, skill;

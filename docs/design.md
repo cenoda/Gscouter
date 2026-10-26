@@ -254,12 +254,10 @@ The first batch held the 64 teams with the most entries in the community databas
 
 - The database had 6,020 entries; 4,428 teams (sets of four characters) had a usable entry. 123 entries were skipped: 72 without four characters, 47 with an unconditional `while 1`, 4 without an `active` setup.
 - Every team passed the reference check, most with their first entry: the median gap to the database's DPS was 0.3%, the largest 7%. The harvest took 2 minutes on 4 CPUs.
-- The full validation (`cmd/validate -iter 20 -j 4`, 28 minutes) then removed 156 teams, listed in `teams/harvest-failed.txt`:
-  - 124 whose looped rotation stalls: a character waits 50 s/min or more, or the team deals no damage in the scoring window. 117 of them are Skirk teams whose burst never charges again in the loop;
-  - 27 whose looped rotation does not advance (a loop counter set once in the setup);
-  - 5 whose looped config gcsim rejects.
-- The library holds 4,273 teams: the 65 it held before (all kept) and 4,208 new ones.
-- 293 teams score more than 20% below their one pass. 193 of those come from sources with other conditions (several targets, other enemies), where the one pass is not comparable with the score; most others are short burst-window configs (one pass under 40 s) or rotations that rely on starting energy.
+- The full validation (`cmd/validate -iter 20 -j 4`, 28 minutes) then failed 156 teams: 124 whose looped rotation stalled (117 Skirk teams whose opening burst cannot be charged again in the loop), 27 whose looped rotation did not advance (a loop counter set once in the setup) and 5 whose looped config gcsim rejects. 293 more scored over 20% below their one pass, mostly one-cycle entries that open with every burst charged.
+- With the skipped-burst filler (§9) and the selection by kept score (§5.3), those 449 teams were harvested again in 12 minutes. 417 came back: every Skirk team, and for example Hu Tao / Yelan / Zhongli / Furina now keeps 94% of its one pass (it lost 42%) and Tartaglia / Bennett / Xiangling / Kazuha 100% (it lost 82%). 43 of them still keep less than 80%: their team has no entry that loops better.
+- 32 teams have no usable entry and are listed in `teams/harvest-failed.txt`: 24 never advance when looped, 5 stall, 3 are rejected by gcsim.
+- The library holds 4,397 teams.
 
 ## 7. Accuracy and Limitations
 
@@ -312,5 +310,5 @@ The first batch held the 64 teams with the most entries in the community databas
 2. ~~Enka UID → gcsim config converter~~ Done (`internal/enka`). Artifact substats come from Enka's rounded display values; crit rate differs from Enka's final stats by under 0.1%p.
 3. ~~Website with versus view~~ Done (`cmd/server`, `internal/web`), deployed at https://gscouter.altsky.info (§4.6).
 4. ~~Library format, import and validation~~ Done: `cmd/import` adds a team from a gcsim share link; `cmd/validate` checks that each team reproduces its source's DPS (§5.3). CI runs it. The `add-team` skill describes the workflow.
-5. ~~First library batch~~ Done: `cmd/harvest` took the 64 most simulated teams from the community gcsim database (§5.3), then every usable team, 4,273 after validation (§6.2). An earlier batch of 64 agent-written rotations was removed: written without sources, they scored a third of the community numbers.
+5. ~~First library batch~~ Done: `cmd/harvest` took the 64 most simulated teams from the community gcsim database (§5.3), then every usable team, 4,397 after validation (§6.2). An earlier batch of 64 agent-written rotations was removed: written without sources, they scored a third of the community numbers.
 6. Display names (Korean character and weapon names instead of gcsim keys)

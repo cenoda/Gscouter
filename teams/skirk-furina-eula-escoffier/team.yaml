@@ -1,0 +1,19 @@
+id: skirk-furina-eula-escoffier
+name: Skirk / Furina / Eula / Escoffier
+members:
+    - skirk
+    - furina
+    - eula
+    - escoffier
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Gm6KKKLCDT8m
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest constellations and refinements.'
+params:
+    skirk: start_serpents_subtlety=100
+reference:
+    dps: 106292
+    computed: "2026-10-01"

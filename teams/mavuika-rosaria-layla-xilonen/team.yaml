@@ -1,0 +1,17 @@
+id: mavuika-rosaria-layla-xilonen
+name: Mavuika / Rosaria / Layla / Xilonen
+members:
+    - mavuika
+    - rosaria
+    - layla
+    - xilonen
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/7bwDL6zLJNhM
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest constellations and refinements.'
+reference:
+    dps: 83369
+    computed: "2026-10-02"

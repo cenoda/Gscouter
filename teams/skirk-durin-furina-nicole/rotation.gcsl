@@ -1,0 +1,35 @@
+active furina;
+for let r=0; r<4; r=r+1 {
+  nicole skill;
+  furina skill, dash, attack:2, burst;
+  durin skill, attack, burst;
+  if r == 0 {
+    skirk burst,         
+        skill, 
+        attack:2, dash,
+        attack:2, charge, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, dash, 
+        attack:2, charge, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3;
+    furina swap;
+    wait(1339-f());
+  } else {
+    skirk skill, 
+        attack:2, burst,
+        attack:2, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:2, charge, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:2;
+  }
+}

@@ -1,0 +1,17 @@
+id: skirk-durin-furina-nicole
+name: Skirk / Durin / Furina / Nicole
+members:
+    - skirk
+    - durin
+    - furina
+    - nicole
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/WHFJgzbdggJf
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest constellations and refinements.'
+reference:
+    dps: 1.279735e+06
+    computed: "2026-10-02"

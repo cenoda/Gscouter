@@ -1,0 +1,16 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  xianyun skill, low_plunge, burst;
+  yelan burst;
+  xianyun attack, jump, low_plunge; 
+  yelan attack, skill, attack;
+  hutao skill;
+  for let j=0; j<5; j=j+1 {
+    hutao attack:2, charge, jump;
+    if .airborne {
+      hutao high_plunge[collision=rand()>0.5];
+    }
+  }
+  yelan skill, attack:2;
+}

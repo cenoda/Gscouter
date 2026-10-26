@@ -1,0 +1,21 @@
+active eula;
+raiden skill, attack;
+for let i=0; i<4; i=i+1 {
+  if i {
+    mika attack, burst;
+  }  
+  eula skill; 
+  if i {
+    eula attack:2;
+  }
+  if !.bennett.burst.ready {
+    bennett skill;
+  }
+  bennett burst;
+  mika skill[hold=1], attack;
+  if !.eula.burst.ready {
+    eula skill;
+  }
+  eula burst, walk, attack:4, skill[hold=1], attack:4;
+  raiden burst, attack:4, skill, attack:4, dash, attack:3;
+}

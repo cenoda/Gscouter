@@ -1,0 +1,53 @@
+fn rand_delay(mean, stddev) {
+  let del = randnorm() * stddev + mean;
+  if del > (mean + mean) {
+    del = mean + mean;
+  }
+  delay(del);
+}
+let prev_char_id = -1;
+let prev_action_id = -1;
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if prev_char_id != char_id && action_id != .action.swap {
+    execute_action(char_id, .action.swap, []);
+  }
+  if action_id == .action.swap {
+    
+    rand_delay(12, 3);
+  }
+  prev_char_id = char_id;
+  prev_action_id = action_id;
+  return _execute_action(char_id, action_id, p);
+}
+active bennett;
+for let r = 0; r < 4; r = r + 1 {
+  let src = f();
+  bennett skill, burst;
+  
+  if .fischl.skill.ready {
+    fischl attack, skill;
+  } else if .fischl.burst.ready {
+    fischl attack:2, burst;
+  }
+  
+  chevreuse burst, skill[hold=1];
+  
+  klee attack, burst, walk;
+  
+  while f() - src <= 17 * 60 { 
+    if .klee.skill.ready {
+      klee attack[travel=6], skill[bounce=3, mine=8], jump;
+    } else if .previous-action == .action.attack && ( .stam >= 50 || .klee.status.a1-spark ) {
+      klee charge;
+    } else if .klee.normal > 1 && .previous-action == .action.attack {
+      klee walk;
+    } else {
+      klee attack[travel=6];
+    }
+  }
+
+  if .previous-action == .action.charge {
+    klee attack[travel=6];
+  }
+}

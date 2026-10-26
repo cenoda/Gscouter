@@ -3,14 +3,14 @@
 hutao char lvl=90/90 cons=1 talent=9,9,9;
 hutao add weapon="balladofthefjords" refine=1 lvl=90/90;
 hutao add set="shime" count=4;
-hutao add stats hp=4780 atk=311 hp%=0.466 pyro%=0.466 cr=0.311;
+hutao add stats hp=4780 atk=311 em=187 pyro%=0.466 cr=0.311;
 hutao add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*4 atk=16.54*2 atk%=0.0496*2 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*12;
 
 fischl char lvl=90/90 cons=6 talent=9,9,9;
-fischl add weapon="chainbreaker" refine=5 lvl=90/90;
-fischl add set="gt" count=4;
+fischl add weapon="sacbow" refine=5 lvl=90/90;
+fischl add set="gift" count=4;
 fischl add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cr=0.311;
-fischl add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*4 em=19.82*2 cr=0.0331*10 cd=0.0662*12;
+fischl add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*12;
 
 xingqiu char lvl=90/90 cons=6 talent=9,9,9;
 xingqiu add weapon="favoniussword" lvl=90/90 refine=5;
@@ -20,6 +20,6 @@ xingqiu add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 
 
 sucrose char lvl=90/90 cons=6 talent=9,9,9;
 sucrose add weapon="evenstar" refine=1 lvl=90/90;
-sucrose add set="cg" count=4;
+sucrose add set="viridescentvenerer" count=4;
 sucrose add stats hp=4780 atk=311 em=187 em=187 em=187;
 sucrose add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*12 em=19.82*6 cr=0.0331*8 cd=0.0662*2;

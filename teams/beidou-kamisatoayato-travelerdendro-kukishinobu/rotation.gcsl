@@ -1,4 +1,3 @@
-set_player_pos(0.7, -1.5);
 active ayato;
 ayato burst[radius=2];
 for let i=0; i<5; i=i+1{
@@ -6,6 +5,7 @@ for let i=0; i<5; i=i+1{
   luminedendro skill, burst, attack:2;
   kuki skill, attack;
   ayato skill, attack:15;
+  beidou skill[counter=1], attack:2;
   luminedendro skill, attack:3;
-  ayato skill, attack:7, burst;
+  ayato attack:2, skill, attack:8, burst;
 }

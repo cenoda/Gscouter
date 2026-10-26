@@ -1,0 +1,17 @@
+id: faruzan-fischl-nahida-lanyan
+name: Faruzan / Fischl / Nahida / Lanyan
+members:
+    - faruzan
+    - fischl
+    - nahida
+    - lanyan
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/J8khFKnTL9pj
+notes: 'Harvested from the KQM gcsim database: 2 entries use this team; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest constellations and refinements.'
+reference:
+    dps: 94194
+    computed: "2026-10-01"

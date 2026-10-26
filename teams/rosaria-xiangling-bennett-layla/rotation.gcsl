@@ -1,0 +1,16 @@
+active layla;
+for let i=0; i<4; i=i+1 {
+  layla skill,attack, burst;
+  bennett burst, skill;
+  rosaria skill, attack, burst;
+  xiangling attack, burst, skill;
+  rosaria attack, skill;
+  layla skill, attack, burst;
+  bennett attack, skill;
+  xiangling attack:2;
+  bennett attack, skill;
+  xiangling attack:2;
+  rosaria attack,skill;
+  bennett attack,skill;
+  xiangling attack:2;
+}

@@ -1,23 +1,15 @@
 active furina;
-for let i=0; i<3; i=i+1 {
+for let i=0; i<4; i=i+1 {
   
-  if i {
-    xiangling attack:3;
-  }
-  
-  furina skill, dash, burst;
-  
-  xingqiu burst, attack;
-  
-  bennett burst, attack, skill;
-  
-  xiangling burst, attack, skill, attack;
-  
-  xingqiu attack, skill, dash, attack:2;
-  
-  bennett attack:2, skill,
-          attack:3, skill,
-          attack:3, skill,
-          attack:3, skill;
-  
+  furina skill,burst;
+  xingqiu burst,attack;
+  bennett burst,attack,skill;
+  xiangling burst,attack,skill,attack;
+  bennett attack,skill,attack;
+  xiangling attack:3;
+  xingqiu attack:2,dash;
+  bennett attack,skill,attack;
+  xingqiu attack,skill,dash,attack:2;
+  bennett attack:2,skill;
+  xiangling attack:3;
 }
