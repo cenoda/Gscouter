@@ -1,0 +1,24 @@
+id: nefer-lauma-columbina-nilou
+name: Nefer / Lauma / Columbina / Nilou
+members:
+    - nefer
+    - lauma
+    - columbina
+    - nilou
+archetype: Dendro Lunar-Bloom
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: 91c5de4
+sources:
+    - https://keqingmains.com/q/nilou-quickguide/
+notes: 'Added on request (both Columbina and Nilou). Written from the KQM Nilou quick guide (design §5.4), Nilou / Nefer / Lauma / Columbina, Nefer''s best team with Nilou there: (Lauma N1) > Columbina EQ > Lauma hEQ > Nilou E N2 E > Nefer combo > Columbina CD, Lauma''s N1 first rotation only. Nefer combo as in the other Nefer teams: E 3[CD] E 3[CD], burst when ready. Build: Nefer, Lauma (4pc Deepwood) and Columbina (4pc SMS) as in the Sucrose team; Nilou 4pc Instructor, as the guide suggests when another member holds SMS. Lauma holds her skill when there is Dew, otherwise taps it. Waits: none above 2 s/min; no energy waits. Nilou: C0, Favonius Sword R5, HP/HP/HP with support substats; the guide says her stats matter little in Lunar-Bloom and she needs no ER, so her burst is used when ready. Nefer''s Seeds of Deceit take every Dendro Core, so Nilou makes no Bountiful Cores, as the guide says. Her A1 EM buff needs a party member to be hit by Dendro attacks; with the cores turned into Seeds that is rare here (about 1 shade hit in 8 has it). Nefer''s charged attacks are held (Slither) until Verdant Dew turns them into Phantasm Performance. Fork notes as in Nefer / Lauma / Columbina / Sucrose.'
+cross_check:
+    note: 'No public number for this team (searched 2026-10-27: the KQM Nilou quick guide gives none; web searches found team lists and community discussion only). For scale, at the same Nefer build: Nefer / Lauma / Columbina / Sucrose 168.7k looped (183k in game, HoYoLAB 44026962), with Nahida 165.3k; this team 164.4k one pass, 156.3k looped.'
+validation:
+    date: "2026-10-27"
+    iterations: 100
+    kept: 0.949
+    dps: 156215
+    draft: no reference DPS

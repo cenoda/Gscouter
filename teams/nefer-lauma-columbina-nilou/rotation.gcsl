@@ -1,0 +1,37 @@
+# KQM Nilou quick guide, Nilou / Nefer / Lauma / Columbina:
+#   (Lauma N1)1 > Columbina EQ > Lauma hEQ > Nilou E N2 E > Nefer combo >
+#   Columbina CD
+#   1 first rotation only
+# Nefer combo as in the other Nefer teams (Nefer quick guide):
+# E 3[CD] E 3[CD], burst when ready. Nilou's burst when ready (the guide:
+# she does not need ER). Lauma holds her skill when there is Verdant Dew,
+# otherwise taps it. Nefer's charged attacks are held (Slither) until Dew
+# turns them into Phantasm Performance.
+active lauma;
+let first = 1;
+if first == 1 {
+  lauma attack;
+  first = 0;
+}
+columbina skill;
+if .columbina.burst.ready {
+  columbina burst;
+}
+if .dew > 0 {
+  lauma skill[hold=1];
+} else {
+  lauma skill;
+}
+if .lauma.burst.ready {
+  lauma burst;
+}
+nilou skill, attack:2, skill;
+if .nilou.burst.ready {
+  nilou burst;
+}
+nefer skill, charge[hold=150], dash, charge[hold=150], dash, charge[hold=150], dash,
+      skill, charge[hold=150], dash, charge[hold=150], dash, charge[hold=150];
+if .nefer.burst.ready {
+  nefer burst;
+}
+columbina charge, dash;

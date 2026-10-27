@@ -1,0 +1,25 @@
+id: nefer-linnea-lauma-nilou
+name: Nefer / Linnea / Lauma / Nilou
+members:
+    - nefer
+    - linnea
+    - lauma
+    - nilou
+archetype: Dendro Lunar-Bloom
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: 91c5de4
+sources:
+    - https://keqingmains.com/q/linnea-quickguide/
+    - https://keqingmains.com/q/nilou-quickguide/
+notes: 'Added on request: Nefer / Linnea / Lauma / Columbina with Nilou for Columbina. No guide gives this team: the Linnea quick guide''s rotation for the Columbina team with Nilou''s E N2 E from the KQM Nilou quick guide in Columbina''s place, (Nefer N1) > Nilou E N2 E > Linnea 5[E] > Lauma (N1) hE Q > Nefer E 3[CD] E 3[CD] (Q), the N1s first rotation only. Linnea''s Ultimate Power Form is one press and three recasts in gcsim; her burst is left out, as in the Columbina team. Build: Nefer, Linnea and Lauma (4pc Deepwood) as in the Columbina team; Nilou 4pc SMS. Linnea is Geo, so Nilou''s Golden Chalice is off. Lauma holds her skill when there is Dew, otherwise taps it. Waits: Nilou 4.4 s/min and Linnea 3.4 s/min for their 18 s skills (17.2 s rotation); no energy waits. Nilou: C0, Favonius Sword R5, HP/HP/HP with support substats; the guide says her stats matter little in Lunar-Bloom and she needs no ER, so her burst is used when ready. Nefer''s Seeds of Deceit take every Dendro Core, so Nilou makes no Bountiful Cores, as the guide says. Her A1 EM buff needs a party member to be hit by Dendro attacks; with the cores turned into Seeds that is rare here (about 1 shade hit in 8 has it). Nefer''s charged attacks are held (Slither) until Verdant Dew turns them into Phantasm Performance. Fork notes as in Nefer / Lauma / Columbina / Sucrose.'
+cross_check:
+    note: 'No public number for this team (searched 2026-10-27: the KQM Nilou quick guide gives none; web searches found team lists and community discussion only). For scale, at the same Nefer build: with Columbina instead of Nilou the team is 166.5k looped; this one 95.5k one pass, 93.9k looped.'
+validation:
+    date: "2026-10-27"
+    iterations: 100
+    kept: 0.991
+    dps: 93831
+    draft: no reference DPS

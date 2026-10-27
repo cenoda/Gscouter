@@ -385,6 +385,20 @@ Written from the example teams of the KQM quick guides, so that every character 
 
 **Added on request**: Nefer / Lauma / Columbina / Nahida, with the rotation the Lauma and Columbina quick guides both give for it, `(Nefer E) > Columbina E Q > Nahida E Q > Lauma hE Q > Nefer E 3[CD] E 3[CD] (Q)`. Nefer, Lauma and Columbina as in the Sucrose team (Lauma with 4pc Gilded Dreams, since Nahida holds Deepwood), Nahida Widsith R5 and 4pc Deepwood. 140.5k one pass, 165.3k looped (1000 iterations), against 168.7k for the Sucrose team, which the community calls the strongest. No public number for this team.
 
+**Added on request: Nilou** (all draft; a request: Nefer / Lauma / Columbina / Nilou is played, and Nilou can take Columbina's place in Nefer teams). Rotations from the KQM Nilou quick guide, which lists Nilou / Nefer / Lauma / Columbina, Nahida or Sucrose with a rotation each; Nilou plays `E N2 E`, C0 with Favonius Sword R5, since the guide says her stats matter little and she needs no ER. The Linnea team has no guide: the Linnea guide's rotation with Nilou's `E N2 E` in Columbina's place. Looped (1000 iterations), next to the Columbina version at the same Nefer build:
+
+| Team | Looped | With Columbina instead |
+|---|---|---|
+| Nefer / Lauma / Columbina / Nilou | 156.3k | — |
+| Nefer / Lauma / Nilou / Sucrose | 113.2k | 168.7k |
+| Nefer / Lauma / Nilou / Nahida | 104.9k | 165.3k |
+| Nefer / Linnea / Lauma / Nilou | 93.9k | 166.5k |
+
+- Nefer's Seeds of Deceit take every Dendro Core, so Nilou makes no Bountiful Cores, as the guide says.
+- Replacing Columbina costs 32–44%. Columbina deals about 12–15% of her teams' damage herself, and her Moonridge Dew adds to the Verdant Dew: in a 120 s fight Nefer gets 39 Phantasm Performances with Columbina and Nahida, 32 with Nilou and Nahida.
+- Nilou's A1 EM buff (+100 when a member under Golden Chalice is hit by Dendro attacks) comes from Dendro Cores bursting on the party; with the cores turned into Seeds it is rare (about 1 shade hit in 8 has it). Whether the game behaves the same is not checked. Golden Chalice is off with Sucrose or Linnea in the team.
+- No public number for any of them.
+
 **Display**
 - `team.yaml` gets `tier: experimental` (`library.TierExperimental`; no tier means verified). Loading checks it: a team needs the tier when a member is in `library.ForkOnly`, and may have it otherwise only when its rotation is written (`library.Team.Written`, no `reference`), so a team with a fork-only character cannot pass as verified, nor a team from a community config carry the badge. Teams with a fork-only member also record `gcsim_fork`, the fork commit they were written for: `gcsim_commit` names the upstream base, which a fix on the fork leaves unchanged, so without it a score change from a fork fix could not be told apart. `cmd/import` and `cmd/harvest` set both fields for a team with a fork-only member. `/teams` and the team header of result pages show an "Experimental" badge, in every site language, and the result adds a note that the score may change, saying why: a member is not in gcsim yet (`warn.experimental`), the rotation was written from a community guide (`warn.written`), or both. A versus page renders that header for each side, so the badge shows on the experimental side only. Link-preview cards do not show it yet.
 
@@ -410,7 +424,7 @@ Enka.Network's character list compared with the characters in gcsim `2350be9`. T
 | Character | Upstream state | Plan (§5.4) |
 |---|---|---|
 | Kachina (4★ Geo, 5.0) | Open PR #2697 (2026-07-25) | On the fork; frames partly estimated, known problems in §5.4. First team: Kachina / Furina / Qiqi / Noelle ("Cappuccino"), after Nefer's and Linnea's, since she adds little damage and few players use her |
-| Nefer (5★ Dendro, 6.1) | Open PR #3045 (2026-09-20), no review yet; an earlier draft, #2587, was closed | On the fork; frames counted, known problems in §5.4. Draft teams: Nefer / Lauma / Columbina / Sucrose (179.3k one pass, 183k in game in the HoYoLAB showcase it comes from), Nefer / Linnea / Lauma / Columbina (150.1k), Nefer / Lauma / Columbina / Nahida (140.5k one pass, 165.3k looped); nine more in the second batch |
+| Nefer (5★ Dendro, 6.1) | Open PR #3045 (2026-09-20), no review yet; an earlier draft, #2587, was closed | On the fork; frames counted, known problems in §5.4. Draft teams: Nefer / Lauma / Columbina / Sucrose (179.3k one pass, 183k in game in the HoYoLAB showcase it comes from), Nefer / Linnea / Lauma / Columbina (150.1k), Nefer / Lauma / Columbina / Nahida (140.5k one pass, 165.3k looped), four with Nilou (93.9k–156.3k looped, §5.4); nine more in the second batch |
 | Linnea (5★ Geo) | Open PR #2596 (2026-04-19) | On the fork; frames partly counted, known problems in §5.4. Draft teams: Zibai / Linnea / Columbina / Gorou (235.9k one pass; the community reports about 200k for C0 Zibai with Illuga), Nefer / Linnea / Lauma / Columbina; rotations from the KQM Linnea and Zibai quick guides |
 | Lohen (5★ Cryo) | None | Implement |
 | Sandrone (5★ Cryo) | None | Implement |
