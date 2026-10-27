@@ -6,6 +6,6 @@ status: blocked
 rotation_version: 0
 gcsim_commit: 2350be9
 tier: experimental
-gcsim_fork: 87338fd
+gcsim_fork: fc10145
 sources: []
 notes: "Vesna and Vodyanitsa are both on the fork (87338fd), but no community rotation or config for this team exists yet, so it has no rotation."
