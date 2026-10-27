@@ -362,8 +362,8 @@ The first batch held the 64 teams with the most entries in the community databas
 - The full validation (`cmd/validate -iter 20 -j 4`, 28 minutes) then failed 156 teams: 124 whose looped rotation stalled (117 Skirk teams whose opening burst cannot be charged again in the loop), 27 whose looped rotation did not advance (a loop counter set once in the setup) and 5 whose looped config gcsim rejects. 293 more scored over 20% below their one pass, mostly one-cycle entries that open with every burst charged.
 - With the skipped-burst filler (§9) and the selection by kept score (§5.3), those 449 teams were harvested again in 12 minutes. 417 came back: every Skirk team, and for example Hu Tao / Yelan / Zhongli / Furina now keeps 94% of its one pass (it lost 42%) and Tartaglia / Bennett / Xiangling / Kazuha 100% (it lost 82%). 43 of them still keep less than 80%: their team has no entry that loops better.
 - 32 teams have no usable entry and are listed in `teams/harvest-failed.txt`: 24 never advance when looped, 5 stall, 3 are rejected by gcsim.
-- The library holds 4,397 teams.
-- `cmd/validate -promote -iter 20 -j 4` (50 minutes) then set 4,340 teams to `supported`. 56 stay `draft`: 5 are more than 5% from their source, 41 keep less than 80% of their one pass, 8 more than 130%, and 2 Ningguang / Chiori teams ran out of time on a loaded machine (one also keeps 5,137%: its one pass under the common conditions barely deals damage).
+- `cmd/validate -promote -iter 20 -j 4` (50 minutes) then set 4,340 teams to `supported` and recorded each result (§5.1). 55 stay `draft`: 5 are more than 5% from their source, 41 keep less than 80% of their one pass when looped and 9 more than 130% (Ningguang / Xingqiu / Bennett / Chiori keeps 5,137%: its one pass under the common conditions barely deals damage). Ningguang / Yelan / Xingqiu / Chiori was removed: its check does not finish within two minutes. A second run changed no team's status.
+- The library holds 4,396 teams.
 
 ## 7. Accuracy and Limitations
 

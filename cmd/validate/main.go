@@ -116,7 +116,15 @@ func main() {
 // record writes the check's result to team.yaml with the status it
 // earns, and says so when the status changes.
 func record(r *validate.Report, iterations int) error {
-	if r.Team == nil || r.Team.Status == library.StatusBlocked {
+	if r.Team == nil {
+		// A check that timed out reports no team.
+		team, err := library.Load(r.Dir)
+		if err != nil {
+			return nil
+		}
+		r.Team = team
+	}
+	if r.Team.Status == library.StatusBlocked {
 		return nil
 	}
 	v := r.Validation(iterations)
