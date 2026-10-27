@@ -1,0 +1,24 @@
+# KQM Nilou quick guide, Nilou / Nefer / Lauma / Nahida:
+#   Nahida EQ > Lauma tEQ > Nilou E N2 E > Nefer combo
+# Nefer combo as in the other Nefer teams (Nefer quick guide):
+# E 3[CD] E 3[CD], burst when ready. Nahida's and Nilou's bursts when
+# ready (the guide: Nilou does not need ER). Nefer's charged attacks are
+# held (Slither) until Verdant Dew turns them into Phantasm Performance.
+active nahida;
+nahida skill;
+if .nahida.burst.ready {
+  nahida burst;
+}
+lauma skill;
+if .lauma.burst.ready {
+  lauma burst;
+}
+nilou skill, attack:2, skill;
+if .nilou.burst.ready {
+  nilou burst;
+}
+nefer skill, charge[hold=150], dash, charge[hold=150], dash, charge[hold=150], dash,
+      skill, charge[hold=150], dash, charge[hold=150], dash, charge[hold=150];
+if .nefer.burst.ready {
+  nefer burst;
+}

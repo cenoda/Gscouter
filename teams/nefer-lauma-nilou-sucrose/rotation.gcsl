@@ -1,0 +1,25 @@
+# KQM Nilou quick guide, Nilou / Nefer / Lauma / Sucrose:
+#   Lauma tEQ > Nilou E N2 E > Sucrose N1 E (Q) > Nefer combo
+#   Sucrose's burst when available
+# Nefer combo as in the other Nefer teams (Nefer quick guide):
+# E 3[CD] E 3[CD], burst when ready. Nilou's burst when ready (the guide:
+# she does not need ER). Nefer's charged attacks are held (Slither) until
+# Verdant Dew turns them into Phantasm Performance.
+active lauma;
+lauma skill;
+if .lauma.burst.ready {
+  lauma burst;
+}
+nilou skill, attack:2, skill;
+if .nilou.burst.ready {
+  nilou burst;
+}
+sucrose attack, skill;
+if .sucrose.burst.ready {
+  sucrose burst;
+}
+nefer skill, charge[hold=150], dash, charge[hold=150], dash, charge[hold=150], dash,
+      skill, charge[hold=150], dash, charge[hold=150], dash, charge[hold=150];
+if .nefer.burst.ready {
+  nefer burst;
+}

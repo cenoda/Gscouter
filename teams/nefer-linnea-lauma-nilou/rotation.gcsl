@@ -1,0 +1,36 @@
+# No guide gives this team: the Linnea quick guide's rotation for
+# Linnea / Nefer / Lauma / Columbina with Nilou in Columbina's place,
+# playing her E N2 E from the KQM Nilou quick guide:
+#   (Nefer N1)1 > Nilou E N2 E > Linnea 5[E] > Lauma (N1)1 hE Q >
+#   Nefer E 3[CD] E 3[CD] (Q)
+#   1 first rotation only, for Verdant Dew stacking
+# Linnea's Ultimate Power Form is one press and three recasts in gcsim
+# (the guide's 5[E]); her burst is left out, as in the Columbina team.
+# Lauma holds her skill when there is Verdant Dew, otherwise taps it.
+active nefer;
+let first = 1;
+if first == 1 {
+  nefer attack;
+}
+nilou skill, attack:2, skill;
+if .nilou.burst.ready {
+  nilou burst;
+}
+linnea skill, skill, skill, skill;
+if first == 1 {
+  lauma attack;
+  first = 0;
+}
+if .dew > 0 {
+  lauma skill[hold=1];
+} else {
+  lauma skill;
+}
+if .lauma.burst.ready {
+  lauma burst;
+}
+nefer skill, charge[hold=150], dash, charge[hold=150], dash, charge[hold=150], dash,
+      skill, charge[hold=150], dash, charge[hold=150], dash, charge[hold=150];
+if .nefer.burst.ready {
+  nefer burst;
+}

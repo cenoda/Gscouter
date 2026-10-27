@@ -1,0 +1,34 @@
+# Lauma and Columbina quick guides, Nefer / Lauma / Columbina / Nahida:
+#   (Nefer E)1 > Columbina E Q > Nahida E Q > Lauma hE Q >
+#   Nefer E 3[CD] E 3[CD] (Q)2
+#   1 first rotation only, for Verdant Dew stacking; 2 whenever available
+# Lauma holds her skill when there is Verdant Dew, otherwise taps it.
+# Nefer's charged attacks are held (Slither) until Dew turns them into
+# Phantasm Performance.
+active nefer;
+let first = 1;
+if first == 1 {
+  nefer skill;
+  first = 0;
+}
+columbina skill;
+if .columbina.burst.ready {
+  columbina burst;
+}
+nahida skill;
+if .nahida.burst.ready {
+  nahida burst;
+}
+if .dew > 0 {
+  lauma skill[hold=1];
+} else {
+  lauma skill;
+}
+if .lauma.burst.ready {
+  lauma burst;
+}
+nefer skill, charge[hold=150], dash, charge[hold=150], dash, charge[hold=150], dash,
+      skill, charge[hold=150], dash, charge[hold=150], dash, charge[hold=150];
+if .nefer.burst.ready {
+  nefer burst;
+}

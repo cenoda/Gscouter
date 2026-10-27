@@ -1,0 +1,25 @@
+id: nefer-lauma-columbina-nahida
+name: Nefer / Lauma / Columbina / Nahida
+members:
+    - nefer
+    - lauma
+    - columbina
+    - nahida
+archetype: Dendro Lunar-Bloom
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: 91c5de4
+sources:
+    - https://keqingmains.com/q/lauma-quickguide/
+    - https://keqingmains.com/q/columbina-quickguide/
+notes: 'Added on request. Written from the community guides (design §5.4): the Lauma and Columbina quick guides both give this team''s rotation, (Nefer E) > Columbina E Q > Nahida E Q > Lauma hE Q > Nefer E 3[CD] E 3[CD] (Q), Nefer''s E first rotation only for Verdant Dew stacking, her burst whenever available. Build at the level of the Nefer / Lauma / Columbina / Sucrose cross-check: Nefer and Columbina as there; Lauma the same with 4pc Gilded Dreams, since Nahida holds Deepwood and Columbina SMS; Nahida Widsith R5, 4pc Deepwood, EM/EM/CRIT. Lauma holds her skill when there is Dew, otherwise taps it (in the checks she always held it). Nefer''s charged attacks are held (Slither) until Dew turns them into Phantasm Performance. Waits: none above 2 s/min; the score fills Nefer''s skill cooldown with attacks. No energy waits. Fork notes as in Nefer / Lauma / Columbina / Sucrose.'
+cross_check:
+    note: 'No public number for this team (searched 2026-10-27: a showcase video lists none; KQM quick guides, KQM TCL and the community gcsim database have none). For scale: at the same build level the Sucrose team, 183k in game (HoYoLAB 44026962), scores 168.7k looped here and this one 165.3k, in line with that post calling the Sucrose team the strongest.'
+validation:
+    date: "2026-10-27"
+    iterations: 100
+    kept: 1.178
+    dps: 164945
+    draft: no reference DPS
