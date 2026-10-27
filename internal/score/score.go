@@ -26,6 +26,17 @@ import (
 // bucketFrames is the width of gcsim's damage buckets (pkg/stats/damage).
 const bucketFrames = 30
 
+// collectors are the gcsim stats a score is computed with. summarize
+// reads damage (buckets and contributions) and action (failed actions).
+// shield is not read but takes part in the fight: on every hit on the
+// player it queues a task, which reorders other tasks due the same
+// frame, so leaving it out changes the score of teams that are hit
+// (source conditions with hurt) and hold a shield, such as Dehya /
+// Furina / Albedo / Xilonen. The others only observe the fight, so
+// leaving them out changes no result, and saves their time and
+// allocations.
+var collectors = []string{"damage", "action", "shield"}
+
 type Options struct {
 	Iterations int
 	Workers    int     // 0 means runtime.NumCPU()
@@ -98,6 +109,7 @@ func RunIterations(ctx context.Context, cfg string, opts Options) ([]Iteration, 
 	if len(simcfg.Errors) > 0 {
 		return nil, fmt.Errorf("invalid config: %w", errors.Join(simcfg.Errors...))
 	}
+	simcfg.Settings.CollectStats = collectors
 	// A config without a duration runs until its action list ends.
 	if simcfg.Settings.Duration > 0 && simcfg.Settings.Duration <= opts.Warmup {
 		return nil, fmt.Errorf("duration %vs must be longer than warmup %vs", simcfg.Settings.Duration, opts.Warmup)

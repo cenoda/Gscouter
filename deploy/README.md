@@ -24,5 +24,6 @@ The VM pulls the image without credentials, so the `gscouter` package on GitHub 
 - Logs: `cd /opt/gscouter && docker compose logs -f`
 - Force an update now: `sudo systemctl start gscouter-update`
 - Change the domain: edit `/opt/gscouter/.env`, then force an update.
+- Short links live in the `gscouter_links` volume (`/data/links.db` in the app). The `links-owner` service gives the volume to the app's user on every start. To back them up: `docker run --rm -v gscouter_links:/data -v /opt/gscouter:/backup busybox:1.37 cp /data/links.db /backup/links-backup.db` (copy the `-wal` file too if there is one). Losing them breaks only short links: the long result links carry everything.
 
 Without SSH, use the Azure portal's "Run command" (RunShellScript) for these.
