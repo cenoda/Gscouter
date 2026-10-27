@@ -301,13 +301,25 @@ func looped(ctx context.Context, r *Report, build string, s Settings) {
 		}
 		r.Common = res
 	}
-	if msg := probe(ctx, build, team.Rotation, s); msg != "" {
+	rot, probed, msg := probe(ctx, build, team.Rotation, s)
+	if msg != "" {
 		r.Failures = append(r.Failures, msg)
 		return
 	}
 	out, err := steady.Score(team.Rotation, team.Members, func(looped string) (*score.Result, error) {
 		cfg := config.Assemble(config.Conditions{Iterations: s.Iterations, Duration: s.Duration}, build, looped)
-		res, err := score.Run(ctx, cfg, score.Options{Iterations: s.Iterations, Workers: s.Workers, Warmup: s.Warmup, Seed: 1})
+		opts := score.Options{Iterations: s.Iterations, Workers: s.Workers, Warmup: s.Warmup, Seed: 1}
+		var res *score.Result
+		var err error
+		if looped == rot && probed != nil {
+			// The probe was the first iteration of this run: the
+			// config differs only in the iteration count, which gcsim
+			// does not read.
+			res, err = rest(ctx, cfg, opts, probed)
+			probed = nil
+		} else {
+			res, err = score.Run(ctx, cfg, opts)
+		}
 		if err == nil {
 			// The last run is not necessarily the best; keep the best's config.
 			if r.Res == nil || res.DPS > r.Res.DPS {
@@ -354,26 +366,47 @@ func looped(ctx context.Context, r *Report, build string, s Settings) {
 }
 
 // probe runs one fight of the looped rotation and says why it failed,
-// or "" if it finished. A stuck fight keeps running until the process
-// exits; cmd/validate checks each team in its own process.
-func probe(ctx context.Context, build, rotation string, s Settings) string {
+// or "" if it finished. It returns the looped rotation and the fight,
+// which is the first iteration of the looped score (seed 1). A stuck
+// fight keeps running until the process exits; cmd/validate checks each
+// team in its own process.
+func probe(ctx context.Context, build, rotation string, s Settings) (string, []score.Iteration, string) {
 	rot, err := config.Loop(rotation)
 	if err != nil {
-		return "looped simulation: " + err.Error()
+		return "", nil, "looped simulation: " + err.Error()
 	}
 	cfg := config.Assemble(config.Conditions{Iterations: 1, Duration: s.Duration}, build, rot)
-	done := make(chan error, 1)
+	type result struct {
+		its []score.Iteration
+		err error
+	}
+	done := make(chan result, 1)
 	go func() {
-		_, err := score.Run(ctx, cfg, score.Options{Iterations: 1, Workers: 1, Warmup: s.Warmup, Seed: 1})
-		done <- err
+		its, err := score.RunIterations(ctx, cfg, score.Options{Iterations: 1, Workers: 1, Warmup: s.Warmup, Seed: 1})
+		done <- result{its, err}
 	}()
 	select {
-	case err := <-done:
-		if err != nil {
-			return "looped simulation: " + err.Error()
+	case res := <-done:
+		if res.err != nil {
+			return "", nil, "looped simulation: " + res.err.Error()
 		}
-		return ""
+		return rot, res.its, ""
 	case <-time.After(probeTimeout):
-		return fmt.Sprintf("the looped rotation does not advance: one fight did not end within %v (a loop that takes no action, such as a counter set once before it?)", probeTimeout)
+		return "", nil, fmt.Sprintf("the looped rotation does not advance: one fight did not end within %v (a loop that takes no action, such as a counter set once before it?)", probeTimeout)
 	}
+}
+
+// rest scores cfg's opts.Iterations iterations, of which the first are
+// done: it runs the others and scores them all as score.Run would.
+func rest(ctx context.Context, cfg string, opts score.Options, done []score.Iteration) (*score.Result, error) {
+	its := done[:min(len(done), opts.Iterations)]
+	if n := opts.Iterations - len(its); n > 0 {
+		opts.First, opts.Iterations = len(its), n
+		more, err := score.RunIterations(ctx, cfg, opts)
+		if err != nil {
+			return nil, err
+		}
+		its = append(slices.Clip(its), more...)
+	}
+	return score.Aggregate(its, opts.Warmup), nil
 }
