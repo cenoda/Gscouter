@@ -15,3 +15,9 @@ notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one
 reference:
     dps: 40039
     computed: "2026-10-02"
+validation:
+    date: "2026-10-27"
+    iterations: 20
+    gap: -0.01
+    kept: 0.998
+    dps: 39582

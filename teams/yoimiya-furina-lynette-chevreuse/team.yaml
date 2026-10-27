@@ -15,3 +15,10 @@ notes: 'Harvested from the KQM gcsim database: 1 entries use this team; of those
 reference:
     dps: 55177
     computed: "2026-10-02"
+validation:
+    date: "2026-10-27"
+    iterations: 20
+    gap: 0.008
+    kept: 0.713
+    dps: 39693
+    draft: the looped score keeps 71% of one pass, less than 80%

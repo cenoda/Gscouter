@@ -17,3 +17,9 @@ params:
 reference:
     dps: 94454
     computed: "2026-10-01"
+validation:
+    date: "2026-10-27"
+    iterations: 20
+    gap: -0.001
+    kept: 0.95
+    dps: 89572
