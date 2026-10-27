@@ -13,6 +13,8 @@ script.
 .sky { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; contain: strict;
   --sky-c: .55; --sky-a: .3; }
 @media (prefers-color-scheme: dark) { .sky { --sky-c: .3; --sky-a: .6; } }
+/* In daylight the lines are lit: a white halo against the pale blue sky. */
+@media (prefers-color-scheme: light) { .sky .c, .sky .a { filter: drop-shadow(0 0 3px #fff); } }
 .sky svg { position: absolute; display: block; fill: none; stroke: var(--sky-ink); color: var(--sky-ink); }
 .sky .c { opacity: var(--sky-c); }
 .sky .a { opacity: var(--sky-a); }
