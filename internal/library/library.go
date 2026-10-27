@@ -48,6 +48,7 @@ var ForkOnly = map[string]bool{
 	"lohen":      true,
 	"nefer":      true,
 	"sandrone":   true,
+	"vesna":      true,
 	"vodyanitsa": true,
 }
 
