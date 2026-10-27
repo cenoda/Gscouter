@@ -475,6 +475,26 @@ function copyLink(btn) {
     return w;
   }
 
+  // Finished simulations are kept for the tab's session: they don't
+  // depend on the language, so switching it (a reload) renders the page
+  // again without calculating it again.
+  var saved = "gscouter.run:";
+  function recall(key) {
+    try { return sessionStorage.getItem(saved + key); } catch (e) { return null; }
+  }
+  function keep(key, result) {
+    for (var tries = 0; tries < 2; tries++) {
+      try { return sessionStorage.setItem(saved + key, result); } catch (e) {}
+      // Full: make room by forgetting the older simulations.
+      try {
+        for (var i = sessionStorage.length - 1; i >= 0; i--) {
+          var k = sessionStorage.key(i);
+          if (k && k.lastIndexOf(saved, 0) === 0) sessionStorage.removeItem(k);
+        }
+      } catch (e) { return; }
+    }
+  }
+
   // Simulations the lead asked for, split into chunks of iterations.
   var queue = [], runs = {}, count = 0, idle = [];
   function pump() {
@@ -506,7 +526,9 @@ function copyLink(btn) {
         show(run);
         if (--run.left === 0) {
           delete runs[m.run];
-          lead.postMessage({type: "runResult", id: run.id, result: "[" + run.parts.filter(Boolean).join(",") + "]"});
+          var result = "[" + run.parts.filter(Boolean).join(",") + "]";
+          keep(run.key, result);
+          lead.postMessage({type: "runResult", id: run.id, result: result});
         }
         idle.push(h);
         pump();
@@ -519,8 +541,13 @@ function copyLink(btn) {
         lead.postMessage({type: "job", job: job});
         break;
       case "run":
+        var cached = m.warmup + " " + m.seed + " " + m.iterations + "\n" + m.cfg, result = recall(cached);
+        if (result !== null) {
+          lead.postMessage({type: "runResult", id: m.id, result: result});
+          break;
+        }
         var key = count++, size = Math.max(1, Math.ceil(m.iterations / (2 * helpers.length)));
-        var run = runs[key] = {id: m.id, n: count, iterations: m.iterations, finished: 0, left: 0, parts: []};
+        var run = runs[key] = {id: m.id, key: cached, n: count, iterations: m.iterations, finished: 0, left: 0, parts: []};
         for (var first = 0; first < m.iterations; first += size) {
           queue.push({run: key, index: run.left++, cfg: m.cfg, warmup: m.warmup, seed: m.seed, first: first, count: Math.min(size, m.iterations - first)});
         }
