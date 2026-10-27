@@ -18,7 +18,8 @@
 // (validation: the looped score, how much of one pass it keeps and how
 // far one pass is from the source) and sets status: supported on teams
 // that meet the criteria for it (validate.Report.Unpromotable), draft on
-// the others. Blocked teams are left alone. A looped score that moved
+// the others. It never promotes an experimental team, which a person
+// reviews first. Blocked teams are left alone. A looped score that moved
 // more than 5% from the recorded one is a warning.
 package main
 
@@ -129,8 +130,15 @@ func record(r *validate.Report, iterations int) error {
 	}
 	v := r.Validation(iterations)
 	want := library.StatusSupported
-	if v.Draft != "" {
+	switch {
+	case v.Draft != "":
 		want = library.StatusDraft
+	case r.Team.Tier == library.TierExperimental && r.Team.Status != library.StatusSupported:
+		// A person reviews an experimental team before it is
+		// supported (design §5.4); the criteria can still return it to
+		// draft.
+		want = library.StatusDraft
+		v.Draft = "experimental: a person reviews it before it is supported"
 	}
 	if err := library.Record(r.Dir, want, share.GcsimCommit, v); err != nil {
 		return err

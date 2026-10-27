@@ -89,7 +89,9 @@ GOTOOLCHAIN=auto go run ./cmd/validate -detail teams/<id>   # actions, damage by
   It records the result in `team.yaml` (`validation`: looped DPS,
   `kept`, `gap`, and on a draft team the criterion it misses); a looped
   score more than 5% from the recorded one is a warning.
-  Result pages warn on draft teams. Blocked teams are left alone. Run it
+  Result pages warn on draft teams. Blocked teams are left alone, and
+  experimental teams (`tier: experimental`) are never promoted: a person
+  reviews them first. Run it
   on every team you add, and on the whole library after a gcsim update:
 
   ```sh
