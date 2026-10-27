@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 
 	"github.com/cenoda/gscouter/internal/library"
@@ -14,6 +15,10 @@ import (
 // GcsimCommit is the upstream gcsim commit that the fork in go.mod is
 // based on, recorded on each team.
 const GcsimCommit = "2350be9"
+
+// GcsimFork is the commit of the fork in go.mod, recorded on experimental
+// teams: a fix on the fork changes their scores but not GcsimCommit.
+const GcsimFork = "f251d17"
 
 // Team builds the library entry for a split config. Its ID joins the
 // members' canonical names in config order.
@@ -40,6 +45,10 @@ func (sp Split) Team(sources []string, ref *library.Reference, notes string) (*l
 	}
 	if len(sp.Params) > 0 {
 		t.Params = sp.Params
+	}
+	if slices.ContainsFunc(ids, func(k string) bool { return library.ForkOnly[k] }) {
+		t.Tier = library.TierExperimental
+		t.GcsimFork = GcsimFork
 	}
 	return t, nil
 }

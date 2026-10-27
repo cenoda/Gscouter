@@ -53,8 +53,12 @@ type Team struct {
 	Tier            Tier     `yaml:"tier,omitempty"`
 	RotationVersion int      `yaml:"rotation_version"`
 	GcsimCommit     string   `yaml:"gcsim_commit"`
-	Sources         []string `yaml:"sources"`
-	Notes           string   `yaml:"notes"`
+	// GcsimFork is the commit of Gscouter's gcsim fork an experimental
+	// team was written for. GcsimCommit stays the upstream base, which a
+	// fix on the fork does not change.
+	GcsimFork string   `yaml:"gcsim_fork,omitempty"`
+	Sources   []string `yaml:"sources"`
+	Notes     string   `yaml:"notes"`
 	// Params are gcsim character params the rotation assumes, by member
 	// key, e.g. {hutao: "start_hp=1"}. They are added to the player's
 	// character line.
@@ -108,6 +112,9 @@ func LoadFS(fsys fs.FS, dir string) (*Team, error) {
 			return nil, fmt.Errorf("team %q: has a character only the gcsim fork has, so it needs tier: experimental", t.ID)
 		}
 		return nil, fmt.Errorf("team %q: tier experimental, but every member is in upstream gcsim", t.ID)
+	}
+	if (t.GcsimFork != "") != forkOnly {
+		return nil, fmt.Errorf("team %q: gcsim_fork goes with tier experimental, and only with it", t.ID)
 	}
 	rotation, err := fs.ReadFile(fsys, path.Join(dir, "rotation.gcsl"))
 	if err != nil && (t.Status != StatusBlocked || !errors.Is(err, fs.ErrNotExist)) {

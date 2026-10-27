@@ -189,6 +189,9 @@ members: [hutao, xingqiu, zhongli, yelan]
 status: draft            # supported | draft | blocked
 rotation_version: 1
 gcsim_commit: 2350be9    # gcsim version used for validation
+# experimental teams also have (§5.4):
+# tier: experimental
+# gcsim_fork: f251d17    # commit of the gcsim fork
 sources:
   - https://db.kqm.gg/db/B7cTMcwpmp7F
 notes: 'Harvested from the KQM gcsim database: ...'
@@ -257,7 +260,7 @@ Goal: every released character can be scored, including the ones upstream gcsim 
 **Fork**
 - A fork of gcsim under the project's GitHub account, used through a `replace` directive in `go.mod`: the `gscouter` branch of [cenoda/gcsim](https://github.com/cenoda/gcsim/tree/gscouter). It is upstream `main` plus one group of commits per added character, so a gcsim update is a rebase of those groups.
   - A group taken from an upstream PR starts with the PR squashed into one commit under its author's name, unchanged; our fixes follow as separate commits, so they can be offered back to the PR.
-  - After a rebase: `go mod edit -replace` to the new commit, `internal/enka/gen.sh` (Enka mapping and names), `library.ForkOnly` updated for characters added to the fork or merged upstream, the fork's own `go test ./...` (its frame and ability tests cover every character), and the regression run below.
+  - After a rebase: `go mod edit -replace` to the new commit, `internal/enka/gen.sh` (Enka mapping and names), `library.ForkOnly` updated for characters added to the fork or merged upstream, `share.GcsimFork` set to the new fork commit (a test checks it against `go.mod`), the fork's own `go test ./...` (its frame and ability tests cover every character), and the regression run below.
 - Each added character comes, in order of preference, from an open upstream PR (Nefer, Linnea, Kachina have one) or from our own implementation. Multipliers come from gcsim's data pipeline either way.
 - Each added character records its source (PR or ours), where each action's frame data comes from (measured, taken from the PR, or estimated from a similar character) and its known gaps. The result page links them.
 - Our own implementations are also sent upstream as PRs. Review there improves accuracy, and every merge ends the fork's cost for that character.
@@ -287,7 +290,7 @@ Shared code: Nefer's PR changes how Verdant Dew is collected so that her P2 and 
   - review by a person before `status: supported`.
 
 **Display**
-- `team.yaml` gets `tier: experimental` (`library.TierExperimental`; no tier means verified). Loading checks it: a team needs the tier exactly when a member is in `library.ForkOnly`, so a team with a fork-only character cannot pass as verified, nor a verified team carry the badge. `/teams` and the team header of result pages show an "Experimental" badge, in every site language, and the result adds a note that the score may change. A versus page renders that header for each side, so the badge shows on the experimental side only. Link-preview cards do not show it yet. No team uses the tier yet.
+- `team.yaml` gets `tier: experimental` (`library.TierExperimental`; no tier means verified). Loading checks it: a team needs the tier exactly when a member is in `library.ForkOnly`, so a team with a fork-only character cannot pass as verified, nor a verified team carry the badge. Experimental teams also record `gcsim_fork`, the fork commit they were written for: `gcsim_commit` names the upstream base, which a fix on the fork leaves unchanged, so without it a score change from a fork fix could not be told apart. `cmd/import` and `cmd/harvest` set both fields for a team with a fork-only member. `/teams` and the team header of result pages show an "Experimental" badge, in every site language, and the result adds a note that the score may change. A versus page renders that header for each side, so the badge shows on the experimental side only. Link-preview cards do not show it yet. No team uses the tier yet.
 
 ## 6. Initial Library
 
