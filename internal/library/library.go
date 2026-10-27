@@ -34,6 +34,16 @@ const (
 	TierExperimental Tier = "experimental"
 )
 
+// ForkOnly holds the characters that only Gscouter's gcsim fork has, by
+// canonical key (design §5.4). A team is experimental exactly when it has
+// one of them. Update it whenever a character is added to the fork or
+// upstream merges one.
+var ForkOnly = map[string]bool{
+	"kachina": true,
+	"linnea":  true,
+	"nefer":   true,
+}
+
 type Team struct {
 	ID              string   `yaml:"id"`
 	Name            string   `yaml:"name"`
@@ -91,6 +101,13 @@ func LoadFS(fsys fs.FS, dir string) (*Team, error) {
 	case TierVerified, TierExperimental:
 	default:
 		return nil, fmt.Errorf("team %q: unknown tier %q", t.ID, t.Tier)
+	}
+	forkOnly := slices.ContainsFunc(t.Members, func(m string) bool { return ForkOnly[Canonical(m)] })
+	if forkOnly != (t.Tier == TierExperimental) {
+		if forkOnly {
+			return nil, fmt.Errorf("team %q: has a character only the gcsim fork has, so it needs tier: experimental", t.ID)
+		}
+		return nil, fmt.Errorf("team %q: tier experimental, but every member is in upstream gcsim", t.ID)
 	}
 	rotation, err := fs.ReadFile(fsys, path.Join(dir, "rotation.gcsl"))
 	if err != nil && (t.Status != StatusBlocked || !errors.Is(err, fs.ErrNotExist)) {
