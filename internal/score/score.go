@@ -26,6 +26,12 @@ import (
 // bucketFrames is the width of gcsim's damage buckets (pkg/stats/damage).
 const bucketFrames = 30
 
+// collectors are the gcsim stats the score reads (summarize): damage
+// buckets and contributions, and failed actions. The others only
+// observe the fight, so leaving them out changes no result, and saves
+// their time and allocations.
+var collectors = []string{"damage", "action"}
+
 type Options struct {
 	Iterations int
 	Workers    int     // 0 means runtime.NumCPU()
@@ -98,6 +104,7 @@ func RunIterations(ctx context.Context, cfg string, opts Options) ([]Iteration, 
 	if len(simcfg.Errors) > 0 {
 		return nil, fmt.Errorf("invalid config: %w", errors.Join(simcfg.Errors...))
 	}
+	simcfg.Settings.CollectStats = collectors
 	// A config without a duration runs until its action list ends.
 	if simcfg.Settings.Duration > 0 && simcfg.Settings.Duration <= opts.Warmup {
 		return nil, fmt.Errorf("duration %vs must be longer than warmup %vs", simcfg.Settings.Duration, opts.Warmup)
