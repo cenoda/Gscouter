@@ -1207,6 +1207,23 @@
 			"zh-cn": "丽莎",
 			"zh-tw": "麗莎"
 		},
+		"lohen": {
+			"de": "Lohen",
+			"en": "Lohen",
+			"es": "Lohen",
+			"fr": "Lohen",
+			"id": "Lohen",
+			"it": "Lohen",
+			"ja": "ローエン",
+			"ko": "로엔",
+			"pt": "Lohen",
+			"ru": "Лоэн",
+			"th": "Lohen",
+			"tr": "Lohen",
+			"vi": "Lohen",
+			"zh-cn": "洛恩",
+			"zh-tw": "洛恩"
+		},
 		"lumineanemo": {
 			"de": "Reisende",
 			"en": "Traveler",
@@ -1682,6 +1699,23 @@
 			"vi": "Rosaria",
 			"zh-cn": "罗莎莉亚",
 			"zh-tw": "蘿莎莉亞"
+		},
+		"sandrone": {
+			"de": "Sandrone",
+			"en": "Sandrone",
+			"es": "Sandrone",
+			"fr": "Sandrone",
+			"id": "Sandrone",
+			"it": "Sandrone",
+			"ja": "サンドローネ",
+			"ko": "산드로네",
+			"pt": "Sandrone",
+			"ru": "Сандроне",
+			"th": "Sandrone",
+			"tr": "Sandrone",
+			"vi": "Sandrone",
+			"zh-cn": "桑多涅",
+			"zh-tw": "桑多涅"
 		},
 		"sangonomiyakokomi": {
 			"de": "Sangonomiya Kokomi",
