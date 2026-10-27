@@ -18,4 +18,4 @@ require (
 	google.golang.org/protobuf v1.36.12 // indirect
 )
 
-replace github.com/genshinsim/gcsim => github.com/cenoda/gcsim v0.0.0-20261027001122-f251d17f98f2
+replace github.com/genshinsim/gcsim => github.com/cenoda/gcsim v0.0.0-20261027020050-91c5de45b5d6
