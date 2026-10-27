@@ -18,6 +18,21 @@ fn varesa_combo(amt) {
     }
   }
 }
+# Iansan's burst restores Nightsoul points from the active character's
+# movement, which gcsim counts only when the rotation reports it. The
+# Iansan quick guide says Varesa easily keeps Iansan's Nightsoul points
+# above 42 for the higher ATK buff (said of her Furina / Xianyun team;
+# same carry and combo), so every action reports movement at 9 m/s since
+# the previous one: the lowest speed tried (6, 9, 12) above which the
+# score stops rising, so her higher ATK buff stays up (design §5.4).
+let _last = f();
+let _ea = execute_action;
+fn execute_action(c number, a number, p map) {
+  let now = f();
+  movement(9 * (now - _last) / 60);
+  _last = now;
+  return _ea(c, a, p);
+}
 active varesa;
 let first = 1;
 if first == 1 {

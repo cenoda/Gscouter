@@ -3,10 +3,24 @@
 #   E sQ N4D N5
 #   1 dash twice to refresh Iansan's Nightsoul points, then E sQ at once
 # The Flins quick guide gives the same rotation. sQ is Flins's short
-# burst during his skill state. The two extra dashes are left out: gcsim
-# turns movement into Iansan's Nightsoul points only when the rotation
-# reports a distance, which no source gives, so they would only wait on
-# the dash cooldown.
+# burst during his skill state. The two extra dashes are left out: the
+# movement reported below already keeps Iansan's points up, and in gcsim
+# the dashes would only wait on the dash cooldown.
+# Iansan's burst restores Nightsoul points from the active character's
+# movement, which gcsim counts only when the rotation reports it. The
+# Iansan quick guide says Flins can sustain them thanks to his flexible
+# combo and special Elemental Burst movement, so every action reports
+# movement at 9 m/s since the previous one: the lowest speed tried (6,
+# 9, 12) above which the score stops rising, so her higher ATK buff
+# stays up (design §5.4).
+let _last = f();
+let _ea = execute_action;
+fn execute_action(c number, a number, p map) {
+  let now = f();
+  movement(9 * (now - _last) / 60);
+  _last = now;
+  return _ea(c, a, p);
+}
 active aino;
 aino skill, burst;
 iansan skill, charge, burst;
