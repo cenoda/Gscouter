@@ -23,7 +23,7 @@ The VM pulls the image without credentials, so the `gscouter` package on GitHub 
 
 - Logs: `cd /opt/gscouter && docker compose logs -f`
 - Force an update now: `sudo systemctl start gscouter-update`
-- Change the domain: edit `/opt/gscouter/.env`, then force an update.
+- Change the domain: point the new domain (and its `www` name) to the VM, then in `/opt/gscouter/.env` set `DOMAIN` to it and add the old one to `OLD_DOMAINS` (space-separated), and force an update. `www.<domain>` and the old domains redirect to the same page on the new one, so shared links keep working.
 - Search engines: the app tells IndexNow engines (Bing, Naver, Yandex) about new and changed pages on its own, keeping its key and what it submitted in `/data/indexnow.json` in the `gscouter_links` volume. Google and Naver need the site registered once by hand: add it in [Google Search Console](https://search.google.com/search-console) and [Naver Search Advisor](https://searchadvisor.naver.com), verify ownership (Google accepts a DNS TXT record; Naver asks for an HTML file or meta tag on the site, which the app would need to serve), and submit `https://<domain>/sitemap.xml`. They then re-read the sitemap by themselves.
 - Short links live in the `gscouter_links` volume (`/data/links.db` in the app). The `links-owner` service gives the volume to the app's user on every start. To back them up: `docker run --rm -v gscouter_links:/data -v /opt/gscouter:/backup busybox:1.37 cp /data/links.db /backup/links-backup.db` (copy the `-wal` file too if there is one). Losing them breaks only short links: the long result links carry everything.
 
