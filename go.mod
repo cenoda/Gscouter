@@ -17,3 +17,5 @@ require (
 	golang.org/x/text v0.43.0 // indirect
 	google.golang.org/protobuf v1.36.12 // indirect
 )
+
+replace github.com/genshinsim/gcsim => github.com/cenoda/gcsim v0.0.0-20261027001122-f251d17f98f2

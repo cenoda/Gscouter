@@ -11,7 +11,8 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// GcsimCommit is the gcsim version in go.mod, recorded on each team.
+// GcsimCommit is the upstream gcsim commit that the fork in go.mod is
+// based on, recorded on each team.
 const GcsimCommit = "2350be9"
 
 // Team builds the library entry for a split config. Its ID joins the
