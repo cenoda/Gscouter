@@ -6,6 +6,6 @@ status: blocked
 rotation_version: 0
 gcsim_commit: 2350be9
 tier: experimental
-gcsim_fork: 6fcfc4c
+gcsim_fork: 3e75b40
 sources: []
-notes: "Vesna is not implemented in gcsim yet; Vodyanitsa is on the fork."
+notes: "Vesna and Vodyanitsa are both on the fork (3e75b40), but no community rotation or config for this team exists yet, so it has no rotation."
