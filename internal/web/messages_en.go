@@ -56,6 +56,9 @@ func init() {
 		"index.supported":        "Supported teams",
 		"index.supported_lead":   "%d teams from the community gcsim database can be calculated.",
 		"index.find":             "Find by character",
+		"index.kept_on":          "As of %s",
+		"index.kept_note":        "Characters no longer in the showcase are kept in this browser as they were when last seen, and can still be picked.",
+		"index.forget":           "Forget them",
 
 		"problem.home": "Home",
 

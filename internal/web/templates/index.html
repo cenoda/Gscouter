@@ -26,39 +26,7 @@
 {{with .Enemy}}<div class="warn">{{t "enemy.carried" (enemyText .)}}</div>{{end}}
 {{if .Problem}}<div class="bad">{{.Problem}}</div>{{end}}
 
-{{with .Profile}}
-<div class="card">
-<h2>{{.Nickname}} <span class="muted">UID {{.UID}}</span></h2>
-{{if $.Suggested}}
-<h3>{{t "index.suggested"}} <span class="muted">{{t "index.suggested_count" (len $.Suggested)}}</span></h3>
-<ul class="suggest">
-{{range $.Suggested}}
-<li><a href="{{.Href}}">{{template "faces" .Selection.Chars}}<span>{{teamName .Team}}</span></a></li>
-{{end}}
-</ul>
-{{else}}
-<p class="muted">{{t "index.no_suggested"}} <a href="/teams">{{t "index.find"}}</a></p>
-{{end}}
-<h3>{{t "index.pick"}}</h3>
-<form action="{{if $.VS}}/versus{{else}}/score{{end}}" method="get" id="picker">
-<input type="hidden" name="uid" value="{{.UID}}">
-{{if $.VS}}<input type="hidden" name="a" value="{{$.VS}}">{{end}}
-{{template "enemy-hidden" $.Enemy}}
-<div class="chars">
-{{range .Characters}}
-<label><input type="checkbox" name="c" value="{{.Key}}">{{template "face" .Key}}<span><span class="name">{{template "el" (element .Key)}}{{name .Key}}</span><span class="muted">Lv.{{.Level}} C{{.Cons}} · {{weapon .Weapon.Key}} R{{.Weapon.Refine}}</span></span></label>
-{{end}}
-</div>
-<div class="picker-bar">
-<button type="submit" id="pick-submit">{{if $.VS}}{{t "index.compare"}}{{else}}{{t "index.calculate"}}{{end}}</button>
-<button type="button" class="secondary" id="pick-clear">{{t "index.clear"}}</button>
-<span class="muted count" id="pick-count">{{t "index.picked" 0}}</span>
-</div>
-<div class="warn" id="pick-unsupported" hidden>{{t "index.pick_unsupported"}}</div>
-</form>
-{{range .Skipped}}<p class="muted">{{t "index.skipped" .AvatarID .Reason}}</p>{{end}}
-</div>
-{{end}}
+{{if .Profile}}<div class="card" id="showcase">{{template "showcase" .}}</div>{{end}}
 
 <div class="card">
 <h3>{{t "index.supported"}}</h3>
@@ -83,30 +51,135 @@
     box.hidden = false;
   });
 
-  // The picker takes exactly four characters.
-  var form = document.getElementById("picker");
-  if (!form) return;
-  var boxes = form.querySelectorAll("input[name=c]");
-  var submit = document.getElementById("pick-submit"), count = document.getElementById("pick-count");
-  var picked = {{t "index.picked"}}, unsupported = document.getElementById("pick-unsupported");
-  // Every library team the showcase can build is suggested above, so four
-  // picks that are not one of them cannot be calculated.
-  var buildable = {{.Buildable}} || [];
-  function update() {
-    var checked = form.querySelectorAll("input[name=c]:checked"), n = checked.length;
-    var keys = Array.prototype.map.call(checked, function (b) { return b.value; }).sort().join(",");
-    var ok = n === 4 && buildable.indexOf(keys) >= 0;
-    boxes.forEach(function (b) { b.disabled = !b.checked && n >= 4; });
-    submit.disabled = !ok;
-    unsupported.hidden = n !== 4 || ok;
-    count.textContent = picked.replace("%d", n);
-  }
-  boxes.forEach(function (b) { b.addEventListener("change", update); });
-  document.getElementById("pick-clear").addEventListener("click", function () {
-    boxes.forEach(function (b) { b.checked = false; });
-    update();
+  var card = document.getElementById("showcase");
+  if (!card) return;
+
+  // Showcase builds, kept only in this browser so that characters stay
+  // pickable after they leave the showcase: {uid: {at, c: {key: {b, t}}}}
+  // with the build (b) as last seen in the showcase at t.
+  var store = "gscouter.keptBuilds", all = {};
+  try { all = JSON.parse(localStorage.getItem(store) || "{}") || {}; } catch (e) {}
+  function save() { try { localStorage.setItem(store, JSON.stringify(all)); } catch (e) {} }
+  var now = Date.now(), mine = all[current] || {c: {}}, live = {};
+  card.querySelectorAll("input[data-build]").forEach(function (b) {
+    live[b.value] = true;
+    mine.c[b.value] = {b: b.getAttribute("data-build"), t: now};
   });
-  update();
+  mine.at = now;
+  all[current] = mine;
+  // Builds of the ten most recently loaded UIDs.
+  Object.keys(all).sort(function (a, b) { return all[b].at - all[a].at; }).slice(10).forEach(function (u) { delete all[u]; });
+  save();
+
+  var kept = Object.keys(mine.c).filter(function (k) { return !live[k]; })
+    .map(function (k) { return mine.c[k]; }).sort(function (a, b) { return b.t - a.t; });
+  if (kept.length && window.fetch && window.URLSearchParams) {
+    var body = new URLSearchParams(enemy);
+    body.set("uid", current);
+    body.set("vs", vs);
+    body.set("kept", JSON.stringify(kept));
+    fetch("/showcase", {method: "POST", body: body})
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); })
+      .then(function (html) { card.innerHTML = html; picker(); })
+      .catch(function (e) { if (window.console) console.error("Gscouter: kept characters", e); });
+  }
+  picker();
+
+  // tokens are the kept builds of the given characters that are no longer
+  // in the showcase: the server needs them to calculate their teams.
+  function tokens(keys) {
+    return keys.map(function (k) {
+      var b = card.querySelector("input[data-kept][value='" + k + "']");
+      return b ? b.getAttribute("data-kept") : "";
+    }).filter(Boolean);
+  }
+
+  function picker() {
+    card.querySelectorAll(".suggest a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        var u = new URL(a.href);
+        u.searchParams.delete("build");
+        var sel = u.searchParams.get(vs ? "b" : "a") || "";
+        tokens(sel.slice(sel.indexOf(":") + 1).split(",")).forEach(function (t) { u.searchParams.append("build", t); });
+        a.href = u.href;
+      });
+    });
+    var forget = document.getElementById("forget-kept");
+    if (forget) forget.addEventListener("click", function () {
+      Object.keys(mine.c).forEach(function (k) { if (!live[k]) delete mine.c[k]; });
+      save();
+      location.reload();
+    });
+
+    // The picker takes exactly four characters.
+    var form = document.getElementById("picker");
+    if (!form) return;
+    var boxes = form.querySelectorAll("input[name=c]");
+    var submit = document.getElementById("pick-submit"), count = document.getElementById("pick-count");
+    var picked = {{t "index.picked"}}, unsupported = document.getElementById("pick-unsupported");
+    // Every library team the showcase can build is suggested above, so four
+    // picks that are not one of them cannot be calculated.
+    var buildable = JSON.parse(form.getAttribute("data-buildable")) || [];
+    function update() {
+      var checked = form.querySelectorAll("input[name=c]:checked"), n = checked.length;
+      var keys = Array.prototype.map.call(checked, function (b) { return b.value; }).sort().join(",");
+      var ok = n === 4 && buildable.indexOf(keys) >= 0;
+      boxes.forEach(function (b) { b.disabled = !b.checked && n >= 4; });
+      submit.disabled = !ok;
+      unsupported.hidden = n !== 4 || ok;
+      count.textContent = picked.replace("%d", n);
+    }
+    boxes.forEach(function (b) { b.addEventListener("change", update); });
+    document.getElementById("pick-clear").addEventListener("click", function () {
+      boxes.forEach(function (b) { b.checked = false; });
+      update();
+    });
+    form.addEventListener("submit", function () {
+      form.querySelectorAll("input[name=build]").forEach(function (b) { b.remove(); });
+      var keys = Array.prototype.map.call(form.querySelectorAll("input[name=c]:checked"), function (b) { return b.value; });
+      tokens(keys).forEach(function (t) {
+        var b = document.createElement("input");
+        b.type = "hidden";
+        b.name = "build";
+        b.value = t;
+        form.appendChild(b);
+      });
+    });
+    update();
+  }
 })();
 </script>
 {{template "foot"}}
+
+{{define "showcase"}}{{with .Profile}}
+<h2>{{.Nickname}} <span class="muted">UID {{.UID}}</span></h2>
+{{if $.Suggested}}
+<h3>{{t "index.suggested"}} <span class="muted">{{t "index.suggested_count" (len $.Suggested)}}</span></h3>
+<ul class="suggest">
+{{range $.Suggested}}
+<li><a href="{{.Href}}">{{template "faces" .Selection.Chars}}<span>{{teamName .Team}}</span></a></li>
+{{end}}
+</ul>
+{{else}}
+<p class="muted">{{t "index.no_suggested"}} <a href="/teams">{{t "index.find"}}</a></p>
+{{end}}
+<h3>{{t "index.pick"}}</h3>
+<form action="{{if $.VS}}/versus{{else}}/score{{end}}" method="get" id="picker" data-buildable="{{json $.Buildable}}">
+<input type="hidden" name="uid" value="{{.UID}}">
+{{if $.VS}}<input type="hidden" name="a" value="{{$.VS}}">{{end}}
+{{template "enemy-hidden" $.Enemy}}
+<div class="chars">
+{{range .Characters}}{{$kept := index $.Kept .Key}}
+<label>{{if $kept}}<input type="checkbox" name="c" value="{{.Key}}" data-kept="{{build .}}">{{else}}<input type="checkbox" name="c" value="{{.Key}}" data-build="{{build .}}">{{end}}{{template "face" .Key}}<span><span class="name">{{template "el" (element .Key)}}{{name .Key}}</span><span class="muted">Lv.{{.Level}} C{{.Cons}} · {{weapon .Weapon.Key}} R{{.Weapon.Refine}}</span>{{with $kept}}<span class="kept">{{t "index.kept_on" .}}</span>{{end}}</span></label>
+{{end}}
+</div>
+<div class="picker-bar">
+<button type="submit" id="pick-submit">{{if $.VS}}{{t "index.compare"}}{{else}}{{t "index.calculate"}}{{end}}</button>
+<button type="button" class="secondary" id="pick-clear">{{t "index.clear"}}</button>
+<span class="muted count" id="pick-count">{{t "index.picked" 0}}</span>
+</div>
+<div class="warn" id="pick-unsupported" hidden>{{t "index.pick_unsupported"}}</div>
+</form>
+{{if $.Kept}}<p class="muted">{{t "index.kept_note"}} <button type="button" class="link" id="forget-kept">{{t "index.forget"}}</button></p>{{end}}
+{{range .Skipped}}<p class="muted">{{t "index.skipped" .AvatarID .Reason}}</p>{{end}}
+{{end}}{{end}}

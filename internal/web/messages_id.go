@@ -56,6 +56,9 @@ func init() {
 		"index.supported":        "Tim yang didukung",
 		"index.supported_lead":   "%d tim dari database gcsim komunitas bisa dihitung.",
 		"index.find":             "Cari berdasarkan karakter",
+		"index.kept_on":          "Disimpan %s",
+		"index.kept_note":        "Karakter yang sudah tidak ada di etalase tetap disimpan di browser ini seperti saat terakhir dimuat, dan masih bisa dipilih.",
+		"index.forget":           "Lupakan yang disimpan",
 
 		"problem.home": "Beranda",
 

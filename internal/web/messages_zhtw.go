@@ -56,6 +56,9 @@ func init() {
 		"index.supported":        "支援的隊伍",
 		"index.supported_lead":   "可計算來自社群 gcsim 資料庫的 %d 支隊伍。",
 		"index.find":             "依角色搜尋",
+		"index.kept_on":          "%s 儲存",
+		"index.kept_note":        "已從角色展示櫃移除的角色會依最後一次讀取時的狀態儲存在此瀏覽器中，仍可選擇。",
+		"index.forget":           "清除已儲存的角色",
 
 		"problem.home": "返回首頁",
 

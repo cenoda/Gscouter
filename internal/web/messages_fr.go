@@ -56,6 +56,9 @@ func init() {
 		"index.supported":        "Équipes prises en charge",
 		"index.supported_lead":   "%d équipes de la base de données gcsim de la communauté peuvent être calculées.",
 		"index.find":             "Chercher par personnage",
+		"index.kept_on":          "Enregistré le %s",
+		"index.kept_note":        "Les personnages qui ne sont plus dans la vitrine restent enregistrés dans ce navigateur tels qu'ils étaient la dernière fois, et peuvent toujours être choisis.",
+		"index.forget":           "Oublier les personnages enregistrés",
 
 		"problem.home": "Accueil",
 

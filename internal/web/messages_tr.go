@@ -56,6 +56,9 @@ func init() {
 		"index.supported":        "Desteklenen takımlar",
 		"index.supported_lead":   "Topluluğun gcsim veritabanındaki %d takım hesaplanabilir.",
 		"index.find":             "Karaktere göre bul",
+		"index.kept_on":          "%s tarihinde kaydedildi",
+		"index.kept_note":        "Vitrinde artık olmayan karakterler, en son yüklendikleri hâliyle bu tarayıcıda saklanır ve seçilmeye devam edebilir.",
+		"index.forget":           "Kaydedilenleri unut",
 
 		"problem.home": "Ana sayfa",
 

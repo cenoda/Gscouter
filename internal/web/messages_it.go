@@ -56,6 +56,9 @@ func init() {
 		"index.supported":        "Squadre supportate",
 		"index.supported_lead":   "Si possono calcolare %d squadre dal database gcsim della community.",
 		"index.find":             "Cerca per personaggio",
+		"index.kept_on":          "Salvato il %s",
+		"index.kept_note":        "I personaggi non più nella vetrina restano salvati in questo browser come erano l'ultima volta e si possono ancora scegliere.",
+		"index.forget":           "Dimentica i salvati",
 
 		"problem.home": "Home",
 

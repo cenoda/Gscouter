@@ -56,6 +56,9 @@ func init() {
 		"index.supported":        "Unterstützte Teams",
 		"index.supported_lead":   "%d Teams aus der gcsim-Datenbank der Community können berechnet werden.",
 		"index.find":             "Nach Charakter suchen",
+		"index.kept_on":          "Gespeichert am %s",
+		"index.kept_note":        "Charaktere, die nicht mehr in der Präsentation sind, bleiben in diesem Browser so gespeichert, wie sie zuletzt geladen wurden, und können weiter gewählt werden.",
+		"index.forget":           "Gespeicherte vergessen",
 
 		"problem.home": "Startseite",
 

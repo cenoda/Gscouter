@@ -56,6 +56,9 @@ func init() {
 		"index.supported":        "対応している編成",
 		"index.supported_lead":   "コミュニティのgcsimデータベースから取り込んだ%d編成を計算できます。",
 		"index.find":             "キャラクターで探す",
+		"index.kept_on":          "%s 時点で保存",
+		"index.kept_note":        "キャラクター展示から外したキャラクターも、最後に読み込んだときの状態でこのブラウザに保存され、引き続き選べます。",
+		"index.forget":           "保存したキャラクターを消去",
 
 		"problem.home": "トップへ",
 

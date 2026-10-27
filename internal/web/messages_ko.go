@@ -56,6 +56,9 @@ func init() {
 		"index.supported":        "지원하는 파티",
 		"index.supported_lead":   "커뮤니티 gcsim 데이터베이스에서 가져온 파티 %d개를 계산할 수 있습니다.",
 		"index.find":             "캐릭터로 찾기",
+		"index.kept_on":          "%s 기준 저장됨",
+		"index.kept_note":        "쇼케이스에서 빠진 캐릭터도 마지막으로 불러왔을 때의 상태로 이 브라우저에 저장해 두어, 계속 고를 수 있습니다.",
+		"index.forget":           "저장한 캐릭터 지우기",
 
 		"problem.home": "처음으로",
 

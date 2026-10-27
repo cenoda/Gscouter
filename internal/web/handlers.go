@@ -3,6 +3,7 @@ package web
 import (
 	"cmp"
 	"context"
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"log/slog"
@@ -49,13 +50,21 @@ var funcs = template.FuncMap{
 		addEnemy(v, e)
 		return v
 	},
-	"keys": func(chars []enka.Character) []string {
-		out := make([]string, len(chars))
-		for i, c := range chars {
-			out[i] = c.Key
-		}
-		return out
+	"keys":  keys,
+	"build": buildToken,
+	"json": func(v any) (string, error) {
+		b, err := json.Marshal(v)
+		return string(b), err
 	},
+}
+
+// keys lists the characters' keys.
+func keys(chars []enka.Character) []string {
+	out := make([]string, len(chars))
+	for i, c := range chars {
+		out[i] = c.Key
+	}
+	return out
 }
 
 // thousands formats a number rounded to an integer with thousands
@@ -171,6 +180,9 @@ type indexData struct {
 	// Buildable lists the suggestions' characters, sorted and joined by
 	// commas, so the picker can tell when four picks are not a team.
 	Buildable []string
+	// Kept dates the characters the browser kept from earlier lookups
+	// that are no longer in the showcase, by key.
+	Kept      map[string]string
 	TeamCount int
 	// Enemy is the custom enemy carried over from a result page, nil for
 	// the standard one.
@@ -198,19 +210,71 @@ func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			data.Problem = enkaMessage(l, err)
 		} else {
-			data.Profile = p
-			data.Suggested = s.suggest(p)
-			for i, sg := range data.Suggested {
-				if data.VS != "" {
-					data.Suggested[i].Href = link("/versus", enemy, "a", data.VS, "b", sg.Selection.String())
-				} else {
-					data.Suggested[i].Href = link("/score", enemy, "a", sg.Selection.String())
-				}
-				data.Buildable = append(data.Buildable, strings.Join(sorted(sg.Selection.Chars), ","))
-			}
+			s.showcase(&data, p)
 		}
 	}
 	s.render(w, l, "index.html", data)
+}
+
+// showcase fills in the front page's showcase card for p.
+func (s *Server) showcase(data *indexData, p *enka.Profile) {
+	data.Profile = p
+	data.Suggested = s.suggest(p)
+	for i, sg := range data.Suggested {
+		if data.VS != "" {
+			data.Suggested[i].Href = link("/versus", data.Enemy, "a", data.VS, "b", sg.Selection.String())
+		} else {
+			data.Suggested[i].Href = link("/score", data.Enemy, "a", sg.Selection.String())
+		}
+		data.Buildable = append(data.Buildable, strings.Join(sorted(sg.Selection.Chars), ","))
+	}
+}
+
+// keptBuild is a build the browser kept of a showcase character: its
+// buildToken and when it was last in the showcase, in Unix milliseconds.
+type keptBuild struct {
+	Build string `json:"b"`
+	Seen  int64  `json:"t"`
+}
+
+// handleShowcase renders the front page's showcase card again with the
+// characters the browser kept from earlier lookups added, so that teams
+// with characters no longer in the showcase can be picked too. The
+// builds stay in the browser; picks send them along (keptBuilds).
+func (s *Server) handleShowcase(w http.ResponseWriter, r *http.Request) {
+	l := localizerFor(r)
+	r.Body = http.MaxBytesReader(w, r.Body, 1<<20)
+	var kept []keptBuild
+	if err := json.Unmarshal([]byte(r.PostFormValue("kept")), &kept); err != nil || len(kept) > enka.MaxPacked {
+		http.Error(w, "bad kept builds", http.StatusBadRequest)
+		return
+	}
+	data := indexData{UID: strings.TrimSpace(r.PostFormValue("uid")), VS: r.PostFormValue("vs"), Kept: map[string]string{}}
+	enemy, err := enemyFromQuery(r.PostForm)
+	if err != nil {
+		http.Error(w, l.message(err), http.StatusBadRequest)
+		return
+	}
+	data.Enemy = enemy
+	ctx, cancel := context.WithTimeout(r.Context(), 20*time.Second)
+	defer cancel()
+	p, err := s.profiles.Profile(ctx, data.UID)
+	if err != nil {
+		http.Error(w, enkaMessage(l, err), http.StatusBadGateway)
+		return
+	}
+	merged := *p
+	merged.Characters = slices.Clone(p.Characters)
+	for _, k := range kept {
+		c, err := parseBuildToken(k.Build)
+		if err != nil || slices.ContainsFunc(merged.Characters, func(m enka.Character) bool { return m.Key == c.Key }) {
+			continue
+		}
+		merged.Characters = append(merged.Characters, c)
+		data.Kept[c.Key] = time.UnixMilli(k.Seen).UTC().Format(time.DateOnly)
+	}
+	s.showcase(&data, &merged)
+	s.render(w, l, "showcase", data)
 }
 
 // suggest lists the library teams that can be built from a showcase.
@@ -283,13 +347,15 @@ func (s *Server) handleScore(w http.ResponseWriter, r *http.Request) {
 		s.renderProblem(w, l, l.message(err))
 		return
 	}
-	// Normalize the URL so results can be shared as /score?a=UID:...
+	ctx, cancel := context.WithTimeout(r.Context(), 90*time.Second)
+	defer cancel()
+	// Normalize the URL to one that carries the builds, so the result
+	// can be shared and stays the same after the showcase changes.
+	sel = s.withBuilds(ctx, sel, keptBuilds(r))
 	if canonical(w, r, "/score", enemy, "a", sel.String()) {
 		return
 	}
 	form := newEnemyForm("/score", enemy, "a", sel.String())
-	ctx, cancel := context.WithTimeout(r.Context(), 90*time.Second)
-	defer cancel()
 	if s.inBrowser(r) {
 		tr := s.prepare(ctx, l, sel, enemy)
 		tr.ID = "a"
@@ -354,12 +420,14 @@ func (s *Server) handleVersus(w http.ResponseWriter, r *http.Request) {
 		s.renderProblem(w, l, l.message(err))
 		return
 	}
+	ctx, cancel := context.WithTimeout(r.Context(), 120*time.Second)
+	defer cancel()
+	kept := keptBuilds(r)
+	a, b = s.withBuilds(ctx, a, kept), s.withBuilds(ctx, b, kept)
 	if canonical(w, r, "/versus", enemy, "a", a.String(), "b", b.String()) {
 		return
 	}
 	form := newEnemyForm("/versus", enemy, "a", a.String(), "b", b.String())
-	ctx, cancel := context.WithTimeout(r.Context(), 120*time.Second)
-	defer cancel()
 	if s.inBrowser(r) {
 		data := newVersus(s.prepare(ctx, l, a, enemy), s.prepare(ctx, l, b, enemy))
 		data.Meta = pendingVersusMeta(l, data, baseURL(r))
@@ -372,6 +440,45 @@ func (s *Server) handleVersus(w http.ResponseWriter, r *http.Request) {
 	data.Meta = versusMeta(l, data, baseURL(r))
 	data.Enemy = form
 	s.render(w, l, "versus.html", data)
+}
+
+// withBuilds is sel carrying its characters' builds: from the player's
+// showcase, or from kept, builds the browser kept of characters that have
+// left it (see handleShowcase). It is sel as it is when it already
+// carries them or they can't all be found.
+func (s *Server) withBuilds(ctx context.Context, sel selection, kept []enka.Character) selection {
+	if sel.Builds != nil {
+		return sel
+	}
+	p, err := s.profiles.Profile(ctx, sel.UID)
+	if err != nil {
+		return sel
+	}
+	var builds []enka.Character
+	for _, want := range sel.Chars {
+		byKey := func(c enka.Character) bool { return c.Key == want }
+		if i := slices.IndexFunc(p.Characters, byKey); i >= 0 {
+			builds = append(builds, p.Characters[i])
+		} else if i := slices.IndexFunc(kept, byKey); i >= 0 {
+			builds = append(builds, kept[i])
+		} else {
+			return sel
+		}
+	}
+	sel.Builds, sel.Nickname = builds, p.Nickname
+	return sel
+}
+
+// keptBuilds reads the builds the browser sends with a pick of characters
+// that have left the showcase: buildToken values in "build" parameters.
+func keptBuilds(r *http.Request) []enka.Character {
+	var out []enka.Character
+	for _, v := range r.URL.Query()["build"] {
+		if c, err := parseBuildToken(v); err == nil && len(out) < 8 {
+			out = append(out, c)
+		}
+	}
+	return out
 }
 
 func (s *Server) versus(ctx context.Context, l localizer, a, b selection, enemy *config.Enemy) versusData {

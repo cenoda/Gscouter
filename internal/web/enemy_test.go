@@ -86,6 +86,8 @@ func TestScoreCustomEnemy(t *testing.T) {
 	srv := newTestSite(t)
 	ts := newTestServerFor(t, srv)
 	sel := "800000001:hutao,yelan,xingqiu,zhongli"
+	// Result links carry the builds.
+	packed := selection{UID: "800000001", Chars: keys(hutaoTeam()), Builds: hutaoTeam(), Nickname: "Strong"}.String()
 
 	// The enemy form sends every field; the page redirects to the short URL.
 	client := *ts.Client()
@@ -96,7 +98,7 @@ func TestScoreCustomEnemy(t *testing.T) {
 		t.Fatal(err)
 	}
 	resp.Body.Close()
-	want := "/score?" + url.Values{"a": {sel}, "lvl": {"90"}, "pyro": {"70"}}.Encode()
+	want := "/score?" + url.Values{"a": {packed}, "lvl": {"90"}, "pyro": {"70"}}.Encode()
 	if resp.StatusCode != http.StatusSeeOther || resp.Header.Get("Location") != want {
 		t.Errorf("status %d, location %q, want %q", resp.StatusCode, resp.Header.Get("Location"), want)
 	}
@@ -108,7 +110,7 @@ func TestScoreCustomEnemy(t *testing.T) {
 		// Comparing and picking again keep the enemy.
 		`<input type="hidden" name="lvl" value="90">`, `href="/?lvl=90&amp;pyro=70&amp;uid=800000001"`,
 		// Link previews too.
-		`/card/score.png?a=800000001%3Ahutao%2Cyelan%2Cxingqiu%2Czhongli&amp;lvl=90&amp;pyro=70`, "| Lv. 90 · Pyro RES 70%")
+		"/card/score.png?a="+url.QueryEscape(packed)+"&amp;lvl=90&amp;pyro=70", "| Lv. 90 · Pyro RES 70%")
 	if code, _ := get(t, ts, "/score?a="+url.QueryEscape(sel)+"&lvl=500"); code != http.StatusBadRequest {
 		t.Errorf("bad enemy: status %d", code)
 	}

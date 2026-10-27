@@ -56,6 +56,9 @@ func init() {
 		"index.supported":        "Đội hình được hỗ trợ",
 		"index.supported_lead":   "Có thể tính %d đội hình từ cơ sở dữ liệu gcsim của cộng đồng.",
 		"index.find":             "Tìm theo nhân vật",
+		"index.kept_on":          "Đã lưu %s",
+		"index.kept_note":        "Nhân vật không còn trong Trưng Bày vẫn được lưu trong trình duyệt này như lần tải gần nhất và vẫn chọn được.",
+		"index.forget":           "Xóa nhân vật đã lưu",
 
 		"problem.home": "Trang chủ",
 

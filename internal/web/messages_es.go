@@ -56,6 +56,9 @@ func init() {
 		"index.supported":        "Equipos compatibles",
 		"index.supported_lead":   "Se pueden calcular %d equipos de la base de datos de gcsim de la comunidad.",
 		"index.find":             "Buscar por personaje",
+		"index.kept_on":          "Guardado el %s",
+		"index.kept_note":        "Los personajes que ya no están en la vitrina se guardan en este navegador tal como estaban la última vez y se pueden seguir eligiendo.",
+		"index.forget":           "Olvidar guardados",
 
 		"problem.home": "Inicio",
 

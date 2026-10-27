@@ -96,6 +96,7 @@ func New(lib *library.Library, profiles ProfileSource, settings Settings) (*Serv
 func (s *Server) Handler() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /{$}", s.handleIndex)
+	mux.HandleFunc("POST /showcase", s.handleShowcase)
 	mux.HandleFunc("GET /teams", s.handleTeams)
 	mux.HandleFunc("GET /score", s.handleScore)
 	mux.HandleFunc("GET /versus", s.handleVersus)
@@ -110,13 +111,22 @@ func (s *Server) Handler() http.Handler {
 }
 
 // selection is four characters picked from one player's showcase, written
-// as "UID:char1,char2,char3,char4" in URLs.
+// as "UID:char1,char2,char3,char4" in URLs. A selection can carry the
+// characters' builds instead, written as "UID~packed" (see packBuilds),
+// so that its link keeps working after they leave the showcase.
 type selection struct {
 	UID   string
 	Chars []string
+	// Builds are Chars as they were picked, nil to look them up in the
+	// player's current showcase.
+	Builds   []enka.Character
+	Nickname string // with Builds
 }
 
 func (sel selection) String() string {
+	if sel.Builds != nil {
+		return sel.UID + "~" + packBuilds(sel.Nickname, sel.Builds)
+	}
 	return sel.UID + ":" + strings.Join(sel.Chars, ",")
 }
 
@@ -138,6 +148,15 @@ func (l localizer) message(err error) string {
 }
 
 func parseSelection(s string) (selection, error) {
+	if uid, packed, ok := strings.Cut(s, "~"); ok {
+		nickname, builds, err := unpackBuilds(packed)
+		if err != nil || !uidPattern.MatchString(uid) {
+			return selection{}, inputError{"err.selection", []any{s}}
+		}
+		sel, err := newSelection(uid, keys(builds))
+		sel.Builds, sel.Nickname = builds, nickname
+		return sel, err
+	}
 	uid, chars, ok := strings.Cut(s, ":")
 	if !ok {
 		return selection{}, inputError{"err.selection", []any{s}}
@@ -233,19 +252,23 @@ func (s *Server) evaluate(ctx context.Context, l localizer, sel selection, enemy
 // Problem is ready for compute.
 func (s *Server) prepare(ctx context.Context, l localizer, sel selection, enemy *config.Enemy) teamResult {
 	tr := teamResult{Selection: sel, Enemy: enemy}
-	p, err := s.profiles.Profile(ctx, sel.UID)
-	if err != nil {
-		tr.Problem = enkaMessage(l, err)
-		return tr
-	}
-	tr.Nickname = p.Nickname
-	for _, want := range sel.Chars {
-		i := slices.IndexFunc(p.Characters, func(c enka.Character) bool { return c.Key == want })
-		if i < 0 {
-			tr.Problem = l.T("problem.missing", l.charName(want))
+	if sel.Builds != nil {
+		tr.Nickname, tr.Chars = sel.Nickname, sel.Builds
+	} else {
+		p, err := s.profiles.Profile(ctx, sel.UID)
+		if err != nil {
+			tr.Problem = enkaMessage(l, err)
 			return tr
 		}
-		tr.Chars = append(tr.Chars, p.Characters[i])
+		tr.Nickname = p.Nickname
+		for _, want := range sel.Chars {
+			i := slices.IndexFunc(p.Characters, func(c enka.Character) bool { return c.Key == want })
+			if i < 0 {
+				tr.Problem = l.T("problem.missing", l.charName(want))
+				return tr
+			}
+			tr.Chars = append(tr.Chars, p.Characters[i])
+		}
 	}
 
 	tr.Team = s.lib.Find(sel.Chars)

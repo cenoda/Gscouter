@@ -67,6 +67,8 @@ func newTestSite(t *testing.T) *Server {
 	profiles := fakeProfiles{
 		"800000001": {UID: "800000001", Nickname: "Strong", Characters: append(strong, char("amber", "skywardharp", "noblesseoblige", nil))},
 		"800000002": {UID: "800000002", Nickname: "Weak", Characters: weak},
+		// Zhongli has left this showcase.
+		"800000003": {UID: "800000003", Nickname: "Moved", Characters: hutaoTeam()[:3]},
 	}
 	srv, err := New(lib, profiles, Settings{Iterations: 4, Warmup: 30, Duration: 90, MaxConcurrent: 1, MaxQueue: 4})
 	if err != nil {
@@ -123,7 +125,7 @@ func TestIndexSuggestsTeams(t *testing.T) {
 	}
 	mustContain(t, body, "Strong", "바로 계산할 수 있는 파티", "호두 / 행추 / 종려 / 야란", "엠버", "호마의 지팡이")
 	// The picker only submits four that form a suggested team.
-	mustContain(t, body, `["hutao,xingqiu,yelan,zhongli"]`, "라이브러리에 있는 파티가 아니어서")
+	mustContain(t, body, `data-buildable="[&#34;hutao,xingqiu,yelan,zhongli&#34;]"`, "라이브러리에 있는 파티가 아니어서")
 }
 
 func TestTeamsFilter(t *testing.T) {
