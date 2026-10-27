@@ -108,6 +108,8 @@ func init() {
 		"enka.failed":       "无法从 Enka.Network 读取个人资料。",
 
 		"warn.draft":        "该队伍的循环尚未经过验证，分数可能会变动。",
+		"warn.experimental": "该队伍包含 gcsim 尚未支持的角色，使用 Gscouter 自行实现的版本计算，分数可能会变动。",
+		"tier.experimental": "实验性",
 		"warn.energy":       "%s每分钟有 %.1f 秒在等待元素能量。提高元素充能效率可提升分数。",
 		"warn.unknown_sets": "%s：有 %d 个圣遗物套装尚不受模拟引擎支持，其套装效果未计入。",
 		"issue.arlecchino":  "已知问题：阿蕾奇诺的伤害计算偏低，原因正在调查中。在此结果上增加约 20% 即接近实际数值。",

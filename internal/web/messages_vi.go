@@ -108,6 +108,8 @@ func init() {
 		"enka.failed":       "Không thể tải hồ sơ từ Enka.Network.",
 
 		"warn.draft":        "Vòng xoay của đội hình này chưa được kiểm chứng. Điểm có thể thay đổi.",
+		"warn.experimental": "Đội hình này có nhân vật mà gcsim chưa hỗ trợ, được tính bằng phiên bản do Gscouter tự triển khai. Điểm có thể thay đổi.",
+		"tier.experimental": "Thử nghiệm",
 		"warn.energy":       "%s phải chờ năng lượng %.1f giây mỗi phút. Tăng Hiệu Quả Nạp Nguyên Tố sẽ nâng điểm.",
 		"warn.unknown_sets": "%s: %d bộ Thánh Di Vật chưa được engine mô phỏng hỗ trợ nên hiệu quả bộ của chúng bị bỏ qua.",
 		"issue.arlecchino":  "Lỗi đã biết: sát thương của Arlecchino đang bị tính thấp hơn thực tế và nguyên nhân đang được điều tra. Cộng thêm khoảng 20% vào kết quả này sẽ gần với con số thực.",

@@ -108,6 +108,8 @@ func init() {
 		"enka.failed":       "Gagal memuat profil dari Enka.Network.",
 
 		"warn.draft":        "Rotasi tim ini belum divalidasi. Skornya bisa berubah.",
+		"warn.experimental": "Salah satu anggota tim ini belum ada di gcsim dan dihitung dengan implementasi Gscouter sendiri. Skornya bisa berubah.",
+		"tier.experimental": "Eksperimental",
 		"warn.energy":       "%s menunggu Energy %.1f detik per menit. Energy Recharge yang lebih tinggi akan menaikkan skor.",
 		"warn.unknown_sets": "%s: %d set Artefak belum didukung engine simulasi, jadi bonus set-nya tidak dihitung.",
 		"issue.arlecchino":  "Masalah yang diketahui: DMG Arlecchino terhitung terlalu rendah dan penyebabnya sedang diselidiki. Menambahkan sekitar 20% ke hasil ini akan mendekati angka sebenarnya.",

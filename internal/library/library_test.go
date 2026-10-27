@@ -66,3 +66,29 @@ func TestLoadRejectsUnknownStatus(t *testing.T) {
 		t.Error("expected an error for an unknown status")
 	}
 }
+
+func TestLoadTier(t *testing.T) {
+	for tier, ok := range map[string]bool{"": true, "experimental": true, "beta": false} {
+		dir := t.TempDir()
+		yaml := "id: x\nmembers: [a, b, c, d]\nstatus: blocked\n"
+		if tier != "" {
+			yaml += "tier: " + tier + "\n"
+		}
+		if err := os.WriteFile(filepath.Join(dir, "team.yaml"), []byte(yaml), 0o644); err != nil {
+			t.Fatal(err)
+		}
+		team, err := Load(dir)
+		if !ok {
+			if err == nil {
+				t.Errorf("tier %q: expected an error", tier)
+			}
+			continue
+		}
+		if err != nil {
+			t.Fatalf("tier %q: %v", tier, err)
+		}
+		if team.Tier != Tier(tier) {
+			t.Errorf("tier %q: loaded %q", tier, team.Tier)
+		}
+	}
+}

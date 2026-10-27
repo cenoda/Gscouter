@@ -22,12 +22,25 @@ const (
 	StatusBlocked   Status = "blocked"
 )
 
+// Tier says which gcsim a team's score comes from (design §5.4).
+type Tier string
+
+const (
+	// TierVerified teams use only characters upstream gcsim has. It is
+	// the default, written as no tier at all.
+	TierVerified Tier = ""
+	// TierExperimental teams have a character only Gscouter's gcsim fork
+	// has. Their scores carry a badge: they may change.
+	TierExperimental Tier = "experimental"
+)
+
 type Team struct {
 	ID              string   `yaml:"id"`
 	Name            string   `yaml:"name"`
 	Members         []string `yaml:"members"` // gcsim character keys
 	Archetype       string   `yaml:"archetype"`
 	Status          Status   `yaml:"status"`
+	Tier            Tier     `yaml:"tier,omitempty"`
 	RotationVersion int      `yaml:"rotation_version"`
 	GcsimCommit     string   `yaml:"gcsim_commit"`
 	Sources         []string `yaml:"sources"`
@@ -73,6 +86,11 @@ func LoadFS(fsys fs.FS, dir string) (*Team, error) {
 	case StatusSupported, StatusDraft, StatusBlocked:
 	default:
 		return nil, fmt.Errorf("team %q: unknown status %q", t.ID, t.Status)
+	}
+	switch t.Tier {
+	case TierVerified, TierExperimental:
+	default:
+		return nil, fmt.Errorf("team %q: unknown tier %q", t.ID, t.Tier)
 	}
 	rotation, err := fs.ReadFile(fsys, path.Join(dir, "rotation.gcsl"))
 	if err != nil && (t.Status != StatusBlocked || !errors.Is(err, fs.ErrNotExist)) {
