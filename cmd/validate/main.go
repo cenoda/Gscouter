@@ -8,15 +8,18 @@
 //
 //	validate                      # every team under teams/
 //	validate teams/<id> ...       # selected teams
-//	validate -promote             # also set each team's status from the result
+//	validate -promote             # also record each result and the status it earns
 //
 // Each team is checked in its own process (-j at a time), so a rotation
 // that never ends cannot slow down the others. It exits with status 1 if
 // any team fails.
 //
-// With -promote, it sets status: supported on draft teams that meet the
-// criteria for it (validate.Report.Unpromotable) and returns supported
-// teams that no longer meet them to draft. Blocked teams are left alone.
+// With -promote, it records each result in the team's team.yaml
+// (validation: the looped score, how much of one pass it keeps and how
+// far one pass is from the source) and sets status: supported on teams
+// that meet the criteria for it (validate.Report.Unpromotable), draft on
+// the others. Blocked teams are left alone. A looped score that moved
+// more than 5% from the recorded one is a warning.
 package main
 
 import (
@@ -31,6 +34,7 @@ import (
 
 	"github.com/cenoda/gscouter/internal/library"
 	"github.com/cenoda/gscouter/internal/score"
+	"github.com/cenoda/gscouter/internal/share"
 	"github.com/cenoda/gscouter/internal/validate"
 )
 
@@ -44,7 +48,7 @@ func main() {
 		verbose    = flag.Bool("v", false, "print per-character results")
 		detail     = flag.Bool("detail", false, "print what each character did in one run: actions, damage by source, reactions")
 		jobs       = flag.Int("j", 1, "teams checked in parallel")
-		promote    = flag.Bool("promote", false, "set status: supported on draft teams that meet the criteria, and draft on supported teams that do not")
+		promote    = flag.Bool("promote", false, "record each result in team.yaml and set status: supported on teams that meet the criteria, draft on the others")
 	)
 	flag.Parse()
 
@@ -94,7 +98,7 @@ func main() {
 		}
 		printReport(r, *verbose)
 		if *promote {
-			if err := setStatus(r); err != nil {
+			if err := record(r, *iterations); err != nil {
 				fmt.Fprintln(os.Stderr, "error:", err)
 				os.Exit(2)
 			}
@@ -109,26 +113,26 @@ func main() {
 	}
 }
 
-// setStatus promotes or demotes the team by the criteria for supported
-// and says so when its status changes.
-func setStatus(r *validate.Report) error {
+// record writes the check's result to team.yaml with the status it
+// earns, and says so when the status changes.
+func record(r *validate.Report, iterations int) error {
 	if r.Team == nil || r.Team.Status == library.StatusBlocked {
 		return nil
 	}
-	want, why := library.StatusSupported, r.Unpromotable()
-	if why != "" {
+	v := r.Validation(iterations)
+	want := library.StatusSupported
+	if v.Draft != "" {
 		want = library.StatusDraft
 	}
-	if want == r.Team.Status {
-		return nil
-	}
-	if err := library.SetStatus(r.Dir, want); err != nil {
+	if err := library.Record(r.Dir, want, share.GcsimCommit, v); err != nil {
 		return err
 	}
-	if want == library.StatusSupported {
+	switch {
+	case want == r.Team.Status:
+	case want == library.StatusSupported:
 		fmt.Printf("       promoted to supported\n")
-	} else {
-		fmt.Printf("       returned to draft: %s\n", why)
+	default:
+		fmt.Printf("       returned to draft: %s\n", v.Draft)
 	}
 	return nil
 }

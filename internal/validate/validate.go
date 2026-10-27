@@ -32,6 +32,9 @@ const (
 	warnReference = 0.05
 	warnWait      = 2.0 // seconds per minute an action is delayed, for any reason
 	warnShare     = 0.01
+	// The looped score moved this much since the recorded validation
+	// (team.yaml): a gcsim update or a rotation change to look at.
+	warnShift = 0.05
 	// A character that stands still this long, in seconds per minute of
 	// the scoring window, has stalled the looped rotation (e.g. a burst
 	// it can never charge), even with fillers.
@@ -99,6 +102,34 @@ func (r *Report) Gap() (gap float64, ok bool) {
 	return (r.Once.DPS - r.Team.Reference.DPS) / r.Team.Reference.DPS, true
 }
 
+// Validation is the record of this check for team.yaml, run with the
+// given iterations today.
+func (r *Report) Validation(iterations int) *library.Validation {
+	v := &library.Validation{
+		Date:       time.Now().Format(time.DateOnly),
+		Iterations: iterations,
+		Kept:       round(r.Kept(), 3),
+		Draft:      r.Unpromotable(),
+	}
+	if gap, ok := r.Gap(); ok {
+		gap = round(gap, 3)
+		v.Gap = &gap
+	}
+	if r.Res != nil {
+		v.DPS = math.Round(r.Res.DPS)
+	}
+	return v
+}
+
+func round(x float64, digits int) float64 {
+	p := math.Pow(10, float64(digits))
+	x = math.Round(x*p) / p
+	if x == 0 {
+		return 0 // not -0
+	}
+	return x
+}
+
 // Unpromotable says why the team does not meet the criteria for
 // status: supported, or "" if it does: the full check passes, the one
 // pass is within promoteReference of the source's DPS, and the looped
@@ -106,7 +137,7 @@ func (r *Report) Gap() (gap float64, ok bool) {
 func (r *Report) Unpromotable() string {
 	switch {
 	case len(r.Failures) > 0:
-		return "the check fails"
+		return "the check fails: " + r.Failures[0]
 	case r.Skipped != "":
 		return "skipped"
 	case r.Res == nil:
@@ -282,6 +313,11 @@ func looped(ctx context.Context, r *Report, build string, s Settings) {
 			if w := c.Waits[reason]; w >= failStall {
 				r.Failures = append(r.Failures, fmt.Sprintf("the looped rotation stalls: %s waits %.1fs/min (%s)", c.Name, w, reason))
 			}
+		}
+	}
+	if last := team.Validation; last != nil && last.DPS > 0 && res.DPS > 0 {
+		if shift := res.DPS/last.DPS - 1; math.Abs(shift) > warnShift {
+			r.Warnings = append(r.Warnings, fmt.Sprintf("the looped score moved %+.1f%% from %.0f DPS on %s", shift*100, last.DPS, last.Date))
 		}
 	}
 	for _, c := range res.Characters {

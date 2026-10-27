@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/cenoda/gscouter/teams"
+	"gopkg.in/yaml.v3"
 )
 
 func TestLoadAllTeams(t *testing.T) {
@@ -67,21 +68,42 @@ func TestLoadRejectsUnknownStatus(t *testing.T) {
 	}
 }
 
-func TestSetStatus(t *testing.T) {
+func TestRecord(t *testing.T) {
 	dir := t.TempDir()
-	yaml := "id: a-b-c-d\nname: A / B / C / D\nmembers: [a, b, c, d]\nstatus: draft\nnotes: 'status: draft stays'\n"
-	if err := os.WriteFile(filepath.Join(dir, "team.yaml"), []byte(yaml), 0o644); err != nil {
+	file := filepath.Join(dir, "team.yaml")
+	before := "id: a-b-c-d\nmembers: [a, b, c, d]\nstatus: draft\ngcsim_commit: 1111111\nnotes: 'status: draft stays'\n"
+	if err := os.WriteFile(file, []byte(before), 0o644); err != nil {
 		t.Fatal(err)
 	}
-	if err := SetStatus(dir, StatusSupported); err != nil {
+	gap := -0.012
+	v := &Validation{Date: "2026-10-27", Iterations: 20, Gap: &gap, Kept: 0.94, DPS: 52120}
+	if err := Record(dir, StatusSupported, "2350be9", v); err != nil {
 		t.Fatal(err)
 	}
-	got, err := os.ReadFile(filepath.Join(dir, "team.yaml"))
+	want := "id: a-b-c-d\nmembers: [a, b, c, d]\nstatus: supported\ngcsim_commit: 2350be9\nnotes: 'status: draft stays'\n" +
+		"validation:\n    date: \"2026-10-27\"\n    iterations: 20\n    gap: -0.012\n    kept: 0.94\n    dps: 52120\n"
+	got, err := os.ReadFile(file)
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := "id: a-b-c-d\nname: A / B / C / D\nmembers: [a, b, c, d]\nstatus: supported\nnotes: 'status: draft stays'\n"
 	if string(got) != want {
 		t.Errorf("got\n%s\nwant\n%s", got, want)
+	}
+	// A second record replaces the block.
+	v = &Validation{Date: "2026-11-01", Iterations: 20, Kept: 0.5, DPS: 100, Draft: "keeps too little"}
+	if err := Record(dir, StatusDraft, "2350be9", v); err != nil {
+		t.Fatal(err)
+	}
+	want = "id: a-b-c-d\nmembers: [a, b, c, d]\nstatus: draft\ngcsim_commit: 2350be9\nnotes: 'status: draft stays'\n" +
+		"validation:\n    date: \"2026-11-01\"\n    iterations: 20\n    kept: 0.5\n    dps: 100\n    draft: keeps too little\n"
+	if got, _ = os.ReadFile(file); string(got) != want {
+		t.Errorf("got\n%s\nwant\n%s", got, want)
+	}
+	var back Team
+	if err := yaml.Unmarshal(got, &back); err != nil {
+		t.Fatal(err)
+	}
+	if back.Validation == nil || back.Validation.DPS != 100 || back.Validation.Draft != "keeps too little" {
+		t.Errorf("read back %+v", back.Validation)
 	}
 }

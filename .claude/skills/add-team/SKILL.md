@@ -86,6 +86,9 @@ GOTOOLCHAIN=auto go run ./cmd/validate -detail teams/<id>   # actions, damage by
   looped score keeps 80% to 130% of the one pass under the common
   conditions (more means the rotation depends on the source's own
   conditions) (`validate.Report.Unpromotable`), `draft` otherwise.
+  It records the result in `team.yaml` (`validation`: looped DPS,
+  `kept`, `gap`, and on a draft team the criterion it misses); a looped
+  score more than 5% from the recorded one is a warning.
   Result pages warn on draft teams. Blocked teams are left alone. Run it
   on every team you add, and on the whole library after a gcsim update:
 

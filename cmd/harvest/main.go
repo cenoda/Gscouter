@@ -16,7 +16,7 @@
 // processes, because gcsim cannot cancel a rotation stuck in a loop.
 // A team that meets the criteria for supported
 // (validate.Report.Unpromotable) is written as supported, any other as
-// draft.
+// draft, with the result of its check (validation in team.yaml).
 //
 // Teams that fail every entry are recorded in <root>/harvest-failed.txt
 // and skipped by the next run unless -retry-failed is set.
@@ -296,7 +296,8 @@ func harvest(root string, g *group, tries, choose int, s validate.Settings) (boo
 		}
 	}
 	if best != nil {
-		if best.r.Unpromotable() == "" {
+		best.team.Validation = best.r.Validation(s.Iterations)
+		if best.team.Validation.Draft == "" {
 			best.team.Status = library.StatusSupported
 		}
 		if _, err := best.split.Write(root, best.team, true); err != nil {

@@ -40,6 +40,9 @@ type Team struct {
 	// Reference is what the source config scored with its own build. The
 	// validator checks that the library reproduces it.
 	Reference *Reference `yaml:"reference,omitempty"`
+	// Validation is what cmd/validate -promote last measured with the
+	// reference build; it decides the status.
+	Validation *Validation `yaml:"validation,omitempty"`
 
 	// Rotation is the contents of rotation.gcsl.
 	Rotation string `yaml:"-"`
@@ -49,6 +52,18 @@ type Reference struct {
 	DPS          float64 `yaml:"dps"`                     // mean team DPS reported by the source
 	GcsimVersion string  `yaml:"gcsim_version,omitempty"` // gcsim commit the source ran on, if known
 	Computed     string  `yaml:"computed,omitempty"`      // date the source last ran, if known
+}
+
+type Validation struct {
+	Date       string `yaml:"date"`
+	Iterations int    `yaml:"iterations"`
+	// Gap is the one pass under the source's conditions relative to the
+	// source's DPS; absent without a reference.
+	Gap  *float64 `yaml:"gap,omitempty"`
+	Kept float64  `yaml:"kept"` // looped score over one pass under the common conditions
+	DPS  float64  `yaml:"dps"`  // looped score, as the site scores it
+	// Draft says why the team does not meet the criteria for supported.
+	Draft string `yaml:"draft,omitempty"`
 }
 
 // Load reads team.yaml and rotation.gcsl from dir on disk.
@@ -83,27 +98,48 @@ func LoadFS(fsys fs.FS, dir string) (*Team, error) {
 	return &t, nil
 }
 
-// SetStatus rewrites the status line of team.yaml in dir on disk,
-// leaving the rest of the file as it is.
-func SetStatus(dir string, s Status) error {
+// Record rewrites the status and gcsim_commit lines of team.yaml in dir
+// on disk and replaces its validation block with v, leaving the rest of
+// the file as it is.
+func Record(dir string, status Status, gcsimCommit string, v *Validation) error {
 	file := filepath.Join(dir, "team.yaml")
 	raw, err := os.ReadFile(file)
 	if err != nil {
 		return err
 	}
-	lines := strings.SplitAfter(string(raw), "\n")
-	found := false
-	for i, line := range lines {
-		if strings.HasPrefix(line, "status:") {
-			lines[i] = "status: " + string(s) + "\n"
-			found = true
-			break
-		}
+	block, err := yaml.Marshal(map[string]*Validation{"validation": v})
+	if err != nil {
+		return err
 	}
-	if !found {
+	var out []string
+	var setStatus, inBlock bool
+	for _, line := range strings.SplitAfter(string(raw), "\n") {
+		if inBlock && (strings.HasPrefix(line, " ") || line == "\n") {
+			continue
+		}
+		inBlock = false
+		switch {
+		case line == "":
+			continue
+		case strings.HasPrefix(line, "status:"):
+			line = "status: " + string(status) + "\n"
+			setStatus = true
+		case strings.HasPrefix(line, "gcsim_commit:"):
+			line = "gcsim_commit: " + gcsimCommit + "\n"
+		case line == "validation:\n":
+			inBlock = true
+			continue
+		}
+		if !strings.HasSuffix(line, "\n") {
+			line += "\n"
+		}
+		out = append(out, line)
+	}
+	if !setStatus {
 		return fmt.Errorf("%s: no status line", file)
 	}
-	return os.WriteFile(file, []byte(strings.Join(lines, "")), 0o644)
+	out = append(out, string(block))
+	return os.WriteFile(file, []byte(strings.Join(out, "")), 0o644)
 }
 
 // Library is a set of teams indexed by their member set.
