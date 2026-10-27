@@ -11,6 +11,7 @@
 //	validate                      # every team under teams/
 //	validate teams/<id> ...       # selected teams
 //	validate -promote             # also record each result and the status it earns
+//	validate -shard 2/4 -json b.jsonl  # the second of four slices, reports as JSON
 //
 // Each team is checked in its own process (-j at a time), so a rotation
 // that never ends cannot slow down the others. It exits with status 1 if
@@ -23,10 +24,23 @@
 // the others. It never promotes an experimental team, which a person
 // reviews first. Blocked teams are left alone. A looped score that moved
 // more than 5% from the recorded one is a warning.
+//
+// Simulation results are kept in -cache, by default under the user's
+// cache directory, and reused when the same config runs again with the
+// same gcsim (score.Cache): a rerun simulates only the teams that
+// changed. Seeds are fixed, so a cached result is the one a new run
+// would give; -cache "" turns it off, as when looking for
+// nondeterminism (design §5.4).
+//
+// -shard k/n checks every n-th team from the k-th on, so one run can be
+// split across machines or sessions; -json writes each report as one
+// JSON line, in team order, for cmd/compare to compare runs (the
+// regression run, design §5.4) or join shards.
 package main
 
 import (
 	"cmp"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"maps"
@@ -34,6 +48,7 @@ import (
 	"path/filepath"
 	"slices"
 	"strings"
+	"time"
 
 	"github.com/cenoda/gscouter/internal/library"
 	"github.com/cenoda/gscouter/internal/score"
@@ -52,6 +67,10 @@ func main() {
 		detail     = flag.Bool("detail", false, "print what each character did in one run: actions, damage by source, reactions")
 		jobs       = flag.Int("j", 1, "teams checked in parallel")
 		promote    = flag.Bool("promote", false, "record each result in team.yaml and set status: supported on teams that meet the criteria, draft on the others")
+		shard      = flag.String("shard", "", "k/n: check only every n-th team, from the k-th on")
+		jsonOut    = flag.String("json", "", "write each report as a JSON line to this file")
+		cache      = flag.String("cache", defaultCache(), `directory where simulation results are kept for later runs with the same gcsim, "" for none`)
+		timeout    = flag.Duration("timeout", 2*time.Minute, "time one team's check may take before it fails as a rotation that never ends")
 	)
 	flag.Parse()
 
@@ -69,7 +88,55 @@ func main() {
 		}
 	}
 
-	s := validate.Settings{Iterations: *iterations, Warmup: *warmup, Duration: *duration}
+	if *shard != "" {
+		var k, n int
+		if _, err := fmt.Sscanf(*shard, "%d/%d", &k, &n); err != nil || n < 1 || k < 1 || k > n {
+			fmt.Fprintf(os.Stderr, "error: -shard %q: want k/n with 1 <= k <= n\n", *shard)
+			os.Exit(2)
+		}
+		var picked []string
+		for i := k - 1; i < len(dirs); i += n {
+			picked = append(picked, dirs[i])
+		}
+		dirs = picked
+	}
+	var enc *json.Encoder
+	if *jsonOut != "" {
+		f, err := os.Create(*jsonOut)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "error:", err)
+			os.Exit(2)
+		}
+		defer f.Close()
+		enc = json.NewEncoder(f)
+	}
+
+	gcsim, fork, err := score.Gcsim()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "error:", err)
+		os.Exit(2)
+	}
+	if !fork {
+		// Upstream gcsim, for the regression run: it lacks the
+		// characters of experimental teams.
+		n := len(dirs)
+		dirs = slices.DeleteFunc(dirs, func(dir string) bool {
+			team, err := library.Load(dir)
+			return err == nil && team.HasForkOnly()
+		})
+		if n > len(dirs) {
+			fmt.Fprintf(os.Stderr, "skipping %d teams with characters only the gcsim fork has: built with upstream gcsim\n", n-len(dirs))
+		}
+	}
+	cached := false
+	if *cache != "" {
+		if _, err := score.OpenCache(*cache); err != nil {
+			fmt.Fprintln(os.Stderr, "not caching simulation results:", err)
+		} else {
+			cached = true
+		}
+	}
+	s := validate.Settings{Iterations: *iterations, Warmup: *warmup, Duration: *duration, Cache: *cache, Timeout: *timeout}
 	// Each team is checked in its own process, so a rotation stuck
 	// inside gcsim cannot slow down the others.
 	reports := make([]chan *validate.Report, len(dirs))
@@ -100,6 +167,12 @@ func main() {
 			warned++
 		}
 		printReport(r, *verbose)
+		if enc != nil {
+			if err := enc.Encode(validate.Line{Report: r, Gcsim: gcsim.Path + "@" + gcsim.Version, Cached: cached}); err != nil {
+				fmt.Fprintln(os.Stderr, "error:", err)
+				os.Exit(2)
+			}
+		}
 		if *promote {
 			if err := record(r, *iterations); err != nil {
 				fmt.Fprintln(os.Stderr, "error:", err)
@@ -114,6 +187,16 @@ func main() {
 	if failed > 0 {
 		os.Exit(1)
 	}
+}
+
+// defaultCache is the directory for cached simulation results under the
+// user's cache directory, "" if there is none.
+func defaultCache() string {
+	dir, err := os.UserCacheDir()
+	if err != nil {
+		return ""
+	}
+	return filepath.Join(dir, "gscouter", "validate")
 }
 
 // record writes the check's result to team.yaml with the status it

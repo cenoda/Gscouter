@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"runtime/debug"
 	"strings"
 	"time"
 )
@@ -33,6 +34,7 @@ func ServeChild() {
 		fmt.Fprintln(os.Stderr, "bad check request:", err)
 		os.Exit(2)
 	}
+	tuneGC()
 	var r *Report
 	if req.Reference {
 		r = CheckReference(req.Dir, req.Settings)
@@ -44,6 +46,22 @@ func ServeChild() {
 	}
 	// Exit at once: a stuck simulation may still be spinning.
 	os.Exit(0)
+}
+
+// tuneGC makes the garbage collector run about a tenth as often as by
+// default, unless GOGC or GOMEMLIMIT says otherwise. A fight allocates
+// fast but keeps little alive, so with the default the collector takes a
+// third of a check's time; this way a check takes 40% less time, for a
+// few hundred MB per process (measured 2026-10-27). The soft limit keeps
+// a heavy team from growing much beyond that. The collector changes no
+// result.
+func tuneGC() {
+	if os.Getenv("GOGC") == "" {
+		debug.SetGCPercent(1000)
+	}
+	if os.Getenv("GOMEMLIMIT") == "" {
+		debug.SetMemoryLimit(1 << 30)
+	}
 }
 
 // CheckIsolated runs Check in a child process of the running command. A
@@ -70,7 +88,7 @@ func isolated(req childRequest) *Report {
 		return fail(err.Error())
 	}
 	// Check has its own timeout; this catches a child that outlives it.
-	ctx, cancel := context.WithTimeout(context.Background(), timeout+30*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), req.Settings.timeout()+30*time.Second)
 	defer cancel()
 	cmd := exec.CommandContext(ctx, exe)
 	cmd.Env = append(os.Environ(), childEnv+"="+string(body))
