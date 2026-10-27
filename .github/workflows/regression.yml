@@ -8,10 +8,6 @@ name: regression
 # there is not reported as a difference. Started by hand only; it never
 # writes team.yaml and never promotes.
 on:
-  # Temporary: a workflow_dispatch workflow can be dispatched only once it is
-  # on the default branch, so this branch tests itself on push.
-  push:
-    branches: [claude/regression-workflow]
   workflow_dispatch:
     inputs:
       baseline_ref:
@@ -43,7 +39,7 @@ jobs:
     steps:
       - id: plan
         env:
-          SHARDS: ${{ (inputs.shards || '16') }}
+          SHARDS: ${{ inputs.shards }}
         run: |
           matrix=$(jq -cn --argjson n "$SHARDS" \
             '{include: [("baseline", "candidate") as $side | range(1; $n + 1) | {side: $side, shard: .}]}')
@@ -61,7 +57,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: take go.mod and go.sum from the ref
         env:
-          REF: ${{ matrix.side == 'baseline' && (inputs.baseline_ref || 'main') || (inputs.candidate_ref || 'claude/sandrone-fork') }}
+          REF: ${{ matrix.side == 'baseline' && inputs.baseline_ref || inputs.candidate_ref }}
         run: |
           git fetch --no-tags --depth=1 origin "$REF"
           git show FETCH_HEAD:go.mod > go.mod
@@ -93,7 +89,7 @@ jobs:
       # Both sides check the candidate ref's teams.
       - uses: actions/checkout@v4
         with:
-          ref: ${{ (inputs.candidate_ref || 'claude/sandrone-fork') }}
+          ref: ${{ inputs.candidate_ref }}
       - uses: actions/download-artifact@v4
         with:
           name: bin-${{ matrix.side }}
@@ -101,12 +97,12 @@ jobs:
       # Failing teams (exit 1) are results, not errors; only a crash or a
       # missing output fails the job. validate sets GOGC for its check
       # processes itself; -cache "" makes every simulation run.
-      - name: validate shard ${{ matrix.shard }}/${{ (inputs.shards || '16') }}
+      - name: validate shard ${{ matrix.shard }}/${{ inputs.shards }}
         run: |
           chmod +x bin/validate
           out=${{ matrix.side }}-${{ matrix.shard }}.jsonl
           set +e
-          bin/validate -cache "" -iter 20 -j 4 -shard ${{ matrix.shard }}/${{ (inputs.shards || '16') }} -json "$out" > validate.log 2>&1
+          bin/validate -cache "" -iter 20 -j 4 -shard ${{ matrix.shard }}/${{ inputs.shards }} -json "$out" > validate.log 2>&1
           code=$?
           set -e
           tail -n 3 validate.log
@@ -148,10 +144,10 @@ jobs:
           code=$?
           set -e
           {
-            echo "## Regression: ${{ (inputs.baseline_ref || 'main') }} → ${{ (inputs.candidate_ref || 'claude/sandrone-fork') }}"
+            echo "## Regression: ${{ inputs.baseline_ref }} → ${{ inputs.candidate_ref }}"
             echo
             echo "- tools: this workflow's commit ${{ github.sha }}"
-            echo "- teams: ${{ (inputs.candidate_ref || 'claude/sandrone-fork') }} (both sides)"
+            echo "- teams: ${{ inputs.candidate_ref }} (both sides)"
             echo "- baseline: $(paste -sd ';' bin-baseline/bin-ref.txt)"
             echo "- candidate: $(paste -sd ';' bin/bin-ref.txt)"
             echo
