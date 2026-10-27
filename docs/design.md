@@ -31,7 +31,7 @@ A user submits the builds of their party members, and Gscouter computes the team
 | Fight duration | Infinite cycles of the community rotation (steady state after the opener) | Shows how well a build's Energy Recharge sustains the rotation; the one-pass community number is shown alongside |
 | Rotation | A fixed rotation per team, taken from a community gcsim config | Removes player control from the equation; community configs are the accepted standard |
 | Teams not in the library | Marked "unsupported" and not computed | Early on, library quality comes first |
-| Characters gcsim lacks | Proposed: scored in an "experimental" tier on a Gscouter fork of gcsim, with a badge (§5.4) | A public site needs every released character; upstream takes months per character |
+| Characters gcsim lacks | Scored in an "experimental" tier on a Gscouter fork of gcsim, with a badge (§5.4). The fork, the tier and the badge are in place; no team uses the tier yet | A public site needs every released character; upstream takes months per character |
 | Library management | Manual authoring/approval + automated validation | Rotation quality *is* fairness |
 | Simulation engine | [gcsim](https://github.com/genshinsim/gcsim) (MIT license) | Frame-level simulator, community standard, fast to add new characters |
 | Build input | Enka.Network UID (primary), GOOD JSON (secondary) | Manual stat entry tends to go unused |
@@ -223,6 +223,9 @@ members: [hutao, xingqiu, zhongli, yelan]
 status: draft            # supported | draft | blocked
 rotation_version: 1
 gcsim_commit: 2350be9    # gcsim version used for validation
+# experimental teams also have (§5.4):
+# tier: experimental
+# gcsim_fork: f251d17    # commit of the gcsim fork
 sources:
   - https://db.kqm.gg/db/B7cTMcwpmp7F
 notes: 'Harvested from the KQM gcsim database: ...'
@@ -278,7 +281,7 @@ Validation checks:
 - The rotation finishes, and one fight of the looped rotation ends within 20 s. A loop that takes no action, such as `while rotations { ... }` with the counter set once in the setup, spins inside gcsim without time passing once the counter is spent; gcsim cannot cancel it, so `cmd/validate` checks each team in its own process and such teams are removed
 - Action waits and members with almost no damage in the looped rotation are reported as warnings
 
-### 5.4 Experimental tier (proposed)
+### 5.4 Experimental tier (in progress)
 
 Goal: every released character can be scored, including the ones upstream gcsim lacks (§6.3). Waiting for upstream leaves new characters, the ones players most want to try, unscored for months: Ineffa took about 5 months, Lauma and Flins about 5, Durin about 6, Aino about 8, and Nefer is still missing a year after release.
 
@@ -289,12 +292,28 @@ Goal: every released character can be scored, including the ones upstream gcsim 
 | Unsupported | No implementation | — | "Unsupported" |
 
 **Fork**
-- A fork of gcsim under the project's GitHub account, used through a `replace` directive in `go.mod`. It is upstream `main` plus one commit per added character, so a gcsim update is a rebase of those commits.
+- A fork of gcsim under the project's GitHub account, used through a `replace` directive in `go.mod`: the `gscouter` branch of [cenoda/gcsim](https://github.com/cenoda/gcsim/tree/gscouter). It is upstream `main` plus one group of commits per added character, so a gcsim update is a rebase of those groups.
+  - A group taken from an upstream PR starts with the PR squashed into one commit under its author's name, unchanged; our fixes follow as separate commits, so they can be offered back to the PR.
+  - After a rebase: `go mod edit -replace` to the new commit, `internal/enka/gen.sh` (Enka mapping and names), `library.ForkOnly` updated for characters added to the fork or merged upstream, `share.GcsimFork` set to the new fork commit (a test checks it against `go.mod`), the fork's own `go test ./...` (its frame and ability tests cover every character), and the regression run below.
 - Each added character comes, in order of preference, from an open upstream PR (Nefer, Linnea, Kachina have one) or from our own implementation. Multipliers come from gcsim's data pipeline either way.
 - Each added character records its source (PR or ours), where each action's frame data comes from (measured, taken from the PR, or estimated from a similar character) and its known gaps. The result page links them.
 - Our own implementations are also sent upstream as PRs. Review there improves accuracy, and every merge ends the fork's cost for that character.
 - When upstream merges a character, its fork commit is dropped and its teams move to the verified tier after revalidation. Scores may shift; results already record the gcsim version.
 - **Verified scores must not move.** The server and the browser build (§4.7) run both tiers on the same gcsim, so the fork must leave every verified team's score unchanged (the regression run in §5.3, step 4 of the table). Engine changes a new character needs, such as Vodyanitsa's Wandering Vortex, are switched on only when that character is in the team, the way gcsim already enables Stellar Swirl through `Flags.Custom`.
+  - Regression run: every library team through the full check (`validate.Check`, 20 iterations) on upstream and on the fork, comparing the reference pass, the common pass and the looped score, per character, at full precision. Seeds are fixed, so the difference must be exactly 0. Result for the first fork (2026-10-27, 40 minutes per run on 4 CPUs): 4,396 of 4,397 teams identical to the last bit, among them all 228 with Lauma, Columbina, Flins, Ineffa, Aino or Zibai. The other, Klee / Citlali / Xilonen / Xianyun, differed by 0.16 DPS in Xianyun's damage on the one pass under the common conditions; the upstream run was the odd one out. Rerun 83 times, upstream and the fork both always gave the fork's number. So upstream gcsim, very rarely, does not repeat an iteration exactly; the cause is not known yet.
+  - Because of that, a team that differs is not yet a regression: rerun it on both builds, at least 20 times each. Only a difference that repeats counts and must be fixed; a value that appears once on one side and never again is recorded as that nondeterminism. The scratch tool for the run is not in the repository: it calls `validate.CheckIsolated` on every team and prints each `Report` as JSON, and the two outputs are compared field by field.
+
+**Characters on the fork** (fork `f251d17`, on upstream `2350be9`, 2026-10-27)
+
+None of them has a library team yet; teams come with the experimental tier.
+
+| Character | Source | Frame data | Known problems |
+|---|---|---|---|
+| Kachina | Upstream PR #2697 (danieldlc01), open since 2026-07 with requested changes | The PR cites a frame count by caramielle. Normal attacks look counted (the review asked for a recount); charged attack estimated (every cancel 49–50); skill: counted cancels but a placeholder animation of 733 frames, so an uncancelled skill followed by a charged attack waits that long; mount/dismount recast all 30 (placeholder); burst not counted; Turbo Twirly's timings (143, then every 118) unsourced | A1 gives +20% DMG to the active character on any Geo hit instead of Geo DMG to Kachina only; C1 triggers on crystallize, not shard pickup, and its shard absorption is missing; C4 is not polled; no Geo construct; Twirly loses no points while idle and loses 10 per enemy hit; swapping out while mounted can leave Twirly mounted forever; no plunge. Fixed on the fork: compile fix for current upstream, 500-frame charge cancels, Twirly's independent attacks firing every 236 frames instead of 118 |
+| Linnea | Upstream PR #2596 (TheSast), open since 2026-04 with requested changes | Skill (first press) and burst cancels counted by caramielle; normal attack hitmarks counted, but their cancels are Gorou's; aimed shots are the generic bow template; skill recast a placeholder (10); plunge missing | The burst while Lumi is out stops Lumi's attacks and the A1 shred for the rest of its duration; C1 consumes stacks once per Lunar-Crystallize contributor instead of once; C2's extra attack does not emit Moondrift Harmony; C4 may give Linnea +50% DEF on field instead of +25%; the A4 EM buff is not refreshed on swap. Fixed on the fork: a duplicate registration that panicked at startup, frame invariants (skill animation 14 → 44, the longest cancel, as the upstream review asked; N3 animation 43 → 47, its hitmark; burst queue at the earliest cancel), C3 raising normal attacks instead of the skill, C2 skipping members after the first non-Geo/Hydro one |
+| Nefer | Upstream PR #3045 (dersario), open since 2026-09, no review | The PR cites a frame count by caramielle; normal attack, charged attack, skill and burst numbers are irregular and match no other catalyst, so counted. Slither's stamina drain and movement, the Seed absorb radius (6) and the Slither entry (0 frames) are assumptions | Changes Verdant Dew generation for every team (below); no hitlag or poise; documented hitboxes differ from the code; Phantasm and charged hits are mostly 25U with no ICD; `.nefer.veilStacks` and `.nefer.phantasmCharges` are documented but do not resolve; C4 re-adds its resistance shred to every enemy every frame (slow); Slither moves the player. Fixed on the fork: N4's animation (51 → 63, its walk cancel), plunges with no frames (removed: Nefer cannot plunge), the burst's Veil bonus expiring before either hit |
+
+Shared code: Nefer's PR changes how Verdant Dew is collected so that her P2 and C4 can speed it up. The partial dew counter becomes a float and each frame adds 1 plus the sum of registered rate mods; only Nefer registers one. Without Nefer the sum is 0 and the counter reaches 146 on the same frame as before; Lauma and Columbina teams were part of the regression run. Linnea and Kachina change nothing outside their packages; all their event subscriptions are made when they are in the party.
 
 **Rotations**
 - The community database has no entries for characters upstream lacks, so experimental teams are an exception to "rotations are never written from scratch" (§3.1, §5.2). The exception ends for a team once the database has an entry for it: `cmd/harvest` then replaces our rotation.
@@ -305,7 +324,7 @@ Goal: every released character can be scored, including the ones upstream gcsim 
   - review by a person before `status: supported`.
 
 **Display**
-- `team.yaml` gets `tier: experimental`. Team, result and versus pages show the badge, and a versus between tiers shows it on the experimental side.
+- `team.yaml` gets `tier: experimental` (`library.TierExperimental`; no tier means verified). Loading checks it: a team needs the tier exactly when a member is in `library.ForkOnly`, so a team with a fork-only character cannot pass as verified, nor a verified team carry the badge. Experimental teams also record `gcsim_fork`, the fork commit they were written for: `gcsim_commit` names the upstream base, which a fix on the fork leaves unchanged, so without it a score change from a fork fix could not be told apart. `cmd/import` and `cmd/harvest` set both fields for a team with a fork-only member. `/teams` and the team header of result pages show an "Experimental" badge, in every site language, and the result adds a note that the score may change. A versus page renders that header for each side, so the badge shows on the experimental side only. Link-preview cards do not show it yet. No team uses the tier yet.
 
 ## 6. Initial Library
 
@@ -328,15 +347,17 @@ Enka.Network's character list compared with the characters in gcsim `2350be9`. T
 
 | Character | Upstream state | Plan (§5.4) |
 |---|---|---|
-| Kachina (4★ Geo, 5.0) | Open PR #2697 (2026-07-25) | Take the PR |
-| Nefer (5★ Dendro, 6.1) | Open PR #3045 (2026-09-20), no review yet; an earlier draft, #2587, was closed | Take the PR |
-| Linnea (5★ Geo) | Open PR #2596 (2026-04-19) | Take the PR |
+| Kachina (4★ Geo, 5.0) | Open PR #2697 (2026-07-25) | On the fork; frames partly estimated, known problems in §5.4 |
+| Nefer (5★ Dendro, 6.1) | Open PR #3045 (2026-09-20), no review yet; an earlier draft, #2587, was closed | On the fork; frames counted, known problems in §5.4 |
+| Linnea (5★ Geo) | Open PR #2596 (2026-04-19) | On the fork; frames partly counted, known problems in §5.4 |
 | Lohen (5★ Cryo) | None | Implement |
 | Sandrone (5★ Cryo) | None | Implement |
 | Vodyanitsa (5★ Hydro, 7.1) | None | Implement, with the Wandering Vortex |
 | Vesna (5★ Anemo, 7.1) | None | Implement last: changes Stellar Swirl |
 
 Order: the fork and the three characters with upstream PRs first (most coverage for the least work), then Vodyanitsa, Lohen and Sandrone, then Vesna.
+
+The fork and the three PR characters are in place (2026-10-27): the site builds on the fork, and Enka profiles and names map all three. They have no library teams yet, so they are still scored as unsupported.
 
 ### 6.2 Library from the community database
 
@@ -403,4 +424,4 @@ The first batch held the 64 teams with the most entries in the community databas
 4. ~~Library format, import and validation~~ Done: `cmd/import` adds a team from a gcsim share link; `cmd/validate` checks that each team reproduces its source's DPS (§5.3). CI runs it. The `add-team` skill describes the workflow.
 5. ~~First library batch~~ Done: `cmd/harvest` took the 64 most simulated teams from the community gcsim database (§5.3), then every usable team, 4,397 after validation (§6.2). An earlier batch of 64 agent-written rotations was removed: written without sources, they scored a third of the community numbers.
 6. ~~Display names~~ Done: in-game character and weapon names in every game language, instead of gcsim keys.
-7. Experimental tier (§5.4): the gcsim fork, `tier` in `team.yaml` and the badge, then the characters in §6.3 in the order given there.
+7. Experimental tier (§5.4): ~~the gcsim fork, with Kachina, Linnea and Nefer from upstream PRs~~ (done, verified scores unchanged) and `tier` in `team.yaml` with the badge (done); next rotations for the three, then the remaining characters in §6.3 in the order given there.

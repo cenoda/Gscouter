@@ -111,6 +111,8 @@ func init() {
 		"enka.failed":       "Could not load the profile from Enka.Network.",
 
 		"warn.draft":        "This team's rotation is not validated yet. The score may change.",
+		"warn.experimental": "A member of this team is not in gcsim yet and is calculated with Gscouter's own implementation. The score may change.",
+		"tier.experimental": "Experimental",
 		"warn.energy":       "%s waits %.1f s per minute for energy. More Energy Recharge raises the score.",
 		"warn.unknown_sets": "%s: %d artifact sets are not supported by the simulation engine yet, so their set bonuses are left out.",
 		"issue.arlecchino":  "Known issue: Arlecchino's damage is calculated too low and the cause is under investigation. Adding about 20% to this result comes close to the real number.",

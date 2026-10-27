@@ -918,6 +918,23 @@
         "burst_energy_cost": 80
       }
     },
+    "kachina": {
+      "id": 10000100,
+      "sub_id": 10001,
+      "key": "kachina",
+      "rarity": "QUALITY_PURPLE",
+      "body": "BODY_LOLI",
+      "region": "ASSOC_TYPE_NATLAN",
+      "element": "Rock",
+      "weapon_class": "WEAPON_POLE",
+      "icon_name": "UI_AvatarIcon_Kachina",
+      "skill_details": {
+        "skill": 11002,
+        "burst": 11005,
+        "attack": 11001,
+        "burst_energy_cost": 70
+      }
+    },
     "kaedeharakazuha": {
       "id": 10000047,
       "sub_id": 4701,
@@ -1154,6 +1171,23 @@
         "burst": 10745,
         "attack": 10741,
         "burst_energy_cost": 40
+      }
+    },
+    "linnea": {
+      "id": 10000130,
+      "sub_id": 13001,
+      "key": "linnea",
+      "rarity": "QUALITY_ORANGE",
+      "body": "BODY_GIRL",
+      "region": "ASSOC_TYPE_NODKRAI",
+      "element": "Rock",
+      "weapon_class": "WEAPON_BOW",
+      "icon_name": "UI_AvatarIcon_Linnea",
+      "skill_details": {
+        "skill": 11302,
+        "burst": 11305,
+        "attack": 11301,
+        "burst_energy_cost": 60
       }
     },
     "lisa": {
@@ -1424,6 +1458,23 @@
         "skill": 10912,
         "burst": 10915,
         "attack": 10911,
+        "burst_energy_cost": 60
+      }
+    },
+    "nefer": {
+      "id": 10000122,
+      "sub_id": 12201,
+      "key": "nefer",
+      "rarity": "QUALITY_ORANGE",
+      "body": "BODY_LADY",
+      "region": "ASSOC_TYPE_NODKRAI",
+      "element": "Grass",
+      "weapon_class": "WEAPON_CATALYST",
+      "icon_name": "UI_AvatarIcon_Nefer",
+      "skill_details": {
+        "skill": 11222,
+        "burst": 11225,
+        "attack": 11221,
         "burst_energy_cost": 60
       }
     },

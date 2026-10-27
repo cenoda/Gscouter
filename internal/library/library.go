@@ -22,16 +22,43 @@ const (
 	StatusBlocked   Status = "blocked"
 )
 
+// Tier says which gcsim a team's score comes from (design §5.4).
+type Tier string
+
+const (
+	// TierVerified teams use only characters upstream gcsim has. It is
+	// the default, written as no tier at all.
+	TierVerified Tier = ""
+	// TierExperimental teams have a character only Gscouter's gcsim fork
+	// has. Their scores carry a badge: they may change.
+	TierExperimental Tier = "experimental"
+)
+
+// ForkOnly holds the characters that only Gscouter's gcsim fork has, by
+// canonical key (design §5.4). A team is experimental exactly when it has
+// one of them. Update it whenever a character is added to the fork or
+// upstream merges one.
+var ForkOnly = map[string]bool{
+	"kachina": true,
+	"linnea":  true,
+	"nefer":   true,
+}
+
 type Team struct {
 	ID              string   `yaml:"id"`
 	Name            string   `yaml:"name"`
 	Members         []string `yaml:"members"` // gcsim character keys
 	Archetype       string   `yaml:"archetype"`
 	Status          Status   `yaml:"status"`
+	Tier            Tier     `yaml:"tier,omitempty"`
 	RotationVersion int      `yaml:"rotation_version"`
 	GcsimCommit     string   `yaml:"gcsim_commit"`
-	Sources         []string `yaml:"sources"`
-	Notes           string   `yaml:"notes"`
+	// GcsimFork is the commit of Gscouter's gcsim fork an experimental
+	// team was written for. GcsimCommit stays the upstream base, which a
+	// fix on the fork does not change.
+	GcsimFork string   `yaml:"gcsim_fork,omitempty"`
+	Sources   []string `yaml:"sources"`
+	Notes     string   `yaml:"notes"`
 	// Params are gcsim character params the rotation assumes, by member
 	// key, e.g. {hutao: "start_hp=1"}. They are added to the player's
 	// character line.
@@ -73,6 +100,21 @@ func LoadFS(fsys fs.FS, dir string) (*Team, error) {
 	case StatusSupported, StatusDraft, StatusBlocked:
 	default:
 		return nil, fmt.Errorf("team %q: unknown status %q", t.ID, t.Status)
+	}
+	switch t.Tier {
+	case TierVerified, TierExperimental:
+	default:
+		return nil, fmt.Errorf("team %q: unknown tier %q", t.ID, t.Tier)
+	}
+	forkOnly := slices.ContainsFunc(t.Members, func(m string) bool { return ForkOnly[Canonical(m)] })
+	if forkOnly != (t.Tier == TierExperimental) {
+		if forkOnly {
+			return nil, fmt.Errorf("team %q: has a character only the gcsim fork has, so it needs tier: experimental", t.ID)
+		}
+		return nil, fmt.Errorf("team %q: tier experimental, but every member is in upstream gcsim", t.ID)
+	}
+	if (t.GcsimFork != "") != forkOnly {
+		return nil, fmt.Errorf("team %q: gcsim_fork goes with tier experimental, and only with it", t.ID)
 	}
 	rotation, err := fs.ReadFile(fsys, path.Join(dir, "rotation.gcsl"))
 	if err != nil && (t.Status != StatusBlocked || !errors.Is(err, fs.ErrNotExist)) {

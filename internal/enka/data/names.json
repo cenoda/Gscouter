@@ -918,6 +918,23 @@
 			"zh-cn": "琴",
 			"zh-tw": "琴"
 		},
+		"kachina": {
+			"de": "Kachina",
+			"en": "Kachina",
+			"es": "Kachina",
+			"fr": "Kachina",
+			"id": "Kachina",
+			"it": "Kachina",
+			"ja": "カチーナ",
+			"ko": "카치나",
+			"pt": "Kachina",
+			"ru": "Качина",
+			"th": "Kachina",
+			"tr": "Kachina",
+			"vi": "Kachina",
+			"zh-cn": "卡齐娜",
+			"zh-tw": "卡齊娜"
+		},
 		"kaedeharakazuha": {
 			"de": "Kaedehara Kazuha",
 			"en": "Kaedehara Kazuha",
@@ -1155,6 +1172,23 @@
 			"vi": "Layla",
 			"zh-cn": "莱依拉",
 			"zh-tw": "萊依拉"
+		},
+		"linnea": {
+			"de": "Linnea",
+			"en": "Linnea",
+			"es": "Linnéa",
+			"fr": "Linnea",
+			"id": "Linnea",
+			"it": "Linnea",
+			"ja": "リンネア",
+			"ko": "린네아",
+			"pt": "Linnea",
+			"ru": "Линнея",
+			"th": "Linnea",
+			"tr": "Linnea",
+			"vi": "Linnea",
+			"zh-cn": "莉奈娅",
+			"zh-tw": "莉奈婭"
 		},
 		"lisa": {
 			"de": "Lisa",
@@ -1427,6 +1461,23 @@
 			"vi": "Navia",
 			"zh-cn": "娜维娅",
 			"zh-tw": "娜維婭"
+		},
+		"nefer": {
+			"de": "Nefer",
+			"en": "Nefer",
+			"es": "Néfer",
+			"fr": "Nefer",
+			"id": "Nefer",
+			"it": "Nefer",
+			"ja": "ネフェル",
+			"ko": "네페르",
+			"pt": "Nefer",
+			"ru": "Нефер",
+			"th": "Nefer",
+			"tr": "Nefer",
+			"vi": "Nefer",
+			"zh-cn": "奈芙尔",
+			"zh-tw": "奈芙爾"
 		},
 		"neuvillette": {
 			"de": "Neuvillette",

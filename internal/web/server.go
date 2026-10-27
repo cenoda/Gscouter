@@ -443,6 +443,9 @@ func warnings(l localizer, team *library.Team, res *score.Result) []string {
 	if team.Status == library.StatusDraft {
 		out = append(out, l.T("warn.draft"))
 	}
+	if team.Tier == library.TierExperimental {
+		out = append(out, l.T("warn.experimental"))
+	}
 	for _, m := range team.Members {
 		if key, ok := knownIssues[library.Canonical(m)]; ok {
 			out = append(out, l.T(key))
