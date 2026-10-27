@@ -48,24 +48,37 @@ func TestEnemyText(t *testing.T) {
 	e := config.StandardEnemy
 	e.Level = 90
 	e.Resist[6], e.Resist[7] = 70, 40
-	if got, want := english.enemyText(&e), "Lv. 90 · Geo 70%, Physical 40%, others 10%"; got != want {
+	if got, want := english.enemyText(&e), "Lv. 90 · Geo RES 70%, Physical RES 40%"; got != want {
 		t.Errorf("got %q, want %q", got, want)
 	}
 	if got := english.enemyText(nil); !strings.Contains(got, "standard") {
 		t.Errorf("standard enemy: %q", got)
 	}
 	ko := localizer{Lang: langKorean}
-	if got, want := ko.enemyText(&config.Enemy{Level: 100, Resist: [8]int{25, 25, 25, 25, 25, 25, 25, 25}}), "Lv.100 · 모든 내성 25%"; got != want {
-		t.Errorf("got %q, want %q", got, want)
-	}
 	b, _ := config.FindBoss("azhdaha")
 	boss := config.Enemy{Level: 95, Resist: b.Resist, Boss: b.Key}
-	if got, want := ko.enemyText(&boss), "야타용왕 · Lv.95 · 바위 70%, 물리 40%, 나머지 10%"; got != want {
+	if got, want := ko.enemyText(&boss), "야타용왕 · 레벨 95 · 바위 원소 내성 70%, 물리 내성 40%"; got != want {
 		t.Errorf("got %q, want %q", got, want)
 	}
-	boss.Resist[0] = 30
-	if got, want := english.enemyText(&boss), "Azhdaha (modified) · Lv. 95 · Pyro 30%, Geo 70%, Physical 40%, others 10%"; got != want {
+	// The game's own words in every language.
+	if got, want := (localizer{Lang: "de"}).enemyText(&boss), "Azhdaha · Stufe 95 · Geo-WDS 70%, Physischer WDS 40%"; got != want {
 		t.Errorf("got %q, want %q", got, want)
+	}
+}
+
+func TestGlossed(t *testing.T) {
+	de := localizer{Lang: "de"}
+	if got, want := de.T("enemy.apply"), "Neu berechnen (Recalculate)"; got != want {
+		t.Errorf("got %q, want %q", got, want)
+	}
+	if got := de.T("err.boss", "x"); got != `Unbekannter Boss: "x" (Unknown boss: "x")` {
+		t.Errorf("got %q", got)
+	}
+	// Korean and English have no gloss; nor do words the wiki has.
+	for _, got := range []string{(localizer{Lang: langKorean}).T("enemy.apply"), english.T("enemy.apply"), (localizer{Lang: "ja"}).T("enemy.weekly")} {
+		if strings.Contains(got, "(") {
+			t.Errorf("glossed: %q", got)
+		}
 	}
 }
 
@@ -89,13 +102,13 @@ func TestScoreCustomEnemy(t *testing.T) {
 	}
 
 	_, body := get(t, ts, want)
-	mustContain(t, body, "Calculated against a custom enemy (Lv. 90 · Pyro 70%, others 10%)",
+	mustContain(t, body, "Calculated against a custom enemy (Lv. 90 · Pyro RES 70%)",
 		`name="lvl" min="1" max="200" step="1" value="90"`, `name="pyro" min="-100" max="1000" step="1" value="70"`,
 		"Back to the standard enemy",
 		// Comparing and picking again keep the enemy.
 		`<input type="hidden" name="lvl" value="90">`, `href="/?lvl=90&amp;pyro=70&amp;uid=800000001"`,
 		// Link previews too.
-		`/card/score.png?a=800000001%3Ahutao%2Cyelan%2Cxingqiu%2Czhongli&amp;lvl=90&amp;pyro=70`, "custom enemy: Lv. 90")
+		`/card/score.png?a=800000001%3Ahutao%2Cyelan%2Cxingqiu%2Czhongli&amp;lvl=90&amp;pyro=70`, "| Lv. 90 · Pyro RES 70%")
 	if code, _ := get(t, ts, "/score?a="+url.QueryEscape(sel)+"&lvl=500"); code != http.StatusBadRequest {
 		t.Errorf("bad enemy: status %d", code)
 	}
@@ -105,7 +118,7 @@ func TestScoreCustomEnemy(t *testing.T) {
 	mustContain(t, body, "Teams will be calculated against a custom enemy",
 		`href="/versus?a=800000001%3Ahutao%2Cyelan%2Cxingqiu%2Czhongli&amp;b=800000002%3Ahutao%2Cxingqiu%2Czhongli%2Cyelan&amp;lvl=90&amp;pyro=70"`)
 	_, body = get(t, ts, "/versus?"+url.Values{"a": {sel}, "b": {"800000002:hutao,yelan,xingqiu,zhongli"}, "lvl": {"90"}, "pyro": {"70"}}.Encode())
-	mustContain(t, body, "Calculated against a custom enemy (Lv. 90 · Pyro 70%, others 10%)", `value="70"`)
+	mustContain(t, body, "Calculated against a custom enemy (Lv. 90 · Pyro RES 70%)", `value="70"`)
 
 	// Resistance to Hu Tao's element lowers the team's damage.
 	s, _ := parseSelection(sel)
@@ -126,12 +139,12 @@ func TestScoreBossPreset(t *testing.T) {
 	ts := newTestServer(t)
 	a := "/score?a=" + url.QueryEscape("800000001:hutao,yelan,xingqiu,zhongli")
 	_, body := get(t, ts, a+"&boss=lasignora")
-	mustContain(t, body, "Calculated against a custom enemy (La Signora · Lv. 100 · Pyro 70%, others 10%)",
+	mustContain(t, body, "Calculated against a custom enemy (La Signora · Lv. 100 · Pyro RES 70%)",
 		`<option value="lasignora" data-resist="70,10,10,10,10,10,10,10" selected>La Signora</option>`,
-		`name="pyro" min="-100" max="1000" step="1" value="70"`, "Weekly bosses", "World bosses",
+		`name="pyro" min="-100" max="1000" step="1" value="70"`, "Weekly Bosses", "Normal Bosses",
 		`&amp;boss=lasignora`)
 	_, body = getKo(t, ts, a+"&boss=hydrotulpa")
-	mustContain(t, body, "물의 환인간 · Lv.100 · 모든 내성 10%", "표준 점수와 비교할 수 있습니다")
+	mustContain(t, body, "물의 환인간 · 레벨 100", "표준 점수와 비교할 수 있습니다")
 	if strings.Contains(body, "표준 적 기준 점수와는 비교할 수 없습니다") {
 		t.Error("a boss with the standard resistances is marked as not comparable")
 	}

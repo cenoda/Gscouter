@@ -60,10 +60,24 @@ func (l localizer) T(key string, args ...any) string {
 	if !ok {
 		msg = cmp.Or(catalog[defaultLang][key], key)
 	}
-	if len(args) == 0 {
-		return msg
+	if len(args) > 0 {
+		msg = fmt.Sprintf(msg, args...)
 	}
-	return fmt.Sprintf(msg, args...)
+	if glossed[key] && ok && l.Lang != langEnglish && l.Lang != langKorean {
+		msg += " (" + english.T(key, args...) + ")"
+	}
+	return msg
+}
+
+// glossed are the messages that no game data or wiki has in the site's
+// other languages. Their translations are followed by the English in
+// parentheses, except in Korean, the owner's language.
+var glossed = map[string]bool{
+	"enemy.heading": true, "enemy.standard": true, "enemy.lead": true,
+	"enemy.apply": true, "enemy.reset": true, "enemy.custom_note": true,
+	"enemy.same_note": true, "enemy.carried": true, "enemy.preset": true,
+	"enemy.custom": true, "enemy.preset_note": true,
+	"err.enemy": true, "err.boss": true,
 }
 
 // name returns the message for prefix+key, or key when there is none:
@@ -172,6 +186,7 @@ func localeFuncs(l localizer) template.FuncMap {
 		// enemyText describes a result's enemy.
 		"enemyText": l.enemyText,
 		"presets":   l.presets,
+		"term":      l.term,
 		// members lists what finds a team's members, for search.
 		"members": func(t *library.Team) string { return strings.Join(l.searchNames(t), " ") },
 	}

@@ -19,22 +19,32 @@ import (
 // everything in percent, and an element's parameter (pyro, ...,
 // physical) its resistance to that element.
 
-// bossNames[boss key][language] is a boss's in-game name; see genbosses.
+// enemyWords are the game's own words for the enemy settings, by
+// language, so they need no translation; see genenemy.
 //
-//go:embed bosses.json
-var bossNamesJSON []byte
+//go:embed enemy.json
+var enemyJSON []byte
 
-var bossNames = func() map[string]map[string]string {
-	var out map[string]map[string]string
-	if err := json.Unmarshal(bossNamesJSON, &out); err != nil {
-		panic("web: bosses.json: " + err.Error())
+var enemyWords = func() (out struct {
+	Bosses map[string]map[string]string // boss key -> language -> name
+	Terms  map[string]map[string]string // "level" or an element -> language -> label
+}) {
+	if err := json.Unmarshal(enemyJSON, &out); err != nil {
+		panic("web: enemy.json: " + err.Error())
 	}
 	return out
 }()
 
 // bossName is a boss's in-game name in l's language, else in English.
 func (l localizer) bossName(key string) string {
-	byLang := bossNames[key]
+	byLang := enemyWords.Bosses[key]
+	return cmp.Or(byLang[l.Lang], byLang[langEnglish], key)
+}
+
+// term is the game's label for the level ("level") or an element's
+// resistance (e.g. "pyro") in l's language.
+func (l localizer) term(key string) string {
+	byLang := enemyWords.Terms[key]
 	return cmp.Or(byLang[l.Lang], byLang[langEnglish], key)
 }
 
@@ -146,36 +156,28 @@ func link(path string, e *config.Enemy, kv ...string) template.URL {
 	return template.URL(path + "?" + v.Encode())
 }
 
-// enemyText describes an enemy in l's language, e.g. "Lv. 90 · Geo 70%,
-// Physical 40%, others 10%", after the boss's name if it has one.
+// enemyText describes an enemy in l's language in the game's words, e.g.
+// "Azhdaha · Lv. 95 · Geo RES 70%, Physical RES 40%": the boss, the level,
+// and each resistance other than the standard enemy's 10%.
 func (l localizer) enemyText(e *config.Enemy) string {
 	if e == nil {
 		return l.T("enemy.standard")
 	}
-	text := l.resistText(e)
-	if b, ok := config.FindBoss(e.Boss); ok {
-		if e.Resist != b.Resist {
-			return l.T("enemy.boss_modified", l.bossName(b.Key), text)
-		}
-		return l.T("enemy.boss", l.bossName(b.Key), text)
-	}
-	return text
-}
-
-// resistText is enemyText without the boss.
-func (l localizer) resistText(e *config.Enemy) string {
-	if r, ok := e.Uniform(); ok {
-		return l.T("enemy.text", e.Level, l.T("enemy.all", r))
-	}
-	all := commonResist(e)
 	var parts []string
+	if b, ok := config.FindBoss(e.Boss); ok {
+		parts = append(parts, l.bossName(b.Key))
+	}
+	parts = append(parts, l.term("level")+" "+strconv.Itoa(e.Level))
+	var res []string
 	for i, r := range e.Resist {
-		if r != all {
-			parts = append(parts, l.T("enemy.one", l.T("el."+config.Elements[i]), r))
+		if r != config.StandardEnemy.Resist[i] {
+			res = append(res, fmt.Sprintf("%s %d%%", l.term(config.Elements[i]), r))
 		}
 	}
-	parts = append(parts, l.T("enemy.others", all))
-	return l.T("enemy.text", e.Level, strings.Join(parts, l.T("enemy.sep")))
+	if len(res) > 0 {
+		parts = append(parts, strings.Join(res, ", "))
+	}
+	return strings.Join(parts, " · ")
 }
 
 // enemyForm is the form that sets up a result page's enemy.

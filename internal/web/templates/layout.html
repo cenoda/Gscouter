@@ -120,8 +120,8 @@ ul.teams li { break-inside: avoid; }
 details summary { cursor: pointer; }
 .enemy-preset { display: flex; flex-direction: column; gap: 4px; font-size: .9rem; margin-top: 12px; max-width: 360px; }
 .enemy-preset select { padding: 8px 10px; font: inherit; font-size: 1rem; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--text); }
-.enemy-fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; margin-top: 12px; }
-.enemy-fields label { display: flex; flex-direction: column; gap: 4px; font-size: .9rem; }
+.enemy-fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; margin-top: 12px; }
+.enemy-fields label { display: flex; flex-direction: column; justify-content: space-between; gap: 4px; font-size: .9rem; }
 .enemy-fields label span { display: flex; gap: 4px; align-items: center; }
 .enemy-fields input { width: 100%; padding: 8px 10px; font-size: 1rem; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--text); }
 footer { margin-top: 24px; border-top: 1px solid var(--line); padding-top: 12px; }
@@ -272,8 +272,8 @@ details.rotation pre { background: var(--bg); border-radius: 8px; padding: 12px;
 </select></label>
 <p class="muted">{{t "enemy.preset_note"}}</p>
 <div class="enemy-fields">
-<label><span>{{t "enemy.level"}}</span><input type="number" name="lvl" min="{{$lim.MinLevel}}" max="{{$lim.MaxLevel}}" step="1" value="{{.Level}}" required></label>
-{{range .Resists}}<label><span>{{if ne .Element "physical"}}{{template "el" .Element}}{{end}}{{t (print "el." .Element)}} %</span><input type="number" name="{{.Name}}" min="{{$lim.MinResist}}" max="{{$lim.MaxResist}}" step="1" value="{{.Value}}" required></label>
+<label><span>{{term "level"}}</span><input type="number" name="lvl" min="{{$lim.MinLevel}}" max="{{$lim.MaxLevel}}" step="1" value="{{.Level}}" required></label>
+{{range .Resists}}<label><span>{{if ne .Element "physical"}}{{template "el" .Element}}{{end}}{{term .Element}} %</span><input type="number" name="{{.Name}}" min="{{$lim.MinResist}}" max="{{$lim.MaxResist}}" step="1" value="{{.Value}}" required></label>
 {{end}}</div>
 <div class="actions">
 <button type="submit">{{t "enemy.apply"}}</button>
