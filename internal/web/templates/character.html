@@ -1,0 +1,14 @@
+{{template "head" .Meta}}
+<div class="card">
+<div class="team-title">{{template "face" .Key}}<h1>{{t "char.heading" (name .Key)}}</h1></div>
+<p class="muted">{{t "lib.score_note"}}</p>
+<div class="table-wrap"><table>
+<thead><tr><th>{{t "char.team"}}</th><th class="num">DPS</th></tr></thead>
+<tbody>
+{{range .Teams}}<tr><td><a class="who" href="/teams/{{.ID}}{{$.Lang}}">{{template "faces" .Members}}<span>{{teamName .}}</span></a>{{if eq .Tier "experimental"}} <span class="badge">{{t "tier.experimental"}}</span>{{end}}</td>
+<td class="num">{{with .Validation}}{{if .DPS}}{{thousands (float .DPS)}}{{else}}—{{end}}{{else}}—{{end}}</td></tr>
+{{end}}</tbody>
+</table></div>
+</div>
+{{template "library-try"}}
+{{template "foot"}}

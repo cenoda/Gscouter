@@ -1,4 +1,4 @@
-{{template "head" (t "teams.title")}}
+{{template "head" .Meta}}
 <div class="card">
 <h1>{{t "index.supported"}}</h1>
 <form class="inline" action="/teams" method="get">
@@ -8,9 +8,13 @@
 <p class="muted" id="team-count">{{if .Query}}{{t "teams.matching" .Query (len .Teams) .Total}}{{else}}{{t "teams.total" .Total}}{{end}}</p>
 <p class="muted">{{t "teams.hint"}}</p>
 <ul class="teams" id="team-list">
-{{range .Teams}}<li data-m="{{members .}}">{{teamName .}}{{if eq .Tier "experimental"}} <span class="badge">{{t "tier.experimental"}}</span>{{end}}{{if eq .Status "supported"}} <span class="muted">· {{t "teams.supported"}}</span>{{else if eq .Status "blocked"}} <span class="muted">· {{t "teams.blocked"}}</span>{{end}}</li>{{end}}
+{{range .Teams}}<li data-m="{{members .}}"><a href="/teams/{{.ID}}{{$.Lang}}">{{teamName .}}</a>{{if eq .Tier "experimental"}} <span class="badge">{{t "tier.experimental"}}</span>{{end}}{{if eq .Status "supported"}} <span class="muted">· {{t "teams.supported"}}</span>{{else if eq .Status "blocked"}} <span class="muted">· {{t "teams.blocked"}}</span>{{end}}</li>{{end}}
 </ul>
 </div>
+{{if not .Query}}<div class="card">
+<h2>{{t "teams.chars"}}</h2>
+<div class="chips">{{range .Chars}}<a href="/characters/{{.}}{{$.Lang}}">{{name .}}</a>{{end}}</div>
+</div>{{end}}
 <script>
 (function () {
   // Filters the list as you type; the form does the same on the server.

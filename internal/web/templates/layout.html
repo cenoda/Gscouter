@@ -14,6 +14,9 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 {{else}}<meta name="twitter:card" content="summary">
+{{end}}{{with .Canonical}}<link rel="canonical" href="{{.}}">
+<meta property="og:url" content="{{.}}">
+{{end}}{{range .Alternates}}<link rel="alternate" hreflang="{{.Lang}}" href="{{.Href}}">
 {{end}}
 {{end}}<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%23b08a45' stroke-width='2.5'/%3E%3Ccircle cx='12' cy='12' r='3' fill='%23b08a45'/%3E%3C/svg%3E">
 <style>

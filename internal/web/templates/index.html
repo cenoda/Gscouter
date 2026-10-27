@@ -1,4 +1,4 @@
-{{template "head" (t "site.title")}}
+{{template "head" .Meta}}
 {{if .VS}}
 <section class="intro"><h1>{{t "index.vs_heading"}}</h1><p class="muted">{{t "index.vs_lead"}}</p></section>
 {{else if not .Profile}}
