@@ -95,6 +95,7 @@ func init() {
 		"meta.team_higher":  "Tim %s %.1f%% lebih tinggi",
 
 		"err.selection": "Pilihan tidak valid: %q",
+		"err.link":      "Tautan pendek ini tidak ada.",
 		"err.count":     "Pilih tepat empat karakter (%d dipilih).",
 		"err.chars":     "Pilihan karakter tidak valid.",
 

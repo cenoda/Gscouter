@@ -14,6 +14,7 @@ import (
 
 	"github.com/cenoda/gscouter/internal/enka"
 	"github.com/cenoda/gscouter/internal/library"
+	"github.com/cenoda/gscouter/internal/links"
 	"github.com/cenoda/gscouter/internal/web"
 	"github.com/cenoda/gscouter/teams"
 )
@@ -27,6 +28,7 @@ func main() {
 	flag.IntVar(&s.MaxConcurrent, "concurrent", s.MaxConcurrent, "simulations running at once")
 	flag.IntVar(&s.MaxQueue, "queue", s.MaxQueue, "simulations waiting before requests are rejected")
 	static := flag.String("static", os.Getenv("GSCOUTER_STATIC"), "directory of the browser build (cmd/wasm); browsers then calculate results")
+	linksDB := flag.String("links", os.Getenv("GSCOUTER_LINKS"), "SQLite file of short links; none turns them off")
 	flag.Parse()
 
 	lib, err := library.LoadLibrary(teams.FS)
@@ -46,6 +48,18 @@ func main() {
 			os.Exit(1)
 		}
 		slog.Info("browsers calculate results", "dir", *static)
+	}
+
+	if *linksDB != "" {
+		// Without the store the site still works: copying a result
+		// link copies the long link.
+		if store, err := links.Open(*linksDB); err != nil {
+			slog.Error("short links off", "db", *linksDB, "err", err)
+		} else {
+			defer store.Close()
+			srv.SetLinks(store)
+			slog.Info("short links", "db", *linksDB)
+		}
 	}
 
 	httpSrv := &http.Server{

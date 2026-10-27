@@ -5,6 +5,22 @@ services:
     image: ghcr.io/cenoda/gscouter:latest
     restart: unless-stopped
     mem_limit: 600m
+    environment:
+      GSCOUTER_LINKS: /data/links.db
+    volumes:
+      # Short links (/s/...), kept across updates.
+      - links:/data
+    depends_on:
+      links-owner:
+        condition: service_completed_successfully
+
+  # Gives the short links volume to the app's nonroot user (UID 65532),
+  # whose image has no shell to do it.
+  links-owner:
+    image: busybox:1.37
+    command: chown 65532:65532 /data
+    volumes:
+      - links:/data
 
   caddy:
     image: caddy:2
@@ -21,5 +37,6 @@ services:
       - caddy_config:/config
 
 volumes:
+  links:
   caddy_data:
   caddy_config:

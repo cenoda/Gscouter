@@ -95,6 +95,7 @@ func init() {
 		"meta.team_higher":  "A equipe de %s é %.1f%% maior",
 
 		"err.selection": "Seleção inválida: %q",
+		"err.link":      "Este link curto não existe.",
 		"err.count":     "Escolha exatamente quatro personagens (%d escolhidos).",
 		"err.chars":     "A seleção de personagens é inválida.",
 

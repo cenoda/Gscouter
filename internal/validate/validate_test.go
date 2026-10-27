@@ -2,6 +2,7 @@ package validate
 
 import (
 	"testing"
+	"time"
 
 	"github.com/cenoda/gscouter/internal/library"
 	"github.com/cenoda/gscouter/internal/score"
@@ -36,5 +37,14 @@ func TestUnpromotable(t *testing.T) {
 		if got := tc.r.Unpromotable() == ""; got != tc.want {
 			t.Errorf("%s: promotable %v, want %v (%s)", name, got, tc.want, tc.r.Unpromotable())
 		}
+	}
+}
+
+func TestSettingsTimeout(t *testing.T) {
+	if got := (Settings{}).timeout(); got != 2*time.Minute {
+		t.Errorf("default timeout = %v, want 2m", got)
+	}
+	if got := (Settings{Timeout: 6 * time.Minute}).timeout(); got != 6*time.Minute {
+		t.Errorf("timeout = %v, want 6m", got)
 	}
 }
