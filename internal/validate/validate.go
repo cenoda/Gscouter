@@ -2,7 +2,9 @@
 // pass of the rotation under the source's own conditions must reproduce
 // the DPS its source config reported, and the looped rotation, scored as
 // the site does under the common conditions, is checked for action waits
-// and members with almost no damage.
+// and members with almost no damage. An experimental team whose rotation
+// was written from a guide has no source DPS: its reference comparison is
+// skipped, and the looped check runs as for any team.
 package validate
 
 import (
@@ -66,6 +68,9 @@ type Report struct {
 	Cfg              string        // the looped config of the score
 	Filler           string        // how the score fills waits, "" if it doesn't
 	Skipped          string
+	// ReferenceSkipped says why the one pass was not compared with a
+	// source DPS, for a rotation written from a guide (design §5.4).
+	ReferenceSkipped string
 	Failures         []string
 	Warnings         []string
 }
@@ -185,6 +190,19 @@ func reference(ctx context.Context, dir string, s Settings) (*Report, string) {
 			r.Failures = append(r.Failures, msg)
 		case d > warnReference:
 			r.Warnings = append(r.Warnings, msg)
+		}
+	} else if team.Written() {
+		// No community config, so no source DPS: the looped check
+		// still runs, and a public number, if any, is compared instead.
+		r.ReferenceSkipped = "rotation written from a guide, no source DPS"
+		switch cc := team.CrossCheck; {
+		case cc == nil:
+			r.Warnings = append(r.Warnings, "no cross_check: record a public calculation or showcase DPS, or what was searched")
+		case cc.DPS > 0:
+			diff := (onceRes.DPS - cc.DPS) / cc.DPS
+			if math.Abs(diff) > failReference {
+				r.Warnings = append(r.Warnings, fmt.Sprintf("%+.1f%% from the cross-check's %.0f DPS", diff*100, cc.DPS))
+			}
 		}
 	} else {
 		r.Warnings = append(r.Warnings, "no reference DPS to compare with")

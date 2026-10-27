@@ -10,6 +10,15 @@ rotation from your own idea of the team: a batch written that way scored
 a third of the community numbers and was deleted. If there is no source
 config for a team, say so and stop.
 
+The one exception is an experimental team (a member in
+`library.ForkOnly`) when the database has no entry for it: its rotation
+is written from a published community guide under the rules in
+`docs/design.md` §5.4 (guide in `sources`, guide builds in `build.txt`,
+no `reference`, a `cross_check` recording a public DPS or what was
+searched, the full check passing). `cmd/validate` skips the reference
+comparison for such a team, and `cmd/harvest` replaces it once a
+database entry for it passes.
+
 Run Go commands with `GOTOOLCHAIN=auto` (gcsim needs Go 1.27).
 
 ## 1. Harvest (many teams)

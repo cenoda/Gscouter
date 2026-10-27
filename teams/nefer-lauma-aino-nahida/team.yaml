@@ -1,0 +1,19 @@
+id: nefer-lauma-aino-nahida
+name: Nefer / Lauma / Aino / Nahida
+members:
+    - nefer
+    - lauma
+    - aino
+    - nahida
+archetype: Dendro Lunar-Bloom
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: 91c5de4
+sources:
+    - https://keqingmains.com/q/nefer-quickguide/
+    - https://keqingmains.com/q/lauma-quickguide/
+notes: 'Written from the community guides (design §5.4): the Nefer quick guide lists Nefer / Aino / Lauma / Nahida as its second team (the first, with Kuki Shinobu or Zhongli, has no published rotation), and the Lauma quick guide gives its rotation: (Nefer E) > Aino E Q > Nahida E Q > Lauma tE Q > Nefer E 3[CD] E 3[CD], with Nefer''s burst replacing a dash when ready (Nefer guide: E 3[CD] E CD CQ CD). Builds follow the guides: Nefer Blackmarrow Lantern R5 (the guide''s free baseline) and 4pc NotSU, EM/EM/CRIT; Lauma Etherlight R5, 4pc SMS, ER/EM/EM (166% ER, triple Dendro needs 160-165%); C6 Aino Favonius Greatsword, 4pc Instructor; Nahida Widsith, 4pc Deepwood. Nefer''s charged attacks are held (Slither) until Verdant Dew turns them into Phantasm Performance; the first pass gets Dew for 4 of 6, the looped rotation, waiting for its skill, for nearly all (148 of 150 in a 450 s fight); the others end as ordinary charged attacks. Waits: the rotation is 15.6 s, shorter than the 18 s two skill charges need, so the looped rotation waits about 15 s/min for Nefer''s skill, as the Nefer guide warns for rotations under 18 s. No energy waits. Fork notes: Phantasm hits after the first are not cancelled by the dash, so Nefer''s second hit, which the guide says a dash cancel loses, still lands (about 1.5% of the team''s damage); Phantasm and charged hits apply 25U Dendro without ICD.'
+cross_check:
+    note: 'No public team DPS found (searched 2026-10-27): the KQM quick guides for Nefer and Lauma publish no DPS, the KQM TCL has no findings for Nefer or Linnea, the community gcsim database has no entry with Nefer, Linnea or Zibai (upstream gcsim lacks Nefer and Linnea), and Prydwen''s relative team charts could not be read (HTTP 403). For scale only (not a cross-check): Lunar-Bloom teams of Columbina and Lauma with 4-star weapons score 124-143k in the database (e.g. Columbina / Kuki Shinobu / Lauma / Nahida 123.9k).'

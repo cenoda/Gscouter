@@ -31,7 +31,7 @@ A user submits the builds of their party members, and Gscouter computes the team
 | Fight duration | Infinite cycles of the community rotation (steady state after the opener) | Shows how well a build's Energy Recharge sustains the rotation; the one-pass community number is shown alongside |
 | Rotation | A fixed rotation per team, taken from a community gcsim config | Removes player control from the equation; community configs are the accepted standard |
 | Teams not in the library | Marked "unsupported" and not computed | Early on, library quality comes first |
-| Characters gcsim lacks | Scored in an "experimental" tier on a Gscouter fork of gcsim, with a badge (§5.4). The fork, the tier and the badge are in place; no team uses the tier yet | A public site needs every released character; upstream takes months per character |
+| Characters gcsim lacks | Scored in an "experimental" tier on a Gscouter fork of gcsim, with a badge (§5.4). The fork, the tier and the badge are in place; three draft teams with Nefer and Linnea use it | A public site needs every released character; upstream takes months per character |
 | Library management | Manual authoring/approval + automated validation | Rotation quality *is* fairness |
 | Simulation engine | [gcsim](https://github.com/genshinsim/gcsim) (MIT license) | Frame-level simulator, community standard, fast to add new characters |
 | Build input | Enka.Network UID (primary), GOOD JSON (secondary) | Manual stat entry tends to go unused |
@@ -305,7 +305,7 @@ Goal: every released character can be scored, including the ones upstream gcsim 
 
 **Characters on the fork** (fork `91c5de4`, on upstream `2350be9`, 2026-10-27)
 
-None of them has a library team yet; teams come with the experimental tier.
+Nefer and Linnea have draft library teams (Rotations below); Kachina has none yet.
 
 | Character | Source | Frame data | Known problems |
 |---|---|---|---|
@@ -322,9 +322,29 @@ Shared code: Nefer's PR changes how Verdant Dew is collected so that her P2 and 
   - a cross-check against a public calculation or showcase DPS when one exists, recorded in `team.yaml`;
   - the looped full check (§5.3), as for any team;
   - review by a person before `status: supported`.
+- Tooling for written rotations: `library.Team.Written` (an experimental team without a `reference`). `cmd/validate` skips the reference comparison for them ("reference check skipped") and runs the full looped check as for any team; it warns when `cross_check` is missing, and when a recorded cross-check DPS is more than 15% from the one pass. `team.yaml` records the cross-check as `cross_check: {dps, source, note}`, the note saying what was searched when nothing was found; a library test requires `sources` and a `cross_check` note on every written team. CI validates them like any changed team. `cmd/harvest` keeps a written team (it is in no database group while upstream lacks its characters); once the database has an entry for its members, it tries the entries without `-force` and removes the written team only when one passes, in whatever member order the entry names; if none passes, the written team stays and the team is listed in `harvest-failed.txt`. Before, `-force` removed the directory before trying the entries, which would have lost a written team whose entries all failed. Tested with a fake database cache: a failing entry left the team in place, with and without `-force`; a passing one replaced it.
+
+**First experimental teams** (2026-10-27, fork `91c5de4`, all `status: draft`)
+
+Chosen from the KQM quick guides, one or two per character, preferring teams a guide gives a full rotation for. Builds follow the guides with 4-star or free weapons, as the database's lowest-investment entries do: Nefer Blackmarrow Lantern R5 and 4pc NotSU, Zibai Flute of Ezpitzal R5 and 4pc NotSU, Linnea Slingshot R5 and 4pc Husk.
+
+| Team | Why | Rotation source | One pass | Looped (score) | Waits |
+|---|---|---|---|---|---|
+| Nefer / Lauma / Aino / Nahida | Nefer guide's second team; its first (with Kuki Shinobu or Zhongli) has no published rotation; Aino is the accessible Hydro | [Lauma quick guide](https://keqingmains.com/q/lauma-quickguide/), Nefer's `E 3[CD] E CD CQ CD` from the [Nefer quick guide](https://keqingmains.com/q/nefer-quickguide/) | 90.2k | 95.0k | Nefer 15.6 s/min for her skill: the 15.6 s rotation is under the 18 s two charges need, as the Nefer guide warns |
+| Nefer / Linnea / Lauma / Columbina | The Linnea guide's team with Nefer: covers both characters | [Linnea quick guide](https://keqingmains.com/q/linnea-quickguide/) | 112.2k | 126.6k | Linnea 10.6 s/min for her 18 s skill |
+| Zibai / Linnea / Columbina / Gorou | The Linnea guide's first team; Gorou rather than Illuga (185% ER at C0; the guides call C6 Gorou close) | [Zibai quick guide](https://keqingmains.com/q/zibai-quickguide/) and the Linnea guide | 137.6k | 146.2k | none |
+
+1000 iterations, common conditions; no energy waits, no failed actions, no stalls. Rotation notes:
+- Nefer's charged attacks are held (`charge[hold=150]`, Slither) until Verdant Dew turns them into Phantasm Performance, as the guides say she may wait for Dew. In the first pass 4 of 6 get Dew in the Aino team; looped, nearly all (148 of 150 in a 450 s fight).
+- Linnea's burst is never used: the guides use it only for healing, and on the fork a burst while Lumi is out stops Lumi's attacks (the known problem above). Her Ultimate Power Form (the guide's `5[E]`) is one press and three recasts in gcsim; a fifth press would wait for the cooldown.
+- Zibai's Spirit Steed's Stride needs 70 Radiance: the rotation attacks until she has it (in the checks she always had it after N4).
+
+**Cross-check**: no public number exists for any of the three (searched 2026-10-27). The KQM quick guides publish no DPS, the KQM TCL has no Nefer or Linnea findings, the community database has no entry with Nefer, Linnea or Zibai, and Prydwen's relative team charts could not be read (HTTP 403; search results quote the Zibai chart putting the C6 Gorou team at 85% of the Illuga team on an 18.5 s rotation, where ours is 19.8 s). Each `team.yaml` records this in `cross_check`. For scale only: Lunar-Bloom teams of Columbina and Lauma with 4-star weapons score 124-143k in the database.
+
+**Found while writing them** (reported, not fixed on the fork): Nefer's Phantasm Performance checks the charged attack only for its first hit; the later hits are queued at fixed delays and land even when a dash or swap cancels it. The Nefer guide says a dash cancel loses Nefer's second hit, so dash-cancelled rotations keep it on the fork: about 1.5% of the Nefer / Lauma / Aino / Nahida team's damage.
 
 **Display**
-- `team.yaml` gets `tier: experimental` (`library.TierExperimental`; no tier means verified). Loading checks it: a team needs the tier exactly when a member is in `library.ForkOnly`, so a team with a fork-only character cannot pass as verified, nor a verified team carry the badge. Experimental teams also record `gcsim_fork`, the fork commit they were written for: `gcsim_commit` names the upstream base, which a fix on the fork leaves unchanged, so without it a score change from a fork fix could not be told apart. `cmd/import` and `cmd/harvest` set both fields for a team with a fork-only member. `/teams` and the team header of result pages show an "Experimental" badge, in every site language, and the result adds a note that the score may change. A versus page renders that header for each side, so the badge shows on the experimental side only. Link-preview cards do not show it yet. No team uses the tier yet.
+- `team.yaml` gets `tier: experimental` (`library.TierExperimental`; no tier means verified). Loading checks it: a team needs the tier exactly when a member is in `library.ForkOnly`, so a team with a fork-only character cannot pass as verified, nor a verified team carry the badge. Experimental teams also record `gcsim_fork`, the fork commit they were written for: `gcsim_commit` names the upstream base, which a fix on the fork leaves unchanged, so without it a score change from a fork fix could not be told apart. `cmd/import` and `cmd/harvest` set both fields for a team with a fork-only member. `/teams` and the team header of result pages show an "Experimental" badge, in every site language, and the result adds a note that the score may change. A versus page renders that header for each side, so the badge shows on the experimental side only. Link-preview cards do not show it yet.
 
 ## 6. Initial Library
 
@@ -348,8 +368,8 @@ Enka.Network's character list compared with the characters in gcsim `2350be9`. T
 | Character | Upstream state | Plan (§5.4) |
 |---|---|---|
 | Kachina (4★ Geo, 5.0) | Open PR #2697 (2026-07-25) | On the fork; frames partly estimated, known problems in §5.4. First team: Kachina / Furina / Qiqi / Noelle ("Cappuccino"), after Nefer's and Linnea's, since she adds little damage and few players use her |
-| Nefer (5★ Dendro, 6.1) | Open PR #3045 (2026-09-20), no review yet; an earlier draft, #2587, was closed | On the fork; frames counted, known problems in §5.4 |
-| Linnea (5★ Geo) | Open PR #2596 (2026-04-19) | On the fork; frames partly counted, known problems in §5.4 |
+| Nefer (5★ Dendro, 6.1) | Open PR #3045 (2026-09-20), no review yet; an earlier draft, #2587, was closed | On the fork; frames counted, known problems in §5.4. Draft teams: Nefer / Lauma / Aino / Nahida (95.0k), Nefer / Linnea / Lauma / Columbina (126.6k), rotations from the KQM Nefer, Lauma and Linnea quick guides; no public DPS to cross-check |
+| Linnea (5★ Geo) | Open PR #2596 (2026-04-19) | On the fork; frames partly counted, known problems in §5.4. Draft teams: Zibai / Linnea / Columbina / Gorou (146.2k), Nefer / Linnea / Lauma / Columbina, rotations from the KQM Linnea and Zibai quick guides; no public DPS to cross-check |
 | Lohen (5★ Cryo) | None | Implement |
 | Sandrone (5★ Cryo) | None | Implement |
 | Vodyanitsa (5★ Hydro, 7.1) | None | Implement, with the Wandering Vortex |
@@ -357,7 +377,7 @@ Enka.Network's character list compared with the characters in gcsim `2350be9`. T
 
 Order: the fork and the three characters with upstream PRs first (most coverage for the least work), then Vodyanitsa, Lohen and Sandrone, then Vesna.
 
-The fork and the three PR characters are in place (2026-10-27): the site builds on the fork, and Enka profiles and names map all three. They have no library teams yet, so they are still scored as unsupported.
+The fork and the three PR characters are in place (2026-10-27): the site builds on the fork, and Enka profiles and names map all three. Nefer and Linnea have three draft experimental teams (§5.4): Nefer / Lauma / Aino / Nahida, Nefer / Linnea / Lauma / Columbina and Zibai / Linnea / Columbina / Gorou. Kachina has none yet, so her teams are still scored as unsupported.
 
 ### 6.2 Library from the community database
 
@@ -424,4 +444,4 @@ The first batch held the 64 teams with the most entries in the community databas
 4. ~~Library format, import and validation~~ Done: `cmd/import` adds a team from a gcsim share link; `cmd/validate` checks that each team reproduces its source's DPS (§5.3). CI runs it. The `add-team` skill describes the workflow.
 5. ~~First library batch~~ Done: `cmd/harvest` took the 64 most simulated teams from the community gcsim database (§5.3), then every usable team, 4,397 after validation (§6.2). An earlier batch of 64 agent-written rotations was removed: written without sources, they scored a third of the community numbers.
 6. ~~Display names~~ Done: in-game character and weapon names in every game language, instead of gcsim keys.
-7. Experimental tier (§5.4): ~~the gcsim fork, with Kachina, Linnea and Nefer from upstream PRs~~ (done, verified scores unchanged) and `tier` in `team.yaml` with the badge (done); next rotations for the three, then the remaining characters in §6.3 in the order given there.
+7. Experimental tier (§5.4): ~~the gcsim fork, with Kachina, Linnea and Nefer from upstream PRs~~ (done, verified scores unchanged) and `tier` in `team.yaml` with the badge (done); ~~rotations for Nefer and Linnea~~ (three draft teams, awaiting review, §5.4); next Kachina's ("Cappuccino"), then the remaining characters in §6.3 in the order given there.

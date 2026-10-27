@@ -2,7 +2,9 @@
 // checks that one pass of the rotation under the source's own conditions
 // (source.txt) reproduces the DPS its source config reported, then scores
 // the looped rotation as the site does, under the common conditions, and
-// reports energy waits and members with almost no damage.
+// reports energy waits and members with almost no damage. A rotation
+// written from a guide (an experimental team without a source DPS) skips
+// the comparison and gets the looped check.
 //
 // Usage:
 //
@@ -121,6 +123,12 @@ func printReport(r *validate.Report, verbose bool) {
 	}
 	if r.Skipped != "" {
 		fmt.Printf("       %s\n", r.Skipped)
+	}
+	if r.ReferenceSkipped != "" {
+		fmt.Printf("       reference check skipped: %s\n", r.ReferenceSkipped)
+		if cc := r.Team.CrossCheck; cc != nil && cc.DPS > 0 {
+			fmt.Printf("       cross-check %.0f DPS (%s): one rotation %+.1f%%\n", cc.DPS, cc.Source, (r.Once.DPS-cc.DPS)/cc.DPS*100)
+		}
 	}
 	for _, msg := range r.Failures {
 		fmt.Printf("       fail: %s\n", msg)

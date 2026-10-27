@@ -1,0 +1,36 @@
+# Linnea quick guide, Linnea / Nefer / Lauma / Columbina:
+#   (Nefer N1)1 > Columbina E Q > Linnea 5[E](Q)2 > Lauma (N1)1 hEQ >
+#   Nefer E 3[CD] E 3[CD] (Q)
+#   1 first rotation only, for Verdant Dew stacking; 2 if healing is needed
+# Linnea's Ultimate Power Form is one press and three recasts in gcsim
+# (the guide's 5[E]); a further press would wait for the 18 s cooldown.
+# Her burst is left out: no healing is needed, and on the fork it stops
+# Lumi's attacks (design §5.4). Nefer's charged attacks are held (Slither)
+# until Verdant Dew turns them into Phantasm Performance.
+active nefer;
+let first = 1;
+if first == 1 {
+  nefer attack;
+}
+columbina skill;
+if .columbina.burst.ready {
+  columbina burst;
+}
+linnea skill, skill, skill, skill;
+if first == 1 {
+  lauma attack;
+  first = 0;
+}
+if .dew > 0 {
+  lauma skill[hold=1];
+} else {
+  lauma skill;
+}
+if .lauma.burst.ready {
+  lauma burst;
+}
+nefer skill, charge[hold=150], dash, charge[hold=150], dash, charge[hold=150], dash,
+      skill, charge[hold=150], dash, charge[hold=150], dash, charge[hold=150];
+if .nefer.burst.ready {
+  nefer burst;
+}

@@ -66,6 +66,9 @@ type Team struct {
 	// Reference is what the source config scored with its own build. The
 	// validator checks that the library reproduces it.
 	Reference *Reference `yaml:"reference,omitempty"`
+	// CrossCheck records how a rotation written from a guide (Written)
+	// compares with public calculations or showcases (design §5.4).
+	CrossCheck *CrossCheck `yaml:"cross_check,omitempty"`
 
 	// Rotation is the contents of rotation.gcsl.
 	Rotation string `yaml:"-"`
@@ -75,6 +78,22 @@ type Reference struct {
 	DPS          float64 `yaml:"dps"`                     // mean team DPS reported by the source
 	GcsimVersion string  `yaml:"gcsim_version,omitempty"` // gcsim commit the source ran on, if known
 	Computed     string  `yaml:"computed,omitempty"`      // date the source last ran, if known
+}
+
+// CrossCheck is the public number a written rotation was compared with,
+// or, when none was found, what was searched.
+type CrossCheck struct {
+	DPS    float64 `yaml:"dps,omitempty"`    // the public team DPS, 0 if none was found
+	Source string  `yaml:"source,omitempty"` // where it was published
+	Note   string  `yaml:"note"`             // its conditions and the difference, or what was searched
+}
+
+// Written reports whether the team's rotation was written from a guide
+// rather than taken from a community gcsim config: an experimental team
+// without a source DPS (design §5.4). cmd/harvest replaces such a team
+// once the community database has an entry for it.
+func (t *Team) Written() bool {
+	return t.Tier == TierExperimental && t.Reference == nil
 }
 
 // Load reads team.yaml and rotation.gcsl from dir on disk.

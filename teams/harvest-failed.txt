@@ -1,5 +1,6 @@
 # Teams cmd/harvest could not import: no database entry reproduced its DPS,
 # or the imported team failed the full validation (cmd/validate) and was removed.
+# A rotation written from a guide for the team stays in the library.
 # The next harvest skips them unless run with -retry-failed.
 albedo bennett tartaglia xiangling	1 entries tried; first: C7Gdkq79jzgJ: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
 albedo tartaglia yelan yunjin	1 entries tried; first: kKWWrzFN68j7: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)

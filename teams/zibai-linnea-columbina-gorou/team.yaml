@@ -1,0 +1,19 @@
+id: zibai-linnea-columbina-gorou
+name: Zibai / Linnea / Columbina / Gorou
+members:
+    - zibai
+    - linnea
+    - columbina
+    - gorou
+archetype: Geo Lunar-Crystallize hypercarry
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: 91c5de4
+sources:
+    - https://keqingmains.com/q/linnea-quickguide/
+    - https://keqingmains.com/q/zibai-quickguide/
+notes: 'Written from the community guides (design §5.4): the Linnea quick guide lists Zibai / Linnea / Columbina / Gorou or Illuga first; Gorou is taken since Illuga needs 185% ER at C0 and the guides call C6 Gorou close to him. Rotation from the Zibai quick guide: Columbina E (Q) > Linnea (N1) E > Gorou (Q) E > Zibai full combo (E, 4[N4 E], N1 Q after an E when the burst is ready). Spirit Steed''s Stride needs 70 Phase Shift Radiance; Zibai attacks until she has it (she had it after every N4 in the check). Builds follow the guides: Zibai Flute of Ezpitzal R5 (best 4-star), 4pc NotSU, DEF/DEF/CRIT; Linnea Slingshot R5, 4pc Husk; Columbina Prototype Amber R5, 4pc Aubade, ER/HP/CRIT; C6 Gorou Favonius Warbow R3, 4pc SMS. Gorou bursts every other rotation, as the guides say. Waits: none above 2 s/min, no energy waits. Fork notes: Linnea''s burst is left out (the guides use it only for healing), because on the fork a burst while Lumi is out stops Lumi''s attacks; Linnea''s A4 EM buff is not refreshed on swap. Zibai, Columbina and Gorou are upstream characters.'
+cross_check:
+    note: 'No public team DPS found (searched 2026-10-27): the KQM quick guides for Linnea and Zibai publish no DPS, the KQM TCL has no findings for Nefer or Linnea, the community gcsim database has no entry with Nefer, Linnea or Zibai (upstream gcsim lacks Nefer and Linnea), and Prydwen''s relative team charts could not be read (HTTP 403). Prydwen''s Zibai chart is reported in search results to put this team (C6 Gorou) at 85% of the Illuga team on an 18.5 s rotation; this one runs 19.8 s. Relative only, and the page itself could not be read.'
