@@ -95,6 +95,7 @@ func init() {
 		"meta.team_higher":  "%s oyuncusunun takımı %%%.1f daha yüksek",
 
 		"err.selection": "Geçersiz seçim: %q",
+		"err.link":      "Bu kısa bağlantı mevcut değil.",
 		"err.count":     "Tam olarak dört karakter seç (%d seçildi).",
 		"err.chars":     "Karakter seçimi geçersiz.",
 

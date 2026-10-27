@@ -25,6 +25,7 @@ go run ./cmd/server          # http://localhost:8080
 | `-concurrent` | 1 | Simulations running at once |
 | `-queue` | 8 | Simulations waiting before requests are rejected |
 | `-static` | `$GSCOUTER_STATIC` | Directory of the browser build; when set, visitors' browsers calculate results |
+| `-links` | `$GSCOUTER_LINKS` | SQLite file of short links (`/s/...`); without it, copying a result copies its long link |
 
 Without `-static`, the server calculates every result. To have browsers calculate them, as the Docker image does:
 
@@ -108,6 +109,7 @@ internal/config/    common simulation conditions and config assembly
 internal/enka/      Enka.Network client and converter to gcsim
 internal/kqm/       community gcsim database (db.kqm.gg) client
 internal/web/       HTTP handlers and templates
+internal/links/     short link store (SQLite)
 internal/library/   team library loading and matching
 internal/score/     team DPS from gcsim runs
 internal/steady/    looped scoring with fillers for waits

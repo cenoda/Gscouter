@@ -95,6 +95,7 @@ func init() {
 		"meta.team_higher":  "%s 파티가 %.1f%% 높습니다",
 
 		"err.selection": "잘못된 선택: %q",
+		"err.link":      "존재하지 않는 짧은 링크입니다.",
 		"err.count":     "캐릭터를 정확히 4명 골라 주세요 (%d명 선택됨)",
 		"err.chars":     "캐릭터 선택이 올바르지 않습니다",
 

@@ -95,6 +95,7 @@ func init() {
 		"meta.team_higher":  "%s的隊伍高出 %.1f%%",
 
 		"err.selection": "無效的選擇：%q",
+		"err.link":      "此短網址不存在。",
 		"err.count":     "請恰好選擇四名角色（已選 %d 名）。",
 		"err.chars":     "角色選擇無效。",
 

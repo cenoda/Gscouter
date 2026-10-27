@@ -389,18 +389,30 @@ details.rotation pre { background: var(--bg); border-radius: 8px; padding: 12px;
   });
   addEventListener("scroll", hide, true);
 })();
+// copyLink copies the page's short link (/s/...), or the page's own link
+// when the server has no short links or can't make one.
 function copyLink(btn) {
-  var url = location.href;
+  var url = fetch("/s", {
+    method: "POST",
+    body: new URLSearchParams({u: location.pathname + location.search})
+  }).then(function (r) {
+    return r.ok ? r.text() : location.href;
+  }, function () { return location.href; });
   var done = function () {
     var t = document.getElementById("toast");
     t.textContent = {{t "js.copied"}};
     t.classList.add("show");
     setTimeout(function () { t.classList.remove("show"); }, 1500);
   };
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(url).then(done, function () { prompt({{t "js.link"}}, url); });
+  var ask = function () { url.then(function (u) { prompt({{t "js.link"}}, u); }); };
+  if (navigator.clipboard && navigator.clipboard.write && window.ClipboardItem) {
+    // Safari copies only during the click, so hand it the link to come.
+    var item = new ClipboardItem({"text/plain": url.then(function (u) { return new Blob([u], {type: "text/plain"}); })});
+    navigator.clipboard.write([item]).then(done, ask);
+  } else if (navigator.clipboard) {
+    url.then(function (u) { return navigator.clipboard.writeText(u); }).then(done, ask);
   } else {
-    prompt({{t "js.link"}}, url);
+    ask();
   }
 }
 </script>
