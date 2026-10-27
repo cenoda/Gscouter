@@ -6,7 +6,7 @@ members:
     - xilonen
     - nicole
 archetype: ""
-status: draft
+status: supported
 rotation_version: 1
 gcsim_commit: 2350be9
 sources:
