@@ -1,0 +1,164 @@
+name: regression
+
+# Fork regression run (design §5.4, "Verified scores must not move"): every
+# library team through the full check on two gcsim builds, compared field by
+# field. Only go.mod and go.sum (the gcsim version) come from each ref; the
+# validate and compare tools are built from this workflow's commit, and both
+# sides check the same teams/, the candidate ref's, so a team added or edited
+# there is not reported as a difference. Started by hand only; it never
+# writes team.yaml and never promotes.
+on:
+  workflow_dispatch:
+    inputs:
+      baseline_ref:
+        description: Gscouter ref for the baseline (its go.mod pins the gcsim build)
+        required: true
+        default: main
+      candidate_ref:
+        description: Gscouter ref for the candidate (its go.mod pins the gcsim build)
+        required: true
+      shards:
+        description: Shards per side (each runs on its own 4-vCPU runner)
+        type: choice
+        options: ['8', '16', '20']
+        default: '16'
+
+permissions:
+  contents: read
+
+# One run at a time: a second dispatch waits instead of cancelling the first.
+concurrency:
+  group: regression
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+    steps:
+      - id: plan
+        env:
+          SHARDS: ${{ inputs.shards }}
+        run: |
+          matrix=$(jq -cn --argjson n "$SHARDS" \
+            '{include: [("baseline", "candidate") as $side | range(1; $n + 1) | {side: $side, shard: .}]}')
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+
+  # The validate and compare tools come from this workflow's commit; only the
+  # gcsim version under test (go.mod, go.sum) comes from each ref, so refs
+  # that predate -shard and -json can be compared too.
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        side: [baseline, candidate]
+    steps:
+      - uses: actions/checkout@v4
+      - name: take go.mod and go.sum from the ref
+        env:
+          REF: ${{ matrix.side == 'baseline' && inputs.baseline_ref || inputs.candidate_ref }}
+        run: |
+          git fetch --no-tags --depth=1 origin "$REF"
+          git show FETCH_HEAD:go.mod > go.mod
+          git show FETCH_HEAD:go.sum > go.sum
+          echo "$REF $(git rev-parse FETCH_HEAD)" > bin-ref.txt
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - run: |
+          go list -m -f '{{if .Replace}}gcsim {{.Replace.Path}} {{.Replace.Version}}{{else}}gcsim {{.Path}} {{.Version}}{{end}}' github.com/genshinsim/gcsim | tee -a bin-ref.txt
+          mkdir -p bin
+          go build -o bin/validate ./cmd/validate
+          go build -o bin/compare ./cmd/compare
+          mv bin-ref.txt bin/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bin-${{ matrix.side }}
+          path: bin/
+          retention-days: 7
+
+  regress:
+    needs: [plan, build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      # Both sides check the candidate ref's teams.
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.candidate_ref }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: bin-${{ matrix.side }}
+          path: bin
+      # Failing teams (exit 1) are results, not errors; only a crash or a
+      # missing output fails the job. validate sets GOGC for its check
+      # processes itself; -cache "" makes every simulation run.
+      - name: validate shard ${{ matrix.shard }}/${{ inputs.shards }}
+        run: |
+          chmod +x bin/validate
+          out=${{ matrix.side }}-${{ matrix.shard }}.jsonl
+          set +e
+          bin/validate -cache "" -iter 20 -j 4 -shard ${{ matrix.shard }}/${{ inputs.shards }} -json "$out" > validate.log 2>&1
+          code=$?
+          set -e
+          tail -n 3 validate.log
+          if [ "$code" -gt 1 ]; then echo "validate exited with $code"; exit 1; fi
+          if [ ! -s "$out" ]; then echo "no output"; exit 1; fi
+          echo "$(wc -l < "$out") teams"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: out-${{ matrix.side }}-${{ matrix.shard }}
+          path: |
+            ${{ matrix.side }}-${{ matrix.shard }}.jsonl
+            validate.log
+          retention-days: 7
+
+  compare:
+    needs: regress
+    if: always() && needs.regress.result != 'cancelled'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: bin-candidate
+          path: bin
+      - uses: actions/download-artifact@v4
+        with:
+          name: bin-baseline
+          path: bin-baseline
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: out-*
+          path: out
+          merge-multiple: true
+      - name: compare
+        run: |
+          chmod +x bin/compare
+          set +e
+          bin/compare 'out/baseline-*.jsonl' 'out/candidate-*.jsonl' > compare.txt 2>&1
+          code=$?
+          set -e
+          {
+            echo "## Regression: ${{ inputs.baseline_ref }} → ${{ inputs.candidate_ref }}"
+            echo
+            echo "- tools: this workflow's commit ${{ github.sha }}"
+            echo "- teams: ${{ inputs.candidate_ref }} (both sides)"
+            echo "- baseline: $(paste -sd ';' bin-baseline/bin-ref.txt)"
+            echo "- candidate: $(paste -sd ';' bin/bin-ref.txt)"
+            echo
+            echo '```'
+            cat compare.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit $code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compare
+          path: compare.txt
+          retention-days: 30
