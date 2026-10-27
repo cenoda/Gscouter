@@ -21,6 +21,26 @@ fn clorinde_combo() {
     }
   }
 }
+# Iansan's burst restores Nightsoul points from the active character's
+# movement, which gcsim counts only when the rotation reports it. For
+# her higher ATK buff, a reviewer who plays the characters says Mavuika
+# keeps it nearly always at its maximum; Clorinde's time reports none,
+# since the Iansan guide says her moves do not provide enough movement
+# to keep the higher buff before Iansan's C4. So the time after each of
+# Mavuika's actions reports movement at 9 m/s, the speed at which the
+# buff stays up in the Iansan teams that report movement (design §5.4).
+let _last = f();
+let _prev = -1;
+let _ea = execute_action;
+fn execute_action(c number, a number, p map) {
+  let now = f();
+  if _prev == .keys.char.mavuika {
+    movement(9 * (now - _last) / 60);
+  }
+  _last = now;
+  _prev = c;
+  return _ea(c, a, p);
+}
 active mavuika;
 let first = 1;
 if first == 1 {
