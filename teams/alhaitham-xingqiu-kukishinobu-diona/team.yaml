@@ -6,7 +6,7 @@ members:
     - kuki
     - diona
 archetype: ""
-status: draft
+status: supported
 rotation_version: 1
 gcsim_commit: 2350be9
 sources:
@@ -15,3 +15,9 @@ notes: 'Harvested from the KQM gcsim database: 1 entries use this team; of those
 reference:
     dps: 56627
     computed: "2026-10-02"
+validation:
+    date: "2026-10-27"
+    iterations: 20
+    gap: -0.003
+    kept: 0.974
+    dps: 43573

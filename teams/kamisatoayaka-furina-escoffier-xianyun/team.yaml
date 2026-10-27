@@ -6,7 +6,7 @@ members:
     - escoffier
     - xianyun
 archetype: ""
-status: draft
+status: supported
 rotation_version: 1
 gcsim_commit: 2350be9
 sources:
@@ -15,3 +15,9 @@ notes: 'Harvested from the KQM gcsim database: 2 entries use this team; this one
 reference:
     dps: 68377
     computed: "2026-10-02"
+validation:
+    date: "2026-10-27"
+    iterations: 20
+    gap: 0.001
+    kept: 0.967
+    dps: 66132

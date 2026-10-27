@@ -19,7 +19,7 @@ GOTOOLCHAIN=auto go run ./cmd/harvest -n 10000 -cache /tmp/kqm.json   # every te
 GOTOOLCHAIN=auto go run ./cmd/harvest -n 64 -force                    # replace them
 ```
 
-This reads the community gcsim database at db.kqm.gg (`-cache <file>` saves the download and reuses it). It ranks teams by how many entries use them. Every entry is usable except those without four characters, with a rotation that never ends on its own (`while 1`) or without an `active` setup; gcsim tags, enemies and energy do not matter. For each team it tries the entries from the lowest constellations and refinements up. An entry must pass the reference check (`validate.CheckReference`: one pass under the entry's own conditions, 20 iterations, within 15% of the database's DPS) and the full check (the looped rotation must not stall); of the first five that pass (`-choose`), it imports the one whose score keeps the most of its one pass. Teams run in parallel (`-j`, one per CPU by default).
+This reads the community gcsim database at db.kqm.gg (`-cache <file>` saves the download and reuses it). It ranks teams by how many entries use them. Every entry is usable except those without four characters, with a rotation that never ends on its own (`while 1`) or without an `active` setup; gcsim tags, enemies and energy do not matter. For each team it tries the entries from the lowest constellations and refinements up. An entry must pass the reference check (`validate.CheckReference`: one pass under the entry's own conditions, 20 iterations, within 15% of the database's DPS) and the full check (the looped rotation must not stall); of the first five that pass (`-choose`), it imports the one whose score keeps the most of its one pass, as `supported` if it meets the criteria in step 3 and as `draft` otherwise. Teams run in parallel (`-j`, one per CPU by default).
 
 Teams that fail every entry are written to `teams/harvest-failed.txt` and skipped by the next run; `-retry-failed` tries them again. Run `cmd/validate -j 4` afterwards as a final check. To add one particular team, use a share link instead.
 
@@ -48,8 +48,8 @@ targets, other energy), the site's DPS differs from the source's, but
 validation still compares like with like.
 
 Then set `archetype` in `team.yaml` (e.g. `Pyro vaporize hypercarry`).
-Leave `status: draft`; only the maintainer promotes a team to
-`supported`.
+Leave `status: draft`; `cmd/validate -promote` sets `supported` once the
+team meets the criteria (step 3).
 
 ## 3. Validate
 
@@ -81,6 +81,23 @@ GOTOOLCHAIN=auto go run ./cmd/validate -detail teams/<id>   # actions, damage by
   `while 1` loop cannot be used as is.
 - Warnings about action waits or a member with almost no damage are
   information; note anything a reviewer should know.
+- `-promote` sets each team's status from the result: `supported` when
+  the check passes, the one pass is within 5% of `reference.dps` and the
+  looped score keeps 80% to 130% of the one pass under the common
+  conditions (more means the rotation depends on the source's own
+  conditions) (`validate.Report.Unpromotable`), `draft` otherwise.
+  It records the result in `team.yaml` (`validation`: looped DPS,
+  `kept`, `gap`, and on a draft team the criterion it misses); a looped
+  score more than 5% from the recorded one is a warning.
+  Result pages warn on draft teams. Blocked teams are left alone, and
+  experimental teams (`tier: experimental`) are never promoted: a person
+  reviews them first. Run it
+  on every team you add, and on the whole library after a gcsim update:
+
+  ```sh
+  GOTOOLCHAIN=auto go run ./cmd/validate -promote teams/<id>
+  GOTOOLCHAIN=auto go run ./cmd/validate -promote -iter 20 -j 4   # every team
+  ```
 
 ## 4. Finish
 

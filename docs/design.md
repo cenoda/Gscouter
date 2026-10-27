@@ -220,7 +220,7 @@ Example `team.yaml` (written by `cmd/harvest`; `cmd/import` writes the same fiel
 id: hutao-xingqiu-zhongli-yelan
 name: Hutao / Xingqiu / Zhongli / Yelan
 members: [hutao, xingqiu, zhongli, yelan]
-status: draft            # supported | draft | blocked
+status: supported        # supported | draft | blocked (§5.3, step 3)
 rotation_version: 1
 gcsim_commit: 2350be9    # gcsim version used for validation
 # experimental teams also have (§5.4):
@@ -234,6 +234,13 @@ params:                  # if the source sets any, e.g.
 reference:
   dps: 68025             # what the source reported with its own build
   computed: "2026-10-02" # when the database last ran it
+validation:              # the last check (cmd/validate -promote, §5.3)
+  date: "2026-10-27"
+  iterations: 20
+  gap: -0.012            # one pass under the source's conditions vs reference.dps
+  kept: 1.078            # looped score over one pass under the common conditions
+  dps: 72426             # looped score with build.txt, as the site scores it
+  draft: '...'           # on a draft team, the criterion it misses
 ```
 
 ### 5.2 Rotation authoring rules
@@ -273,13 +280,21 @@ Each team stores the source's options, target, energy and hurt lines in `source.
 |---|---|---|
 | 1. Harvest | Automated | `cmd/harvest -n <teams>`; rerun to refresh. `cmd/import` adds a single gcsim share link by hand. Rotations are never written from scratch |
 | 2. Validation | Automated | `cmd/validate`. CI validates fully the team directories a push or pull request changes (30 of them, chosen at random, when it changes more), or 10 random teams when it changes none |
-| 3. Approval | Manual | After review, set `status: supported` |
-| 4. Regression tests | Automated | Re-run everything on gcsim updates or game patches; flag teams whose DPS shifts more than ±N% for review |
+| 3. Approval | Automated | `cmd/validate -promote` sets `status: supported` on teams that meet the criteria below and returns the others to `draft`; `cmd/harvest` writes new teams the same way |
+| 4. Regression tests | Automated | Re-run everything on gcsim updates or game patches with `-promote`, so teams that no longer meet the criteria go back to `draft`. A looped score more than 5% from the recorded `validation.dps` is a warning, in CI too |
 
 Validation checks:
 - The team reproduces the source's DPS with the source's build under the source's conditions within 15% (a warning above 5%). The tolerance allows for the source having run on another gcsim version
 - The rotation finishes, and one fight of the looped rotation ends within 20 s. A loop that takes no action, such as `while rotations { ... }` with the counter set once in the setup, spins inside gcsim without time passing once the counter is spent; gcsim cannot cancel it, so `cmd/validate` checks each team in its own process and such teams are removed
 - Action waits and members with almost no damage in the looped rotation are reported as warnings
+
+Approval criteria (`validate.Report.Unpromotable`). A team is `supported` when:
+- the validation passes;
+- its one pass is within 5% of the source's DPS (the warning threshold above);
+- its looped score keeps at least 80% of its one pass under the common conditions (`Report.Kept`). A team that keeps less is scored mostly on how its rotation loops, not on how the community plays it;
+- and at most 130%. Keeping much more means the one pass under the common conditions does not play as written: the rotation depends on the source's own conditions, such as several targets, targets that die or more energy (Ganyu / Venti / Kazuha / Rosaria, written for two targets, keeps 371%).
+
+`-promote` records each team's result in `team.yaml` (`validation`, §5.1), with the criterion a draft team misses. Other teams stay `draft`, and result pages warn that their rotation is not validated yet. Approval was manual at first, but no one reviewed 4,397 teams, so every result carried the warning although every team had passed the validation. The criteria turn what the validation already measures into the decision. `-promote` never promotes an experimental team (§5.4), which a person reviews first, but returns one to `draft` when it misses the criteria.
 
 ### 5.4 Experimental tier (in progress)
 
@@ -368,7 +383,8 @@ The first batch held the 64 teams with the most entries in the community databas
 - The full validation (`cmd/validate -iter 20 -j 4`, 28 minutes) then failed 156 teams: 124 whose looped rotation stalled (117 Skirk teams whose opening burst cannot be charged again in the loop), 27 whose looped rotation did not advance (a loop counter set once in the setup) and 5 whose looped config gcsim rejects. 293 more scored over 20% below their one pass, mostly one-cycle entries that open with every burst charged.
 - With the skipped-burst filler (§9) and the selection by kept score (§5.3), those 449 teams were harvested again in 12 minutes. 417 came back: every Skirk team, and for example Hu Tao / Yelan / Zhongli / Furina now keeps 94% of its one pass (it lost 42%) and Tartaglia / Bennett / Xiangling / Kazuha 100% (it lost 82%). 43 of them still keep less than 80%: their team has no entry that loops better.
 - 32 teams have no usable entry and are listed in `teams/harvest-failed.txt`: 24 never advance when looped, 5 stall, 3 are rejected by gcsim.
-- The library holds 4,397 teams.
+- `cmd/validate -promote -iter 20 -j 4` (50 minutes) then set 4,340 teams to `supported` and recorded each result (§5.1). 55 stay `draft`: 5 are more than 5% from their source, 41 keep less than 80% of their one pass when looped and 9 more than 130% (Ningguang / Xingqiu / Bennett / Chiori keeps 5,137%: its one pass under the common conditions barely deals damage). Ningguang / Yelan / Xingqiu / Chiori was removed: its check does not finish within two minutes. A second run changed no team's status.
+- The library holds 4,396 teams.
 
 ## 7. Accuracy and Limitations
 
