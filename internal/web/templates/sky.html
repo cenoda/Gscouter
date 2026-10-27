@@ -39,6 +39,22 @@ script.
 .sky .tw { opacity: var(--sky-c); animation: sky-twinkle 9s ease-in-out infinite; }
 /* Gear trains, drawn by gengears into sky_gears.html; each gear's turn takes its own time. */
 .sky .gears { position: absolute; width: 0; height: 0; }
+.sky .celestia { right: 30px; bottom: 40px; }
+.sky .abyss { left: -20px; top: 44%; }
+/* Where the content covers the edges, the trains shrink, keep their brightness, and the
+   Abyss's moves from the left edge to the open sky right of the large astrolabe. */
+@media (max-width: 1000px) {
+  .sky .gears { --sky-c: .5; --sky-a: .45; }
+  .sky .celestia { right: 16px; bottom: 24px; transform: scale(.75); }
+  .sky .abyss { left: 42%; top: auto; bottom: 200px; transform: scale(.75); }
+}
+@media (max-width: 1000px) and (prefers-color-scheme: dark) { .sky .gears { --sky-c: .35; --sky-a: .6; } }
+@media (max-width: 600px) {
+  .sky .celestia, .sky .abyss { transform: scale(.6); }
+  .sky .abyss { left: 45%; bottom: 330px; }
+}
+/* A landscape phone has no open sky to spare: one small train in the corner. */
+@media (max-height: 500px) { .sky .abyss { display: none; } .sky .celestia { transform: scale(.5); } }
 .sky .gear { animation: sky-spin linear infinite; }
 .sky .gear.ccw { animation-direction: reverse; }
 /* Chain rollers advance one link (pi times the gears' module) per cycle; the one part repainted. */
@@ -48,7 +64,6 @@ script.
 @keyframes sky-drift { to { transform: translate(-24px, 36px); } }
 @keyframes sky-twinkle { 0%, 100% { opacity: .15; } 50% { opacity: var(--sky-c); } }
 /* On narrow screens the content covers the edges, so keep only the big pieces, fainter. */
-@media (max-width: 1000px), (max-height: 640px) { .sky .gears { display: none; } }
 @media (max-width: 720px) { .sky .wide { display: none; } .sky { --sky-c: .3; --sky-a: .25; } }
 @media (prefers-reduced-motion: reduce) { .sky * { animation: none !important; } }
 </style>
