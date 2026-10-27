@@ -11,6 +11,7 @@
 //	validate                      # every team under teams/
 //	validate teams/<id> ...       # selected teams
 //	validate -promote             # also record each result and the status it earns
+//	validate -shard 2/4 -json b.jsonl  # the second of four slices, reports as JSON
 //
 // Each team is checked in its own process (-j at a time), so a rotation
 // that never ends cannot slow down the others. It exits with status 1 if
@@ -23,10 +24,16 @@
 // the others. It never promotes an experimental team, which a person
 // reviews first. Blocked teams are left alone. A looped score that moved
 // more than 5% from the recorded one is a warning.
+//
+// -shard k/n checks every n-th team from the k-th on, so one run can be
+// split across machines or sessions; -json writes each report as one
+// JSON line, in team order, for cmd/compare to compare runs (the
+// regression run, design §5.4) or join shards.
 package main
 
 import (
 	"cmp"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"maps"
@@ -52,6 +59,8 @@ func main() {
 		detail     = flag.Bool("detail", false, "print what each character did in one run: actions, damage by source, reactions")
 		jobs       = flag.Int("j", 1, "teams checked in parallel")
 		promote    = flag.Bool("promote", false, "record each result in team.yaml and set status: supported on teams that meet the criteria, draft on the others")
+		shard      = flag.String("shard", "", "k/n: check only every n-th team, from the k-th on")
+		jsonOut    = flag.String("json", "", "write each report as a JSON line to this file")
 	)
 	flag.Parse()
 
@@ -67,6 +76,29 @@ func main() {
 				dirs = append(dirs, filepath.Join(*root, e.Name()))
 			}
 		}
+	}
+
+	if *shard != "" {
+		var k, n int
+		if _, err := fmt.Sscanf(*shard, "%d/%d", &k, &n); err != nil || n < 1 || k < 1 || k > n {
+			fmt.Fprintf(os.Stderr, "error: -shard %q: want k/n with 1 <= k <= n\n", *shard)
+			os.Exit(2)
+		}
+		var picked []string
+		for i := k - 1; i < len(dirs); i += n {
+			picked = append(picked, dirs[i])
+		}
+		dirs = picked
+	}
+	var enc *json.Encoder
+	if *jsonOut != "" {
+		f, err := os.Create(*jsonOut)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "error:", err)
+			os.Exit(2)
+		}
+		defer f.Close()
+		enc = json.NewEncoder(f)
 	}
 
 	s := validate.Settings{Iterations: *iterations, Warmup: *warmup, Duration: *duration}
@@ -100,6 +132,12 @@ func main() {
 			warned++
 		}
 		printReport(r, *verbose)
+		if enc != nil {
+			if err := enc.Encode(r); err != nil {
+				fmt.Fprintln(os.Stderr, "error:", err)
+				os.Exit(2)
+			}
+		}
 		if *promote {
 			if err := record(r, *iterations); err != nil {
 				fmt.Fprintln(os.Stderr, "error:", err)
