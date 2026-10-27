@@ -66,3 +66,22 @@ func TestLoadRejectsUnknownStatus(t *testing.T) {
 		t.Error("expected an error for an unknown status")
 	}
 }
+
+func TestSetStatus(t *testing.T) {
+	dir := t.TempDir()
+	yaml := "id: a-b-c-d\nname: A / B / C / D\nmembers: [a, b, c, d]\nstatus: draft\nnotes: 'status: draft stays'\n"
+	if err := os.WriteFile(filepath.Join(dir, "team.yaml"), []byte(yaml), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := SetStatus(dir, StatusSupported); err != nil {
+		t.Fatal(err)
+	}
+	got, err := os.ReadFile(filepath.Join(dir, "team.yaml"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := "id: a-b-c-d\nname: A / B / C / D\nmembers: [a, b, c, d]\nstatus: supported\nnotes: 'status: draft stays'\n"
+	if string(got) != want {
+		t.Errorf("got\n%s\nwant\n%s", got, want)
+	}
+}

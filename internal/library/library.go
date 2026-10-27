@@ -7,6 +7,7 @@ import (
 	"io/fs"
 	"os"
 	"path"
+	"path/filepath"
 	"slices"
 	"strings"
 
@@ -80,6 +81,29 @@ func LoadFS(fsys fs.FS, dir string) (*Team, error) {
 	}
 	t.Rotation = string(rotation)
 	return &t, nil
+}
+
+// SetStatus rewrites the status line of team.yaml in dir on disk,
+// leaving the rest of the file as it is.
+func SetStatus(dir string, s Status) error {
+	file := filepath.Join(dir, "team.yaml")
+	raw, err := os.ReadFile(file)
+	if err != nil {
+		return err
+	}
+	lines := strings.SplitAfter(string(raw), "\n")
+	found := false
+	for i, line := range lines {
+		if strings.HasPrefix(line, "status:") {
+			lines[i] = "status: " + string(s) + "\n"
+			found = true
+			break
+		}
+	}
+	if !found {
+		return fmt.Errorf("%s: no status line", file)
+	}
+	return os.WriteFile(file, []byte(strings.Join(lines, "")), 0o644)
 }
 
 // Library is a set of teams indexed by their member set.

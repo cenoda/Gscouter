@@ -220,7 +220,7 @@ Example `team.yaml` (written by `cmd/harvest`; `cmd/import` writes the same fiel
 id: hutao-xingqiu-zhongli-yelan
 name: Hutao / Xingqiu / Zhongli / Yelan
 members: [hutao, xingqiu, zhongli, yelan]
-status: draft            # supported | draft | blocked
+status: supported        # supported | draft | blocked (§5.3, step 3)
 rotation_version: 1
 gcsim_commit: 2350be9    # gcsim version used for validation
 sources:
@@ -270,13 +270,20 @@ Each team stores the source's options, target, energy and hurt lines in `source.
 |---|---|---|
 | 1. Harvest | Automated | `cmd/harvest -n <teams>`; rerun to refresh. `cmd/import` adds a single gcsim share link by hand. Rotations are never written from scratch |
 | 2. Validation | Automated | `cmd/validate`. CI validates fully the team directories a push or pull request changes (30 of them, chosen at random, when it changes more), or 10 random teams when it changes none |
-| 3. Approval | Manual | After review, set `status: supported` |
-| 4. Regression tests | Automated | Re-run everything on gcsim updates or game patches; flag teams whose DPS shifts more than ±N% for review |
+| 3. Approval | Automated | `cmd/validate -promote` sets `status: supported` on teams that meet the criteria below and returns the others to `draft`; `cmd/harvest` writes new teams the same way |
+| 4. Regression tests | Automated | Re-run everything on gcsim updates or game patches with `-promote`, so teams that no longer meet the criteria go back to `draft`; flag teams whose DPS shifts more than ±N% for review |
 
 Validation checks:
 - The team reproduces the source's DPS with the source's build under the source's conditions within 15% (a warning above 5%). The tolerance allows for the source having run on another gcsim version
 - The rotation finishes, and one fight of the looped rotation ends within 20 s. A loop that takes no action, such as `while rotations { ... }` with the counter set once in the setup, spins inside gcsim without time passing once the counter is spent; gcsim cannot cancel it, so `cmd/validate` checks each team in its own process and such teams are removed
 - Action waits and members with almost no damage in the looped rotation are reported as warnings
+
+Approval criteria (`validate.Report.Unpromotable`). A team is `supported` when:
+- the validation passes;
+- its one pass is within 5% of the source's DPS (the warning threshold above);
+- its looped score keeps at least 80% of its one pass under the common conditions (`Report.Kept`). A team that keeps less is scored mostly on how its rotation loops, not on how the community plays it.
+
+Other teams stay `draft`, and result pages warn that their rotation is not validated yet. Approval was manual at first, but no one reviewed 4,397 teams, so every result carried the warning although every team had passed the validation. The criteria turn what the validation already measures into the decision. Experimental teams (§5.4) still need a person's review.
 
 ### 5.4 Experimental tier (proposed)
 

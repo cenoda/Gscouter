@@ -44,6 +44,12 @@ const (
 	// that runs longer is stuck: a loop whose body takes no action (for
 	// example a counter set once in the setup) spins without time passing.
 	probeTimeout = 20 * time.Second
+
+	// A team that passes the check, reproduces its source this closely
+	// and keeps this much of its one pass when looped is served as
+	// supported (Report.Unpromotable).
+	promoteReference = warnReference
+	promoteKept      = 0.8
 )
 
 type Settings struct {
@@ -78,6 +84,40 @@ func (r *Report) Kept() float64 {
 		return 0
 	}
 	return r.Res.DPS / r.Common.DPS
+}
+
+// Gap is how far the one pass under the source's conditions is from the
+// source's DPS, as a fraction of it; ok is false without a reference.
+func (r *Report) Gap() (gap float64, ok bool) {
+	if r.Team == nil || r.Team.Reference == nil || r.Team.Reference.DPS <= 0 || r.Once == nil {
+		return 0, false
+	}
+	return (r.Once.DPS - r.Team.Reference.DPS) / r.Team.Reference.DPS, true
+}
+
+// Unpromotable says why the team does not meet the criteria for
+// status: supported, or "" if it does: the full check passes, the one
+// pass is within promoteReference of the source's DPS, and the looped
+// score keeps at least promoteKept of the one pass.
+func (r *Report) Unpromotable() string {
+	switch {
+	case len(r.Failures) > 0:
+		return "the check fails"
+	case r.Skipped != "":
+		return "skipped"
+	case r.Res == nil:
+		return "no looped score"
+	}
+	gap, ok := r.Gap()
+	switch {
+	case !ok:
+		return "no reference DPS"
+	case math.Abs(gap) > promoteReference:
+		return fmt.Sprintf("%+.1f%% from the source's DPS, more than %.0f%%", gap*100, promoteReference*100)
+	case r.Kept() < promoteKept:
+		return fmt.Sprintf("the looped score keeps %.0f%% of one pass, less than %.0f%%", r.Kept()*100, promoteKept*100)
+	}
+	return ""
 }
 
 // CheckReference runs one pass of the team's rotation in dir with its
