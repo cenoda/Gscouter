@@ -101,6 +101,16 @@ type Report struct {
 	Warnings         []string
 }
 
+// Line is one line of cmd/validate -json: a report and how the run
+// that made it was built, for cmd/compare.
+type Line struct {
+	*Report
+	Gcsim string // the gcsim module the run was built with, path@version
+	// Cached is true when results could come from the cache
+	// (Settings.Cache), so a repeated run repeats the first.
+	Cached bool
+}
+
 // Kept is the score over one pass under the same, common conditions:
 // how much of its one-pass DPS the rotation keeps when it loops. It is 0
 // when the full check did not get that far.

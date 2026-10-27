@@ -109,9 +109,29 @@ func main() {
 		enc = json.NewEncoder(f)
 	}
 
+	gcsim, fork, err := score.Gcsim()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "error:", err)
+		os.Exit(2)
+	}
+	if !fork {
+		// Upstream gcsim, for the regression run: it lacks the
+		// characters of experimental teams.
+		n := len(dirs)
+		dirs = slices.DeleteFunc(dirs, func(dir string) bool {
+			team, err := library.Load(dir)
+			return err == nil && team.HasForkOnly()
+		})
+		if n > len(dirs) {
+			fmt.Fprintf(os.Stderr, "skipping %d teams with characters only the gcsim fork has: built with upstream gcsim\n", n-len(dirs))
+		}
+	}
+	cached := false
 	if *cache != "" {
 		if _, err := score.OpenCache(*cache); err != nil {
 			fmt.Fprintln(os.Stderr, "not caching simulation results:", err)
+		} else {
+			cached = true
 		}
 	}
 	s := validate.Settings{Iterations: *iterations, Warmup: *warmup, Duration: *duration, Cache: *cache}
@@ -146,7 +166,7 @@ func main() {
 		}
 		printReport(r, *verbose)
 		if enc != nil {
-			if err := enc.Encode(r); err != nil {
+			if err := enc.Encode(validate.Line{Report: r, Gcsim: gcsim.Path + "@" + gcsim.Version, Cached: cached}); err != nil {
 				fmt.Fprintln(os.Stderr, "error:", err)
 				os.Exit(2)
 			}

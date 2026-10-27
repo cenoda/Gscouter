@@ -1,4 +1,4 @@
-// Command compare compares two validation runs team by team, as the
+// Command compare compares validation runs team by team, as the
 // regression run does (design §5.4): every report field at full
 // precision, so the difference must be exactly 0.
 //
@@ -6,18 +6,33 @@
 //
 //	compare a.jsonl b.jsonl
 //	compare 'upstream-*.jsonl' 'fork-*.jsonl'
+//	compare 'up1-*.jsonl,up2-*.jsonl' 'fork1-*.jsonl,fork2-*.jsonl'
 //
-// Each side is a file `validate -json` wrote, or a glob of them, such
-// as the shards of one run (`validate -shard k/n`); a team found twice on
-// one side is an error. It prints each team that differs with the
-// fields that do, and the teams only one side has, and exits with
-// status 1 if there are any.
+// Each side is one run or several, separated by commas; a run is a file
+// `validate -json` wrote, or a glob of them, such as the shards of one
+// run (`validate -shard k/n`). A team found twice in one run is an
+// error. build.sh builds cmd/validate on the fork and on upstream.
+//
+// Upstream gcsim, very rarely, does not repeat an iteration exactly, so
+// a team that differs is classified by how often each result appears:
+//
+//	DIFF              a side has one run: rerun the team on both sides
+//	                  (it lists them), with -cache "" so that the runs
+//	                  repeat the simulation
+//	REGRESSION        a result appears in two runs or more of one side
+//	                  and in none of the other
+//	NONDETERMINISTIC  the sides differ only by results seen once
+//
+// It prints each team that differs, with the fields that do, and the
+// teams only one side has, and exits with status 1 if there is a DIFF, a
+// REGRESSION or a missing team.
 package main
 
 import (
 	"bufio"
 	"encoding/json"
 	"fmt"
+	"maps"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -30,13 +45,13 @@ import (
 
 func main() {
 	if len(os.Args) != 3 {
-		fmt.Fprintln(os.Stderr, "usage: compare <a.jsonl or glob> <b.jsonl or glob>")
+		fmt.Fprintln(os.Stderr, "usage: compare <runs of side a> <runs of side b>")
 		os.Exit(2)
 	}
-	a, err := load(os.Args[1])
+	a, err := loadSide(os.Args[1])
 	if err == nil {
-		var b map[string]*validate.Report
-		if b, err = load(os.Args[2]); err == nil {
+		var b *side
+		if b, err = loadSide(os.Args[2]); err == nil {
 			os.Exit(compare(a, b))
 		}
 	}
@@ -44,88 +59,199 @@ func main() {
 	os.Exit(2)
 }
 
-// load reads the reports in the files pattern matches, by team.
-func load(pattern string) (map[string]*validate.Report, error) {
-	files, err := filepath.Glob(pattern)
-	if err != nil {
-		return nil, err
-	}
-	if len(files) == 0 {
-		return nil, fmt.Errorf("no file matches %s", pattern)
-	}
-	reports := map[string]*validate.Report{}
-	for _, name := range files {
-		f, err := os.Open(name)
-		if err != nil {
-			return nil, err
-		}
-		sc := bufio.NewScanner(f)
-		sc.Buffer(nil, 64<<20)
-		for sc.Scan() {
-			var r validate.Report
-			if err := json.Unmarshal(sc.Bytes(), &r); err != nil {
-				f.Close()
-				return nil, fmt.Errorf("%s: %w", name, err)
-			}
-			team := filepath.Base(r.Dir)
-			if _, dup := reports[team]; dup {
-				f.Close()
-				return nil, fmt.Errorf("%s: %s is already in %s", name, team, pattern)
-			}
-			reports[team] = &r
-		}
-		f.Close()
-		if err := sc.Err(); err != nil {
-			return nil, fmt.Errorf("%s: %w", name, err)
-		}
-	}
-	return reports, nil
+// side is the runs of one build.
+type side struct {
+	name   string
+	runs   int
+	gcsim  map[string]bool
+	cached bool
+	// results counts each team's results by their JSON, which holds
+	// every report field but the team's directory and files.
+	results map[string]map[string]int
+	reports map[string]*validate.Report // by result JSON
 }
 
-func compare(a, b map[string]*validate.Report) int {
-	var teams []string
-	for t := range a {
-		teams = append(teams, t)
+func loadSide(arg string) (*side, error) {
+	s := &side{name: arg, gcsim: map[string]bool{}, results: map[string]map[string]int{}, reports: map[string]*validate.Report{}}
+	for _, pattern := range strings.Split(arg, ",") {
+		if err := s.load(pattern); err != nil {
+			return nil, err
+		}
+		s.runs++
 	}
-	for t := range b {
-		if a[t] == nil {
+	return s, nil
+}
+
+// load reads one run, the files pattern matches.
+func (s *side) load(pattern string) error {
+	files, err := filepath.Glob(pattern)
+	if err != nil {
+		return err
+	}
+	if len(files) == 0 {
+		return fmt.Errorf("no file matches %s", pattern)
+	}
+	seen := map[string]bool{}
+	for _, name := range files {
+		if err := s.loadFile(name, pattern, seen); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (s *side) loadFile(name, pattern string, seen map[string]bool) error {
+	f, err := os.Open(name)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	sc := bufio.NewScanner(f)
+	sc.Buffer(nil, 64<<20)
+	for sc.Scan() {
+		var l validate.Line
+		if err := json.Unmarshal(sc.Bytes(), &l); err != nil || l.Report == nil {
+			return fmt.Errorf("%s: not a report: %v", name, err)
+		}
+		team := filepath.Base(l.Dir)
+		if seen[team] {
+			return fmt.Errorf("%s: %s is already in %s", name, team, pattern)
+		}
+		seen[team] = true
+		s.gcsim[l.Gcsim] = true
+		s.cached = s.cached || l.Cached
+		r := *l.Report
+		r.Dir, r.Team = "", nil
+		raw, err := json.Marshal(r)
+		if err != nil {
+			return err
+		}
+		if s.results[team] == nil {
+			s.results[team] = map[string]int{}
+		}
+		s.results[team][string(raw)]++
+		s.reports[string(raw)] = &r
+	}
+	if err := sc.Err(); err != nil {
+		return fmt.Errorf("%s: %w", name, err)
+	}
+	return nil
+}
+
+type verdict string
+
+const (
+	same             verdict = ""
+	diff             verdict = "DIFF"
+	regression       verdict = "REGRESSION"
+	nondeterministic verdict = "NONDETERMINISTIC"
+)
+
+// classify compares one team's results on two sides, each counted by
+// the runs it appeared in.
+func classify(a, b map[string]int, runsA, runsB int) verdict {
+	all := maps.Clone(a)
+	maps.Copy(all, b)
+	repeats := func(x, y map[string]int) bool {
+		for res, n := range x {
+			if n >= 2 && y[res] == 0 {
+				return true
+			}
+		}
+		return false
+	}
+	switch {
+	case len(all) == 1:
+		return same
+	case runsA == 1 || runsB == 1:
+		return diff
+	case repeats(a, b) || repeats(b, a):
+		return regression
+	}
+	return nondeterministic
+}
+
+func compare(a, b *side) int {
+	for _, s := range []*side{a, b} {
+		if len(s.gcsim) > 1 {
+			fmt.Printf("warning: the runs of %s were built with different gcsim: %v\n", s.name, slices.Sorted(maps.Keys(s.gcsim)))
+		}
+		if s.runs > 1 && s.cached {
+			fmt.Printf("warning: the runs of %s used the cache, so they repeat the first run's results: run them with -cache \"\"\n", s.name)
+		}
+	}
+	if maps.Equal(a.gcsim, b.gcsim) {
+		fmt.Printf("warning: both sides were built with the same gcsim: %v\n", slices.Sorted(maps.Keys(a.gcsim)))
+	}
+	teams := slices.Sorted(maps.Keys(a.results))
+	for t := range b.results {
+		if a.results[t] == nil {
 			teams = append(teams, t)
 		}
 	}
 	slices.Sort(teams)
-	var differ, missing int
+	count := map[verdict]int{}
+	var missing int
+	var rerun []string
 	for _, t := range teams {
-		ra, rb := a[t], b[t]
-		switch {
-		case rb == nil:
+		ra, rb := a.results[t], b.results[t]
+		if ra == nil || rb == nil {
 			missing++
-			fmt.Printf("%s: only in the first run\n", t)
-			continue
-		case ra == nil:
-			missing++
-			fmt.Printf("%s: only in the second run\n", t)
+			fmt.Printf("%s: in one side only\n", t)
 			continue
 		}
-		if lines := diff(ra, rb); len(lines) > 0 {
-			differ++
-			fmt.Printf("%s:\n  %s\n", t, strings.Join(lines, "\n  "))
+		v := classify(ra, rb, a.runs, b.runs)
+		count[v]++
+		switch v {
+		case same:
+			continue
+		case diff:
+			rerun = append(rerun, t)
 		}
+		fmt.Printf("%s %s: %s vs %s\n", v, t, counts(ra), counts(rb))
+		lines := reportDiff(a.reports[mostCommon(ra)], b.reports[mostCommon(rb)])
+		fmt.Printf("  %s\n", strings.Join(lines, "\n  "))
 	}
-	fmt.Printf("%d teams, %d differ, %d in one run only\n", len(teams), differ, missing)
-	if differ+missing > 0 {
+	fmt.Printf("%d teams: %d differ (%d DIFF, %d REGRESSION, %d NONDETERMINISTIC), %d in one side only\n",
+		len(teams), count[diff]+count[regression]+count[nondeterministic], count[diff], count[regression], count[nondeterministic], missing)
+	if len(rerun) > 0 {
+		fmt.Printf("rerun on both sides, with -cache \"\":\n  %s\n", strings.Join(rerun, " "))
+	}
+	if count[diff]+count[regression]+missing > 0 {
 		return 1
 	}
 	return 0
 }
 
-// diff lists the fields of two reports that differ, with the scores'
-// DPS, per character where those differ.
-func diff(a, b *validate.Report) []string {
+// counts shows how many runs gave each result, most common first.
+func counts(c map[string]int) string {
+	n := slices.SortedFunc(maps.Values(c), func(x, y int) int { return y - x })
+	parts := make([]string, len(n))
+	for i, x := range n {
+		parts[i] = fmt.Sprint(x)
+	}
+	return strings.Join(parts, "+") + " runs"
+}
+
+// mostCommon is the result most runs gave.
+func mostCommon(c map[string]int) string {
+	best := ""
+	for res, n := range c {
+		if best == "" || n > c[best] || n == c[best] && res < best {
+			best = res
+		}
+	}
+	return best
+}
+
+// reportDiff lists the fields of two reports that differ, with the
+// scores' fields, per character where those differ.
+func reportDiff(a, b *validate.Report) []string {
 	var lines []string
 	va, vb := reflect.ValueOf(*a), reflect.ValueOf(*b)
 	for i := range va.NumField() {
 		f := va.Type().Field(i)
-		if !f.IsExported() || f.Name == "Dir" {
+		if !f.IsExported() {
 			continue
 		}
 		x, y := va.Field(i).Interface(), vb.Field(i).Interface()
