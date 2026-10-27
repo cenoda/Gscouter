@@ -1,8 +1,8 @@
 {{template "head" (t "site.title")}}
 {{if .VS}}
-<div class="card"><h1>{{t "index.vs_heading"}}</h1><p class="muted">{{t "index.vs_lead"}}</p></div>
+<section class="intro"><h1>{{t "index.vs_heading"}}</h1><p class="muted">{{t "index.vs_lead"}}</p></section>
 {{else if not .Profile}}
-<div class="card">
+<section class="intro">
 <h1>{{t "index.heading"}}</h1>
 <p>{{t "index.lead"}}</p>
 <ol class="steps">
@@ -10,7 +10,7 @@
 <li><b>2</b>{{t "index.step2"}}</li>
 <li><b>3</b>{{t "index.step3"}}</li>
 </ol>
-</div>
+</section>
 {{end}}
 <div class="card">
 <form class="inline" action="/" method="get" id="uid-form">

@@ -31,12 +31,12 @@ import (
 const cardW, cardH = 1200, 630
 
 var (
-	cardBg     = rgb(0x11141a)
-	cardText   = rgb(0xe6e9ef)
-	cardMuted  = rgb(0x9aa3b2)
-	cardLine   = rgb(0x2c3340)
-	cardAccent = rgb(0x7aa2f7)
-	cardGood   = rgb(0x5fd39a)
+	cardBg     = rgb(0x15161d)
+	cardText   = rgb(0xece5d8)
+	cardMuted  = rgb(0xa39d90)
+	cardLine   = rgb(0x30323d)
+	cardAccent = rgb(0xd3bc8e)
+	cardGood   = rgb(0x6fcf97)
 	// elementColors are the site's dark-theme element colors.
 	elementColors = map[string]color.RGBA{
 		"pyro": rgb(0xf27f5c), "hydro": rgb(0x5eaee8), "anemo": rgb(0x55cfae), "electro": rgb(0xb88af0),
