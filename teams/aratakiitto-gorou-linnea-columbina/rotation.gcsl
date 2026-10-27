@@ -1,0 +1,25 @@
+# Linnea quick guide, Arataki Itto / Gorou / Linnea / Columbina:
+#   Columbina E (Q)1 > Gorou EQ > Linnea 5[E](Q)2 > Itto combo
+#   1 when available; 2 if healing is needed
+# Itto quick guide, C0 combo (recommended):
+#   N1Q N1 E N#2 N#3 C4F N4 C4F E F
+# written as in the community database's Itto entries (charged slashes
+# continue while Itto has Superlative Superstrength stacks).
+# Linnea's Ultimate Power Form is one press and three recasts in gcsim
+# (the guide's 5[E]); her burst is left out: no healing is needed, and on
+# the fork it stops Lumi's attacks (design §5.4).
+active columbina;
+columbina skill;
+if .columbina.burst.ready {
+  columbina burst;
+}
+gorou skill;
+if .gorou.burst.ready {
+  gorou burst;
+}
+linnea skill, skill, skill, skill;
+itto attack;
+if .itto.burst.ready {
+  itto burst[prestack=1];
+}
+itto attack, skill, attack:2, charge:5, attack:4, charge:5, skill, charge;

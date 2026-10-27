@@ -112,6 +112,7 @@ func init() {
 
 		"warn.draft":        "Vòng xoay của đội hình này chưa được kiểm chứng. Điểm có thể thay đổi.",
 		"warn.experimental": "Đội hình này có nhân vật mà gcsim chưa hỗ trợ, được tính bằng phiên bản do Gscouter tự triển khai. Điểm có thể thay đổi.",
+		"warn.written":      "Đội hình này chưa có cấu hình gcsim từ cộng đồng nên vòng xoay được viết theo hướng dẫn của cộng đồng. Điểm có thể thay đổi.",
 		"tier.experimental": "Thử nghiệm",
 		"warn.energy":       "%s phải chờ năng lượng %.1f giây mỗi phút. Tăng Hiệu Quả Nạp Nguyên Tố sẽ nâng điểm.",
 		"warn.unknown_sets": "%s: %d bộ Thánh Di Vật chưa được engine mô phỏng hỗ trợ nên hiệu quả bộ của chúng bị bỏ qua.",

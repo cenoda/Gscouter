@@ -1,0 +1,25 @@
+id: linnea-noelle-aino-travelergeo
+name: Linnea / Noelle / Aino / Traveler (Geo)
+members:
+    - linnea
+    - noelle
+    - aino
+    - travelergeo
+archetype: Geo Lunar-Crystallize
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: 91c5de4
+sources:
+    - https://keqingmains.com/q/linnea-quickguide/
+    - https://keqingmains.com/q/noelle-quickguide/
+notes: 'Written from the community guides (design §5.4): the Linnea quick guide''s limited-roster team with Geo Traveler instead of Gorou: Linnea E > Aino EQ > Traveler Q shE > Noelle combo > Traveler shE > Noelle combo. Noelle''s combo is taken from the Noelle quick guide''s Linnea / Aino / Gorou rotation (EQ 2[N3D] N2, then 2[N3D] N2), and Linnea''s N1 fills the swap cooldown as in Linnea / Noelle / Aino / Gorou. The Traveler''s short-hold skill is skill[short_hold=1]. Bursts are used when ready. Build as in Linnea / Noelle / Aino / Gorou; C6 Geo Traveler with Favonius Sword R3, 4pc Noblesse Oblige, ER/Geo/CRIT. Waits: none above 2 s/min; no energy waits (Noelle bursts every rotation). Fork notes: Linnea''s burst is left out, because on the fork a burst while Lumi is out stops Lumi''s attacks.'
+cross_check:
+    note: 'No public number for this team (searched 2026-10-27: KQM quick guides, KQM TCL, the community gcsim database (no entry with Linnea), web search; Icy Veins, GameWith, GenshinBuilds and allthings.how rank Linnea teams without DPS numbers).'
+validation:
+    date: "2026-10-27"
+    iterations: 100
+    kept: 1.052
+    dps: 44766
+    draft: no reference DPS

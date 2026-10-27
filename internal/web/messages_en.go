@@ -112,6 +112,7 @@ func init() {
 
 		"warn.draft":        "This team's rotation is not validated yet. The score may change.",
 		"warn.experimental": "A member of this team is not in gcsim yet and is calculated with Gscouter's own implementation. The score may change.",
+		"warn.written":      "No community gcsim config exists for this team yet, so its rotation was written from a community guide. The score may change.",
 		"tier.experimental": "Experimental",
 		"warn.energy":       "%s waits %.1f s per minute for energy. More Energy Recharge raises the score.",
 		"warn.unknown_sets": "%s: %d artifact sets are not supported by the simulation engine yet, so their set bonuses are left out.",

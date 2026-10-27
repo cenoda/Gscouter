@@ -1,0 +1,24 @@
+id: chasca-iansan-bennett-furina
+name: Chasca / Iansan / Bennett / Furina
+members:
+    - chasca
+    - iansan
+    - bennett
+    - furina
+archetype: Anemo Overvape
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://keqingmains.com/q/iansan-quickguide/
+    - https://keqingmains.com/q/chasca-quickguide/
+notes: 'Written from the community guides (design §5.4): the KQM Iansan quick guide gives Furina ED Q > Bennett EQ N1 > Iansan ECQ > Chasca E 4[C] (C/Q) > (Bennett E); the Chasca quick guide the same order. Chasca''s combo is in the gcsim form of the community config behind Chasca / Furina / Mavuika / Bennett (db.kqm.gg): skill, four aimed shots, then her burst or a last shot; Bennett''s last skill is kept for his energy. Build: Chasca, Bennett and Furina from that config (C0, C6 Bennett); Iansan 4pc Scroll. Iansan C0 with Favonius Lance R3, KQM-standard substats and about 225% ER (the guide asks 180-210% with Favonius as the only Electro, less with a second one). Movement: Iansan''s burst restores Nightsoul points from the active character''s movement, which gcsim counts only when the rotation reports it. The Iansan guide says "Chasca can maintain Iansan''s ATK buff uptime as long as she constantly moves during her aerial state", so every action reports movement at 9 m/s since the previous one, the lowest speed tried (6, 9, 12) above which the score stops rising: her higher ATK buff stays up. The speed stands for the guide''s statement, not a measurement.'
+cross_check:
+    note: 'Searched 2026-10-27: the KQM Iansan and Chasca quick guides (no DPS numbers or gcsim links), the KQM community gcsim database (no entry with Iansan), GenshinBuilds, Sportskeeda and GameWith team pages (no numbers), Prydwen (HTTP 403); no public number for this team. For scale, harvested teams with the same carry: Chasca / Furina / Mavuika / Bennett 82.6k, Chasca / Citlali / Furina / Bennett 69.4k, Chasca / Kazuha / Furina / Bennett 54.9k (source DPS).'
+validation:
+    date: "2026-10-27"
+    iterations: 100
+    kept: 0.971
+    dps: 57788
+    draft: no reference DPS

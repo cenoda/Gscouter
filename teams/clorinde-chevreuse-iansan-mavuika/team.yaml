@@ -1,0 +1,24 @@
+id: clorinde-chevreuse-iansan-mavuika
+name: Clorinde / Chevreuse / Iansan / Mavuika
+members:
+    - clorinde
+    - chevreuse
+    - iansan
+    - mavuika
+archetype: Electro Overload hypercarry
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://keqingmains.com/q/iansan-quickguide/
+    - https://keqingmains.com/q/clorinde-quickguide/
+notes: 'Written from the community guides (design §5.4): the KQM Iansan quick guide gives the opener Mavuika tE > Iansan ECQ > Chevreuse hE Q > Mavuika Q 2[CD] > Clorinde E [combo] Q and the ongoing rotation Chevreuse hEN1 > (Clorinde N1C/N3) > Iansan ECQ > Mavuika tEQ C2D CD > Clorinde E [combo] Q; the optional Clorinde normals, which only funnel particles, are left out. Clorinde''s combo is in the gcsim form of the community config behind Clorinde / Mavuika / Ororon / Chevreuse (db.kqm.gg). Build: Clorinde, Chevreuse and Mavuika from that config (C0 Clorinde and Mavuika, C6 Chevreuse); Iansan 4pc Scroll. Waits: the looped rotation sometimes skips Clorinde''s burst for energy. Iansan C0 with Favonius Lance R3, KQM-standard substats and about 225% ER (the guide asks 180-210% with Favonius as the only Electro, less with a second one). Gcsim note: Iansan''s skill fills her Nightsoul points and drains them at 6 per second; her burst restores points from the active character''s movement only when the rotation reports a distance (movement()), so the buff falls to its low-point rate a few seconds after her skill unless movement is reported. Movement: for Iansan''s higher ATK buff, a reviewer who plays the characters says Mavuika keeps it nearly always at its maximum; Clorinde''s time reports none, since the Iansan guide says her moves do not provide enough movement to let Clorinde maintain it unless Iansan is C4. So the time after each of Mavuika''s actions reports movement at 9 m/s, the speed at which the buff stays up in the Iansan teams that report movement. The speed stands for that statement, not a measurement (design §5.4).'
+cross_check:
+    note: 'Searched 2026-10-27: the KQM Iansan and Clorinde quick guides (no DPS numbers or gcsim links), the KQM community gcsim database (no entry with Iansan), GenshinBuilds, Sportskeeda and GameWith team pages (no numbers), Prydwen (HTTP 403); no public number for this team. For scale, harvested teams with the same carry: Clorinde / Mavuika / Ororon / Chevreuse 101.5k and Clorinde / Fischl / Mavuika / Chevreuse 91.0k (source DPS).'
+validation:
+    date: "2026-10-27"
+    iterations: 100
+    kept: 1.018
+    dps: 82157
+    draft: no reference DPS

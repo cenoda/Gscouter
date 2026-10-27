@@ -1,0 +1,24 @@
+id: linnea-navia-columbina-furina
+name: Linnea / Navia / Columbina / Furina
+members:
+    - linnea
+    - navia
+    - columbina
+    - furina
+archetype: Geo Lunar-Crystallize
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: 91c5de4
+sources:
+    - https://keqingmains.com/q/linnea-quickguide/
+notes: 'Written from the community guides (design §5.4): the Linnea quick guide lists Linnea / Navia / Columbina / Furina as its second team and gives its rotation: (Linnea E, first rotation) > Furina ED Q > Linnea Q > Columbina E Q > Navia Q tE 2[N2D] N2 > Furina N2 > Navia tE 2[N2D] N2 (tE). Linnea''s burst is replaced by her skill (tapped, Super Power Form) whenever it is ready, 18 of 22 rotations in the check: on the fork a burst while Lumi is out stops Lumi''s attacks and the A1 shred for the rest of its duration (design §5.4), and the guide''s burst only refreshes Lumi. Navia''s third skill is used when ready; crystallize shards are picked up on each dash. Build at a 4-star baseline (C0, 4-star weapons, KQM-standard artifacts): Linnea as in the other Linnea teams (Slingshot R5, 4pc Husk); Navia Serpent Spine R1 (5 stacks), 4pc Nighttime Whispers, ATK/Geo/CRIT; Columbina Prototype Amber R5, 4pc SMS, as in Nefer / Linnea / Lauma / Columbina; Furina Festering Desire R5, 4pc Golden Troupe. Waits: none above 2 s/min; no energy waits. The rotation is about 20.5 s. Fork notes: Linnea''s A4 EM buff is not refreshed on swap.'
+cross_check:
+    note: 'No public number for this team (searched 2026-10-27: KQM quick guides, KQM TCL, the community gcsim database (no entry with Linnea), web search; Icy Veins, GameWith, GenshinBuilds and allthings.how rank Linnea teams without DPS numbers).'
+validation:
+    date: "2026-10-27"
+    iterations: 100
+    kept: 0.93
+    dps: 87462
+    draft: no reference DPS

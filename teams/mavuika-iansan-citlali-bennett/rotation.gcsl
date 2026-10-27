@@ -1,0 +1,54 @@
+# KQM Iansan quick guide, Iansan / Mavuika / Citlali / Bennett or Xilonen:
+#   Mavuika tE > Bennett EQ > Iansan ECQ > Citlali EQ N1 > Mavuika [combo]
+# Iansan's skill turns her next attack into Swift Stormflight, her
+# enhanced charged attack (gcsim: skill, charge). Mavuika's burst combo
+# (dash-cancelled charged attacks) is the one of the community config
+# behind Mavuika / Citlali / Xilonen / Bennett (db.kqm.gg cdz8FgbKf7wk);
+# the guide links Mavuika's Melt combos, which it follows.
+fn mav_dc_cancel(d_travel_f) {
+  if d_travel_f < 6 {
+    d_travel_f = 6;
+  }
+  let dash_ns = 10;
+  let base_cons = 0.9;
+  let base_tick_rate = 6;
+  while !.mavuika.dash.ready {
+    wait(1);
+  }
+  let d_ticks = d_travel_f / base_tick_rate + 1;
+  let ns_consumed = dash_ns + base_cons * d_ticks;
+  if .mavuika.nightsoul.points > ns_consumed || .mavuika.status.mavuika-burst {
+    mavuika dash[charge_cancel=1, travel=d_travel_f], charge;
+  } else {
+    mavuika jump;
+  }
+}
+# Iansan's burst restores Nightsoul points from the active character's
+# movement, which gcsim counts only when the rotation reports it. For
+# her higher ATK buff, a reviewer who plays the characters says Mavuika
+# keeps it nearly always at its maximum. So the time after each of
+# Mavuika's actions reports movement at 9 m/s, the speed at which the
+# buff stays up in the Iansan teams that report movement (design §5.4).
+let _last = f();
+let _prev = -1;
+let _ea = execute_action;
+fn execute_action(c number, a number, p map) {
+  let now = f();
+  if _prev == .keys.char.mavuika {
+    movement(9 * (now - _last) / 60);
+  }
+  _last = now;
+  _prev = c;
+  return _ea(c, a, p);
+}
+active mavuika;
+mavuika skill;
+bennett skill, burst;
+iansan skill, charge, burst;
+citlali skill, burst, attack;
+mavuika burst;
+mavuika charge;
+mav_dc_cancel(6); mavuika charge:2, charge[hold=6], charge[final=1];
+mav_dc_cancel(6); mavuika charge[final=1];
+mav_dc_cancel(6); mavuika charge[final=1];
+mav_dc_cancel(6); mavuika charge[final=1];

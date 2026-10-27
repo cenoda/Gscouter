@@ -1,0 +1,33 @@
+# KQM Nefer quick guide, Nefer / Furina / Lauma / Ineffa or Kuki Shinobu:
+# Furina gives off-field Hydro and skips her burst (its DMG bonus does not
+# reach Nefer). Supports (Lauma QE, Furina E, Shinobu E), then Nefer's
+# combo.
+# With Shinobu, the guide starts the first rotation with Nefer's skill, so
+# that it turns Dendro Cores into Seeds of Deceit before Shinobu's skill
+# can burst them.
+# Nefer combo (dash cancel): E 3[CD] E CD CQ CD
+# Lauma holds her skill when there is Verdant Dew, otherwise taps it.
+# Nefer's charged attacks are held (Slither) until Verdant Dew turns them
+# into Phantasm Performance.
+active nefer;
+let first = 1;
+if first == 1 {
+  nefer skill;
+  first = 0;
+}
+if .lauma.burst.ready {
+  lauma burst;
+}
+if .dew > 0 {
+  lauma skill[hold=1];
+} else {
+  lauma skill;
+}
+furina skill;
+kukishinobu skill;
+nefer skill, charge[hold=150], dash, charge[hold=150], dash, charge[hold=150], dash,
+      skill, charge[hold=150], dash, charge[hold=150];
+if .nefer.burst.ready {
+  nefer burst;
+}
+nefer charge[hold=150], dash;

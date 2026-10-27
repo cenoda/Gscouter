@@ -1,0 +1,31 @@
+# Zibai quick guide, Zibai / Illuga / Linnea / Xingqiu:
+#   Linnea (N1) E > Xingqiu ED (Q N1) > Illuga Q E > Zibai combo
+# Xingqiu and Illuga burst when ready (Favonius Sword, so not the
+# guide's Sacrificial Sword variant that bursts every other rotation).
+# Full combo: E, then 4[N4 E]; if Q is available, N1 Q after an E.
+# Spirit Steed's Stride needs 70 Phase Shift Radiance: Zibai attacks
+# until she has it. Linnea's burst is left out (only for healing; on the
+# fork it would stop Lumi, design §5.4).
+active linnea;
+linnea attack, skill;
+xingqiu skill, dash;
+if .xingqiu.burst.ready {
+  xingqiu burst, attack;
+}
+if .illuga.burst.ready {
+  illuga burst;
+}
+illuga skill;
+zibai skill;
+for let i = 0; i < 4; i = i + 1 {
+  zibai attack:4;
+  while .zibai.radiance > 0 && .zibai.radiance < 70 {
+    zibai attack;
+  }
+  if .zibai.radiance >= 70 {
+    zibai skill;
+    if .zibai.burst.ready {
+      zibai attack, burst;
+    }
+  }
+}

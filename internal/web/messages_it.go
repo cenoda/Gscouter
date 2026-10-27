@@ -112,6 +112,7 @@ func init() {
 
 		"warn.draft":        "La rotazione di questa squadra non è ancora verificata. Il punteggio potrebbe cambiare.",
 		"warn.experimental": "Un membro di questa squadra non è ancora in gcsim ed è calcolato con l'implementazione di Gscouter. Il punteggio potrebbe cambiare.",
+		"warn.written":      "Per questa squadra non esiste ancora una configurazione gcsim della community, quindi la rotazione è stata scritta da una guida della community. Il punteggio potrebbe cambiare.",
 		"tier.experimental": "Sperimentale",
 		"warn.energy":       "%s attende l'energia per %.1f s al minuto. Più Ricarica di energia alza il punteggio.",
 		"warn.unknown_sets": "%s: %d set di manufatti non sono ancora supportati dal motore di simulazione, quindi i loro bonus set sono esclusi.",

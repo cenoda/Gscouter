@@ -1,0 +1,54 @@
+# KQM Iansan quick guide, Iansan / Kinich / Mavuika / Bennett:
+#   (Kinich Q)1 > Mavuika Q tE > Bennett Q E > Iansan EC2Q > Kinich shE [combo]
+#   1 use Kinich's burst if available; 2 Iansan's enhanced charged attack
+#   must not be omitted
+# Kinich's combo is the guide's shE 5[N2 shE]; its gcsim form (N2 toward
+# the blind spot, then a short hold when he has 20 Nightsoul points) is
+# the one of the community config behind Kinich / Mavuika / Bennett /
+# Ororon (db.kqm.gg).
+fn kinich_combo() {
+  kinich skill;
+  for let c=0; c<5; c=c+1 {
+    for let a=0; a<2; a=a+1 {
+      if .kinich.blind_spot {
+        kinich attack[direction=.kinich.blind_spot];
+      } else {
+        kinich attack;
+      }
+    }
+    while .kinich.nightsoul.points < 20 && .kinich.nightsoul.state {
+      wait(1);
+    }
+    if .kinich.nightsoul.state {
+      kinich skill[hold=1];
+    }
+  }
+}
+# Iansan's burst restores Nightsoul points from the active character's
+# movement, which gcsim counts only when the rotation reports it. For
+# her higher ATK buff, a reviewer who plays the characters says Mavuika
+# keeps it nearly always at its maximum; Kinich's time reports none,
+# since the Kinich guide says Bennett locks Kinich into his circle,
+# removing the freedom of movement Iansan offers. So the time after each
+# of Mavuika's actions reports movement at 9 m/s, the speed at which the
+# buff stays up in the Iansan teams that report movement (design §5.4).
+let _last = f();
+let _prev = -1;
+let _ea = execute_action;
+fn execute_action(c number, a number, p map) {
+  let now = f();
+  if _prev == .keys.char.mavuika {
+    movement(9 * (now - _last) / 60);
+  }
+  _last = now;
+  _prev = c;
+  return _ea(c, a, p);
+}
+active kinich;
+if .kinich.burst.ready {
+  kinich burst;
+}
+mavuika burst, skill;
+bennett burst, skill;
+iansan skill, charge, burst;
+kinich_combo();

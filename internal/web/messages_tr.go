@@ -112,6 +112,7 @@ func init() {
 
 		"warn.draft":        "Bu takımın rotasyonu henüz doğrulanmadı. Puan değişebilir.",
 		"warn.experimental": "Bu takımdaki bir karakter henüz gcsim'de yok ve Gscouter'ın kendi uygulamasıyla hesaplanıyor. Puan değişebilir.",
+		"warn.written":      "Bu takım için henüz topluluk gcsim yapılandırması yok, bu yüzden rotasyonu bir topluluk rehberine göre yazıldı. Puan değişebilir.",
 		"tier.experimental": "Deneysel",
 		"warn.energy":       "%s, enerji için dakikada %.1f sn bekliyor. Daha fazla Enerji Yüklemesi puanı yükseltir.",
 		"warn.unknown_sets": "%s: %d yadigar seti henüz simülasyon motoru tarafından desteklenmediği için set bonusları hesaba katılmadı.",

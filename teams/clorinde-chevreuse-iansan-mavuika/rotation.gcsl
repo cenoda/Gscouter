@@ -1,0 +1,58 @@
+# KQM Iansan quick guide, Iansan / Clorinde / Chevreuse / Mavuika:
+#   Opener: Mavuika tE > Iansan ECQ > Chevreuse hE Q > Mavuika Q 2[CD] >
+#     Clorinde E [combo] Q
+#   Ongoing: Chevreuse hEN1 > (Clorinde N1C/N3)1 > Iansan ECQ >
+#     Mavuika tEQ C2D CD > Clorinde E [combo] Q
+#   1 optional: funnels Chevreuse's particles to Clorinde
+# The optional Clorinde normals are left out. Clorinde's combo (N1 until
+# her Bond of Life reaches 100%, then a skill, while her skill state
+# lasts) is the one of the community config behind Clorinde / Mavuika /
+# Ororon / Chevreuse (db.kqm.gg).
+let MAX_NA_COUNT = 18;
+fn clorinde_combo() {
+  clorinde skill;
+  let na_count = 0;
+  while .clorinde.status.clorinde-night-watch && na_count < MAX_NA_COUNT {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+      na_count = na_count + 1;
+    }
+  }
+}
+# Iansan's burst restores Nightsoul points from the active character's
+# movement, which gcsim counts only when the rotation reports it. For
+# her higher ATK buff, a reviewer who plays the characters says Mavuika
+# keeps it nearly always at its maximum; Clorinde's time reports none,
+# since the Iansan guide says her moves do not provide enough movement
+# to keep the higher buff before Iansan's C4. So the time after each of
+# Mavuika's actions reports movement at 9 m/s, the speed at which the
+# buff stays up in the Iansan teams that report movement (design §5.4).
+let _last = f();
+let _prev = -1;
+let _ea = execute_action;
+fn execute_action(c number, a number, p map) {
+  let now = f();
+  if _prev == .keys.char.mavuika {
+    movement(9 * (now - _last) / 60);
+  }
+  _last = now;
+  _prev = c;
+  return _ea(c, a, p);
+}
+active mavuika;
+let first = 1;
+if first == 1 {
+  mavuika skill;
+  iansan skill, charge, burst;
+  chevreuse skill[hold=1], burst;
+  mavuika burst, charge:2, dash, charge:2, dash;
+} else {
+  chevreuse skill[hold=1], attack;
+  iansan skill, charge, burst;
+  mavuika skill, burst, charge:2, dash, charge, dash;
+}
+first = 0;
+clorinde_combo();
+clorinde burst;

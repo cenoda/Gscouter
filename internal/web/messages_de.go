@@ -112,6 +112,7 @@ func init() {
 
 		"warn.draft":        "Die Rotation dieses Teams ist noch nicht geprüft. Der Wert kann sich ändern.",
 		"warn.experimental": "Ein Mitglied dieses Teams fehlt in gcsim noch und wird mit Gscouters eigener Umsetzung berechnet. Der Wert kann sich ändern.",
+		"warn.written":      "Für dieses Team gibt es noch keine gcsim-Konfiguration der Community, daher wurde seine Rotation nach einem Community-Guide geschrieben. Der Wert kann sich ändern.",
 		"tier.experimental": "Experimentell",
 		"warn.energy":       "%s wartet pro Minute %.1f s auf Energie. Mehr Aufladerate erhöht den Wert.",
 		"warn.unknown_sets": "%s: %d Artefaktsets werden von der Simulations-Engine noch nicht unterstützt, daher fehlen ihre Seteffekte.",

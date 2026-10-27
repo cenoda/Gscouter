@@ -1,0 +1,28 @@
+# KQM Nefer quick guide, Nefer / Furina / Lauma / Ineffa or Kuki Shinobu:
+# Furina gives off-field Hydro and skips her burst (its DMG bonus does not
+# reach Nefer); Ineffa bursts every rotation for her A4 EM buff. Supports
+# first (Lauma QE, Furina E, Ineffa EQ), then Nefer's combo.
+# Nefer combo (dash cancel): E 3[CD] E CD CQ CD
+# Lauma holds her skill when there is Verdant Dew, otherwise taps it.
+# Nefer's charged attacks are held (Slither) until Verdant Dew turns them
+# into Phantasm Performance.
+active lauma;
+if .lauma.burst.ready {
+  lauma burst;
+}
+if .dew > 0 {
+  lauma skill[hold=1];
+} else {
+  lauma skill;
+}
+furina skill;
+ineffa skill;
+if .ineffa.burst.ready {
+  ineffa burst;
+}
+nefer skill, charge[hold=150], dash, charge[hold=150], dash, charge[hold=150], dash,
+      skill, charge[hold=150], dash, charge[hold=150];
+if .nefer.burst.ready {
+  nefer burst;
+}
+nefer charge[hold=150], dash;

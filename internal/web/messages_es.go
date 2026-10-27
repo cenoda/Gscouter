@@ -112,6 +112,7 @@ func init() {
 
 		"warn.draft":        "La rotación de este equipo aún no está validada. La puntuación puede cambiar.",
 		"warn.experimental": "Un miembro de este equipo aún no está en gcsim y se calcula con la implementación propia de Gscouter. La puntuación puede cambiar.",
+		"warn.written":      "Este equipo aún no tiene una configuración de gcsim de la comunidad, así que su rotación se escribió a partir de una guía de la comunidad. La puntuación puede cambiar.",
 		"tier.experimental": "Experimental",
 		"warn.energy":       "%s espera %.1f s por minuto a tener energía. Más Recarga de Energía sube la puntuación.",
 		"warn.unknown_sets": "%s: el motor de simulación aún no admite %d conjuntos de artefactos, así que sus bonificaciones de conjunto no se tienen en cuenta.",

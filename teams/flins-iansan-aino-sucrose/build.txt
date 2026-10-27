@@ -1,0 +1,28 @@
+# Build: Flins, Aino and Sucrose from the harvested team
+# Flins / Ineffa / Aino / Sucrose (C0 Flins, a KQM database entry);
+# Iansan C0 with Favonius Lance R3, KQM-standard substats, 4pc Noblesse
+# as the guide recommends in Flins teams.
+
+flins char lvl=90/90 cons=0 talent=9,9,9;
+flins add weapon="deathmatch" refine=1 lvl=90/90;
+flins add set="nightoftheskysunveiling" count=4;
+flins add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cd=0.622;
+flins add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.3968 er=0.1102 em=39.64 cr=0.2648 cd=0.662;
+
+iansan char lvl=90/90 cons=0 talent=9,9,9;
+iansan add weapon="favlance" refine=3 lvl=90/90;
+iansan add set="noblesse" count=4;
+iansan add stats hp=4780 atk=311 er=0.518 atk%=0.466 cr=0.311;
+iansan add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.4408 em=39.64 cr=0.331 cd=0.2648;
+
+aino char lvl=90/90 cons=6 talent=9,9,9;
+aino add weapon="aquamarine" refine=1 lvl=90/90;
+aino add set="silkenmoonsserenade" count=4;
+aino add stats hp=4780 atk=311 er=0.518 em=187 em=187;
+aino add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.551 em=158.56 cr=0.2648 cd=0.1324;
+
+sucrose char lvl=90/90 cons=6 talent=9,9,9;
+sucrose add weapon="evenstar" refine=1 lvl=90/90;
+sucrose add set="vv" count=4;
+sucrose add stats hp=4780 atk=311 em=187 em=187 em=187;
+sucrose add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.6612 em=118.92 cr=0.2317 cd=0.1986;

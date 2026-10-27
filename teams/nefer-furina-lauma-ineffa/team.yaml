@@ -1,0 +1,24 @@
+id: nefer-furina-lauma-ineffa
+name: Nefer / Furina / Lauma / Ineffa
+members:
+    - nefer
+    - furina
+    - lauma
+    - ineffa
+archetype: Dendro Lunar-Bloom
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: 91c5de4
+sources:
+    - https://keqingmains.com/q/nefer-quickguide/
+notes: 'Written from the KQM Nefer quick guide (design §5.4): the guide''s fourth example team, Nefer / Furina / Lauma / Ineffa or Kuki Shinobu. Furina gives off-field Hydro and skips her burst (its DMG bonus does not reach Nefer); Ineffa bursts every rotation for her A4 EM buff. Rotation: Lauma Q hE > Furina E > Ineffa EQ > Nefer E 3[CD] E CD CQ CD (the guide''s dash-cancel combo). The guide says Furina''s 20 s skill cooldown forces a longer rotation: the looped rotation waits about 13 s/min for it. Lauma holds her skill when there is Verdant Dew, otherwise taps it, checked after her burst; Nefer''s charged attacks are held (Slither) until Dew turns them into Phantasm Performance. Build: Nefer, Lauma as in Nefer / Lauma / Columbina / Sucrose (C0 Nefer with Dawning Frost R5 and artifacts well above KQM standard, Lauma 4pc Deepwood with 218% ER); supports with 4-star weapons and artifacts at the level of that team''s supports: C0 Furina Favonius Sword R3, 4pc Golden Troupe, HP/HP/CRIT; C0 Ineffa Deathmatch R1, 4pc SMS, ER/ATK/CRIT, enough ER (about 230%) to burst every rotation. No energy waits. Fork notes as in Nefer / Lauma / Columbina / Sucrose: Phantasm hits after the first are not cancelled by the dash, so Nefer''s second hit, which the guide says a dash cancel loses, still lands (about 1.5% of the damage); Phantasm and charged hits apply 25U Dendro without ICD.'
+cross_check:
+    note: 'No public number for this team (searched 2026-10-27: the KQM Nefer quick guide, which gives none; web searches for Nefer team DPS found only team lists (Icy Veins, Sportskeeda, GenshinBuilds, GameWith); the community gcsim database has no Nefer entry). For scale: Nefer / Lauma / Columbina / Sucrose, the strongest Nefer team by community account, is 183k in game (HoYoLAB 44026962) and 179.3k one pass, 168.7k looped here with the same Nefer build; this team scores 95.5k one pass and 110.8k looped.'
+validation:
+    date: "2026-10-27"
+    iterations: 100
+    kept: 1.16
+    dps: 110791
+    draft: no reference DPS
