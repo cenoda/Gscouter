@@ -16,12 +16,14 @@
 <form class="inline" action="/" method="get" id="uid-form">
 <input type="text" name="uid" inputmode="numeric" pattern="[0-9]{9,10}" title="{{t "index.uid_title"}}" placeholder="{{t "index.uid_placeholder"}}" value="{{.UID}}" required autofocus>
 {{if .VS}}<input type="hidden" name="vs" value="{{.VS}}">{{end}}
+{{template "enemy-hidden" .Enemy}}
 <button type="submit">{{t "index.load"}}</button>
 </form>
 <div class="chips" id="recent" hidden></div>
 <p class="muted">{{t "index.showcase_hint"}}</p>
 </div>
 
+{{with .Enemy}}<div class="warn">{{t "enemy.carried" (enemyText .)}}</div>{{end}}
 {{if .Problem}}<div class="bad">{{.Problem}}</div>{{end}}
 
 {{with .Profile}}
@@ -31,7 +33,7 @@
 <h3>{{t "index.suggested"}} <span class="muted">{{t "index.suggested_count" (len $.Suggested)}}</span></h3>
 <ul class="suggest">
 {{range $.Suggested}}
-<li><a href="{{if $.VS}}/versus?a={{$.VS}}&amp;b={{.Selection.String}}{{else}}/score?a={{.Selection.String}}{{end}}">{{template "faces" .Selection.Chars}}<span>{{teamName .Team}}</span></a></li>
+<li><a href="{{.Href}}">{{template "faces" .Selection.Chars}}<span>{{teamName .Team}}</span></a></li>
 {{end}}
 </ul>
 {{else}}
@@ -41,6 +43,7 @@
 <form action="{{if $.VS}}/versus{{else}}/score{{end}}" method="get" id="picker">
 <input type="hidden" name="uid" value="{{.UID}}">
 {{if $.VS}}<input type="hidden" name="a" value="{{$.VS}}">{{end}}
+{{template "enemy-hidden" $.Enemy}}
 <div class="chars">
 {{range .Characters}}
 <label><input type="checkbox" name="c" value="{{.Key}}">{{template "face" .Key}}<span><span class="name">{{template "el" (element .Key)}}{{name .Key}}</span><span class="muted">Lv.{{.Level}} C{{.Cons}} · {{weapon .Weapon.Key}} R{{.Weapon.Refine}}</span></span></label>
@@ -71,10 +74,10 @@
     list = [current].concat(list.filter(function (u) { return u !== current; })).slice(0, 5);
     try { localStorage.setItem(key, JSON.stringify(list)); } catch (e) {}
   }
-  var box = document.getElementById("recent"), vs = {{.VS}};
+  var box = document.getElementById("recent"), vs = {{.VS}}, enemy = {{enemyQuery .Enemy}};
   list.filter(function (u) { return u !== current; }).forEach(function (u) {
     var a = document.createElement("a");
-    a.href = "/?uid=" + encodeURIComponent(u) + (vs ? "&vs=" + encodeURIComponent(vs) : "");
+    a.href = "/?uid=" + encodeURIComponent(u) + (vs ? "&vs=" + encodeURIComponent(vs) : "") + (enemy ? "&" + enemy : "");
     a.textContent = u;
     box.appendChild(a);
     box.hidden = false;

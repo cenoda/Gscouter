@@ -54,8 +54,13 @@ func (s *Server) handleScoreCard(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+	enemy, err := enemyFromQuery(r.URL.Query())
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 	s.serveCard(w, r, func(ctx context.Context) (image.Image, bool) {
-		tr := s.evaluate(ctx, english, sel)
+		tr := s.evaluate(ctx, english, sel, enemy)
 		if tr.Result == nil {
 			return nil, false
 		}
@@ -70,8 +75,13 @@ func (s *Server) handleVersusCard(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "bad selection", http.StatusBadRequest)
 		return
 	}
+	enemy, err := enemyFromQuery(r.URL.Query())
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 	s.serveCard(w, r, func(ctx context.Context) (image.Image, bool) {
-		d := s.versus(ctx, english, a, b)
+		d := s.versus(ctx, english, a, b, enemy)
 		if !d.Scored {
 			return nil, false
 		}
@@ -140,6 +150,9 @@ func scoreCard(ctx context.Context, tr teamResult) image.Image {
 	x := c.text(thousands(tr.Result.DPS), 60, 230, 132, true, cardText)
 	c.text("DPS", x+20, 230, 52, true, cardMuted)
 	sub := "Looped rotation, Lv.100 enemy"
+	if tr.Enemy != nil {
+		sub = fmt.Sprintf("Looped rotation, custom Lv.%d enemy", tr.Enemy.Level)
+	}
 	if tr.OneRotation != nil {
 		sub += "  ·  one rotation " + thousands(tr.OneRotation.DPS)
 	}
@@ -163,6 +176,9 @@ func versusCard(ctx context.Context, d versusData) image.Image {
 	defer cardMu.Unlock()
 	c := newCanvas()
 	c.text("GSCOUTER", 64, 92, 30, true, cardAccent)
+	if e := cardEnemy(d.A.Enemy); e != "" {
+		c.text(e, 260, 92, 24, false, cardMuted)
+	}
 	c.fill(599, 60, 2, 510, cardLine)
 	c.fill(570, 290, 60, 50, cardBg)
 	c.centered("VS", 600, 327, 34, true, cardMuted)

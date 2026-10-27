@@ -1,7 +1,7 @@
 # Gscouter Design Document
 
 > Status: Draft (prototype in progress)
-> Last updated: 2026-10-26 · Game version baseline: 7.1
+> Last updated: 2026-10-27 · Game version baseline: 7.1
 
 ## 1. Overview
 
@@ -27,6 +27,7 @@ A user submits the builds of their party members, and Gscouter computes the team
 | Score | A single absolute DPS value | Team choice (meta) counts as skill. No score relative to a baseline build. |
 | Constellations / refinements | Included in the score | Investment is part of building |
 | Enemy | Lv. 100, 10% resistance to all elements and physical, single target | Matches the KQM standard, so results can be cross-checked against community calcs |
+| Custom enemy | A result page can set the enemy's level and per-element resistances (§3.3); marked as not comparable with standard scores | Lets players see a team against a particular boss without giving up the standard score |
 | Fight duration | Infinite cycles of the community rotation (steady state after the opener) | Shows how well a build's Energy Recharge sustains the rotation; the one-pass community number is shown alongside |
 | Rotation | A fixed rotation per team, taken from a community gcsim config | Removes player control from the equation; community configs are the accepted standard |
 | Teams not in the library | Marked "unsupported" and not computed | Early on, library quality comes first |
@@ -91,6 +92,23 @@ options iteration=100 duration=450 swap_delay=12;
 target lvl=100 resist=0.1;
 energy every interval=480,720 amount=1;
 ```
+
+### 3.3 Custom enemy
+
+A result page can score its teams against another enemy instead of the standard one. Its URL carries the enemy:
+
+| Parameter | Meaning | Default | Limits |
+|---|---|---|---|
+| `lvl` | Enemy level | 100 | 1–200 |
+| `res` | Resistance to everything, in percent | 10 | −100–1000 |
+| `pyro`, `hydro`, `anemo`, `electro`, `dendro`, `cryo`, `geo`, `physical` | Resistance to one element, in percent, overriding `res` | `res` | −100–1000 |
+
+- DEF follows from the level, as it does for nearly every enemy in the game (gcsim uses `(level + 100)` in the DEF multiplier), so there is no DEF parameter. DEF shred and ignore still come from the characters.
+- The config's target line becomes `target lvl=90 pyro=0.1 ... geo=0.7 physical=0.4` (each element set alone, since gcsim adds an element's value to `resist=`). Everything else in §3.2 stays. A uniform enemy keeps the `resist=` form, so the standard enemy's config, and so its cache key, is unchanged.
+- The page redirects to its shortest URL: `lvl` unless 100, `res` for the most common resistance unless 10%, and the elements that differ from it (e.g. `/score?a=...&lvl=90&geo=70&physical=40`). The standard enemy has no parameters.
+- A versus page has one enemy for both teams. Picking an opponent, picking other characters, and link-preview cards keep the enemy.
+- The page says the score was calculated against a custom enemy and does not compare with standard scores. The enemy form (level and eight resistances) sits below the result, with a link back to the standard enemy.
+- Not modeled: phase changes in resistance, shields, immunity, and enemy auras. gcsim's `target type=<monster>` presets are not used: they switch to an HP-limited fight and monster particle drops, which would break the looped score (§3.1). Boss presets are planned as named sets of the parameters above.
 
 ## 4. System Architecture
 

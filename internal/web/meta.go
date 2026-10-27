@@ -4,7 +4,6 @@ import (
 	"cmp"
 	"fmt"
 	"net/http"
-	"net/url"
 	"slices"
 	"strings"
 
@@ -80,10 +79,13 @@ func scoreMeta(l localizer, tr teamResult, base string) pageMeta {
 	m := pageMeta{
 		Title:       l.T("meta.score_title", tr.owner(), thousands(tr.Result.DPS)),
 		Description: tr.summary(l),
-		Image:       base + "/card/score.png?" + url.Values{"a": {tr.Selection.String()}}.Encode(),
+		Image:       base + string(link("/card/score.png", tr.Enemy, "a", tr.Selection.String())),
 	}
 	if tr.OneRotation != nil {
 		m.Description += l.T("meta.one_rotation", thousands(tr.OneRotation.DPS))
+	}
+	if tr.Enemy != nil {
+		m.Description += l.T("meta.enemy", l.enemyText(tr.Enemy))
 	}
 	return m
 }
@@ -100,11 +102,15 @@ func versusMeta(l localizer, d versusData, base string) pageMeta {
 	default:
 		verdict = l.T("meta.team_higher", d.B.owner(), -d.Diff*100)
 	}
-	return pageMeta{
+	m := pageMeta{
 		Title: fmt.Sprintf("%s vs %s: %s · Gscouter", d.A.owner(), d.B.owner(), verdict),
 		Description: fmt.Sprintf("%s %s DPS (%s) vs %s %s DPS (%s)",
 			d.A.owner(), thousands(d.A.Result.DPS), d.A.summary(l),
 			d.B.owner(), thousands(d.B.Result.DPS), d.B.summary(l)),
-		Image: base + "/card/versus.png?" + url.Values{"a": {d.A.Selection.String()}, "b": {d.B.Selection.String()}}.Encode(),
+		Image: base + string(link("/card/versus.png", d.A.Enemy, "a", d.A.Selection.String(), "b", d.B.Selection.String())),
 	}
+	if d.A.Enemy != nil {
+		m.Description += l.T("meta.enemy", l.enemyText(d.A.Enemy))
+	}
+	return m
 }

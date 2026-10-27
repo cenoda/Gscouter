@@ -15,6 +15,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/cenoda/gscouter/internal/config"
 	"github.com/cenoda/gscouter/internal/enka"
 	"github.com/cenoda/gscouter/internal/library"
 )
@@ -36,9 +37,17 @@ var funcs = template.FuncMap{
 	},
 	"neg": func(v float64) float64 { return -v },
 	// px is a+b as an SVG coordinate.
-	"px":      func(a, b float64) string { return strconv.FormatFloat(a+b, 'f', 1, 64) },
-	"element": element,
-	"face":    face,
+	"px":         func(a, b float64) string { return strconv.FormatFloat(a+b, 'f', 1, 64) },
+	"element":    element,
+	"face":       face,
+	"link":       link,
+	"enemyQuery": enemyQuery,
+	// enemyValues are an enemy's URL parameters, for hidden fields.
+	"enemyValues": func(e *config.Enemy) url.Values {
+		v := url.Values{}
+		addEnemy(v, e)
+		return v
+	},
 	"keys": func(chars []enka.Character) []string {
 		out := make([]string, len(chars))
 		for i, c := range chars {
@@ -149,6 +158,7 @@ func (l localizer) searchNames(t *library.Team) []string {
 type suggestion struct {
 	Team      *library.Team
 	Selection selection
+	Href      template.URL // the team's result page
 }
 
 type indexData struct {
@@ -161,6 +171,9 @@ type indexData struct {
 	// commas, so the picker can tell when four picks are not a team.
 	Buildable []string
 	TeamCount int
+	// Enemy is the custom enemy carried over from a result page, nil for
+	// the standard one.
+	Enemy *config.Enemy
 }
 
 func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
@@ -171,6 +184,12 @@ func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 		VS:        q.Get("vs"),
 		TeamCount: len(s.lib.Teams),
 	}
+	enemy, err := enemyFromQuery(q)
+	if err != nil {
+		s.renderProblem(w, l, l.message(err))
+		return
+	}
+	data.Enemy = enemy
 	if data.UID != "" {
 		ctx, cancel := context.WithTimeout(r.Context(), 20*time.Second)
 		defer cancel()
@@ -180,7 +199,12 @@ func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 		} else {
 			data.Profile = p
 			data.Suggested = s.suggest(p)
-			for _, sg := range data.Suggested {
+			for i, sg := range data.Suggested {
+				if data.VS != "" {
+					data.Suggested[i].Href = link("/versus", enemy, "a", data.VS, "b", sg.Selection.String())
+				} else {
+					data.Suggested[i].Href = link("/score", enemy, "a", sg.Selection.String())
+				}
 				data.Buildable = append(data.Buildable, strings.Join(sorted(sg.Selection.Chars), ","))
 			}
 		}
@@ -243,6 +267,7 @@ type scoreData struct {
 	Team   teamResult
 	Meta   pageMeta
 	Client *clientData // set when the browser calculates Team
+	Enemy  enemyForm
 }
 
 func (s *Server) handleScore(w http.ResponseWriter, r *http.Request) {
@@ -252,23 +277,48 @@ func (s *Server) handleScore(w http.ResponseWriter, r *http.Request) {
 		s.renderProblem(w, l, l.message(err))
 		return
 	}
-	// Normalize the URL so results can be shared as /score?a=UID:...
-	if r.URL.Query().Get("a") == "" {
-		http.Redirect(w, r, "/score?a="+url.QueryEscape(sel.String()), http.StatusSeeOther)
+	enemy, err := enemyFromQuery(r.URL.Query())
+	if err != nil {
+		s.renderProblem(w, l, l.message(err))
 		return
 	}
+	// Normalize the URL so results can be shared as /score?a=UID:...
+	if canonical(w, r, "/score", enemy, "a", sel.String()) {
+		return
+	}
+	form := newEnemyForm("/score", enemy, "a", sel.String())
 	ctx, cancel := context.WithTimeout(r.Context(), 90*time.Second)
 	defer cancel()
 	if s.inBrowser(r) {
-		tr := s.prepare(ctx, l, sel)
+		tr := s.prepare(ctx, l, sel, enemy)
 		tr.ID = "a"
 		job := s.job(l, "score", tr)
-		s.render(w, l, "score.html", scoreData{Team: tr, Meta: pendingScoreMeta(l, tr, baseURL(r)), Client: s.clientData(r, job)})
+		s.render(w, l, "score.html", scoreData{Team: tr, Meta: pendingScoreMeta(l, tr, baseURL(r)), Client: s.clientData(r, job), Enemy: form})
 		return
 	}
-	tr := s.evaluate(ctx, l, sel)
+	tr := s.evaluate(ctx, l, sel, enemy)
 	tr.ID = "a"
-	s.render(w, l, "score.html", scoreData{Team: tr, Meta: scoreMeta(l, tr, baseURL(r))})
+	s.render(w, l, "score.html", scoreData{Team: tr, Meta: scoreMeta(l, tr, baseURL(r)), Enemy: form})
+}
+
+// canonical redirects a result page to its shortest URL: the teams as
+// the key-value pairs kv, then the enemy's parameters, and the server
+// fallback's. It reports whether it redirected.
+func canonical(w http.ResponseWriter, r *http.Request, path string, enemy *config.Enemy, kv ...string) bool {
+	q := r.URL.Query()
+	want := url.Values{}
+	for i := 0; i+1 < len(kv); i += 2 {
+		want.Set(kv[i], kv[i+1])
+	}
+	addEnemy(want, enemy)
+	if v := q.Get("server"); v != "" {
+		want.Set("server", v)
+	}
+	if q.Encode() == want.Encode() {
+		return false
+	}
+	http.Redirect(w, r, path+"?"+want.Encode(), http.StatusSeeOther)
+	return true
 }
 
 type versusData struct {
@@ -279,6 +329,7 @@ type versusData struct {
 	Tie    bool
 	Meta   pageMeta
 	Client *clientData // set when the browser calculates the teams
+	Enemy  enemyForm
 }
 
 // tieThreshold is the relative difference below which two scores are shown
@@ -297,27 +348,33 @@ func (s *Server) handleVersus(w http.ResponseWriter, r *http.Request) {
 		s.renderProblem(w, l, l.message(err))
 		return
 	}
-	if r.URL.Query().Get("b") == "" {
-		v := url.Values{"a": {a.String()}, "b": {b.String()}}
-		http.Redirect(w, r, "/versus?"+v.Encode(), http.StatusSeeOther)
+	enemy, err := enemyFromQuery(r.URL.Query())
+	if err != nil {
+		s.renderProblem(w, l, l.message(err))
 		return
 	}
+	if canonical(w, r, "/versus", enemy, "a", a.String(), "b", b.String()) {
+		return
+	}
+	form := newEnemyForm("/versus", enemy, "a", a.String(), "b", b.String())
 	ctx, cancel := context.WithTimeout(r.Context(), 120*time.Second)
 	defer cancel()
 	if s.inBrowser(r) {
-		data := newVersus(s.prepare(ctx, l, a), s.prepare(ctx, l, b))
+		data := newVersus(s.prepare(ctx, l, a, enemy), s.prepare(ctx, l, b, enemy))
 		data.Meta = pendingVersusMeta(l, data, baseURL(r))
 		data.Client = s.clientData(r, s.job(l, "versus", data.A, data.B))
+		data.Enemy = form
 		s.render(w, l, "versus.html", data)
 		return
 	}
-	data := s.versus(ctx, l, a, b)
+	data := s.versus(ctx, l, a, b, enemy)
 	data.Meta = versusMeta(l, data, baseURL(r))
+	data.Enemy = form
 	s.render(w, l, "versus.html", data)
 }
 
-func (s *Server) versus(ctx context.Context, l localizer, a, b selection) versusData {
-	return newVersus(s.evaluate(ctx, l, a), s.evaluate(ctx, l, b))
+func (s *Server) versus(ctx context.Context, l localizer, a, b selection, enemy *config.Enemy) versusData {
+	return newVersus(s.evaluate(ctx, l, a, enemy), s.evaluate(ctx, l, b, enemy))
 }
 
 // newVersus compares two teams, scored or not.

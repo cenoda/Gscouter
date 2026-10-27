@@ -118,6 +118,10 @@ ul { padding-left: 20px; margin: 8px 0; }
 ul.teams { columns: 2 300px; }
 ul.teams li { break-inside: avoid; }
 details summary { cursor: pointer; }
+.enemy-fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; margin-top: 12px; }
+.enemy-fields label { display: flex; flex-direction: column; gap: 4px; font-size: .9rem; }
+.enemy-fields label span { display: flex; gap: 4px; align-items: center; }
+.enemy-fields input { width: 100%; padding: 8px 10px; font-size: 1rem; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--text); }
 footer { margin-top: 24px; border-top: 1px solid var(--line); padding-top: 12px; }
 footer p { margin: 6px 0; }
 h2.section { margin: 24px 0 8px; }
@@ -243,6 +247,29 @@ details.rotation pre { background: var(--bg); border-radius: 8px; padding: 12px;
 {{define "faces"}}<span class="faces">{{range .}}{{template "face" .}}{{end}}</span>{{end}}
 
 {{define "members"}}<span class="members">{{range .}}{{template "el" (element .)}}{{end}}</span>{{end}}
+
+{{define "enemy-hidden"}}{{range $k, $v := enemyValues .}}<input type="hidden" name="{{$k}}" value="{{index $v 0}}">
+{{end}}{{end}}
+
+{{define "enemy"}}
+<div class="card">
+<details{{if .Enemy}} open{{end}}>
+<summary><b>{{t "enemy.heading"}}</b> <span class="muted">{{enemyText .Enemy}}</span></summary>
+<p class="muted">{{t "enemy.lead"}}</p>
+<form action="{{.Action}}" method="get">
+{{range $k, $v := .Keep}}<input type="hidden" name="{{$k}}" value="{{index $v 0}}">
+{{end}}{{$lim := .Limits}}<div class="enemy-fields">
+<label><span>{{t "enemy.level"}}</span><input type="number" name="lvl" min="{{$lim.MinLevel}}" max="{{$lim.MaxLevel}}" step="1" value="{{.Level}}" required></label>
+{{range .Resists}}<label><span>{{if ne .Element "physical"}}{{template "el" .Element}}{{end}}{{t (print "el." .Element)}} %</span><input type="number" name="{{.Name}}" min="{{$lim.MinResist}}" max="{{$lim.MaxResist}}" step="1" value="{{.Value}}" required></label>
+{{end}}</div>
+<div class="actions">
+<button type="submit">{{t "enemy.apply"}}</button>
+{{if .Enemy}}<a class="button secondary" href="{{.Reset}}">{{t "enemy.reset"}}</a>{{end}}
+</div>
+</form>
+</details>
+</div>
+{{end}}
 
 {{define "foot"}}
 <footer>

@@ -22,20 +22,26 @@ type Conditions struct {
 	// mode: every character starts with full energy and the run ends when
 	// the rotation's action list does, as in community gcsim configs.
 	Duration float64 // seconds
+	// Enemy is the target, StandardEnemy when nil.
+	Enemy *Enemy
 }
 
 // header renders the options, enemy and energy lines.
 func (c Conditions) header() string {
+	enemy := StandardEnemy
+	if c.Enemy != nil {
+		enemy = *c.Enemy
+	}
 	if c.Duration > 0 {
 		return fmt.Sprintf(`options iteration=%d duration=%v swap_delay=12;
-target lvl=100 resist=0.1 radius=2 pos=0,2.4;
+target %s radius=2 pos=0,2.4;
 energy every interval=480,720 amount=1;
-`, c.Iterations, c.Duration)
+`, c.Iterations, c.Duration, enemy.target())
 	}
 	return fmt.Sprintf(`options iteration=%d swap_delay=12;
-target lvl=100 resist=0.1 radius=2 pos=0,2.4 hp=999999999;
+target %s radius=2 pos=0,2.4 hp=999999999;
 energy every interval=480,720 amount=1;
-`, c.Iterations)
+`, c.Iterations, enemy.target())
 }
 
 // Assemble joins the conditions, build and rotation into one config.

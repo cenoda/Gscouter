@@ -1,13 +1,15 @@
 {{template "head" .Meta}}
 <div id="page-body">{{template "score-body" .}}</div>
+{{template "enemy" .Enemy}}
 {{with .Client}}{{template "client" .}}{{end}}
 {{template "foot"}}
 
 {{define "score-body"}}
+{{with .Team.Enemy}}<div class="warn">{{t "enemy.custom_note" (enemyText .)}}</div>{{end}}
 <div class="card">{{template "team" .Team}}
 <div class="actions">
 {{if .Team.Result}}<button type="button" class="secondary" onclick="copyLink(this)"><svg class="icon"><use href="#i-link"/></svg>{{t "score.copy"}}</button>{{end}}
-<a class="button secondary" href="/?uid={{.Team.Selection.UID}}"><svg class="icon"><use href="#i-back"/></svg>{{t "score.repick"}}</a>
+<a class="button secondary" href="{{link "/" .Team.Enemy "uid" .Team.Selection.UID}}"><svg class="icon"><use href="#i-back"/></svg>{{t "score.repick"}}</a>
 </div>
 </div>
 {{template "timeline" .Team}}
@@ -17,6 +19,7 @@
 <p class="muted">{{t "score.compare_lead"}}</p>
 <form class="inline" action="/" method="get">
 <input type="hidden" name="vs" value="{{.Team.Selection.String}}">
+{{template "enemy-hidden" .Team.Enemy}}
 <input type="text" name="uid" inputmode="numeric" pattern="[0-9]{9,10}" title="{{t "index.uid_title"}}" placeholder="{{t "score.opponent_uid"}}" required>
 <button type="submit"><svg class="icon"><use href="#i-vs"/></svg>{{t "score.load_opponent"}}</button>
 </form>

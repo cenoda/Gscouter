@@ -44,7 +44,12 @@ func hutaoTeam() []enka.Character {
 
 func newTestServer(t *testing.T) *httptest.Server {
 	t.Helper()
-	ts := httptest.NewServer(newTestSite(t).Handler())
+	return newTestServerFor(t, newTestSite(t))
+}
+
+func newTestServerFor(t *testing.T, srv *Server) *httptest.Server {
+	t.Helper()
+	ts := httptest.NewServer(srv.Handler())
 	t.Cleanup(ts.Close)
 	return ts
 }

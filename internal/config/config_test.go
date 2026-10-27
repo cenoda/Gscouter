@@ -3,6 +3,10 @@ package config
 import (
 	"strings"
 	"testing"
+
+	"github.com/genshinsim/gcsim/pkg/core/attributes"
+	"github.com/genshinsim/gcsim/pkg/gcs/ast"
+	"github.com/genshinsim/gcsim/pkg/gcs/parser"
 )
 
 func TestRenameCharacters(t *testing.T) {
@@ -99,5 +103,47 @@ func TestAssembleSource(t *testing.T) {
 	}
 	if cfg := AssembleSource("target lvl=100 resist=0.1;", 5, "", "active a;"); !strings.HasPrefix(cfg, "target lvl=100 resist=0.1;\noptions iteration=5;\n") {
 		t.Errorf("missing options line not added:\n%s", cfg)
+	}
+}
+
+func TestEnemyTarget(t *testing.T) {
+	if got := (Conditions{Iterations: 1, Duration: 450}).header(); !strings.Contains(got, "\ntarget lvl=100 resist=0.1 radius=2") {
+		t.Errorf("standard enemy:\n%s", got)
+	}
+	e := StandardEnemy
+	e.Level = 90
+	e.Resist[6], e.Resist[7] = 70, 40 // geo, physical
+	want := "lvl=90 pyro=0.1 hydro=0.1 anemo=0.1 electro=0.1 dendro=0.1 cryo=0.1 geo=0.7 physical=0.4"
+	if got := e.target(); got != want {
+		t.Errorf("got %q, want %q", got, want)
+	}
+	u := Enemy{Level: 95, Resist: [len(Elements)]int{25, 25, 25, 25, 25, 25, 25, 25}}
+	if got := u.target(); got != "lvl=95 resist=0.25" {
+		t.Errorf("uniform enemy: %q", got)
+	}
+
+	// gcsim reads the target as written.
+	cfg := Assemble(Conditions{Iterations: 1, Duration: 10, Enemy: &e}, "", "active hutao;\nhutao attack;")
+	simcfg, _, err := parser.New(ast.NewFile(), cfg).Parse()
+	if err != nil {
+		t.Fatal(err)
+	}
+	tg := simcfg.Targets[0]
+	if tg.Level != 90 || tg.Resist[attributes.Geo] != 0.7 || tg.Resist[attributes.Physical] != 0.4 || tg.Resist[attributes.Pyro] != 0.1 {
+		t.Errorf("parsed target: lvl %d, resist %v", tg.Level, tg.Resist)
+	}
+
+	if err := e.Validate(); err != nil {
+		t.Error(err)
+	}
+	bad := e
+	bad.Level = 0
+	if bad.Validate() == nil {
+		t.Error("level 0 is valid")
+	}
+	bad = e
+	bad.Resist[0] = MaxResist + 1
+	if bad.Validate() == nil {
+		t.Error("resistance above the limit is valid")
 	}
 }
