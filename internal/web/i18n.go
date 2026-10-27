@@ -15,7 +15,8 @@ import (
 
 // Site languages are the game's text languages, coded as Enka codes
 // them. A visitor gets the language they picked (kept in a cookie), else
-// the best one their browser asks for, else English.
+// the best one their browser asks for, else English. A URL can name its
+// language too (langParam), for search engines.
 const (
 	langEnglish = "en"
 	langKorean  = "ko"
@@ -92,8 +93,12 @@ func (l localizer) name(prefix, key string) string {
 	return key
 }
 
-// localizerFor picks the language of a request.
+// localizerFor picks the language of a request: the one its URL names
+// (see langParam), else the visitor's.
 func localizerFor(r *http.Request) localizer {
+	if code := urlLang(r); code != "" {
+		return localizer{Lang: code}
+	}
 	if c, err := r.Cookie(langCookie); err == nil {
 		if _, ok := catalog[c.Value]; ok {
 			return localizer{Lang: c.Value}
@@ -162,6 +167,12 @@ func backTo(r *http.Request) string {
 	u, err := url.Parse(r.Referer())
 	if err != nil || u.Host != r.Host {
 		return "/"
+	}
+	// The page's own language would override the one just picked.
+	q := u.Query()
+	if q.Has(langParam) {
+		q.Del(langParam)
+		u.RawQuery = q.Encode()
 	}
 	uri := u.RequestURI()
 	if !strings.HasPrefix(uri, "/") || strings.HasPrefix(uri, "//") {

@@ -264,7 +264,7 @@ func TestExperimentalBadge(t *testing.T) {
 	t.Cleanup(ts.Close)
 	badge := `<span class="badge">Experimental</span>`
 	_, body := get(t, ts, "/teams?q=hutao")
-	mustContain(t, body, "Hu Tao / Xingqiu / Zhongli / Yelan "+badge)
+	mustContain(t, body, "Hu Tao / Xingqiu / Zhongli / Yelan</a> "+badge)
 	if strings.Count(body, badge) != 1 {
 		t.Errorf("%d badges on /teams?q=hutao, want only the experimental team's", strings.Count(body, badge))
 	}

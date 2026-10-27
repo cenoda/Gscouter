@@ -16,6 +16,10 @@ type pageMeta struct {
 	Title       string
 	Description string
 	Image       string // absolute URL
+	// Canonical is the absolute URL of a page search engines index, with
+	// its Alternates in the other languages; "" for other pages.
+	Canonical  string
+	Alternates []alternate
 }
 
 // metaOf lets the head template take either a plain title or a pageMeta.

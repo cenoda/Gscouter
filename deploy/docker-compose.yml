@@ -7,8 +7,10 @@ services:
     mem_limit: 600m
     environment:
       GSCOUTER_LINKS: /data/links.db
+      GSCOUTER_SITE: https://${DOMAIN}
+      GSCOUTER_INDEXNOW: /data/indexnow.json
     volumes:
-      # Short links (/s/...), kept across updates.
+      # Short links (/s/...) and the IndexNow state, kept across updates.
       - links:/data
     depends_on:
       links-owner:
@@ -31,6 +33,7 @@ services:
       - "443:443/udp"
     environment:
       DOMAIN: ${DOMAIN}
+      OLD_DOMAINS: ${OLD_DOMAINS:-}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data

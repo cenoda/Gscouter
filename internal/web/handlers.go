@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"html/template"
 	"log/slog"
+	"maps"
 	"math"
 	"net/http"
 	"net/url"
@@ -23,6 +24,7 @@ import (
 
 var funcs = template.FuncMap{
 	"thousands": thousands,
+	"float":     func(v int) float64 { return float64(v) },
 	"percent":   func(v float64) string { return fmt.Sprintf("%.1f%%", v*100) },
 	"oneDecimal": func(v float64) string {
 		return fmt.Sprintf("%.1f", v)
@@ -187,6 +189,7 @@ type indexData struct {
 	// Enemy is the custom enemy carried over from a result page, nil for
 	// the standard one.
 	Enemy *config.Enemy
+	Meta  pageMeta
 }
 
 func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
@@ -203,6 +206,10 @@ func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	data.Enemy = enemy
+	data.Meta = pageMeta{Title: l.T("site.title"), Description: l.T("site.desc")}
+	if data.UID == "" && data.VS == "" && enemy == nil {
+		data.Meta = s.indexed(r, l, data.Meta, "/")
+	}
 	if data.UID != "" {
 		ctx, cancel := context.WithTimeout(r.Context(), 20*time.Second)
 		defer cancel()
@@ -301,9 +308,12 @@ func (s *Server) suggest(p *enka.Profile) []suggestion {
 }
 
 type teamsData struct {
+	Meta  pageMeta
 	Query string
 	Teams []*library.Team // matching the query, by name
 	Total int
+	Chars []string // canonical keys of the library's characters, by name
+	Lang  string   // langQuery, for links to other indexed pages
 }
 
 // handleTeams lists the library, or the teams that have, for every word
@@ -325,6 +335,13 @@ func (s *Server) handleTeams(w http.ResponseWriter, r *http.Request) {
 		names[t] = l.teamName(t)
 	}
 	slices.SortFunc(data.Teams, func(a, b *library.Team) int { return strings.Compare(names[a], names[b]) })
+	data.Chars = slices.Collect(maps.Keys(s.byChar))
+	slices.SortFunc(data.Chars, func(a, b string) int { return strings.Compare(l.charName(a), l.charName(b)) })
+	data.Lang = langQuery(r)
+	data.Meta = pageMeta{Title: l.T("teams.title"), Description: l.T("site.desc")}
+	if data.Query == "" {
+		data.Meta = s.indexed(r, l, data.Meta, "/teams")
+	}
 	s.render(w, l, "teams.html", data)
 }
 
