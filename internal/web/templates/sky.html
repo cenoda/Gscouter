@@ -15,6 +15,17 @@ script.
 @media (prefers-color-scheme: dark) { .sky { --sky-c: .3; --sky-a: .6; } }
 /* In daylight the lines are lit: a white halo against the pale blue sky. */
 @media (prefers-color-scheme: light) { .sky .c, .sky .a { filter: drop-shadow(0 0 3px #fff); } }
+/* Daylight that breathes and sways: soft pools of light over the static sky. */
+.sky .light { display: none; position: absolute; border-radius: 50%; }
+@media (prefers-color-scheme: light) { .sky .light { display: block; } }
+.sky .sun { right: -20vmax; top: -30vmax; width: 70vmax; height: 70vmax;
+  background: radial-gradient(closest-side, rgba(255,255,255,.9), rgba(255,244,214,.35) 55%, transparent);
+  animation: sky-sun 40s ease-in-out infinite alternate; }
+.sky .haze { left: -25vmax; top: 15%; width: 60vmax; height: 45vmax;
+  background: radial-gradient(closest-side, rgba(200,224,248,.5), transparent);
+  animation: sky-haze 55s ease-in-out infinite alternate; }
+@keyframes sky-sun { from { opacity: .55; transform: translate(0, 0); } to { opacity: 1; transform: translate(-6vmax, 3vmax); } }
+@keyframes sky-haze { from { opacity: .5; transform: translate(0, 0); } to { opacity: 1; transform: translate(8vmax, 4vmax); } }
 .sky svg { position: absolute; display: block; fill: none; stroke: var(--sky-ink); color: var(--sky-ink); }
 .sky .c { opacity: var(--sky-c); }
 .sky .a { opacity: var(--sky-a); }
@@ -31,6 +42,7 @@ script.
 @media (prefers-reduced-motion: reduce) { .sky * { animation: none !important; } }
 </style>
 <div class="sky" aria-hidden="true">
+<div class="light sun"></div><div class="light haze"></div>
 <svg width="0" height="0"><defs>
 <symbol id="sky-astrolabe" viewBox="-100 -100 200 200"><circle r="96"/><circle r="84" stroke-dasharray="1 5"/><circle r="60"/><circle r="30" stroke-opacity=".6"/><path d="M0-96V96M-96 0H96M-68-68 68 68M68-68-68 68" stroke-opacity=".25"/><path d="M0-58 8-8 58 0 8 8 0 58-8 8-58 0-8-8z"/><path d="M0-30 4-4 30 0 4 4 0 30-4 4-30 0-4-4z" fill="currentColor" fill-opacity=".35"/><circle cx="0" cy="-84" r="4" fill="currentColor"/><circle cx="60" cy="0" r="3" fill="currentColor"/></symbol>
 <symbol id="sky-sigil" viewBox="-100 -100 200 200"><circle r="94" stroke-dasharray="14 6 2 6"/><circle r="72"/><path d="M0-72 62 36H-62zM0 72-62-36H62z" stroke-opacity=".7"/><path d="M0-46 9-13 46 0 9 13 0 46-9 13-46 0-9-13z"/><circle r="10" fill="currentColor" fill-opacity=".4"/><path d="M0-94v-6M0 94v6M-81-47l-5-3M81 47l5 3M81-47l5-3M-81 47l-5 3"/></symbol>
