@@ -199,6 +199,16 @@ func init() {
 		"meta.enemy":        " | カスタムの敵: %s",
 		"err.enemy":         "敵の設定が正しくありません。レベルは%d～%d、耐性は%d%%～%d%%の範囲で指定してください。",
 
+		"enemy.boss":          "%s・%s",
+		"enemy.boss_modified": "%s（変更あり）・%s",
+		"enemy.same_note":     "%sに対して計算しました。レベルと耐性が標準の敵と同じなので、標準のスコアと比較できます。",
+		"enemy.preset":        "ボスのプリセット",
+		"enemy.custom":        "カスタム（ボスなし）",
+		"enemy.weekly":        "週ボス",
+		"enemy.world":         "フィールドボス",
+		"enemy.preset_note":   "プリセットを選ぶと、gcsimのモンスターデータにあるボスの基礎耐性が入力され、レベルはそのまま残ります。フェーズごとの耐性変化、シールド、無敵は再現されません。",
+		"err.boss":            "不明なボスです：%q",
+
 		"el.pyro":     "炎",
 		"el.hydro":    "水",
 		"el.anemo":    "風",

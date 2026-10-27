@@ -15,6 +15,9 @@ var Elements = [...]string{"pyro", "hydro", "anemo", "electro", "dendro", "cryo"
 type Enemy struct {
 	Level  int
 	Resist [len(Elements)]int // in percent, by Elements
+	// Boss is the key of the preset the enemy started from (see Bosses),
+	// "" for none. It names the enemy and does not change the simulation.
+	Boss string `json:",omitempty"`
 }
 
 // StandardEnemy is the enemy every score is compared on: Lv. 100 with
@@ -28,6 +31,12 @@ const (
 	MinResist = -100
 	MaxResist = 1000
 )
+
+// Standard reports whether e has the standard enemy's level and
+// resistances, so its scores compare with standard ones.
+func (e Enemy) Standard() bool {
+	return e.Level == StandardEnemy.Level && e.Resist == StandardEnemy.Resist
+}
 
 // Validate reports whether e is within the limits.
 func (e Enemy) Validate() error {

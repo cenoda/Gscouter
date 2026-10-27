@@ -5,7 +5,7 @@
 {{template "foot"}}
 
 {{define "score-body"}}
-{{with .Team.Enemy}}<div class="warn">{{t "enemy.custom_note" (enemyText .)}}</div>{{end}}
+{{template "enemy-note" .Team.Enemy}}
 <div class="card">{{template "team" .Team}}
 <div class="actions">
 {{if .Team.Result}}<button type="button" class="secondary" onclick="copyLink(this)"><svg class="icon"><use href="#i-link"/></svg>{{t "score.copy"}}</button>{{end}}

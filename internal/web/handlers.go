@@ -41,6 +41,7 @@ var funcs = template.FuncMap{
 	"element":    element,
 	"face":       face,
 	"link":       link,
+	"elements":   func() []string { return config.Elements[:] },
 	"enemyQuery": enemyQuery,
 	// enemyValues are an enemy's URL parameters, for hidden fields.
 	"enemyValues": func(e *config.Enemy) url.Values {

@@ -199,6 +199,16 @@ func init() {
 		"meta.enemy":        " | enemigo personalizado: %s",
 		"err.enemy":         "Los ajustes del enemigo no son válidos. El nivel debe estar entre %d y %d, y las resistencias entre %d %% y %d %%.",
 
+		"enemy.boss":          "%s · %s",
+		"enemy.boss_modified": "%s (modificado) · %s",
+		"enemy.same_note":     "Calculado contra %s. Su nivel y sus resistencias son los del enemigo estándar, así que esta puntuación se compara con las estándar.",
+		"enemy.preset":        "Jefe predefinido",
+		"enemy.custom":        "Personalizado (sin jefe)",
+		"enemy.weekly":        "Jefes semanales",
+		"enemy.world":         "Jefes de mundo",
+		"enemy.preset_note":   "Un jefe predefinido rellena sus resistencias base a partir de los datos de monstruos de gcsim y mantiene el nivel elegido. No se simulan cambios de fase, escudos ni inmunidad.",
+		"err.boss":            "Jefe desconocido: %q",
+
 		"el.pyro":     "Pyro",
 		"el.hydro":    "Hydro",
 		"el.anemo":    "Anemo",

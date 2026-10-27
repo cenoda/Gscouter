@@ -199,6 +199,16 @@ func init() {
 		"meta.enemy":        " | 自定义敌人：%s",
 		"err.enemy":         "敌人设置无效。等级须为%d–%d，抗性须在%d%%到%d%%之间。",
 
+		"enemy.boss":          "%s · %s",
+		"enemy.boss_modified": "%s（已修改） · %s",
+		"enemy.same_note":     "按%s计算。其等级和抗性与标准敌人相同，因此此分数可以与标准分数比较。",
+		"enemy.preset":        "首领预设",
+		"enemy.custom":        "自定义（无首领）",
+		"enemy.weekly":        "周本首领",
+		"enemy.world":         "野外首领",
+		"enemy.preset_note":   "选择预设会填入gcsim怪物数据中该首领的基础抗性，等级保持不变。不模拟阶段性抗性变化、护盾和无敌。",
+		"err.boss":            "未知首领：%q",
+
 		"el.pyro":     "火",
 		"el.hydro":    "水",
 		"el.anemo":    "风",

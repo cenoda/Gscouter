@@ -199,6 +199,16 @@ func init() {
 		"meta.enemy":        " | custom enemy: %s",
 		"err.enemy":         "The enemy settings are invalid. The level must be %d–%d and resistances between %d%% and %d%%.",
 
+		"enemy.boss":          "%s · %s",
+		"enemy.boss_modified": "%s (modified) · %s",
+		"enemy.same_note":     "Calculated against %s. Its level and resistances are the standard enemy's, so this score compares with standard scores.",
+		"enemy.preset":        "Boss preset",
+		"enemy.custom":        "Custom (no boss)",
+		"enemy.weekly":        "Weekly bosses",
+		"enemy.world":         "World bosses",
+		"enemy.preset_note":   "A preset fills in the boss's base resistances from gcsim's monster data and keeps the level you set. Phase changes, shields and immunity are not modeled.",
+		"err.boss":            "Unknown boss: %q",
+
 		"el.pyro":     "Pyro",
 		"el.hydro":    "Hydro",
 		"el.anemo":    "Anemo",

@@ -19,6 +19,12 @@ func TestEnemyQuery(t *testing.T) {
 		"res=25":                    "res=25",
 		"pyro=25&hydro=25&anemo=25&electro=25&dendro=25&cryo=25&geo=10&physical=10": "geo=10&physical=10&res=25",
 		"lvl=95&pyro=70": "lvl=95&pyro=70",
+		// A preset is named, with the elements that differ from it.
+		"boss=azhdaha":                    "boss=azhdaha",
+		"boss=azhdaha&geo=70&physical=40": "boss=azhdaha",
+		"boss=azhdaha&lvl=90&pyro=20":     "boss=azhdaha&lvl=90&pyro=20",
+		"boss=azhdaha&res=10":             "boss=azhdaha&geo=10&physical=10",
+		"boss=hydrotulpa":                 "boss=hydrotulpa",
 	} {
 		q, _ := url.ParseQuery(query)
 		e, err := enemyFromQuery(q)
@@ -30,7 +36,7 @@ func TestEnemyQuery(t *testing.T) {
 			t.Errorf("%q: got %q, want %q", query, got, want)
 		}
 	}
-	for _, query := range []string{"lvl=0", "lvl=x", "res=2000", "pyro=-101", "geo=1.5"} {
+	for _, query := range []string{"lvl=0", "lvl=x", "res=2000", "pyro=-101", "geo=1.5", "boss=nobody"} {
 		q, _ := url.ParseQuery(query)
 		if _, err := enemyFromQuery(q); err == nil {
 			t.Errorf("%q: no error", query)
@@ -48,7 +54,17 @@ func TestEnemyText(t *testing.T) {
 	if got := english.enemyText(nil); !strings.Contains(got, "standard") {
 		t.Errorf("standard enemy: %q", got)
 	}
-	if got, want := (localizer{Lang: langKorean}).enemyText(&config.Enemy{Level: 100, Resist: [8]int{25, 25, 25, 25, 25, 25, 25, 25}}), "Lv.100 · 모든 내성 25%"; got != want {
+	ko := localizer{Lang: langKorean}
+	if got, want := ko.enemyText(&config.Enemy{Level: 100, Resist: [8]int{25, 25, 25, 25, 25, 25, 25, 25}}), "Lv.100 · 모든 내성 25%"; got != want {
+		t.Errorf("got %q, want %q", got, want)
+	}
+	b, _ := config.FindBoss("azhdaha")
+	boss := config.Enemy{Level: 95, Resist: b.Resist, Boss: b.Key}
+	if got, want := ko.enemyText(&boss), "야타용왕 · Lv.95 · 바위 70%, 물리 40%, 나머지 10%"; got != want {
+		t.Errorf("got %q, want %q", got, want)
+	}
+	boss.Resist[0] = 30
+	if got, want := english.enemyText(&boss), "Azhdaha (modified) · Lv. 95 · Pyro 30%, Geo 70%, Physical 40%, others 10%"; got != want {
 		t.Errorf("got %q, want %q", got, want)
 	}
 }
@@ -103,5 +119,23 @@ func TestScoreCustomEnemy(t *testing.T) {
 	}
 	if res.Result.DPS >= std.Result.DPS*0.9 {
 		t.Errorf("70%% Pyro resistance: %.0f DPS, standard %.0f", res.Result.DPS, std.Result.DPS)
+	}
+}
+
+func TestScoreBossPreset(t *testing.T) {
+	ts := newTestServer(t)
+	a := "/score?a=" + url.QueryEscape("800000001:hutao,yelan,xingqiu,zhongli")
+	_, body := get(t, ts, a+"&boss=lasignora")
+	mustContain(t, body, "Calculated against a custom enemy (La Signora · Lv. 100 · Pyro 70%, others 10%)",
+		`<option value="lasignora" data-resist="70,10,10,10,10,10,10,10" selected>La Signora</option>`,
+		`name="pyro" min="-100" max="1000" step="1" value="70"`, "Weekly bosses", "World bosses",
+		`&amp;boss=lasignora`)
+	_, body = getKo(t, ts, a+"&boss=hydrotulpa")
+	mustContain(t, body, "물의 환인간 · Lv.100 · 모든 내성 10%", "표준 점수와 비교할 수 있습니다")
+	if strings.Contains(body, "표준 적 기준 점수와는 비교할 수 없습니다") {
+		t.Error("a boss with the standard resistances is marked as not comparable")
+	}
+	if code, _ := get(t, ts, a+"&boss=nobody"); code != http.StatusBadRequest {
+		t.Errorf("unknown boss: status %d", code)
 	}
 }

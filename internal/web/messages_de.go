@@ -199,6 +199,16 @@ func init() {
 		"meta.enemy":        " | eigener Gegner: %s",
 		"err.enemy":         "Die Gegnereinstellungen sind ungültig. Das Level muss zwischen %d und %d liegen, die Resistenzen zwischen %d %% und %d %%.",
 
+		"enemy.boss":          "%s · %s",
+		"enemy.boss_modified": "%s (geändert) · %s",
+		"enemy.same_note":     "Gegen %s berechnet. Level und Resistenzen entsprechen dem Standardgegner, daher ist diese Punktzahl mit Standardpunktzahlen vergleichbar.",
+		"enemy.preset":        "Boss-Vorlage",
+		"enemy.custom":        "Eigener Gegner (kein Boss)",
+		"enemy.weekly":        "Wöchentliche Bosse",
+		"enemy.world":         "Weltbosse",
+		"enemy.preset_note":   "Eine Vorlage übernimmt die Grundresistenzen des Bosses aus den Monsterdaten von gcsim und behält das eingestellte Level. Phasenwechsel, Schilde und Immunität werden nicht abgebildet.",
+		"err.boss":            "Unbekannter Boss: %q",
+
 		"el.pyro":     "Pyro",
 		"el.hydro":    "Hydro",
 		"el.anemo":    "Anemo",

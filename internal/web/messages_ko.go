@@ -199,6 +199,16 @@ func init() {
 		"meta.enemy":        " | 사용자 지정 적: %s",
 		"err.enemy":         "적 설정이 올바르지 않습니다. 레벨은 %d–%d, 내성은 %d%%에서 %d%% 사이여야 합니다.",
 
+		"enemy.boss":          "%s · %s",
+		"enemy.boss_modified": "%s (수정됨) · %s",
+		"enemy.same_note":     "%s을(를) 상대로 계산했습니다. 레벨과 내성이 표준 적과 같아서 표준 점수와 비교할 수 있습니다.",
+		"enemy.preset":        "보스 프리셋",
+		"enemy.custom":        "직접 입력 (보스 없음)",
+		"enemy.weekly":        "주간 보스",
+		"enemy.world":         "필드 보스",
+		"enemy.preset_note":   "프리셋을 고르면 gcsim 몬스터 데이터의 보스 기본 내성이 채워지고, 레벨은 입력한 값이 유지됩니다. 페이즈별 내성 변화, 실드, 무적은 반영되지 않습니다.",
+		"err.boss":            "알 수 없는 보스입니다: %q",
+
 		"el.pyro":     "불",
 		"el.hydro":    "물",
 		"el.anemo":    "바람",

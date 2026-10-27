@@ -171,6 +171,7 @@ func localeFuncs(l localizer) template.FuncMap {
 		"teamName": l.teamName,
 		// enemyText describes a result's enemy.
 		"enemyText": l.enemyText,
+		"presets":   l.presets,
 		// members lists what finds a team's members, for search.
 		"members": func(t *library.Team) string { return strings.Join(l.searchNames(t), " ") },
 	}

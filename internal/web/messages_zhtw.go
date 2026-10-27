@@ -199,6 +199,16 @@ func init() {
 		"meta.enemy":        " | 自訂敵人：%s",
 		"err.enemy":         "敵人設定無效。等級須為%d–%d，抗性須介於%d%%到%d%%之間。",
 
+		"enemy.boss":          "%s · %s",
+		"enemy.boss_modified": "%s（已修改） · %s",
+		"enemy.same_note":     "以%s計算。其等級與抗性與標準敵人相同，因此此分數可與標準分數比較。",
+		"enemy.preset":        "首領預設",
+		"enemy.custom":        "自訂（無首領）",
+		"enemy.weekly":        "週本首領",
+		"enemy.world":         "野外首領",
+		"enemy.preset_note":   "選擇預設會填入gcsim怪物資料中該首領的基礎抗性，等級保持不變。不模擬階段性抗性變化、護盾與無敵。",
+		"err.boss":            "未知首領：%q",
+
 		"el.pyro":     "火",
 		"el.hydro":    "水",
 		"el.anemo":    "風",

@@ -199,6 +199,16 @@ func init() {
 		"meta.enemy":        " | inimigo personalizado: %s",
 		"err.enemy":         "As configurações do inimigo são inválidas. O nível deve estar entre %d e %d, e as resistências entre %d%% e %d%%.",
 
+		"enemy.boss":          "%s · %s",
+		"enemy.boss_modified": "%s (modificado) · %s",
+		"enemy.same_note":     "Calculado contra %s. O nível e as resistências são os do inimigo padrão, então esta pontuação se compara com as padrão.",
+		"enemy.preset":        "Chefe predefinido",
+		"enemy.custom":        "Personalizado (sem chefe)",
+		"enemy.weekly":        "Chefes semanais",
+		"enemy.world":         "Chefes de mundo",
+		"enemy.preset_note":   "Um chefe predefinido preenche as resistências base dele a partir dos dados de monstros do gcsim e mantém o nível escolhido. Mudanças de fase, escudos e imunidade não são simulados.",
+		"err.boss":            "Chefe desconhecido: %q",
+
 		"el.pyro":     "Pyro",
 		"el.hydro":    "Hydro",
 		"el.anemo":    "Anemo",

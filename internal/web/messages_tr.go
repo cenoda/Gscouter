@@ -199,6 +199,16 @@ func init() {
 		"meta.enemy":        " | özel düşman: %s",
 		"err.enemy":         "Düşman ayarları geçersiz. Seviye %d–%d, dirençler %%%d ile %%%d arasında olmalı.",
 
+		"enemy.boss":          "%s · %s",
+		"enemy.boss_modified": "%s (değiştirildi) · %s",
+		"enemy.same_note":     "%s karşısında hesaplandı. Seviyesi ve dirençleri standart düşmanınkiyle aynı, bu yüzden bu puan standart puanlarla karşılaştırılabilir.",
+		"enemy.preset":        "Hazır boss",
+		"enemy.custom":        "Özel (boss yok)",
+		"enemy.weekly":        "Haftalık bosslar",
+		"enemy.world":         "Dünya bossları",
+		"enemy.preset_note":   "Hazır boss, boss'un temel dirençlerini gcsim'in canavar verilerinden doldurur ve seçtiğin seviyeyi korur. Faz değişimleri, kalkanlar ve dokunulmazlık modellenmez.",
+		"err.boss":            "Bilinmeyen boss: %q",
+
 		"el.pyro":     "Pyro",
 		"el.hydro":    "Hydro",
 		"el.anemo":    "Anemo",

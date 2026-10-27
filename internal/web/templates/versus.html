@@ -5,7 +5,7 @@
 {{template "foot"}}
 
 {{define "versus-body"}}
-{{with .A.Enemy}}<div class="warn">{{t "enemy.custom_note" (enemyText .)}}</div>{{end}}
+{{template "enemy-note" .A.Enemy}}
 {{if .Scored}}
 <div class="card verdict">
 {{if .Tie}}{{t "vs.tie"}} <span class="muted">{{t "vs.tie_detail" (percent .Diff)}}</span>

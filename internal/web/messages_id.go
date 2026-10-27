@@ -199,6 +199,16 @@ func init() {
 		"meta.enemy":        " | musuh kustom: %s",
 		"err.enemy":         "Pengaturan musuh tidak valid. Level harus %d–%d dan RES antara %d%% dan %d%%.",
 
+		"enemy.boss":          "%s · %s",
+		"enemy.boss_modified": "%s (diubah) · %s",
+		"enemy.same_note":     "Dihitung melawan %s. Level dan RES-nya sama dengan musuh standar, jadi skor ini bisa dibandingkan dengan skor standar.",
+		"enemy.preset":        "Preset boss",
+		"enemy.custom":        "Kustom (tanpa boss)",
+		"enemy.weekly":        "Boss mingguan",
+		"enemy.world":         "Boss dunia",
+		"enemy.preset_note":   "Preset mengisi RES dasar boss dari data monster gcsim dan mempertahankan level yang dipilih. Pergantian fase, perisai, dan kekebalan tidak dimodelkan.",
+		"err.boss":            "Boss tidak dikenal: %q",
+
 		"el.pyro":     "Pyro",
 		"el.hydro":    "Hydro",
 		"el.anemo":    "Anemo",

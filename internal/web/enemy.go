@@ -1,6 +1,9 @@
 package web
 
 import (
+	"cmp"
+	_ "embed"
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"net/url"
@@ -11,9 +14,29 @@ import (
 )
 
 // A result page scores its teams against the standard enemy unless its
-// URL sets up another: lvl is the enemy's level, res its resistance to
+// URL sets up another: boss starts from a preset's resistances
+// (config.Bosses), lvl is the enemy's level, res its resistance to
 // everything in percent, and an element's parameter (pyro, ...,
 // physical) its resistance to that element.
+
+// bossNames[boss key][language] is a boss's in-game name; see genbosses.
+//
+//go:embed bosses.json
+var bossNamesJSON []byte
+
+var bossNames = func() map[string]map[string]string {
+	var out map[string]map[string]string
+	if err := json.Unmarshal(bossNamesJSON, &out); err != nil {
+		panic("web: bosses.json: " + err.Error())
+	}
+	return out
+}()
+
+// bossName is a boss's in-game name in l's language, else in English.
+func (l localizer) bossName(key string) string {
+	byLang := bossNames[key]
+	return cmp.Or(byLang[l.Lang], byLang[langEnglish], key)
+}
 
 // enemyFromQuery reads the enemy of a request, nil for the standard one.
 func enemyFromQuery(q url.Values) (*config.Enemy, error) {
@@ -31,12 +54,23 @@ func enemyFromQuery(q url.Values) (*config.Enemy, error) {
 	if !read("lvl", &e.Level) {
 		return nil, bad
 	}
-	all := e.Resist[0]
-	if !read("res", &all) {
-		return nil, bad
+	if key := q.Get("boss"); key != "" {
+		b, ok := config.FindBoss(key)
+		if !ok {
+			return nil, inputError{"err.boss", []any{key}}
+		}
+		e.Boss, e.Resist = b.Key, b.Resist
+	}
+	if q.Has("res") {
+		var all int
+		if !read("res", &all) {
+			return nil, bad
+		}
+		for i := range e.Resist {
+			e.Resist[i] = all
+		}
 	}
 	for i, el := range config.Elements {
-		e.Resist[i] = all
 		if !read(el, &e.Resist[i]) {
 			return nil, bad
 		}
@@ -51,7 +85,8 @@ func enemyFromQuery(q url.Values) (*config.Enemy, error) {
 }
 
 // addEnemy adds e's parameters to v, none for the standard enemy: lvl
-// unless 100, res for the most common resistance unless 10%, and the
+// unless 100, then either the boss and the elements that differ from its
+// preset, or res for the most common resistance unless 10% and the
 // elements that differ from it.
 func addEnemy(v url.Values, e *config.Enemy) {
 	if e == nil {
@@ -59,6 +94,15 @@ func addEnemy(v url.Values, e *config.Enemy) {
 	}
 	if e.Level != config.StandardEnemy.Level {
 		v.Set("lvl", strconv.Itoa(e.Level))
+	}
+	if b, ok := config.FindBoss(e.Boss); ok {
+		v.Set("boss", b.Key)
+		for i, r := range e.Resist {
+			if r != b.Resist[i] {
+				v.Set(config.Elements[i], strconv.Itoa(r))
+			}
+		}
+		return
 	}
 	all := commonResist(e)
 	if all != config.StandardEnemy.Resist[0] {
@@ -103,11 +147,23 @@ func link(path string, e *config.Enemy, kv ...string) template.URL {
 }
 
 // enemyText describes an enemy in l's language, e.g. "Lv. 90 · Geo 70%,
-// Physical 40%, others 10%".
+// Physical 40%, others 10%", after the boss's name if it has one.
 func (l localizer) enemyText(e *config.Enemy) string {
 	if e == nil {
 		return l.T("enemy.standard")
 	}
+	text := l.resistText(e)
+	if b, ok := config.FindBoss(e.Boss); ok {
+		if e.Resist != b.Resist {
+			return l.T("enemy.boss_modified", l.bossName(b.Key), text)
+		}
+		return l.T("enemy.boss", l.bossName(b.Key), text)
+	}
+	return text
+}
+
+// resistText is enemyText without the boss.
+func (l localizer) resistText(e *config.Enemy) string {
 	if r, ok := e.Uniform(); ok {
 		return l.T("enemy.text", e.Level, l.T("enemy.all", r))
 	}
@@ -162,6 +218,33 @@ func (enemyForm) Limits() struct{ MinLevel, MaxLevel, MinResist, MaxResist int }
 	return struct{ MinLevel, MaxLevel, MinResist, MaxResist int }{config.MinLevel, config.MaxLevel, config.MinResist, config.MaxResist}
 }
 
+// bossOption is one preset in the form's list.
+type bossOption struct {
+	Key, Name string
+	Resist    string // comma-separated, by config.Elements, for the script
+	Selected  bool
+}
+
+// bossPresets are the presets in the form's list, for l.
+type bossPresets struct{ Weekly, World []bossOption }
+
+// presets lists the weekly bosses, then the world bosses, marking f's.
+func (l localizer) presets(f enemyForm) (p bossPresets) {
+	for _, b := range config.Bosses {
+		var rs []string
+		for _, r := range b.Resist {
+			rs = append(rs, strconv.Itoa(r))
+		}
+		o := bossOption{Key: b.Key, Name: l.bossName(b.Key), Resist: strings.Join(rs, ","), Selected: f.Enemy != nil && f.Enemy.Boss == b.Key}
+		if b.Weekly {
+			p.Weekly = append(p.Weekly, o)
+		} else {
+			p.World = append(p.World, o)
+		}
+	}
+	return p
+}
+
 // Level is the enemy's level.
 func (f enemyForm) Level() int {
 	if f.Enemy != nil {
@@ -182,6 +265,9 @@ func enemyQuery(e *config.Enemy) string {
 func cardEnemy(e *config.Enemy) string {
 	if e == nil {
 		return ""
+	}
+	if e.Boss != "" {
+		return fmt.Sprintf("Enemy: %s", english.enemyText(e))
 	}
 	return fmt.Sprintf("Custom enemy: %s", english.enemyText(e))
 }

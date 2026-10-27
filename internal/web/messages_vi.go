@@ -199,6 +199,16 @@ func init() {
 		"meta.enemy":        " | kẻ địch tùy chỉnh: %s",
 		"err.enemy":         "Thiết lập kẻ địch không hợp lệ. Cấp phải từ %d–%d và kháng từ %d%% đến %d%%.",
 
+		"enemy.boss":          "%s · %s",
+		"enemy.boss_modified": "%s (đã sửa) · %s",
+		"enemy.same_note":     "Tính với %s. Cấp và kháng giống kẻ địch tiêu chuẩn nên điểm này so sánh được với điểm tiêu chuẩn.",
+		"enemy.preset":        "Boss có sẵn",
+		"enemy.custom":        "Tùy chỉnh (không có boss)",
+		"enemy.weekly":        "Boss tuần",
+		"enemy.world":         "Boss thế giới",
+		"enemy.preset_note":   "Chọn boss có sẵn sẽ điền kháng cơ bản của boss từ dữ liệu quái của gcsim và giữ nguyên cấp đã chọn. Đổi giai đoạn, khiên và miễn nhiễm không được mô phỏng.",
+		"err.boss":            "Boss không xác định: %q",
+
 		"el.pyro":     "Hỏa",
 		"el.hydro":    "Thủy",
 		"el.anemo":    "Phong",

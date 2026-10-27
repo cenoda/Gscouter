@@ -199,6 +199,16 @@ func init() {
 		"meta.enemy":        " | nemico personalizzato: %s",
 		"err.enemy":         "Le impostazioni del nemico non sono valide. Il livello deve essere tra %d e %d e le resistenze tra %d%% e %d%%.",
 
+		"enemy.boss":          "%s · %s",
+		"enemy.boss_modified": "%s (modificato) · %s",
+		"enemy.same_note":     "Calcolato contro %s. Livello e resistenze sono quelli del nemico standard, quindi questo punteggio è confrontabile con quelli standard.",
+		"enemy.preset":        "Boss predefinito",
+		"enemy.custom":        "Personalizzato (nessun boss)",
+		"enemy.weekly":        "Boss settimanali",
+		"enemy.world":         "Boss del mondo",
+		"enemy.preset_note":   "Un boss predefinito compila le sue resistenze base dai dati dei mostri di gcsim e mantiene il livello scelto. Cambi di fase, scudi e immunità non sono simulati.",
+		"err.boss":            "Boss sconosciuto: %q",
+
 		"el.pyro":     "Pyro",
 		"el.hydro":    "Hydro",
 		"el.anemo":    "Anemo",

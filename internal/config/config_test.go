@@ -147,3 +147,26 @@ func TestEnemyTarget(t *testing.T) {
 		t.Error("resistance above the limit is valid")
 	}
 }
+
+func TestBosses(t *testing.T) {
+	if len(Bosses) != len(bossList) {
+		t.Fatalf("%d bosses, want %d", len(Bosses), len(bossList))
+	}
+	b, ok := FindBoss("azhdaha")
+	if !ok || b.Resist != [len(Elements)]int{10, 10, 10, 10, 10, 10, 70, 40} {
+		t.Errorf("azhdaha: %v %v", ok, b.Resist)
+	}
+	if b, _ := FindBoss("lasignora"); b.Resist[0] != 70 {
+		t.Errorf("la signora: %v", b.Resist)
+	}
+	seen := map[string]bool{}
+	for _, b := range Bosses {
+		if seen[b.Key] {
+			t.Errorf("%s listed twice", b.Key)
+		}
+		seen[b.Key] = true
+		if err := (Enemy{Level: 100, Resist: b.Resist}).Validate(); err != nil {
+			t.Errorf("%s: %v", b.Key, err)
+		}
+	}
+}

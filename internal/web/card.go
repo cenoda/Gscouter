@@ -150,8 +150,10 @@ func scoreCard(ctx context.Context, tr teamResult) image.Image {
 	x := c.text(thousands(tr.Result.DPS), 60, 230, 132, true, cardText)
 	c.text("DPS", x+20, 230, 52, true, cardMuted)
 	sub := "Looped rotation, Lv.100 enemy"
-	if tr.Enemy != nil {
-		sub = fmt.Sprintf("Looped rotation, custom Lv.%d enemy", tr.Enemy.Level)
+	if e := tr.Enemy; e != nil && e.Boss != "" {
+		sub = fmt.Sprintf("Looped rotation, Lv.%d %s", e.Level, english.bossName(e.Boss))
+	} else if e != nil {
+		sub = fmt.Sprintf("Looped rotation, custom Lv.%d enemy", e.Level)
 	}
 	if tr.OneRotation != nil {
 		sub += "  ·  one rotation " + thousands(tr.OneRotation.DPS)
