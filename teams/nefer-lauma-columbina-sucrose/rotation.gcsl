@@ -1,0 +1,37 @@
+# HoYoLAB post 44026962, "the strongest possible team and rotation for
+# Nefer" (C0R0, 183k DPS in game):
+#   rot 1: Lauma QhE, Bina QE, Sucrose EdQ, Nefer E 3Cd E 2Cd CQ, Bina C
+#   rot 2: Lauma QhE, Bina QE, Sucrose Ed, Nefer E 3Cd E 3Cd, Sucrose Ed, Bina C
+# Lauma holds her skill when there is Verdant Dew, otherwise taps it; the
+# check follows her burst, after Columbina's charged attack has spent its
+# Dew. Nefer's charged attacks are held (Slither) until Dew turns them
+# into Phantasm Performance.
+active lauma;
+let r = 0;
+lauma burst;
+if .dew > 0 {
+  lauma skill[hold=1];
+} else {
+  lauma skill;
+}
+if .columbina.burst.ready {
+  columbina burst;
+}
+columbina skill;
+sucrose skill, dash;
+if r == 0 && .sucrose.burst.ready {
+  sucrose burst;
+}
+nefer skill, charge[hold=150], dash, charge[hold=150], dash, charge[hold=150], dash,
+      skill, charge[hold=150], dash, charge[hold=150], dash;
+if r == 0 {
+  nefer charge[hold=150];
+  if .nefer.burst.ready {
+    nefer burst;
+  }
+} else {
+  nefer charge[hold=150], dash;
+  sucrose skill, dash;
+}
+columbina charge;
+r = 1 - r;

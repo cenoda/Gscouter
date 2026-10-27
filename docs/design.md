@@ -326,22 +326,31 @@ Shared code: Nefer's PR changes how Verdant Dew is collected so that her P2 and 
 
 **First experimental teams** (2026-10-27, fork `91c5de4`, all `status: draft`)
 
-Chosen from the KQM quick guides, one or two per character, preferring teams a guide gives a full rotation for. Builds follow the guides with 4-star or free weapons, as the database's lowest-investment entries do: Nefer Blackmarrow Lantern R5 and 4pc NotSU, Zibai Flute of Ezpitzal R5 and 4pc NotSU, Linnea Slingshot R5 and 4pc Husk.
+Chosen from community guides and showcases, one or two per character, preferring teams with a published rotation. A first version used the KQM quick guides' second-choice teams with 4-star weapons and KQM-standard artifacts, the level of the database's lowest-investment entries, and scored 95k (Nefer / Lauma / Aino / Nahida), 127k and 146k. Community numbers for these characters are about 200k for Nefer teams and 240k for Zibai's, so the teams and builds were checked against them:
+
+- The damage formula holds: a Phantasm Performance shade hit, traced in gcsim's debug log, gets Pale Hymn, the Moonsign base bonus, NotSU, SMS and the Dendro shred, and follows gcsim's direct Lunar-Bloom formula.
+- The gap was the builds and the team. The strongest Nefer team by community account (below) with its own rotation scored 127.9k one pass with KQM-standard artifacts and Blackmarrow Lantern, and 179.3k with Dawning Frost R5 and artifacts well above KQM standard, against 183k in game. Zibai's team went from 137.6k to 235.9k with the community's conditions (C2 Columbina with her signature, Zibai's signature, strong artifacts).
+
+So the validation builds (`build.txt`) are now at the level of each team's cross-check source, and `cross_check` compares like with like as far as the sources tell. A visitor's score uses their own build in any case.
 
 | Team | Why | Rotation source | One pass | Looped (score) | Waits |
 |---|---|---|---|---|---|
-| Nefer / Lauma / Aino / Nahida | Nefer guide's second team; its first (with Kuki Shinobu or Zhongli) has no published rotation; Aino is the accessible Hydro | [Lauma quick guide](https://keqingmains.com/q/lauma-quickguide/), Nefer's `E 3[CD] E CD CQ CD` from the [Nefer quick guide](https://keqingmains.com/q/nefer-quickguide/) | 90.2k | 95.0k | Nefer 15.6 s/min for her skill: the 15.6 s rotation is under the 18 s two charges need, as the Nefer guide warns |
-| Nefer / Linnea / Lauma / Columbina | The Linnea guide's team with Nefer: covers both characters | [Linnea quick guide](https://keqingmains.com/q/linnea-quickguide/) | 112.2k | 126.6k | Linnea 10.6 s/min for her 18 s skill |
-| Zibai / Linnea / Columbina / Gorou | The Linnea guide's first team; Gorou rather than Illuga (185% ER at C0; the guides call C6 Gorou close) | [Zibai quick guide](https://keqingmains.com/q/zibai-quickguide/) and the Linnea guide | 137.6k | 146.2k | none |
+| Nefer / Lauma / Columbina / Sucrose | Called the strongest Nefer team by a C0R0 showcase (183k in game) that gives the rotation | [HoYoLAB 44026962](https://www.hoyolab.com/article/44026962); same combo as the [Nefer quick guide](https://keqingmains.com/q/nefer-quickguide/) | 179.3k | 168.7k | none above 2 s/min; Nefer's skill cooldown filled with attacks |
+| Nefer / Linnea / Lauma / Columbina | The [Linnea quick guide](https://keqingmains.com/q/linnea-quickguide/)'s team with Nefer: covers both characters | Linnea quick guide | 150.1k | 166.5k | Linnea 10.6 s/min for her 18 s skill |
+| Zibai / Linnea / Columbina / Gorou | The Linnea guide's first team; Gorou rather than Illuga (185% ER at C0; the guides call C6 Gorou close) | [Zibai quick guide](https://keqingmains.com/q/zibai-quickguide/) and the Linnea guide | 235.9k | 252.4k | none |
 
 1000 iterations, common conditions; no energy waits, no failed actions, no stalls. Rotation notes:
-- Nefer's charged attacks are held (`charge[hold=150]`, Slither) until Verdant Dew turns them into Phantasm Performance, as the guides say she may wait for Dew. In the first pass 4 of 6 get Dew in the Aino team; looped, nearly all (148 of 150 in a 450 s fight).
+- Nefer's charged attacks are held (`charge[hold=150]`, Slither) until Verdant Dew turns them into Phantasm Performance, as the guides say she may wait for Dew.
+- Lauma holds her skill only with Dew, checked after her burst: checked before it, Columbina's charged attack can spend the Dew in between, and gcsim rejects the hold.
 - Linnea's burst is never used: the guides use it only for healing, and on the fork a burst while Lumi is out stops Lumi's attacks (the known problem above). Her Ultimate Power Form (the guide's `5[E]`) is one press and three recasts in gcsim; a fifth press would wait for the cooldown.
 - Zibai's Spirit Steed's Stride needs 70 Radiance: the rotation attacks until she has it (in the checks she always had it after N4).
 
-**Cross-check**: no public number exists for any of the three (searched 2026-10-27). The KQM quick guides publish no DPS, the KQM TCL has no Nefer or Linnea findings, the community database has no entry with Nefer, Linnea or Zibai, and Prydwen's relative team charts could not be read (HTTP 403; search results quote the Zibai chart putting the C6 Gorou team at 85% of the Illuga team on an 18.5 s rotation, where ours is 19.8 s). Each `team.yaml` records this in `cross_check`. For scale only: Lunar-Bloom teams of Columbina and Lauma with 4-star weapons score 124-143k in the database.
+**Cross-check** (searched 2026-10-27; recorded in each `team.yaml`):
+- Nefer / Lauma / Columbina / Sucrose: 183k in game with C0R0 builds the author calls top 5% (200k with top 1% stats); 179.3k one pass here, −2.0%. The post gives no artifacts, so ours are an approximation.
+- Zibai: an arca.live player reports about 200k at C0, 240k at C1 and 310k at C2, with C2 Columbina and her signature, in Zibai / Illuga / Columbina + Zhongli or Gorou (seen through search results; the page returns 403). Ours, with Linnea for Illuga, is 235.9k one pass at C0: for scale only. With the same builds, Zibai / Illuga / Linnea / Columbina scored 214.5k, below the Gorou team, though the community ranks Illuga higher; not investigated yet.
+- Nefer / Linnea / Lauma / Columbina: no public number. The KQM quick guides and TCL publish none, the community database has no entry with these characters, and Prydwen returns 403.
 
-**Found while writing them** (reported, not fixed on the fork): Nefer's Phantasm Performance checks the charged attack only for its first hit; the later hits are queued at fixed delays and land even when a dash or swap cancels it. The Nefer guide says a dash cancel loses Nefer's second hit, so dash-cancelled rotations keep it on the fork: about 1.5% of the Nefer / Lauma / Aino / Nahida team's damage.
+**Found while writing them** (reported, not fixed on the fork): Nefer's Phantasm Performance checks the charged attack only for its first hit; the later hits are queued at fixed delays and land even when a dash or swap cancels it. The Nefer guide says a dash cancel loses Nefer's second hit, so dash-cancelled rotations keep it on the fork: about 1.5% of a Nefer team's damage.
 
 **Display**
 - `team.yaml` gets `tier: experimental` (`library.TierExperimental`; no tier means verified). Loading checks it: a team needs the tier exactly when a member is in `library.ForkOnly`, so a team with a fork-only character cannot pass as verified, nor a verified team carry the badge. Experimental teams also record `gcsim_fork`, the fork commit they were written for: `gcsim_commit` names the upstream base, which a fix on the fork leaves unchanged, so without it a score change from a fork fix could not be told apart. `cmd/import` and `cmd/harvest` set both fields for a team with a fork-only member. `/teams` and the team header of result pages show an "Experimental" badge, in every site language, and the result adds a note that the score may change. A versus page renders that header for each side, so the badge shows on the experimental side only. Link-preview cards do not show it yet.
@@ -368,8 +377,8 @@ Enka.Network's character list compared with the characters in gcsim `2350be9`. T
 | Character | Upstream state | Plan (§5.4) |
 |---|---|---|
 | Kachina (4★ Geo, 5.0) | Open PR #2697 (2026-07-25) | On the fork; frames partly estimated, known problems in §5.4. First team: Kachina / Furina / Qiqi / Noelle ("Cappuccino"), after Nefer's and Linnea's, since she adds little damage and few players use her |
-| Nefer (5★ Dendro, 6.1) | Open PR #3045 (2026-09-20), no review yet; an earlier draft, #2587, was closed | On the fork; frames counted, known problems in §5.4. Draft teams: Nefer / Lauma / Aino / Nahida (95.0k), Nefer / Linnea / Lauma / Columbina (126.6k), rotations from the KQM Nefer, Lauma and Linnea quick guides; no public DPS to cross-check |
-| Linnea (5★ Geo) | Open PR #2596 (2026-04-19) | On the fork; frames partly counted, known problems in §5.4. Draft teams: Zibai / Linnea / Columbina / Gorou (146.2k), Nefer / Linnea / Lauma / Columbina, rotations from the KQM Linnea and Zibai quick guides; no public DPS to cross-check |
+| Nefer (5★ Dendro, 6.1) | Open PR #3045 (2026-09-20), no review yet; an earlier draft, #2587, was closed | On the fork; frames counted, known problems in §5.4. Draft teams: Nefer / Lauma / Columbina / Sucrose (179.3k one pass, 183k in game in the HoYoLAB showcase it comes from), Nefer / Linnea / Lauma / Columbina (150.1k) |
+| Linnea (5★ Geo) | Open PR #2596 (2026-04-19) | On the fork; frames partly counted, known problems in §5.4. Draft teams: Zibai / Linnea / Columbina / Gorou (235.9k one pass; the community reports about 200k for C0 Zibai with Illuga), Nefer / Linnea / Lauma / Columbina; rotations from the KQM Linnea and Zibai quick guides |
 | Lohen (5★ Cryo) | None | Implement |
 | Sandrone (5★ Cryo) | None | Implement |
 | Vodyanitsa (5★ Hydro, 7.1) | None | Implement, with the Wandering Vortex |
@@ -377,7 +386,7 @@ Enka.Network's character list compared with the characters in gcsim `2350be9`. T
 
 Order: the fork and the three characters with upstream PRs first (most coverage for the least work), then Vodyanitsa, Lohen and Sandrone, then Vesna.
 
-The fork and the three PR characters are in place (2026-10-27): the site builds on the fork, and Enka profiles and names map all three. Nefer and Linnea have three draft experimental teams (§5.4): Nefer / Lauma / Aino / Nahida, Nefer / Linnea / Lauma / Columbina and Zibai / Linnea / Columbina / Gorou. Kachina has none yet, so her teams are still scored as unsupported.
+The fork and the three PR characters are in place (2026-10-27): the site builds on the fork, and Enka profiles and names map all three. Nefer and Linnea have three draft experimental teams (§5.4): Nefer / Lauma / Columbina / Sucrose, Nefer / Linnea / Lauma / Columbina and Zibai / Linnea / Columbina / Gorou. Kachina has none yet, so her teams are still scored as unsupported.
 
 ### 6.2 Library from the community database
 
