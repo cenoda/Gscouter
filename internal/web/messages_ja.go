@@ -95,6 +95,7 @@ func init() {
 		"meta.team_higher":  "%sの編成が%.1f%%高い",
 
 		"err.selection": "不正な選択: %q",
+		"err.link":      "この短縮リンクは存在しません。",
 		"err.count":     "キャラクターをちょうど4人選んでください(%d人選択中)。",
 		"err.chars":     "キャラクターの選択が正しくありません。",
 

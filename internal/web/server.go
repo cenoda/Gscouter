@@ -67,6 +67,8 @@ type Server struct {
 	timelines *cache[string, *timeline.Timeline]
 	cards     *cache[string, []byte] // link preview PNGs by URL
 	client    *clientFiles           // nil: the server calculates every result
+	links     LinkStore              // nil: no short links (see SetLinks)
+	linkLimit *rateLimit
 }
 
 func New(lib *library.Library, profiles ProfileSource, settings Settings) (*Server, error) {
@@ -104,6 +106,8 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("GET /card/score.png", s.handleScoreCard)
 	mux.HandleFunc("GET /card/versus.png", s.handleVersusCard)
 	mux.HandleFunc("GET /static/{file}", s.handleStatic)
+	mux.HandleFunc("POST /s", s.handleShorten)
+	mux.HandleFunc("GET /s/{id}", s.handleShort)
 	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("ok"))
 	})

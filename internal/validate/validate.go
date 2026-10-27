@@ -43,8 +43,8 @@ const (
 	failStall = 50.0
 	// A rotation that does not end within this time probably loops
 	// forever: with the enemy's infinite HP, gcsim stops only when the
-	// action list ends.
-	timeout = 2 * time.Minute
+	// action list ends. Settings.Timeout overrides it.
+	defaultTimeout = 2 * time.Minute
 	// One fight of the looped rotation takes well under a second. One
 	// that runs longer is stuck: a loop whose body takes no action (for
 	// example a counter set once in the setup) spins without time passing.
@@ -65,6 +65,31 @@ type Settings struct {
 	Iterations       int
 	Warmup, Duration float64
 	Workers          int // simulations run in parallel per check; 0 means one per CPU
+	// Timeout is how long one team's check may take before it fails as a
+	// rotation that never ends; 0 means 2 minutes. A loaded machine (CI
+	// runners checking several teams at once) needs more.
+	Timeout time.Duration
+	// Cache is a directory where simulation results are kept
+	// (score.Cache), "" for none.
+	Cache string
+
+	cache *score.Cache
+}
+
+// timeout is the check's time limit.
+func (s Settings) timeout() time.Duration {
+	if s.Timeout > 0 {
+		return s.Timeout
+	}
+	return defaultTimeout
+}
+
+// open opens s.Cache. A cache that cannot be used only costs time.
+func (s Settings) open() Settings {
+	if s.Cache != "" {
+		s.cache, _ = score.OpenCache(s.Cache)
+	}
+	return s
 }
 
 type Report struct {
@@ -86,6 +111,16 @@ type Report struct {
 	ReferenceSkipped string
 	Failures         []string
 	Warnings         []string
+}
+
+// Line is one line of cmd/validate -json: a report and how the run
+// that made it was built, for cmd/compare.
+type Line struct {
+	*Report
+	Gcsim string // the gcsim module the run was built with, path@version
+	// Cached is true when results could come from the cache
+	// (Settings.Cache), so a repeated run repeats the first.
+	Cached bool
 }
 
 // Kept is the score over one pass under the same, common conditions:
@@ -167,7 +202,8 @@ func (r *Report) Unpromotable() string {
 // compares the DPS with the source's. It is the check cmd/harvest uses
 // to accept a team.
 func CheckReference(dir string, s Settings) *Report {
-	return withTimeout(dir, func(ctx context.Context) *Report {
+	s = s.open()
+	return withTimeout(dir, s.timeout(), func(ctx context.Context) *Report {
 		r, _ := reference(ctx, dir, s)
 		return r
 	})
@@ -177,7 +213,8 @@ func CheckReference(dir string, s Settings) *Report {
 // rotation scored as the site does, under the common conditions. A
 // check that runs longer than the timeout fails.
 func Check(dir string, s Settings) *Report {
-	return withTimeout(dir, func(ctx context.Context) *Report {
+	s = s.open()
+	return withTimeout(dir, s.timeout(), func(ctx context.Context) *Report {
 		r, build := reference(ctx, dir, s)
 		if build != "" {
 			looped(ctx, r, build, s)
@@ -189,7 +226,7 @@ func Check(dir string, s Settings) *Report {
 // withTimeout runs check with a context that ends after the timeout. The
 // simulation stops at its next iteration; one that never ends keeps
 // running until the process exits.
-func withTimeout(dir string, check func(context.Context) *Report) *Report {
+func withTimeout(dir string, timeout time.Duration, check func(context.Context) *Report) *Report {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
 	done := make(chan *Report, 1)
@@ -253,7 +290,7 @@ func reference(ctx context.Context, dir string, s Settings) (*Report, string) {
 		return r, ""
 	}
 
-	onceRes, err := score.Run(ctx, once, score.Options{Iterations: s.Iterations, Workers: s.Workers, Seed: 1})
+	onceRes, err := s.cache.Run(ctx, once, score.Options{Iterations: s.Iterations, Workers: s.Workers, Seed: 1})
 	if err != nil {
 		r.Failures = append(r.Failures, "simulation: "+err.Error())
 		return r, ""
@@ -294,20 +331,32 @@ func looped(ctx context.Context, r *Report, build string, s Settings) {
 	r.Common = r.Once
 	if r.SourceConditions {
 		once := config.Assemble(config.Conditions{Iterations: s.Iterations}, build, team.Rotation)
-		res, err := score.Run(ctx, once, score.Options{Iterations: s.Iterations, Workers: s.Workers, Seed: 1})
+		res, err := s.cache.Run(ctx, once, score.Options{Iterations: s.Iterations, Workers: s.Workers, Seed: 1})
 		if err != nil {
 			r.Failures = append(r.Failures, "simulation under the common conditions: "+err.Error())
 			return
 		}
 		r.Common = res
 	}
-	if msg := probe(ctx, build, team.Rotation, s); msg != "" {
+	rot, probed, msg := probe(ctx, build, team.Rotation, s)
+	if msg != "" {
 		r.Failures = append(r.Failures, msg)
 		return
 	}
 	out, err := steady.Score(team.Rotation, team.Members, func(looped string) (*score.Result, error) {
 		cfg := config.Assemble(config.Conditions{Iterations: s.Iterations, Duration: s.Duration}, build, looped)
-		res, err := score.Run(ctx, cfg, score.Options{Iterations: s.Iterations, Workers: s.Workers, Warmup: s.Warmup, Seed: 1})
+		opts := score.Options{Iterations: s.Iterations, Workers: s.Workers, Warmup: s.Warmup, Seed: 1}
+		var res *score.Result
+		var err error
+		if looped == rot && probed != nil {
+			// The probe was the first iteration of this run: the
+			// config differs only in the iteration count, which gcsim
+			// does not read.
+			res, err = rest(ctx, s.cache, cfg, opts, probed)
+			probed = nil
+		} else {
+			res, err = s.cache.Run(ctx, cfg, opts)
+		}
 		if err == nil {
 			// The last run is not necessarily the best; keep the best's config.
 			if r.Res == nil || res.DPS > r.Res.DPS {
@@ -354,26 +403,47 @@ func looped(ctx context.Context, r *Report, build string, s Settings) {
 }
 
 // probe runs one fight of the looped rotation and says why it failed,
-// or "" if it finished. A stuck fight keeps running until the process
-// exits; cmd/validate checks each team in its own process.
-func probe(ctx context.Context, build, rotation string, s Settings) string {
+// or "" if it finished. It returns the looped rotation and the fight,
+// which is the first iteration of the looped score (seed 1). A stuck
+// fight keeps running until the process exits; cmd/validate checks each
+// team in its own process.
+func probe(ctx context.Context, build, rotation string, s Settings) (string, []score.Iteration, string) {
 	rot, err := config.Loop(rotation)
 	if err != nil {
-		return "looped simulation: " + err.Error()
+		return "", nil, "looped simulation: " + err.Error()
 	}
 	cfg := config.Assemble(config.Conditions{Iterations: 1, Duration: s.Duration}, build, rot)
-	done := make(chan error, 1)
+	type result struct {
+		its []score.Iteration
+		err error
+	}
+	done := make(chan result, 1)
 	go func() {
-		_, err := score.Run(ctx, cfg, score.Options{Iterations: 1, Workers: 1, Warmup: s.Warmup, Seed: 1})
-		done <- err
+		its, err := s.cache.RunIterations(ctx, cfg, score.Options{Iterations: 1, Workers: 1, Warmup: s.Warmup, Seed: 1})
+		done <- result{its, err}
 	}()
 	select {
-	case err := <-done:
-		if err != nil {
-			return "looped simulation: " + err.Error()
+	case res := <-done:
+		if res.err != nil {
+			return "", nil, "looped simulation: " + res.err.Error()
 		}
-		return ""
+		return rot, res.its, ""
 	case <-time.After(probeTimeout):
-		return fmt.Sprintf("the looped rotation does not advance: one fight did not end within %v (a loop that takes no action, such as a counter set once before it?)", probeTimeout)
+		return "", nil, fmt.Sprintf("the looped rotation does not advance: one fight did not end within %v (a loop that takes no action, such as a counter set once before it?)", probeTimeout)
 	}
+}
+
+// rest scores cfg's opts.Iterations iterations, of which the first are
+// done: it runs the others and scores them all as score.Run would.
+func rest(ctx context.Context, cache *score.Cache, cfg string, opts score.Options, done []score.Iteration) (*score.Result, error) {
+	its := done[:min(len(done), opts.Iterations)]
+	if n := opts.Iterations - len(its); n > 0 {
+		opts.First, opts.Iterations = len(its), n
+		more, err := cache.RunIterations(ctx, cfg, opts)
+		if err != nil {
+			return nil, err
+		}
+		its = append(slices.Clip(its), more...)
+	}
+	return score.Aggregate(its, opts.Warmup), nil
 }

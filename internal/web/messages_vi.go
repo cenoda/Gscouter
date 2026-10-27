@@ -95,6 +95,7 @@ func init() {
 		"meta.team_higher":  "Đội của %s cao hơn %.1f%%",
 
 		"err.selection": "Lựa chọn không hợp lệ: %q",
+		"err.link":      "Liên kết rút gọn này không tồn tại.",
 		"err.count":     "Hãy chọn đúng 4 nhân vật (đã chọn %d).",
 		"err.chars":     "Lựa chọn nhân vật không hợp lệ.",
 
