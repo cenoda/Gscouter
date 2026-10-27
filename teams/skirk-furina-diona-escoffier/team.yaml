@@ -6,7 +6,7 @@ members:
     - diona
     - escoffier
 archetype: ""
-status: draft
+status: supported
 rotation_version: 1
 gcsim_commit: 2350be9
 sources:
@@ -17,3 +17,9 @@ params:
 reference:
     dps: 107243
     computed: "2026-10-01"
+validation:
+    date: "2026-10-27"
+    iterations: 20
+    gap: -0.001
+    kept: 0.927
+    dps: 99311

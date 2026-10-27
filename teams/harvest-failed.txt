@@ -19,6 +19,7 @@ bennett kaedeharakazuha kamisatoayato xiangling	1 entries tried; first: HB8kWrTd
 bennett kamisatoayato sucrose xiangling	1 entries tried; first: MFbjWMB9dHHL: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
 bennett raidenshogun rosaria xiangling	1 entries tried; first: LLwRfGk76ttD: the looped rotation stalls: raidenshogun waits 56.3s/min (skill_cd)
 candace sangonomiyakokomi xingqiu yelan	1 entries tried; first: DT7qcNcc6tFL: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
+chiori ningguang xingqiu yelan	removed: the check did not finish within 2m0s, alone or on a loaded machine (2026-10-27)
 chongyun kaedeharakazuha layla shenhe	1 entries tried; first: qpR68hM6rJBk: the looped rotation deals no damage in the scoring window: it stalls
 chongyun kaedeharakazuha xingqiu yelan	1 entries tried; first: pBWPKbwBTMtr: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)
 chongyun shenhe xingqiu yelan	1 entries tried; first: zbWNwLhFGQhB: the looped rotation does not advance: one fight did not end within 20s (a loop that takes no action, such as a counter set once before it?)

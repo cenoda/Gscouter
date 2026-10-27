@@ -6,7 +6,7 @@ members:
     - xingqiu
     - luminepyro
 archetype: ""
-status: draft
+status: supported
 rotation_version: 1
 gcsim_commit: 2350be9
 sources:
@@ -18,3 +18,9 @@ params:
 reference:
     dps: 73051
     computed: "2026-10-02"
+validation:
+    date: "2026-10-27"
+    iterations: 20
+    gap: -0.006
+    kept: 1
+    dps: 72604

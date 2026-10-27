@@ -6,7 +6,7 @@ members:
     - chongyun
     - charlotte
 archetype: ""
-status: draft
+status: supported
 rotation_version: 1
 gcsim_commit: 2350be9
 sources:
@@ -17,3 +17,9 @@ params:
 reference:
     dps: 85437
     computed: "2026-10-01"
+validation:
+    date: "2026-10-27"
+    iterations: 20
+    gap: 0.002
+    kept: 0.948
+    dps: 81147

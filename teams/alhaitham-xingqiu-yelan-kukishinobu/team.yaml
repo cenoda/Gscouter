@@ -6,7 +6,7 @@ members:
     - yelan
     - kuki
 archetype: ""
-status: draft
+status: supported
 rotation_version: 1
 gcsim_commit: 2350be9
 sources:
@@ -17,3 +17,9 @@ params:
 reference:
     dps: 76609
     computed: "2026-09-30"
+validation:
+    date: "2026-10-27"
+    iterations: 20
+    gap: 0.004
+    kept: 0.95
+    dps: 73056

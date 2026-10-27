@@ -172,7 +172,11 @@ func TestScoreFromPicker(t *testing.T) {
 	if code != http.StatusOK {
 		t.Fatalf("status %d: %s", code, body)
 	}
-	mustContain(t, body, "DPS", "호두", "호마의 지팡이", "검증 전", "https://enka.network/ui/UI_AvatarIcon_Hutao.png")
+	mustContain(t, body, "DPS", "호두", "호마의 지팡이", "https://enka.network/ui/UI_AvatarIcon_Hutao.png")
+	// The library's Hu Tao team is supported: no draft warning.
+	if strings.Contains(body, "검증 전") {
+		t.Error("draft warning on a supported team")
+	}
 	// Link previews show the score and the members.
 	mustContain(t, body, `<meta property="og:title" content="Strong의 파티 `, `<meta property="og:description" content="호두 C0 `,
 		`<meta property="og:image" content="http://127.0.0.1:`)
@@ -229,6 +233,16 @@ func TestVersus(t *testing.T) {
 	mustContain(t, body, "비슷합니다")
 	_, body = get(t, ts, "/versus?"+v.Encode())
 	mustContain(t, body, "About even", "Copy comparison link")
+}
+
+func TestWarningsDraft(t *testing.T) {
+	got := warnings(localizer{Lang: langKorean}, &library.Team{Members: []string{"hutao"}, Status: library.StatusDraft}, &score.Result{})
+	if len(got) != 1 || !strings.Contains(got[0], "검증 전") {
+		t.Errorf("draft team warnings %q", got)
+	}
+	if got := warnings(english, &library.Team{Members: []string{"hutao"}, Status: library.StatusSupported}, &score.Result{}); len(got) != 0 {
+		t.Errorf("supported team warnings %q", got)
+	}
 }
 
 func TestWarningsKnownIssues(t *testing.T) {

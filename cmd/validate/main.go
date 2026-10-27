@@ -10,10 +10,19 @@
 //
 //	validate                      # every team under teams/
 //	validate teams/<id> ...       # selected teams
+//	validate -promote             # also record each result and the status it earns
 //
 // Each team is checked in its own process (-j at a time), so a rotation
 // that never ends cannot slow down the others. It exits with status 1 if
 // any team fails.
+//
+// With -promote, it records each result in the team's team.yaml
+// (validation: the looped score, how much of one pass it keeps and how
+// far one pass is from the source) and sets status: supported on teams
+// that meet the criteria for it (validate.Report.Unpromotable), draft on
+// the others. It never promotes an experimental team, which a person
+// reviews first. Blocked teams are left alone. A looped score that moved
+// more than 5% from the recorded one is a warning.
 package main
 
 import (
@@ -26,7 +35,9 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/cenoda/gscouter/internal/library"
 	"github.com/cenoda/gscouter/internal/score"
+	"github.com/cenoda/gscouter/internal/share"
 	"github.com/cenoda/gscouter/internal/validate"
 )
 
@@ -40,6 +51,7 @@ func main() {
 		verbose    = flag.Bool("v", false, "print per-character results")
 		detail     = flag.Bool("detail", false, "print what each character did in one run: actions, damage by source, reactions")
 		jobs       = flag.Int("j", 1, "teams checked in parallel")
+		promote    = flag.Bool("promote", false, "record each result in team.yaml and set status: supported on teams that meet the criteria, draft on the others")
 	)
 	flag.Parse()
 
@@ -88,6 +100,12 @@ func main() {
 			warned++
 		}
 		printReport(r, *verbose)
+		if *promote {
+			if err := record(r, *iterations); err != nil {
+				fmt.Fprintln(os.Stderr, "error:", err)
+				os.Exit(2)
+			}
+		}
 		if *detail && r.Cfg != "" {
 			printDetail(r.Cfg)
 		}
@@ -96,6 +114,45 @@ func main() {
 	if failed > 0 {
 		os.Exit(1)
 	}
+}
+
+// record writes the check's result to team.yaml with the status it
+// earns, and says so when the status changes.
+func record(r *validate.Report, iterations int) error {
+	if r.Team == nil {
+		// A check that timed out reports no team.
+		team, err := library.Load(r.Dir)
+		if err != nil {
+			return nil
+		}
+		r.Team = team
+	}
+	if r.Team.Status == library.StatusBlocked {
+		return nil
+	}
+	v := r.Validation(iterations)
+	want := library.StatusSupported
+	switch {
+	case v.Draft != "":
+		want = library.StatusDraft
+	case r.Team.Tier == library.TierExperimental && r.Team.Status != library.StatusSupported:
+		// A person reviews an experimental team before it is
+		// supported (design §5.4); the criteria can still return it to
+		// draft.
+		want = library.StatusDraft
+		v.Draft = "experimental: a person reviews it before it is supported"
+	}
+	if err := library.Record(r.Dir, want, share.GcsimCommit, v); err != nil {
+		return err
+	}
+	switch {
+	case want == r.Team.Status:
+	case want == library.StatusSupported:
+		fmt.Printf("       promoted to supported\n")
+	default:
+		fmt.Printf("       returned to draft: %s\n", v.Draft)
+	}
+	return nil
 }
 
 func printReport(r *validate.Report, verbose bool) {

@@ -20,3 +20,10 @@ params:
 reference:
     dps: 64103
     computed: "2026-10-02"
+validation:
+    date: "2026-10-27"
+    iterations: 20
+    gap: -0.006
+    kept: 1.311
+    dps: 59248
+    draft: 'the looped score keeps 131% of one pass, more than 130%: the rotation depends on the source''s conditions'

@@ -6,7 +6,7 @@ members:
     - furina
     - mavuika
 archetype: ""
-status: draft
+status: supported
 rotation_version: 1
 gcsim_commit: 2350be9
 sources:
@@ -15,3 +15,9 @@ notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one
 reference:
     dps: 72129
     computed: "2026-09-30"
+validation:
+    date: "2026-10-27"
+    iterations: 20
+    gap: 0.006
+    kept: 1
+    dps: 72518

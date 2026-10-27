@@ -6,7 +6,7 @@ members:
     - shenhe
     - citlali
 archetype: ""
-status: draft
+status: supported
 rotation_version: 1
 gcsim_commit: 2350be9
 sources:
@@ -17,3 +17,9 @@ params:
 reference:
     dps: 91132
     computed: "2026-10-01"
+validation:
+    date: "2026-10-27"
+    iterations: 20
+    gap: -0.018
+    kept: 0.98
+    dps: 87640

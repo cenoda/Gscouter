@@ -15,3 +15,10 @@ notes: 'Harvested from the KQM gcsim database: 1 entries use this team; of those
 reference:
     dps: 152395
     computed: "2026-10-01"
+validation:
+    date: "2026-10-27"
+    iterations: 20
+    gap: 0.002
+    kept: 2.041
+    dps: 47676
+    draft: 'the looped score keeps 204% of one pass, more than 130%: the rotation depends on the source''s conditions'
