@@ -14,7 +14,7 @@ script.
   --sky-c: .55; --sky-a: .3; }
 @media (prefers-color-scheme: dark) { .sky { --sky-c: .3; --sky-a: .6; } }
 /* In daylight the lines are lit: a white halo against the pale blue sky. */
-@media (prefers-color-scheme: light) { .sky .c:not(.gear), .sky .a:not(.gear) { filter: drop-shadow(0 0 3px #fff); } }
+@media (prefers-color-scheme: light) { .sky .c:not(.gear, .belt), .sky .a:not(.gear, .belt) { filter: drop-shadow(0 0 3px #fff); } }
 /* Daylight that breathes and sways: soft pools of light over the static sky. */
 .sky .light { display: none; position: absolute; border-radius: 50%; }
 @media (prefers-color-scheme: light) { .sky .light { display: block; } }
@@ -27,8 +27,9 @@ script.
 @keyframes sky-sun { from { opacity: .55; transform: translate(0, 0); } to { opacity: 1; transform: translate(-6vmax, 3vmax); } }
 @keyframes sky-haze { from { opacity: .5; transform: translate(0, 0); } to { opacity: 1; transform: translate(8vmax, 4vmax); } }
 .sky svg { position: absolute; display: block; fill: none; stroke: var(--sky-ink); color: var(--sky-ink); }
-.sky .c { opacity: var(--sky-c); }
-.sky .a { opacity: var(--sky-a); }
+/* --tone sets a gear's own brightness, as layers near and far. */
+.sky .c { opacity: calc(var(--sky-c) * var(--tone, 1)); }
+.sky .a { opacity: calc(var(--sky-a) * var(--tone, 1)); }
 .sky .spin { animation: sky-spin 150s linear infinite; }
 .sky .spin.rev { animation-direction: reverse; animation-duration: 210s; }
 .sky .drift { animation: sky-drift 70s ease-in-out infinite alternate; }
@@ -40,6 +41,9 @@ script.
 .sky .gears { position: absolute; width: 0; height: 0; }
 .sky .gear { animation: sky-spin linear infinite; }
 .sky .gear.ccw { animation-direction: reverse; }
+/* Chain rollers advance one link (pi times the gears' module) per cycle; the one part repainted. */
+.sky .chain { stroke-linecap: round; stroke-width: 3.2; animation: sky-chain linear infinite; }
+@keyframes sky-chain { to { stroke-dashoffset: -7.85398; } }
 @keyframes sky-spin { to { transform: rotate(1turn); } }
 @keyframes sky-drift { to { transform: translate(-24px, 36px); } }
 @keyframes sky-twinkle { 0%, 100% { opacity: .15; } 50% { opacity: var(--sky-c); } }
