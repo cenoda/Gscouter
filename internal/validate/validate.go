@@ -50,6 +50,10 @@ const (
 	// supported (Report.Unpromotable).
 	promoteReference = warnReference
 	promoteKept      = 0.8
+	// Keeping much more than the one pass means the one pass under the
+	// common conditions does not play as written: the rotation depends on
+	// the source's own (several targets, targets that die, more energy).
+	promoteKeptMax = 1.3
 )
 
 type Settings struct {
@@ -98,7 +102,7 @@ func (r *Report) Gap() (gap float64, ok bool) {
 // Unpromotable says why the team does not meet the criteria for
 // status: supported, or "" if it does: the full check passes, the one
 // pass is within promoteReference of the source's DPS, and the looped
-// score keeps at least promoteKept of the one pass.
+// score keeps between promoteKept and promoteKeptMax of the one pass.
 func (r *Report) Unpromotable() string {
 	switch {
 	case len(r.Failures) > 0:
@@ -116,6 +120,8 @@ func (r *Report) Unpromotable() string {
 		return fmt.Sprintf("%+.1f%% from the source's DPS, more than %.0f%%", gap*100, promoteReference*100)
 	case r.Kept() < promoteKept:
 		return fmt.Sprintf("the looped score keeps %.0f%% of one pass, less than %.0f%%", r.Kept()*100, promoteKept*100)
+	case r.Kept() > promoteKeptMax:
+		return fmt.Sprintf("the looped score keeps %.0f%% of one pass, more than %.0f%%: the rotation depends on the source's conditions", r.Kept()*100, promoteKeptMax*100)
 	}
 	return ""
 }

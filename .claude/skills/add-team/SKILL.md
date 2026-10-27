@@ -83,8 +83,9 @@ GOTOOLCHAIN=auto go run ./cmd/validate -detail teams/<id>   # actions, damage by
   information; note anything a reviewer should know.
 - `-promote` sets each team's status from the result: `supported` when
   the check passes, the one pass is within 5% of `reference.dps` and the
-  looped score keeps at least 80% of the one pass under the common
-  conditions (`validate.Report.Unpromotable`), `draft` otherwise.
+  looped score keeps 80% to 130% of the one pass under the common
+  conditions (more means the rotation depends on the source's own
+  conditions) (`validate.Report.Unpromotable`), `draft` otherwise.
   Result pages warn on draft teams. Blocked teams are left alone. Run it
   on every team you add, and on the whole library after a gcsim update:
 

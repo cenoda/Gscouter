@@ -25,7 +25,8 @@ func TestUnpromotable(t *testing.T) {
 		want bool
 	}{
 		"meets all":        {report(100, 104, 90, 80), true},
-		"kept over 100%":   {report(100, 96, 90, 95), true},
+		"kept over 100%":   {report(100, 96, 90, 117), true},
+		"keeps too much":   {report(100, 100, 50, 150), false},
 		"too far below":    {report(100, 94, 90, 90), false},
 		"too far above":    {report(100, 106, 90, 90), false},
 		"keeps too little": {report(100, 100, 100, 79), false},

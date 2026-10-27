@@ -49,7 +49,7 @@ go run ./cmd/gscouter \
 ```
 
 ```
-Team:      Hutao / Xingqiu / Zhongli / Yelan (rotation v1, draft)
+Team:      Hutao / Xingqiu / Zhongli / Yelan (rotation v1, supported)
 Score:     72363 DPS ± 77 (1 s.e.; s.d. 2430)
 Window:    150s–450s of the looped rotation, 1000 iterations, 9.882s
 One pass:  67851 DPS over 87.5s from full energy (community gcsim measure)
