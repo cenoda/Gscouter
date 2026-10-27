@@ -18,7 +18,7 @@ const GcsimCommit = "2350be9"
 
 // GcsimFork is the commit of the fork in go.mod, recorded on experimental
 // teams: a fix on the fork changes their scores but not GcsimCommit.
-const GcsimFork = "13a481c"
+const GcsimFork = "6fcfc4c"
 
 // Team builds the library entry for a split config. Its ID joins the
 // members' canonical names in config order.
