@@ -1,0 +1,47 @@
+{{/*
+Drifting Celestia and Abyss motifs behind the page, layered over the static
+sky in layout.html. Draft UI: to drop it, delete this file and the
+{{template "sky"}} line in layout.html.
+
+It stays out of the way by keeping to the page edges, low opacity and slow
+motion (a turn takes minutes). Only transform and opacity animate, so the
+browser composites it without repainting, and it holds still under
+prefers-reduced-motion. It is plain markup: nothing runs on the server or in
+script.
+*/}}
+{{define "sky"}}<style>
+.sky { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; contain: strict;
+  --sky-c: .55; --sky-a: .3; }
+@media (prefers-color-scheme: dark) { .sky { --sky-c: .3; --sky-a: .6; } }
+.sky svg { position: absolute; display: block; fill: none; stroke: var(--sky-ink); color: var(--sky-ink); }
+.sky .c { opacity: var(--sky-c); }
+.sky .a { opacity: var(--sky-a); }
+.sky .spin { animation: sky-spin 300s linear infinite; }
+.sky .spin.rev { animation-direction: reverse; animation-duration: 420s; }
+.sky .drift { animation: sky-drift 70s ease-in-out infinite alternate; }
+.sky .drift > svg { position: static; }
+.sky .tw { opacity: var(--sky-c); animation: sky-twinkle 9s ease-in-out infinite; }
+@keyframes sky-spin { to { transform: rotate(1turn); } }
+@keyframes sky-drift { to { transform: translate(-24px, 36px); } }
+@keyframes sky-twinkle { 0%, 100% { opacity: .15; } 50% { opacity: var(--sky-c); } }
+/* On narrow screens the content covers the edges, so keep only the big pieces, fainter. */
+@media (max-width: 720px) { .sky .wide { display: none; } .sky { --sky-c: .3; --sky-a: .25; } }
+@media (prefers-reduced-motion: reduce) { .sky * { animation: none !important; } }
+</style>
+<div class="sky" aria-hidden="true">
+<svg width="0" height="0"><defs>
+<symbol id="sky-astrolabe" viewBox="-100 -100 200 200"><circle r="96"/><circle r="84" stroke-dasharray="1 5"/><circle r="60"/><circle r="30" stroke-opacity=".6"/><path d="M0-96V96M-96 0H96M-68-68 68 68M68-68-68 68" stroke-opacity=".25"/><path d="M0-58 8-8 58 0 8 8 0 58-8 8-58 0-8-8z"/><path d="M0-30 4-4 30 0 4 4 0 30-4 4-30 0-4-4z" fill="currentColor" fill-opacity=".35"/><circle cx="0" cy="-84" r="4" fill="currentColor"/><circle cx="60" cy="0" r="3" fill="currentColor"/></symbol>
+<symbol id="sky-sigil" viewBox="-100 -100 200 200"><circle r="94" stroke-dasharray="14 6 2 6"/><circle r="72"/><path d="M0-72 62 36H-62zM0 72-62-36H62z" stroke-opacity=".7"/><path d="M0-46 9-13 46 0 9 13 0 46-9 13-46 0-9-13z"/><circle r="10" fill="currentColor" fill-opacity=".4"/><path d="M0-94v-6M0 94v6M-81-47l-5-3M81 47l5 3M81-47l5-3M-81 47l-5 3"/></symbol>
+<symbol id="sky-star" viewBox="-10 -10 20 20"><path d="M0-10 1.6-1.6 10 0 1.6 1.6 0 10-1.6 1.6-10 0-1.6-1.6z" fill="currentColor" stroke="none"/></symbol>
+</defs></svg>
+<svg class="c spin" style="left:-110px;bottom:-110px;width:360px;height:360px"><use href="#sky-astrolabe"/></svg>
+<svg class="c spin rev wide" style="left:4%;top:16%;width:130px;height:130px"><use href="#sky-astrolabe"/></svg>
+<div class="drift" style="position:absolute;right:-90px;top:42%"><svg class="a spin rev" style="width:280px;height:280px"><use href="#sky-sigil"/></svg></div>
+<svg class="a spin wide" style="right:6%;bottom:6%;width:120px;height:120px"><use href="#sky-sigil"/></svg>
+<svg class="tw" style="left:12%;top:58%;width:14px;height:14px"><use href="#sky-star"/></svg>
+<svg class="tw wide" style="left:3%;top:40%;width:10px;height:10px;animation-delay:-3s"><use href="#sky-star"/></svg>
+<svg class="tw wide" style="left:18%;top:8%;width:12px;height:12px;animation-delay:-6s"><use href="#sky-star"/></svg>
+<svg class="tw" style="right:14%;top:20%;width:16px;height:16px;animation-delay:-2s"><use href="#sky-star"/></svg>
+<svg class="tw wide" style="right:4%;top:30%;width:10px;height:10px;animation-delay:-5s"><use href="#sky-star"/></svg>
+<svg class="tw wide" style="right:20%;bottom:20%;width:12px;height:12px;animation-delay:-7.5s"><use href="#sky-star"/></svg>
+</div>{{end}}
