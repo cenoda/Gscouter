@@ -43,8 +43,8 @@ const (
 	failStall = 50.0
 	// A rotation that does not end within this time probably loops
 	// forever: with the enemy's infinite HP, gcsim stops only when the
-	// action list ends.
-	timeout = 2 * time.Minute
+	// action list ends. Settings.Timeout overrides it.
+	defaultTimeout = 2 * time.Minute
 	// One fight of the looped rotation takes well under a second. One
 	// that runs longer is stuck: a loop whose body takes no action (for
 	// example a counter set once in the setup) spins without time passing.
@@ -65,11 +65,23 @@ type Settings struct {
 	Iterations       int
 	Warmup, Duration float64
 	Workers          int // simulations run in parallel per check; 0 means one per CPU
+	// Timeout is how long one team's check may take before it fails as a
+	// rotation that never ends; 0 means 2 minutes. A loaded machine (CI
+	// runners checking several teams at once) needs more.
+	Timeout time.Duration
 	// Cache is a directory where simulation results are kept
 	// (score.Cache), "" for none.
 	Cache string
 
 	cache *score.Cache
+}
+
+// timeout is the check's time limit.
+func (s Settings) timeout() time.Duration {
+	if s.Timeout > 0 {
+		return s.Timeout
+	}
+	return defaultTimeout
 }
 
 // open opens s.Cache. A cache that cannot be used only costs time.
@@ -191,7 +203,7 @@ func (r *Report) Unpromotable() string {
 // to accept a team.
 func CheckReference(dir string, s Settings) *Report {
 	s = s.open()
-	return withTimeout(dir, func(ctx context.Context) *Report {
+	return withTimeout(dir, s.timeout(), func(ctx context.Context) *Report {
 		r, _ := reference(ctx, dir, s)
 		return r
 	})
@@ -202,7 +214,7 @@ func CheckReference(dir string, s Settings) *Report {
 // check that runs longer than the timeout fails.
 func Check(dir string, s Settings) *Report {
 	s = s.open()
-	return withTimeout(dir, func(ctx context.Context) *Report {
+	return withTimeout(dir, s.timeout(), func(ctx context.Context) *Report {
 		r, build := reference(ctx, dir, s)
 		if build != "" {
 			looped(ctx, r, build, s)
@@ -214,7 +226,7 @@ func Check(dir string, s Settings) *Report {
 // withTimeout runs check with a context that ends after the timeout. The
 // simulation stops at its next iteration; one that never ends keeps
 // running until the process exits.
-func withTimeout(dir string, check func(context.Context) *Report) *Report {
+func withTimeout(dir string, timeout time.Duration, check func(context.Context) *Report) *Report {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
 	done := make(chan *Report, 1)

@@ -48,6 +48,7 @@ import (
 	"path/filepath"
 	"slices"
 	"strings"
+	"time"
 
 	"github.com/cenoda/gscouter/internal/library"
 	"github.com/cenoda/gscouter/internal/score"
@@ -69,6 +70,7 @@ func main() {
 		shard      = flag.String("shard", "", "k/n: check only every n-th team, from the k-th on")
 		jsonOut    = flag.String("json", "", "write each report as a JSON line to this file")
 		cache      = flag.String("cache", defaultCache(), `directory where simulation results are kept for later runs with the same gcsim, "" for none`)
+		timeout    = flag.Duration("timeout", 2*time.Minute, "time one team's check may take before it fails as a rotation that never ends")
 	)
 	flag.Parse()
 
@@ -134,7 +136,7 @@ func main() {
 			cached = true
 		}
 	}
-	s := validate.Settings{Iterations: *iterations, Warmup: *warmup, Duration: *duration, Cache: *cache}
+	s := validate.Settings{Iterations: *iterations, Warmup: *warmup, Duration: *duration, Cache: *cache, Timeout: *timeout}
 	// Each team is checked in its own process, so a rotation stuck
 	// inside gcsim cannot slow down the others.
 	reports := make([]chan *validate.Report, len(dirs))

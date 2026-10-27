@@ -88,7 +88,7 @@ func isolated(req childRequest) *Report {
 		return fail(err.Error())
 	}
 	// Check has its own timeout; this catches a child that outlives it.
-	ctx, cancel := context.WithTimeout(context.Background(), timeout+30*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), req.Settings.timeout()+30*time.Second)
 	defer cancel()
 	cmd := exec.CommandContext(ctx, exe)
 	cmd.Env = append(os.Environ(), childEnv+"="+string(body))

@@ -96,13 +96,16 @@ jobs:
           path: bin
       # Failing teams (exit 1) are results, not errors; only a crash or a
       # missing output fails the job. validate sets GOGC for its check
-      # processes itself; -cache "" makes every simulation run.
+      # processes itself; -cache "" makes every simulation run. Four teams
+      # at once on a 4-vCPU runner run much slower than on an idle machine
+      # (one team took 49 s idle and over 2 minutes here), so the per-team
+      # limit is 6 minutes, not 2.
       - name: validate shard ${{ matrix.shard }}/${{ inputs.shards }}
         run: |
           chmod +x bin/validate
           out=${{ matrix.side }}-${{ matrix.shard }}.jsonl
           set +e
-          bin/validate -cache "" -iter 20 -j 4 -shard ${{ matrix.shard }}/${{ inputs.shards }} -json "$out" > validate.log 2>&1
+          bin/validate -cache "" -timeout 6m -iter 20 -j 4 -shard ${{ matrix.shard }}/${{ inputs.shards }} -json "$out" > validate.log 2>&1
           code=$?
           set -e
           tail -n 3 validate.log
