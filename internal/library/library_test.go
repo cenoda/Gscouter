@@ -3,6 +3,7 @@ package library
 import (
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/cenoda/gscouter/teams"
@@ -122,9 +123,11 @@ func TestLoadTier(t *testing.T) {
 		{"nefer, b, c, d", "experimental", true},
 		{"Linnea, b, c, d", "experimental", true}, // any alias
 		{"nefer, b, c, d", "experimental-nofork", false},
-		{"a, b, c, d", "fork", false},         // gcsim_fork on a verified team
-		{"nefer, b, c, d", "", false},         // fork-only member, no tier
-		{"a, b, c, d", "experimental", false}, // experimental without one
+		{"a, b, c, d", "fork", false},               // gcsim_fork on a verified team
+		{"nefer, b, c, d", "", false},               // fork-only member, no tier
+		{"a, b, c, d", "experimental", false},       // experimental without one
+		{"a, b, c, d", "experimental-nofork", true}, // a rotation written from a guide
+		{"a, b, c, d", "written-ref", false},        // experimental with a source DPS
 		{"nefer, b, c, d", "beta", false},
 	} {
 		dir := t.TempDir()
@@ -135,6 +138,8 @@ func TestLoadTier(t *testing.T) {
 			yaml += "tier: experimental\ngcsim_fork: abc1234\n"
 		case "experimental-nofork":
 			yaml += "tier: experimental\n"
+		case "written-ref":
+			yaml += "tier: experimental\nreference: {dps: 1000}\n"
 		case "fork":
 			yaml += "gcsim_fork: abc1234\n"
 		default:
@@ -153,7 +158,7 @@ func TestLoadTier(t *testing.T) {
 		if err != nil {
 			t.Fatalf("[%s] tier %q: %v", c.members, c.tier, err)
 		}
-		if team.Tier != Tier(c.tier) {
+		if want := Tier(strings.TrimSuffix(c.tier, "-nofork")); team.Tier != want {
 			t.Errorf("[%s] tier %q: loaded %q", c.members, c.tier, team.Tier)
 		}
 	}

@@ -112,6 +112,7 @@ func init() {
 
 		"warn.draft":        "Rotasi tim ini belum divalidasi. Skornya bisa berubah.",
 		"warn.experimental": "Salah satu anggota tim ini belum ada di gcsim dan dihitung dengan implementasi Gscouter sendiri. Skornya bisa berubah.",
+		"warn.written":      "Tim ini belum memiliki konfigurasi gcsim dari komunitas, jadi rotasinya ditulis berdasarkan panduan komunitas. Skornya bisa berubah.",
 		"tier.experimental": "Eksperimental",
 		"warn.energy":       "%s menunggu Energy %.1f detik per menit. Energy Recharge yang lebih tinggi akan menaikkan skor.",
 		"warn.unknown_sets": "%s: %d set Artefak belum didukung engine simulasi, jadi bonus set-nya tidak dihitung.",

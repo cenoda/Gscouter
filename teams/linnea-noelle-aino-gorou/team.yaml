@@ -1,0 +1,25 @@
+id: linnea-noelle-aino-gorou
+name: Linnea / Noelle / Aino / Gorou
+members:
+    - linnea
+    - noelle
+    - aino
+    - gorou
+archetype: Geo Lunar-Crystallize
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: 91c5de4
+sources:
+    - https://keqingmains.com/q/linnea-quickguide/
+    - https://keqingmains.com/q/noelle-quickguide/
+notes: 'Written from the community guides (design §5.4): the Linnea quick guide lists Linnea / Noelle / Aino / Gorou or Geo Traveler as its limited-roster team (Linnea E > Aino EQ > Gorou EQ > Noelle combo), and the Noelle quick guide gives the same team with the combo: Linnea E > Aino EQ > Gorou QE > Noelle EQ 2[N3D] N2 > Gorou E > Noelle 2[N3D] N2. Linnea''s N1 before her skill fills the 1 s swap cooldown after it (otherwise 2.2 s/min of waits), as the guides write it in other teams (Linnea (N1) E). Gorou''s second skill sometimes waits for its cooldown, which the check fills with attacks; guarding it with a readiness check instead cost Noelle and Gorou bursts (fewer particles). Bursts are used when ready. Build at a 4-star baseline (C0 5-stars, C6 4-stars, 4-star weapons, KQM-standard artifacts): Noelle Serpent Spine R1, 4pc Husk, DEF/Geo/CRIT with 144% ER (18 of 20 bursts); Aino Favonius Greatsword R3, 4pc SMS; Gorou Favonius Warbow R3, 4pc SMS; Linnea as in the other Linnea teams. Aino deals about 1% of the damage: she provides Hydro and the Moonsign. Fork notes: Linnea''s burst is left out (the guides do not use it here), because on the fork a burst while Lumi is out stops Lumi''s attacks.'
+cross_check:
+    note: 'No public number for this team (searched 2026-10-27: KQM quick guides, KQM TCL, the community gcsim database (no entry with Linnea), web search; Icy Veins, GameWith, GenshinBuilds and allthings.how rank Linnea teams without DPS numbers).'
+validation:
+    date: "2026-10-27"
+    iterations: 100
+    kept: 0.969
+    dps: 54066
+    draft: no reference DPS

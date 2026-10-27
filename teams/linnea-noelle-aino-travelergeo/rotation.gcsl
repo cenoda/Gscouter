@@ -1,0 +1,25 @@
+# Linnea quick guide, Linnea / Noelle / Aino / Geo Traveler:
+#   Linnea E > Aino EQ > Traveler Q shE > Noelle combo > Traveler shE >
+#   Noelle combo
+# Noelle combo from the Noelle quick guide's Linnea / Aino / Gorou
+# rotation: EQ 2[N3D] N2, then 2[N3D] N2 after the second support skill.
+# Linnea's N1 fills the swap cooldown after her short skill, as the guides
+# write it in other teams ("Linnea (N1) E"). Her burst is left out, as
+# the guide does (on the fork it would stop Lumi's attacks, design §5.4).
+active linnea;
+linnea attack, skill;
+aino skill;
+if .aino.burst.ready {
+  aino burst;
+}
+if .travelergeo.burst.ready {
+  travelergeo burst;
+}
+travelergeo skill[short_hold=1];
+noelle skill;
+if .noelle.burst.ready {
+  noelle burst;
+}
+noelle attack:3, dash, attack:3, dash, attack:2;
+travelergeo skill[short_hold=1];
+noelle attack:3, dash, attack:3, dash, attack:2;

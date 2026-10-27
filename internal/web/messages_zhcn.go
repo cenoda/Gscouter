@@ -112,6 +112,7 @@ func init() {
 
 		"warn.draft":        "该队伍的循环尚未经过验证，分数可能会变动。",
 		"warn.experimental": "该队伍包含 gcsim 尚未支持的角色，使用 Gscouter 自行实现的版本计算，分数可能会变动。",
+		"warn.written":      "该队伍尚无社区 gcsim 配置，因此根据社区攻略编写了轮转，分数可能会变动。",
 		"tier.experimental": "实验性",
 		"warn.energy":       "%s每分钟有 %.1f 秒在等待元素能量。提高元素充能效率可提升分数。",
 		"warn.unknown_sets": "%s：有 %d 个圣遗物套装尚不受模拟引擎支持，其套装效果未计入。",

@@ -1,0 +1,25 @@
+id: aratakiitto-gorou-linnea-columbina
+name: Arataki Itto / Gorou / Linnea / Columbina
+members:
+    - aratakiitto
+    - gorou
+    - linnea
+    - columbina
+archetype: Geo Lunar-Crystallize
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: 91c5de4
+sources:
+    - https://keqingmains.com/q/linnea-quickguide/
+    - https://keqingmains.com/q/itto-quickguide/
+notes: 'Written from the community guides (design §5.4): the Linnea quick guide lists Itto / Gorou / Linnea / Columbina as its third team: Columbina E (Q) > Gorou EQ > Linnea 5[E](Q) > Itto combo. Itto''s combo is the Itto quick guide''s recommended C0 one (N1Q N1 E N#2 N#3 C4F N4 C4F E F), written as in the community database''s Itto entries (attack, burst[prestack=1], attack, skill, attack:2, charge:5, attack:4, charge:5, skill, charge). Linnea plays her Ultimate Power Form nuke: one press and three recasts in gcsim (the guide''s 5[E]). Bursts are used when ready. Build at a 4-star baseline (C0 5-stars, C6 Gorou, 4-star weapons, KQM-standard artifacts): Itto Serpent Spine R1, 4pc Husk, DEF/Geo/CRIT with 144% ER (with 122% he missed his burst in 6 of 20 rotations, with 144% in 1); Gorou Favonius Warbow R3, 4pc SMS; Linnea as in the other Linnea teams; Columbina as in Nefer / Linnea / Lauma / Columbina. Itto deals 37% of the damage and Linnea 39%: Lunar-Crystallize from Lumi''s Million Ton Crush outweighs his combo at this build. Waits: none above 2 s/min. Fork notes: Linnea''s burst is left out (the guide uses it only for healing), because on the fork a burst while Lumi is out stops Lumi''s attacks.'
+cross_check:
+    note: 'No public number for this team (searched 2026-10-27: KQM quick guides, KQM TCL, the community gcsim database (no entry with Linnea), web search; Icy Veins, GameWith, GenshinBuilds and allthings.how rank Linnea teams without DPS numbers).'
+validation:
+    date: "2026-10-27"
+    iterations: 100
+    kept: 1.115
+    dps: 74668
+    draft: no reference DPS

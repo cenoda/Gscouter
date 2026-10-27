@@ -257,7 +257,9 @@ func TestWarningsKnownIssues(t *testing.T) {
 
 func TestExperimentalBadge(t *testing.T) {
 	ts := httptest.NewServer(newTestSiteWith(t, func(lib *library.Library) {
-		lib.Find([]string{"hutao", "yelan", "xingqiu", "zhongli"}).Tier = library.TierExperimental
+		team := lib.Find([]string{"hutao", "yelan", "xingqiu", "zhongli"})
+		team.Tier = library.TierExperimental
+		team.Reference = nil // written from a guide: every member is upstream
 	}).Handler())
 	t.Cleanup(ts.Close)
 	badge := `<span class="badge">Experimental</span>`
@@ -267,10 +269,13 @@ func TestExperimentalBadge(t *testing.T) {
 		t.Errorf("%d badges on /teams?q=hutao, want only the experimental team's", strings.Count(body, badge))
 	}
 	_, body = get(t, ts, "/score?server=1&a="+url.QueryEscape("800000001:hutao,yelan,xingqiu,zhongli"))
-	mustContain(t, body, badge, "is not in gcsim yet")
+	mustContain(t, body, badge, "was written from a community guide")
+	if strings.Contains(body, "is not in gcsim yet") {
+		t.Error("fork-only warning on a team of upstream characters")
+	}
 
 	_, body = get(t, newTestServer(t), "/score?server=1&a="+url.QueryEscape("800000001:hutao,yelan,xingqiu,zhongli"))
-	if strings.Contains(body, badge) || strings.Contains(body, "is not in gcsim yet") {
+	if strings.Contains(body, badge) || strings.Contains(body, "is not in gcsim yet") || strings.Contains(body, "written from a community guide") {
 		t.Error("verified team shown as experimental")
 	}
 }

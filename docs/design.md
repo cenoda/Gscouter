@@ -29,9 +29,9 @@ A user submits the builds of their party members, and Gscouter computes the team
 | Enemy | Lv. 100, 10% resistance to all elements and physical, single target | Matches the KQM standard, so results can be cross-checked against community calcs |
 | Custom enemy | A result page can set the enemy's level and per-element resistances, or start from a boss preset (§3.3); marked as not comparable with standard scores | Lets players see a team against a particular boss without giving up the standard score |
 | Fight duration | Infinite cycles of the community rotation (steady state after the opener) | Shows how well a build's Energy Recharge sustains the rotation; the one-pass community number is shown alongside |
-| Rotation | A fixed rotation per team, taken from a community gcsim config | Removes player control from the equation; community configs are the accepted standard |
+| Rotation | A fixed rotation per team: a community gcsim config when one exists; otherwise one written from a published community guide, marked "experimental" (§5.4) | Removes player control from the equation; community configs are the accepted standard, and a guide is the next best source while the database lacks a team |
 | Teams not in the library | Marked "unsupported" and not computed | Early on, library quality comes first |
-| Characters gcsim lacks | Scored in an "experimental" tier on a Gscouter fork of gcsim, with a badge (§5.4). The fork, the tier and the badge are in place; three draft teams with Nefer and Linnea use it | A public site needs every released character; upstream takes months per character |
+| Characters gcsim or the community database lacks | Scored in an "experimental" tier with a badge (§5.4): characters upstream gcsim lacks run on a Gscouter fork of gcsim, and teams the database has no entry for get a rotation written from a community guide | A public site needs every released character; upstream takes months per character, and the database often has no entry for a character that upstream has (Iansan, Illuga, Odette, Alyosha) |
 | Library management | Manual authoring/approval + automated validation | Rotation quality *is* fairness |
 | Simulation engine | [gcsim](https://github.com/genshinsim/gcsim) (MIT license) | Frame-level simulator, community standard, fast to add new characters |
 | Build input | Enka.Network UID (primary), GOOD JSON (secondary) | Manual stat entry tends to go unused |
@@ -70,7 +70,7 @@ Hu Tao's `start_hp=1` param raises the one-rotation number by about 13% and has 
 | 1000 iterations (CLI) | ±0.2% | 9.8 s |
 | **100 iterations (site default)** | ±0.5% | about 1 s |
 
-History: a first library batch of 64 rotations written by agents without sources scored about a third of community numbers and was removed. Rotations now always come from community configs.
+History: a first library batch of 64 rotations written by agents without sources scored about a third of community numbers and was removed. Rotations now come from community configs, or, for a team the database has no entry for, from a published community guide under the rules in §5.4. A rotation is never written from our own idea of a team.
 
 ### 3.2 Common simulation conditions
 
@@ -278,7 +278,7 @@ Each team stores the source's options, target, energy and hurt lines in `source.
 
 | Step | Mode | Description |
 |---|---|---|
-| 1. Harvest | Automated | `cmd/harvest -n <teams>`; rerun to refresh. `cmd/import` adds a single gcsim share link by hand. Rotations are never written from scratch |
+| 1. Harvest | Automated | `cmd/harvest -n <teams>`; rerun to refresh. `cmd/import` adds a single gcsim share link by hand. A team the database has no entry for gets a rotation written from a community guide (§5.4); none is written without a source |
 | 2. Validation | Automated | `cmd/validate`. CI validates fully the team directories a push or pull request changes (30 of them, chosen at random, when it changes more), or 10 random teams when it changes none |
 | 3. Approval | Automated | `cmd/validate -promote` sets `status: supported` on teams that meet the criteria below and returns the others to `draft`; `cmd/harvest` writes new teams the same way |
 | 4. Regression tests | Automated | Re-run everything on gcsim updates or game patches with `-promote`, so teams that no longer meet the criteria go back to `draft`. A looped score more than 5% from the recorded `validation.dps` is a warning, in CI too |
@@ -303,7 +303,7 @@ Goal: every released character can be scored, including the ones upstream gcsim 
 | Tier | Engine | Rotation | Shown as |
 |---|---|---|---|
 | Verified | Upstream gcsim | A community database entry that reproduces its DPS (§5.3) | Score |
-| Experimental | Gscouter's gcsim fork: upstream plus the characters upstream lacks | A community entry if one exists, otherwise written by us under the rules below | Score with an "experimental" badge: values may change |
+| Experimental | Gscouter's gcsim fork: upstream plus the characters upstream lacks | A community entry if one exists, otherwise written by us under the rules below. This covers any team the database has no entry for, whether or not a member is fork-only | Score with an "experimental" badge: values may change |
 | Unsupported | No implementation | — | "Unsupported" |
 
 **Fork**
@@ -331,13 +331,14 @@ Nefer and Linnea have draft library teams (Rotations below); Kachina has none ye
 Shared code: Nefer's PR changes how Verdant Dew is collected so that her P2 and C4 can speed it up. The partial dew counter becomes a float and each frame adds 1 plus the sum of registered rate mods; only Nefer registers one. Without Nefer the sum is 0 and the counter reaches 146 on the same frame as before; Lauma and Columbina teams were part of the regression run. Linnea and Kachina change nothing outside their packages; all their event subscriptions are made when they are in the party.
 
 **Rotations**
-- The community database has no entries for characters upstream lacks, so experimental teams are an exception to "rotations are never written from scratch" (§3.1, §5.2). The exception ends for a team once the database has an entry for it: `cmd/harvest` then replaces our rotation.
+- Rotations come from a community gcsim config when one exists (§3.1, §5.2). When the community database has no entry for a team, its rotation is written from a published community guide under the rules below, and the team is experimental. The reason the entry is missing does not matter: the database has none for characters upstream lacks, and it can also lag behind upstream (in October 2026 it had none for Iansan, Illuga, Odette or Alyosha, all in upstream gcsim). A written rotation lasts only until the database has an entry for the team: `cmd/harvest` then replaces it.
+- Rules in this document describe how a team gets a source, not which characters may have one. A new character, or a team the tooling does not fit yet, is a reason to extend these rules and the tooling, not to leave the character unscored.
 - The removed agent-written batch scored a third of community numbers (§3.1), so a written rotation needs:
   - a published community rotation guide (KQM or similar) for the team or its archetype, listed in `sources`;
   - a cross-check against a public calculation or showcase DPS when one exists, recorded in `team.yaml`;
   - the looped full check (§5.3), as for any team;
   - review by a person before `status: supported`.
-- Tooling for written rotations: `library.Team.Written` (an experimental team without a `reference`). `cmd/validate` skips the reference comparison for them ("reference check skipped") and runs the full looped check as for any team; it warns when `cross_check` is missing, and when a recorded cross-check DPS is more than 15% from the one pass. `team.yaml` records the cross-check as `cross_check: {dps, source, note}`, the note saying what was searched when nothing was found; a library test requires `sources` and a `cross_check` note on every written team. CI validates them like any changed team. `cmd/harvest` keeps a written team (it is in no database group while upstream lacks its characters); once the database has an entry for its members, it tries the entries without `-force` and removes the written team only when one passes, in whatever member order the entry names; if none passes, the written team stays and the team is listed in `harvest-failed.txt`. Before, `-force` removed the directory before trying the entries, which would have lost a written team whose entries all failed. Tested with a fake database cache: a failing entry left the team in place, with and without `-force`; a passing one replaced it.
+- Tooling for written rotations: `library.Team.Written` (an experimental team without a `reference`). `cmd/validate` skips the reference comparison for them ("reference check skipped") and runs the full looped check as for any team; it warns when `cross_check` is missing, and when a recorded cross-check DPS is more than 15% from the one pass. `team.yaml` records the cross-check as `cross_check: {dps, source, note}`, the note saying what was searched when nothing was found; a library test requires `sources` and a `cross_check` note on every written team. CI validates them like any changed team. `cmd/harvest` keeps a written team (it is in no database group while the database has no entry for its members); once the database has an entry for its members, it tries the entries without `-force` and removes the written team only when one passes, in whatever member order the entry names; if none passes, the written team stays and the team is listed in `harvest-failed.txt`. Before, `-force` removed the directory before trying the entries, which would have lost a written team whose entries all failed. Tested with a fake database cache: a failing entry left the team in place, with and without `-force`; a passing one replaced it.
 
 **First experimental teams** (2026-10-27, fork `91c5de4`, all `status: draft`)
 
@@ -370,7 +371,7 @@ So the validation builds (`build.txt`) are now at the level of each team's cross
 - Fork: Nefer's Phantasm Performance checks the charged attack only for its first hit; the later hits are queued at fixed delays and land even when a dash or swap cancels it. The Nefer guide says a dash cancel loses Nefer's second hit, so dash-cancelled rotations keep it on the fork: about 1.5% of a Nefer team's damage.
 
 **Display**
-- `team.yaml` gets `tier: experimental` (`library.TierExperimental`; no tier means verified). Loading checks it: a team needs the tier exactly when a member is in `library.ForkOnly`, so a team with a fork-only character cannot pass as verified, nor a verified team carry the badge. Experimental teams also record `gcsim_fork`, the fork commit they were written for: `gcsim_commit` names the upstream base, which a fix on the fork leaves unchanged, so without it a score change from a fork fix could not be told apart. `cmd/import` and `cmd/harvest` set both fields for a team with a fork-only member. `/teams` and the team header of result pages show an "Experimental" badge, in every site language, and the result adds a note that the score may change. A versus page renders that header for each side, so the badge shows on the experimental side only. Link-preview cards do not show it yet.
+- `team.yaml` gets `tier: experimental` (`library.TierExperimental`; no tier means verified). Loading checks it: a team needs the tier when a member is in `library.ForkOnly`, and may have it otherwise only when its rotation is written (`library.Team.Written`, no `reference`), so a team with a fork-only character cannot pass as verified, nor a team from a community config carry the badge. Teams with a fork-only member also record `gcsim_fork`, the fork commit they were written for: `gcsim_commit` names the upstream base, which a fix on the fork leaves unchanged, so without it a score change from a fork fix could not be told apart. `cmd/import` and `cmd/harvest` set both fields for a team with a fork-only member. `/teams` and the team header of result pages show an "Experimental" badge, in every site language, and the result adds a note that the score may change, saying why: a member is not in gcsim yet (`warn.experimental`), the rotation was written from a community guide (`warn.written`), or both. A versus page renders that header for each side, so the badge shows on the experimental side only. Link-preview cards do not show it yet.
 
 ## 6. Initial Library
 

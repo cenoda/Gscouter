@@ -1,0 +1,24 @@
+# Linnea quick guide, Linnea / Noelle / Aino / Gorou:
+#   Linnea E > Aino EQ > Gorou EQ > Noelle combo
+# Noelle quick guide, same team, with the combo:
+#   Linnea E > Aino EQ > Gorou QE > Noelle EQ 2[N3D] N2 > Gorou E >
+#   Noelle 2[N3D] N2
+# Linnea's burst is left out, as both guides do (on the fork it would stop
+# Lumi's attacks, design §5.4).
+active linnea;
+linnea attack, skill;
+aino skill;
+if .aino.burst.ready {
+  aino burst;
+}
+if .gorou.burst.ready {
+  gorou burst;
+}
+gorou skill;
+noelle skill;
+if .noelle.burst.ready {
+  noelle burst;
+}
+noelle attack:3, dash, attack:3, dash, attack:2;
+gorou skill;
+noelle attack:3, dash, attack:3, dash, attack:2;

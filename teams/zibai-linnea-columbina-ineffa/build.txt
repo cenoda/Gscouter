@@ -1,0 +1,28 @@
+# Build approximating the Zibai cross-check source (see team.yaml): the
+# Zibai, Linnea and Columbina builds of Zibai / Linnea / Columbina /
+# Gorou; Ineffa C0 with Prospector's Shovel and 4pc Gilded Dreams, from
+# the guide's lists, at the same artifact level.
+
+zibai char lvl=90/90 cons=0 talent=9,9,9;
+zibai add weapon="lightbearingmoonshard" refine=1 lvl=90/90;
+zibai add set="notsu" count=4;
+zibai add stats hp=4780 atk=311 def%=0.583 def%=0.583 cd=0.622;
+zibai add stats def%=0.062*8 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*2 em=19.82*2 cr=0.0331*14 cd=0.0662*14;
+
+linnea char lvl=90/90 cons=0 talent=9,9,9;
+linnea add weapon="slingshot" refine=5 lvl=90/90;
+linnea add set="husk" count=4;
+linnea add stats hp=4780 atk=311 def%=0.583 def%=0.583 cr=0.311;
+linnea add stats def%=0.062*4 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*12;
+
+columbina char lvl=90/90 cons=2 talent=9,9,9;
+columbina add weapon="nocturnescurtaincall" refine=1 lvl=90/90;
+columbina add set="aubade" count=4;
+columbina add stats hp=4780 atk=311 er=0.518 hp%=0.466 cr=0.311;
+columbina add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*6 atk=16.54*2 atk%=0.0496*2 er=0.0551*10 em=19.82*2 cr=0.0331*6 cd=0.0662*6;
+
+ineffa char lvl=90/90 cons=0 talent=9,9,9;
+ineffa add weapon="prospectorsshovel" refine=5 lvl=90/90;
+ineffa add set="gildeddreams" count=4;
+ineffa add stats hp=4780 atk=311 em=187 em=187 em=187;
+ineffa add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*8 er=0.0551*4 em=19.82*6 cr=0.0331*4 cd=0.0662*6;

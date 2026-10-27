@@ -23,15 +23,18 @@ const (
 	StatusBlocked   Status = "blocked"
 )
 
-// Tier says which gcsim a team's score comes from (design §5.4).
+// Tier says how far a team's score can be trusted (design §5.4).
 type Tier string
 
 const (
-	// TierVerified teams use only characters upstream gcsim has. It is
-	// the default, written as no tier at all.
+	// TierVerified teams use only characters upstream gcsim has and a
+	// rotation from a community gcsim config. It is the default, written
+	// as no tier at all.
 	TierVerified Tier = ""
 	// TierExperimental teams have a character only Gscouter's gcsim fork
-	// has. Their scores carry a badge: they may change.
+	// has, or a rotation written from a guide because no community config
+	// exists for the team (Written). Their scores carry a badge: they may
+	// change.
 	TierExperimental Tier = "experimental"
 )
 
@@ -100,6 +103,12 @@ func (t *Team) Written() bool {
 	return t.Tier == TierExperimental && t.Reference == nil
 }
 
+// HasForkOnly reports whether a member is a character only Gscouter's
+// gcsim fork has.
+func (t *Team) HasForkOnly() bool {
+	return slices.ContainsFunc(t.Members, func(m string) bool { return ForkOnly[Canonical(m)] })
+}
+
 type Validation struct {
 	Date       string `yaml:"date"`
 	Iterations int    `yaml:"iterations"`
@@ -141,12 +150,12 @@ func LoadFS(fsys fs.FS, dir string) (*Team, error) {
 	default:
 		return nil, fmt.Errorf("team %q: unknown tier %q", t.ID, t.Tier)
 	}
-	forkOnly := slices.ContainsFunc(t.Members, func(m string) bool { return ForkOnly[Canonical(m)] })
-	if forkOnly != (t.Tier == TierExperimental) {
-		if forkOnly {
-			return nil, fmt.Errorf("team %q: has a character only the gcsim fork has, so it needs tier: experimental", t.ID)
-		}
-		return nil, fmt.Errorf("team %q: tier experimental, but every member is in upstream gcsim", t.ID)
+	forkOnly := t.HasForkOnly()
+	switch {
+	case forkOnly && t.Tier != TierExperimental:
+		return nil, fmt.Errorf("team %q: has a character only the gcsim fork has, so it needs tier: experimental", t.ID)
+	case t.Tier == TierExperimental && !forkOnly && !t.Written():
+		return nil, fmt.Errorf("team %q: tier experimental, but every member is in upstream gcsim and the rotation has a source DPS", t.ID)
 	}
 	if (t.GcsimFork != "") != forkOnly {
 		return nil, fmt.Errorf("team %q: gcsim_fork goes with tier experimental, and only with it", t.ID)

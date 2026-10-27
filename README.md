@@ -80,7 +80,7 @@ Flags:
 
 ## Team library
 
-Each team has a `team.yaml`, a `rotation.gcsl`, a `build.txt` and a `source.txt` (the source's enemy, energy and options lines), all taken from a community gcsim config. Rotations are never written from scratch.
+Each team has a `team.yaml`, a `rotation.gcsl`, a `build.txt` and a `source.txt` (the source's enemy, energy and options lines), taken from a community gcsim config. A team the community database has no entry for gets a rotation written from a published community guide instead, marked experimental (design §5.4); no rotation is written without a source.
 
 ```sh
 go run ./cmd/harvest -n 10000 -cache /tmp/kqm.json   # every team in db.kqm.gg, saving the download

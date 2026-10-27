@@ -1,0 +1,24 @@
+id: zibai-illuga-linnea-xingqiu
+name: Zibai / Illuga / Linnea / Xingqiu
+members:
+    - zibai
+    - illuga
+    - linnea
+    - xingqiu
+archetype: Geo Lunar-Crystallize hypercarry
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: 91c5de4
+sources:
+    - https://keqingmains.com/q/zibai-quickguide/
+notes: 'Written from the community guide (design §5.4): the Zibai quick guide lists Zibai / Illuga / Linnea / Aino, Yelan or Xingqiu, with the rotation Linnea (N1) E > Xingqiu ED (Q N1) > Illuga Q E > Zibai combo. Xingqiu and Illuga burst when ready. Build at the level of Zibai / Linnea / Columbina / Gorou (same Zibai and Linnea builds). Spirit Steed''s Stride needs 70 Phase Shift Radiance; Zibai attacks until she has it. Illuga C0, Favonius Lance R3 (the guide''s pick when ER is tight), 2pc Gilded Dreams + 2pc Wanderer''s Troupe (the guide''s 2pc EM + 2pc EM; 4pc Silken Moon''s Serenade needs his C2), ER/EM/EM, 204% ER: he bursts every rotation (the guide asks 185% at C0). Xingqiu C6, Favonius Sword R3, 4pc Silken Moon''s Serenade (the guide''s build), ER/Hydro/CRIT. Waits: the rotation is about 19 s, under Xingqiu''s 21 s skill cooldown, so the looped rotation waits about 4 s/min for his skill (validation warns); the guide''s footnote gives Sacrificial Sword, with his burst every other rotation, to shorten it. No energy waits. Fork notes: Linnea''s burst is left out (the guides use it only for healing), because on the fork a burst while Lumi is out stops Lumi''s attacks; Linnea''s A4 EM buff is not refreshed on swap. Zibai, Illuga and Xingqiu are upstream characters.'
+cross_check:
+    note: 'No public number for this exact team (searched 2026-10-27: the KQM Zibai and Illuga quick guides (no DPS numbers), the community gcsim database (no entry with Zibai, Linnea or Illuga), web search (only unsourced build-site figures)). For scale: Zibai / Linnea / Columbina / Gorou, same Zibai, Linnea and Columbina builds, is 235.9k one pass and 252.4k looped; the Korean community reports about 200k for C0 Zibai with C2 Columbina in Zibai / Illuga / Columbina + Zhongli or Gorou (arca.live 161869688).'
+validation:
+    date: "2026-10-27"
+    iterations: 100
+    kept: 0.939
+    dps: 141945
+    draft: no reference DPS

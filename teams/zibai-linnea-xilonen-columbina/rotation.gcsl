@@ -1,0 +1,29 @@
+# Zibai quick guide, Zibai / Linnea / Xilonen / Columbina:
+#   Columbina E (Q) > Xilonen > Linnea (N1) E or 5[E] > Zibai combo
+# Xilonen plays E N2 (her Nightsoul kicks, as in the guide's other
+# Xilonen teams); her burst is for healing only ("use Xilonen's Burst
+# whenever healing is or will be needed") and is left out. Linnea plays
+# Super Mode, (N1) E. Full combo: E, then 4[N4 E]; if Q is available, N1
+# Q after an E. Spirit Steed's Stride needs 70 Phase Shift Radiance:
+# Zibai attacks until she has it. Linnea's burst is left out (only for
+# healing; on the fork it would stop Lumi, design §5.4).
+active columbina;
+columbina skill;
+if .columbina.burst.ready {
+  columbina burst;
+}
+xilonen skill, attack:2;
+linnea attack, skill;
+zibai skill;
+for let i = 0; i < 4; i = i + 1 {
+  zibai attack:4;
+  while .zibai.radiance > 0 && .zibai.radiance < 70 {
+    zibai attack;
+  }
+  if .zibai.radiance >= 70 {
+    zibai skill;
+    if .zibai.burst.ready {
+      zibai attack, burst;
+    }
+  }
+}

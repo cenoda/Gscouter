@@ -1,0 +1,24 @@
+id: zibai-linnea-columbina-ineffa
+name: Zibai / Linnea / Columbina / Ineffa
+members:
+    - zibai
+    - linnea
+    - columbina
+    - ineffa
+archetype: Geo Lunar-Crystallize hypercarry
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: 91c5de4
+sources:
+    - https://keqingmains.com/q/zibai-quickguide/
+notes: 'Written from the community guide (design §5.4): the Zibai quick guide lists Zibai / Xilonen or Linnea / Columbina / Ineffa, with the rotation Columbina E (Q) > Ineffa E (Q) > Linnea (N1) E or 5[E] > Zibai combo; Ineffa''s burst is skipped in the first rotation, then used when available. Linnea plays Super Mode, (N1) E. Build at the level of Zibai / Linnea / Columbina / Gorou (same Zibai and Linnea builds, C2 Columbina with her signature and 4pc Aubade). Spirit Steed''s Stride needs 70 Phase Shift Radiance; Zibai attacks until she has it. Ineffa C0, Prospector''s Shovel R5 and 4pc Gilded Dreams (from the guide''s lists; Columbina already holds Aubade), EM/EM/EM, about 122% ER: at the guide''s 100% tier she bursts when available, every other rotation here. Electro on the target makes part of Zibai''s Geo crystallize Electro instead of Hydro, so the team scores below the Gorou and Xilonen ones. Waits: none above 2 s/min, no energy waits. Fork notes: Linnea''s burst is left out (the guides use it only for healing), because on the fork a burst while Lumi is out stops Lumi''s attacks; Linnea''s A4 EM buff is not refreshed on swap. Zibai, Columbina and Ineffa are upstream characters.'
+cross_check:
+    note: 'No public number for this exact team (searched 2026-10-27: the KQM Zibai and Illuga quick guides (no DPS numbers), the community gcsim database (no entry with Zibai, Linnea or Illuga), web search (only unsourced build-site figures)). For scale: Zibai / Linnea / Columbina / Gorou, same Zibai, Linnea and Columbina builds, is 235.9k one pass and 252.4k looped; the Korean community reports about 200k for C0 Zibai with C2 Columbina in Zibai / Illuga / Columbina + Zhongli or Gorou (arca.live 161869688).'
+validation:
+    date: "2026-10-27"
+    iterations: 100
+    kept: 1.148
+    dps: 193637
+    draft: no reference DPS

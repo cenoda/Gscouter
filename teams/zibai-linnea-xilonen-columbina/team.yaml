@@ -1,0 +1,24 @@
+id: zibai-linnea-xilonen-columbina
+name: Zibai / Linnea / Xilonen / Columbina
+members:
+    - zibai
+    - linnea
+    - xilonen
+    - columbina
+archetype: Geo Lunar-Crystallize hypercarry
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: 91c5de4
+sources:
+    - https://keqingmains.com/q/zibai-quickguide/
+notes: 'Written from the community guide (design §5.4): the Zibai quick guide lists Zibai / Linnea / Gorou or Xilonen / Columbina, with the rotation Columbina E (Q) > Xilonen > Linnea (N1) E or 5[E] > Zibai combo. Xilonen plays E N2 (her Nightsoul kicks, as in the guide''s other Xilonen teams); the guide uses her burst only when healing is needed, so it is left out. Linnea plays Super Mode, (N1) E. Build at the level of Zibai / Linnea / Columbina / Gorou (same Zibai and Linnea builds, C2 Columbina with her signature and 4pc Aubade). Spirit Steed''s Stride needs 70 Phase Shift Radiance; Zibai attacks until she has it. Xilonen C0, Favonius Sword R3, 4pc Scroll of the Hero of Cinder City (the guide''s build), DEF/DEF/CRIT. Waits: none above 2 s/min, no energy waits. Fork notes: Linnea''s burst is left out (the guides use it only for healing), because on the fork a burst while Lumi is out stops Lumi''s attacks; Linnea''s A4 EM buff is not refreshed on swap. Zibai, Xilonen and Columbina are upstream characters.'
+cross_check:
+    note: 'No public number for this exact team (searched 2026-10-27: the KQM Zibai and Illuga quick guides (no DPS numbers), the community gcsim database (no entry with Zibai, Linnea or Illuga), web search (only unsourced build-site figures)). GenshinBuilds lists Zibai / Columbina / Aino / Xilonen, not this team, with no DPS. For scale: Zibai / Linnea / Columbina / Gorou, same Zibai, Linnea and Columbina builds, is 235.9k one pass and 252.4k looped; the Korean community reports about 200k for C0 Zibai with C2 Columbina in Zibai / Illuga / Columbina + Zhongli or Gorou (arca.live 161869688).'
+validation:
+    date: "2026-10-27"
+    iterations: 100
+    kept: 1.124
+    dps: 224750
+    draft: no reference DPS

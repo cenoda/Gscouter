@@ -1,0 +1,41 @@
+# Linnea quick guide, Linnea / Navia / Columbina / Furina:
+#   (Linnea E)1 > Furina ED Q > Linnea Q > Columbina E Q >
+#   Navia Q tE 2[N2D] N2 > Furina N2 > Navia tE 2[N2D] N2 (tE)
+#   1 first rotation only
+# Linnea's burst is replaced by her skill whenever it is ready: on the
+# fork a burst while Lumi is out stops Lumi's attacks (design §5.4), and
+# the skill (18 s) is ready every rotation. Crystallize shards are picked
+# up on each dash for Navia's skill.
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if action_id == .action.dash {
+    pick_up_crystallize("any");
+  }
+  return _execute_action(char_id, action_id, p);
+}
+active linnea;
+let first = 1;
+if first == 1 {
+  linnea skill;
+  first = 0;
+}
+furina skill, dash;
+if .furina.burst.ready {
+  furina burst;
+}
+if .linnea.skill.ready {
+  linnea skill;
+}
+columbina skill;
+if .columbina.burst.ready {
+  columbina burst;
+}
+if .navia.burst.ready {
+  navia burst;
+}
+navia skill, attack:2, dash, attack:2, dash, attack:2;
+furina attack:2;
+navia skill, attack:2, dash, attack:2, dash, attack:2;
+if .navia.skill.ready {
+  navia skill;
+}

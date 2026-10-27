@@ -1,0 +1,29 @@
+# Zibai quick guide, Zibai / Illuga / Linnea / Aino:
+#   Linnea (N1) E > Aino EQ > Illuga Q E > Zibai combo
+# Aino and Illuga burst when ready. Full combo: E, then 4[N4 E]; if Q is
+# available, N1 Q after an E. Spirit Steed's Stride needs 70 Phase Shift
+# Radiance: Zibai attacks until she has it. Linnea's burst is left out
+# (only for healing; on the fork it would stop Lumi, design §5.4).
+active linnea;
+linnea attack, skill;
+aino skill;
+if .aino.burst.ready {
+  aino burst;
+}
+if .illuga.burst.ready {
+  illuga burst;
+}
+illuga skill;
+zibai skill;
+for let i = 0; i < 4; i = i + 1 {
+  zibai attack:4;
+  while .zibai.radiance > 0 && .zibai.radiance < 70 {
+    zibai attack;
+  }
+  if .zibai.radiance >= 70 {
+    zibai skill;
+    if .zibai.burst.ready {
+      zibai attack, burst;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+# Build approximating the Zibai cross-check source (see team.yaml): the
+# Zibai and Linnea builds of Zibai / Linnea / Columbina / Gorou, Illuga
+# as in Zibai / Illuga / Linnea / Columbina; Xingqiu C6 with Favonius Sword and
+# 4pc Silken Moon's Serenade, as the guide recommends, at the same
+# artifact level.
+
+zibai char lvl=90/90 cons=0 talent=9,9,9;
+zibai add weapon="lightbearingmoonshard" refine=1 lvl=90/90;
+zibai add set="notsu" count=4;
+zibai add stats hp=4780 atk=311 def%=0.583 def%=0.583 cd=0.622;
+zibai add stats def%=0.062*8 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*2 em=19.82*2 cr=0.0331*14 cd=0.0662*14;
+
+linnea char lvl=90/90 cons=0 talent=9,9,9;
+linnea add weapon="slingshot" refine=5 lvl=90/90;
+linnea add set="husk" count=4;
+linnea add stats hp=4780 atk=311 def%=0.583 def%=0.583 cr=0.311;
+linnea add stats def%=0.062*4 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*12;
+
+illuga char lvl=90/90 cons=0 talent=9,9,9;
+illuga add weapon="favoniuslance" refine=3 lvl=90/90;
+illuga add set="gildeddreams" count=2;
+illuga add set="wandererstroupe" count=2;
+illuga add stats hp=4780 atk=311 er=0.518 em=187 em=187;
+illuga add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*4 em=19.82*12 cr=0.0331*8 cd=0.0662*2;
+
+xingqiu char lvl=90/90 cons=6 talent=9,9,9;
+xingqiu add weapon="favoniussword" refine=3 lvl=90/90;
+xingqiu add set="sms" count=4;
+xingqiu add stats hp=4780 atk=311 er=0.518 hydro%=0.466 cr=0.311;
+xingqiu add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*6 er=0.0551*6 em=19.82*2 cr=0.0331*6 cd=0.0662*8;

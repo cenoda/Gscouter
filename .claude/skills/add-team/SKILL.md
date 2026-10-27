@@ -5,19 +5,25 @@ description: Fill the Gscouter team library from the community gcsim database (c
 
 # Add a team to the library
 
-Library rotations come only from community gcsim configs. Never write a
-rotation from your own idea of the team: a batch written that way scored
-a third of the community numbers and was deleted. If there is no source
-config for a team, say so and stop.
+Library rotations have a source, in this order:
 
-The one exception is an experimental team (a member in
-`library.ForkOnly`) when the database has no entry for it: its rotation
-is written from a published community guide under the rules in
-`docs/design.md` §5.4 (guide in `sources`, guide builds in `build.txt`,
-no `reference`, a `cross_check` recording a public DPS or what was
-searched, the full check passing). `cmd/validate` skips the reference
-comparison for such a team, and `cmd/harvest` replaces it once a
-database entry for it passes.
+1. A community gcsim config: the database (step 1) or a share link
+   (step 2).
+2. When no config exists for the team, whatever its members (a
+   character upstream gcsim lacks, or one the database has not caught
+   up with yet, such as Iansan in October 2026): a published community
+   guide (KQM quick guide or similar), under the rules in
+   `docs/design.md` §5.4. The team gets `tier: experimental` (plus
+   `gcsim_fork` only when a member is in `library.ForkOnly`), the guide
+   in `sources`, no `reference`, a `cross_check` recording a public DPS
+   or what was searched, and must pass the full check. `cmd/validate`
+   skips the reference comparison for such a team, and `cmd/harvest`
+   replaces it once a database entry for it passes.
+
+Never write a rotation from your own idea of the team: a batch written
+that way scored a third of the community numbers and was deleted. Stop
+only when neither a config nor a guide exists, and say so. A missing
+config is never by itself a reason to leave a character unscored.
 
 Run Go commands with `GOTOOLCHAIN=auto` (gcsim needs Go 1.27).
 
