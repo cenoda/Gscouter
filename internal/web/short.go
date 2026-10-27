@@ -76,6 +76,7 @@ func (s *Server) handleShorten(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		if got == target {
+			go s.warmCard(target)
 			w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 			w.Write([]byte(baseURL(r) + "/s/" + id))
 			return
@@ -124,6 +125,31 @@ func shortTarget(u string) (string, error) {
 	addEnemy(want, enemy)
 	return p.Path + "?" + want.Encode(), nil
 }
+
+// warmCard draws the link preview card of a result link (target), the
+// image its page names, so that it is ready when the link is pasted.
+// The first request for a card calculates the score, which takes
+// seconds, and apps show a blank preview while they wait.
+func (s *Server) warmCard(target string) {
+	path, query, _ := strings.Cut(target, "?")
+	req, err := http.NewRequest(http.MethodGet, "/card"+path+".png?"+query, nil)
+	if err != nil {
+		return
+	}
+	switch path {
+	case "/score":
+		s.handleScoreCard(discard{}, req)
+	case "/versus":
+		s.handleVersusCard(discard{}, req)
+	}
+}
+
+// discard is a ResponseWriter that drops the response.
+type discard struct{}
+
+func (discard) Header() http.Header         { return http.Header{} }
+func (discard) Write(b []byte) (int, error) { return len(b), nil }
+func (discard) WriteHeader(int)             {}
 
 // handleShort redirects a short link to its result.
 func (s *Server) handleShort(w http.ResponseWriter, r *http.Request) {

@@ -8,6 +8,7 @@ import (
 	"strings"
 	"sync"
 	"testing"
+	"time"
 )
 
 // memLinks is a LinkStore in memory.
@@ -140,5 +141,39 @@ func TestShortLinkRateLimit(t *testing.T) {
 	}
 	if code, _ := shorten(t, ts.Client(), ts.URL, u); code != http.StatusTooManyRequests {
 		t.Errorf("link over the limit: %d", code)
+	}
+}
+
+func TestShortLinkWarmsCard(t *testing.T) {
+	srv := newTestSite(t)
+	srv.SetLinks(&memLinks{m: map[string]string{}})
+	ts := newTestServerFor(t, srv)
+	for _, long := range []string{
+		"/score?" + url.Values{"a": {"800000001~" + packBuilds("Strong", hutaoTeam())}, "lvl": {"90"}}.Encode(),
+		"/versus?" + url.Values{"a": {"800000001~" + packBuilds("Strong", hutaoTeam())}, "b": {"800000002~" + packBuilds("Weak", hutaoTeam())}}.Encode(),
+	} {
+		// The card the page names for link previews.
+		_, body := get(t, ts, long)
+		i := strings.Index(body, `og:image" content="`)
+		if i < 0 {
+			t.Fatalf("%s: no og:image", long)
+		}
+		card := body[i+len(`og:image" content="`):]
+		card = strings.ReplaceAll(card[:strings.Index(card, `"`)], "&amp;", "&")
+		card = strings.TrimPrefix(card, ts.URL)
+
+		if code, _ := shorten(t, ts.Client(), ts.URL, long); code != http.StatusOK {
+			t.Fatalf("shorten: %d", code)
+		}
+		deadline := time.Now().Add(30 * time.Second)
+		for {
+			if _, ok := srv.cards.get(card); ok {
+				break
+			}
+			if time.Now().After(deadline) {
+				t.Fatalf("card %.80s not drawn after shortening", card)
+			}
+			time.Sleep(50 * time.Millisecond)
+		}
 	}
 }
