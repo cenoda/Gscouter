@@ -21,6 +21,11 @@ func TestLoadAllTeams(t *testing.T) {
 		if team.Status != StatusBlocked && team.Rotation == "" {
 			t.Errorf("%s: %s team has no rotation", team.ID, team.Status)
 		}
+		// A rotation written from a guide must name the guide and say how
+		// it compares with public numbers (design §5.4).
+		if team.Written() && (len(team.Sources) == 0 || team.CrossCheck == nil || team.CrossCheck.Note == "") {
+			t.Errorf("%s: written rotation without sources or a cross_check note", team.ID)
+		}
 	}
 }
 
@@ -150,6 +155,23 @@ func TestLoadTier(t *testing.T) {
 		}
 		if team.Tier != Tier(c.tier) {
 			t.Errorf("[%s] tier %q: loaded %q", c.members, c.tier, team.Tier)
+		}
+	}
+}
+
+func TestWritten(t *testing.T) {
+	ref := &Reference{DPS: 1}
+	for _, c := range []struct {
+		team Team
+		want bool
+	}{
+		{Team{}, false},               // verified, even without a reference
+		{Team{Reference: ref}, false}, // verified from the database
+		{Team{Tier: TierExperimental}, true},
+		{Team{Tier: TierExperimental, Reference: ref}, false}, // from a database entry or a share
+	} {
+		if got := c.team.Written(); got != c.want {
+			t.Errorf("tier %q, reference %v: Written() = %v", c.team.Tier, c.team.Reference != nil, got)
 		}
 	}
 }

@@ -21,6 +21,10 @@
 // Teams that fail every entry are recorded in <root>/harvest-failed.txt
 // and skipped by the next run unless -retry-failed is set.
 //
+// An experimental team whose rotation was written from a guide
+// (library.Team.Written) is replaced, without -force, once the database
+// has an entry for it that passes; until then it is kept as it is.
+//
 // Usage:
 //
 //	harvest                                # the 64 most common teams into teams/
@@ -99,6 +103,9 @@ type candidate struct {
 type group struct {
 	key        string // sorted canonical member names
 	candidates []candidate
+	// replaces is the directory of the team's written rotation, removed
+	// when an entry passes.
+	replaces string
 }
 
 func run(o options) error {
@@ -162,19 +169,25 @@ func run(o options) error {
 		if held+len(todo) >= o.n || len(g.candidates) < o.minEntries {
 			break
 		}
-		if dir, ok := existing[g.key]; ok {
-			if !o.force {
-				if err := backfillSource(dir, byID); err != nil {
+		if ex, ok := existing[g.key]; ok {
+			// A written rotation gives way to the database's entry, but
+			// only once one passes: harvest removes it then.
+			if ex.team.Written() {
+				g.replaces = ex.dir
+			} else if !o.force {
+				if err := backfillSource(ex.dir, byID); err != nil {
 					return err
 				}
 				held++
 				continue
-			}
-			if err := os.RemoveAll(dir); err != nil {
+			} else if err := os.RemoveAll(ex.dir); err != nil {
 				return err
 			}
 		}
 		if _, ok := failed[g.key]; ok && !o.retryFailed {
+			if g.replaces != "" {
+				held++
+			}
 			skippedFailed++
 			continue
 		}
@@ -215,6 +228,9 @@ func run(o options) error {
 					added++
 					delete(failed, g.key)
 				} else {
+					if g.replaces != "" {
+						held++ // the written rotation stays
+					}
 					failed[g.key] = reason
 				}
 				mu.Unlock()
@@ -296,6 +312,12 @@ func harvest(root string, g *group, tries, choose int, s validate.Settings) (boo
 		}
 	}
 	if best != nil {
+		if g.replaces != "" {
+			// The entry's directory may be named in another member order.
+			if err := os.RemoveAll(g.replaces); err != nil {
+				return false, err.Error(), "error: " + err.Error() + "\n"
+			}
+		}
 		best.team.Validation = best.r.Validation(s.Iterations)
 		if best.team.Validation.Draft == "" {
 			best.team.Status = library.StatusSupported
@@ -371,9 +393,14 @@ func teamKey(members []string) string {
 	return strings.Join(keys, " ")
 }
 
-// existingTeams maps the library's teams by member set to their directory.
-func existingTeams(root string) (map[string]string, error) {
-	out := map[string]string{}
+type existingTeam struct {
+	dir  string
+	team *library.Team
+}
+
+// existingTeams maps the library's teams by member set.
+func existingTeams(root string) (map[string]existingTeam, error) {
+	out := map[string]existingTeam{}
 	dirs, err := os.ReadDir(root)
 	if err != nil {
 		return nil, err
@@ -387,7 +414,7 @@ func existingTeams(root string) (map[string]string, error) {
 		if err != nil {
 			return nil, err
 		}
-		out[teamKey(t.Members)] = dir
+		out[teamKey(t.Members)] = existingTeam{dir, t}
 	}
 	return out, nil
 }
@@ -420,6 +447,7 @@ func writeFailed(root string, failed map[string]string) error {
 	var b strings.Builder
 	b.WriteString("# Teams cmd/harvest could not import: no database entry reproduced its DPS,\n")
 	b.WriteString("# or the imported team failed the full validation (cmd/validate) and was removed.\n")
+	b.WriteString("# A rotation written from a guide for the team stays in the library.\n")
 	b.WriteString("# The next harvest skips them unless run with -retry-failed.\n")
 	for _, key := range slices.Sorted(maps.Keys(failed)) {
 		fmt.Fprintf(&b, "%s\t%s\n", key, failed[key])

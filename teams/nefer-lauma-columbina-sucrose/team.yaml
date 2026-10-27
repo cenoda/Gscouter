@@ -1,0 +1,27 @@
+id: nefer-lauma-columbina-sucrose
+name: Nefer / Lauma / Columbina / Sucrose
+members:
+    - nefer
+    - lauma
+    - columbina
+    - sucrose
+archetype: Dendro Lunar-Bloom
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: 91c5de4
+sources:
+    - https://www.hoyolab.com/article/44026962
+    - https://keqingmains.com/q/nefer-quickguide/
+notes: 'Written from a community rotation (design §5.4): the HoYoLAB post calls Lauma / Columbina / Sucrose / Nefer the strongest Nefer team and gives its two-rotation cycle, Lauma QhE > Columbina QE > Sucrose EdQ > Nefer E 3Cd E 2Cd CQ > Columbina C, then Lauma QhE > Columbina QE > Sucrose Ed > Nefer E 3Cd E 3Cd > Sucrose Ed > Columbina C. The KQM Nefer guide''s dash-cancel combo is the same. Build at the post''s level: all C0, 4-star weapons (Nefer Dawning Frost R5, Lauma Etherlight R5, Columbina Favonius Codex R5, C6 Sucrose Sacrificial Fragments R5 with 4pc Instructor), Nefer 4pc NotSU EM/EM/CRIT DMG and artifacts well above KQM standard (Nefer about 32 liquid substats, Lauma 30); the post''s exact artifacts are not given. With KQM-standard artifacts and Blackmarrow Lantern the same rotation scores 127.9k one pass. Lauma holds her skill only when there is Verdant Dew, checked after her burst: checked before it, Columbina''s charged attack can spend the Dew in between and gcsim rejects the hold. Nefer''s charged attacks are held (Slither) until Dew turns them into Phantasm Performance. Waits: none above 2 s/min; the looped score fills Nefer''s skill cooldown with attacks (the 15.2 s cycle is under the 18 s two charges need). Fork notes: Phantasm hits after the first are not cancelled by the dash, so Nefer''s second hit, which the guide says a dash cancel loses, still lands (about 1.5% of the damage); Phantasm and charged hits apply 25U Dendro without ICD.'
+cross_check:
+    dps: 183000
+    source: https://www.hoyolab.com/article/44026962
+    note: 'In game, C0R0 builds the author calls top 5%, 183k DPS (the author reaches 200k with top 1% stats). One rotation here: 179.3k, -2.0%; the looped score is 168.7k. Enemy and measurement are not stated; Lunar-Bloom ignores DEF, so only resistance matters. Artifacts are approximated, so the match is only as good as that guess.'
+validation:
+    date: "2026-10-27"
+    iterations: 20
+    kept: 0.942
+    dps: 168260
+    draft: no reference DPS
