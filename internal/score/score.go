@@ -26,11 +26,16 @@ import (
 // bucketFrames is the width of gcsim's damage buckets (pkg/stats/damage).
 const bucketFrames = 30
 
-// collectors are the gcsim stats the score reads (summarize): damage
-// buckets and contributions, and failed actions. The others only
-// observe the fight, so leaving them out changes no result, and saves
-// their time and allocations.
-var collectors = []string{"damage", "action"}
+// collectors are the gcsim stats a score is computed with. summarize
+// reads damage (buckets and contributions) and action (failed actions).
+// shield is not read but takes part in the fight: on every hit on the
+// player it queues a task, which reorders other tasks due the same
+// frame, so leaving it out changes the score of teams that are hit
+// (source conditions with hurt) and hold a shield, such as Dehya /
+// Furina / Albedo / Xilonen. The others only observe the fight, so
+// leaving them out changes no result, and saves their time and
+// allocations.
+var collectors = []string{"damage", "action", "shield"}
 
 type Options struct {
 	Iterations int
