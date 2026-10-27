@@ -1,0 +1,24 @@
+id: kinich-mavuika-iansan-emilie
+name: Kinich / Mavuika / Iansan / Emilie
+members:
+    - kinich
+    - mavuika
+    - iansan
+    - emilie
+archetype: Dendro Burning
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://keqingmains.com/q/iansan-quickguide/
+    - https://keqingmains.com/q/kinich-quickguide/
+notes: 'Written from the community guides (design §5.4): the KQM Iansan quick guide gives Emilie Q/E > Iansan ECQ > Mavuika tE Q > Kinich shE (Q) [combo], with Mavuika''s tE before Iansan in the first rotation; the Kinich quick guide gives the same order. Emilie bursts when ready, else uses her skill. Kinich''s combo as in Kinich / Mavuika / Iansan / Bennett, from the community config behind Kinich / Mavuika / Bennett / Ororon. Build: Kinich, Mavuika and Emilie from the harvested Kinich / Mavuika / Bennett / Emilie (all C0); Iansan 4pc Scroll. The looped score keeps 130% of the one pass: the first rotation starts with Emilie''s skill and no Burning, later ones with her burst. Iansan C0 with Favonius Lance R3, KQM-standard substats and about 225% ER (the guide asks 180-210% with Favonius as the only Electro, less with a second one). Gcsim note: Iansan''s skill fills her Nightsoul points and drains them at 6 per second; her burst restores points from the active character''s movement only when the rotation reports a distance (movement()), which no source gives, so none is reported. Her burst buff therefore falls to its low-point rate a few seconds after her skill, and the score likely understates her.'
+cross_check:
+    note: 'Searched 2026-10-27: the KQM Iansan and Kinich quick guides (no DPS numbers or gcsim links), the KQM community gcsim database (no entry with Iansan), GenshinBuilds, Sportskeeda and GameWith team pages (no numbers), Prydwen (HTTP 403); no public number for this team. For scale, harvested teams with the same carry: Kinich / Mavuika / Bennett / Emilie 89.1k and Kinich / Mavuika / Emilie / Escoffier 80.1k (source DPS).'
+validation:
+    date: "2026-10-27"
+    iterations: 100
+    kept: 1.305
+    dps: 71486
+    draft: no reference DPS

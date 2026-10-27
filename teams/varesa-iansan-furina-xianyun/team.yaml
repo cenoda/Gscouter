@@ -1,0 +1,24 @@
+id: varesa-iansan-furina-xianyun
+name: Varesa / Iansan / Furina / Xianyun
+members:
+    - varesa
+    - iansan
+    - furina
+    - xianyun
+archetype: Electro hypercarry (plunge)
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://keqingmains.com/q/iansan-quickguide/
+    - https://keqingmains.com/q/varesa-quickguide/
+notes: 'Written from the community guides (design §5.4): the KQM Iansan quick guide gives Furina ED Q > Iansan ECQ > Xianyun N1 EPQ > Varesa [combo], the Varesa quick guide the same with Varesa 2[ECP ECP (Q)] JP JP ECP (Q): seven plunges. Varesa''s combo is in the gcsim form of the community config behind Varesa / Ineffa / Furina / Xianyun (db.kqm.gg): ECP when her skill is ready, a jump plunge while Xianyun''s buff lasts, else CP, and her 30-energy burst after leaving Fiery Passion. Build: Varesa, Furina and Xianyun from that config (all C0); Iansan 4pc Scroll. Waits: the looped rotation sometimes skips Xianyun''s burst for energy. Iansan C0 with Favonius Lance R3, KQM-standard substats and about 225% ER (the guide asks 180-210% with Favonius as the only Electro, less with a second one). Gcsim note: Iansan''s skill fills her Nightsoul points and drains them at 6 per second; her burst restores points from the active character''s movement only when the rotation reports a distance (movement()), which no source gives, so none is reported. Her burst buff therefore falls to its low-point rate a few seconds after her skill, and the score likely understates her.'
+cross_check:
+    note: 'Searched 2026-10-27: the KQM Iansan and Varesa quick guides (no DPS numbers or gcsim links), the KQM community gcsim database (no entry with Iansan), GenshinBuilds, Sportskeeda and GameWith team pages (no numbers), Prydwen (HTTP 403); no public number for this team. For scale, harvested teams with the same carry: Varesa / Ineffa / Furina / Xianyun 86.8k, / Xilonen 75.5k, / Electro Traveler 68.4k (source DPS).'
+validation:
+    date: "2026-10-27"
+    iterations: 100
+    kept: 0.915
+    dps: 66111
+    draft: no reference DPS

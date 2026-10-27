@@ -1,0 +1,34 @@
+# KQM Iansan quick guide, Iansan / Kinich / Mavuika / Bennett:
+#   (Kinich Q)1 > Mavuika Q tE > Bennett Q E > Iansan EC2Q > Kinich shE [combo]
+#   1 use Kinich's burst if available; 2 Iansan's enhanced charged attack
+#   must not be omitted
+# Kinich's combo is the guide's shE 5[N2 shE]; its gcsim form (N2 toward
+# the blind spot, then a short hold when he has 20 Nightsoul points) is
+# the one of the community config behind Kinich / Mavuika / Bennett /
+# Ororon (db.kqm.gg).
+fn kinich_combo() {
+  kinich skill;
+  for let c=0; c<5; c=c+1 {
+    for let a=0; a<2; a=a+1 {
+      if .kinich.blind_spot {
+        kinich attack[direction=.kinich.blind_spot];
+      } else {
+        kinich attack;
+      }
+    }
+    while .kinich.nightsoul.points < 20 && .kinich.nightsoul.state {
+      wait(1);
+    }
+    if .kinich.nightsoul.state {
+      kinich skill[hold=1];
+    }
+  }
+}
+active kinich;
+if .kinich.burst.ready {
+  kinich burst;
+}
+mavuika burst, skill;
+bennett burst, skill;
+iansan skill, charge, burst;
+kinich_combo();

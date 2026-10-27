@@ -1,0 +1,15 @@
+# KQM Iansan quick guide, Iansan / Flins / Aino / Sucrose:
+#   Aino EQ > Iansan ECQ > Sucrose ED > Flins E N1 E sQ D N3D N4D 2[D]1
+#   E sQ N4D N5
+#   1 dash twice to refresh Iansan's Nightsoul points, then E sQ at once
+# The Flins quick guide gives the same rotation. sQ is Flins's short
+# burst during his skill state. The two extra dashes are left out: gcsim
+# turns movement into Iansan's Nightsoul points only when the rotation
+# reports a distance, which no source gives, so they would only wait on
+# the dash cooldown.
+active aino;
+aino skill, burst;
+iansan skill, charge, burst;
+sucrose skill, dash;
+flins skill, attack, skill, burst, dash, attack:3, dash, attack:4, dash,
+      skill, burst, attack:4, dash, attack:5;

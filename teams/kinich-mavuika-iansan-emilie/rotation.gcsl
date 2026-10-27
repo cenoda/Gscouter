@@ -1,0 +1,45 @@
+# KQM Iansan quick guide, Iansan / Kinich / Mavuika / Emilie:
+#   Emilie Q/E > Iansan EC1Q > Mavuika tE2 Q > Kinich shE (Q) [combo]
+#   1, 2 in the first rotation, Mavuika tE comes before Iansan
+# The Kinich quick guide gives the same order (Emilie E/Q > Iansan E N1 Q >
+# Mavuika tE Q > Kinich shE [combo]). Kinich's combo as in Kinich /
+# Mavuika / Iansan / Bennett, from the community config behind Kinich /
+# Mavuika / Bennett / Ororon.
+fn kinich_combo() {
+  kinich skill;
+  for let c=0; c<5; c=c+1 {
+    for let a=0; a<2; a=a+1 {
+      if .kinich.blind_spot {
+        kinich attack[direction=.kinich.blind_spot];
+      } else {
+        kinich attack;
+      }
+    }
+    while .kinich.nightsoul.points < 20 && .kinich.nightsoul.state {
+      wait(1);
+    }
+    if .kinich.nightsoul.state {
+      kinich skill[hold=1];
+    }
+  }
+}
+active emilie;
+let first = 1;
+if .emilie.burst.ready {
+  emilie burst;
+} else {
+  emilie skill;
+}
+if first == 1 {
+  mavuika skill;
+}
+iansan skill, charge, burst;
+if first == 0 {
+  mavuika skill;
+}
+first = 0;
+mavuika burst;
+kinich_combo();
+if .kinich.burst.ready {
+  kinich burst;
+}

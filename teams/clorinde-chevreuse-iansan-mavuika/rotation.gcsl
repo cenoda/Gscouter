@@ -1,0 +1,38 @@
+# KQM Iansan quick guide, Iansan / Clorinde / Chevreuse / Mavuika:
+#   Opener: Mavuika tE > Iansan ECQ > Chevreuse hE Q > Mavuika Q 2[CD] >
+#     Clorinde E [combo] Q
+#   Ongoing: Chevreuse hEN1 > (Clorinde N1C/N3)1 > Iansan ECQ >
+#     Mavuika tEQ C2D CD > Clorinde E [combo] Q
+#   1 optional: funnels Chevreuse's particles to Clorinde
+# The optional Clorinde normals are left out. Clorinde's combo (N1 until
+# her Bond of Life reaches 100%, then a skill, while her skill state
+# lasts) is the one of the community config behind Clorinde / Mavuika /
+# Ororon / Chevreuse (db.kqm.gg).
+let MAX_NA_COUNT = 18;
+fn clorinde_combo() {
+  clorinde skill;
+  let na_count = 0;
+  while .clorinde.status.clorinde-night-watch && na_count < MAX_NA_COUNT {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+      na_count = na_count + 1;
+    }
+  }
+}
+active mavuika;
+let first = 1;
+if first == 1 {
+  mavuika skill;
+  iansan skill, charge, burst;
+  chevreuse skill[hold=1], burst;
+  mavuika burst, charge:2, dash, charge:2, dash;
+} else {
+  chevreuse skill[hold=1], attack;
+  iansan skill, charge, burst;
+  mavuika skill, burst, charge:2, dash, charge, dash;
+}
+first = 0;
+clorinde_combo();
+clorinde burst;

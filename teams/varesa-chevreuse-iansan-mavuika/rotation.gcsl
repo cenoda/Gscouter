@@ -1,0 +1,38 @@
+# KQM Iansan quick guide, Iansan / Varesa / Chevreuse / Mavuika:
+#   Varesa ECP1 > Chevreuse Q hE > Iansan ECQ > Mavuika Q C2D E / EQ C2D >
+#   Varesa (ECP sQ)1 ECP ECP (sQ) ECP ECP (sQ) CP CP
+#   1 first rotation
+# Varesa's combo in gcsim (ECP when her skill is ready, else CP; the
+# 30-energy burst after a plunge out of Fiery Passion) is the one of the
+# community config behind Varesa / Bennett / Mavuika / Chevreuse
+# (db.kqm.gg), the same team with Bennett for Iansan.
+fn varesa_combo(amt) {
+  for let j = 0; j < amt; j = j + 1 {
+    if .varesa.skill.ready {
+      varesa skill, attack, high_plunge[collision=1];
+    } else {
+      varesa charge, high_plunge[collision=1];
+    }
+    if .varesa.energy >= 30 && .varesa.status.apex-drive {
+      varesa burst;
+    }
+  }
+}
+active varesa;
+let first = 1;
+if first == 1 {
+  varesa_combo(1);
+}
+if .chevreuse.burst.ready {
+  chevreuse burst;
+}
+chevreuse skill[hold=1];
+iansan skill, charge, burst;
+if first == 1 {
+  mavuika burst, charge:2, dash, skill;
+  varesa_combo(7);
+} else {
+  mavuika skill, burst, charge:2, dash;
+  varesa_combo(6);
+}
+first = 0;

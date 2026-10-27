@@ -1,0 +1,24 @@
+id: varesa-chevreuse-iansan-mavuika
+name: Varesa / Chevreuse / Iansan / Mavuika
+members:
+    - varesa
+    - chevreuse
+    - iansan
+    - mavuika
+archetype: Electro Overload hypercarry (plunge)
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://keqingmains.com/q/iansan-quickguide/
+    - https://keqingmains.com/q/varesa-quickguide/
+notes: 'Written from the community guides (design §5.4): the KQM Iansan quick guide gives Varesa ECP (first rotation) > Chevreuse Q hE > Iansan ECQ > Mavuika Q C2D E / EQ C2D > Varesa (ECP sQ) ECP ECP (sQ) ECP ECP (sQ) CP CP; the Varesa quick guide has the same order. The first rotation uses Mavuika Q C2D E and seven Varesa plunges, later ones EQ C2D and six. Varesa''s combo is in the gcsim form of the community config behind Varesa / Bennett / Mavuika / Chevreuse (db.kqm.gg), the same team with Bennett for Iansan. Build: Varesa, Chevreuse and Mavuika from that config (C0 Varesa and Mavuika, C6 Chevreuse); Iansan 4pc Noblesse, since Mavuika holds Scroll. Iansan C0 with Favonius Lance R3, KQM-standard substats and about 225% ER (the guide asks 180-210% with Favonius as the only Electro, less with a second one). Gcsim note: Iansan''s skill fills her Nightsoul points and drains them at 6 per second; her burst restores points from the active character''s movement only when the rotation reports a distance (movement()), which no source gives, so none is reported. Her burst buff therefore falls to its low-point rate a few seconds after her skill, and the score likely understates her.'
+cross_check:
+    note: 'Searched 2026-10-27: the KQM Iansan and Varesa quick guides (no DPS numbers or gcsim links), the KQM community gcsim database (no entry with Iansan), GenshinBuilds, Sportskeeda and GameWith team pages (no numbers), Prydwen (HTTP 403); no public number for this team. For scale, harvested teams with the same carry: Varesa / Bennett / Mavuika / Chevreuse 98.6k and Varesa / Fischl / Mavuika / Chevreuse 89.2k (source DPS).'
+validation:
+    date: "2026-10-27"
+    iterations: 100
+    kept: 1.017
+    dps: 82328
+    draft: no reference DPS

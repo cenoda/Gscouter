@@ -1,0 +1,24 @@
+id: flins-iansan-aino-sucrose
+name: Flins / Iansan / Aino / Sucrose
+members:
+    - flins
+    - iansan
+    - aino
+    - sucrose
+archetype: Electro Lunar-Charged
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://keqingmains.com/q/iansan-quickguide/
+    - https://keqingmains.com/q/flins-quickguide/
+notes: 'Written from the community guides (design §5.4): the KQM Iansan quick guide gives Aino EQ > Iansan ECQ > Sucrose ED > Flins E N1 E sQ D N3D N4D 2[D] E sQ N4D N5; the Flins quick guide the same. sQ is Flins''s short burst in his skill state. The guide''s two extra dashes, which refresh Iansan''s Nightsoul points in game, are left out: in gcsim they give no points without a reported distance and only waited on the dash cooldown (3.7 s/min). Build: Flins, Aino and Sucrose from the community config behind Flins / Ineffa / Aino / Sucrose (db.kqm.gg; C0 Flins, C6 Aino and Sucrose); Iansan 4pc Noblesse, as the guide recommends in Flins teams. Waits: the looped rotation sometimes skips Flins''s burst for energy. Iansan C0 with Favonius Lance R3, KQM-standard substats and about 225% ER (the guide asks 180-210% with Favonius as the only Electro, less with a second one). Gcsim note: Iansan''s skill fills her Nightsoul points and drains them at 6 per second; her burst restores points from the active character''s movement only when the rotation reports a distance (movement()), which no source gives, so none is reported. Her burst buff therefore falls to its low-point rate a few seconds after her skill, and the score likely understates her.'
+cross_check:
+    note: 'Searched 2026-10-27: the KQM Iansan and Flins quick guides (no DPS numbers or gcsim links), the KQM community gcsim database (no entry with Iansan), GenshinBuilds, Sportskeeda and GameWith team pages (no numbers), Prydwen (HTTP 403); no public number for this team. For scale, harvested teams with the same carry: Flins / Ineffa / Aino / Sucrose 111.1k and Flins / Fischl / Aino / Sucrose 89.8k (source DPS).'
+validation:
+    date: "2026-10-27"
+    iterations: 100
+    kept: 0.947
+    dps: 61018
+    draft: no reference DPS

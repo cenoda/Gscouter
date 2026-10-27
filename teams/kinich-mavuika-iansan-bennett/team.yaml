@@ -1,0 +1,24 @@
+id: kinich-mavuika-iansan-bennett
+name: Kinich / Mavuika / Iansan / Bennett
+members:
+    - kinich
+    - mavuika
+    - iansan
+    - bennett
+archetype: Dendro Burning
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://keqingmains.com/q/iansan-quickguide/
+    - https://keqingmains.com/q/kinich-quickguide/
+notes: 'Written from the community guides (design §5.4): the KQM Iansan quick guide gives (Kinich Q) > Mavuika Q tE > Bennett Q E > Iansan ECQ > Kinich shE [combo], with the note that Iansan''s enhanced charged attack must not be left out; the Kinich quick guide gives the same order. Kinich''s combo is the guide''s shE 5[N2 shE], in the gcsim form of the community config behind Kinich / Mavuika / Bennett / Ororon (db.kqm.gg). Build: Kinich, Mavuika and Bennett from that config (C0, C6 Bennett); Iansan 4pc Scroll. Waits: the looped rotation sometimes skips Iansan''s burst for energy, Bennett waits 0.7 s/min. Iansan C0 with Favonius Lance R3, KQM-standard substats and about 225% ER (the guide asks 180-210% with Favonius as the only Electro, less with a second one). Gcsim note: Iansan''s skill fills her Nightsoul points and drains them at 6 per second; her burst restores points from the active character''s movement only when the rotation reports a distance (movement()), which no source gives, so none is reported. Her burst buff therefore falls to its low-point rate a few seconds after her skill, and the score likely understates her.'
+cross_check:
+    note: 'Searched 2026-10-27: the KQM Iansan and Kinich quick guides (no DPS numbers or gcsim links), the KQM community gcsim database (no entry with Iansan), GenshinBuilds, Sportskeeda and GameWith team pages (no numbers), Prydwen (HTTP 403); no public number for this team. For scale, harvested teams with the same carry: Kinich / Mavuika / Bennett / Emilie 89.1k, / Ororon 95.0k, / Furina 55.7k (source DPS).'
+validation:
+    date: "2026-10-27"
+    iterations: 100
+    kept: 1.005
+    dps: 62986
+    draft: no reference DPS

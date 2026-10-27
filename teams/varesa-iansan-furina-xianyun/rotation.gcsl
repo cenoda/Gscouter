@@ -1,0 +1,30 @@
+# KQM Iansan quick guide, Iansan / Varesa / Furina / Xianyun:
+#   Furina ED Q > Iansan ECQ > Xianyun N1 EPQ > Varesa [combo]
+# Varesa's combo from the KQM Varesa quick guide, same team:
+#   Varesa 2[ECP ECP (Q)] JP JP ECP (Q)
+# Its gcsim form (ECP when her skill is ready, a jump plunge while
+# Xianyun's airborne buff lasts, else CP; the 30-energy burst after a
+# plunge out of Fiery Passion) is the one of the community config behind
+# Varesa / Ineffa / Furina / Xianyun (db.kqm.gg).
+fn varesa_combo(amt) {
+  for let j = 0; j < amt; j = j + 1 {
+    if .varesa.skill.ready {
+      varesa skill, attack, high_plunge[collision=1];
+    } else if .xianyun.status.xianyun-airborne-buff {
+      varesa jump;
+      if .airborne {
+        varesa high_plunge[collision=1];
+      }
+    } else {
+      varesa charge, high_plunge[collision=1];
+    }
+    if .varesa.energy >= 30 && .varesa.status.apex-drive {
+      varesa burst;
+    }
+  }
+}
+active furina;
+furina skill, dash, attack, burst;
+iansan skill, charge, burst;
+xianyun attack, skill, low_plunge, burst;
+varesa_combo(7);

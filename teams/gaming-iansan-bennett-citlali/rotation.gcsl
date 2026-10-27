@@ -1,0 +1,34 @@
+# KQM Iansan quick guide, Iansan / Gaming / Bennett / Citlali:
+#   Bennett E > Iansan ECQ > Bennett Q E > Citlali EQ > Gaming Q 5-6[EP]
+# The Gaming quick guide gives the same rotation. Gaming's EP in gcsim
+# (skill, a wait for the leap, the plunge) and its waits are those of the
+# community config behind Gaming / Citlali / Xianyun / Bennett
+# (db.kqm.gg); six of them here. As there, Bennett attacks after his
+# skill until Favonius Sword procs, for the team's energy.
+active bennett;
+bennett skill;
+iansan skill, charge, burst;
+bennett burst, skill;
+while !.bennett.mods.favonius-cd {
+  bennett attack;
+}
+citlali skill, burst;
+gaming burst;
+gaming skill;
+wait(45);
+gaming high_plunge;
+gaming skill;
+wait(18);
+gaming high_plunge;
+gaming skill;
+wait(18);
+gaming high_plunge;
+gaming skill;
+wait(18);
+gaming high_plunge;
+gaming skill;
+wait(18);
+gaming high_plunge;
+gaming skill;
+wait(33);
+gaming high_plunge;

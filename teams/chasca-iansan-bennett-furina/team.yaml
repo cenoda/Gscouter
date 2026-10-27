@@ -1,0 +1,24 @@
+id: chasca-iansan-bennett-furina
+name: Chasca / Iansan / Bennett / Furina
+members:
+    - chasca
+    - iansan
+    - bennett
+    - furina
+archetype: Anemo Overvape
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://keqingmains.com/q/iansan-quickguide/
+    - https://keqingmains.com/q/chasca-quickguide/
+notes: 'Written from the community guides (design §5.4): the KQM Iansan quick guide gives Furina ED Q > Bennett EQ N1 > Iansan ECQ > Chasca E 4[C] (C/Q) > (Bennett E); the Chasca quick guide the same order. Chasca''s combo is in the gcsim form of the community config behind Chasca / Furina / Mavuika / Bennett (db.kqm.gg): skill, four aimed shots, then her burst or a last shot; Bennett''s last skill is kept for his energy. Build: Chasca, Bennett and Furina from that config (C0, C6 Bennett); Iansan 4pc Scroll. Iansan C0 with Favonius Lance R3, KQM-standard substats and about 225% ER (the guide asks 180-210% with Favonius as the only Electro, less with a second one). Gcsim note: Iansan''s skill fills her Nightsoul points and drains them at 6 per second; her burst restores points from the active character''s movement only when the rotation reports a distance (movement()), which no source gives, so none is reported. Her burst buff therefore falls to its low-point rate a few seconds after her skill, and the score likely understates her.'
+cross_check:
+    note: 'Searched 2026-10-27: the KQM Iansan and Chasca quick guides (no DPS numbers or gcsim links), the KQM community gcsim database (no entry with Iansan), GenshinBuilds, Sportskeeda and GameWith team pages (no numbers), Prydwen (HTTP 403); no public number for this team. For scale, harvested teams with the same carry: Chasca / Furina / Mavuika / Bennett 82.6k, Chasca / Citlali / Furina / Bennett 69.4k, Chasca / Kazuha / Furina / Bennett 54.9k (source DPS).'
+validation:
+    date: "2026-10-27"
+    iterations: 100
+    kept: 0.968
+    dps: 55161
+    draft: no reference DPS
