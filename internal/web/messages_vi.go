@@ -182,5 +182,22 @@ func init() {
 		"wait.skill_cd":             "hồi chiêu Kỹ Năng Nguyên Tố",
 		"wait.burst_cd":             "hồi chiêu Kỹ Năng Nộ",
 		"wait.insufficient_stamina": "thiếu thể lực",
+
+		"enemy.heading":     "Kẻ địch",
+		"enemy.standard":    "Cấp 100 · kháng mọi nguyên tố 10% (tiêu chuẩn)",
+		"enemy.lead":        "Để mọi đội đều so sánh được với nhau, điểm được tính với kẻ địch tiêu chuẩn. Đổi cấp và kháng để tính với một boss cụ thể. Phòng Ngự phụ thuộc vào cấp. Điểm như vậy chỉ so sánh được với điểm tính trên cùng kẻ địch.",
+		"enemy.apply":       "Tính lại",
+		"enemy.reset":       "Về kẻ địch tiêu chuẩn",
+		"enemy.custom_note": "Tính với kẻ địch tùy chỉnh (%s). Điểm này không so sánh được với điểm tính trên kẻ địch tiêu chuẩn.",
+		"enemy.carried":     "Các đội sẽ được tính với kẻ địch tùy chỉnh (%s).",
+		"err.enemy":         "Thiết lập kẻ địch không hợp lệ. Cấp phải từ %d–%d và kháng từ %d%% đến %d%%.",
+
+		"enemy.same_note":   "Tính với %s. Cấp và kháng giống kẻ địch tiêu chuẩn nên điểm này so sánh được với điểm tiêu chuẩn.",
+		"enemy.preset":      "Boss có sẵn",
+		"enemy.custom":      "Tùy chỉnh (không có boss)",
+		"enemy.weekly":      "Boss Tuần",
+		"enemy.world":       "Thủ Lĩnh",
+		"enemy.preset_note": "Chọn boss có sẵn sẽ điền kháng cơ bản của boss từ dữ liệu quái của gcsim và giữ nguyên cấp đã chọn. Đổi giai đoạn, khiên và miễn nhiễm không được mô phỏng.",
+		"err.boss":          "Boss không xác định: %q",
 	}
 }

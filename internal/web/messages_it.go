@@ -182,5 +182,22 @@ func init() {
 		"wait.skill_cd":             "ricarica dell'Abilità elementale",
 		"wait.burst_cd":             "ricarica del Tripudio elementale",
 		"wait.insufficient_stamina": "resistenza insufficiente",
+
+		"enemy.heading":     "Nemico",
+		"enemy.standard":    "Liv. 100 · 10% di RES a tutto (standard)",
+		"enemy.lead":        "Perché tutte le squadre siano confrontabili, i punteggi sono calcolati contro il nemico standard. Imposta livello e resistenze per calcolare contro un boss preciso. La DIF dipende dal livello. Un punteggio così si confronta solo con punteggi contro lo stesso nemico.",
+		"enemy.apply":       "Ricalcola",
+		"enemy.reset":       "Torna al nemico standard",
+		"enemy.custom_note": "Calcolato contro un nemico personalizzato (%s). Questo punteggio non è confrontabile con quelli contro il nemico standard.",
+		"enemy.carried":     "Le squadre saranno calcolate contro un nemico personalizzato (%s).",
+		"err.enemy":         "Le impostazioni del nemico non sono valide. Il livello deve essere tra %d e %d e le resistenze tra %d%% e %d%%.",
+
+		"enemy.same_note":   "Calcolato contro %s. Livello e resistenze sono quelli del nemico standard, quindi questo punteggio è confrontabile con quelli standard.",
+		"enemy.preset":      "Boss predefinito",
+		"enemy.custom":      "Personalizzato (nessun boss)",
+		"enemy.weekly":      "Boss settimanali (Weekly Bosses)",
+		"enemy.world":       "Boss normali (Normal Bosses)",
+		"enemy.preset_note": "Un boss predefinito compila le sue resistenze base dai dati dei mostri di gcsim e mantiene il livello scelto. Cambi di fase, scudi e immunità non sono simulati.",
+		"err.boss":          "Boss sconosciuto: %q",
 	}
 }

@@ -71,7 +71,7 @@ func TestRunJobMatchesServer(t *testing.T) {
 	srv, _ := newClientSite(t)
 	ctx := context.Background()
 	sel := selection{UID: "800000001", Chars: []string{"hutao", "yelan", "xingqiu", "zhongli"}}
-	tr := srv.prepare(ctx, english, sel)
+	tr := srv.prepare(ctx, english, sel, nil)
 	tr.ID = "a"
 	job := srv.job(english, "score", tr)
 	if job == nil {
@@ -82,7 +82,7 @@ func TestRunJobMatchesServer(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	want := srv.evaluate(ctx, english, sel)
+	want := srv.evaluate(ctx, english, sel, nil)
 	want.ID = "a"
 	var b strings.Builder
 	if err := srv.tmpl[english].ExecuteTemplate(&b, "score-body", scoreData{Team: want}); err != nil {

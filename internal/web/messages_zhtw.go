@@ -182,5 +182,22 @@ func init() {
 		"wait.skill_cd":             "元素戰技冷卻",
 		"wait.burst_cd":             "元素爆發冷卻",
 		"wait.insufficient_stamina": "體力不足",
+
+		"enemy.heading":     "敵人",
+		"enemy.standard":    "等級100 · 全抗性10%（標準）",
+		"enemy.lead":        "為了讓所有隊伍都能互相比較，分數以標準敵人計算。若要針對特定首領計算，請修改等級與抗性。防禦力由等級決定。這樣得到的分數只能與針對同一敵人的分數比較。",
+		"enemy.apply":       "重新計算",
+		"enemy.reset":       "恢復標準敵人",
+		"enemy.custom_note": "以自訂敵人（%s）計算。此分數無法與標準敵人的分數比較。",
+		"enemy.carried":     "將以自訂敵人（%s）計算。",
+		"err.enemy":         "敵人設定無效。等級須為%d–%d，抗性須介於%d%%到%d%%之間。",
+
+		"enemy.same_note":   "以%s計算。其等級與抗性與標準敵人相同，因此此分數可與標準分數比較。",
+		"enemy.preset":      "首領預設",
+		"enemy.custom":      "自訂（無首領）",
+		"enemy.weekly":      "週本首領 (Weekly Bosses)",
+		"enemy.world":       "普通首領 (Normal Bosses)",
+		"enemy.preset_note": "選擇預設會填入gcsim怪物資料中該首領的基礎抗性，等級保持不變。不模擬階段性抗性變化、護盾與無敵。",
+		"err.boss":          "未知首領：%q",
 	}
 }

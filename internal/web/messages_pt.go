@@ -182,5 +182,22 @@ func init() {
 		"wait.skill_cd":             "Tempo de Recarga da Habilidade Elemental",
 		"wait.burst_cd":             "Tempo de Recarga do Supremo",
 		"wait.insufficient_stamina": "Stamina insuficiente",
+
+		"enemy.heading":     "Inimigo",
+		"enemy.standard":    "Nível 100 · 10% de RES a tudo (padrão)",
+		"enemy.lead":        "Para que todas as equipes possam ser comparadas, as pontuações são calculadas contra o inimigo padrão. Mude o nível e as resistências para calcular contra um chefe específico. A DEF depende do nível. Essa pontuação só se compara com pontuações contra o mesmo inimigo.",
+		"enemy.apply":       "Recalcular",
+		"enemy.reset":       "Voltar ao inimigo padrão",
+		"enemy.custom_note": "Calculado contra um inimigo personalizado (%s). Esta pontuação não se compara com as do inimigo padrão.",
+		"enemy.carried":     "As equipes serão calculadas contra um inimigo personalizado (%s).",
+		"err.enemy":         "As configurações do inimigo são inválidas. O nível deve estar entre %d e %d, e as resistências entre %d%% e %d%%.",
+
+		"enemy.same_note":   "Calculado contra %s. O nível e as resistências são os do inimigo padrão, então esta pontuação se compara com as padrão.",
+		"enemy.preset":      "Chefe predefinido",
+		"enemy.custom":      "Personalizado (sem chefe)",
+		"enemy.weekly":      "Chefes Semanais",
+		"enemy.world":       "Chefes Comuns",
+		"enemy.preset_note": "Um chefe predefinido preenche as resistências base dele a partir dos dados de monstros do gcsim e mantém o nível escolhido. Mudanças de fase, escudos e imunidade não são simulados.",
+		"err.boss":          "Chefe desconhecido: %q",
 	}
 }

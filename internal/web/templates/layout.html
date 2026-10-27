@@ -118,6 +118,12 @@ ul { padding-left: 20px; margin: 8px 0; }
 ul.teams { columns: 2 300px; }
 ul.teams li { break-inside: avoid; }
 details summary { cursor: pointer; }
+.enemy-preset { display: flex; flex-direction: column; gap: 4px; font-size: .9rem; margin-top: 12px; max-width: 360px; }
+.enemy-preset select { padding: 8px 10px; font: inherit; font-size: 1rem; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--text); }
+.enemy-fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; margin-top: 12px; }
+.enemy-fields label { display: flex; flex-direction: column; justify-content: space-between; gap: 4px; font-size: .9rem; }
+.enemy-fields label span { display: flex; gap: 4px; align-items: center; }
+.enemy-fields input { width: 100%; padding: 8px 10px; font-size: 1rem; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--text); }
 footer { margin-top: 24px; border-top: 1px solid var(--line); padding-top: 12px; }
 footer p { margin: 6px 0; }
 h2.section { margin: 24px 0 8px; }
@@ -243,6 +249,56 @@ details.rotation pre { background: var(--bg); border-radius: 8px; padding: 12px;
 {{define "faces"}}<span class="faces">{{range .}}{{template "face" .}}{{end}}</span>{{end}}
 
 {{define "members"}}<span class="members">{{range .}}{{template "el" (element .)}}{{end}}</span>{{end}}
+
+{{define "enemy-hidden"}}{{range $k, $v := enemyValues .}}<input type="hidden" name="{{$k}}" value="{{index $v 0}}">
+{{end}}{{end}}
+
+{{define "enemy-note"}}{{with .}}{{if .Standard}}<div class="card muted">{{t "enemy.same_note" (enemyText .)}}</div>
+{{else}}<div class="warn">{{t "enemy.custom_note" (enemyText .)}}</div>
+{{end}}{{end}}{{end}}
+
+{{define "enemy"}}
+<div class="card">
+<details{{if .Enemy}} open{{end}}>
+<summary><b>{{t "enemy.heading"}}</b> <span class="muted">{{enemyText .Enemy}}</span></summary>
+<p class="muted">{{t "enemy.lead"}}</p>
+<form action="{{.Action}}" method="get">
+{{range $k, $v := .Keep}}<input type="hidden" name="{{$k}}" value="{{index $v 0}}">
+{{end}}{{$lim := .Limits}}{{$p := presets .}}<label class="enemy-preset"><span>{{t "enemy.preset"}}</span>
+<select name="boss">
+<option value="">{{t "enemy.custom"}}</option>
+<optgroup label="{{t "enemy.weekly"}}">{{range $p.Weekly}}<option value="{{.Key}}" data-resist="{{.Resist}}"{{if .Selected}} selected{{end}}>{{.Name}}</option>{{end}}</optgroup>
+<optgroup label="{{t "enemy.world"}}">{{range $p.World}}<option value="{{.Key}}" data-resist="{{.Resist}}"{{if .Selected}} selected{{end}}>{{.Name}}</option>{{end}}</optgroup>
+</select></label>
+<p class="muted">{{t "enemy.preset_note"}}</p>
+<div class="enemy-fields">
+<label><span>{{term "level"}}</span><input type="number" name="lvl" min="{{$lim.MinLevel}}" max="{{$lim.MaxLevel}}" step="1" value="{{.Level}}" required></label>
+{{range .Resists}}<label><span>{{if ne .Element "physical"}}{{template "el" .Element}}{{end}}{{term .Element}} %</span><input type="number" name="{{.Name}}" min="{{$lim.MinResist}}" max="{{$lim.MaxResist}}" step="1" value="{{.Value}}" required></label>
+{{end}}</div>
+<div class="actions">
+<button type="submit">{{t "enemy.apply"}}</button>
+{{if .Enemy}}<a class="button secondary" href="{{.Reset}}">{{t "enemy.reset"}}</a>{{end}}
+</div>
+</form>
+</details>
+</div>
+<script>
+// Picking a preset fills in its resistances; the level stays.
+(function () {
+  var select = document.querySelector("select[name=boss]");
+  if (!select) return;
+  var names = {{elements}};
+  select.addEventListener("change", function () {
+    var opt = select.options[select.selectedIndex], rs = opt.getAttribute("data-resist");
+    if (!rs) return;
+    rs.split(",").forEach(function (r, i) {
+      var input = select.form.querySelector("input[name=" + names[i] + "]");
+      if (input) input.value = r;
+    });
+  });
+})();
+</script>
+{{end}}
 
 {{define "foot"}}
 <footer>

@@ -182,5 +182,22 @@ func init() {
 		"wait.skill_cd":             "Abklingzeit der Elementarfähigkeit",
 		"wait.burst_cd":             "Abklingzeit der Elementarexplosion",
 		"wait.insufficient_stamina": "zu wenig Ausdauer",
+
+		"enemy.heading":     "Gegner",
+		"enemy.standard":    "Stufe 100 · 10 % WDS gegen alles (Standard)",
+		"enemy.lead":        "Damit sich alle Teams vergleichen lassen, werden Punktzahlen gegen den Standardgegner berechnet. Lege Stufe und WDS fest, um gegen einen bestimmten Boss zu rechnen. Die VTD ergibt sich aus der Stufe. Eine solche Punktzahl lässt sich nur mit Punktzahlen gegen denselben Gegner vergleichen.",
+		"enemy.apply":       "Neu berechnen",
+		"enemy.reset":       "Zurück zum Standardgegner",
+		"enemy.custom_note": "Gegen einen eigenen Gegner berechnet (%s). Diese Punktzahl ist nicht mit Punktzahlen gegen den Standardgegner vergleichbar.",
+		"enemy.carried":     "Teams werden gegen einen eigenen Gegner berechnet (%s).",
+		"err.enemy":         "Die Gegnereinstellungen sind ungültig. Die Stufe muss zwischen %d und %d liegen, die WDS zwischen %d %% und %d %%.",
+
+		"enemy.same_note":   "Gegen %s berechnet. Stufe und WDS entsprechen dem Standardgegner, daher ist diese Punktzahl mit Standardpunktzahlen vergleichbar.",
+		"enemy.preset":      "Boss-Vorlage",
+		"enemy.custom":      "Eigener Gegner (kein Boss)",
+		"enemy.weekly":      "Wöchentliche Bosse (Weekly Bosses)",
+		"enemy.world":       "Normale Bosse (Normal Bosses)",
+		"enemy.preset_note": "Eine Vorlage übernimmt die Grund-WDS des Bosses aus den Monsterdaten von gcsim und behält die eingestellte Stufe. Phasenwechsel, Schilde und Immunität werden nicht abgebildet.",
+		"err.boss":          "Unbekannter Boss: %q",
 	}
 }

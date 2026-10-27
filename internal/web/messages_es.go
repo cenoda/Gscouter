@@ -182,5 +182,22 @@ func init() {
 		"wait.skill_cd":             "enfriamiento de la Habilidad Elemental",
 		"wait.burst_cd":             "enfriamiento de la Habilidad Definitiva",
 		"wait.insufficient_stamina": "falta de Aguante",
+
+		"enemy.heading":     "Enemigo",
+		"enemy.standard":    "Niv. 100 · 10 % de RES a todo (estándar)",
+		"enemy.lead":        "Para que todos los equipos se puedan comparar, las puntuaciones se calculan contra el enemigo estándar. Cambia el nivel y las resistencias para calcular contra un jefe concreto. La DEF depende del nivel. Esa puntuación solo se compara con puntuaciones contra el mismo enemigo.",
+		"enemy.apply":       "Recalcular",
+		"enemy.reset":       "Volver al enemigo estándar",
+		"enemy.custom_note": "Calculado contra un enemigo personalizado (%s). Esta puntuación no se compara con las del enemigo estándar.",
+		"enemy.carried":     "Los equipos se calcularán contra un enemigo personalizado (%s).",
+		"err.enemy":         "Los ajustes del enemigo no son válidos. El nivel debe estar entre %d y %d, y las resistencias entre %d %% y %d %%.",
+
+		"enemy.same_note":   "Calculado contra %s. Su nivel y sus resistencias son los del enemigo estándar, así que esta puntuación se compara con las estándar.",
+		"enemy.preset":      "Jefe predefinido",
+		"enemy.custom":      "Personalizado (sin jefe)",
+		"enemy.weekly":      "Jefes semanales",
+		"enemy.world":       "Jefes normales",
+		"enemy.preset_note": "Un jefe predefinido rellena sus resistencias base a partir de los datos de monstruos de gcsim y mantiene el nivel elegido. No se simulan cambios de fase, escudos ni inmunidad.",
+		"err.boss":          "Jefe desconocido: %q",
 	}
 }

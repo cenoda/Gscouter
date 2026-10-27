@@ -11,7 +11,6 @@ import (
 	"html/template"
 	"io"
 	"net/http"
-	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -140,7 +139,7 @@ func pendingScoreMeta(l localizer, tr teamResult, base string) pageMeta {
 	return pageMeta{
 		Title:       l.T("meta.result_title", tr.owner()),
 		Description: l.teamName(tr.Team),
-		Image:       base + "/card/score.png?" + url.Values{"a": {tr.Selection.String()}}.Encode(),
+		Image:       base + string(link("/card/score.png", tr.Enemy, "a", tr.Selection.String())),
 	}
 }
 
@@ -148,7 +147,7 @@ func pendingVersusMeta(l localizer, d versusData, base string) pageMeta {
 	m := pageMeta{Title: fmt.Sprintf("%s vs %s · Gscouter", d.A.owner(), d.B.owner())}
 	if d.A.Problem == "" && d.B.Problem == "" {
 		m.Description = l.teamName(d.A.Team) + " vs " + l.teamName(d.B.Team)
-		m.Image = base + "/card/versus.png?" + url.Values{"a": {d.A.Selection.String()}, "b": {d.B.Selection.String()}}.Encode()
+		m.Image = base + string(link("/card/versus.png", d.A.Enemy, "a", d.A.Selection.String(), "b", d.B.Selection.String()))
 	}
 	return m
 }

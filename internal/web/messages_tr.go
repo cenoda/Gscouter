@@ -182,5 +182,22 @@ func init() {
 		"wait.skill_cd":             "Element Becerisi bekleme süresi",
 		"wait.burst_cd":             "Element Patlaması bekleme süresi",
 		"wait.insufficient_stamina": "yetersiz Dayanıklılık",
+
+		"enemy.heading":     "Düşman",
+		"enemy.standard":    "Sv. 100 · her şeye %10 direnç (standart)",
+		"enemy.lead":        "Tüm takımların karşılaştırılabilmesi için puanlar standart düşmana karşı hesaplanır. Belirli bir boss'a karşı hesaplamak için seviyeyi ve dirençleri değiştir. Savunma seviyeye göre belirlenir. Böyle bir puan yalnızca aynı düşmana karşı alınan puanlarla karşılaştırılabilir.",
+		"enemy.apply":       "Yeniden hesapla",
+		"enemy.reset":       "Standart düşmana dön",
+		"enemy.custom_note": "Özel bir düşmana karşı hesaplandı (%s). Bu puan standart düşmana karşı alınan puanlarla karşılaştırılamaz.",
+		"enemy.carried":     "Takımlar özel bir düşmana karşı hesaplanacak (%s).",
+		"err.enemy":         "Düşman ayarları geçersiz. Seviye %d–%d, dirençler %%%d ile %%%d arasında olmalı.",
+
+		"enemy.same_note":   "%s karşısında hesaplandı. Seviyesi ve dirençleri standart düşmanınkiyle aynı, bu yüzden bu puan standart puanlarla karşılaştırılabilir.",
+		"enemy.preset":      "Hazır boss",
+		"enemy.custom":      "Özel (boss yok)",
+		"enemy.weekly":      "Haftalık boss",
+		"enemy.world":       "Normal boss",
+		"enemy.preset_note": "Hazır boss, boss'un temel dirençlerini gcsim'in canavar verilerinden doldurur ve seçtiğin seviyeyi korur. Faz değişimleri, kalkanlar ve dokunulmazlık modellenmez.",
+		"err.boss":          "Bilinmeyen boss: %q",
 	}
 }

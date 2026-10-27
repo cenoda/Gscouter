@@ -172,10 +172,13 @@ func selectionFromQuery(r *http.Request, packed string) (selection, error) {
 // teamResult is one evaluated team, for the result templates.
 type teamResult struct {
 	Selection selection
-	Nickname  string
-	Chars     []enka.Character
-	Team      *library.Team
-	Result    *score.Result // the looped rotation: the score
+	// Enemy is the target, nil for the standard enemy. Both teams of a
+	// comparison have the same.
+	Enemy    *config.Enemy
+	Nickname string
+	Chars    []enka.Character
+	Team     *library.Team
+	Result   *score.Result // the looped rotation: the score
 	// OneRotation is a single pass from full energy, the number community
 	// gcsim configs report.
 	OneRotation *score.Result
@@ -217,8 +220,8 @@ func (s serverSim) Timeline(ctx context.Context, cfg string, from, to float64) (
 }
 
 // evaluate prepares and calculates a team on the server.
-func (s *Server) evaluate(ctx context.Context, l localizer, sel selection) teamResult {
-	tr := s.prepare(ctx, l, sel)
+func (s *Server) evaluate(ctx context.Context, l localizer, sel selection, enemy *config.Enemy) teamResult {
+	tr := s.prepare(ctx, l, sel, enemy)
 	if tr.Problem == "" {
 		compute(ctx, l, serverSim{s}, s.settings, &tr)
 	}
@@ -228,8 +231,8 @@ func (s *Server) evaluate(ctx context.Context, l localizer, sel selection) teamR
 // prepare looks up a selection's characters and library team: the cheap
 // part of a score, which the server always does. A team without a
 // Problem is ready for compute.
-func (s *Server) prepare(ctx context.Context, l localizer, sel selection) teamResult {
-	tr := teamResult{Selection: sel}
+func (s *Server) prepare(ctx context.Context, l localizer, sel selection, enemy *config.Enemy) teamResult {
+	tr := teamResult{Selection: sel, Enemy: enemy}
 	p, err := s.profiles.Profile(ctx, sel.UID)
 	if err != nil {
 		tr.Problem = enkaMessage(l, err)
@@ -283,9 +286,9 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 	for _, m := range tr.Team.Members {
 		members = append(members, cmp.Or(renames[m], m))
 	}
-	once := config.Assemble(config.Conditions{Iterations: set.Iterations}, build.String(), rotation)
+	once := config.Assemble(config.Conditions{Iterations: set.Iterations, Enemy: tr.Enemy}, build.String(), rotation)
 	looped := func(rotation string, iterations int) (*score.Result, error) {
-		cfg := config.Assemble(config.Conditions{Iterations: iterations, Duration: set.Duration}, build.String(), rotation)
+		cfg := config.Assemble(config.Conditions{Iterations: iterations, Duration: set.Duration, Enemy: tr.Enemy}, build.String(), rotation)
 		return sim.Score(ctx, cfg, set.Warmup, iterations)
 	}
 
@@ -336,7 +339,7 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 	tr.OneRotation = oneRes
 	tr.Warnings = warnings(l, tr.Team, res)
 	tr.Rotation = rotation
-	tr.Timelines = cycleViews(ctx, l, sim, set, *tr, once, config.Assemble(config.Conditions{Iterations: 1, Duration: set.Duration}, build.String(), out.Looped), out.Filled)
+	tr.Timelines = cycleViews(ctx, l, sim, set, *tr, once, config.Assemble(config.Conditions{Iterations: 1, Duration: set.Duration, Enemy: tr.Enemy}, build.String(), out.Looped), out.Filled)
 	for _, c := range tr.Chars {
 		if c.UnknownSets > 0 {
 			tr.Warnings = append(tr.Warnings, l.T("warn.unknown_sets", l.charName(c.Key), c.UnknownSets))

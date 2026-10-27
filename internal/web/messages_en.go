@@ -182,5 +182,22 @@ func init() {
 		"wait.skill_cd":             "Elemental Skill cooldown",
 		"wait.burst_cd":             "Elemental Burst cooldown",
 		"wait.insufficient_stamina": "not enough stamina",
+
+		"enemy.heading":     "Enemy",
+		"enemy.standard":    "Lv. 100, 10% RES to everything (standard)",
+		"enemy.lead":        "Scores are calculated against the standard enemy so that every team compares with every other. Set a level and resistances to calculate against a particular boss instead. DEF follows from the level. Such a score only compares with scores against the same enemy.",
+		"enemy.apply":       "Recalculate",
+		"enemy.reset":       "Back to the standard enemy",
+		"enemy.custom_note": "Calculated against a custom enemy (%s). This score does not compare with scores against the standard enemy.",
+		"enemy.carried":     "Teams will be calculated against a custom enemy (%s).",
+		"err.enemy":         "The enemy settings are invalid. The level must be %d–%d and resistances between %d%% and %d%%.",
+
+		"enemy.same_note":   "Calculated against %s. Its level and resistances are the standard enemy's, so this score compares with standard scores.",
+		"enemy.preset":      "Boss preset",
+		"enemy.custom":      "Custom (no boss)",
+		"enemy.weekly":      "Weekly Bosses",
+		"enemy.world":       "Normal Bosses",
+		"enemy.preset_note": "A preset fills in the boss's base resistances from gcsim's monster data and keeps the level you set. Phase changes, shields and immunity are not modeled.",
+		"err.boss":          "Unknown boss: %q",
 	}
 }

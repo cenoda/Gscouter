@@ -182,5 +182,22 @@ func init() {
 		"wait.skill_cd":             "recharge de la Compétence élémentaire",
 		"wait.burst_cd":             "recharge du Déchaînement élémentaire",
 		"wait.insufficient_stamina": "endurance insuffisante",
+
+		"enemy.heading":     "Ennemi",
+		"enemy.standard":    "Niveau 100 · 10 % de RÉS à tout (standard)",
+		"enemy.lead":        "Pour que toutes les équipes soient comparables, les scores sont calculés contre l'ennemi standard. Réglez le niveau et les résistances pour calculer contre un boss précis. La DÉF dépend du niveau. Un tel score ne se compare qu'aux scores contre le même ennemi.",
+		"enemy.apply":       "Recalculer",
+		"enemy.reset":       "Revenir à l'ennemi standard",
+		"enemy.custom_note": "Calculé contre un ennemi personnalisé (%s). Ce score ne se compare pas aux scores contre l'ennemi standard.",
+		"enemy.carried":     "Les équipes seront calculées contre un ennemi personnalisé (%s).",
+		"err.enemy":         "Les réglages de l'ennemi sont invalides. Le niveau doit être compris entre %d et %d et les résistances entre %d %% et %d %%.",
+
+		"enemy.same_note":   "Calculé contre %s. Son niveau et ses résistances sont ceux de l'ennemi standard, ce score se compare donc aux scores standard.",
+		"enemy.preset":      "Boss prédéfini",
+		"enemy.custom":      "Personnalisé (sans boss)",
+		"enemy.weekly":      "Boss hebdomadaire",
+		"enemy.world":       "Boss normal",
+		"enemy.preset_note": "Un boss prédéfini remplit ses résistances de base d'après les données de monstres de gcsim et garde le niveau choisi. Les changements de phase, boucliers et immunités ne sont pas simulés.",
+		"err.boss":          "Boss inconnu : %q",
 	}
 }

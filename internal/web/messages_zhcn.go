@@ -182,5 +182,22 @@ func init() {
 		"wait.skill_cd":             "元素战技冷却",
 		"wait.burst_cd":             "元素爆发冷却",
 		"wait.insufficient_stamina": "体力不足",
+
+		"enemy.heading":     "敌人",
+		"enemy.standard":    "等级100 · 全抗性10%（标准）",
+		"enemy.lead":        "为了让所有队伍都能相互比较，分数按标准敌人计算。要针对特定首领计算，请修改等级和抗性。防御力由等级决定。这样得到的分数只能与针对同一敌人的分数比较。",
+		"enemy.apply":       "重新计算",
+		"enemy.reset":       "恢复标准敌人",
+		"enemy.custom_note": "按自定义敌人（%s）计算。此分数不能与标准敌人的分数比较。",
+		"enemy.carried":     "将按自定义敌人（%s）计算。",
+		"err.enemy":         "敌人设置无效。等级须为%d–%d，抗性须在%d%%到%d%%之间。",
+
+		"enemy.same_note":   "按%s计算。其等级和抗性与标准敌人相同，因此此分数可以与标准分数比较。",
+		"enemy.preset":      "首领预设",
+		"enemy.custom":      "自定义（无首领）",
+		"enemy.weekly":      "周本首领 (Weekly Bosses)",
+		"enemy.world":       "普通首领 (Normal Bosses)",
+		"enemy.preset_note": "选择预设会填入gcsim怪物数据中该首领的基础抗性，等级保持不变。不模拟阶段性抗性变化、护盾和无敌。",
+		"err.boss":          "未知首领：%q",
 	}
 }
