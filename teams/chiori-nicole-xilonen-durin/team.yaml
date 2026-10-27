@@ -20,4 +20,4 @@ validation:
     iterations: 20
     gap: 0.003
     kept: 1.016
-    dps: 1.120641e+06
+    dps: 1120641

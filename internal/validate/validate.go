@@ -116,7 +116,7 @@ func (r *Report) Validation(iterations int) *library.Validation {
 		v.Gap = &gap
 	}
 	if r.Res != nil {
-		v.DPS = math.Round(r.Res.DPS)
+		v.DPS = int(math.Round(r.Res.DPS))
 	}
 	return v
 }
@@ -316,8 +316,8 @@ func looped(ctx context.Context, r *Report, build string, s Settings) {
 		}
 	}
 	if last := team.Validation; last != nil && last.DPS > 0 && res.DPS > 0 {
-		if shift := res.DPS/last.DPS - 1; math.Abs(shift) > warnShift {
-			r.Warnings = append(r.Warnings, fmt.Sprintf("the looped score moved %+.1f%% from %.0f DPS on %s", shift*100, last.DPS, last.Date))
+		if shift := res.DPS/float64(last.DPS) - 1; math.Abs(shift) > warnShift {
+			r.Warnings = append(r.Warnings, fmt.Sprintf("the looped score moved %+.1f%% from %d DPS on %s", shift*100, last.DPS, last.Date))
 		}
 	}
 	for _, c := range res.Characters {

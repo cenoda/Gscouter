@@ -88,7 +88,7 @@ type Validation struct {
 	// source's DPS; absent without a reference.
 	Gap  *float64 `yaml:"gap,omitempty"`
 	Kept float64  `yaml:"kept"` // looped score over one pass under the common conditions
-	DPS  float64  `yaml:"dps"`  // looped score, as the site scores it
+	DPS  int      `yaml:"dps"`  // looped score, as the site scores it
 	// Draft says why the team does not meet the criteria for supported.
 	Draft string `yaml:"draft,omitempty"`
 }
