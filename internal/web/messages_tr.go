@@ -111,6 +111,8 @@ func init() {
 		"enka.failed":       "Profil Enka.Network'ten yüklenemedi.",
 
 		"warn.draft":        "Bu takımın rotasyonu henüz doğrulanmadı. Puan değişebilir.",
+		"warn.experimental": "Bu takımdaki bir karakter henüz gcsim'de yok ve Gscouter'ın kendi uygulamasıyla hesaplanıyor. Puan değişebilir.",
+		"tier.experimental": "Deneysel",
 		"warn.energy":       "%s, enerji için dakikada %.1f sn bekliyor. Daha fazla Enerji Yüklemesi puanı yükseltir.",
 		"warn.unknown_sets": "%s: %d yadigar seti henüz simülasyon motoru tarafından desteklenmediği için set bonusları hesaba katılmadı.",
 		"issue.arlecchino":  "Bilinen sorun: Arlecchino'nun hasarı olduğundan düşük hesaplanıyor ve nedeni araştırılıyor. Bu sonuca yaklaşık %20 eklemek gerçek değere yaklaşır.",

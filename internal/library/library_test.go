@@ -107,3 +107,49 @@ func TestRecord(t *testing.T) {
 		t.Errorf("read back %+v", back.Validation)
 	}
 }
+
+func TestLoadTier(t *testing.T) {
+	for _, c := range []struct {
+		members, tier string
+		ok            bool
+	}{
+		{"a, b, c, d", "", true},
+		{"nefer, b, c, d", "experimental", true},
+		{"Linnea, b, c, d", "experimental", true}, // any alias
+		{"nefer, b, c, d", "experimental-nofork", false},
+		{"a, b, c, d", "fork", false},         // gcsim_fork on a verified team
+		{"nefer, b, c, d", "", false},         // fork-only member, no tier
+		{"a, b, c, d", "experimental", false}, // experimental without one
+		{"nefer, b, c, d", "beta", false},
+	} {
+		dir := t.TempDir()
+		yaml := "id: x\nmembers: [" + c.members + "]\nstatus: blocked\n"
+		switch c.tier {
+		case "":
+		case "experimental":
+			yaml += "tier: experimental\ngcsim_fork: abc1234\n"
+		case "experimental-nofork":
+			yaml += "tier: experimental\n"
+		case "fork":
+			yaml += "gcsim_fork: abc1234\n"
+		default:
+			yaml += "tier: " + c.tier + "\n"
+		}
+		if err := os.WriteFile(filepath.Join(dir, "team.yaml"), []byte(yaml), 0o644); err != nil {
+			t.Fatal(err)
+		}
+		team, err := Load(dir)
+		if !c.ok {
+			if err == nil {
+				t.Errorf("[%s] tier %q: expected an error", c.members, c.tier)
+			}
+			continue
+		}
+		if err != nil {
+			t.Fatalf("[%s] tier %q: %v", c.members, c.tier, err)
+		}
+		if team.Tier != Tier(c.tier) {
+			t.Errorf("[%s] tier %q: loaded %q", c.members, c.tier, team.Tier)
+		}
+	}
+}

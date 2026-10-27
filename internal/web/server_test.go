@@ -57,9 +57,18 @@ func newTestServerFor(t *testing.T, srv *Server) *httptest.Server {
 // newTestSite is the site with two players, scoring with few iterations.
 func newTestSite(t *testing.T) *Server {
 	t.Helper()
+	return newTestSiteWith(t, nil)
+}
+
+// newTestSiteWith is newTestSite with edit applied to the library first.
+func newTestSiteWith(t *testing.T, edit func(*library.Library)) *Server {
+	t.Helper()
 	lib, err := library.LoadLibrary(teams.FS)
 	if err != nil {
 		t.Fatal(err)
+	}
+	if edit != nil {
+		edit(lib)
 	}
 	strong := hutaoTeam()
 	weak := hutaoTeam()
@@ -243,6 +252,26 @@ func TestWarningsKnownIssues(t *testing.T) {
 	}
 	if got := warnings(english, &library.Team{Members: []string{"hutao"}}, &score.Result{}); len(got) != 0 {
 		t.Errorf("unexpected warnings %q", got)
+	}
+}
+
+func TestExperimentalBadge(t *testing.T) {
+	ts := httptest.NewServer(newTestSiteWith(t, func(lib *library.Library) {
+		lib.Find([]string{"hutao", "yelan", "xingqiu", "zhongli"}).Tier = library.TierExperimental
+	}).Handler())
+	t.Cleanup(ts.Close)
+	badge := `<span class="badge">Experimental</span>`
+	_, body := get(t, ts, "/teams?q=hutao")
+	mustContain(t, body, "Hu Tao / Xingqiu / Zhongli / Yelan "+badge)
+	if strings.Count(body, badge) != 1 {
+		t.Errorf("%d badges on /teams?q=hutao, want only the experimental team's", strings.Count(body, badge))
+	}
+	_, body = get(t, ts, "/score?server=1&a="+url.QueryEscape("800000001:hutao,yelan,xingqiu,zhongli"))
+	mustContain(t, body, badge, "is not in gcsim yet")
+
+	_, body = get(t, newTestServer(t), "/score?server=1&a="+url.QueryEscape("800000001:hutao,yelan,xingqiu,zhongli"))
+	if strings.Contains(body, badge) || strings.Contains(body, "is not in gcsim yet") {
+		t.Error("verified team shown as experimental")
 	}
 }
 

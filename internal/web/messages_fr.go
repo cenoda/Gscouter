@@ -111,6 +111,8 @@ func init() {
 		"enka.failed":       "Impossible de charger le profil depuis Enka.Network.",
 
 		"warn.draft":        "La rotation de cette équipe n'est pas encore validée. Le score peut changer.",
+		"warn.experimental": "Un membre de cette équipe n'est pas encore dans gcsim et est calculé avec l'implémentation propre de Gscouter. Le score peut changer.",
+		"tier.experimental": "Expérimental",
 		"warn.energy":       "%s attend %.1f s par minute de l'énergie. Plus de Recharge d'énergie augmente le score.",
 		"warn.unknown_sets": "%s : %d sets d'artéfacts ne sont pas encore pris en charge par le moteur de simulation, leurs bonus de set ne sont donc pas comptés.",
 		"issue.arlecchino":  "Problème connu : les dégâts d'Arlecchino sont calculés trop bas et la cause est en cours d'analyse. Ajouter environ 20 % à ce résultat donne une valeur proche de la réalité.",

@@ -123,6 +123,7 @@ button.link { padding: 0; background: none; box-shadow: none; color: var(--accen
 .score .muted { font-size: 1rem; font-weight: 600; letter-spacing: .06em; color: var(--gold); }
 .team-head { display: flex; flex-direction: column; gap: 8px; }
 .team-title { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.badge { font-size: .75rem; font-weight: 600; color: var(--warn); background: var(--warn-bg); border: 1px solid var(--warn); border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
 table { width: 100%; border-collapse: collapse; font-size: .95rem; }
 th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); }
 th { color: var(--muted); font-weight: 500; font-size: .85rem; border-bottom-color: var(--text); border-bottom-color: color-mix(in srgb, var(--text) 35%, transparent); }
@@ -407,7 +408,7 @@ function copyLink(btn) {
 
 {{define "team"}}
 {{if .Nickname}}<p class="muted">{{.Nickname}} · UID {{.Selection.UID}}</p>{{else}}<p class="muted">UID {{.Selection.UID}}</p>{{end}}
-{{if .Team}}<div class="team-head">{{if .Chars}}{{template "faces" (keys .Chars)}}{{end}}<h2 class="team-title">{{template "members" .Team.Members}} {{teamName .Team}}</h2></div>{{end}}
+{{if .Team}}<div class="team-head">{{if .Chars}}{{template "faces" (keys .Chars)}}{{end}}<h2 class="team-title">{{template "members" .Team.Members}} {{teamName .Team}}{{if eq .Team.Tier "experimental"}} <span class="badge">{{t "tier.experimental"}}</span>{{end}}</h2></div>{{end}}
 {{if .Problem}}
 <div class="bad">{{.Problem}}</div>
 {{else if not .Result}}
