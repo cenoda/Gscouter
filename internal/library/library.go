@@ -43,11 +43,12 @@ const (
 // one of them. Update it whenever a character is added to the fork or
 // upstream merges one.
 var ForkOnly = map[string]bool{
-	"kachina":  true,
-	"linnea":   true,
-	"lohen":    true,
-	"nefer":    true,
-	"sandrone": true,
+	"kachina":    true,
+	"linnea":     true,
+	"lohen":      true,
+	"nefer":      true,
+	"sandrone":   true,
+	"vodyanitsa": true,
 }
 
 type Team struct {

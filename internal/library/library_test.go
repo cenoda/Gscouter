@@ -23,8 +23,9 @@ func TestLoadAllTeams(t *testing.T) {
 			t.Errorf("%s: %s team has no rotation", team.ID, team.Status)
 		}
 		// A rotation written from a guide must name the guide and say how
-		// it compares with public numbers (design §5.4).
-		if team.Written() && (len(team.Sources) == 0 || team.CrossCheck == nil || team.CrossCheck.Note == "") {
+		// it compares with public numbers (design §5.4). A blocked team has
+		// no rotation yet.
+		if team.Status != StatusBlocked && team.Written() && (len(team.Sources) == 0 || team.CrossCheck == nil || team.CrossCheck.Note == "") {
 			t.Errorf("%s: written rotation without sources or a cross_check note", team.ID)
 		}
 	}

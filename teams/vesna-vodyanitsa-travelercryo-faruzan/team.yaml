@@ -5,5 +5,7 @@ archetype: Anemo (Cryo Swirl to Stellar Swirl)
 status: blocked
 rotation_version: 0
 gcsim_commit: 2350be9
+tier: experimental
+gcsim_fork: 6fcfc4c
 sources: []
-notes: "Vesna and Vodyanitsa are not implemented in gcsim yet."
+notes: "Vesna is not implemented in gcsim yet; Vodyanitsa is on the fork."
