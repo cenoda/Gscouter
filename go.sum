@@ -1,5 +1,5 @@
-github.com/cenoda/gcsim v0.0.0-20261027020050-91c5de45b5d6 h1:vw+s6XPBPVpxHNtRxBMa1Q6beL5kTDxFW2pecmeNREE=
-github.com/cenoda/gcsim v0.0.0-20261027020050-91c5de45b5d6/go.mod h1:CoXrOXi4mQBbn/AuO+GflQvwGmTBd1IO09FZD8Vf/7A=
+github.com/cenoda/gcsim v0.0.0-20261027084325-13a481cfdbff h1:sOahRz0BgWai0chT4AFekl/TEW+H5BV6mXdWJEu79DU=
+github.com/cenoda/gcsim v0.0.0-20261027084325-13a481cfdbff/go.mod h1:CoXrOXi4mQBbn/AuO+GflQvwGmTBd1IO09FZD8Vf/7A=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/google/go-cmp v0.7.0 h1:wk8382ETsv4JYUZwIsn6YpYiWiBsYLSJiTsyBybVuN8=
