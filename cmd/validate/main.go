@@ -25,6 +25,13 @@
 // reviews first. Blocked teams are left alone. A looped score that moved
 // more than 5% from the recorded one is a warning.
 //
+// Simulation results are kept in -cache, by default under the user's
+// cache directory, and reused when the same config runs again with the
+// same gcsim (score.Cache): a rerun simulates only the teams that
+// changed. Seeds are fixed, so a cached result is the one a new run
+// would give; -cache "" turns it off, as when looking for
+// nondeterminism (design §5.4).
+//
 // -shard k/n checks every n-th team from the k-th on, so one run can be
 // split across machines or sessions; -json writes each report as one
 // JSON line, in team order, for cmd/compare to compare runs (the
@@ -61,6 +68,7 @@ func main() {
 		promote    = flag.Bool("promote", false, "record each result in team.yaml and set status: supported on teams that meet the criteria, draft on the others")
 		shard      = flag.String("shard", "", "k/n: check only every n-th team, from the k-th on")
 		jsonOut    = flag.String("json", "", "write each report as a JSON line to this file")
+		cache      = flag.String("cache", defaultCache(), `directory where simulation results are kept for later runs with the same gcsim, "" for none`)
 	)
 	flag.Parse()
 
@@ -101,7 +109,12 @@ func main() {
 		enc = json.NewEncoder(f)
 	}
 
-	s := validate.Settings{Iterations: *iterations, Warmup: *warmup, Duration: *duration}
+	if *cache != "" {
+		if _, err := score.OpenCache(*cache); err != nil {
+			fmt.Fprintln(os.Stderr, "not caching simulation results:", err)
+		}
+	}
+	s := validate.Settings{Iterations: *iterations, Warmup: *warmup, Duration: *duration, Cache: *cache}
 	// Each team is checked in its own process, so a rotation stuck
 	// inside gcsim cannot slow down the others.
 	reports := make([]chan *validate.Report, len(dirs))
@@ -152,6 +165,16 @@ func main() {
 	if failed > 0 {
 		os.Exit(1)
 	}
+}
+
+// defaultCache is the directory for cached simulation results under the
+// user's cache directory, "" if there is none.
+func defaultCache() string {
+	dir, err := os.UserCacheDir()
+	if err != nil {
+		return ""
+	}
+	return filepath.Join(dir, "gscouter", "validate")
 }
 
 // record writes the check's result to team.yaml with the status it

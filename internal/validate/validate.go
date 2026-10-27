@@ -65,6 +65,19 @@ type Settings struct {
 	Iterations       int
 	Warmup, Duration float64
 	Workers          int // simulations run in parallel per check; 0 means one per CPU
+	// Cache is a directory where simulation results are kept
+	// (score.Cache), "" for none.
+	Cache string
+
+	cache *score.Cache
+}
+
+// open opens s.Cache. A cache that cannot be used only costs time.
+func (s Settings) open() Settings {
+	if s.Cache != "" {
+		s.cache, _ = score.OpenCache(s.Cache)
+	}
+	return s
 }
 
 type Report struct {
@@ -167,6 +180,7 @@ func (r *Report) Unpromotable() string {
 // compares the DPS with the source's. It is the check cmd/harvest uses
 // to accept a team.
 func CheckReference(dir string, s Settings) *Report {
+	s = s.open()
 	return withTimeout(dir, func(ctx context.Context) *Report {
 		r, _ := reference(ctx, dir, s)
 		return r
@@ -177,6 +191,7 @@ func CheckReference(dir string, s Settings) *Report {
 // rotation scored as the site does, under the common conditions. A
 // check that runs longer than the timeout fails.
 func Check(dir string, s Settings) *Report {
+	s = s.open()
 	return withTimeout(dir, func(ctx context.Context) *Report {
 		r, build := reference(ctx, dir, s)
 		if build != "" {
@@ -253,7 +268,7 @@ func reference(ctx context.Context, dir string, s Settings) (*Report, string) {
 		return r, ""
 	}
 
-	onceRes, err := score.Run(ctx, once, score.Options{Iterations: s.Iterations, Workers: s.Workers, Seed: 1})
+	onceRes, err := s.cache.Run(ctx, once, score.Options{Iterations: s.Iterations, Workers: s.Workers, Seed: 1})
 	if err != nil {
 		r.Failures = append(r.Failures, "simulation: "+err.Error())
 		return r, ""
@@ -294,7 +309,7 @@ func looped(ctx context.Context, r *Report, build string, s Settings) {
 	r.Common = r.Once
 	if r.SourceConditions {
 		once := config.Assemble(config.Conditions{Iterations: s.Iterations}, build, team.Rotation)
-		res, err := score.Run(ctx, once, score.Options{Iterations: s.Iterations, Workers: s.Workers, Seed: 1})
+		res, err := s.cache.Run(ctx, once, score.Options{Iterations: s.Iterations, Workers: s.Workers, Seed: 1})
 		if err != nil {
 			r.Failures = append(r.Failures, "simulation under the common conditions: "+err.Error())
 			return
@@ -315,10 +330,10 @@ func looped(ctx context.Context, r *Report, build string, s Settings) {
 			// The probe was the first iteration of this run: the
 			// config differs only in the iteration count, which gcsim
 			// does not read.
-			res, err = rest(ctx, cfg, opts, probed)
+			res, err = rest(ctx, s.cache, cfg, opts, probed)
 			probed = nil
 		} else {
-			res, err = score.Run(ctx, cfg, opts)
+			res, err = s.cache.Run(ctx, cfg, opts)
 		}
 		if err == nil {
 			// The last run is not necessarily the best; keep the best's config.
@@ -382,7 +397,7 @@ func probe(ctx context.Context, build, rotation string, s Settings) (string, []s
 	}
 	done := make(chan result, 1)
 	go func() {
-		its, err := score.RunIterations(ctx, cfg, score.Options{Iterations: 1, Workers: 1, Warmup: s.Warmup, Seed: 1})
+		its, err := s.cache.RunIterations(ctx, cfg, score.Options{Iterations: 1, Workers: 1, Warmup: s.Warmup, Seed: 1})
 		done <- result{its, err}
 	}()
 	select {
@@ -398,11 +413,11 @@ func probe(ctx context.Context, build, rotation string, s Settings) (string, []s
 
 // rest scores cfg's opts.Iterations iterations, of which the first are
 // done: it runs the others and scores them all as score.Run would.
-func rest(ctx context.Context, cfg string, opts score.Options, done []score.Iteration) (*score.Result, error) {
+func rest(ctx context.Context, cache *score.Cache, cfg string, opts score.Options, done []score.Iteration) (*score.Result, error) {
 	its := done[:min(len(done), opts.Iterations)]
 	if n := opts.Iterations - len(its); n > 0 {
 		opts.First, opts.Iterations = len(its), n
-		more, err := score.RunIterations(ctx, cfg, opts)
+		more, err := cache.RunIterations(ctx, cfg, opts)
 		if err != nil {
 			return nil, err
 		}
