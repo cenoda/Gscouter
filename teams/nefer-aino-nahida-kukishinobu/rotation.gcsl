@@ -1,0 +1,30 @@
+# KQM Nefer quick guide, Nefer / Aino / Nahida / Kuki Shinobu (without
+# Lauma; Nahida holds 4pc Deepwood). Supports (Nahida E and Q when ready,
+# Aino EQ, Shinobu E), then Nefer's combo.
+# With Shinobu, the guide starts the first rotation with Nefer's skill, so
+# that it turns Dendro Cores into Seeds of Deceit before Shinobu's skill
+# can burst them.
+# Nefer combo (dash cancel): E 3[CD] E CD CQ CD
+# Nefer's charged attacks are held (Slither) until Verdant Dew turns them
+# into Phantasm Performance.
+active nefer;
+let first = 1;
+if first == 1 {
+  nefer skill;
+  first = 0;
+}
+nahida skill;
+if .nahida.burst.ready {
+  nahida burst;
+}
+aino skill;
+if .aino.burst.ready {
+  aino burst;
+}
+kukishinobu skill;
+nefer skill, charge[hold=150], dash, charge[hold=150], dash, charge[hold=150], dash,
+      skill, charge[hold=150], dash, charge[hold=150];
+if .nefer.burst.ready {
+  nefer burst;
+}
+nefer charge[hold=150], dash;

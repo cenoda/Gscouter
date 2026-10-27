@@ -1,0 +1,28 @@
+# Build at the level of the Nefer cross-check source (Nefer / Lauma /
+# Columbina / Sucrose): Nefer as there, supports with 4-star
+# weapons and artifacts at the level of that team's supports. Used to
+# validate the rotation.
+
+nefer char lvl=90/90 cons=0 talent=9,9,9;
+nefer add weapon="dawningfrost" refine=5 lvl=90/90;
+nefer add set="notsu" count=4;
+nefer add stats hp=4780 atk=311 em=187 em=187 cd=0.622;
+nefer add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*2 em=19.82*10 cr=0.0331*16 cd=0.0662*14;
+
+aino char lvl=90/90 cons=6 talent=9,9,9;
+aino add weapon="favoniusgreatsword" refine=3 lvl=90/90;
+aino add set="sms" count=4;
+aino add stats hp=4780 atk=311 er=0.518 em=187 cr=0.311;
+aino add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*10 em=19.82*6 cr=0.0331*6 cd=0.0662*4;
+
+collei char lvl=90/90 cons=6 talent=9,9,9;
+collei add weapon="favoniuswarbow" refine=3 lvl=90/90;
+collei add set="deepwood" count=4;
+collei add stats hp=4780 atk=311 er=0.518 em=187 cr=0.311;
+collei add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*10 em=19.82*6 cr=0.0331*6 cd=0.0662*4;
+
+kukishinobu char lvl=90/90 cons=6 talent=9,9,9;
+kukishinobu add weapon="sapwood" refine=5 lvl=90/90;
+kukishinobu add set="instructor" count=4;
+kukishinobu add stats hp=4780 atk=311 hp%=0.466 em=187 em=187;
+kukishinobu add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*6 atk=16.54*2 atk%=0.0496*2 er=0.0551*4 em=19.82*8 cr=0.0331*4 cd=0.0662*2;
