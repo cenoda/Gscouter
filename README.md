@@ -19,7 +19,7 @@ go run ./cmd/server          # http://localhost:8080
 | Flag | Default | Description |
 |---|---|---|
 | `-addr` | `:8080` (or `$PORT`) | Listen address |
-| `-iter` | 100 | Iterations per score |
+| `-iter` | 50 | Iterations per score |
 | `-warmup` | 150 | Seconds of the looped fight excluded from the score |
 | `-duration` | 450 | Length of the looped fight in seconds |
 | `-concurrent` | 1 | Simulations running at once |
