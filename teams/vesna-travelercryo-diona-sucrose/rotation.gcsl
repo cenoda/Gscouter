@@ -1,0 +1,35 @@
+# GameWith Vesna team guide, F2P Stellar Swirl team:
+# Traveler E C Q > Diona E Q (tap) > Sucrose E > Vesna [combo]
+# gcsim needs a normal attack before the Traveler's charged attack
+# (E N1C Q, as in the KQM Sandrone guide). The Traveler and Diona burst
+# when ready (no ER they reach gives a burst every rotation).
+# Vesna's combo: E [N C E]x2 Q E [N C E]x2. With 5
+# Sword Essence per attack it pays for only four Windborne Swords even
+# with the burst, so whenever the next one is not ready she keeps
+# attacking ("use Normal and Charged Attacks to recharge her special
+# Skill"), until the fifth ends Armed for Action.
+active travelercryo;
+travelercryo skill, attack, charge;
+if .travelercryo.burst.ready {
+  travelercryo burst;
+}
+diona skill;
+if .diona.burst.ready {
+  diona burst;
+}
+sucrose skill;
+vesna skill,
+      attack, charge, skill,
+      attack, charge, skill;
+vesna burst;
+while .vesna.armed {
+  while .vesna.armed && !.vesna.skill.ready {
+    vesna attack, charge;
+  }
+  if .vesna.armed {
+    vesna skill;
+  }
+  if .vesna.armed {
+    vesna attack, charge;
+  }
+}

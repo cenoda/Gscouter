@@ -1,0 +1,51 @@
+# Vesna: no KQM quick guide exists, so from the GameWith Vesna team guide
+# with KQM-standard substats: C0, Beyond the Chrysalis R1, 4pc Scarlet
+# Proof (the guide's weapon and set for her Stellar Swirl teams; for this
+# F2P team it names Emberwell or Finale of the Deep, but every Vesna team
+# has the same build), ATK%/ATK%/CRIT DMG (the guide's main stats, "CRIT
+# Rate or DMG"; CRIT DMG scored higher). The guide gives no ER; Icy Veins'
+# Vesna guide gives 120-140% with a second Anemo member. 138.6% (7 rolls)
+# is the least at which she bursts every rotation here (133.1% waits 3 s
+# per minute): 76.5k looped, against 71.9k at 111% with the burst when
+# ready.
+# Cryo Traveler: no KQM quick guide and no harvested team, so as in the
+# Sandrone Stellar Swirl team (C0, Exaiphanes Blade R1, ATK%/ATK%/CRIT
+# DMG, KQM-standard substats, 111% ER) but with 4pc Heart of the Furnace,
+# the guide's set for her in this team, where no Odette holds it. Even at
+# 166.1% she waits 22 s per minute for a burst every rotation, so she
+# bursts when ready.
+# Diona as in the Sandrone teams, from the harvested Nahida / Xingqiu /
+# Kaedehara Kazuha / Diona team (teams/nahida-xingqiu-kaedeharakazuha-diona):
+# C6 (the guide names her C6 EM buff), Favonius Warbow R4, 4pc Noblesse
+# Oblige (the guide's weapon and set), 257.2% ER. Even at that ER she
+# waits 15 s per minute for a burst every rotation, so she bursts when
+# ready.
+# Sucrose as in the Sandrone teams, from the harvested Arlecchino / Furina
+# / Sucrose / Bennett team (teams/arlecchino-furina-sucrose-bennett): C6,
+# Thrilling Tales of Dragon Slayers R5, 4pc Viridescent Venerer (the
+# guide's weapon and set). The guide's rotation has no Sucrose burst.
+# Used to validate the rotation.
+
+vesna char lvl=90/90 cons=0 talent=9,9,9;
+vesna add weapon="beyondthechrysalis" refine=1 lvl=90/90;
+vesna add set="scarletproof" count=4;
+vesna add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cd=0.622;
+vesna add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*7 em=19.82*2 cr=0.0331*12 cd=0.0662*5;
+
+travelercryo char lvl=90/90 cons=0 talent=9,9,9;
+travelercryo add weapon="exaiphanesblade" refine=1 lvl=90/90;
+travelercryo add set="heartofthefurnace" count=4;
+travelercryo add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cd=0.622;
+travelercryo add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*12 cd=0.0662*10;
+
+diona char lvl=90/90 cons=6 talent=9,9,9;
+diona add weapon="favbow" refine=4 lvl=90/90;
+diona add set="no" count=4;
+diona add stats hp=4780 atk=311 er=0.518 hp%=0.466 cr=0.311;
+diona add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.4408 em=39.64 cr=0.331 cd=0.5296;
+
+sucrose char lvl=90/90 cons=6 talent=9,9,9;
+sucrose add weapon="ttds" refine=5 lvl=90/90;
+sucrose add set="viridescentvenerer" count=4;
+sucrose add stats hp=4780 atk=311 em=187 em=187 em=187;
+sucrose add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=118.92 cr=0.3972 cd=0.5296;
