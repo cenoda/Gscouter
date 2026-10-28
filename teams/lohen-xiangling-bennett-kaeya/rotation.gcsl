@@ -1,0 +1,23 @@
+# KQM Lohen quick guide, example team 5 (limited roster) with Kaeya:
+# Bennett QE > Xiangling QED > Kaeya EQ > Lohen [combo] > Bennett E >
+# Xiangling N3 > Kaeya E
+# No other Hexerei member, so Lohen plays the guide's combo for teams
+# without a Hexerei teammate: E 15-17[N1C] (N1 E), 15 strings (the
+# guide's average is 15-16), then N1 and Etched Into Bone and Soul.
+active bennett;
+bennett burst, skill;
+xiangling burst, skill, dash;
+kaeya skill, burst;
+lohen skill,
+      attack, charge, attack, charge, attack, charge,
+      attack, charge, attack, charge, attack, charge,
+      attack, charge, attack, charge, attack, charge,
+      attack, charge, attack, charge, attack, charge,
+      attack, charge, attack, charge, attack, charge,
+      attack, skill;
+if .lohen.burst.ready {
+  lohen burst;
+}
+bennett skill;
+xiangling attack:3;
+kaeya skill;

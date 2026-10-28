@@ -1,0 +1,18 @@
+# KQM Lohen quick guide, example team 1 with Sucrose:
+# Nicole EQ > Durin E N1 Q > Sucrose ED N1 > Lohen [combo]
+# Lohen's average combo as in Lohen / Durin / Nicole / Citlali:
+# E 2[N1C] E/Q 4[N1C] E 5[N1C] E.
+active nicole;
+nicole skill, burst;
+durin skill, attack, burst;
+sucrose skill, dash, attack;
+lohen skill,
+      attack, charge, attack, charge,
+      skill;
+if .lohen.burst.ready {
+  lohen burst;
+}
+lohen attack, charge, attack, charge, attack, charge, attack, charge,
+      skill,
+      attack, charge, attack, charge, attack, charge, attack, charge, attack, charge,
+      skill;
