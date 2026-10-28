@@ -3,6 +3,7 @@ package enka
 import (
 	"bytes"
 	"errors"
+	"maps"
 	"os"
 	"reflect"
 	"testing"
@@ -118,6 +119,7 @@ func TestPackTwelve(t *testing.T) {
 func TestUnpackRejectsPieces(t *testing.T) {
 	good := parseSkirk(t, nil)
 	clone := func(c Character) Character {
+		c.Stats = maps.Clone(c.Stats)
 		c.Pieces = append([]Artifact(nil), c.Pieces...)
 		for i := range c.Pieces {
 			c.Pieces[i].Subs = append([]StatValue(nil), c.Pieces[i].Subs...)
@@ -148,7 +150,12 @@ func TestUnpackRejectsPieces(t *testing.T) {
 		"unknown set piece": func(c *Character) { c.Pieces[0].Set = "" },
 		"pieces over sets":  func(c *Character) { c.Sets = map[string]int{"finaleofthedeepgalleries": 1} },
 		"stripped short":    func(c *Character) { *c = c.Stripped(); c.Pieces = c.Pieces[:1] },
-		"detail 3":          func(c *Character) { c.PieceDetail = 3 },
+		// Pieces must agree with the totals the score is calculated from.
+		"off the totals":   func(c *Character) { c.Stats["cd"] += 0.01 },
+		"total missing":    func(c *Character) { delete(c.Stats, "atk") },
+		"stripped too low": func(c *Character) { *c = c.Stripped(); c.Stats["cryo%"] = 0.3 },
+		"stripped extra":   func(c *Character) { *c = c.Stripped(); c.Stats["heal"] = 0.1 },
+		"detail 3":         func(c *Character) { c.PieceDetail = 3 },
 	} {
 		c := clone(good)
 		edit(&c)
@@ -161,6 +168,23 @@ func TestUnpackRejectsPieces(t *testing.T) {
 		if _, err := Unpack(b); !errors.Is(err, errPacked) {
 			t.Errorf("%s: err = %v", name, err)
 		}
+	}
+}
+
+// Totals within the substats' one-decimal rounding of their pieces
+// read; so do stripped pieces under totals with substats on top.
+func TestUnpackTotalsRounding(t *testing.T) {
+	c := parseSkirk(t, nil)
+	c.Stats = maps.Clone(c.Stats)
+	c.Stats["cr"] += 0.0009 // two CRIT Rate substats: up to 0.1% off
+	c.Stats["atk"] -= 0.04
+	if _, err := Unpack(Pack([]Character{c})); err != nil {
+		t.Errorf("full: %v", err)
+	}
+	s := c.Stripped()
+	s.Stats["em"] = 40
+	if _, err := Unpack(Pack([]Character{s})); err != nil {
+		t.Errorf("stripped: %v", err)
 	}
 }
 

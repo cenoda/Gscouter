@@ -196,7 +196,7 @@ func Unpack(b []byte) ([]Character, error) {
 }
 
 // pieces reads what appendPieces wrote and checks it against the game's
-// limits and against the character's set counts.
+// limits, the character's set counts and its stat totals.
 func (r *reader) pieces(c *Character, sets []string) {
 	c.PieceDetail = PieceDetail(r.uint(uint64(numPieceDetails) - 1))
 	if c.PieceDetail == PiecesNone {
@@ -248,6 +248,10 @@ func (r *reader) pieces(c *Character, sets []string) {
 		}
 	} else if len(c.Pieces) != pieceCount(c) {
 		r.fail("pieces do not match the set counts")
+		return
+	}
+	if err := checkTotals(c); err != nil {
+		r.fail("%v", err)
 	}
 }
 

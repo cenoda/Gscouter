@@ -204,3 +204,35 @@ func (g *gameData) checkPieces(pieces []Artifact, detail PieceDetail) error {
 	}
 	return nil
 }
+
+// totalsSlack is how far a total may be from its pieces' sum beyond the
+// substats' rounding: the precision stats are packed at, summed.
+const totalsSlack = 1e-5
+
+// checkTotals checks a build's pieces against Stats, the totals its
+// score is calculated from, so that a link cannot show pieces other than
+// the ones it was scored with. Full pieces add up to Stats, give or take
+// half a tenth of Enka's display unit per substat (pieces keep one
+// decimal, Stats Enka's value). Stripped pieces have only main stats:
+// Stats holds at least those, and exactly those of the stats no
+// substat has (Healing Bonus, elemental DMG Bonus).
+func checkTotals(c *Character) error {
+	sum, round := map[string]float64{}, map[string]float64{}
+	for _, p := range c.Pieces {
+		sum[p.Main.Key] += p.Main.Value
+		for _, s := range p.Subs {
+			sum[s.Key] += s.Value
+			round[s.Key] += 0.05 / statsByName[s.Key].scale
+		}
+	}
+	for _, key := range statOrder {
+		d := c.Stats[key] - sum[key]
+		_, sub := maxRolls[key]
+		switch {
+		case c.PieceDetail == PiecesFull && math.Abs(d) > round[key]+totalsSlack,
+			c.PieceDetail == PiecesStripped && (d < -totalsSlack || !sub && d > totalsSlack):
+			return fmt.Errorf("pieces do not add up to the %s total", key)
+		}
+	}
+	return nil
+}
