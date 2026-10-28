@@ -190,6 +190,9 @@ type indexData struct {
 	// the standard one.
 	Enemy *config.Enemy
 	Meta  pageMeta
+	// Prefetch is the browser build's version, which the page warms up
+	// for the result page; "" when the server calculates results.
+	Prefetch string
 }
 
 func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
@@ -199,6 +202,9 @@ func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 		UID:       strings.TrimSpace(q.Get("uid")),
 		VS:        q.Get("vs"),
 		TeamCount: len(s.lib.Teams),
+	}
+	if s.client != nil {
+		data.Prefetch = s.client.version
 	}
 	enemy, err := enemyFromQuery(q)
 	if err != nil {
