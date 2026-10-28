@@ -1,0 +1,27 @@
+id: lohen-furina-prune-vodyanitsa
+name: Lohen / Furina / Prune / Vodyanitsa
+members:
+    - lohen
+    - furina
+    - prune
+    - vodyanitsa
+archetype: Cryo Freeze with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://www.enjoygm.com/blog/genshin-impact/vodyanitsa-team-guide
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+    - https://keqingmains.com/q/lohen-quickguide/
+    - https://db.kqm.gg/db/rptrLthqPrbj
+notes: 'Written from guides (design §5.4; no community gcsim config with Vodyanitsa or Lohen exists: upstream gcsim lacks both). enjoygm lists Lohen / Furina / Prune or Escoffier / Vodyanitsa, without a rotation. Built on the written Lohen / Escoffier / Furina / Vodyanitsa team (the KQM Lohen quick guide''s Freeze rotation with Vodyanitsa in Mona''s place) with Prune in Escoffier''s place: Lohen, Furina and Vodyanitsa keep that team''s builds and actions. Prune''s build (C6, the lowest constellation of any harvested Prune team; Prototype Amber R5, 4pc Viridescent Venerer, ATK%/ATK%/ATK%) and his actions (Q E after Furina) are the harvested Varka / Prune / Mona / Furina team''s. Vodyanitsa casts her skill, the last swap before the carry (she holds Thrilling Tales), and bursts when ready. Prune bursts every rotation as in his source and waits 7.5 s/min for energy in the looped rotation; casting it when ready instead skips some bursts and scores less (86.8k looped against 91.5k), so the source''s order is kept. Against Lohen / Escoffier / Furina / Vodyanitsa (120.9k looped) Prune in Escoffier''s place loses 24%, in line with the guides'' preference for Escoffier in Freeze.'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: enjoygm (team list, no rotation or DPS); the KQM Vodyanitsa and Lohen quick guides (no Prune team with her); the community gcsim database (no Vodyanitsa or Lohen: upstream gcsim lacks both); web searches for Lohen / Furina / Prune / Vodyanitsa (GenshinBuilds Lohen and Vodyanitsa team pages do not list it); Icy Veins returns 403.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 0.916
+    dps: 91459
+    draft: no reference DPS

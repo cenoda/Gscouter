@@ -1,0 +1,25 @@
+id: kamisatoayato-citlali-escoffier-vodyanitsa
+name: Kamisato Ayato / Citlali / Escoffier / Vodyanitsa
+members:
+    - ayato
+    - citlali
+    - escoffier
+    - vodyanitsa
+archetype: Hydro Freeze with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+    - https://db.kqm.gg/db/QQnzN7dtnF8Q
+notes: 'Written from the KQM Vodyanitsa quick guide (design §5.4; no community gcsim config with Vodyanitsa exists: upstream gcsim lacks her). Its Ayato team, Vodyanitsa / Ayato / Citlali / Escoffier, with its rotation as written: Ayato Q > Escoffier E > Vodyanitsa E Q > Citlali EQ > Ayato E N15 > Escoffier Q E > Vodyanitsa E Q > Citlali E > Ayato E N15. Ayato, Citlali and Escoffier are the harvested Kamisato Ayato / Citlali / Furina / Escoffier team''s. Vodyanitsa: C0, Prototype Amber R5 (the guide: she bursts every rotation beside Hydro damage dealers, with Amber), 4pc Tenacity, HP%/HP%/HP%, KQM-standard substats, 155.1% ER (10 ER rolls in place of CRIT rolls), the least at which she bursts twice per rotation as the rotation says (the guide''s double Hydro range with Amber is 145-155%; at 144.1% she waits 7 s/min for energy, and at 111% the looped score skips her bursts for 67.7k, -2.4%). Against the harvested Kamisato Ayato / Citlali / Furina / Escoffier team (70.0k looped, 20 iterations) Vodyanitsa in Furina''s slot gives about the same score.'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: the KQM Vodyanitsa quick guide (team and rotation, no DPS, no gcsim links); the community gcsim database (no Vodyanitsa: upstream gcsim lacks her); web searches for Ayato teams with Vodyanitsa (GenshinBuilds, AllThingsHow, enjoygm, FandomWire, Mobalytics team pages: none lists Ayato); Icy Veins and Prydwen return 403.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 1.016
+    dps: 69430
+    draft: no reference DPS

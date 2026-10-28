@@ -1,0 +1,26 @@
+id: chasca-mavuika-bennett-vodyanitsa
+name: Chasca / Mavuika / Bennett / Vodyanitsa
+members:
+    - chasca
+    - mavuika
+    - bennett
+    - vodyanitsa
+archetype: Chasca multi-element hypercarry with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://www.enjoygm.com/blog/genshin-impact/vodyanitsa-team-guide
+    - https://keqingmains.com/q/chasca-quickguide/
+    - https://db.kqm.gg/db/Wf6NCqcd6bGT
+notes: 'Written from guides (design §5.4; no community gcsim config with Vodyanitsa exists: upstream gcsim lacks her). enjoygm lists Chasca / Bennett / Iansan or Mavuika / Vodyanitsa (a niche sustain option) without a rotation, so the rotation is the harvested Chasca / Furina / Mavuika / Bennett team''s with Vodyanitsa''s skill in Furina''s place, moved to the last swap before Chasca as she holds Thrilling Tales; she bursts when ready. Bennett bursts when ready: Furina''s particles fed him in the source, and his unconditional burst made the one pass wait for energy (37.6k one pass); he bursts about every other rotation. Chasca, Mavuika and Bennett builds are that team''s. Vodyanitsa: C0, Thrilling Tales R5 (no teammate holds it), 4pc Tenacity (Furina held it), HP%/HP%/HP%, KQM-standard substats, 111% ER. The source team with Furina scores 79.4k looped (20 iterations); Vodyanitsa in her slot is 15% lower.'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: the KQM Vodyanitsa quick guide (team lists and rotations, no DPS, no gcsim links); the community gcsim database (no Vodyanitsa: upstream gcsim lacks her); GenshinBuilds, AllThingsHow, enjoygm and wishgm Vodyanitsa team pages; Icy Veins and Prydwen return 403.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 0.98
+    dps: 67228
+    draft: no reference DPS

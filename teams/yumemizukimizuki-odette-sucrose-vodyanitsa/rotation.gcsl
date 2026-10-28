@@ -1,0 +1,30 @@
+# enjoygm lists Mizuki / Odette / Cryo Traveler or Sucrose / Vodyanitsa
+# without a rotation. Adapted from the KQM Vodyanitsa quick guide's
+# Mizuki Stellar Swirl team (Vodyanitsa E > Odette Q/E E > Traveler E
+# N1C Q > Mizuki E (Q)) with Sucrose in the Traveler's place, playing
+# her skill as in the Vesna Stellar Swirl teams (GameWith: Sucrose E):
+# Vodyanitsa E > Odette Q/E E > Sucrose E > Mizuki E (Q)
+# Odette: "Burst every other rotation, starting from the second rotation
+# onwards; otherwise, use her Skill" (an odq toggle; on her rotation she
+# bursts if ready). Mizuki: "Burst whenever available"; her combo is the
+# harvested Yumemizuki Mizuki / Ineffa / Columbina / Ororon team's (E,
+# burst when ready during Dreamdrifter, then a charged attack).
+let odq = 0;
+active vodyanitsa;
+vodyanitsa skill;
+if odq == 1 && .odette.burst.ready {
+  odette burst, skill;
+} else {
+  odette skill:2;
+}
+odq = 1 - odq;
+sucrose skill;
+mizuki skill;
+while .mizuki.status.dreamdrifter-state {
+  if .mizuki.burst.ready {
+    mizuki burst;
+  } else {
+    wait(1);
+  }
+}
+mizuki charge;

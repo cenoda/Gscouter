@@ -1,0 +1,15 @@
+# KQM Vodyanitsa quick guide, Neuvillette team (Escoffier version):
+# Neuvillette E > Furina ED N3 > Escoffier EQ > Vodyanitsa EQ > Furina Q >
+# Neuvillette C E C Q > Escoffier E N1 > Vodyanitsa EQ > Neuvillette 2[C],
+# as written. C is Neuvillette's charged attack (Equitable Judgment, held
+# to its end), as in the harvested Neuvillette rotations.
+active neuvillette;
+neuvillette skill;
+furina skill, dash, attack:3;
+escoffier skill, burst;
+vodyanitsa skill, burst;
+furina burst;
+neuvillette charge, skill, charge, burst;
+escoffier skill, attack;
+vodyanitsa skill, burst;
+neuvillette charge, charge;

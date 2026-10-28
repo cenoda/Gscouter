@@ -1,0 +1,17 @@
+# KQM Vodyanitsa quick guide, Neuvillette / Xilonen / Kazuha team:
+# Neuvillette E > Kazuha tEP > Xilonen EQ N2 > Vodyanitsa EQ > Kazuha Q
+# tEP > Neuvillette C E C Q > Xilonen E N2 > Vodyanitsa EQ > Kazuha tEP >
+# Neuvillette 2[C], as written. C is Neuvillette's charged attack
+# (Equitable Judgment, held to its end), as in the harvested Neuvillette
+# rotations; tEP is Kazuha's tapped skill and its plunge (high_plunge).
+active neuvillette;
+neuvillette skill;
+kazuha skill, high_plunge;
+xilonen skill, burst, attack:2;
+vodyanitsa skill, burst;
+kazuha burst, skill, high_plunge;
+neuvillette charge, skill, charge, burst;
+xilonen skill, attack:2;
+vodyanitsa skill, burst;
+kazuha skill, high_plunge;
+neuvillette charge, charge;

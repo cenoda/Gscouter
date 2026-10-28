@@ -1,0 +1,31 @@
+id: sandrone-odette-sucrose-vodyanitsa
+name: Sandrone / Odette / Sucrose / Vodyanitsa
+members:
+    - sandrone
+    - odette
+    - sucrose
+    - vodyanitsa
+archetype: Stellar Swirl with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://www.ldshop.gg/blog/genshin-impact/vodyanitsa-best-teams.html
+    - https://www.enjoygm.com/blog/genshin-impact/vodyanitsa-team-guide
+    - https://gamingpromax.com/vodyanitsa-best-teams-genshin-impact/
+    - https://allthings.how/genshin-impact-vodyanitsa-best-build-and-teams-version-7-1/
+    - https://keqingmains.com/q/sandrone-quickguide/
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+notes: 'Written from guides (design §5.4; no community gcsim config with Sandrone or Vodyanitsa exists: upstream gcsim lacks them). LDShop, wishgm, enjoygm and Gaming ProMax list Sandrone / Odette / Sucrose / Vodyanitsa and AllThingsHow tested it at 247k; none gives a rotation (enjoygm: play Vodyanitsa "exactly as in the Vesna team: Skill, leave"). The rotation is the Sandrone / Odette / Sucrose / Cryo Traveler team''s (the KQM Sandrone quick guide''s Stellar Swirl team, teams/sandrone-odette-sucrose-travelercryo, 95.9k looped) with Vodyanitsa E in the Traveler''s place: Odette 2[E](Q) > Sucrose N1 ED (Q) > Vodyanitsa E > Sandrone C E > Sucrose N1 ED > Sandrone [combo], Odette and Sucrose bursting when ready. Sandrone''s build is the same in every Sandrone team except her ER substats: here 133.1%, the least in the guide''s table (+1 Cryo row, 130-165%) at which she bursts every rotation (122% almost does, with 0.2 s per minute of waits; 111% skips bursts and scores 112.6k). Odette and Sucrose as in the base team; Vodyanitsa from her KQM quick guide: C0, Prototype Amber R5 (Sucrose holds Thrilling Tales), 4pc Tenacity of the Millelith, HP%/HP%/HP%, skill only; she deals 0.5% of the damage. Known problem: the fork''s calibration against HoYoLAB 46338256 is -11.9% for a Sandrone team, cause unknown (design §5.4, Sandrone row).'
+cross_check:
+    dps: 247000
+    source: https://allthings.how/genshin-impact-vodyanitsa-best-build-and-teams-version-7-1/
+    note: 'AllThingsHow''s tested 247k for this team (no builds or constellations stated; post-release testing). Here 121.8k one pass (-50.7%) and 108.0k looped (-56.3%). This team has the Sandrone guide''s A Teaspoon of Transcendence Sandrone, C0 4-star supports and a Prototype Amber Vodyanitsa, and carries the fork''s Sandrone calibration gap. Also searched 2026-10-28: the community gcsim database (no Vodyanitsa: upstream gcsim lacks her); the KQM Vodyanitsa quick guide (team lists and rotations, no DPS, no gcsim links); AllThingsHow (tested numbers only for Sandrone / Odette / Sucrose / Vodyanitsa 247k, Vesna / Odette / Cryo Traveler / Vodyanitsa 223k, Mizuki / Odette / Cryo Traveler / Vodyanitsa 187k and Freeze teams, no builds); GameWith, LDShop, wishgm, enjoygm, Gaming ProMax and GenshinBuilds Vodyanitsa team pages (team lists, ratings and roles only); Icy Veins and Prydwen return 403; the KQM Sandrone quick guide (no DPS).'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 0.886
+    dps: 107975
+    draft: no reference DPS

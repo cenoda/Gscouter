@@ -1,0 +1,24 @@
+id: yumemizukimizuki-travelercryo-diona-vodyanitsa
+name: Yumemizuki Mizuki / Cryo Traveler / Diona / Vodyanitsa
+members:
+    - mizuki
+    - travelercryo
+    - diona
+    - vodyanitsa
+archetype: Stellar Swirl with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+notes: 'Written from the KQM Vodyanitsa quick guide (design §5.4; no community gcsim config with Vodyanitsa exists: upstream gcsim lacks her), its limited-roster Stellar Swirl team, rotation as written: Diona hE(Q) > Vodyanitsa E > Traveler E N1C Q > Mizuki E (Q). Footnotes: Diona bursts every other rotation (a dq toggle from the first rotation, bursting if ready; she does in every turn); the Traveler skips the N1C on the first rotation (a let first flag); Mizuki bursts whenever available. The Traveler''s burst is cast when ready (it comes every other rotation). Gear as the guide says: the Traveler holds 4pc Heart of the Furnace, Diona 4pc Tenacity of the Millelith, Vodyanitsa 2pc HP% + 2pc HP% (2pc Tenacity + 2pc Vourukasha''s Glow). Mizuki''s combo and build are the harvested Yumemizuki Mizuki / Ineffa / Columbina / Ororon team''s (Evenstar R1, 4pc Viridescent Venerer). Diona is the Sandrone and Vesna teams'' C6 Favonius Warbow R4 build (257.2% ER) with the guide''s set; the Cryo Traveler the Sandrone Stellar Swirl team''s (Exaiphanes Blade R1) with Heart of the Furnace; Vodyanitsa C0, Thrilling Tales R5 (passed to the Traveler, her next swap), HP%/HP%/HP%, skill only. Kept is far above 130%: the one pass is a single 15.3 s rotation and its first rotation is weak (Mizuki''s Stellar Swirls not yet built up); three rotations from full energy score 42.4k, 102% of the looped score.'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: the community gcsim database (no Vodyanitsa: upstream gcsim lacks her); the KQM Vodyanitsa quick guide (team lists and rotations, no DPS, no gcsim links); AllThingsHow (tested numbers only for Sandrone / Odette / Sucrose / Vodyanitsa 247k, Vesna / Odette / Cryo Traveler / Vodyanitsa 223k, Mizuki / Odette / Cryo Traveler / Vodyanitsa 187k and Freeze teams, no builds); GameWith, LDShop, wishgm, enjoygm, Gaming ProMax and GenshinBuilds Vodyanitsa team pages (team lists, ratings and roles only); Icy Veins and Prydwen return 403.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 1.683
+    dps: 43230
+    draft: no reference DPS

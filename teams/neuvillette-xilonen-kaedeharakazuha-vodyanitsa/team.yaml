@@ -1,0 +1,26 @@
+id: neuvillette-xilonen-kaedeharakazuha-vodyanitsa
+name: Neuvillette / Xilonen / Kaedehara Kazuha / Vodyanitsa
+members:
+    - neuvillette
+    - xilonen
+    - kazuha
+    - vodyanitsa
+archetype: Neuvillette hypercarry with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+    - https://www.enjoygm.com/blog/genshin-impact/vodyanitsa-team-guide
+    - https://db.kqm.gg/db/BwJqBTtHBcRd
+notes: 'Written from the KQM Vodyanitsa quick guide (design §5.4; no community gcsim config with Vodyanitsa exists: upstream gcsim lacks her). Its second Neuvillette team, Vodyanitsa / Neuvillette / Xilonen / Kazuha (the guide: a good replacement for C0 Furina; enjoygm lists it as a comfort team), with its rotation as written: Neuvillette E > Kazuha tEP > Xilonen EQ N2 > Vodyanitsa EQ > Kazuha Q tEP > Neuvillette C E C Q > Xilonen E N2 > Vodyanitsa EQ > Kazuha tEP > Neuvillette 2[C]. Neuvillette''s C is his charged attack (Equitable Judgment, held to its end, as gcsim''s charge and the harvested Neuvillette rotations write it); 2[C] is two of them. Kazuha''s tEP is his tapped skill and plunge (skill, high_plunge). Neuvillette, Xilonen and Kazuha are the harvested Neuvillette / Furina / Kazuha / Xilonen team''s. Vodyanitsa: C0, Prototype Amber R5 (the guide: she bursts every rotation beside Hydro damage dealers, with Amber), 2pc Tenacity of the Millelith + 2pc Vourukasha''s Glow (the guide''s choice when the main DPS does not scale with ATK, such as Neuvillette), HP%/HP%/HP%, KQM-standard substats, 155.1% ER (10 ER rolls in place of 8 CRIT rolls), the least at which she bursts twice per rotation as the rotation says (the guide''s double Hydro range with Amber is 145-155%; at 144.1% she waits 0.5 s/min for energy, and at 133.1% the looped score skips bursts). The looped score keeps 116% of the one pass: from full energy the one pass still waits for her second burst''s energy. Against the harvested Neuvillette / Furina / Kazuha / Xilonen team (94.4k looped, 20 iterations), Vodyanitsa in Furina''s slot scores about the same (95.5k).'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: the KQM Vodyanitsa quick guide (team and rotation, no DPS, no gcsim links); enjoygm (lists it as a comfort team, no DPS); the community gcsim database (no Vodyanitsa: upstream gcsim lacks her); GenshinBuilds, AllThingsHow and FandomWire Vodyanitsa team pages (AllThingsHow''s 133k for an unnamed Neuvillette core is recorded on the Furina / Xilonen variant); Icy Veins and Prydwen return 403.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 1.165
+    dps: 95463
+    draft: no reference DPS

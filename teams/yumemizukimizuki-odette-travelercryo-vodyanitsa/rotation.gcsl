@@ -1,0 +1,38 @@
+# KQM Vodyanitsa quick guide, Stellar Swirl team with Mizuki
+# (Vodyanitsa / Mizuki / Odette / Cryo Traveler), as written:
+# Vodyanitsa E > Odette Q/E E > Traveler E N1C Q > Mizuki E (Q)
+# Odette: "Burst every other rotation, starting from the second rotation
+# onwards; otherwise, use her Skill" (an odq toggle; on her rotation she
+# bursts if ready). Traveler: "Only cast Traveler's Skill on the first
+# rotation" (a let first flag: E alone on the first rotation, E N1C Q
+# after). Her burst is cast when ready: its 15 s cooldown is longer than
+# the 14.7 s rotation, so it comes every other rotation at any ER. Mizuki: "Burst whenever available"; her combo is the harvested
+# Yumemizuki Mizuki / Ineffa / Columbina / Ororon team's (E, burst when
+# ready during Dreamdrifter, then a charged attack).
+let first = 1;
+let odq = 0;
+active vodyanitsa;
+vodyanitsa skill;
+if odq == 1 && .odette.burst.ready {
+  odette burst, skill;
+} else {
+  odette skill:2;
+}
+odq = 1 - odq;
+travelercryo skill;
+if first == 0 {
+  travelercryo attack, charge;
+  if .travelercryo.burst.ready {
+    travelercryo burst;
+  }
+}
+first = 0;
+mizuki skill;
+while .mizuki.status.dreamdrifter-state {
+  if .mizuki.burst.ready {
+    mizuki burst;
+  } else {
+    wait(1);
+  }
+}
+mizuki charge;

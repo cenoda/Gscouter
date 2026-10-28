@@ -1,0 +1,27 @@
+# enjoygm lists Chasca / Bennett / Mavuika / Vodyanitsa without a
+# rotation. Rotation from the harvested Chasca / Furina / Mavuika /
+# Bennett team (teams/chasca-furina-mavuika-bennett) with Vodyanitsa's
+# skill in Furina's place, moved to the last swap before Chasca as she
+# holds Thrilling Tales; she bursts when ready. Bennett bursts when ready:
+# Furina's particles fed him in the source, and his unconditional burst
+# made the one pass wait for energy.
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  bennett dash;
+  if .bennett.burst.ready {
+    bennett burst;
+  }
+  mavuika burst, skill;
+  vodyanitsa skill;
+  if .vodyanitsa.burst.ready {
+    vodyanitsa burst;
+  }
+  chasca skill;
+  chasca aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+  bennett skill, attack:2, dash;
+}
