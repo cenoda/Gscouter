@@ -13,7 +13,8 @@ type Filler int
 
 const (
 	// FillSelf: the character uses its own skill when ready, otherwise
-	// attacks.
+	// attacks, at most maxFillAttacks times; a burst still not ready
+	// then is passed, as with FillSkip.
 	FillSelf Filler = iota
 	// FillParty: as FillSelf, but when its skill is on cooldown another
 	// member whose skill is ready swaps in and uses it; the character's
@@ -45,7 +46,7 @@ func (f Filler) String() string {
 //   - before each skill of a character in skill, it attacks until the
 //     skill is ready.
 //
-// Either filler gives up after a fixed number of actions, and the
+// The skill filler gives up after a fixed number of attacks, and the
 // rotation then waits as before. Names are as the rotation writes them;
 // party lists every member.
 func Fill(rotation string, energy map[string]Filler, skill, party []string) string {
@@ -101,17 +102,17 @@ func fillStatement(char, items string, energy, skill bool, party []string, forms
 			continue
 		}
 		switch {
-		case energy && action[0] == "burst" && how == FillSkip:
+		case energy && action[0] == "burst":
+			flush()
+			if how != FillSkip {
+				*n++
+				out = append(out, energyFiller(char, party, forms, how, fmt.Sprintf("gs_fill%d", *n)))
+			}
 			// The frame waited keeps time passing in a loop whose only
 			// actions are skipped bursts; gcsim cannot stop a loop that
 			// takes no time.
-			flush()
 			out = append(out, fmt.Sprintf("if .%s.burst.ready { %s %s; } else { wait(1); }", char, char, item))
 			continue
-		case energy && action[0] == "burst":
-			flush()
-			*n++
-			out = append(out, energyFiller(char, party, forms, how, fmt.Sprintf("gs_fill%d", *n)))
 		case skill && action[0] == "skill":
 			flush()
 			*n++
@@ -134,9 +135,17 @@ func energyFiller(char string, party []string, forms map[string]string, how Fill
 			}
 		}
 	}
-	fmt.Fprintf(&body, " else { %s attack; }", char)
-	return fmt.Sprintf("let %s = 0; while !.%s.burst.ready && %s < 20 { %s %s = %s + 1; }", v, char, v, body.String(), v, v)
+	fmt.Fprintf(&body, " else { %s attack; %sa = %sa + 1; }", char, v, v)
+	return fmt.Sprintf("let %s = 0; let %sa = 0; while !.%s.burst.ready && %s < 20 && %sa < %d { %s %s = %s + 1; }",
+		v, v, char, v, v, maxFillAttacks, body.String(), v, v)
 }
+
+// maxFillAttacks is how many attacks a character waiting for its burst
+// makes before passing the burst. A player swaps out rather than stand
+// on a support attacking until its burst charges: Ineffa is played with
+// two skills to a burst, and a filler that let her attack up to 20
+// times kept her on field for 8 s of every cycle.
+const maxFillAttacks = 2
 
 var (
 	anyActionRe = regexp.MustCompile(`(?m)(?:^|[;{}])\s*(\w+)\s+([^;{}()=\s][^;{}()]*);`)

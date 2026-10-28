@@ -14,10 +14,14 @@ import (
 func TestScoreMixesFillers(t *testing.T) {
 	rot := "active furina;\nfurina skill, burst;\nhutao skill, attack:2, burst;\n"
 	members := []string{"hutao", "furina"}
+	// A filled burst is passed too once its filler gives up, so a pass is
+	// a guarded burst without a filler.
 	skipHutao := "if .hutao.burst.ready { hutao burst; }"
+	fillHutao := "while !.hutao.burst.ready"
 	fillFurina := "while !.furina.burst.ready"
 	run := func(looped string) (*score.Result, error) {
-		skip, fill := strings.Contains(looped, skipHutao), strings.Contains(looped, fillFurina)
+		skip := strings.Contains(looped, skipHutao) && !strings.Contains(looped, fillHutao)
+		fill := strings.Contains(looped, fillFurina)
 		dps, hutaoWait, furinaWait := 100.0, 30.0, 0.0
 		switch {
 		case skip && fill:
@@ -27,7 +31,7 @@ func TestScoreMixesFillers(t *testing.T) {
 			dps, hutaoWait, furinaWait = 90, 0, 20
 		case fill:
 			dps = 110
-		case strings.Contains(looped, "while !.hutao.burst.ready"):
+		case strings.Contains(looped, fillHutao):
 			dps, hutaoWait = 150, 0
 		}
 		return &score.Result{DPS: dps, Characters: []score.Character{
