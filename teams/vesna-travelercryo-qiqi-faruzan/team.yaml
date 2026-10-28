@@ -1,0 +1,26 @@
+id: vesna-travelercryo-qiqi-faruzan
+name: Vesna / Cryo Traveler / Qiqi / Faruzan
+members:
+    - vesna
+    - travelercryo
+    - qiqi
+    - faruzan
+archetype: Stellar Swirl
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://gamewith.net/genshin-impact/article/show/77723
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+    - https://www.icy-veins.com/genshin-impact/vesna-guide-best-builds
+notes: 'Written from published Vesna guides (design §5.4, Added: Vesna; no KQM Vesna quick guide exists, and no community gcsim config with Vesna can exist while upstream gcsim lacks her). Written in the order of the GameWith Vesna team guide''s Stellar Swirl rotations (Cryo supports, then the other supports, then Vesna''s combo): Cryo Traveler E N1C Q > Qiqi E Q > Faruzan E C Q > Vesna combo. GameWith''s Stellar Swirl teams are Vesna / Odette / Cryo Traveler / Vodyanitsa and Vesna / Cryo Traveler / Diona / Sucrose; for the Cryo slots it lists Odette, the Cryo Traveler, Diona and Qiqi, and for the fourth slot Vodyanitsa, Faruzan, Sucrose, Lan Yan and Qiqi. The KQM Vodyanitsa quick guide also has C6 Faruzan replace Odette or the Cryo Traveler. Cryo Traveler, Qiqi and Faruzan burst when ready. Faruzan''s C is her hold-mode aimed shot. gcsim needs a normal attack before the Traveler''s charged attack. Builds as in the other Vesna teams (build.txt). Cryo Traveler holds Heart of the Furnace (its 4pc buff needs its holder to deal Stellar damage). Vesna''s ER is the best of the four tried (looped: 111% 102.0k, 122% 99.7k, 133% 97.2k, 144% 94.8k): 111%. 87.7k one pass, 102.0k looped (kept 116%); Vesna 78%, the Traveler 8%, Qiqi 2%, Faruzan 13%. Known problems: every Vesna frame is estimated, and the published combos fit five Windborne Swords into 8 attacks where the fork''s data gives four (design §5.4, Added: Vesna).'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: GameWith and Icy Veins Vesna team and build guides (team lists, rotations, no DPS); the KQM Vodyanitsa quick guide (rotations, no DPS); Prydwen, Mobalytics, Game8, AllThingsHow and GenshinBuilds Vesna pages (ratings, no DPS for this team); the community gcsim database (no Vesna: upstream gcsim lacks her).'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 1.164
+    dps: 101984
+    draft: no reference DPS

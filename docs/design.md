@@ -368,7 +368,7 @@ Goal: every released character can be scored, including the ones upstream gcsim 
 
 **Characters on the fork** (fork `b029c45`, on upstream `2350be9`, 2026-10-28)
 
-Nefer, Linnea, Lohen, Sandrone and Vesna have draft library teams (Rotations below; Sandrone 17, one per team in her KQM quick guide; Vesna 12: one per team in the GameWith guide, and Vesna with Vodyanitsa and any two of Odette, the Cryo Traveler, Diona, Faruzan and Nicole), and Vodyanitsa has eleven, one with Sandrone and ten with Vesna; Kachina has none yet. Lohen is fork commit `af3eb82` (our implementation, the commit before Sandrone's); his `ForkOnly` entry and Enka data came with Sandrone's Gscouter commit.
+Nefer, Linnea, Lohen, Sandrone and Vesna have draft library teams (Rotations below; Sandrone 17, one per team in her KQM quick guide; Vesna 75: one per team in the GameWith guide, and Vesna with Vodyanitsa and any two, or with any three, of Odette, the Cryo Traveler, Diona, Qiqi, Faruzan, Sucrose, Lan Yan and Nicole, at least one of them Cryo), and Vodyanitsa has 23, one with Sandrone and 22 with Vesna; Kachina has none yet. Lohen is fork commit `af3eb82` (our implementation, the commit before Sandrone's); his `ForkOnly` entry and Enka data came with Sandrone's Gscouter commit.
 
 | Character | Source | Frame data | Known problems |
 |---|---|---|---|
@@ -570,23 +570,94 @@ Written from the example teams of the KQM quick guides, so that every character 
 - Builds: Vesna as in the other Vesna teams but at 122% ER (Icy Veins: 100–120% with C6 Faruzan, 120–140% with a second Anemo member), bursting in 18 of about 20 rotations: 116.6k looped, against 109.3k at 111% and 116.9k at 127.5%. The Cryo Traveler wears Heart of the Furnace as in the F2P team (no Odette holds it), Vodyanitsa as in the premium team, and Faruzan the most common C6 build of the harvested library teams (Favonius Warbow R4, Viridescent Venerer); Faruzan and the Traveler burst when ready (Faruzan in 11 of about 21 rotations; 22% more ER adds 0.6%).
 - Result: 108.3k one pass, 116.6k looped (kept 108%). Vesna deals 83%, the Traveler 9%, Faruzan 7%, Vodyanitsa 0.6%. No public number (searched 2026-10-28: KQM, GameWith, Icy Veins, Prydwen, Mobalytics, Game8, AllThingsHow, GenshinBuilds). Mobalytics and Prydwen (search extracts; both pages return 403) warn that Vodyanitsa next to Faruzan lowers Stellar Swirl triggers, and the guides rank the team below the ones with Odette; it scores 77% of the premium team.
 
-**Vesna and Vodyanitsa with any two of Odette, Cryo Traveler, Diona, Faruzan and Nicole** (2026-10-28, fork `b029c45`, all `status: draft`, 100 iterations). Players field Vesna and Vodyanitsa with any two of these, so each pair has a team; with the premium team and the Faruzan team above, all ten pairs are covered (the library finds a team by its members in any order). Rotations follow the guides' order (Cryo supports, then the other support, then `Vodyanitsa E`, then Vesna's combo), each from the closest published team and the substitutes its guide lists: GameWith's premium team, Diona for Odette or the Cryo Traveler; GameWith's F2P team, Vodyanitsa for Sucrose; the KQM Vodyanitsa guide's Odette / Faruzan team, written there in full (Odette Q > Faruzan Q > Odette E when her burst is ready, Faruzan E C Q > Odette 2[E] otherwise). No guide puts Nicole in a Stellar Swirl team; GameWith lists her as an ATK% buffer for Vesna's Anemo driver team, so she takes a support slot (`Nicole E Q`). Builds are the other Vesna teams' (Diona the F2P team's C6 Favonius Warbow, Faruzan the Faruzan team's), and Nicole the most common harvested one (C0, Oathsworn Eye R5, Celestial Gift); the Cryo Traveler holds Heart of the Furnace when no Odette does. Vesna stays at 111% ER in all of them: 122% and 133% scored lower in every team. Diona holds her skill (GameWith: tap or hold), which took the Diona / Faruzan team from 112.8k to 121.0k and moved the others by under 0.5%.
-
-| Vesna / Vodyanitsa + | One pass | Looped (score) | Kept |
-|---|---|---|---|
-| Odette / Faruzan | 183.8k | 154.0k | 84% |
-| Odette / Diona | 175.0k | 152.4k | 87% |
-| Odette / Nicole | 155.2k | 145.8k | 94% |
-| Diona / Faruzan | 125.9k | 121.0k | 96% |
-| Cryo Traveler / Diona | 108.5k | 107.9k | 99% |
-| Cryo Traveler / Nicole | 96.3k | 101.1k | 105% |
-| Diona / Nicole | 113.3k | 62.5k | 55% |
-| Faruzan / Nicole | 37.1k | 28.9k | 78% |
-
-- Diona / Nicole: Diona is the only Cryo member and, with no Favonius holder beside her, bursts in 11 of 22 rotations; without her burst Vodyanitsa's Hydro takes over (143 Hydro Swirls against 66 Stellar Swirls in one run), so the looped score keeps 55% of the one pass.
-- Faruzan / Nicole has no Cryo member, so no Stellar Swirl (Vesna wears Viridescent Venerer, as in the Anemo driver team, and swirls Hydro and Pyro). No guide lists it; it is kept because players can field it.
-- Beside Odette, Faruzan (154.0k) and Diona (152.4k) score above the Cryo Traveler (the premium team, 150.5k): the guides rank the Traveler higher for her Stellar Jubilee, which suggests the fork undervalues it or overvalues the others; not examined.
+**Vesna's Stellar Swirl teams by support** (2026-10-28, fork `b029c45`, all `status: draft`, 100 iterations). Players field Vesna with Vodyanitsa and any two of Odette, the Cryo Traveler, Diona, Qiqi, Faruzan, Sucrose, Lan Yan and Nicole, or with any three of them, so each combination with at least one Cryo member has a team: 22 with Vodyanitsa and 52 without, 71 of them here and three above (the premium team, the Faruzan team and the F2P team). A team without Cryo has no Stellar Swirl and is left out (a Vesna / Vodyanitsa / Faruzan / Nicole team, added earlier the same day at 28.9k, was removed). The library finds a team by its members in any order. A script wrote them by these rules:
+- Rotations follow the order of GameWith's Stellar Swirl rotations: Cryo supports (Odette E E, Cryo Traveler E N1C Q, Diona E (hold) Q, Qiqi E Q), then the others (Faruzan E C Q, Sucrose E, Lan Yan E Q, Nicole E Q, Vodyanitsa E), then Vesna's combo; every burst but Vesna's is cast when ready. Every member is one of GameWith's two Stellar Swirl teams or a substitute it lists for that slot (Cryo: Odette, Cryo Traveler, Diona, Qiqi; fourth slot: Vodyanitsa, Faruzan, Sucrose, Lan Yan, Qiqi); the KQM Vodyanitsa guide also has C6 Faruzan replace Odette or the Cryo Traveler, and its Odette / Faruzan / Vodyanitsa rotation is used as written (Odette Q > Faruzan Q > Odette E when her burst is ready, Faruzan E C Q > Odette 2[E] otherwise). No guide puts Nicole in a Stellar Swirl team; GameWith lists her as an ATK% buffer for Vesna's Anemo driver team, so she takes a support slot. Diona holds her skill (GameWith: tap or hold): it feeds her burst better (with Vodyanitsa and Faruzan, 112.8k tapped against 121.0k held, before Faruzan held Heart of the Furnace).
+- Builds are the other Vesna teams': Odette, the Cryo Traveler, Vodyanitsa, C6 Diona, Sucrose; Faruzan the most common harvested C6 build (Favonius Warbow R4), Qiqi the Sandrone teams' (C6, Favonius Sword R3, Scroll; Witch's Revelation on, gcsim's default), Lan Yan the most common harvested one (C6, Sacrificial Fragments R5, Viridescent Venerer), Nicole the most common harvested one (C0, Oathsworn Eye R5, Celestial Gift). Heart of the Furnace's 4pc buff needs its holder to deal Stellar damage, so Odette holds it, else the Cryo Traveler, else the first Anemo support; with only Diona, Qiqi and Nicole beside Vesna nobody does.
+- Vesna's ER is whichever of 111%, 122%, 133% and 144% scores highest per team (each team's notes list all four): 111% in 47 teams, higher in 24, mostly teams with Sucrose or Qiqi.
+- Teams that keep under 80% of their one pass have Diona as their only steady Cryo source: without a Favonius holder beside her she bursts about every other rotation, and Vodyanitsa's Hydro or the Anemo swirls take over (with Vodyanitsa and Nicole, 143 Hydro Swirls against 66 Stellar Swirls in one run).
+- Community rankings in October 2026 put Diona and Faruzan above the Cryo Traveler beside Vesna, as the sim does (Odette / Diona / Faruzan 154.3k without Vodyanitsa, Odette / Cryo Traveler / Faruzan 127.1k).
 - No public number for any of them (searched 2026-10-28, the same sources as above).
+
+With Vodyanitsa:
+
+| Vesna / Vodyanitsa + | One pass | Looped (score) | Kept | Vesna ER |
+|---|---|---|---|---|
+| Odette / Qiqi | 163.2k | 167.0k | 102% | 133% |
+| Odette / Faruzan | 183.8k | 154.0k | 84% | 111% |
+| Odette / Diona | 175.0k | 152.4k | 87% | 111% |
+| Odette / Nicole | 155.2k | 145.8k | 94% | 111% |
+| Odette / Sucrose | 140.5k | 141.3k | 101% | 144% |
+| Diona / Faruzan | 142.4k | 137.3k | 96% | 111% |
+| Qiqi / Faruzan | 131.7k | 136.2k | 103% | 111% |
+| Odette / Lan Yan | 143.7k | 128.1k | 89% | 111% |
+| Cryo Traveler / Qiqi | 100.7k | 118.0k | 117% | 144% |
+| Diona / Qiqi | 122.3k | 111.6k | 91% | 133% |
+| Qiqi / Sucrose | 112.5k | 108.8k | 97% | 122% |
+| Cryo Traveler / Diona | 108.5k | 107.9k | 99% | 111% |
+| Qiqi / Nicole | 98.3k | 102.1k | 104% | 144% |
+| Cryo Traveler / Nicole | 96.3k | 101.1k | 105% | 111% |
+| Cryo Traveler / Sucrose | 84.6k | 98.3k | 116% | 144% |
+| Diona / Sucrose | 120.1k | 97.4k | 81% | 111% |
+| Cryo Traveler / Lan Yan | 89.2k | 92.5k | 104% | 111% |
+| Qiqi / Lan Yan | 95.0k | 87.0k | 92% | 144% |
+| Diona / Lan Yan | 110.0k | 84.4k | 77% | 111% |
+| Diona / Nicole | 102.6k | 64.0k | 62% | 144% |
+
+Without Vodyanitsa:
+
+| Vesna + | One pass | Looped (score) | Kept | Vesna ER |
+|---|---|---|---|---|
+| Odette / Diona / Faruzan | 146.4k | 154.3k | 105% | 111% |
+| Odette / Qiqi / Faruzan | 139.0k | 147.6k | 106% | 111% |
+| Odette / Faruzan / Sucrose | 131.9k | 134.4k | 102% | 111% |
+| Odette / Qiqi / Sucrose | 123.9k | 129.9k | 105% | 122% |
+| Odette / Cryo Traveler / Faruzan | 122.9k | 127.1k | 103% | 111% |
+| Odette / Faruzan / Nicole | 128.8k | 121.1k | 94% | 111% |
+| Odette / Diona / Qiqi | 112.9k | 120.7k | 107% | 133% |
+| Odette / Diona / Sucrose | 128.0k | 119.8k | 94% | 122% |
+| Odette / Qiqi / Nicole | 106.1k | 117.6k | 111% | 144% |
+| Odette / Cryo Traveler / Sucrose | 103.8k | 117.2k | 113% | 144% |
+| Odette / Diona / Nicole | 125.5k | 115.8k | 92% | 111% |
+| Odette / Cryo Traveler / Nicole | 101.5k | 114.1k | 112% | 111% |
+| Diona / Qiqi / Faruzan | 111.5k | 110.2k | 99% | 111% |
+| Odette / Cryo Traveler / Diona | 101.4k | 108.9k | 107% | 144% |
+| Odette / Cryo Traveler / Qiqi | 93.0k | 108.7k | 117% | 144% |
+| Odette / Sucrose / Nicole | 114.6k | 108.4k | 95% | 111% |
+| Cryo Traveler / Diona / Faruzan | 84.2k | 103.1k | 122% | 111% |
+| Qiqi / Faruzan / Nicole | 95.1k | 102.5k | 108% | 111% |
+| Qiqi / Faruzan / Sucrose | 97.8k | 102.2k | 105% | 111% |
+| Cryo Traveler / Qiqi / Faruzan | 87.7k | 102.0k | 116% | 111% |
+| Odette / Faruzan / Lan Yan | 110.2k | 99.9k | 91% | 111% |
+| Diona / Faruzan / Sucrose | 106.3k | 99.0k | 93% | 111% |
+| Odette / Cryo Traveler / Lan Yan | 90.3k | 98.9k | 109% | 111% |
+| Odette / Qiqi / Lan Yan | 103.3k | 98.5k | 95% | 111% |
+| Odette / Diona / Lan Yan | 109.7k | 96.8k | 88% | 111% |
+| Diona / Qiqi / Sucrose | 98.7k | 94.7k | 96% | 111% |
+| Odette / Lan Yan / Nicole | 96.4k | 90.3k | 94% | 111% |
+| Cryo Traveler / Faruzan / Sucrose | 76.5k | 90.0k | 118% | 111% |
+| Cryo Traveler / Qiqi / Sucrose | 74.0k | 87.6k | 118% | 122% |
+| Diona / Faruzan / Nicole | 102.4k | 87.3k | 85% | 111% |
+| Odette / Sucrose / Lan Yan | 92.3k | 84.6k | 92% | 111% |
+| Cryo Traveler / Qiqi / Nicole | 69.3k | 84.1k | 121% | 144% |
+| Qiqi / Faruzan / Lan Yan | 80.7k | 84.0k | 104% | 111% |
+| Cryo Traveler / Faruzan / Nicole | 78.0k | 83.5k | 107% | 111% |
+| Diona / Faruzan / Lan Yan | 86.0k | 83.3k | 97% | 111% |
+| Cryo Traveler / Diona / Qiqi | 70.8k | 80.6k | 114% | 133% |
+| Diona / Qiqi / Nicole | 80.4k | 77.4k | 96% | 133% |
+| Qiqi / Sucrose / Nicole | 74.2k | 77.3k | 104% | 133% |
+| Cryo Traveler / Diona / Nicole | 71.7k | 73.3k | 102% | 111% |
+| Cryo Traveler / Sucrose / Nicole | 64.9k | 71.8k | 111% | 111% |
+| Diona / Sucrose / Nicole | 79.0k | 69.9k | 88% | 133% |
+| Cryo Traveler / Qiqi / Lan Yan | 64.4k | 68.5k | 106% | 111% |
+| Cryo Traveler / Faruzan / Lan Yan | 64.5k | 67.3k | 104% | 122% |
+| Diona / Qiqi / Lan Yan | 78.7k | 65.6k | 83% | 111% |
+| Cryo Traveler / Diona / Lan Yan | 61.0k | 60.9k | 100% | 111% |
+| Cryo Traveler / Lan Yan / Nicole | 42.4k | 60.4k | 143% | 111% |
+| Qiqi / Lan Yan / Nicole | 65.7k | 60.0k | 91% | 111% |
+| Qiqi / Sucrose / Lan Yan | 58.0k | 58.3k | 100% | 144% |
+| Cryo Traveler / Sucrose / Lan Yan | 50.5k | 56.6k | 112% | 111% |
+| Diona / Sucrose / Lan Yan | 69.1k | 52.3k | 76% | 111% |
+| Diona / Lan Yan / Nicole | 71.8k | 40.2k | 56% | 111% |
 - Only team directories and this document changed, so no regression run was needed.
 
 **Display**
@@ -618,12 +689,12 @@ Enka.Network's character list compared with the characters in gcsim `2350be9`. T
 | Linnea (5★ Geo) | Open PR #2596 (2026-04-19) | On the fork; frames partly counted, known problems in §5.4. Draft teams: Zibai / Linnea / Columbina / Gorou (235.9k one pass; the community reports about 200k for C0 Zibai with Illuga), Nefer / Linnea / Lauma / Columbina; rotations from the KQM Linnea and Zibai quick guides |
 | Lohen (5★ Cryo, 6.6) | None | On the fork (our implementation, fork `af3eb82`); frames estimated, calibration and known problems in §5.4. Six draft teams from the KQM Lohen quick guide (§5.4, Rotations): Lohen / Durin / Nicole / Citlali 139.1k one pass, 169.5k with the supports' signatures (the community reports about 190k with them), Mavuika / Nicole / Citlali, Durin / Nicole / Sucrose, Durin / Escoffier / Furina, Escoffier / Furina / Mona (Freeze) and Xiangling / Bennett / Kaeya (4★ teammates) |
 | Sandrone (5★ Cryo, 6.7) | None | On the fork (our implementation, fork `13a481c`); frames estimated, calibration and known problems in §5.4. 17 draft teams (batches 1–4: every team in the KQM quick guide) |
-| Vodyanitsa (5★ Hydro, 7.1) | None | On the fork (our implementation, fork `6fcfc4c`), with the Wandering Vortex; frames partly estimated, calibration and known problems in §5.4. Eleven draft teams, one with Sandrone (§5.4, Sandrone batch 4) and ten with Vesna (§5.4, Added: Vesna) |
-| Vesna (5★ Anemo, 7.1) | None | On the fork (our implementation, fork `3e75b40`); no Stellar Swirl engine change needed; frames estimated, calibration and known problems in §5.4. Three draft teams from the GameWith Vesna team guide (no KQM quick guide exists; §5.4, Added: Vesna): Odette / Cryo Traveler / Vodyanitsa 150.5k looped, Columbina / Ineffa / Sucrose 80.5k, Cryo Traveler / Diona / Sucrose 76.5k; and nine more with Vodyanitsa and two of Odette, the Cryo Traveler, Diona, Faruzan and Nicole, 28.9k–154.0k |
+| Vodyanitsa (5★ Hydro, 7.1) | None | On the fork (our implementation, fork `6fcfc4c`), with the Wandering Vortex; frames partly estimated, calibration and known problems in §5.4. 23 draft teams, one with Sandrone (§5.4, Sandrone batch 4) and 22 with Vesna (§5.4, Added: Vesna) |
+| Vesna (5★ Anemo, 7.1) | None | On the fork (our implementation, fork `3e75b40`); no Stellar Swirl engine change needed; frames estimated, calibration and known problems in §5.4. Three draft teams from the GameWith Vesna team guide (no KQM quick guide exists; §5.4, Added: Vesna): Odette / Cryo Traveler / Vodyanitsa 150.5k looped, Columbina / Ineffa / Sucrose 80.5k, Cryo Traveler / Diona / Sucrose 76.5k; and 72 more with Vodyanitsa and two, or with three, of Odette, the Cryo Traveler, Diona, Qiqi, Faruzan, Sucrose, Lan Yan and Nicole, 40.2k–167.0k |
 
 Order: the fork and the three characters with upstream PRs first (most coverage for the least work), then Vodyanitsa, Lohen and Sandrone, then Vesna.
 
-The fork and the three PR characters are in place (2026-10-27): the site builds on the fork, and Enka profiles and names map all three. Nefer and Linnea have draft experimental teams (§5.4): the first three, then 19 more in the second batch, six of them with Zibai. Kachina has none yet, so her teams are still scored as unsupported. Lohen, our first own implementation, is on the fork (`af3eb82`) with Enka mapping and names, and has six draft teams written from the KQM Lohen quick guide. Sandrone, our second own implementation after Lohen, is on the fork (`13a481c`) with Enka mapping and names, and has 17 draft teams written from the KQM Sandrone quick guide, one per team it lists. Vodyanitsa, our third, is on the fork (`6fcfc4c`) with the Wandering Vortex, Enka mapping and names, and has eleven draft teams, one with Sandrone and ten with Vesna. Vesna, our fourth, is on the fork (`3e75b40`) with Enka mapping and names, and has twelve draft teams: three written from the GameWith Vesna team guide (KQM has no Vesna quick guide), one per team it lists, and nine with Vodyanitsa and two of Odette, the Cryo Traveler, Diona, Faruzan and Nicole, from the GameWith guide's substitutes and the KQM Vodyanitsa quick guide. Iansan, an upstream character the database has no entry for, has ten written teams.
+The fork and the three PR characters are in place (2026-10-27): the site builds on the fork, and Enka profiles and names map all three. Nefer and Linnea have draft experimental teams (§5.4): the first three, then 19 more in the second batch, six of them with Zibai. Kachina has none yet, so her teams are still scored as unsupported. Lohen, our first own implementation, is on the fork (`af3eb82`) with Enka mapping and names, and has six draft teams written from the KQM Lohen quick guide. Sandrone, our second own implementation after Lohen, is on the fork (`13a481c`) with Enka mapping and names, and has 17 draft teams written from the KQM Sandrone quick guide, one per team it lists. Vodyanitsa, our third, is on the fork (`6fcfc4c`) with the Wandering Vortex, Enka mapping and names, and has 23 draft teams, one with Sandrone and 22 with Vesna. Vesna, our fourth, is on the fork (`3e75b40`) with Enka mapping and names, and has 75 draft teams: three written from the GameWith Vesna team guide (KQM has no Vesna quick guide), one per team it lists, and 72 Stellar Swirl teams with Vodyanitsa and two, or with three, of eight supports, from the GameWith guide's substitutes and the KQM Vodyanitsa quick guide. Iansan, an upstream character the database has no entry for, has ten written teams.
 
 ### 6.2 Library from the community database
 

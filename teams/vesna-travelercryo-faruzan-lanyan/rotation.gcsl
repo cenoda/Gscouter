@@ -1,0 +1,46 @@
+# Written in the order of the GameWith Vesna team guide's Stellar Swirl
+# rotations (Cryo supports, then the other supports, then Vesna's
+# combo): Cryo Traveler E N1C Q > Faruzan E C Q > Lan Yan E Q > Vesna
+# combo. GameWith's Stellar Swirl teams are Vesna / Odette / Cryo
+# Traveler / Vodyanitsa and Vesna / Cryo Traveler / Diona / Sucrose; for
+# the Cryo slots it lists Odette, the Cryo Traveler, Diona and Qiqi, and
+# for the fourth slot Vodyanitsa, Faruzan, Sucrose, Lan Yan and Qiqi.
+# The KQM Vodyanitsa quick guide also has C6 Faruzan replace Odette or
+# the Cryo Traveler. Cryo Traveler, Faruzan and Lan Yan burst when
+# ready. Faruzan's C is her hold-mode aimed shot. gcsim needs a normal
+# attack before the Traveler's charged attack.
+# Vesna's combo as in every Vesna team (GameWith's): E [N C E]x2 Q E [N
+# C E]x2, the burst when ready. With 5 Sword Essence per attack it pays
+# for only four Windborne Swords even with the burst, so whenever the
+# next one is not ready she keeps attacking until the fifth ends Armed
+# for Action.
+active travelercryo;
+travelercryo skill, attack, charge;
+if .travelercryo.burst.ready {
+  travelercryo burst;
+}
+faruzan skill, aim;
+if .faruzan.burst.ready {
+  faruzan burst;
+}
+lanyan skill;
+if .lanyan.burst.ready {
+  lanyan burst;
+}
+vesna skill,
+      attack, charge, skill,
+      attack, charge, skill;
+if .vesna.burst.ready {
+  vesna burst;
+}
+while .vesna.armed {
+  while .vesna.armed && !.vesna.skill.ready {
+    vesna attack, charge;
+  }
+  if .vesna.armed {
+    vesna skill;
+  }
+  if .vesna.armed {
+    vesna attack, charge;
+  }
+}

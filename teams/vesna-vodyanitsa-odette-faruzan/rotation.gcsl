@@ -3,11 +3,11 @@
 # Faruzan Q > Odette E > Vodyanitsa E > Vesna combo; otherwise Faruzan E
 # C Q > Odette 2[E] > Vodyanitsa E > Vesna combo. Faruzan's C is her
 # hold-mode aimed shot.
-# Vesna's combo as in every Vesna team (GameWith's): E [N C E]x2 Q E
-# [N C E]x2, the burst when ready. With 5 Sword Essence per attack it
-# pays for only four Windborne Swords even with the burst, so whenever the
-# next one is not ready she keeps attacking until the fifth ends Armed for
-# Action.
+# Vesna's combo as in every Vesna team (GameWith's): E [N C E]x2 Q E [N
+# C E]x2, the burst when ready. With 5 Sword Essence per attack it pays
+# for only four Windborne Swords even with the burst, so whenever the
+# next one is not ready she keeps attacking until the fifth ends Armed
+# for Action.
 active odette;
 if .odette.burst.ready {
   odette burst;

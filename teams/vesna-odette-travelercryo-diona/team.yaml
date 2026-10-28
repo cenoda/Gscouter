@@ -1,0 +1,25 @@
+id: vesna-odette-travelercryo-diona
+name: Vesna / Odette / Cryo Traveler / Diona
+members:
+    - vesna
+    - odette
+    - travelercryo
+    - diona
+archetype: Stellar Swirl
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://gamewith.net/genshin-impact/article/show/77723
+    - https://www.icy-veins.com/genshin-impact/vesna-guide-best-builds
+notes: 'Written from published Vesna guides (design §5.4, Added: Vesna; no KQM Vesna quick guide exists, and no community gcsim config with Vesna can exist while upstream gcsim lacks her). Written in the order of the GameWith Vesna team guide''s Stellar Swirl rotations (Cryo supports, then the other supports, then Vesna''s combo): Odette E E > Cryo Traveler E N1C Q > Diona E (hold) Q > Vesna combo. GameWith''s Stellar Swirl teams are Vesna / Odette / Cryo Traveler / Vodyanitsa and Vesna / Cryo Traveler / Diona / Sucrose; for the Cryo slots it lists Odette, the Cryo Traveler, Diona and Qiqi, and for the fourth slot Vodyanitsa, Faruzan, Sucrose, Lan Yan and Qiqi. Cryo Traveler and Diona burst when ready. Diona holds her skill (GameWith: tap or hold), which feeds her burst better. gcsim needs a normal attack before the Traveler''s charged attack. Builds as in the other Vesna teams (build.txt). Odette holds Heart of the Furnace. Vesna''s ER is the best of the four tried (looped: 111% 106.4k, 122% 104.0k, 133% 104.9k, 144% 108.9k): 144%. 101.4k one pass, 108.9k looped (kept 107%); Vesna 73%, Odette 16%, the Traveler 11%, Diona 0.5%. Known problems: every Vesna frame is estimated, and the published combos fit five Windborne Swords into 8 attacks where the fork''s data gives four (design §5.4, Added: Vesna).'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: GameWith and Icy Veins Vesna team and build guides (team lists, rotations, no DPS); the KQM Vodyanitsa quick guide (rotations, no DPS); Prydwen, Mobalytics, Game8, AllThingsHow and GenshinBuilds Vesna pages (ratings, no DPS for this team); the community gcsim database (no Vesna: upstream gcsim lacks her).'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 1.074
+    dps: 108928
+    draft: no reference DPS

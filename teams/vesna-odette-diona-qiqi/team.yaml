@@ -1,0 +1,25 @@
+id: vesna-odette-diona-qiqi
+name: Vesna / Odette / Diona / Qiqi
+members:
+    - vesna
+    - odette
+    - diona
+    - qiqi
+archetype: Stellar Swirl
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://gamewith.net/genshin-impact/article/show/77723
+    - https://www.icy-veins.com/genshin-impact/vesna-guide-best-builds
+notes: 'Written from published Vesna guides (design §5.4, Added: Vesna; no KQM Vesna quick guide exists, and no community gcsim config with Vesna can exist while upstream gcsim lacks her). Written in the order of the GameWith Vesna team guide''s Stellar Swirl rotations (Cryo supports, then the other supports, then Vesna''s combo): Odette E E > Diona E (hold) Q > Qiqi E Q > Vesna combo. GameWith''s Stellar Swirl teams are Vesna / Odette / Cryo Traveler / Vodyanitsa and Vesna / Cryo Traveler / Diona / Sucrose; for the Cryo slots it lists Odette, the Cryo Traveler, Diona and Qiqi, and for the fourth slot Vodyanitsa, Faruzan, Sucrose, Lan Yan and Qiqi. Diona and Qiqi burst when ready. Diona holds her skill (GameWith: tap or hold), which feeds her burst better. Builds as in the other Vesna teams (build.txt). Odette holds Heart of the Furnace. Vesna''s ER is the best of the four tried (looped: 111% 111.4k, 122% 110.8k, 133% 120.7k, 144% 117.8k): 133%. 112.9k one pass, 120.7k looped (kept 107%); Vesna 82%, Odette 16%, Diona 0.6%, Qiqi 1%. Known problems: every Vesna frame is estimated, and the published combos fit five Windborne Swords into 8 attacks where the fork''s data gives four (design §5.4, Added: Vesna).'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: GameWith and Icy Veins Vesna team and build guides (team lists, rotations, no DPS); the KQM Vodyanitsa quick guide (rotations, no DPS); Prydwen, Mobalytics, Game8, AllThingsHow and GenshinBuilds Vesna pages (ratings, no DPS for this team); the community gcsim database (no Vesna: upstream gcsim lacks her).'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 1.069
+    dps: 120653
+    draft: no reference DPS

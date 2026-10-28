@@ -1,15 +1,19 @@
-# GameWith Vesna team guide, premium Stellar Swirl team (Odette E E >
-# Traveler E C Q > Vodyanitsa E > Vesna combo) with Diona for Odette
-# (GameWith's substitute) and C6 Faruzan for the Cryo Traveler (the KQM
-# Vodyanitsa quick guide's): Diona E (hold) Q > Faruzan E C Q >
-# Vodyanitsa E > Vesna combo. Faruzan's C is her hold-mode aimed shot.
-# Diona and Faruzan burst when ready. Diona holds her skill (the guide:
-# tap or hold), which feeds her burst better.
-# Vesna's combo as in every Vesna team (GameWith's): E [N C E]x2 Q E
-# [N C E]x2, the burst when ready. With 5 Sword Essence per attack it
-# pays for only four Windborne Swords even with the burst, so whenever the
-# next one is not ready she keeps attacking until the fifth ends Armed for
-# Action.
+# Written in the order of the GameWith Vesna team guide's Stellar Swirl
+# rotations (Cryo supports, then the other supports, then Vesna's
+# combo): Diona E (hold) Q > Faruzan E C Q > Vodyanitsa E > Vesna combo.
+# GameWith's Stellar Swirl teams are Vesna / Odette / Cryo Traveler /
+# Vodyanitsa and Vesna / Cryo Traveler / Diona / Sucrose; for the Cryo
+# slots it lists Odette, the Cryo Traveler, Diona and Qiqi, and for the
+# fourth slot Vodyanitsa, Faruzan, Sucrose, Lan Yan and Qiqi. The KQM
+# Vodyanitsa quick guide also has C6 Faruzan replace Odette or the Cryo
+# Traveler. Diona and Faruzan burst when ready. Diona holds her skill
+# (GameWith: tap or hold), which feeds her burst better. Faruzan's C is
+# her hold-mode aimed shot.
+# Vesna's combo as in every Vesna team (GameWith's): E [N C E]x2 Q E [N
+# C E]x2, the burst when ready. With 5 Sword Essence per attack it pays
+# for only four Windborne Swords even with the burst, so whenever the
+# next one is not ready she keeps attacking until the fifth ends Armed
+# for Action.
 active diona;
 diona skill[hold=1];
 if .diona.burst.ready {
