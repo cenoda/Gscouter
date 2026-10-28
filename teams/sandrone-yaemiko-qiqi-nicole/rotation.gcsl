@@ -1,0 +1,10 @@
+# KQM Sandrone quick guide, example team 3:
+# Nicole E > Yae Miko 3[E] > Qiqi E > Sandrone [combo]
+# Sandrone's C0 combo 3[C E] (Q), the burst after the first skill.
+active nicole;
+nicole skill;
+yaemiko skill:3;
+qiqi skill;
+sandrone charge, skill, burst,
+         charge, skill,
+         charge, skill;
