@@ -1,0 +1,31 @@
+# KQM Vodyanitsa quick guide, Chasca team: (Furina ED Q)1 > Mavuika Q C E
+# > Vodyanitsa E > Chasca E combo (Q)1, 1 every other rotation, as
+# written: the body below is two rotations, the first with Furina's ED Q
+# and Chasca's burst, the second without. The guide gives Vodyanitsa no
+# burst; she bursts after her skill when ready (the guide: outside Hydro
+# teams she uses it whenever available, without building ER).
+# Chasca's combo in gcsim (skill, four aimed shots, then the burst or a
+# last shot) is the one of the harvested Chasca / Furina / Mavuika /
+# Bennett team (teams/chasca-furina-mavuika-bennett).
+active furina;
+furina skill, dash, burst;
+mavuika burst, charge, skill;
+vodyanitsa skill;
+if .vodyanitsa.burst.ready {
+  vodyanitsa burst;
+}
+chasca skill;
+chasca aim:4;
+if .chasca.burst.ready {
+  chasca burst;
+} else {
+  chasca aim[bullets=4];
+}
+mavuika burst, charge, skill;
+vodyanitsa skill;
+if .vodyanitsa.burst.ready {
+  vodyanitsa burst;
+}
+chasca skill;
+chasca aim:4;
+chasca aim[bullets=4];

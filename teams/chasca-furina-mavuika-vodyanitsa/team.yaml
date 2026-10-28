@@ -1,0 +1,26 @@
+id: chasca-furina-mavuika-vodyanitsa
+name: Chasca / Furina / Mavuika / Vodyanitsa
+members:
+    - chasca
+    - furina
+    - mavuika
+    - vodyanitsa
+archetype: Chasca multi-element hypercarry with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+    - https://keqingmains.com/q/chasca-quickguide/
+    - https://db.kqm.gg/db/Wf6NCqcd6bGT
+notes: 'Written from guides (design §5.4; no community gcsim config with Vodyanitsa exists: upstream gcsim lacks her). The KQM Vodyanitsa quick guide''s Chasca team (Chasca benefits from her buffs when her enhanced charged attacks deal Hydro damage; Vodyanitsa should hold TTDS to buff Chasca), with its rotation as written: (Furina ED Q) > Mavuika Q C E > Vodyanitsa E > Chasca E combo (Q), the parenthesised parts every other rotation; the rotation body is two rotations, the first with them. Chasca''s combo (skill, four aimed shots, burst or a last shot) and the Chasca, Furina and Mavuika builds are the harvested Chasca / Furina / Mavuika / Bennett team''s. Vodyanitsa: C0, Thrilling Tales R5, 2pc Tenacity + 2pc Vourukasha''s Glow (Furina holds Tenacity and Mavuika Scroll), HP%/HP%/HP%, KQM-standard substats, 111% ER. The guide gives her no burst; she bursts after her skill when ready (its general advice outside Hydro teams), (81.0k against 77.2k without). Mavuika waits 3.5 s/min for her 18 s burst cooldown, since the guide casts it every rotation and a rotation here is about 17 s. The harvested team with Bennett in her slot scores 79.4k looped (20 iterations).'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: the KQM Vodyanitsa quick guide (team lists and rotations, no DPS, no gcsim links); the community gcsim database (no Vodyanitsa: upstream gcsim lacks her); GenshinBuilds, AllThingsHow, enjoygm and wishgm Vodyanitsa team pages; Icy Veins and Prydwen return 403. AllThingsHow gives 133k for a ''Chasca core with Vodyanitsa'' without naming the other members or builds, so it is not compared.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 1.026
+    dps: 80978
+    draft: no reference DPS

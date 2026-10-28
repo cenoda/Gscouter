@@ -1,0 +1,29 @@
+id: varka-prune-furina-vodyanitsa
+name: Varka / Prune / Furina / Vodyanitsa
+members:
+    - varka
+    - prune
+    - furina
+    - vodyanitsa
+archetype: Anemo hypercarry (Hydro) with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://genshin-builds.com/en/teams/vodyanitsa
+    - https://allthings.how/genshin-impact-vodyanitsa-best-build-and-teams-version-7-1/
+    - https://www.enjoygm.com/blog/genshin-impact/vodyanitsa-team-guide
+    - https://db.kqm.gg/db/rptrLthqPrbj
+notes: 'Written from guides (design §5.4; no community gcsim config with Vodyanitsa exists: upstream gcsim lacks her). Varka / Prune / Furina / Vodyanitsa is GenshinBuilds'' SS Varka team for her, AllThingsHow''s tested 159k team, and on the enjoygm and wishgm lists (enjoygm: Vodyanitsa holds TTDS). No guide gives a rotation, so it is the harvested Varka / Prune / Mona / Furina team''s with Vodyanitsa''s skill in Mona''s place, already the last swap before Varka; she bursts when ready. Varka, Prune and Furina builds are that team''s. Vodyanitsa: C0, Thrilling Tales R5 (Mona held it in the source team), 4pc Scroll of the Hero of Cinder City (Furina holds Tenacity; the team swirls Hydro), HP%/HP%/HP%, KQM-standard substats, 111% ER. Furina waits 1.5 s/min for her skill cooldown: without Mona''s actions the rotation is shorter than her 20 s cooldown. The source team scores 116.2k looped (20 iterations); with Vodyanitsa for Mona this one is 7% lower.'
+cross_check:
+    dps: 159000
+    source: https://allthings.how/genshin-impact-vodyanitsa-best-build-and-teams-version-7-1/
+    note: 'AllThingsHow''s tested 159k for this team (no builds or rotation stated). One pass here is 107.1k (-32.6%) with the harvested source team''s builds (C0 Varka with Serpent Spine R1, C6 Prune with Prototype Amber, C0 Furina with Wolf-Fang R1) and a C0 Thrilling Tales Vodyanitsa, and that source team itself scores 116.2k looped; AllThingsHow''s builds are unknown. Searched 2026-10-28: the KQM Vodyanitsa quick guide (team lists and rotations, no DPS, no gcsim links); the community gcsim database (no Vodyanitsa: upstream gcsim lacks her); GenshinBuilds, AllThingsHow, enjoygm and wishgm Vodyanitsa team pages; Icy Veins and Prydwen return 403.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 1.007
+    dps: 107825
+    draft: no reference DPS
