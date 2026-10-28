@@ -234,5 +234,12 @@ func init() {
 		"art.leave_out":    "Leave artifact pieces out",
 
 		"warn.duplicate": "%s and %s wear the same artifact (%s). The game puts an artifact on one character at a time, so this score does not compare with standard scores.",
+
+		"art.score":      "Artifact score",
+		"art.score_lead": "Substats are weighted by what one roll adds to this team's DPS, so that weighing CRIT alone gives CV. A main stat that loses DPS costs points.",
+		"art.columns":    "Substats · main stats · total",
+		"art.low":        "little effect (best: %s)",
+		"art.unplayable": "rotation cannot be played",
+		"art.unknown":    "not judged",
 	}
 }

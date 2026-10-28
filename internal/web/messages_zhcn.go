@@ -234,5 +234,12 @@ func init() {
 		"art.leave_out":    "不包含圣遗物部位",
 
 		"warn.duplicate": "%s和%s装备了同一件圣遗物（%s）。游戏中一件圣遗物同时只能由一名角色装备，因此此分数不能与标准分数比较。",
+
+		"art.score":      "圣遗物评分",
+		"art.score_lead": "副词条按每次提升为本队伍DPS带来的增益加权；只计暴击时即为双暴分。降低DPS的主词条会扣分。",
+		"art.columns":    "副词条 · 主词条 · 合计",
+		"art.low":        "影响小（最佳：%s）",
+		"art.unplayable": "无法执行循环",
+		"art.unknown":    "未判定",
 	}
 }

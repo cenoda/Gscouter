@@ -1,6 +1,6 @@
 # Artifacts
 
-> Status: Design draft · Last updated: 2026-10-28
+> Status: Implemented, except verified builds (§3), which wait for the arena · Last updated: 2026-10-28
 
 This covers two roadmap nodes (`docs/roadmap.md`): **Artifacts** (ring 1) and **Artifact score** (ring 2). How much each piece contributes to the team's DPS (taking one piece's stats out) is a later step and not part of this design.
 
@@ -87,6 +87,8 @@ Weights are calculated once per library team, ahead of time, and embedded in the
 ## 6. On the result page
 
 - The artifact score is calculated only when the visitor asks for it, never automatically. With the weights precomputed, asking costs a table lookup and no simulation.
+- As built (2026-10-28): the score is worked out on the server when the page is prepared, for pages the server calculates and pages the browser does, and sits in a closed "Artifact score" section under the result table, above the pieces: per character the three numbers in whole points (the total is the other two as shown) and a line per slot: ✓ and the main stat, ✗ with its penalty, or "little effect" with the best main stat; a main stat the rotation cannot be played with, and a missing piece, are said so. Substats come from the pieces, or for stripped pieces from the totals less the main stats; a 4★ piece simply scores less. A library team the table has no weights for (skipped when they were calculated) shows nothing, as a team outside the library does (§4.4).
+- The browser build does not embed the table: the scores reach it with the page's calculation (`web.Job`), and `internal/web` uses `internal/artifact` only outside `js/wasm` builds. The WebAssembly build grew from 67.94 MB to 68.05 MB, for the set and stat names and the templates.
 - Order of work, as agreed with the owner on 2026-10-28:
   1. In parallel: pieces in `Character` and `Pack` (§1), and `cmd/weights` with its workflow, first run on about 100 teams to measure the cost (§5). Neither touches the web layer.
   2. The full weights batch.

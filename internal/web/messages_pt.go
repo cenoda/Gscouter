@@ -234,5 +234,12 @@ func init() {
 		"art.leave_out":    "Deixar as peças de artefatos de fora",
 
 		"warn.duplicate": "%s e %s usam o mesmo artefato (%s). No jogo, um artefato fica com um personagem de cada vez, então esta pontuação não se compara com as padrão.",
+
+		"art.score":      "Pontuação de artefatos",
+		"art.score_lead": "Os atributos secundários contam pelo que uma melhoria acrescenta ao DPS desta equipe; contando só o CRIT, é o CV. Um atributo principal que tira DPS custa pontos.",
+		"art.columns":    "Secundários · principais · total",
+		"art.low":        "pouco efeito (melhor: %s)",
+		"art.unplayable": "rotação impossível",
+		"art.unknown":    "sem avaliação",
 	}
 }

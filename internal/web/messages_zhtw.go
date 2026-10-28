@@ -234,5 +234,12 @@ func init() {
 		"art.leave_out":    "不包含聖遺物部位",
 
 		"warn.duplicate": "%s和%s裝備了同一件聖遺物（%s）。遊戲中一件聖遺物同時只能由一名角色裝備，因此此分數無法與標準分數比較。",
+
+		"art.score":      "聖遺物評分",
+		"art.score_lead": "副詞條依每次提升為本隊伍DPS帶來的增益加權；只計暴擊時即為雙暴分。降低DPS的主詞條會扣分。",
+		"art.columns":    "副詞條 · 主詞條 · 合計",
+		"art.low":        "影響小（最佳：%s）",
+		"art.unplayable": "無法執行循環",
+		"art.unknown":    "未判定",
 	}
 }

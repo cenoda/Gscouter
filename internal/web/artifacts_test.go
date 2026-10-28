@@ -233,3 +233,29 @@ func TestScoreDuplicate(t *testing.T) {
 	_, body := get(t, ts, "/score?a="+url.QueryEscape(sel.String()))
 	mustContain(t, body, "DPS", `<div class="warn">Lohen and Durin wear the same artifact (Circlet`, "does not compare with standard scores")
 }
+
+func TestArtifactScoreText(t *testing.T) {
+	s := &artifactScore{Subs: 184.6, Penalty: 69.6}
+	if got := s.Points(); got != "185 · −70 · 115" {
+		t.Errorf("points %q", got)
+	}
+	if got := (&artifactScore{Subs: 12.4}).Points(); got != "12 · 0 · 12" {
+		t.Errorf("points %q", got)
+	}
+	for v, want := range map[slotVerdict]string{
+		{Slot: "sands", Main: "atk%", Verdict: "right"}:               "Sands ✓ ATK%",
+		{Slot: "goblet", Main: "em", Verdict: "wrong", Penalty: 30.1}: "Goblet ✗ Elemental Mastery −30",
+		{Slot: "circlet", Main: "cr", Verdict: "low", Best: "cd"}:     "Circlet CRIT Rate little effect (best: CRIT DMG)",
+		{Slot: "sands", Main: "er", Verdict: "unplayable"}:            "Sands Energy Recharge rotation cannot be played",
+		{Slot: "goblet", Verdict: "unknown"}:                          "Goblet not judged",
+		{Slot: "goblet", Main: "pyro%", Verdict: "wrong", Penalty: 8}: "Goblet ✗ Pyro DMG Bonus −8",
+	} {
+		if got := english.verdict(v); got != want {
+			t.Errorf("%+v: %q, want %q", v, got, want)
+		}
+	}
+	ko := localizer{Lang: langKorean}
+	if got := ko.verdict(slotVerdict{Slot: "goblet", Main: "hydro%", Verdict: "low", Best: "hp%"}); got != "성배 물 원소 피해 보너스 영향 작음(최고: HP%)" {
+		t.Errorf("Korean: %q", got)
+	}
+}

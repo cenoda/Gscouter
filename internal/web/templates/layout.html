@@ -469,9 +469,27 @@ function copyLink(btn) {
 </tbody>
 </table>
 </div>
+{{template "artscore" .}}
 {{template "pieces" .}}
 {{end}}
 {{end}}
+
+{{define "artscore"}}{{with .ArtifactScores}}
+<details class="rotation">
+<summary>{{t "art.score"}}</summary>
+{{if not (hasPieces $.Chars)}}<p class="muted">{{t "art.reload"}}</p>
+{{else}}<p class="muted">{{t "art.score_lead"}}</p>
+<div class="table-wrap">
+<table class="pieces">
+<thead><tr><th>{{t "team.character"}}</th><th class="num">{{t "art.columns"}}</th></tr></thead>
+<tbody>
+{{range $i, $s := .}}{{with $s}}{{$c := index $.Chars $i}}<tr><td><span class="who">{{template "face" $c.Key}}{{name $c.Key}}</span>{{if .Reload}}<span class="muted">{{t "art.reload"}}</span>{{else}}{{range .Slots}}<span class="muted">{{verdict .}}</span>{{end}}{{end}}</td>
+<td class="num">{{if not .Reload}}{{.Points}}{{end}}</td></tr>
+{{end}}{{end}}</tbody>
+</table>
+</div>{{end}}
+</details>
+{{end}}{{end}}
 
 {{define "pieces"}}
 <details class="rotation">

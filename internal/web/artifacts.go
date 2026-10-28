@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html/template"
 	"maps"
+	"math"
 	"slices"
 	"strings"
 
@@ -32,6 +33,16 @@ func (l localizer) statText(s enka.StatValue) string {
 		return name + " " + thousands(s.Value)
 	}
 	return fmt.Sprintf("%s %.1f%%", name, s.Value*100)
+}
+
+// mainName names a main stat without its value: a percentage of HP, ATK
+// or DEF gets a "%", which its value would otherwise show.
+func (l localizer) mainName(key string) string {
+	name := cmp.Or(enka.StatName(key, l.Lang), key)
+	if flat, ok := strings.CutSuffix(key, "%"); ok && enka.StatName(flat, l.Lang) == name {
+		name += "%"
+	}
+	return name
 }
 
 // setName is a set's in-game name, or its gcsim key.
@@ -127,6 +138,57 @@ func (l localizer) pieceName(p enka.Artifact) string {
 	return strings.Join(append(parts, l.statText(p.Main)), " · ")
 }
 
+// artifactScore is a character's artifact score (docs/artifacts.md §4).
+// It is a table lookup, done when the page is prepared (scoreArtifacts),
+// and shown when the visitor opens it.
+type artifactScore struct {
+	// Reload is set for a build without pieces (a link from before
+	// they were kept): its substats cannot be told from its main stats.
+	Reload bool `json:",omitempty"`
+	// Subs is the substat score, Penalty what the main stats cost.
+	Subs, Penalty float64
+	Slots         []slotVerdict // sands, goblet, circlet
+}
+
+// slotVerdict is one slot's main stat, judged.
+type slotVerdict struct {
+	Slot string // sands, goblet or circlet
+	Main string // gcsim key, "" without the piece
+	// Verdict is right, wrong, low (little effect), unplayable or
+	// unknown.
+	Verdict string
+	Penalty float64 `json:",omitempty"`
+	Best    string  `json:",omitempty"` // on a low slot
+}
+
+// Points are the score's three numbers in whole points, e.g. "185 · −70
+// · 115"; the total is the other two as shown.
+func (s *artifactScore) Points() string {
+	subs, pen := math.Round(s.Subs), math.Round(s.Penalty)
+	text := fmt.Sprintf("%.0f · %.0f · %.0f", subs, pen, subs-pen)
+	if pen > 0 {
+		text = fmt.Sprintf("%.0f · −%.0f · %.0f", subs, pen, subs-pen)
+	}
+	return text
+}
+
+// verdict describes a slot's judgement, e.g. "Sands ✓ ATK%" or "Goblet
+// ✗ Elemental Mastery −30".
+func (l localizer) verdict(v slotVerdict) string {
+	slot := l.T("art.slot." + v.Slot)
+	switch v.Verdict {
+	case "right":
+		return slot + " ✓ " + l.mainName(v.Main)
+	case "wrong":
+		return fmt.Sprintf("%s ✗ %s −%.0f", slot, l.mainName(v.Main), v.Penalty)
+	case "low":
+		return slot + " " + l.mainName(v.Main) + " " + l.T("art.low", l.mainName(v.Best))
+	case "unplayable":
+		return slot + " " + l.mainName(v.Main) + " " + l.T("art.unplayable")
+	}
+	return slot + " " + l.T("art.unknown")
+}
+
 // artifactFuncs are the template functions for artifacts in l's
 // language.
 func artifactFuncs(l localizer) template.FuncMap {
@@ -134,6 +196,7 @@ func artifactFuncs(l localizer) template.FuncMap {
 		"totals":    l.totals,
 		"stat":      l.statText,
 		"pieceText": l.pieceText,
+		"verdict":   l.verdict,
 		"subsText":  l.subsText,
 		"slotName":  func(s enka.Slot) string { return l.T("art.slot." + s.String()) },
 		"hasPieces": hasPieces,

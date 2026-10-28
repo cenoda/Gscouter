@@ -244,6 +244,9 @@ type teamResult struct {
 	// Problem explains why there is no score: unsupported team, blocked
 	// team, Enka error, and so on.
 	Problem string
+	// ArtifactScores are Chars' artifact scores, nil for a team without
+	// weights; an entry is nil for a character the weights lack.
+	ArtifactScores []*artifactScore
 }
 
 // TalentsOf describes character i's talent levels: each base level, or
@@ -339,6 +342,7 @@ func (s *Server) prepare(ctx context.Context, l localizer, sel selection, enemy 
 	case tr.Team.Status == library.StatusBlocked:
 		tr.Problem = l.T("problem.blocked", tr.Team.Notes)
 	}
+	scoreArtifacts(&tr)
 	return tr
 }
 
