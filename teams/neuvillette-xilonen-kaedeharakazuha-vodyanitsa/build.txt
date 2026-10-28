@@ -1,0 +1,41 @@
+# Neuvillette / Xilonen / Kazuha as in the harvested Neuvillette /
+# Furina / Kazuha / Xilonen team
+# (teams/neuvillette-furina-kaedeharakazuha-xilonen), with Vodyanitsa in
+# Furina's slot.
+# Vodyanitsa: no harvested team has her (the community database has no
+# entry with her), so as the KQM Vodyanitsa quick guide recommends, with
+# KQM-standard substats: C0, Prototype Amber R5 (the guide's weapon when
+# she bursts every rotation beside Hydro damage dealers), 2pc Tenacity of
+# the Millelith + 2pc Vourukasha's Glow (the guide's choice when the main
+# DPS does not scale with ATK, such as Neuvillette), HP%/HP%/HP%.
+# ER: the guide's rotation has her burst twice per rotation; ER is the
+# least at which she does: 155.1%, 10 ER rolls in place of 8 CRIT rolls
+# (the guide's double Hydro range with Amber is 145-155%; at 144.1% she
+# waits 0.5 s/min for energy, and at 133.1% the looped score skips
+# bursts).
+# Used to validate the rotation.
+
+neuvillette char lvl=90/90 cons=0 talent=9,9,9;
+neuvillette add weapon="sacrificialjade" refine=1 lvl=90/90;
+neuvillette add set="mh" count=4;
+neuvillette add stats hp=4780 atk=311 hp%=0.466 hydro%=0.466 cd=0.622;
+neuvillette add stats def%=0.124 def=39.36 hp=507.88 hp%=0.496 atk=33.08 atk%=0.0992 er=0.1102 em=39.64 cr=0.1986 cd=0.662;
+
+xilonen char lvl=90/90 cons=0 talent=9,9,9;
+xilonen add weapon="favsword" refine=3 lvl=90/90;
+xilonen add set="scroll" count=4;
+xilonen add stats hp=4780 atk=311 def%=0.583 def%=0.583 cr=0.311;
+xilonen add stats def%=0.496 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=39.64 cr=0.331 cd=0.5296;
+
+kazuha char lvl=90/90 cons=0 talent=9,9,9;
+kazuha add weapon="xiphosmoonlight" refine=1 lvl=90/90;
+kazuha add set="viridescentvenerer" count=4;
+kazuha add stats hp=4780 atk=311 em=187 em=187 em=187;
+kazuha add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.5952 er=0.1102 em=118.92 cr=0.2648 cd=0.1324;
+
+vodyanitsa char lvl=90/90 cons=0 talent=9,9,9;
+vodyanitsa add weapon="prototypeamber" refine=5 lvl=90/90;
+vodyanitsa add set="tenacityofthemillelith" count=2;
+vodyanitsa add set="vourukashasglow" count=2;
+vodyanitsa add stats hp=4780 atk=311 hp%=0.466 hp%=0.466 hp%=0.466;
+vodyanitsa add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*6 atk=16.54*2 atk%=0.0496*2 er=0.0551*10 em=19.82*2 cr=0.0331*6 cd=0.0662*6;

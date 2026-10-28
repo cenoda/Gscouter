@@ -1,0 +1,16 @@
+# KQM Vodyanitsa quick guide, Hydro Traveler team: Albedo E N1 > Mona Q
+# N1 > Vodyanitsa E > Mona N1 E N1 > Traveler hE (full hold) N1C >
+# (Vodyanitsa Q / Traveler Q), as written. The guide: Vodyanitsa can
+# burst every rotation, or alternate her burst with the Traveler's; so
+# she bursts when ready, and the Traveler when she cannot.
+active albedo;
+albedo skill, attack;
+mona burst, attack;
+vodyanitsa skill;
+mona attack, skill, attack;
+travelerhydro skill[hold=1], attack, charge;
+if .vodyanitsa.burst.ready {
+  vodyanitsa burst;
+} else if .travelerhydro.burst.ready {
+  travelerhydro burst;
+}

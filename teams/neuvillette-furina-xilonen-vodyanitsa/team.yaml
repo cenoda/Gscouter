@@ -1,0 +1,29 @@
+id: neuvillette-furina-xilonen-vodyanitsa
+name: Neuvillette / Furina / Xilonen / Vodyanitsa
+members:
+    - neuvillette
+    - furina
+    - xilonen
+    - vodyanitsa
+archetype: Neuvillette hypercarry with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+    - https://genshin-builds.com/en/teams/vodyanitsa
+    - https://allthings.how/genshin-impact-vodyanitsa-best-build-and-teams-version-7-1/
+    - https://db.kqm.gg/db/WF8hjMPpQm6Q
+notes: 'Written from the KQM Vodyanitsa quick guide (design §5.4; no community gcsim config with Vodyanitsa exists: upstream gcsim lacks her). Its Neuvillette team with Xilonen for Escoffier, Vodyanitsa / Neuvillette / Furina / Xilonen; GenshinBuilds rates Neuvillette / Furina / Vodyanitsa / Xilonen S. The rotation is the guide''s, as written: the Escoffier version''s (Neuvillette E > Furina ED N3 > Escoffier EQ > Vodyanitsa EQ > Furina Q > Neuvillette C E C Q > Escoffier E N1 > Vodyanitsa EQ > Neuvillette 2[C]) with Xilonen EQ N2 and Xilonen E N2 in place of Escoffier''s actions, as the guide says. Neuvillette''s C is his charged attack (Equitable Judgment, held to its end, as gcsim''s charge and the harvested Neuvillette rotations write it); 2[C] is two of them. Neuvillette, Furina and Xilonen are the harvested Neuvillette / Furina / Xilonen / Escoffier team''s. Vodyanitsa: C0, Prototype Amber R5 (the guide: she bursts every rotation beside Hydro damage dealers, with Amber), 2pc Tenacity of the Millelith + 2pc Vourukasha''s Glow (the guide''s choice when the main DPS does not scale with ATK, such as Neuvillette), HP%/HP%/HP%, KQM-standard substats, 133.1% ER (6 ER rolls in place of 4 CRIT rolls), the least at which she bursts twice per rotation as the rotation says (the guide''s triple Hydro range with Amber is 100-130%; at 122% she waits 0.7 s/min for energy, and at 111% the looped score skips her bursts). Her second skill comes about 12 s after the first against a 16 s cooldown, so she waits 4.6 s/min for it (the guide''s rotation as written). Against the harvested teams with Escoffier (89.3k looped) and Ineffa (94.3k) in her slot, she scores 22% and 16% more; AllThingsHow puts her only 1-5k above Ineffa teams for Neuvillette.'
+cross_check:
+    dps: 133000
+    source: https://allthings.how/genshin-impact-vodyanitsa-best-build-and-teams-version-7-1/
+    note: 'AllThingsHow''s tested 133k for a "Neuvillette core with Vodyanitsa" (the other members, constellations and builds are not stated; it adds that she gives only 1-5k over Ineffa teams). This team, with the harvested C0 4-star-weapon builds and C0 Amber Vodyanitsa, scores 100.0k one pass (-24.8%). Also searched 2026-10-28: the KQM Vodyanitsa quick guide (team and rotation, no DPS, no gcsim links); GenshinBuilds (S rating, no DPS); the community gcsim database (no Vodyanitsa: upstream gcsim lacks her); enjoygm and FandomWire team pages; Icy Veins and Prydwen return 403.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 1.093
+    dps: 109318
+    draft: no reference DPS
