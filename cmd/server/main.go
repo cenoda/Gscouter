@@ -52,7 +52,7 @@ func main() {
 		slog.Info("browsers calculate results", "dir", *static)
 	}
 
-	if *linksDB != "" {
+	if on(*linksDB) {
 		// Without the store the site still works: copying a result
 		// link copies the long link.
 		if store, err := links.Open(*linksDB); err != nil {
@@ -67,7 +67,7 @@ func main() {
 	if *site != "" {
 		srv.SetSite(*site)
 	}
-	if *indexNow != "" && *site != "" {
+	if on(*indexNow) && *site != "" {
 		// Search engines are told what changed; the site works the
 		// same without it.
 		if err := srv.SetIndexNow(*indexNow); err != nil {
@@ -96,6 +96,12 @@ func main() {
 		slog.Error("serve", "err", err)
 		os.Exit(1)
 	}
+}
+
+// on reports whether a file flag is set: empty or "none" turns its
+// feature off, so a flag can override its environment variable.
+func on(file string) bool {
+	return file != "" && file != "none"
 }
 
 // submitChanges tells search engines which pages changed, once the site
