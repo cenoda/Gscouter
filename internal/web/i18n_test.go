@@ -63,6 +63,14 @@ func TestCatalogComplete(t *testing.T) {
 				t.Errorf("%s: %q is not in English", code, key)
 			}
 		}
+		// Search engines show a searcher the page in their language, so
+		// each one names the game in English too: someone searching
+		// "gscouter genshin" from Korea is shown the Korean page.
+		for _, key := range []string{"site.title", "site.desc", "lib.desc", "char.desc"} {
+			if !strings.Contains(msgs[key], "Genshin") {
+				t.Errorf("%s %q: does not name Genshin", code, key)
+			}
+		}
 	}
 }
 
