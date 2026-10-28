@@ -1,0 +1,12 @@
+# KQM Sandrone quick guide, example team 3:
+# Yae Miko 3[E] > Qiqi E (Q) > Escoffier (Q) E > Sandrone [combo]
+# (the order for a Qiqi without Noblesse Oblige; C0 Qiqi skips her burst,
+# the guide: use it if she is C6).
+# Sandrone's C0 combo 3[C E] (Q), the burst after the first skill.
+active yaemiko;
+yaemiko skill:3;
+qiqi skill;
+escoffier burst, skill;
+sandrone charge, skill, burst,
+         charge, skill,
+         charge, skill;

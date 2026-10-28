@@ -6,7 +6,7 @@ members:
     - rosaria
     - bennett
 archetype: ""
-status: draft
+status: supported
 rotation_version: 1
 gcsim_commit: 2350be9
 sources:
@@ -16,9 +16,8 @@ reference:
     dps: 78250
     computed: "2026-10-01"
 validation:
-    date: "2026-10-27"
+    date: "2026-10-28"
     iterations: 20
     gap: -0.025
-    kept: 0.624
-    dps: 47606
-    draft: the looped score keeps 62% of one pass, less than 80%
+    kept: 0.808
+    dps: 61615

@@ -1,0 +1,48 @@
+# Sandrone: C0, A Teaspoon of Transcendence R1, 4pc Disenchantment in Deep
+# Shadow (the KQM Sandrone quick guide's best weapon and set),
+# ATK%/ATK%/CRIT DMG (the guide's main stats; CRIT DMG because her CRIT
+# Rate is already high from her ascension stat, the set and Cryo
+# resonance), KQM-standard substats, as in every Sandrone team except her
+# ER substats. Here she cannot burst every rotation at any ER in the
+# guide's table (130-165% for +1 Cryo; at 166% she still skips or waits),
+# so she follows the guide's advice for that case: no ER beyond the
+# standard's (111%), burst when available (every other rotation).
+# Alyosha: no harvested team has him, so as the KQM Alyosha quick guide
+# recommends, with KQM-standard substats: C0 (the limited-roster team
+# names no constellation), Favonius Lance R3, 4pc Heart of the Furnace (no
+# other holder here), ER/ATK%/CRIT Rate, 220.1% ER, inside the guide's
+# 195-225% for C0 with Favonius and no other Electro member. He bursts
+# when ready: even at 264% he waits about 4 s per minute for energy.
+# Charlotte from the harvested Eula / Furina / Escoffier / Charlotte team
+# (teams/eula-furina-escoffier-charlotte): C6, Thrilling Tales R5, 4pc
+# Ocean-Hued Clam, 111% ER. She bursts when ready: at 166% she still skips
+# bursts.
+# Sucrose as in Sandrone / Yae Miko / Odette / Sucrose, from the harvested
+# Arlecchino / Furina / Sucrose / Bennett team
+# (teams/arlecchino-furina-sucrose-bennett); she bursts when ready, as the
+# guide's (Q) says.
+# Used to validate the rotation.
+
+sandrone char lvl=90/90 cons=0 talent=9,9,9;
+sandrone add weapon="ateaspoonoftranscendence" refine=1 lvl=90/90;
+sandrone add set="disenchantmentindeepshadow" count=4;
+sandrone add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cd=0.622;
+sandrone add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*12 cd=0.0662*10;
+
+alyosha char lvl=90/90 cons=0 talent=9,9,9;
+alyosha add weapon="favlance" refine=3 lvl=90/90;
+alyosha add set="heartofthefurnace" count=4;
+alyosha add stats hp=4780 atk=311 er=0.518 atk%=0.466 cr=0.311;
+alyosha add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*10 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*6;
+
+charlotte char lvl=90/90 cons=6 talent=9,9,9;
+charlotte add weapon="ttds" refine=5 lvl=90/90;
+charlotte add set="ohc" count=4;
+charlotte add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 atk%=0.466;
+charlotte add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.0551*2 em=39.64 cr=0.3972 cd=0.0662*12;
+
+sucrose char lvl=90/90 cons=6 talent=9,9,9;
+sucrose add weapon="ttds" refine=5 lvl=90/90;
+sucrose add set="viridescentvenerer" count=4;
+sucrose add stats hp=4780 atk=311 em=187 em=187 em=187;
+sucrose add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=118.92 cr=0.3972 cd=0.5296;

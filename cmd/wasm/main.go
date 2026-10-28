@@ -14,6 +14,7 @@ import (
 	"encoding/json"
 	"errors"
 	"syscall/js"
+	"time"
 
 	"github.com/cenoda/gscouter/internal/score"
 	"github.com/cenoda/gscouter/internal/timeline"
@@ -83,11 +84,18 @@ func (workerSim) Score(_ context.Context, cfg string, warmup float64, iterations
 }
 
 func (workerSim) Timeline(_ context.Context, cfg string, from, to float64) (*timeline.Timeline, error) {
+	start := time.Now()
+	defer func() { reportTime("timeline", start) }()
 	res, err := score.Once(cfg, 1)
 	if err != nil {
 		return nil, err
 	}
 	return timeline.Build(res, int(from*60), int(to*60)), nil
+}
+
+// reportTime tells the page how long a stage took since start.
+func reportTime(name string, start time.Time) {
+	js.Global().Call("gscouterTime", name, float64(time.Since(start).Microseconds())/1000)
 }
 
 // promise runs f in a goroutine, which may wait on JavaScript, and

@@ -476,6 +476,12 @@ function copyLink(btn) {
   var job = {{.Job}}, v = {{.Version}}, fallback = {{.Fallback}};
   var progress = {{t "js.progress"}};
   var workers = [], done = false;
+  // Stages are recorded as performance measures named "gscouter:*"
+  // (design §4.7); nothing is logged.
+  function measure(name, start, detail) {
+    try { performance.measure("gscouter:" + name, {start: start, end: performance.now(), detail: detail}); } catch (e) {}
+  }
+  function now() { return window.performance ? performance.now() : 0; }
   function fail(err) {
     if (done) return;
     done = true;
@@ -540,15 +546,23 @@ function copyLink(btn) {
     document.querySelectorAll(".pending .progress").forEach(function (el) { el.textContent = text; });
   }
 
+  var started = now();
   compile().then(function (module) {
-    var lead = spawn(module);
+    measure("compile", started);
+    var lead = spawn(module), spawned = now(), unready = 0, jobStart = 0;
     var n = Math.max(1, Math.min(navigator.hardwareConcurrency || 2, 6));
     var helpers = [];
     for (var i = 0; i < n; i++) helpers.push(spawn(module));
+    unready = helpers.length;
     helpers.forEach(function (h) {
       h.onmessage = function (e) {
         var m = e.data;
-        if (m.type === "ready") { idle.push(h); pump(); return; }
+        if (m.type === "ready") {
+          if (--unready === 0) measure("workers", spawned);
+          idle.push(h);
+          pump();
+          return;
+        }
         if (m.type === "error") return fail(m.error);
         var run = runs[m.run];
         run.parts[m.index] = m.result.slice(1, -1);
@@ -558,6 +572,7 @@ function copyLink(btn) {
           delete runs[m.run];
           var result = "[" + run.parts.filter(Boolean).join(",") + "]";
           keep(run.key, result);
+          measure("run", run.start, {iterations: run.iterations, warmup: run.warmup});
           lead.postMessage({type: "runResult", id: run.id, result: result});
         }
         idle.push(h);
@@ -568,6 +583,7 @@ function copyLink(btn) {
       var m = e.data;
       switch (m.type) {
       case "ready":
+        jobStart = now();
         lead.postMessage({type: "job", job: job});
         break;
       case "run":
@@ -577,14 +593,19 @@ function copyLink(btn) {
           break;
         }
         var key = count++, size = Math.max(1, Math.ceil(m.iterations / (2 * helpers.length)));
-        var run = runs[key] = {id: m.id, key: cached, n: count, iterations: m.iterations, finished: 0, left: 0, parts: []};
+        var run = runs[key] = {id: m.id, key: cached, n: count, iterations: m.iterations, warmup: m.warmup, start: now(), finished: 0, left: 0, parts: []};
         for (var first = 0; first < m.iterations; first += size) {
           queue.push({run: key, index: run.left++, cfg: m.cfg, warmup: m.warmup, seed: m.seed, first: first, count: Math.min(size, m.iterations - first)});
         }
         show(run);
         pump();
         break;
+      case "time":
+        measure(m.name, now() - m.ms);
+        break;
       case "done":
+        measure("job", jobStart);
+        measure("total", 0);
         done = true;
         workers.forEach(function (w) { w.terminate(); });
         document.getElementById("page-body").innerHTML = m.body;

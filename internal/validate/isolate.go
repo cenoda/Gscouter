@@ -1,15 +1,13 @@
 package validate
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
 	"os"
-	"os/exec"
-	"runtime/debug"
-	"strings"
 	"time"
+
+	"github.com/cenoda/gscouter/internal/batch"
 )
 
 // childEnv carries a check request to a child process.
@@ -25,43 +23,17 @@ type childRequest struct {
 // uses CheckIsolated. In a process CheckIsolated started, it runs the
 // requested check, writes the report to stdout as JSON and exits.
 func ServeChild() {
-	v := os.Getenv(childEnv)
-	if v == "" {
-		return
-	}
-	var req childRequest
-	if err := json.Unmarshal([]byte(v), &req); err != nil {
-		fmt.Fprintln(os.Stderr, "bad check request:", err)
-		os.Exit(2)
-	}
-	tuneGC()
-	var r *Report
-	if req.Reference {
-		r = CheckReference(req.Dir, req.Settings)
-	} else {
-		r = Check(req.Dir, req.Settings)
-	}
-	if err := json.NewEncoder(os.Stdout).Encode(r); err != nil {
-		os.Exit(2)
-	}
-	// Exit at once: a stuck simulation may still be spinning.
-	os.Exit(0)
-}
-
-// tuneGC makes the garbage collector run about a tenth as often as by
-// default, unless GOGC or GOMEMLIMIT says otherwise. A fight allocates
-// fast but keeps little alive, so with the default the collector takes a
-// third of a check's time; this way a check takes 40% less time, for a
-// few hundred MB per process (measured 2026-10-27). The soft limit keeps
-// a heavy team from growing much beyond that. The collector changes no
-// result.
-func tuneGC() {
-	if os.Getenv("GOGC") == "" {
-		debug.SetGCPercent(1000)
-	}
-	if os.Getenv("GOMEMLIMIT") == "" {
-		debug.SetMemoryLimit(1 << 30)
-	}
+	batch.Serve(childEnv, func(body []byte) any {
+		var req childRequest
+		if err := json.Unmarshal(body, &req); err != nil {
+			fmt.Fprintln(os.Stderr, "bad check request:", err)
+			os.Exit(2)
+		}
+		if req.Reference {
+			return CheckReference(req.Dir, req.Settings)
+		}
+		return Check(req.Dir, req.Settings)
+	})
 }
 
 // CheckIsolated runs Check in a child process of the running command. A
@@ -78,26 +50,12 @@ func CheckReferenceIsolated(dir string, s Settings) *Report {
 }
 
 func isolated(req childRequest) *Report {
-	fail := func(msg string) *Report { return &Report{Dir: req.Dir, Failures: []string{msg}} }
-	exe, err := os.Executable()
-	if err != nil {
-		return fail(err.Error())
-	}
-	body, err := json.Marshal(req)
-	if err != nil {
-		return fail(err.Error())
-	}
 	// Check has its own timeout; this catches a child that outlives it.
 	ctx, cancel := context.WithTimeout(context.Background(), req.Settings.timeout()+30*time.Second)
 	defer cancel()
-	cmd := exec.CommandContext(ctx, exe)
-	cmd.Env = append(os.Environ(), childEnv+"="+string(body))
-	var stdout, stderr bytes.Buffer
-	cmd.Stdout, cmd.Stderr = &stdout, &stderr
-	runErr := cmd.Run()
 	var r Report
-	if err := json.Unmarshal(stdout.Bytes(), &r); err != nil {
-		return fail(fmt.Sprintf("check did not finish: %v %s", runErr, strings.TrimSpace(stderr.String())))
+	if err := batch.Isolated(ctx, childEnv, req, &r); err != nil {
+		return &Report{Dir: req.Dir, Failures: []string{err.Error()}}
 	}
 	return &r
 }

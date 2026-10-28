@@ -19,15 +19,15 @@ go run ./cmd/server          # http://localhost:8080
 | Flag | Default | Description |
 |---|---|---|
 | `-addr` | `:8080` (or `$PORT`) | Listen address |
-| `-iter` | 100 | Iterations per score |
+| `-iter` | 50 | Iterations per score |
 | `-warmup` | 150 | Seconds of the looped fight excluded from the score |
 | `-duration` | 450 | Length of the looped fight in seconds |
 | `-concurrent` | 1 | Simulations running at once |
 | `-queue` | 8 | Simulations waiting before requests are rejected |
 | `-static` | `$GSCOUTER_STATIC` | Directory of the browser build; when set, visitors' browsers calculate results |
-| `-links` | `$GSCOUTER_LINKS` | SQLite file of short links (`/s/...`); without it, copying a result copies its long link |
+| `-links` | `$GSCOUTER_LINKS` | SQLite file of short links (`/s/...`); without it (or `none`), copying a result copies its long link |
 | `-site` | `$GSCOUTER_SITE` | The site's public URL (e.g. `https://gscouter.example`) for canonical links, sitemaps and IndexNow; without it, they take each request's host |
-| `-indexnow` | `$GSCOUTER_INDEXNOW` | State file of [IndexNow](https://www.indexnow.org) submissions (needs `-site`); without it, nothing is submitted |
+| `-indexnow` | `$GSCOUTER_INDEXNOW` | State file of [IndexNow](https://www.indexnow.org) submissions (needs `-site`); without it (or `none`), nothing is submitted |
 
 Search engines index the library's pages: the front page, `/teams`, a page per team (`/teams/<id>`) and per character (`/characters/<key>`), each in every site language (`?hl=<code>`; English has none). `/robots.txt` keeps crawlers off results and points them to `/sitemap.xml`, which lists a sitemap per language. With `-indexnow`, the server creates a key on first start and, a minute after each start, submits the pages whose library data changed since the last submission to IndexNow (Bing, Naver, Yandex and others): every page the first time, then only what a library update changed.
 
@@ -94,11 +94,14 @@ go run ./cmd/validate                            # every team
 go run ./cmd/validate -v -detail teams/<id>      # one team, with a breakdown
 go run ./cmd/validate -iter 20 -j 4 -shard 1/2 -json a1.jsonl   # half the library, reports as JSON
 go run ./cmd/compare 'a*.jsonl' 'b*.jsonl'       # two runs, field by field (the regression run)
+go run ./cmd/weights -v teams/<id>              # artifact score weights of one team
+go run ./cmd/weights -join teams/weights.json -base teams/weights.json 'w*.jsonl'   # shards into the table
 ```
 
 - `cmd/harvest` downloads the community gcsim database at db.kqm.gg and ranks teams by how many entries use them. Every entry with four characters and a rotation that ends (no unconditional `while 1`) is usable, whatever its enemies, energy or gcsim tags. For each team it tries the entries from the lowest constellations and refinements up. An entry must reproduce the database's DPS within 15% in one pass under its own conditions, and its looped rotation must not stall (20 iterations); of the first five that pass (`-choose`), it keeps the one whose score keeps the most of its one pass. Flags: `-j` teams in parallel (default: one per CPU), `-cache <file>` saves the download and reuses it, `-min` least entries per team (1), `-tries` entries per team (0, all), `-force` replaces teams already in the library. Teams that fail every entry are listed in `teams/harvest-failed.txt` and skipped by later runs unless `-retry-failed` is set.
 - `cmd/import` splits one shared config into the source's build (`build.txt`), character params such as Hu Tao's `start_hp=1` (`params` in `team.yaml`) and the rotation. The source's options, enemy and energy lines go to `source.txt`; the site replaces them with the common conditions. It records the source's DPS as `reference`.
 - `cmd/validate` runs each team with its `build.txt`. One pass of the rotation under the source's conditions (`source.txt`; enemy count, level, resistance, energy) must reproduce the source's DPS within 15% (a warning above 5%). It then scores the looped rotation as the site does, and warns about energy and other waits and about members with almost no damage. A team with no source, whose rotation never finishes, or whose looped rotation stops advancing (a loop with no action, such as a counter set once before it) fails. With several teams, each is checked in its own process, `-j` at a time, because gcsim cannot cancel a stuck rotation. Simulation results are cached by config, options and gcsim version (`-cache`, by default under the user's cache directory; `-cache ""` turns it off), so a rerun simulates only what changed. `-shard k/n` checks every n-th team from the k-th on and `-json <file>` writes the reports, so a run can be split across machines; `cmd/compare` compares two runs, each side a file or a glob of shards.
+- `cmd/weights` calculates the artifact score's weights (`docs/artifacts.md` §4–§5): per character, the team DPS one maximum roll of each substat gains over the reference build and the DPS with each main stat on sands, goblet and circlet, all on the reference's seeds and fillers, 20 iterations. It takes `-shard`, `-json`, `-j` and `-cache` as `cmd/validate` does, and `-limit n` for n teams spread over the library; `-join` merges shards into `teams/weights.json`. The `weights` workflow runs it on GitHub's runners and pushes the table to a new branch.
 
 The `add-team` skill (`.claude/skills/add-team/SKILL.md`) describes the workflow.
 
@@ -112,6 +115,7 @@ cmd/harvest/        team library harvest from the community gcsim database
 cmd/import/         team import from gcsim share links
 cmd/validate/       team library checks
 cmd/compare/        comparison of two validation runs
+cmd/weights/        artifact score weights per library team
 internal/config/    common simulation conditions and config assembly
 internal/enka/      Enka.Network client and converter to gcsim
 internal/kqm/       community gcsim database (db.kqm.gg) client
@@ -122,6 +126,8 @@ internal/score/     team DPS from gcsim runs
 internal/steady/    looped scoring with fillers for waits
 internal/share/     gcsim share download, config splitting and team files
 internal/validate/  team checks shared by cmd/validate and cmd/harvest
+internal/weights/   artifact score weights: build.txt variants, arithmetic, table
+internal/batch/     team listing, shards and child processes for library-wide commands
 teams/<id>/         team.yaml, rotation.gcsl, source build.txt and source.txt per team
 deploy/             VM setup and auto-update
 ```

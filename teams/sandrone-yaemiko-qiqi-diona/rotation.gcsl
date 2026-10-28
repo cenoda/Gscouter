@@ -1,0 +1,15 @@
+# KQM Sandrone quick guide, example team 3:
+# Yae Miko 3[E] > Qiqi E > Diona hEQ > Sandrone [combo]
+# Diona bursts when ready: she cannot burst every rotation at any ER
+# in this team.
+# Sandrone's C0 combo 3[C E] (Q), the burst after the first skill.
+active yaemiko;
+yaemiko skill:3;
+qiqi skill;
+diona skill[hold=1];
+if .diona.burst.ready {
+  diona burst;
+}
+sandrone charge, skill, burst,
+         charge, skill,
+         charge, skill;

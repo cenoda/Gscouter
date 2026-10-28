@@ -38,6 +38,12 @@ self.onmessage = function (e) {
   }).catch(report);
 };
 
+// gscouterTime reports how long a stage of the lead took, for the page
+// to record (design §4.7).
+self.gscouterTime = function (name, ms) {
+  postMessage({type: "time", name: name, ms: ms});
+};
+
 // gscouterRun is how the lead's Go code asks the page for a simulation:
 // it resolves to the iterations as JSON.
 self.gscouterRun = function (cfg, warmup, seed, iterations) {

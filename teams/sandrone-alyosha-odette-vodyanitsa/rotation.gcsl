@@ -1,0 +1,14 @@
+# KQM Sandrone quick guide, example team 2 with Vodyanitsa:
+# Odette 2[E](Q) > Alyosha EQ > Vodyanitsa E > Sandrone [combo]
+# Odette bursts when ready (the guide: when available, or skip it before C4).
+# Sandrone's C0 combo 3[C E] (Q), the burst after the first skill.
+active odette;
+odette skill:2;
+if .odette.burst.ready {
+  odette burst;
+}
+alyosha skill, burst;
+vodyanitsa skill;
+sandrone charge, skill, burst,
+         charge, skill,
+         charge, skill;

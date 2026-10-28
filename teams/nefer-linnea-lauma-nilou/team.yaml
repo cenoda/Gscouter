@@ -18,7 +18,7 @@ notes: 'Added on request: Nefer / Linnea / Lauma / Columbina with Nilou for Colu
 cross_check:
     note: 'No public number for this team (searched 2026-10-27: the KQM Nilou quick guide gives none; web searches found team lists and community discussion only). For scale, at the same Nefer build: with Columbina instead of Nilou the team is 166.5k looped; this one 95.5k one pass, 93.9k looped. Nilou''s constellations (looped, 500 iterations): C0 93.9k, C1 81.2k, C4 82.0k, C6 83.3k: C1 lengthens her Tranquility Aura to 18 s, Linnea''s Geo then turns her Hydro into Lunar-Crystallize (20 reactions per fight against 1) and Nefer''s damage falls from 72k to 58k.'
 validation:
-    date: "2026-10-27"
+    date: "2026-10-28"
     iterations: 100
     kept: 0.991
     dps: 93831

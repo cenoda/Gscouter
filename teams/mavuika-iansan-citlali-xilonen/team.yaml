@@ -17,7 +17,7 @@ notes: 'Written from the community guides (design §5.4): the KQM Iansan quick g
 cross_check:
     note: 'Searched 2026-10-27: the KQM Iansan and Mavuika quick guides (no DPS numbers or gcsim links), the KQM community gcsim database (no entry with Iansan), GenshinBuilds, Sportskeeda and GameWith team pages (no numbers), Prydwen (HTTP 403); no public number for this team. For scale, harvested teams with the same carry and Xilonen: Mavuika / Citlali / Xilonen / Bennett 133.8k, / Albedo 91.4k, / Zhongli 91.8k (source DPS); this team has no Bennett.'
 validation:
-    date: "2026-10-27"
+    date: "2026-10-28"
     iterations: 100
     kept: 0.952
     dps: 69015

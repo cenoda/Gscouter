@@ -8,7 +8,7 @@ The design document (`docs/design.md`) describes the MVP: a team DPS score. This
 
 - **DPS is the center.** Every feature grows outward from the team DPS score.
 - **A branch starts only when the nodes it depends on are complete.** Outer nodes come last.
-- **Server cost is a constraint on every node** and an open question. Outer nodes run many more simulations per page (one per candidate), so they depend on calculation staying in the visitor's browser (§4.7 of the design) and on it getting faster.
+- **Server cost is a constraint on every node** and an open question. Outer nodes run many more simulations per page (one per candidate), so they depend on calculation staying in the visitor's browser (§4.7 of the design). Making each simulation faster is paused (see faster DPS); outer nodes keep their cost down by precomputing what they can, as the artifact weights table does (`docs/artifacts.md` §5).
 
 ## Map
 
@@ -48,7 +48,7 @@ Status: ✅ done · 🔶 partly done · ❌ not started.
 | Ring | Node | Depends on | Status | What it is |
 |---|---|---|---|---|
 | 0 | DPS | — | ✅ | Team DPS from the player's builds with a fixed rotation, versus view, calculated in the browser |
-| 1 | faster DPS | DPS | 🔶 | Shorter time to a score: 6–11 s in the browser today (§4.7). Outer nodes multiply the number of simulations per page |
+| 1 | faster DPS | DPS | 🔶 | Shorter time to a score. **Paused (2026-10-28)**: about 11–14 s in the browser on 4 CPUs, most of it simulation, and what speeds up a simulation is done or measured as no gain (§4.7): the CPUs are full, download, compile and worker start are under 1 s, iterations are down to 50 and filler ranking to 10. What is left only lowers the number of simulations or how long the wait feels: starting the filler search from the filler that won for the library build, a provisional score from fewer iterations, the score before the timelines (at most 0.7 s), profiling gcsim itself |
 | 1 | Tier & Wiki | DPS | 🔶 | Team and character tiers from scores. `/teams` lists the library; there are no tiers yet |
 | 1 | Artifacts | DPS | ❌ | Each artifact kept piece by piece, shown as totals by default, checked for duplicates (`docs/artifacts.md`) |
 | 1 | Cycle | DPS | 🔶 | The rotation and its timeline are shown (§4.5); nothing about it can be changed yet |
@@ -73,4 +73,4 @@ Status: ✅ done · 🔶 partly done · ❌ not started.
 
 ## Next
 
-Every ring-1 node can start now. faster DPS lies under every outer node, so it should go first or alongside the others.
+Every ring-1 node can start now. faster DPS is paused (its row above), so it no longer has to go first: Tier & Wiki can start alongside Artifacts.

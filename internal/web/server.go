@@ -42,7 +42,7 @@ type Settings struct {
 // DefaultSettings score the looped rotation over 150-450 s, after the
 // full starting energy has run out (design §3.1).
 var DefaultSettings = Settings{
-	Iterations:    100,
+	Iterations:    50,
 	Warmup:        150,
 	Duration:      450,
 	MaxConcurrent: 1,
@@ -344,8 +344,10 @@ func (s *Server) prepare(ctx context.Context, l localizer, sel selection, enemy 
 
 // exploreIterations is the iterations of the runs that try fillers for a
 // rotation that stands still (steady.Score): enough to rank them. The
-// best is then run again with the full iterations.
-const exploreIterations = 20
+// best is then run again with the full iterations. 10 ranks as well as
+// 20 did; a team misses its best filler because of the search's cap on
+// runs (steady), not because of these iterations. 5 lowered one team 8.5%.
+const exploreIterations = 10
 
 // compute calculates a prepared team with sim, filling in its score, or
 // its Problem when the calculation fails.

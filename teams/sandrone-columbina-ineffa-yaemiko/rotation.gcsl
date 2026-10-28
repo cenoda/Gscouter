@@ -1,0 +1,19 @@
+# KQM Sandrone quick guide, example team 6 (Lunar-Charged):
+# Yae Miko 3[E] > Columbina E > Ineffa E (Q) > Sandrone [combo]
+# Ineffa bursts whenever available, as the guide says.
+# Sandrone's C0 combo 3[C E] (Q), the burst after the first skill when
+# ready: she would need more ER than the guide's table to burst every
+# rotation, and the guide then advises no ER and bursting when available.
+active yaemiko;
+yaemiko skill:3;
+columbina skill;
+ineffa skill;
+if .ineffa.burst.ready {
+  ineffa burst;
+}
+sandrone charge, skill;
+if .sandrone.burst.ready {
+  sandrone burst;
+}
+sandrone charge, skill,
+         charge, skill;
