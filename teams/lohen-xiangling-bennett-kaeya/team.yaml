@@ -1,0 +1,24 @@
+id: lohen-xiangling-bennett-kaeya
+name: Lohen / Xiangling / Bennett / Kaeya
+members:
+    - lohen
+    - xiangling
+    - bennett
+    - kaeya
+archetype: Melt (limited roster)
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/lohen-quickguide/
+notes: 'Written from the KQM Lohen quick guide (design §5.4; no community gcsim config with Lohen exists). The guide''s example team 5 (limited roster) with Kaeya, all 4-star teammates: Bennett QE > Xiangling QED > Kaeya EQ > Lohen [combo] > Bennett E > Xiangling N3 > Kaeya E. Lohen plays the guide''s combo for teams without a Hexerei teammate: E 15-17[N1C] (N1 E), here 15 strings (the guide''s average is 15-16) then N1 and one Etched Into Bone and Soul; his burst is cast when ready (no ER, as the guide says). Lohen''s build is the same in every Lohen team: C0, Disaster and Remorse R1, 4pc Rising Winds (the guide''s best in slot), ATK%/Cryo/CRIT DMG, KQM-standard substats. Without a second Hexerei member Lohen gets neither his +40% nor Disaster and Remorse''s Hexerei boost, and Will to Win stays low (no teammate hits for 1000% of his base ATK), so his Etched hits are about a fifth of those in the Durin teams. Supports from the harvested Rosaria / Bennett / Xiangling / Kaeya team; Xiangling with Favonius Lance R3 instead of The Catch (the guide assumes Favonius for her) and 248% ER, Bennett 196%: the least at which both burst every rotation in this 24 s rotation (with The Catch at 220% Xiangling burst every other rotation). Kaeya''s skill cooldown before his first E is filled with attacks.'
+cross_check:
+    note: 'No public number for this team (searched 2026-10-28: the KQM Lohen quick guide (team list and combos, no DPS, no gcsim links); the community gcsim database (no Lohen: upstream gcsim lacks him); web searches for gcsim share links or configs with Lohen (none; only fork pull requests); HoYoLAB, Icy Veins, GenshinBuilds, GameWith (team lists, no numbers); Prydwen returns 403, its team chart seen only through search snippets). For scale: Lohen / Durin / Nicole / Citlali scores 137.1k one pass with the same Lohen build; this team scores 50.1k one pass and 47.8k looped.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 0.952
+    dps: 47757
+    draft: no reference DPS

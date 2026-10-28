@@ -1,0 +1,32 @@
+# Lohen: C0, Disaster and Remorse R1, 4pc A Day Carved From Rising Winds
+# (the KQM Lohen quick guide's best weapon and set), ATK%/Cryo/CRIT DMG
+# with KQM-standard substats and no ER (the guide: his burst does not
+# justify building ER). Supports from the harvested Chongyun / Durin /
+# Citlali / Nicole team (teams/chongyun-durin-citlali-nicole), the
+# library's Cryo-carry melt team with the same supports; Durin with an ER
+# sands instead of ATK% (179% ER, the guide's 170-185% for the Pyro unit
+# with Citlali). Used to validate the rotation.
+
+lohen char lvl=90/90 cons=0 talent=9,9,9;
+lohen add weapon="disasterandremorse" refine=1 lvl=90/90;
+lohen add set="risingwinds" count=4;
+lohen add stats hp=4780 atk=311 atk%=0.466 cryo%=0.466 cd=0.622;
+lohen add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*2 em=19.82*2 cr=0.0331*12 cd=0.0662*12;
+
+durin char lvl=90/90 cons=0 talent=9,9,9;
+durin add weapon="wolffang" refine=1 lvl=90/90;
+durin add set="risingwinds" count=4;
+durin add stats hp=4780 atk=311 er=0.518 pyro%=0.466 cd=0.622;
+durin add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*5 em=19.82*4 cr=0.0331*9 cd=0.0662*10;
+
+nicole char lvl=90/90 cons=0 talent=9,9,9;
+nicole add weapon="oathsworn" refine=5 lvl=90/90;
+nicole add set="cg" count=4;
+nicole add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 atk%=0.466;
+nicole add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*10 atk%=0.0496*6 er=0.0551*8 em=19.82*2 cr=0.0331*2 cd=0.0662*4;
+
+citlali char lvl=90/90 cons=0 talent=9,9,9;
+citlali add weapon="ttds" refine=5 lvl=90/90;
+citlali add set="scroll" count=4;
+citlali add stats hp=4780 atk=311 er=0.518 em=187 em=187;
+citlali add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*5 em=19.82*3 cr=0.0331*10 cd=0.0662*10;

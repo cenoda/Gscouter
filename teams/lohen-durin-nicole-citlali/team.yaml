@@ -1,0 +1,26 @@
+id: lohen-durin-nicole-citlali
+name: Lohen / Durin / Nicole / Citlali
+members:
+    - lohen
+    - durin
+    - nicole
+    - citlali
+archetype: Hexerei forward melt
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/lohen-quickguide/
+notes: 'Written from the KQM Lohen quick guide (design §5.4; no community gcsim config with Lohen exists). The guide''s example team 1 with Citlali, which it calls typically best overall: Nicole EQ > Citlali EQ > Durin E N1 Q > Lohen [combo]. Lohen plays the guide''s average combo, E 2[N1C] E/Q 4[N1C] E 5[N1C] E: the first E opens Masterstroke, each later E is Etched Into Bone and Soul (100 Joy, two N1C strings); all three Etched land in every rotation, and his burst is cast when ready (the guide: it does not justify building ER, so he has none). Lohen''s build is the same in every Lohen team: C0, Disaster and Remorse R1, 4pc Rising Winds (the guide''s best in slot), ATK%/Cryo/CRIT DMG, KQM-standard substats. Supports from the harvested Chongyun / Durin / Citlali / Nicole team, with ER raised until every burst fires every rotation: Durin with an ER sands (179%, the guide''s 170-185% for the Pyro unit with Citlali), Nicole 144% (the guide gives 125-140%; at 139% she skips a burst now and then), Citlali 179%. No waits.'
+cross_check:
+    dps: 190000
+    source: community figure for this team with Disaster and Remorse, as design §5.4 (Lohen row) records it for the fork's calibration; the HoYoLAB post it cites (45375045) does not load outside the app
+    note: 'About 190k with Disaster and Remorse and 160k with Deathmatch R5 in the community, with signature weapons on Nicole and Durin; the design''s own calibration of the fork gave 180.6k with a build it did not record. Here 137.1k one pass (-28%) with the harvested 4-star support weapons (Wolf-Fang R1 Durin, Oathsworn Eye R5 Nicole); with Athame Artis R1 on Durin and The Daybreak Chronicles R1 on Nicole it is 153.5k (-19%), so the rest of the gap is artifacts or the calibration''s unrecorded conditions. Prydwen''s chart uses this team as its 100% baseline. Also searched 2026-10-28: the KQM Lohen quick guide (team list and combos, no DPS, no gcsim links); the community gcsim database (no Lohen: upstream gcsim lacks him); web searches for gcsim share links or configs with Lohen (none; only fork pull requests); HoYoLAB, Icy Veins, GenshinBuilds, GameWith (team lists, no numbers); Prydwen returns 403, its team chart seen only through search snippets.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 1.019
+    dps: 139641
+    draft: no reference DPS
