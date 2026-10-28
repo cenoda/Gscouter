@@ -1,6 +1,6 @@
 # Pull a character
 
-> Status: Design draft · Last updated: 2026-10-28
+> Status: Design draft; presets done · Last updated: 2026-10-28
 
 This covers the roadmap node **Pull a character** (ring 1, `docs/roadmap.md`): a team's score with a character the player does not own. It is the base of Pull planning, Primogem priority and the Character building guide.
 
@@ -22,7 +22,9 @@ The front page's team picker gets one secondary button, "Fill with a character I
 A slot starts from a preset, so the visitor gets a score without filling anything in:
 
 - The character's build in that library team (`build.txt`). The harvest kept the lowest constellations and refinements that reproduce the source's DPS (design §5.3), so this is a reasonable build for that rotation, and the rotation was written for it.
-- Teams with no library build for the character (draft rotations written from guides) use a fixed preset: level 90, C0, talents 9/9/9, the character's most common weapon in the library at R1 (a 4★ when one is common), its most common set and main stats, and KQM-standard substats.
+- A team without a `build.txt` gets the character's most common build across the library (the build most teams give it; on a tie the lower constellation, then the lower refinement). A fixed preset (C0, a 4★ weapon, standard substats) was considered and dropped: library builds are real builds that rotations were validated with, and the basic settings (§2.2) lower the constellation or change the weapon in one step.
+- A character no library build has gets no preset, and its slot cannot be filled until a team with a build adds it. On 2026-10-28 that is only Vesna, whose one team has no `build.txt` yet.
+- `internal/pull` reads the presets (`NewPresets`, `Presets.For`) with gcsim's own parser, so every form a `build.txt` writes reads as gcsim reads it. Weapon, set and character params (`+params=[stacks=5]`, on about 7% of the library's builds) are dropped, as a showcase build has none: a preset runs with gcsim's defaults, like a player's build. So a preset can score a little differently from the team's validated number. The server embeds the `build.txt` files for this (6 MB, the server binary 64 → 70 MB); the browser build does not include them. On 2026-10-28 the library's 4,456 teams give 17,823 presets for 125 characters, read in about 1.2 s.
 
 ### 2.2 Basic settings
 
@@ -66,7 +68,7 @@ Assumed builds can be anything up to C6R5 with perfect artifacts, and borrowed o
 
 ## 6. Order of work
 
-1. This design, then the presets (§2.1) as data: the library builds per character and team, and the fixed preset for characters without one.
+1. ~~This design, then the presets (§2.1) as data~~ Done: `internal/pull`.
 2. After `claude/artifact-pieces` is merged: the pack format flag for assumed and borrowed builds (§2.4, §3).
 3. The picker, the basic and advanced forms, borrowing from a UID and from a link, the badges (§1–§4). This changes the web handlers and templates, so it is ordered with the artifacts' web step (`docs/artifacts.md` §6, step 3).
 4. Substat quality (§2.2) once the artifact weights table is on `main`. Until then the basic form offers the preset's substats and the advanced settings.
