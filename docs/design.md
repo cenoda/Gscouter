@@ -168,7 +168,7 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
 ### 4.5 Results
 
 - **Score**: team DPS with the rotation looped (150–450 s), plus the one-rotation number
-- **Per-character contribution**: DPS and share
+- **Per-character contribution**: DPS and share, with each character's build: level, constellations, weapon, talents, artifact sets and total stats as on the character screen (docs/artifacts.md §2)
 - **Warnings**
   - Insufficient ER: time each character spent waiting for energy, in seconds per minute of the scoring window
   - Failed actions

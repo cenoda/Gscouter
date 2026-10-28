@@ -223,6 +223,7 @@ func init() {
 		"enemy.preset_note": "Un boss prédéfini remplit ses résistances de base d'après les données de monstres de gcsim et garde le niveau choisi. Les changements de phase, boucliers et immunités ne sont pas simulés.",
 		"err.boss":          "Boss inconnu : %q",
 
+		"art.totals":       "Totaux des artéfacts",
 		"art.pieces":       "Artéfacts pièce par pièce",
 		"art.slot.flower":  "Fleur",
 		"art.slot.plume":   "Plume",

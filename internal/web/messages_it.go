@@ -223,6 +223,7 @@ func init() {
 		"enemy.preset_note": "Un boss predefinito compila le sue resistenze base dai dati dei mostri di gcsim e mantiene il livello scelto. Cambi di fase, scudi e immunità non sono simulati.",
 		"err.boss":          "Boss sconosciuto: %q",
 
+		"art.totals":       "Totali dei manufatti",
 		"art.pieces":       "Manufatti pezzo per pezzo",
 		"art.slot.flower":  "Fiore",
 		"art.slot.plume":   "Piuma",

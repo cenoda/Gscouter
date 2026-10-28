@@ -6,6 +6,7 @@ import (
 	"math"
 	"net/http/httptest"
 	"net/url"
+	"regexp"
 	"slices"
 	"strings"
 	"testing"
@@ -162,21 +163,25 @@ func TestStrippedKeepsScore(t *testing.T) {
 	}
 }
 
-// A result page shows the artifact totals, keeps the pieces folded, and
-// offers a link without them; a stripped link shows no substats, and a
-// link from before pieces were kept asks for the showcase again.
+// A result page shows the total stats, keeps the artifact totals and
+// pieces folded, and offers a link without the pieces; a stripped link
+// shows no substats, and a link from before pieces were kept asks for
+// the showcase again.
 func TestScorePieces(t *testing.T) {
 	ts := newTestServer(t)
 	builds := piecedTeam()
 	sel := selection{UID: "800000005", Chars: keys(builds), Builds: builds, Nickname: "Lohen"}
 	sub := english.subsText(builds[0].Pieces[0])
+	artTotals := template.HTMLEscapeString(english.artTotals(builds[0]))
 	_, body := get(t, ts, "/score?a="+url.QueryEscape(sel.String()))
-	mustContain(t, body, template.HTMLEscapeString(english.totals(builds[0])), `<details class="rotation">
-<summary>Artifact pieces</summary>`, "Circlet", "Finale", sub,
+	mustContain(t, body, `<details class="rotation">
+<summary>Artifact pieces</summary>`, "Artifact totals", artTotals, "Circlet", "Finale", sub,
 		"Leave artifact pieces out", `data-strip="/score?a=`+url.QueryEscape(teamResult{Selection: sel}.Stripped())+`"`)
+	totalStats(t, body, artTotals)
 
 	_, body = get(t, ts, "/score?a="+url.QueryEscape(teamResult{Selection: sel}.Stripped()))
-	mustContain(t, body, "DPS", template.HTMLEscapeString(english.totals(builds[0])), "Substats left out", english.statText(builds[0].Pieces[4].Main))
+	mustContain(t, body, "DPS", artTotals, "Substats left out", english.statText(builds[0].Pieces[4].Main))
+	totalStats(t, body, artTotals)
 	for _, no := range []string{sub, "Leave artifact pieces out"} {
 		if strings.Contains(body, no) {
 			t.Errorf("stripped link shows %q", no)
@@ -185,7 +190,23 @@ func TestScorePieces(t *testing.T) {
 
 	sel.Builds = lohenTeam()
 	_, body = get(t, ts, "/score?a="+url.QueryEscape(sel.String()))
-	mustContain(t, body, "DPS", "This link was made before artifact pieces were kept")
+	mustContain(t, body, "DPS", "This link was made before artifact pieces were kept",
+		"Artifact totals", template.HTMLEscapeString(english.artTotals(sel.Builds[0])))
+	totalStats(t, body, "")
+}
+
+// totalStats checks that the result table shows total stats under each
+// character, with the base 100% Energy Recharge and 50% CRIT DMG, and
+// not the artifact totals, which are in the pieces section.
+func totalStats(t *testing.T, body, artTotals string) {
+	t.Helper()
+	table, _, _ := strings.Cut(body, `<details class="rotation">`)
+	if n := len(regexp.MustCompile(`Energy Recharge 1\d\d\.\d%.* · CRIT DMG [1-9]\d{1,2}\.\d%`).FindAllString(table, -1)); n != 4 {
+		t.Errorf("result table has total stats for %d characters, want 4", n)
+	}
+	if artTotals != "" && strings.Contains(table, artTotals) {
+		t.Errorf("result table shows the artifact totals %q", artTotals)
+	}
 }
 
 // shareCirclet is builds with the first character's circlet also on the

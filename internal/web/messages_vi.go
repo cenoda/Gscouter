@@ -223,6 +223,7 @@ func init() {
 		"enemy.preset_note": "Chọn boss có sẵn sẽ điền kháng cơ bản của boss từ dữ liệu quái của gcsim và giữ nguyên cấp đã chọn. Đổi giai đoạn, khiên và miễn nhiễm không được mô phỏng.",
 		"err.boss":          "Boss không xác định: %q",
 
+		"art.totals":       "Tổng chỉ số Thánh Di Vật",
 		"art.pieces":       "Thánh Di Vật từng món",
 		"art.slot.flower":  "Hoa",
 		"art.slot.plume":   "Lông",
