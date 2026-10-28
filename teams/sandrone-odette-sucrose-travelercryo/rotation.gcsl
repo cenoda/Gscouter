@@ -1,0 +1,25 @@
+# KQM Sandrone quick guide, Stellar Swirl team:
+# Odette 2[E](Q) > Sucrose N1 ED (Q) > Traveler E N1C Q > Sandrone C E >
+# Sucrose N1 ED > Sandrone [combo]; the Traveler skips N1C Q on the
+# first rotation. Odette and Sucrose burst when ready.
+# Sandrone's C0 combo 3[C E] (Q), the burst after the first skill.
+let first = 1;
+active odette;
+odette skill:2;
+if .odette.burst.ready {
+  odette burst;
+}
+sucrose attack, skill, dash;
+if .sucrose.burst.ready {
+  sucrose burst;
+}
+travelercryo skill;
+if first == 0 {
+  travelercryo attack, charge, burst;
+}
+first = 0;
+sandrone charge, skill;
+sucrose attack, skill, dash;
+sandrone charge, skill, burst,
+         charge, skill,
+         charge, skill;

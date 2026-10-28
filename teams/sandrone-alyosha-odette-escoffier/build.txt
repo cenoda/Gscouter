@@ -1,0 +1,51 @@
+# Sandrone: C0, A Teaspoon of Transcendence R1, 4pc Disenchantment in Deep
+# Shadow (the KQM Sandrone quick guide's best weapon and set),
+# ATK%/ATK%/CRIT DMG (the guide's main stats; CRIT DMG because her CRIT
+# Rate is already high from her ascension stat, the set and Cryo
+# resonance), KQM-standard substats, as in every Sandrone team except her
+# ER substats. ER is the least in the guide's ER table at which she bursts
+# every rotation in this team (122%, 4 rolls; the table's +2 Cryo row is
+# 120-140%).
+# Alyosha: no harvested team has him, so as the KQM Alyosha quick guide
+# recommends, with KQM-standard substats: C6, Favonius Lance R3, 4pc Heart
+# of the Furnace (the Sandrone guide's ideal gear for this team),
+# ER/ATK%/CRIT Rate. He is the team's only Electro member, so his burst
+# every rotation matters (bursting when ready cost the Escoffier team
+# about 25%); 258.7% ER is the least at which he bursts every rotation.
+# His guide gives 150-175%: gcsim counts his skill's particles off field,
+# since they arrive after E then Q has swapped him out (design §5.4, batch
+# 3).
+# Odette as in the other Sandrone teams (from her KQM quick guide: C0,
+# Finale of the Deep R5, ATK%/ATK%/CRIT Rate, KQM-standard substats, 111%
+# ER, burst when ready) but with 4pc Disenchantment in Deep Shadow, the
+# guide's ideal gear for this team (Alyosha then holds Heart of the
+# Furnace).
+# Escoffier as in the other Sandrone teams, from the harvested Ganyu /
+# Furina / Escoffier / Mona team (teams/ganyu-furina-escoffier-mona;
+# Favonius Lance R3), with ER raised to 174.7% (8 rolls, traded with CRIT
+# DMG), the least at which she bursts every rotation.
+# Used to validate the rotation.
+
+sandrone char lvl=90/90 cons=0 talent=9,9,9;
+sandrone add weapon="ateaspoonoftranscendence" refine=1 lvl=90/90;
+sandrone add set="disenchantmentindeepshadow" count=4;
+sandrone add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cd=0.622;
+sandrone add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*4 em=19.82*2 cr=0.0331*12 cd=0.0662*10;
+
+alyosha char lvl=90/90 cons=6 talent=9,9,9;
+alyosha add weapon="favlance" refine=3 lvl=90/90;
+alyosha add set="heartofthefurnace" count=4;
+alyosha add stats hp=4780 atk=311 er=0.518 atk%=0.466 cr=0.311;
+alyosha add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*3 er=0.0551*9 em=19.82*2 cr=0.0331*10 cd=0.0662*6;
+
+odette char lvl=90/90 cons=0 talent=9,9,9;
+odette add weapon="finale" refine=5 lvl=90/90;
+odette add set="disenchantmentindeepshadow" count=4;
+odette add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cr=0.311;
+odette add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*12;
+
+escoffier char lvl=90/90 cons=0 talent=9,9,9;
+escoffier add weapon="favlance" refine=3 lvl=90/90;
+escoffier add set="gt" count=4;
+escoffier add stats hp=4780 atk=311 atk%=0.466 cryo%=0.466 cd=0.622;
+escoffier add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.0551*8 em=39.64 cr=0.3972 cd=0.0662*4;
