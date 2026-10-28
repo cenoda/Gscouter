@@ -50,11 +50,11 @@ Status: ✅ done · 🔶 partly done · ❌ not started.
 | 0 | DPS | — | ✅ | Team DPS from the player's builds with a fixed rotation, versus view, calculated in the browser |
 | 1 | faster DPS | DPS | 🔶 | Shorter time to a score: 6–11 s in the browser today (§4.7). Outer nodes multiply the number of simulations per page |
 | 1 | Tier & Wiki | DPS | 🔶 | Team and character tiers from scores. `/teams` lists the library; there are no tiers yet |
-| 1 | Artifacts | DPS | ❌ | How much each artifact contributes to the team's DPS |
+| 1 | Artifacts | DPS | ❌ | Each artifact kept piece by piece, shown as totals by default, checked for duplicates (`docs/artifacts.md`) |
 | 1 | Cycle | DPS | 🔶 | The rotation and its timeline are shown (§4.5); nothing about it can be changed yet |
 | 1 | Pull a character | DPS | ❌ | The score with a character the player does not own, on an assumed build |
 | 2 | Arena | DPS (strongly), Tier & Wiki | ❌ | Players' scores ranked against each other. Results are never sent to the server today (§4.7), so this needs a design change |
-| 2 | Artifact score | Artifacts | ❌ | A score for an artifact based on the DPS it adds, not on fixed stat weights |
+| 2 | Artifact score | Artifacts | ❌ | CV extended to every stat, with weights simulated on the library builds and a penalty for a wrong main stat (`docs/artifacts.md`) |
 | 2 | Artifact swap | Artifacts | ❌ | Swap an artifact and see the new score |
 | 2 | Cycle swap | Cycle | ❌ | Change the rotation and see the new score |
 | 2 | Boss | Cycle | 🔶 | Score against a particular boss. Boss presets for level and resistances exist (§3.3) |

@@ -129,7 +129,7 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
 ### 4.1 Input collection
 
 - **Enka.Network**
-  - Fetches the characters in the profile showcase (up to 8) by UID: level, constellations, talents, weapon, refinement, artifact main stats and substats.
+  - Fetches the characters in the profile showcase (up to 12) by UID: level, constellations, talents, weapon, refinement, artifact main stats and substats.
   - Terms of use: set a unique User-Agent, respect rate limits, keep a response cache (TTL).
   - Constraint: all 4 party members must be in the showcase with "Show Character Details" enabled. Otherwise, tell the user which characters are missing.
   - Characters that leave the showcase stay pickable from the visitor's browser (§4.8).
