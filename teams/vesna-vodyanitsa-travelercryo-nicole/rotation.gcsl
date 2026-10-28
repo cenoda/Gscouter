@@ -1,0 +1,38 @@
+# GameWith Vesna team guide, premium Stellar Swirl team (Odette E E >
+# Traveler E C Q > Vodyanitsa E > Vesna combo) with Nicole in Odette's
+# slot; the guide lists Nicole only as an ATK% buffer for Vesna's Anemo
+# driver team: Traveler E N1C Q > Nicole E Q > Vodyanitsa E > Vesna
+# combo. gcsim needs a normal attack before the Traveler's charged
+# attack. The Traveler and Nicole burst when ready.
+# Vesna's combo as in every Vesna team (GameWith's): E [N C E]x2 Q E
+# [N C E]x2, the burst when ready. With 5 Sword Essence per attack it
+# pays for only four Windborne Swords even with the burst, so whenever the
+# next one is not ready she keeps attacking until the fifth ends Armed for
+# Action.
+active travelercryo;
+travelercryo skill, attack, charge;
+if .travelercryo.burst.ready {
+  travelercryo burst;
+}
+nicole skill;
+if .nicole.burst.ready {
+  nicole burst;
+}
+vodyanitsa skill;
+vesna skill,
+      attack, charge, skill,
+      attack, charge, skill;
+if .vesna.burst.ready {
+  vesna burst;
+}
+while .vesna.armed {
+  while .vesna.armed && !.vesna.skill.ready {
+    vesna attack, charge;
+  }
+  if .vesna.armed {
+    vesna skill;
+  }
+  if .vesna.armed {
+    vesna attack, charge;
+  }
+}

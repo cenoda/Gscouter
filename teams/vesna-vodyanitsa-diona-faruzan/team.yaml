@@ -1,0 +1,26 @@
+id: vesna-vodyanitsa-diona-faruzan
+name: Vesna / Vodyanitsa / Diona / Faruzan
+members:
+    - vesna
+    - vodyanitsa
+    - diona
+    - faruzan
+archetype: Stellar Swirl
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://gamewith.net/genshin-impact/article/show/77723
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+    - https://www.icy-veins.com/genshin-impact/vesna-guide-best-builds
+notes: 'Written from published Vesna guides (design §5.4, Added: Vesna; no KQM Vesna quick guide exists, and no community gcsim config with Vesna can exist while upstream gcsim lacks her). GameWith Vesna team guide, premium Stellar Swirl team (Odette E E > Traveler E C Q > Vodyanitsa E > Vesna combo) with Diona for Odette (GameWith''s substitute) and C6 Faruzan for the Cryo Traveler (the KQM Vodyanitsa quick guide''s): Diona E (hold) Q > Faruzan E C Q > Vodyanitsa E > Vesna combo. Faruzan''s C is her hold-mode aimed shot. Diona and Faruzan burst when ready. Diona holds her skill (the guide: tap or hold), which feeds her burst better. Vesna''s combo as in every Vesna team (GameWith''s E [N C E]x2 Q E [N C E]x2). Builds as in the other Vesna teams (build.txt); Vesna at the standard''s 111% ER, which scored higher than 122% and 133% here. 125.9k one pass, 121.0k looped; Vesna 87%, Faruzan 12%, Diona 0.8%, Vodyanitsa 0.6%. Holding Diona''s skill gives her burst in 21 of 23 rotations (tapped, 11 of 22: 112.8k). Known problems: every Vesna frame is estimated, and the published combos fit five Windborne Swords into 8 attacks where the fork''s data gives four (design §5.4, Added: Vesna).'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: GameWith and Icy Veins Vesna team and build guides (team lists, rotations, no DPS); the KQM Vodyanitsa quick guide (rotations, no DPS); Prydwen, Mobalytics, Game8, AllThingsHow and GenshinBuilds Vesna pages (ratings, no DPS for this team); the community gcsim database (no Vesna: upstream gcsim lacks her).'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 0.961
+    dps: 120981
+    draft: no reference DPS

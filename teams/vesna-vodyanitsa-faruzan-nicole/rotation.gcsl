@@ -1,0 +1,38 @@
+# GameWith Vesna team guide, Anemo on-field driver team (Ineffa E Q >
+# Columbina E Q > Sucrose E > Vesna combo), the guide's only team
+# without Cryo, with its listed substitutes Faruzan and Nicole for
+# Sucrose and Vodyanitsa in a support slot; no guide lists this team:
+# Faruzan E C Q > Nicole E Q > Vodyanitsa E > Vesna combo. Faruzan's C
+# is her hold-mode aimed shot. Faruzan and Nicole burst when ready.
+# Vesna's combo as in every Vesna team (GameWith's): E [N C E]x2 Q E
+# [N C E]x2, the burst when ready. With 5 Sword Essence per attack it
+# pays for only four Windborne Swords even with the burst, so whenever the
+# next one is not ready she keeps attacking until the fifth ends Armed for
+# Action.
+active faruzan;
+faruzan skill, aim;
+if .faruzan.burst.ready {
+  faruzan burst;
+}
+nicole skill;
+if .nicole.burst.ready {
+  nicole burst;
+}
+vodyanitsa skill;
+vesna skill,
+      attack, charge, skill,
+      attack, charge, skill;
+if .vesna.burst.ready {
+  vesna burst;
+}
+while .vesna.armed {
+  while .vesna.armed && !.vesna.skill.ready {
+    vesna attack, charge;
+  }
+  if .vesna.armed {
+    vesna skill;
+  }
+  if .vesna.armed {
+    vesna attack, charge;
+  }
+}

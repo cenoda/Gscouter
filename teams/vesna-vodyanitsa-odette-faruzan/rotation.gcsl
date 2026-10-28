@@ -1,0 +1,42 @@
+# KQM Vodyanitsa quick guide, its Vodyanitsa / Vesna / Odette / C6
+# Faruzan team, as written: if Odette's burst is ready, Odette Q >
+# Faruzan Q > Odette E > Vodyanitsa E > Vesna combo; otherwise Faruzan E
+# C Q > Odette 2[E] > Vodyanitsa E > Vesna combo. Faruzan's C is her
+# hold-mode aimed shot.
+# Vesna's combo as in every Vesna team (GameWith's): E [N C E]x2 Q E
+# [N C E]x2, the burst when ready. With 5 Sword Essence per attack it
+# pays for only four Windborne Swords even with the burst, so whenever the
+# next one is not ready she keeps attacking until the fifth ends Armed for
+# Action.
+active odette;
+if .odette.burst.ready {
+  odette burst;
+  if .faruzan.burst.ready {
+    faruzan burst;
+  }
+  odette skill;
+} else {
+  faruzan skill, aim;
+  if .faruzan.burst.ready {
+    faruzan burst;
+  }
+  odette skill:2;
+}
+vodyanitsa skill;
+vesna skill,
+      attack, charge, skill,
+      attack, charge, skill;
+if .vesna.burst.ready {
+  vesna burst;
+}
+while .vesna.armed {
+  while .vesna.armed && !.vesna.skill.ready {
+    vesna attack, charge;
+  }
+  if .vesna.armed {
+    vesna skill;
+  }
+  if .vesna.armed {
+    vesna attack, charge;
+  }
+}

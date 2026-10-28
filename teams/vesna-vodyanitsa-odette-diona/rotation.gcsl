@@ -1,0 +1,34 @@
+# GameWith Vesna team guide, premium Stellar Swirl team (Odette E E >
+# Traveler E C Q > Vodyanitsa E > Vesna combo) with Diona for the Cryo
+# Traveler, a substitute it lists: Odette E E > Diona E (hold) Q >
+# Vodyanitsa E > Vesna combo. Diona bursts when ready. Diona holds her
+# skill (the guide: tap or hold), which feeds her burst better.
+# Vesna's combo as in every Vesna team (GameWith's): E [N C E]x2 Q E
+# [N C E]x2, the burst when ready. With 5 Sword Essence per attack it
+# pays for only four Windborne Swords even with the burst, so whenever the
+# next one is not ready she keeps attacking until the fifth ends Armed for
+# Action.
+active odette;
+odette skill:2;
+diona skill[hold=1];
+if .diona.burst.ready {
+  diona burst;
+}
+vodyanitsa skill;
+vesna skill,
+      attack, charge, skill,
+      attack, charge, skill;
+if .vesna.burst.ready {
+  vesna burst;
+}
+while .vesna.armed {
+  while .vesna.armed && !.vesna.skill.ready {
+    vesna attack, charge;
+  }
+  if .vesna.armed {
+    vesna skill;
+  }
+  if .vesna.armed {
+    vesna attack, charge;
+  }
+}
