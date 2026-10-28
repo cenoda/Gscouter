@@ -32,6 +32,7 @@ Builds stay in the visitor's browser after the showcase changes (design §4.8). 
 - **Other builds** (from the browser, from a link) are scored as today and never enter a ranking.
 - **Duplicate check** on other builds: Enka gives artifacts no instance ID, so two pieces are the same artifact when set, slot, level, main stat and all four substat values match. Two different artifacts matching on all of that by chance is practically impossible. A duplicate gets a warning naming the piece and both characters, and the score is marked as not comparable with standard scores, as a custom enemy's is (design §3.3).
 - A link without pieces cannot be checked, so it counts as unverified.
+- The duplicate check runs with every team's score (2026-10-28): the warning sits with the score's other notes and says the score does not compare with standard scores. A team with any stripped build, or one from before pieces were kept, is not checked and gets no note. Verified builds matter only to the arena and rankings, so their check is implemented with the arena.
 
 ## 4. Artifact score
 

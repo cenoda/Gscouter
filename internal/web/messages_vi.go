@@ -232,5 +232,7 @@ func init() {
 		"art.subs_out":     "Đã ẩn dòng phụ",
 		"art.reload":       "Liên kết này được tạo trước khi Thánh Di Vật được lưu theo từng món. Hãy tải lại phần trưng bày để xem từng món và điểm Thánh Di Vật.",
 		"art.leave_out":    "Không kèm từng món Thánh Di Vật",
+
+		"warn.duplicate": "%s và %s đang trang bị cùng một Thánh Di Vật (%s). Trong game, mỗi Thánh Di Vật chỉ một nhân vật trang bị được tại một thời điểm, nên điểm này không so sánh được với điểm tiêu chuẩn.",
 	}
 }

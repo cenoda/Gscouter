@@ -232,5 +232,7 @@ func init() {
 		"art.subs_out":     "Substats left out",
 		"art.reload":       "This link was made before artifact pieces were kept. Load the showcase again to see the pieces and the artifact score.",
 		"art.leave_out":    "Leave artifact pieces out",
+
+		"warn.duplicate": "%s and %s wear the same artifact (%s). The game puts an artifact on one character at a time, so this score does not compare with standard scores.",
 	}
 }

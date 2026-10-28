@@ -232,5 +232,7 @@ func init() {
 		"art.subs_out":     "Atributos secundários omitidos",
 		"art.reload":       "Este link é de antes de os artefatos serem salvos peça por peça. Carregue a Exibição de Personagens de novo para ver as peças e a pontuação de artefatos.",
 		"art.leave_out":    "Deixar as peças de artefatos de fora",
+
+		"warn.duplicate": "%s e %s usam o mesmo artefato (%s). No jogo, um artefato fica com um personagem de cada vez, então esta pontuação não se compara com as padrão.",
 	}
 }

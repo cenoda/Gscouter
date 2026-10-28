@@ -421,7 +421,7 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 	tr.Filler = fillerNote(l, out)
 	tr.Result = res
 	tr.OneRotation = oneRes
-	tr.Warnings = warnings(l, tr.Team, tr.Chars, res)
+	tr.Warnings = append(warnings(l, tr.Team, tr.Chars, res), duplicates(l, tr.Chars)...)
 	tr.Rotation = rotation
 	if talents, err := score.Talents(once); err != nil {
 		slog.Error("talent levels failed", "team", tr.Team.ID, "err", err)

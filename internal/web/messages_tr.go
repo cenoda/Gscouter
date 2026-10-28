@@ -232,5 +232,7 @@ func init() {
 		"art.subs_out":     "Alt istatistikler çıkarıldı",
 		"art.reload":       "Bu bağlantı, yadigarlar tek tek saklanmadan önce oluşturuldu. Parçaları ve yadigar puanını görmek için galeriyi yeniden yükle.",
 		"art.leave_out":    "Yadigar parçalarını dahil etme",
+
+		"warn.duplicate": "%s ve %s aynı yadigarı takıyor (%s). Oyunda bir yadigar aynı anda yalnızca bir karakterde olabilir, bu yüzden bu puan standart puanlarla karşılaştırılamaz.",
 	}
 }

@@ -232,5 +232,7 @@ func init() {
 		"art.subs_out":     "Atributos secundarios omitidos",
 		"art.reload":       "Este enlace se creó antes de que se guardaran los artefactos por pieza. Vuelve a cargar la exhibición para ver las piezas y la puntuación de artefactos.",
 		"art.leave_out":    "Omitir las piezas de artefactos",
+
+		"warn.duplicate": "%s y %s llevan el mismo artefacto (%s). En el juego, un artefacto solo lo lleva un personaje a la vez, así que esta puntuación no se compara con las estándar.",
 	}
 }

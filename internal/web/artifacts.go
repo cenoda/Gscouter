@@ -94,6 +94,39 @@ func (tr teamResult) Stripped() string {
 	return sel.String()
 }
 
+// duplicates warns of pieces worn by two characters of a team at once
+// (docs/artifacts.md §3): builds the browser kept from different
+// lookups can share an artifact that moved between them, and a hand-
+// written link can share any. Enka gives artifacts no ID, so a piece is
+// known by its Fingerprint, which only full pieces have; a team with
+// any other cannot be checked and gets no warning.
+func duplicates(l localizer, chars []enka.Character) []string {
+	if slices.ContainsFunc(chars, func(c enka.Character) bool { return c.PieceDetail != enka.PiecesFull }) {
+		return nil
+	}
+	var out []string
+	for i, a := range chars {
+		for _, b := range chars[i+1:] {
+			for _, p := range a.Pieces {
+				if slices.ContainsFunc(b.Pieces, func(q enka.Artifact) bool { return q.Fingerprint() == p.Fingerprint() }) {
+					out = append(out, l.T("warn.duplicate", l.charName(a.Key), l.charName(b.Key), l.pieceName(p)))
+				}
+			}
+		}
+	}
+	return out
+}
+
+// pieceName names a piece: slot, set and main stat, e.g. "Circlet ·
+// Gladiator's Finale · CRIT DMG 62.2%".
+func (l localizer) pieceName(p enka.Artifact) string {
+	parts := []string{l.T("art.slot." + p.Slot.String())}
+	if p.Set != "" {
+		parts = append(parts, l.setName(p.Set))
+	}
+	return strings.Join(append(parts, l.statText(p.Main)), " · ")
+}
+
 // artifactFuncs are the template functions for artifacts in l's
 // language.
 func artifactFuncs(l localizer) template.FuncMap {

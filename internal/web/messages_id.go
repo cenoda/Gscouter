@@ -232,5 +232,7 @@ func init() {
 		"art.subs_out":     "Substat tidak disertakan",
 		"art.reload":       "Link ini dibuat sebelum artefak disimpan per bagian. Muat ulang showcase untuk melihat bagian-bagiannya dan skor artefak.",
 		"art.leave_out":    "Jangan sertakan bagian artefak",
+
+		"warn.duplicate": "%s dan %s memakai artefak yang sama (%s). Di game, satu artefak hanya bisa dipakai satu karakter dalam satu waktu, jadi skor ini tidak bisa dibandingkan dengan skor standar.",
 	}
 }

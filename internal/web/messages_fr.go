@@ -232,5 +232,7 @@ func init() {
 		"art.subs_out":     "Stats secondaires omises",
 		"art.reload":       "Ce lien date d'avant l'enregistrement des artéfacts pièce par pièce. Rechargez la vitrine pour voir les pièces et le score d'artéfacts.",
 		"art.leave_out":    "Ne pas inclure les pièces d'artéfacts",
+
+		"warn.duplicate": "%s et %s portent le même artéfact (%s). Dans le jeu, un artéfact n'est porté que par un personnage à la fois, ce score ne se compare donc pas aux scores standard.",
 	}
 }

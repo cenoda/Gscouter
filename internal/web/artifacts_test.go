@@ -2,6 +2,7 @@ package web
 
 import (
 	"html/template"
+	"maps"
 	"math"
 	"net/http/httptest"
 	"net/url"
@@ -185,4 +186,50 @@ func TestScorePieces(t *testing.T) {
 	sel.Builds = lohenTeam()
 	_, body = get(t, ts, "/score?a="+url.QueryEscape(sel.String()))
 	mustContain(t, body, "DPS", "This link was made before artifact pieces were kept")
+}
+
+// shareCirclet is builds with the first character's circlet also on the
+// second, its totals changed to match.
+func shareCirclet(builds []enka.Character) []enka.Character {
+	builds = slices.Clone(builds)
+	c := builds[1]
+	c.Stats = maps.Clone(c.Stats)
+	c.Pieces = slices.Clone(c.Pieces)
+	old, p := c.Pieces[4], builds[0].Pieces[4]
+	for _, s := range append([]enka.StatValue{old.Main}, old.Subs...) {
+		c.Stats[s.Key] -= s.Value
+	}
+	for _, s := range append([]enka.StatValue{p.Main}, p.Subs...) {
+		c.Stats[s.Key] += s.Value
+	}
+	c.Pieces[4] = p
+	builds[1] = c
+	return builds
+}
+
+func TestDuplicates(t *testing.T) {
+	builds := piecedTeam()
+	if got := duplicates(english, builds); got != nil {
+		t.Errorf("distinct pieces: %q", got)
+	}
+	shared := shareCirclet(builds)
+	got := duplicates(english, shared)
+	if len(got) != 1 || !strings.Contains(got[0], "Lohen and Durin wear the same artifact (Circlet · Gladiator's Finale · CRIT DMG 62.2%)") {
+		t.Errorf("shared circlet: %q", got)
+	}
+	// Stripped pieces cannot be checked.
+	shared[2] = shared[2].Stripped()
+	if got := duplicates(english, shared); got != nil {
+		t.Errorf("with a stripped build: %q", got)
+	}
+}
+
+// The shared artifact is named on the page, and the score is marked as
+// not comparable.
+func TestScoreDuplicate(t *testing.T) {
+	ts := newTestServer(t)
+	builds := shareCirclet(piecedTeam())
+	sel := selection{UID: "800000005", Chars: keys(builds), Builds: builds}
+	_, body := get(t, ts, "/score?a="+url.QueryEscape(sel.String()))
+	mustContain(t, body, "DPS", `<div class="warn">Lohen and Durin wear the same artifact (Circlet`, "does not compare with standard scores")
 }

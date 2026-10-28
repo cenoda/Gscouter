@@ -232,5 +232,7 @@ func init() {
 		"art.subs_out":     "Statistiche secondarie omesse",
 		"art.reload":       "Questo link risale a prima che i manufatti fossero salvati pezzo per pezzo. Ricarica la vetrina per vedere i pezzi e il punteggio dei manufatti.",
 		"art.leave_out":    "Escludi i pezzi dei manufatti",
+
+		"warn.duplicate": "%s e %s indossano lo stesso manufatto (%s). Nel gioco un manufatto va a un solo personaggio alla volta, quindi questo punteggio non è confrontabile con quelli standard.",
 	}
 }

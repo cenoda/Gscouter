@@ -232,5 +232,7 @@ func init() {
 		"art.subs_out":     "Nebenwerte weggelassen",
 		"art.reload":       "Dieser Link stammt aus der Zeit, bevor einzelne Artefakte gespeichert wurden. Lade die Präsentation erneut, um die Artefakte und die Artefaktwertung zu sehen.",
 		"art.leave_out":    "Einzelne Artefakte weglassen",
+
+		"warn.duplicate": "%s und %s tragen dasselbe Artefakt (%s). Im Spiel trägt ein Artefakt nur ein Charakter zugleich, daher ist diese Punktzahl nicht mit Standardpunktzahlen vergleichbar.",
 	}
 }
