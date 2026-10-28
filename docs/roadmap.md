@@ -48,7 +48,7 @@ Status: ✅ done · 🔶 partly done · ❌ not started.
 | Ring | Node | Depends on | Status | What it is |
 |---|---|---|---|---|
 | 0 | DPS | — | ✅ | Team DPS from the player's builds with a fixed rotation, versus view, calculated in the browser |
-| 1 | faster DPS | DPS | 🔶 | Shorter time to a score: 6–11 s in the browser today (§4.7). Outer nodes multiply the number of simulations per page |
+| 1 | faster DPS | DPS | 🔶 | Shorter time to a score: 10–27 s in the browser on 4 CPUs today, most of it simulation (§4.7). Outer nodes multiply the number of simulations per page |
 | 1 | Tier & Wiki | DPS | 🔶 | Team and character tiers from scores. `/teams` lists the library; there are no tiers yet |
 | 1 | Artifacts | DPS | ❌ | Each artifact kept piece by piece, shown as totals by default, checked for duplicates (`docs/artifacts.md`) |
 | 1 | Cycle | DPS | 🔶 | The rotation and its timeline are shown (§4.5); nothing about it can be changed yet |

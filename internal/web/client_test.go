@@ -121,3 +121,24 @@ func TestStaticBuild(t *testing.T) {
 		t.Errorf("/static/other: status %d", code)
 	}
 }
+
+// The front page warms the browser build up for the result page, at the
+// URL the result page loads it from, once the visitor interacts with the
+// UID input (not on focus: it has autofocus), or right away on a loaded
+// showcase; without a browser build it does not.
+func TestIndexPrefetchesClient(t *testing.T) {
+	srv, ts := newClientSite(t)
+	_, body := get(t, ts, "/")
+	mustContain(t, body, "gscouterPrefetched", `var v = "`+srv.client.version+`"`, `"/static/gscouter.wasm?v=" + v`,
+		`["pointerdown", "keydown", "input"]`, `getElementById("showcase")) return warm()`)
+	if strings.Contains(body, `"focus"`) || strings.Contains(body, `id="showcase"`) {
+		t.Error("the warm-up would start on page load")
+	}
+	_, body = get(t, ts, "/?uid=800000001")
+	mustContain(t, body, `id="showcase"`, "gscouterPrefetched")
+
+	plain := newTestServer(t)
+	if _, body := get(t, plain, "/"); strings.Contains(body, "gscouterPrefetched") {
+		t.Error("prefetching without a browser build")
+	}
+}
