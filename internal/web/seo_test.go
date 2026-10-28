@@ -69,7 +69,8 @@ func TestIndexedPagesLinked(t *testing.T) {
 	mustContain(t, body, `href="/teams/`+hutaoTeamID+`"`, `href="/characters/hutao"`,
 		`<link rel="canonical" href="`+ts.URL+`/teams">`)
 	_, body = get(t, ts, "/")
-	mustContain(t, body, `<link rel="canonical" href="`+ts.URL+`/">`, `hreflang="ko" href="`+ts.URL+`/?hl=ko"`)
+	mustContain(t, body, `<link rel="canonical" href="`+ts.URL+`/">`, `hreflang="ko" href="`+ts.URL+`/?hl=ko"`,
+		`<meta name="naver-site-verification" content="3866d7ef7178f49e9721694edb65ff77858c1700">`)
 
 	// Searches and lookups are not indexed.
 	for _, path := range []string{"/teams?q=hutao", "/?uid=800000001"} {
