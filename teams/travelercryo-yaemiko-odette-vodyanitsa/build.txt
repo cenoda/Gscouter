@@ -1,0 +1,49 @@
+# Cryo Traveler (the on-field carry): no KQM quick guide exists for her
+# (keqingmains.com/q/ has none) and no harvested team has her, and the
+# KQM Vodyanitsa quick guide gives no gear for her in this team, so as in
+# the Sandrone Stellar Swirl team (teams/sandrone-odette-sucrose-travelercryo):
+# C0, Exaiphanes Blade R1 (every guide's first pick), 4pc Disenchantment
+# in Deep Shadow (GenshinBuilds, Mobalytics; Odette holds Heart of the
+# Furnace), ATK%/ATK%/CRIT DMG, KQM-standard substats. ER: 111%, no ER beyond the
+# standard's: she bursts when ready (in about half the rotations); at 166%
+# (12 ER rolls) she still waits 0.13 s per minute, and the score falls as
+# her ER rises (123.2k looped at 111% against 116.2k at 166% with the
+# burst every rotation).
+# Yae Miko as in the Sandrone / Yae Miko / Odette teams, from the
+# harvested Sangonomiya Kokomi / Fischl / Dendro Traveler / Yae Miko team
+# (teams/sangonomiyakokomi-fischl-travelerdendro-yaemiko).
+# Odette as in the Sandrone and Vesna teams: from her KQM quick guide, C0,
+# Finale of the Deep R5, 4pc Heart of the Furnace, ATK%/ATK%/CRIT Rate,
+# KQM-standard substats, 111% ER; she bursts when ready, as the rotation
+# says.
+# Vodyanitsa: no harvested team has her, so as the KQM Vodyanitsa quick
+# guide recommends, with KQM-standard substats: C0, Thrilling Tales of
+# Dragon Slayers R5 (its default with an ATK-scaling on-field unit; she
+# is the last swap before the Traveler), 4pc Tenacity of the Millelith,
+# HP%/HP%/HP%. The rotation has no Vodyanitsa burst, so her ER (111%)
+# does not matter.
+# Used to validate the rotation.
+
+travelercryo char lvl=90/90 cons=0 talent=9,9,9;
+travelercryo add weapon="exaiphanesblade" refine=1 lvl=90/90;
+travelercryo add set="disenchantmentindeepshadow" count=4;
+travelercryo add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cd=0.622;
+travelercryo add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*12 cd=0.0662*10;
+
+yaemiko char lvl=90/90 cons=0 talent=9,9,9;
+yaemiko add weapon="thewidsith" refine=3 lvl=90/90;
+yaemiko add set="gildeddreams" count=4;
+yaemiko add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cd=0.622;
+yaemiko add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=79.28 cr=0.3972 cd=0.662;
+
+odette char lvl=90/90 cons=0 talent=9,9,9;
+odette add weapon="finale" refine=5 lvl=90/90;
+odette add set="heartofthefurnace" count=4;
+odette add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cr=0.311;
+odette add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*12;
+
+vodyanitsa char lvl=90/90 cons=0 talent=9,9,9;
+vodyanitsa add weapon="ttds" refine=5 lvl=90/90;
+vodyanitsa add set="tenacityofthemillelith" count=4;
+vodyanitsa add stats hp=4780 atk=311 hp%=0.466 hp%=0.466 hp%=0.466;
+vodyanitsa add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*6 atk=16.54*2 atk%=0.0496*2 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*10;

@@ -1,0 +1,31 @@
+# No guide gives a rotation for Sandrone / Cryo Traveler / Yae Miko /
+# Vodyanitsa (enjoygm lists it; enjoygm: play Vodyanitsa "exactly as in
+# the Vesna team: Skill, leave"). Rotation of the Sandrone / Yae Miko /
+# Odette / Vodyanitsa team (teams/sandrone-yaemiko-odette-vodyanitsa,
+# the KQM Sandrone quick guide's example team 1 with Vodyanitsa E) with
+# the Cryo Traveler in Odette's place, playing what the KQM Sandrone
+# guide's Stellar Swirl team gives her (E N1C Q, skipping N1C Q on the
+# first rotation: a let first flag):
+# Yae 3[E] > Traveler E N1C Q > Vodyanitsa E > Sandrone [combo]
+# The Traveler bursts when ready: even at 166% ER she cannot burst every
+# rotation (as in the Vesna teams).
+# Sandrone's C0 combo 3[C E] (Q), the burst after the first skill, when
+# ready (no ER in her guide's table gives a burst every rotation here).
+let first = 1;
+active yaemiko;
+yaemiko skill:3;
+travelercryo skill;
+if first == 0 {
+  travelercryo attack, charge;
+  if .travelercryo.burst.ready {
+    travelercryo burst;
+  }
+}
+first = 0;
+vodyanitsa skill;
+sandrone charge, skill;
+if .sandrone.burst.ready {
+  sandrone burst;
+}
+sandrone charge, skill,
+         charge, skill;

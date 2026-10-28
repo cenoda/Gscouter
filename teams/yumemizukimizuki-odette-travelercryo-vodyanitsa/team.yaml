@@ -1,0 +1,27 @@
+id: yumemizukimizuki-odette-travelercryo-vodyanitsa
+name: Yumemizuki Mizuki / Odette / Cryo Traveler / Vodyanitsa
+members:
+    - mizuki
+    - odette
+    - travelercryo
+    - vodyanitsa
+archetype: Stellar Swirl with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+    - https://allthings.how/genshin-impact-vodyanitsa-best-build-and-teams-version-7-1/
+notes: 'Written from the KQM Vodyanitsa quick guide (design §5.4; no community gcsim config with Vodyanitsa exists: upstream gcsim lacks her), its Stellar Swirl team with Mizuki, rotation as written: Vodyanitsa E > Odette Q/E E > Traveler E N1C Q > Mizuki E (Q). Footnotes: Odette bursts every other rotation from the second on, otherwise skill (an odq toggle; on her rotation she bursts if ready: at 111% she manages about half of those, and more ER only lowers her damage, her burst replacing a skill); the Traveler casts only her skill on the first rotation (a let first flag), E N1C Q after, her burst when ready because its 15 s cooldown is longer than the 14.7 s rotation (every other rotation at any ER); Mizuki bursts whenever available. Mizuki''s combo and build are the harvested Yumemizuki Mizuki / Ineffa / Columbina / Ororon team''s (E, burst when ready during Dreamdrifter, then a charged attack; Evenstar R1, 4pc Viridescent Venerer). Odette (Finale of the Deep R5, 4pc Heart of the Furnace, the guide''s holder) and the Cryo Traveler (Exaiphanes Blade R1, 4pc Disenchantment in Deep Shadow) as in the Sandrone Stellar Swirl team; Vodyanitsa from her KQM quick guide: C0, Thrilling Tales R5 (the guide: passed to Odette or the Traveler with Mizuki; Odette is her next swap), 2pc Tenacity + 2pc Vourukasha''s Glow (the guide''s mix where the main damage dealer does not scale with ATK), HP%/HP%/HP%, skill only. Kept is above 130%: the one pass is the guide''s first rotation, without the Traveler''s N1C Q and Odette''s burst and with Mizuki''s Stellar Swirls not yet built up; three rotations from full energy score 75.2k, 91% of the looped score.'
+cross_check:
+    dps: 187000
+    source: https://allthings.how/genshin-impact-vodyanitsa-best-build-and-teams-version-7-1/
+    note: 'AllThingsHow''s tested 187k for this team (no builds or constellations stated). Here 54.7k one pass (-70.8%; a single first rotation, see notes) and 82.6k looped (-55.9%). This team has C0 4-star and free supports (Finale of the Deep Odette, Exaiphanes Blade Traveler, Thrilling Tales Vodyanitsa) and the harvested Evenstar Mizuki. Also searched 2026-10-28: the community gcsim database (no Vodyanitsa: upstream gcsim lacks her); the KQM Vodyanitsa quick guide (team lists and rotations, no DPS, no gcsim links); AllThingsHow (tested numbers only for Sandrone / Odette / Sucrose / Vodyanitsa 247k, Vesna / Odette / Cryo Traveler / Vodyanitsa 223k, Mizuki / Odette / Cryo Traveler / Vodyanitsa 187k and Freeze teams, no builds); GameWith, LDShop, wishgm, enjoygm, Gaming ProMax and GenshinBuilds Vodyanitsa team pages (team lists, ratings and roles only); Icy Veins and Prydwen return 403.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 1.511
+    dps: 82560
+    draft: no reference DPS

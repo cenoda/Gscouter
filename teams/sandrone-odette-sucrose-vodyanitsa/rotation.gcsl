@@ -1,0 +1,25 @@
+# No guide gives a rotation for Sandrone / Odette / Sucrose / Vodyanitsa
+# (LDShop, wishgm, enjoygm, Gaming ProMax and AllThingsHow list it;
+# enjoygm: play Vodyanitsa "exactly as in the Vesna team: Skill, leave").
+# Rotation of the Sandrone / Odette / Sucrose / Cryo Traveler team
+# (teams/sandrone-odette-sucrose-travelercryo, the KQM Sandrone quick
+# guide's Stellar Swirl team) with Vodyanitsa E in the Traveler's place:
+# Odette 2[E](Q) > Sucrose N1 ED (Q) > Vodyanitsa E > Sandrone C E >
+# Sucrose N1 ED > Sandrone [combo]
+# Odette and Sucrose burst when ready. Sandrone's C0 combo 3[C E] (Q),
+# the burst after the first skill.
+active odette;
+odette skill:2;
+if .odette.burst.ready {
+  odette burst;
+}
+sucrose attack, skill, dash;
+if .sucrose.burst.ready {
+  sucrose burst;
+}
+vodyanitsa skill;
+sandrone charge, skill;
+sucrose attack, skill, dash;
+sandrone charge, skill, burst,
+         charge, skill,
+         charge, skill;

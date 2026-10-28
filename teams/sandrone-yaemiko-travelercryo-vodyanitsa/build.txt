@@ -1,0 +1,53 @@
+# Sandrone: C0, A Teaspoon of Transcendence R1, 4pc Disenchantment in Deep
+# Shadow (the KQM Sandrone quick guide's best weapon and set),
+# ATK%/ATK%/CRIT DMG (the guide's main stats), KQM-standard substats, as
+# in every Sandrone team except her ER substats, which trade with CRIT
+# DMG rolls. Here she cannot burst every rotation at any ER in the
+# guide's table (130-165% for +1 Cryo; at 166% she still waits), so she
+# follows the guide's advice for that case: no ER beyond the standard's
+# (111%, the two freed rolls going to ATK% as in the Sandrone / Beidou /
+# Diona teams), burst when available; it also scores highest of the ERs
+# tried (130.4k looped, against 117.6k at 160.6% and 120.1k at 166%).
+# Yae Miko as in the Sandrone / Yae Miko / Odette / Vodyanitsa team
+# (teams/sandrone-yaemiko-odette-vodyanitsa), from the harvested
+# Sangonomiya Kokomi / Fischl / Dendro Traveler / Yae Miko team
+# (teams/sangonomiyakokomi-fischl-travelerdendro-yaemiko).
+# Cryo Traveler as in the Sandrone Stellar Swirl team (no KQM quick guide
+# and no harvested team exist: C0, Exaiphanes Blade R1, ATK%/ATK%/CRIT
+# DMG, KQM-standard substats, 111% ER) but with 4pc Heart of the Furnace,
+# as in the Vesna teams without Odette (its holder is Odette, else the
+# Cryo Traveler).
+# Even at 166% ER she cannot burst every rotation, so she bursts when
+# ready (as in the Vesna teams).
+# Vodyanitsa as in the Sandrone / Yae Miko / Odette / Vodyanitsa team (no
+# harvested team has her, so as the KQM Vodyanitsa quick guide
+# recommends, with KQM-standard substats): C0, Thrilling Tales of Dragon
+# Slayers R5 (its default with an ATK-scaling on-field unit; she is the
+# last swap before Sandrone), 4pc Tenacity of the Millelith,
+# HP%/HP%/HP%. The rotation has no Vodyanitsa burst, so her ER (111%)
+# does not matter.
+# Used to validate the rotation.
+
+sandrone char lvl=90/90 cons=0 talent=9,9,9;
+sandrone add weapon="ateaspoonoftranscendence" refine=1 lvl=90/90;
+sandrone add set="disenchantmentindeepshadow" count=4;
+sandrone add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cd=0.622;
+sandrone add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*12 cd=0.0662*10;
+
+yaemiko char lvl=90/90 cons=0 talent=9,9,9;
+yaemiko add weapon="thewidsith" refine=3 lvl=90/90;
+yaemiko add set="gildeddreams" count=4;
+yaemiko add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cd=0.622;
+yaemiko add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=79.28 cr=0.3972 cd=0.662;
+
+travelercryo char lvl=90/90 cons=0 talent=9,9,9;
+travelercryo add weapon="exaiphanesblade" refine=1 lvl=90/90;
+travelercryo add set="heartofthefurnace" count=4;
+travelercryo add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cd=0.622;
+travelercryo add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*12 cd=0.0662*10;
+
+vodyanitsa char lvl=90/90 cons=0 talent=9,9,9;
+vodyanitsa add weapon="ttds" refine=5 lvl=90/90;
+vodyanitsa add set="tenacityofthemillelith" count=4;
+vodyanitsa add stats hp=4780 atk=311 hp%=0.466 hp%=0.466 hp%=0.466;
+vodyanitsa add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*6 atk=16.54*2 atk%=0.0496*2 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*10;

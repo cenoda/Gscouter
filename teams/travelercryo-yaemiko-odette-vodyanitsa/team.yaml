@@ -1,0 +1,24 @@
+id: travelercryo-yaemiko-odette-vodyanitsa
+name: Cryo Traveler / Yae Miko / Odette / Vodyanitsa
+members:
+    - travelercryo
+    - yaemiko
+    - odette
+    - vodyanitsa
+archetype: Stellar-Conduct with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+notes: 'Written from the KQM Vodyanitsa quick guide (design §5.4; no community gcsim config with Vodyanitsa exists: upstream gcsim lacks her), its Stellar-Conduct team ("extremely powerful"), rotation as written: Yae 3[E] > Odette Q/E E > Vodyanitsa E > Traveler E 2[N2CD] N2C Q D N2C > (Yae E Q / Cryo Traveler D N2C). Odette bursts whenever available, otherwise uses her skill twice; the last step is Yae''s E Q when her burst is ready, the Traveler''s D N2C otherwise (the guide''s footnotes). The Cryo Traveler is the on-field carry. No KQM quick guide exists for her (keqingmains.com/q/ has none) and the guide gives her no gear here, so she is the Sandrone Stellar Swirl team''s build (C0, Exaiphanes Blade R1, 4pc Disenchantment in Deep Shadow, ATK%/ATK%/CRIT DMG, KQM-standard substats; GenshinBuilds and Mobalytics give Deep Shadow for her Stellar-Conduct DPS build; Odette holds Heart of the Furnace). She bursts when ready, at 111% ER: at 166% she still waits 0.13 s per minute, and the score falls as her ER rises (123.2k looped at 111% against 116.2k at 166% with the burst every rotation); she bursts in about half the rotations. Yae Miko and Odette as in the Sandrone teams; Vodyanitsa from her KQM quick guide (C0, Thrilling Tales R5, the last swap before the Traveler, 4pc Tenacity of the Millelith, HP%/HP%/HP%, skill only). Vodyanitsa''s skill cooldown is longer than the 17.5 s rotation, so she waits about 2 s per minute (the guide''s rotation as written).'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: the community gcsim database (no Vodyanitsa: upstream gcsim lacks her); the KQM Vodyanitsa quick guide (team lists and rotations, no DPS, no gcsim links); AllThingsHow (tested numbers only for Sandrone / Odette / Sucrose / Vodyanitsa 247k, Vesna / Odette / Cryo Traveler / Vodyanitsa 223k, Mizuki / Odette / Cryo Traveler / Vodyanitsa 187k and Freeze teams, no builds); GameWith, LDShop, wishgm, enjoygm, Gaming ProMax and GenshinBuilds Vodyanitsa team pages (team lists, ratings and roles only); Icy Veins and Prydwen return 403.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 1.119
+    dps: 122834
+    draft: no reference DPS

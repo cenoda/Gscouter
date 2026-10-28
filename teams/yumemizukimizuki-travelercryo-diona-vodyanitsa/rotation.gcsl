@@ -1,0 +1,35 @@
+# KQM Vodyanitsa quick guide, limited-roster Stellar Swirl team
+# (Vodyanitsa / Mizuki / Cryo Traveler / Diona), as written:
+# Diona hE(Q) > Vodyanitsa E > Traveler E N1C Q > Mizuki E (Q)
+# Diona: "Burst every other rotation" (a dq toggle, from the first
+# rotation; on her rotation she bursts if ready). Traveler: "Skips the
+# N1C on first rotation" (a let first flag). Mizuki: "Burst whenever
+# available"; her combo is the harvested Yumemizuki Mizuki / Ineffa /
+# Columbina / Ororon team's (E, burst when ready during Dreamdrifter,
+# then a charged attack).
+let first = 1;
+let dq = 1;
+active diona;
+diona skill[hold=1];
+if dq == 1 && .diona.burst.ready {
+  diona burst;
+}
+dq = 1 - dq;
+vodyanitsa skill;
+travelercryo skill;
+if first == 0 {
+  travelercryo attack, charge;
+}
+first = 0;
+if .travelercryo.burst.ready {
+  travelercryo burst;
+}
+mizuki skill;
+while .mizuki.status.dreamdrifter-state {
+  if .mizuki.burst.ready {
+    mizuki burst;
+  } else {
+    wait(1);
+  }
+}
+mizuki charge;
