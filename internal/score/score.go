@@ -203,6 +203,40 @@ func Once(cfg string, seed int64) (*stats.Result, error) {
 	return &res, nil
 }
 
+// Talents returns the talent levels (normal attack, skill, burst) gcsim
+// gives cfg's characters in a fight, in config order: the base levels
+// plus the constellation bonus and passives that raise them, such as
+// Tartaglia's and Skirk's, which depend on the party.
+func Talents(cfg string) ([][3]int, error) {
+	file := ast.NewFile()
+	simcfg, gcsl, err := parser.New(file, cfg).Parse()
+	if err != nil {
+		return nil, fmt.Errorf("parse config: %w", err)
+	}
+	if len(simcfg.Errors) > 0 {
+		return nil, fmt.Errorf("invalid config: %w", errors.Join(simcfg.Errors...))
+	}
+	c, err := simulation.NewCore(1, false, simcfg)
+	if err != nil {
+		return nil, err
+	}
+	ev, err := eval.NewEvaluator(file, gcsl, c)
+	if err != nil {
+		return nil, err
+	}
+	// New sets the characters up and runs their Init, where passives
+	// tag the party.
+	if _, err := simulation.New(simcfg, ev, c); err != nil {
+		return nil, err
+	}
+	var out [][3]int
+	for _, ch := range c.Player.Chars() {
+		// gcsim's levels are 0-based indexes into the talent tables.
+		out = append(out, [3]int{ch.TalentLvlAttack() + 1, ch.TalentLvlSkill() + 1, ch.TalentLvlBurst() + 1})
+	}
+	return out, nil
+}
+
 // summarize reduces one run to the damage dealt from startBucket onwards.
 func summarize(res *stats.Result, startBucket int) Iteration {
 	startFrame := startBucket * bucketFrames

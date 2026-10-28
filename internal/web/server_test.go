@@ -309,3 +309,17 @@ func TestScoreTimeline(t *testing.T) {
 	mustContain(t, body, "Rotation timeline", "Swaps and damage per stint", "Damage by ability", "Rotation script",
 		"One rotation (full energy):", `<meta property="og:title" content="Strong&#39;s team: `)
 }
+
+func TestTalentsOf(t *testing.T) {
+	tr := teamResult{Chars: hutaoTeam()}
+	if got, want := tr.TalentsOf(0), "9/9/9"; got != want {
+		t.Errorf("without fight levels: %q, want %q", got, want)
+	}
+	tr.Talents = [][3]int{{9, 10, 12}, {9, 9, 9}, {9, 9, 9}, {9, 9, 9}}
+	if got, want := tr.TalentsOf(0), "9/10 (9+1)/12 (9+3)"; got != want {
+		t.Errorf("with bonuses: %q, want %q", got, want)
+	}
+	if got, want := tr.TalentsOf(1), "9/9/9"; got != want {
+		t.Errorf("without bonuses: %q, want %q", got, want)
+	}
+}
