@@ -538,6 +538,8 @@ func fillerNote(l localizer, o *steady.Outcome) string {
 			parts = append(parts, l.T("filler.skip", chars))
 		case config.FillParty:
 			parts = append(parts, l.T("filler.party", chars))
+		case config.FillBrief:
+			parts = append(parts, l.T("filler.brief", chars))
 		default:
 			parts = append(parts, l.T("filler.self", chars))
 		}

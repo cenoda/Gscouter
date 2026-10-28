@@ -58,3 +58,30 @@ func TestScoreKeepsRotationAsWritten(t *testing.T) {
 		t.Errorf("filled %v after %d runs; want the rotation as written after 1", out.Filled, runs)
 	}
 }
+
+// Ineffa fills her energy wait with attacks; after the search, the best
+// run is tried again with her burst filled briefly and then passed.
+func TestScoreTriesBriefOnBest(t *testing.T) {
+	rot := "active ineffa;\nineffa skill, burst;\nayato skill, attack:15;\n"
+	brief := "gs_fill1a < 2"
+	run := func(looped string) (*score.Result, error) {
+		dps, wait := 100.0, 30.0
+		switch {
+		case strings.Contains(looped, brief):
+			dps, wait = 130, 0
+		case strings.Contains(looped, "while !.ineffa.burst.ready"):
+			dps, wait = 120, 0
+		}
+		return &score.Result{DPS: dps, Characters: []score.Character{
+			{Name: "ineffa", Waits: map[string]float64{"insufficient_energy": wait}},
+			{Name: "ayato"},
+		}}, nil
+	}
+	out, err := Score(rot, []string{"ineffa", "ayato"}, run)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if out.Result.DPS != 130 || out.Energy["ineffa"] != config.FillBrief {
+		t.Errorf("got %.0f DPS with %v, want 130 with ineffa filled briefly", out.Result.DPS, out.Energy)
+	}
+}

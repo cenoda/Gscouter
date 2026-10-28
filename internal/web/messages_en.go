@@ -139,6 +139,7 @@ func init() {
 		"filler.skip":  "the burst of %s is skipped when short of energy",
 		"filler.party": "while %s wait for burst energy, the time is filled with Elemental Skills (swapping to another member for theirs and straight back when on cooldown) or normal attacks",
 		"filler.self":  "while %s wait for burst energy, the time is filled with their own Elemental Skill or normal attacks",
+		"filler.brief": "while %s wait for burst energy, the time is filled with Elemental Skills (their own, or another member's when on cooldown) and at most two normal attacks, and the burst is skipped if still short",
 		"filler.skill": "while %s wait for their Elemental Skill cooldown, the time is filled with normal attacks",
 
 		"tl.heading":       "Rotation timeline",

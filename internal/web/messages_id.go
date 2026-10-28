@@ -139,6 +139,7 @@ func init() {
 		"filler.skip":  "Elemental Burst %s dilewati saat Energy kurang",
 		"filler.party": "selagi %s menunggu Energy untuk Elemental Burst, waktunya diisi dengan Elemental Skill (ganti ke anggota lain untuk skill mereka lalu langsung kembali saat cooldown) atau Normal Attack",
 		"filler.self":  "selagi %s menunggu Energy untuk Elemental Burst, waktunya diisi dengan Elemental Skill sendiri atau Normal Attack",
+		"filler.brief": "selagi %s menunggu Energy untuk Elemental Burst, waktunya diisi dengan Elemental Skill (milik sendiri, atau milik anggota lain saat cooldown) dan paling banyak dua Normal Attack, lalu Elemental Burst dilewati jika Energy masih kurang",
 		"filler.skill": "selagi %s menunggu cooldown Elemental Skill, waktunya diisi dengan Normal Attack",
 
 		"tl.heading":       "Timeline rotasi",

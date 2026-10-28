@@ -139,6 +139,7 @@ func init() {
 		"filler.skip":  "le Déchaînement élémentaire de %s est sauté faute d'énergie",
 		"filler.party": "l'attente d'énergie pour le Déchaînement élémentaire de %s est comblée par des Compétences élémentaires (en passant à un autre membre pour la sienne puis en revenant aussitôt en cas de temps de recharge) ou des Attaques normales",
 		"filler.self":  "l'attente d'énergie pour le Déchaînement élémentaire de %s est comblée par la Compétence élémentaire du personnage lui-même ou des Attaques normales",
+		"filler.brief": "l'attente d'énergie pour le Déchaînement élémentaire de %s est comblée par des Compétences élémentaires (la sienne, ou celle d'un autre membre en cas de temps de recharge) et au plus deux Attaques normales, puis le Déchaînement est sauté s'il manque encore d'énergie",
 		"filler.skill": "l'attente du temps de recharge de la Compétence élémentaire de %s est comblée par des Attaques normales",
 
 		"tl.heading":       "Chronologie de la rotation",

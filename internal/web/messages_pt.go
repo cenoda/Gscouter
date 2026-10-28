@@ -139,6 +139,7 @@ func init() {
 		"filler.skip":  "o Supremo de %s é pulado quando falta energia",
 		"filler.party": "enquanto se espera a energia do Supremo de %s, o tempo é preenchido com Habilidades Elementais (se estiver em Tempo de Recarga, troca-se para outro membro para usar a dele e volta-se logo em seguida) ou ataques normais",
 		"filler.self":  "enquanto se espera a energia do Supremo de %s, o tempo é preenchido com a própria Habilidade Elemental ou ataques normais",
+		"filler.brief": "enquanto se espera a energia do Supremo de %s, o tempo é preenchido com Habilidades Elementais (a própria, ou a de outro membro se estiver em Tempo de Recarga) e no máximo dois ataques normais, e o Supremo é pulado se ainda faltar energia",
 		"filler.skill": "enquanto se espera o Tempo de Recarga da Habilidade Elemental de %s, o tempo é preenchido com ataques normais",
 
 		"tl.heading":       "Linha do tempo da rotação",

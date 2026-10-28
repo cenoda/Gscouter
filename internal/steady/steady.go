@@ -43,6 +43,13 @@ type Outcome struct {
 // for burst energy: fill the wait, or pass the burst.
 var energyFillers = []config.Filler{config.FillSelf, config.FillParty, config.FillSkip}
 
+// allFillers adds FillBrief, which Score only tries on the best run (see
+// brief).
+var allFillers = append(slices.Clone(energyFillers), config.FillBrief)
+
+// maxBriefRuns bounds the runs brief adds.
+const maxBriefRuns = 4
+
 // Score loops rotation and scores it with run, which assembles and
 // simulates a looped rotation. members are the characters as the
 // rotation names them.
@@ -140,6 +147,56 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 		}
 		followUp(c.energy, c.skill, res)
 	}
+	return brief(best, rotation, members, run, seen)
+}
+
+// brief tries the best run again with FillBrief for the characters whose
+// energy it handles: all of them, then each alone. A support that fills
+// its wait with attacks stands on field until its burst charges, where a
+// player uses its skill, swaps out and bursts next time (Ineffa, two
+// skills to a burst). FillBrief is tried only here, after the search,
+// so that it cannot crowd the search's own runs out of maxRuns: tried
+// in the search, it lowered 58 library teams, one by 19%.
+func brief(best *Outcome, rotation string, members []string, run func(string) (*score.Result, error), seen map[string]bool) (*Outcome, error) {
+	if !best.Filled || len(best.Energy) == 0 {
+		return best, nil
+	}
+	handled := slices.Sorted(maps.Keys(best.Energy))
+	sets := [][]string{handled}
+	if len(handled) > 1 {
+		for _, c := range handled {
+			sets = append(sets, []string{c})
+		}
+	}
+	from := best
+	for i, set := range sets {
+		if i == maxBriefRuns {
+			break
+		}
+		energy := maps.Clone(from.Energy)
+		for _, c := range set {
+			energy[c] = config.FillBrief
+		}
+		filled := config.Fill(rotation, energy, from.Skill, members)
+		if seen[filled] {
+			continue
+		}
+		seen[filled] = true
+		looped, err := config.Loop(filled)
+		if err != nil {
+			return nil, err
+		}
+		res, err := run(looped)
+		if err != nil {
+			if isFatal(err) {
+				return nil, err
+			}
+			continue
+		}
+		if res.DPS > best.Result.DPS {
+			best = &Outcome{Result: res, Filled: true, Energy: energy, Skill: from.Skill, Looped: looped}
+		}
+	}
 	return best, nil
 }
 
@@ -170,9 +227,12 @@ func (o *Outcome) String() string {
 	}
 	var parts []string
 	for _, g := range o.ByFiller() {
-		if g.How == config.FillSkip {
+		switch g.How {
+		case config.FillSkip:
 			parts = append(parts, fmt.Sprintf("bursts of %s skipped when short of energy", strings.Join(g.Chars, ", ")))
-		} else {
+		case config.FillBrief:
+			parts = append(parts, fmt.Sprintf("energy waits of %s filled with skills, bursts skipped when still short", strings.Join(g.Chars, ", ")))
+		default:
 			parts = append(parts, fmt.Sprintf("energy waits of %s filled with %s", strings.Join(g.Chars, ", "), g.How))
 		}
 	}
@@ -191,7 +251,7 @@ type Group struct {
 // ByFiller groups o.Energy by filler, in filler order, characters sorted.
 func (o *Outcome) ByFiller() []Group {
 	var groups []Group
-	for _, f := range energyFillers {
+	for _, f := range allFillers {
 		var chars []string
 		for c, how := range o.Energy {
 			if how == f {

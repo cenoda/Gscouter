@@ -139,6 +139,7 @@ func init() {
 		"filler.skip":  "Kỹ Năng Nộ của %s bị bỏ qua khi thiếu năng lượng",
 		"filler.party": "khi %s chờ năng lượng cho Kỹ Năng Nộ, thời gian được lấp bằng Kỹ Năng Nguyên Tố (đổi sang thành viên khác để dùng kỹ năng của họ rồi đổi lại ngay khi đang hồi chiêu) hoặc tấn công thường",
 		"filler.self":  "khi %s chờ năng lượng cho Kỹ Năng Nộ, thời gian được lấp bằng Kỹ Năng Nguyên Tố của chính họ hoặc tấn công thường",
+		"filler.brief": "khi %s chờ năng lượng cho Kỹ Năng Nộ, thời gian được lấp bằng Kỹ Năng Nguyên Tố (của chính họ, hoặc của thành viên khác khi đang hồi chiêu) và tối đa hai đòn tấn công thường, rồi Kỹ Năng Nộ bị bỏ qua nếu vẫn thiếu năng lượng",
 		"filler.skill": "khi %s chờ hồi chiêu Kỹ Năng Nguyên Tố, thời gian được lấp bằng tấn công thường",
 
 		"tl.heading":       "Dòng thời gian vòng xoay",
