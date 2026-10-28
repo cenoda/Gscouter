@@ -222,5 +222,15 @@ func init() {
 		"enemy.world":       "Boss normali (Normal Bosses)",
 		"enemy.preset_note": "Un boss predefinito compila le sue resistenze base dai dati dei mostri di gcsim e mantiene il livello scelto. Cambi di fase, scudi e immunità non sono simulati.",
 		"err.boss":          "Boss sconosciuto: %q",
+
+		"art.pieces":       "Manufatti pezzo per pezzo",
+		"art.slot.flower":  "Fiore",
+		"art.slot.plume":   "Piuma",
+		"art.slot.sands":   "Clessidra",
+		"art.slot.goblet":  "Calice",
+		"art.slot.circlet": "Corona",
+		"art.subs_out":     "Statistiche secondarie omesse",
+		"art.reload":       "Questo link risale a prima che i manufatti fossero salvati pezzo per pezzo. Ricarica la vetrina per vedere i pezzi e il punteggio dei manufatti.",
+		"art.leave_out":    "Escludi i pezzi dei manufatti",
 	}
 }

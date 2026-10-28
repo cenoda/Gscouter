@@ -222,5 +222,15 @@ func init() {
 		"enemy.world":       "Normal boss",
 		"enemy.preset_note": "Hazır boss, boss'un temel dirençlerini gcsim'in canavar verilerinden doldurur ve seçtiğin seviyeyi korur. Faz değişimleri, kalkanlar ve dokunulmazlık modellenmez.",
 		"err.boss":          "Bilinmeyen boss: %q",
+
+		"art.pieces":       "Tek tek yadigarlar",
+		"art.slot.flower":  "Çiçek",
+		"art.slot.plume":   "Tüy",
+		"art.slot.sands":   "Kum Saati",
+		"art.slot.goblet":  "Kadeh",
+		"art.slot.circlet": "Taç",
+		"art.subs_out":     "Alt istatistikler çıkarıldı",
+		"art.reload":       "Bu bağlantı, yadigarlar tek tek saklanmadan önce oluşturuldu. Parçaları ve yadigar puanını görmek için galeriyi yeniden yükle.",
+		"art.leave_out":    "Yadigar parçalarını dahil etme",
 	}
 }

@@ -222,5 +222,15 @@ func init() {
 		"enemy.world":       "普通首领 (Normal Bosses)",
 		"enemy.preset_note": "选择预设会填入gcsim怪物数据中该首领的基础抗性，等级保持不变。不模拟阶段性抗性变化、护盾和无敌。",
 		"err.boss":          "未知首领：%q",
+
+		"art.pieces":       "圣遗物各部位",
+		"art.slot.flower":  "花",
+		"art.slot.plume":   "羽",
+		"art.slot.sands":   "沙",
+		"art.slot.goblet":  "杯",
+		"art.slot.circlet": "冠",
+		"art.subs_out":     "副词条已省略",
+		"art.reload":       "此链接创建于按部位保存圣遗物之前。请重新读取展柜以查看各部位和圣遗物评分。",
+		"art.leave_out":    "不包含圣遗物部位",
 	}
 }

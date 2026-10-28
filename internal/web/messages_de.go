@@ -222,5 +222,15 @@ func init() {
 		"enemy.world":       "Normale Bosse (Normal Bosses)",
 		"enemy.preset_note": "Eine Vorlage übernimmt die Grund-WDS des Bosses aus den Monsterdaten von gcsim und behält die eingestellte Stufe. Phasenwechsel, Schilde und Immunität werden nicht abgebildet.",
 		"err.boss":          "Unbekannter Boss: %q",
+
+		"art.pieces":       "Artefakte im Einzelnen",
+		"art.slot.flower":  "Blume",
+		"art.slot.plume":   "Feder",
+		"art.slot.sands":   "Sanduhr",
+		"art.slot.goblet":  "Kelch",
+		"art.slot.circlet": "Krone",
+		"art.subs_out":     "Nebenwerte weggelassen",
+		"art.reload":       "Dieser Link stammt aus der Zeit, bevor einzelne Artefakte gespeichert wurden. Lade die Präsentation erneut, um die Artefakte und die Artefaktwertung zu sehen.",
+		"art.leave_out":    "Einzelne Artefakte weglassen",
 	}
 }

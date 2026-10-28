@@ -102,6 +102,7 @@ button:hover:not(:disabled), .button:hover { filter: brightness(1.1); }
 button:disabled { opacity: .45; cursor: default; }
 button.secondary, .button.secondary { background: transparent; color: var(--text); box-shadow: inset 0 0 0 1px var(--line); font-weight: 500; }
 .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.actions label { display: inline-flex; gap: 4px; align-items: center; font-size: .9rem; }
 .icon { width: 18px; height: 18px; flex: none; }
 .el { width: 18px; height: 18px; flex: none; vertical-align: -3px; }
 .el-pyro { color: var(--pyro); } .el-hydro { color: var(--hydro); } .el-anemo { color: var(--anemo); }
@@ -144,7 +145,9 @@ table { width: 100%; border-collapse: collapse; font-size: .95rem; }
 th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); }
 th { color: var(--muted); font-weight: 500; font-size: .85rem; border-bottom-color: var(--text); border-bottom-color: color-mix(in srgb, var(--text) 35%, transparent); }
 td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
-td .who + .muted { display: block; font-size: .8rem; margin-left: 46px; }
+td .who + .muted, td .muted + .muted { display: block; font-size: .8rem; margin-left: 46px; }
+.pieces td .muted { display: block; font-size: .8rem; }
+.pieces th { color: var(--text); padding-top: 12px; }
 td .who .face { width: 40px; height: 40px; }
 td.num .bar { min-width: 64px; }
 td .who { display: flex; gap: 6px; align-items: center; font-weight: 600; }
@@ -406,13 +409,17 @@ details.rotation pre { background: var(--bg); border-radius: 8px; padding: 12px;
 })();
 // copyLink copies the page's short link (/s/...), or the page's own link
 // when the server has no short links or can't make one.
+// A checked "leave pieces out" box beside the button copies its link
+// instead, which carries the builds without their pieces.
 function copyLink(btn) {
+  var strip = btn.parentNode.querySelector("input[data-strip]");
+  var page = strip && strip.checked ? new URL(strip.getAttribute("data-strip"), location.href) : location;
   var url = fetch("/s", {
     method: "POST",
-    body: new URLSearchParams({u: location.pathname + location.search})
+    body: new URLSearchParams({u: page.pathname + page.search})
   }).then(function (r) {
-    return r.ok ? r.text() : location.href;
-  }, function () { return location.href; });
+    return r.ok ? r.text() : page.href;
+  }, function () { return page.href; });
   var done = function () {
     var t = document.getElementById("toast");
     t.textContent = {{t "js.copied"}};
@@ -454,7 +461,7 @@ function copyLink(btn) {
 <tbody>
 {{range $i, $c := .Result.Characters}}{{$e := index $.Chars $i}}
 <tr>
-<td><span class="who">{{template "face" $c.Name}}{{template "el" (element $c.Name)}}{{name $c.Name}}</span><span class="muted">Lv.{{$e.Level}} C{{$e.Cons}} · {{weapon $e.Weapon.Key}} R{{$e.Weapon.Refine}} · {{t "team.talents"}} {{$.TalentsOf $i}}</span></td>
+<td><span class="who">{{template "face" $c.Name}}{{template "el" (element $c.Name)}}{{name $c.Name}}</span><span class="muted">Lv.{{$e.Level}} C{{$e.Cons}} · {{weapon $e.Weapon.Key}} R{{$e.Weapon.Refine}} · {{t "team.talents"}} {{$.TalentsOf $i}}</span><span class="muted">{{totals $e}}</span></td>
 <td class="num">{{thousands $c.DPS}}</td>
 <td class="num">{{percent $c.Share}}<span class="bar"><i style="width: {{width $c.Share}}%"></i></span></td>
 </tr>
@@ -462,7 +469,23 @@ function copyLink(btn) {
 </tbody>
 </table>
 </div>
+{{template "pieces" .}}
 {{end}}
+{{end}}
+
+{{define "pieces"}}
+<details class="rotation">
+<summary>{{t "art.pieces"}}</summary>
+{{if not (hasPieces .Chars)}}<p class="muted">{{t "art.reload"}}</p>
+{{else}}<div class="table-wrap">
+<table class="pieces">
+{{range .Chars}}<tr><th colspan="2"><span class="who">{{template "face" .Key}}{{name .Key}}</span></th></tr>
+{{if none .}}<tr><td colspan="2" class="muted">{{t "art.reload"}}</td></tr>
+{{else}}{{$full := full .}}{{range .Pieces}}<tr><td>{{slotName .Slot}}<span class="muted">{{pieceText .}}</span></td><td>{{stat .Main}}<span class="muted">{{if $full}}{{subsText .}}{{else}}{{t "art.subs_out"}}{{end}}</span></td></tr>
+{{end}}{{end}}{{end}}
+</table>
+</div>{{end}}
+</details>
 {{end}}
 
 {{define "client"}}

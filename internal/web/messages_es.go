@@ -222,5 +222,15 @@ func init() {
 		"enemy.world":       "Jefes normales",
 		"enemy.preset_note": "Un jefe predefinido rellena sus resistencias base a partir de los datos de monstruos de gcsim y mantiene el nivel elegido. No se simulan cambios de fase, escudos ni inmunidad.",
 		"err.boss":          "Jefe desconocido: %q",
+
+		"art.pieces":       "Artefactos por pieza",
+		"art.slot.flower":  "Flor",
+		"art.slot.plume":   "Pluma",
+		"art.slot.sands":   "Arenas",
+		"art.slot.goblet":  "Cáliz",
+		"art.slot.circlet": "Tiara",
+		"art.subs_out":     "Atributos secundarios omitidos",
+		"art.reload":       "Este enlace se creó antes de que se guardaran los artefactos por pieza. Vuelve a cargar la exhibición para ver las piezas y la puntuación de artefactos.",
+		"art.leave_out":    "Omitir las piezas de artefactos",
 	}
 }

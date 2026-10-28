@@ -222,5 +222,15 @@ func init() {
 		"enemy.world":       "필드 보스",
 		"enemy.preset_note": "프리셋을 고르면 gcsim 몬스터 데이터의 보스 기본 내성이 채워지고, 레벨은 입력한 값이 유지됩니다. 페이즈별 내성 변화, 실드, 무적은 반영되지 않습니다.",
 		"err.boss":          "알 수 없는 보스입니다: %q",
+
+		"art.pieces":       "성유물 부위별 보기",
+		"art.slot.flower":  "꽃",
+		"art.slot.plume":   "깃털",
+		"art.slot.sands":   "모래",
+		"art.slot.goblet":  "성배",
+		"art.slot.circlet": "왕관",
+		"art.subs_out":     "부옵션 생략",
+		"art.reload":       "성유물을 부위별로 저장하기 전에 만든 링크입니다. 부위별 정보와 성유물 점수를 보려면 쇼케이스를 다시 불러오세요.",
+		"art.leave_out":    "성유물 부위 정보 빼기",
 	}
 }

@@ -127,7 +127,7 @@ func RunJob(ctx context.Context, job Job, sim Simulator) (body, title string, er
 
 // parseTemplates parses the site's templates in l's language.
 func parseTemplates(l localizer) (*template.Template, error) {
-	return template.New("").Funcs(funcs).Funcs(localeFuncs(l)).ParseFS(templateFS, "templates/*.html")
+	return template.New("").Funcs(funcs).Funcs(localeFuncs(l)).Funcs(artifactFuncs(l)).ParseFS(templateFS, "templates/*.html")
 }
 
 // pendingScoreMeta describes a result the browser has yet to calculate.

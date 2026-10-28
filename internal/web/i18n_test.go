@@ -153,7 +153,7 @@ func TestEveryLanguage(t *testing.T) {
 			if !strings.Contains(page, `<html lang="`+l.Code+`">`) {
 				t.Errorf("%s %s: not in the language", l.Code, path)
 			}
-			for _, bad := range []string{"%!", "%(", "tl.", "index.", "vs.", "team.", "err.", "problem."} {
+			for _, bad := range []string{"%!", "%(", "tl.", "index.", "vs.", "team.", "err.", "problem.", "art."} {
 				if strings.Contains(page, bad) {
 					i := strings.Index(page, bad)
 					t.Errorf("%s %s: %q in %q", l.Code, path, bad, page[max(0, i-60):min(len(page), i+60)])

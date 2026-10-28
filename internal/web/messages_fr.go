@@ -222,5 +222,15 @@ func init() {
 		"enemy.world":       "Boss normal",
 		"enemy.preset_note": "Un boss prédéfini remplit ses résistances de base d'après les données de monstres de gcsim et garde le niveau choisi. Les changements de phase, boucliers et immunités ne sont pas simulés.",
 		"err.boss":          "Boss inconnu : %q",
+
+		"art.pieces":       "Artéfacts pièce par pièce",
+		"art.slot.flower":  "Fleur",
+		"art.slot.plume":   "Plume",
+		"art.slot.sands":   "Sablier",
+		"art.slot.goblet":  "Coupe",
+		"art.slot.circlet": "Diadème",
+		"art.subs_out":     "Stats secondaires omises",
+		"art.reload":       "Ce lien date d'avant l'enregistrement des artéfacts pièce par pièce. Rechargez la vitrine pour voir les pièces et le score d'artéfacts.",
+		"art.leave_out":    "Ne pas inclure les pièces d'artéfacts",
 	}
 }

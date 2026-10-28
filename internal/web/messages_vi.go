@@ -222,5 +222,15 @@ func init() {
 		"enemy.world":       "Thủ Lĩnh",
 		"enemy.preset_note": "Chọn boss có sẵn sẽ điền kháng cơ bản của boss từ dữ liệu quái của gcsim và giữ nguyên cấp đã chọn. Đổi giai đoạn, khiên và miễn nhiễm không được mô phỏng.",
 		"err.boss":          "Boss không xác định: %q",
+
+		"art.pieces":       "Thánh Di Vật từng món",
+		"art.slot.flower":  "Hoa",
+		"art.slot.plume":   "Lông",
+		"art.slot.sands":   "Đồng Hồ",
+		"art.slot.goblet":  "Ly",
+		"art.slot.circlet": "Nón",
+		"art.subs_out":     "Đã ẩn dòng phụ",
+		"art.reload":       "Liên kết này được tạo trước khi Thánh Di Vật được lưu theo từng món. Hãy tải lại phần trưng bày để xem từng món và điểm Thánh Di Vật.",
+		"art.leave_out":    "Không kèm từng món Thánh Di Vật",
 	}
 }

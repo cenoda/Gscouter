@@ -222,5 +222,15 @@ func init() {
 		"enemy.world":       "通常BOSS",
 		"enemy.preset_note": "プリセットを選ぶと、gcsimのモンスターデータにあるボスの基礎耐性が入力され、レベルはそのまま残ります。フェーズごとの耐性変化、シールド、無敵は再現されません。",
 		"err.boss":          "不明なボスです：%q",
+
+		"art.pieces":       "聖遺物の部位別表示",
+		"art.slot.flower":  "花",
+		"art.slot.plume":   "羽",
+		"art.slot.sands":   "時計",
+		"art.slot.goblet":  "杯",
+		"art.slot.circlet": "冠",
+		"art.subs_out":     "サブステータス省略",
+		"art.reload":       "聖遺物を部位ごとに保存する前に作られたリンクです。部位と聖遺物スコアを見るには、ラインナップを読み込み直してください。",
+		"art.leave_out":    "聖遺物の部位を含めない",
 	}
 }

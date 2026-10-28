@@ -222,5 +222,15 @@ func init() {
 		"enemy.world":       "Chefes Comuns",
 		"enemy.preset_note": "Um chefe predefinido preenche as resistências base dele a partir dos dados de monstros do gcsim e mantém o nível escolhido. Mudanças de fase, escudos e imunidade não são simulados.",
 		"err.boss":          "Chefe desconhecido: %q",
+
+		"art.pieces":       "Artefatos peça por peça",
+		"art.slot.flower":  "Flor",
+		"art.slot.plume":   "Pena",
+		"art.slot.sands":   "Areias",
+		"art.slot.goblet":  "Cálice",
+		"art.slot.circlet": "Tiara",
+		"art.subs_out":     "Atributos secundários omitidos",
+		"art.reload":       "Este link é de antes de os artefatos serem salvos peça por peça. Carregue a Exibição de Personagens de novo para ver as peças e a pontuação de artefatos.",
+		"art.leave_out":    "Deixar as peças de artefatos de fora",
 	}
 }

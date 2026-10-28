@@ -222,5 +222,15 @@ func init() {
 		"enemy.world":       "Normal Bosses",
 		"enemy.preset_note": "A preset fills in the boss's base resistances from gcsim's monster data and keeps the level you set. Phase changes, shields and immunity are not modeled.",
 		"err.boss":          "Unknown boss: %q",
+
+		"art.pieces":       "Artifact pieces",
+		"art.slot.flower":  "Flower",
+		"art.slot.plume":   "Plume",
+		"art.slot.sands":   "Sands",
+		"art.slot.goblet":  "Goblet",
+		"art.slot.circlet": "Circlet",
+		"art.subs_out":     "Substats left out",
+		"art.reload":       "This link was made before artifact pieces were kept. Load the showcase again to see the pieces and the artifact score.",
+		"art.leave_out":    "Leave artifact pieces out",
 	}
 }

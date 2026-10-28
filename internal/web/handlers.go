@@ -493,12 +493,16 @@ func (s *Server) withBuilds(ctx context.Context, sel selection, kept []enka.Char
 	return sel
 }
 
+// maxKept is the most kept builds a pick sends: as many characters as
+// the showcase holds.
+const maxKept = 12
+
 // keptBuilds reads the builds the browser sends with a pick of characters
 // that have left the showcase: buildToken values in "build" parameters.
 func keptBuilds(r *http.Request) []enka.Character {
 	var out []enka.Character
 	for _, v := range r.URL.Query()["build"] {
-		if c, err := parseBuildToken(v); err == nil && len(out) < 8 {
+		if c, err := parseBuildToken(v); err == nil && len(out) < maxKept {
 			out = append(out, c)
 		}
 	}

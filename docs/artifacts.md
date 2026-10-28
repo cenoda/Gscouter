@@ -21,6 +21,8 @@ Showing every piece invites bragging, and then attacks on the players who brag. 
 - When copying a link, the sharer can leave the pieces out. Such a link keeps, for each piece, only its slot, level and main stat: enough to separate main stats from substats and compute the score. Substats per piece are dropped.
 - Leaving the pieces out changes nothing in the DPS score, which is calculated from totals.
 - Folding is only display. Data in a link can be read by anyone who decodes it, so leaving pieces out is the way to keep them out. A UID already shows every piece on Enka.Network; the aim is that the site does not put bragging first, not secrecy.
+- **On the page** (2026-10-28): the totals (sets, then each stat) sit under each character in the result table; the pieces are in a closed "Artifact pieces" section below it, set and stat names in the game's words (Enka.Network's store data). Beside the copy button, a "Leave artifact pieces out" box copies a link with stripped builds instead. A link from before pieces were kept says, where the pieces would be, that the showcase has to be loaded again.
+- **Link sizes** (measured, `TestPackedSizes`): four characters with full pieces take about 860 URL characters (stripped 580, totals only 360), a versus link about 1,720. The largest four characters can get (every substat at its most rolls, a 63-byte nickname) is about 900 characters of packed text, well under the 4 KB a link's packed text may have, so no limit on links, short links or the showcase changed. A pick sends up to 12 kept builds (8 before), as many as the showcase holds: about 3,300 URL characters.
 
 ## 3. Fairness: verified builds and duplicate artifacts
 

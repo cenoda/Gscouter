@@ -222,5 +222,15 @@ func init() {
 		"enemy.world":       "Boss normal (Normal Bosses)",
 		"enemy.preset_note": "Preset mengisi RES dasar boss dari data monster gcsim dan mempertahankan level yang dipilih. Pergantian fase, perisai, dan kekebalan tidak dimodelkan.",
 		"err.boss":          "Boss tidak dikenal: %q",
+
+		"art.pieces":       "Artefak per bagian",
+		"art.slot.flower":  "Bunga",
+		"art.slot.plume":   "Bulu",
+		"art.slot.sands":   "Jam Pasir",
+		"art.slot.goblet":  "Piala",
+		"art.slot.circlet": "Mahkota",
+		"art.subs_out":     "Substat tidak disertakan",
+		"art.reload":       "Link ini dibuat sebelum artefak disimpan per bagian. Muat ulang showcase untuk melihat bagian-bagiannya dan skor artefak.",
+		"art.leave_out":    "Jangan sertakan bagian artefak",
 	}
 }

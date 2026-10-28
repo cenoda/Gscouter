@@ -8,7 +8,8 @@
 {{template "enemy-note" .Team.Enemy}}
 <div class="card">{{template "team" .Team}}
 <div class="actions">
-{{if .Team.Result}}<button type="button" class="secondary" onclick="copyLink(this)"><svg class="icon"><use href="#i-link"/></svg>{{t "score.copy"}}</button>{{end}}
+{{if .Team.Result}}<button type="button" class="secondary" onclick="copyLink(this)"><svg class="icon"><use href="#i-link"/></svg>{{t "score.copy"}}</button>
+{{if hasFull .Team.Chars}}<label class="muted"><input type="checkbox" data-strip="{{link "/score" .Team.Enemy "a" .Team.Stripped}}"> {{t "art.leave_out"}}</label>{{end}}{{end}}
 <a class="button secondary" href="{{link "/" .Team.Enemy "uid" .Team.Selection.UID}}"><svg class="icon"><use href="#i-back"/></svg>{{t "score.repick"}}</a>
 </div>
 </div>
