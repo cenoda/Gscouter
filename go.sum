@@ -1,5 +1,5 @@
-github.com/cenoda/gcsim v0.0.0-20261027232218-fc10145cedaf h1:J7i7oS8yWgtxjLDyNLLJUABU7V/ttdrJUgbo6V8TUnM=
-github.com/cenoda/gcsim v0.0.0-20261027232218-fc10145cedaf/go.mod h1:CoXrOXi4mQBbn/AuO+GflQvwGmTBd1IO09FZD8Vf/7A=
+github.com/cenoda/gcsim v0.0.0-20261028010405-efcbe0ec0598 h1:LhQL6kXWNImbdVW+JMIrEzuJKMid5+X/LIWUNUbV+Vg=
+github.com/cenoda/gcsim v0.0.0-20261028010405-efcbe0ec0598/go.mod h1:CoXrOXi4mQBbn/AuO+GflQvwGmTBd1IO09FZD8Vf/7A=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/dustin/go-humanize v1.1.0 h1:dbKTrvD0klcbBV/h4AWJdMuZogJACoMlvWIWZ5b2xWg=
