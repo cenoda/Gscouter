@@ -20,6 +20,9 @@ type pageMeta struct {
 	// its Alternates in the other languages; "" for other pages.
 	Canonical  string
 	Alternates []alternate
+	// Home is the site's root URL on the front page, which describes the
+	// site to search engines with structured data; "" elsewhere.
+	Home string
 }
 
 // metaOf lets the head template take either a plain title or a pageMeta.
