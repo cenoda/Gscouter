@@ -1,0 +1,26 @@
+id: kamisatoayaka-escoffier-mona-vodyanitsa
+name: Kamisato Ayaka / Escoffier / Mona / Vodyanitsa
+members:
+    - ayaka
+    - escoffier
+    - mona
+    - vodyanitsa
+archetype: Cryo Freeze with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+    - https://www.enjoygm.com/blog/genshin-impact/vodyanitsa-team-guide
+    - https://db.kqm.gg/db/zBQgRDQcmFdd
+notes: 'Written from guides (design §5.4; no community gcsim config with Vodyanitsa exists: upstream gcsim lacks her). enjoygm''s A-tier Freeze option: Ayaka or Lohen / Escoffier / Furina or Mona / Vodyanitsa. The Vodyanitsa guide''s Lohen team gives the order Vodyanitsa E > Escoffier E > Mona. The rotation and every other build are the harvested Kamisato Ayaka / Furina / Mona / Escoffier team''s, with Vodyanitsa''s skill in place of Furina''s, first as in that order; Vodyanitsa casts her skill, the last swap before the carry where she holds Thrilling Tales (Gaming ProMax: Vodyanitsa should be the last swap before Skirk with it), and bursts when ready (the guide: the burst is lowest priority; with 111% ER about every other rotation or less). Her healing keeps Furina''s Fanfare up where Furina is in the team.'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: the KQM Vodyanitsa quick guide (team list and rotations, no DPS, no gcsim links); the community gcsim database (no Vodyanitsa: upstream gcsim lacks her); GenshinBuilds, GameWith, AllThingsHow, LDShop, enjoygm, Gaming ProMax and FandomWire Vodyanitsa team pages (team lists, ratings and roles; numbers only for Skirk / Furina / Escoffier / Vodyanitsa and Lohen / Escoffier / Mona / Vodyanitsa); Icy Veins and Prydwen return 403.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 0.982
+    dps: 66492
+    draft: no reference DPS

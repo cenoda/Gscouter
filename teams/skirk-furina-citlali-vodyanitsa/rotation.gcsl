@@ -1,0 +1,46 @@
+# enjoygm's Skirk / Citlali / Furina / Vodyanitsa. Rotation from the
+# harvested Skirk / Furina / Citlali / Escoffier team with Vodyanitsa's
+# skill in Escoffier's place; she bursts when ready. Citlali holds
+# Thrilling Tales and stays the last swap before Skirk.
+active furina;
+furina attack, skill, dash;
+citlali skill, attack;
+vodyanitsa skill;
+furina swap; wait(55);
+skirk skill,
+      attack:5, dash,
+
+      attack:5, burst,
+      attack:5, dash,
+
+      attack:2, charge, dash,
+
+      attack:5;
+furina swap;
+for let i=0; i<4; i=i+1 {
+  furina burst;
+  vodyanitsa skill;
+  if .vodyanitsa.burst.ready {
+    vodyanitsa burst;
+  }
+  furina skill, dash, attack;
+  citlali swap;
+  let StartFrame = f();
+  while !.element.t0.hydro && f()-StartFrame < 55 {
+    wait(1);
+  }
+
+  citlali skill;
+  skirk skill,
+        attack:2, burst,
+
+        attack:5, dash,
+        attack:5, dash,
+        attack:5, dash,
+
+        attack:2, charge, dash,
+
+        attack:5, dash,
+        attack:2;
+  furina attack:2;
+}

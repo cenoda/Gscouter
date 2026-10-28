@@ -1,0 +1,28 @@
+# enjoygm's Lohen / Furina / Escoffier / Vodyanitsa, in the KQM Lohen
+# quick guide's Freeze rotation (Furina ED N1 Q > Escoffier EQ > Mona EQ
+# N1 > Lohen combo) with Vodyanitsa's skill in Mona's place, the last swap
+# before Lohen (she holds Thrilling Tales); she bursts when ready. Lohen
+# plays the guide's Freeze combo E 15[N1C] N1 E.
+# Escoffier bursts when ready (the KQM Vodyanitsa quick guide's Skirk
+# team alternates her burst between rotations; Vodyanitsa gives her
+# fewer particles than the member she replaces).
+active furina;
+furina skill, dash, attack, burst;
+escoffier skill;
+if .escoffier.burst.ready {
+  escoffier burst;
+}
+vodyanitsa skill;
+if .vodyanitsa.burst.ready {
+  vodyanitsa burst;
+}
+lohen skill,
+      attack, charge, attack, charge, attack, charge,
+      attack, charge, attack, charge, attack, charge,
+      attack, charge, attack, charge, attack, charge,
+      attack, charge, attack, charge, attack, charge,
+      attack, charge, attack, charge, attack, charge,
+      attack, skill;
+if .lohen.burst.ready {
+  lohen burst;
+}

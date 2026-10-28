@@ -1,0 +1,37 @@
+id: skirk-furina-escoffier-vodyanitsa
+name: Skirk / Furina / Escoffier / Vodyanitsa
+members:
+    - skirk
+    - furina
+    - escoffier
+    - vodyanitsa
+archetype: Cryo Freeze with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+    - https://genshin-builds.com/en/teams/vodyanitsa
+    - https://gamewith.net/genshin-impact/article/show/73767
+    - https://allthings.how/genshin-impact-vodyanitsa-best-build-and-teams-version-7-1/
+    - https://allthings.how/genshin-impact-how-to-build-vodyanitsa-for-skirk-freeze-teams/
+    - https://gamingpromax.com/vodyanitsa-best-teams-genshin-impact/
+    - https://db.kqm.gg/db/jbPPNgPdzBWk
+notes: 'Written from guides (design §5.4; no community gcsim config with Vodyanitsa exists: upstream gcsim lacks her). The KQM Vodyanitsa quick guide''s Skirk team (Furina ED N1 Q > Escoffier E(Q) > Vodyanitsa E(Q) > Skirk combo, one of Skirk''s best teammates in Pure Freeze); GenshinBuilds rates it SS, and GameWith, AllThingsHow, LDShop, enjoygm and Gaming ProMax list it as her Freeze team. The rotation and every other build are the harvested Skirk / Furina / Citlali / Escoffier team''s, with Vodyanitsa''s skill in place of Citlali''s (the Vodyanitsa guides compare her with Citlali and Mona for this slot); Vodyanitsa casts her skill, the last swap before the carry where she holds Thrilling Tales (Gaming ProMax: Vodyanitsa should be the last swap before Skirk with it), and bursts when ready (the guide: the burst is lowest priority; with 111% ER about every other rotation or less). Her healing keeps Furina''s Fanfare up where Furina is in the team. The opener drops the source''s swap back to Furina before Skirk (it waited for Furina''s Hydro before Citlali''s Cryo; Vodyanitsa applies Hydro herself).'
+params:
+    escoffier: start_energy=0
+    furina: start_energy=0
+    skirk: start_serpents_subtlety=0
+    vodyanitsa: start_energy=0
+cross_check:
+    dps: 187000
+    source: https://allthings.how/genshin-impact-vodyanitsa-best-build-and-teams-version-7-1/
+    note: 'AllThingsHow''s tested 187k for this team (no builds stated). AllThingsHow''s Skirk build page gives 152.2k with C1 Azurelight Skirk, C6 Furina and R5 Hymn of the Maelstrom Vodyanitsa, which the fork''s calibration reproduces at 256.1k with those builds (design §5.4, Vodyanitsa row). This team has the harvested C0 4-star support builds and a C0 Thrilling Tales Vodyanitsa. Also searched 2026-10-28: the KQM Vodyanitsa quick guide (team list and rotations, no DPS, no gcsim links); the community gcsim database (no Vodyanitsa: upstream gcsim lacks her); GenshinBuilds, GameWith, AllThingsHow, LDShop, enjoygm, Gaming ProMax and FandomWire Vodyanitsa team pages (team lists, ratings and roles; numbers only for Skirk / Furina / Escoffier / Vodyanitsa and Lohen / Escoffier / Mona / Vodyanitsa); Icy Veins and Prydwen return 403.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 0.997
+    dps: 160658
+    draft: no reference DPS

@@ -1,0 +1,41 @@
+# LDShop's Skirk / Furina / Escoffier / Vodyanitsa with Mika for
+# Escoffier. Rotation from the harvested Skirk / Furina / Mika /
+# Escoffier team with Vodyanitsa's skill in Escoffier's place, the last
+# swap before Skirk (she holds Thrilling Tales); she bursts when ready.
+let First_Rot_Nuke = true;
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  mika attack, burst, skill;
+  vodyanitsa skill;
+  if .vodyanitsa.burst.ready {
+    vodyanitsa burst;
+  }
+  if i == 0 && First_Rot_Nuke == true {
+    skirk burst;
+    skirk skill,
+          attack:5, dash,
+
+          attack:2, charge, dash,
+
+          attack:5, dash,
+          attack:5, dash,
+
+          attack:2, charge, dash,
+
+          attack:5, dash,
+          attack:3, dash;
+  } else {
+    skirk skill,
+          attack:2, burst,
+
+          attack:5, dash,
+          attack:5, dash,
+          attack:5, dash,
+
+          attack:2, charge, dash,
+
+          attack:5, dash,
+          attack:4, dash;
+  }
+}

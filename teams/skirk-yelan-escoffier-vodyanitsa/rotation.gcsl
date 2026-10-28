@@ -1,0 +1,47 @@
+# LDShop's Skirk / Furina / Escoffier / Vodyanitsa with Yelan for
+# Furina. Rotation from the harvested Skirk / Yelan / Citlali /
+# Escoffier team with Vodyanitsa's skill in Citlali's place, the last
+# swap before Skirk (she holds Thrilling Tales); she bursts when ready.
+# Escoffier bursts when ready (the KQM Vodyanitsa quick guide's Skirk
+# team alternates her burst between rotations; Vodyanitsa gives her
+# fewer particles than the member she replaces).
+let First_Rot_Nuke = true;
+active escoffier;
+for let i=0; i<4; i=i+1 {
+  escoffier skill, attack;
+  if .escoffier.burst.ready {
+    escoffier burst;
+  }
+  yelan skill, attack, burst, attack;
+  vodyanitsa skill;
+  if .vodyanitsa.burst.ready {
+    vodyanitsa burst;
+  }
+  if i == 0 && First_Rot_Nuke == true {
+    skirk burst;
+    skirk skill,
+          attack:5, dash,
+
+          attack:2, charge, dash,
+
+          attack:5, dash,
+          attack:5, dash,
+
+          attack:2, charge, dash,
+
+          attack:5, dash,
+          attack;
+  } else {
+    skirk skill,
+          attack:2, burst,
+
+          attack:5, dash,
+          attack:5, dash,
+          attack:5, dash,
+
+          attack:2, charge, dash,
+
+          attack:5, dash,
+          attack:2;
+  }
+}

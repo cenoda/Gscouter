@@ -1,0 +1,32 @@
+id: skirk-furina-citlali-vodyanitsa
+name: Skirk / Furina / Citlali / Vodyanitsa
+members:
+    - skirk
+    - furina
+    - citlali
+    - vodyanitsa
+archetype: Cryo Freeze with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+    - https://www.enjoygm.com/blog/genshin-impact/vodyanitsa-team-guide
+    - https://www.ldshop.gg/blog/genshin-impact/vodyanitsa-best-teams.html
+    - https://db.kqm.gg/db/jbPPNgPdzBWk
+notes: 'Written from guides (design §5.4; no community gcsim config with Vodyanitsa exists: upstream gcsim lacks her). enjoygm lists Skirk / Citlali / Furina / Vodyanitsa for when Escoffier is unavailable; LDShop and wishgm name Citlali as a substitute for Escoffier in Skirk / Furina / Escoffier / Vodyanitsa. The rotation and every other build are the harvested Skirk / Furina / Citlali / Escoffier team''s, with Vodyanitsa''s skill in place of Escoffier''s; Vodyanitsa casts her skill, the last swap before the carry where she holds Thrilling Tales (Gaming ProMax: Vodyanitsa should be the last swap before Skirk with it), and bursts when ready (the guide: the burst is lowest priority; with 111% ER about every other rotation or less). Her healing keeps Furina''s Fanfare up where Furina is in the team. Citlali holds Thrilling Tales and stays the last swap before Skirk.'
+params:
+    citlali: start_energy=0
+    furina: start_energy=0
+    skirk: start_serpents_subtlety=0
+    vodyanitsa: start_energy=0
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: the KQM Vodyanitsa quick guide (team list and rotations, no DPS, no gcsim links); the community gcsim database (no Vodyanitsa: upstream gcsim lacks her); GenshinBuilds, GameWith, AllThingsHow, LDShop, enjoygm, Gaming ProMax and FandomWire Vodyanitsa team pages (team lists, ratings and roles; numbers only for Skirk / Furina / Escoffier / Vodyanitsa and Lohen / Escoffier / Mona / Vodyanitsa); Icy Veins and Prydwen return 403.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 1.009
+    dps: 138085
+    draft: no reference DPS

@@ -1,0 +1,36 @@
+# Kamisato Ayaka / Furina / Shenhe as in the harvested Kamisato Ayaka /
+# Furina / Shenhe / Escoffier team
+# (teams/kamisatoayaka-furina-shenhe-escoffier), with Vodyanitsa in
+# Escoffier's slot.
+# Vodyanitsa: no harvested team has her (the community database has no
+# entry with her), so as the KQM Vodyanitsa quick guide recommends, with
+# KQM-standard substats: C0, Thrilling Tales of Dragon Slayers R5 (its
+# default with an ATK-scaling on-field unit), 4pc Scroll of the Hero of
+# Cinder City (Furina holds Tenacity; the guide's alternative then,
+# since she triggers Frozen reliably), HP%/HP%/HP%, no ER beyond the
+# standard's (111%: she bursts when ready).
+# Used to validate the rotation.
+
+ayaka char lvl=90/90 cons=0 talent=9,9,9;
+ayaka add weapon="azurelight" refine=1 lvl=90/90;
+ayaka add set="mh" count=4;
+ayaka add stats hp=4780 atk=311 atk%=0.466 cryo%=0.466 cd=0.622;
+ayaka add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.4464 er=0.1102 em=39.64 cr=0.2317 cd=0.662;
+
+furina char lvl=90/90 cons=0 talent=9,9,9;
+furina add weapon="favsword" refine=3 lvl=90/90;
+furina add set="tom" count=4;
+furina add stats hp=4780 atk=311 hp%=0.466 hydro%=0.466 cd=0.622;
+furina add stats def%=0.124 def=39.36 hp=507.88 hp%=0.248 atk=33.08 atk%=0.0992 er=0.1653 em=39.64 cr=0.3972 cd=0.5296;
+
+shenhe char lvl=90/90 cons=0 talent=9,9,9;
+shenhe add weapon="favlance" refine=3 lvl=90/90;
+shenhe add set="no" count=4;
+shenhe add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 atk%=0.466;
+shenhe add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.2976 er=0.4408 em=39.64 cr=0.3972 cd=0.1324;
+
+vodyanitsa char lvl=90/90 cons=0 talent=9,9,9;
+vodyanitsa add weapon="ttds" refine=5 lvl=90/90;
+vodyanitsa add set="scrolloftheheroofcindercity" count=4;
+vodyanitsa add stats hp=4780 atk=311 hp%=0.466 hp%=0.466 hp%=0.466;
+vodyanitsa add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*6 atk=16.54*2 atk%=0.0496*2 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*10;

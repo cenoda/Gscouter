@@ -1,0 +1,20 @@
+# enjoygm's budget Freeze: Ayaka / Mona / Diona / Vodyanitsa. Rotation
+# from the harvested Kamisato Ayaka / Diona / Mona / Kaedehara Kazuha
+# team with Vodyanitsa's skill in place of Kazuha's first skill and
+# burst (she bursts when ready) and nothing in place of his second skill.
+active ayaka;
+ayaka dash;
+for let i=0; i<4; i=i+1 {
+	vodyanitsa skill;
+	if .vodyanitsa.burst.ready {
+	  vodyanitsa burst;
+	}
+	diona attack, burst;
+	if .diona.mods.favonius-cd == 0 {
+	  diona attack;
+	}
+	mona skill, burst;
+	ayaka skill, dash, attack, burst, attack;
+	diona skill[hold=1], attack;
+	ayaka dash, attack:2, charge, attack:2, charge, skill, dash, attack:2, charge;
+}

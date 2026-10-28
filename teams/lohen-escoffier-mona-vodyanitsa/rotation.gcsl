@@ -1,0 +1,17 @@
+# KQM Vodyanitsa quick guide, Lohen team: Vodyanitsa E > Escoffier E >
+# Mona Q N1 E N1 > Lohen combo. Lohen plays the KQM Lohen quick guide's
+# Freeze combo: E 15[N1C] N1 E, as in Lohen / Escoffier / Furina / Mona.
+active vodyanitsa;
+vodyanitsa skill;
+escoffier skill;
+mona burst, attack, skill, attack;
+lohen skill,
+      attack, charge, attack, charge, attack, charge,
+      attack, charge, attack, charge, attack, charge,
+      attack, charge, attack, charge, attack, charge,
+      attack, charge, attack, charge, attack, charge,
+      attack, charge, attack, charge, attack, charge,
+      attack, skill;
+if .lohen.burst.ready {
+  lohen burst;
+}

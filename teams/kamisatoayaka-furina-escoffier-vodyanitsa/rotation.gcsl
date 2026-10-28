@@ -1,0 +1,32 @@
+# GenshinBuilds' and enjoygm's Ayaka / Escoffier / Furina / Vodyanitsa.
+# Rotation from the harvested Kamisato Ayaka / Furina / Citlali /
+# Escoffier team with Vodyanitsa in Citlali's place: her skill the last
+# swap before Ayaka (she holds Thrilling Tales), bursting when ready,
+# and her normal attacks in place of Citlali's between Ayaka's skills.
+# Escoffier bursts when ready (the KQM Vodyanitsa quick guide's Skirk
+# team alternates her burst between rotations; Vodyanitsa gives her
+# fewer particles than the member she replaces).
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash;
+  if !.furina.mods.favonius-cd && .furina.weapon == .keys.weapon.favsword {
+    furina attack;
+  }
+  furina burst;
+  escoffier skill;
+  if .escoffier.burst.ready {
+    escoffier burst;
+  }
+  vodyanitsa skill;
+  if .vodyanitsa.burst.ready {
+    vodyanitsa burst;
+  }
+  ayaka skill, dash, attack, burst,
+        attack, charge, dash,
+        attack:2, charge,
+        attack:2, charge;
+  vodyanitsa attack:2, dash, attack;
+  ayaka skill, dash,
+        attack, charge,
+        attack, charge;
+}
