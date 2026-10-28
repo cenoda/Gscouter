@@ -151,22 +151,33 @@
 </script>
 {{with .Prefetch}}
 <script>
-// Warms the browser build up while the visitor enters a UID or picks a
-// team, so that the result page starts sooner (design §4.7): the
-// download lands in the HTTP cache, and starting the Go runtime once
-// lets the browser keep the compiled code in its code cache, which the
-// result page's compile then reads. Not on Save-Data connections.
+// Warms the browser build up once the visitor starts entering a UID, or
+// right away on a loaded showcase, where they pick a team, so that the
+// result page starts sooner (design §4.7): the download lands in the
+// HTTP cache, and starting the Go runtime once lets the browser keep the
+// compiled code in its code cache, which the result page's compile then
+// reads. Not on page load alone (the input has autofocus, so not on
+// focus), and not on Save-Data connections.
 (function () {
   var v = {{.}}, c = navigator.connection;
   if (!window.WebAssembly || !WebAssembly.compileStreaming || !window.Worker || c && c.saveData) return;
-  WebAssembly.compileStreaming(fetch("/static/gscouter.wasm?v=" + v)).then(function (module) {
-    var w = new Worker("/static/worker.js?v=" + v);
-    w.onmessage = w.onerror = function () {
-      w.terminate();
-      window.gscouterPrefetched = true;
-    };
-    w.postMessage({type: "init", module: module});
-  }).catch(function () {});
+  var input = document.querySelector("#uid-form input[name=uid]"), events = ["pointerdown", "keydown", "input"];
+  function warm() {
+    events.forEach(function (e) { input.removeEventListener(e, warm); });
+    if (warm.started) return;
+    warm.started = true;
+    WebAssembly.compileStreaming(fetch("/static/gscouter.wasm?v=" + v)).then(function (module) {
+      var w = new Worker("/static/worker.js?v=" + v);
+      w.onmessage = w.onerror = function () {
+        w.terminate();
+        window.gscouterPrefetched = true;
+      };
+      w.postMessage({type: "init", module: module});
+    }).catch(function () {});
+  }
+  if (!input) return;
+  if (document.getElementById("showcase")) return warm();
+  events.forEach(function (e) { input.addEventListener(e, warm); });
 })();
 </script>
 {{end}}
