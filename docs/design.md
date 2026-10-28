@@ -189,7 +189,24 @@ So that the server's cost does not grow with its visitors, result pages are calc
 - **Split**: for `/score` and `/versus`, the server looks up the showcase and the library team (`prepare`) and sends the page with the teams as a job (`web.Job`) and a "calculating" placeholder. A WebAssembly build of the same Go code (`cmd/wasm`) runs the job in Web Workers and renders the page body with the site's own templates (`web.RunJob`).
 - **Workers**: a lead worker runs the team logic (fillers, timelines) and asks the page for each simulation; the page splits its iterations into chunks for up to 6 helper workers (one per CPU). Iteration `i` uses seed `base + i` wherever it runs, and the chunks are merged in order (`score.Aggregate`), so the browser's numbers are exactly the server's.
 - **Reuse**: finished simulations are kept in the tab's session storage, keyed by their config, warmup, seed and iterations. They don't depend on the language, so switching it (which reloads the page) renders the result again without calculating it again.
-- **Cost**: the build is about 62 MB, 10 MB gzipped, served precompressed with a versioned URL so browsers keep it. Each worker's Go heap stays around 10 MB. In headless Chromium on 4 CPUs, Hu Tao / Yelan / Xingqiu / Zhongli took 8.7 s on a first visit (download and compile included), and an Arlecchino / Citlali / Skirk / Bennett build that runs 10 simulations took 10.8 s, 6.5 s once the build was cached. On the server, the same pages take under a second each, one at a time.
+- **Cost**: the build is about 62 MB, 10 MB gzipped, served precompressed with a versioned URL so browsers keep it. Each worker's Go heap stays around 10 MB. On the server, the same pages take under a second each, one at a time.
+- **Warming up on the front page**: while the visitor enters a UID or picks a team, the front page downloads the build, compiles it and starts the Go runtime once in a worker, then drops it (not on Save-Data connections). The download lands in the HTTP cache, and Chrome keeps the code it compiled for the build in its code cache, which the result page's compile reads: its workers then start in 0.25 s instead of 2.6 s, and its first simulation runs faster. A link opened directly gains nothing, and private windows keep no code cache.
+- **Speed** (2026-10-28): the page records each stage as a performance measure named `gscouter:*` (nothing is logged). Headless Chromium on 4 CPUs, a fresh profile each time, median of 3; "after" comes through the front page, "before" opens the result directly (the front page did nothing for it). Scores and the whole result were identical.
+
+  | Stage | Hu Tao / Yelan / Xingqiu / Zhongli, before → after | Arlecchino / Citlali / Skirk / Bennett (19 simulations), before → after |
+  |---|---|---|
+  | Download and compile, local / 50 Mbit/s | 0.5 / 3.4 s → 0.6 / 0.6 s | 0.5 / 3.4 s → 0.6 / 0.6 s |
+  | Starting the workers | 2.6 s → 0.24 s | 2.7 s → 0.28 s |
+  | Score simulation (100 iterations) | 9.0 s → 8.0 s | 6.5 s → 5.4 s |
+  | Filler search (16 runs of 20 iterations) | — | 12.4 s → 12.5 s |
+  | Best filler again, one pass (100 iterations each) | 1.3 s → 1.4 s (one pass) | 4.1 s → 4.2 s |
+  | Two timelines, then rendering | 0.2 s + 0.4 s | 0.14 s + 0.3 s |
+  | Total, local | 14.1 s → 10.8 s | 26.7 s → 23.6 s |
+  | Total, 50 Mbit/s | 16.9 s → 10.1 s | 30.1 s → 23.3 s |
+
+  - The calculation is bound by the CPUs. The first simulation runs about twice as slow as the same work later (Arlecchino: 6.5 s as written, 3.4 s for the best filler at the same 100 iterations), because the browser starts on quickly compiled code and optimizes what runs; the warm-up's code cache covers part of that.
+  - The filler search runs one simulation after another (each follows from the last, §9), but each is already split among all helpers (7 chunks on 4), which are busy about 90% of the time. Splitting into single iterations, as tight as packing gets, took the same 12.2 s: the 4 CPUs are full, so running the search's simulations side by side would not make it faster, and it was not done.
+  - Not done either: showing the score before the timelines (at most the 0.4–0.7 s after the last simulation), the garbage collector at twice the default heap growth (3% faster for 11 MB more per worker), and Go's newer WebAssembly instructions (`GOWASM=satconv,signext`: no change).
 - **Fallbacks**: browsers without WebAssembly or Web Workers, a failing calculation, and `<noscript>` go to the same page with `server=1`, which the server calculates as before. Link previews do not run scripts, so the preview text names the team without a score; the card image is drawn on the server.
 - **Trust**: a result is never sent back to the server. A shared link is calculated again by whoever opens it, with the same seeds, so it shows the same numbers.
 
