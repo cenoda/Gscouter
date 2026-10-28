@@ -1,0 +1,24 @@
+id: lohen-escoffier-furina-mona
+name: Lohen / Escoffier / Furina / Mona
+members:
+    - lohen
+    - escoffier
+    - furina
+    - mona
+archetype: Freeze
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/lohen-quickguide/
+notes: 'Written from the KQM Lohen quick guide (design §5.4; no community gcsim config with Lohen exists). The guide''s example team 8 (Freeze) with Furina: Furina ED N1 Q > Escoffier EQ > Mona EQ N1 > Lohen [combo]. Lohen plays the guide''s combo for Freeze teams: E 15-17[N1C] (N1 E), here 15 strings (the guide''s average is 15-16) then N1 and one Etched Into Bone and Soul; his burst is cast when ready (no ER, as the guide says). Lohen''s build is the same in every Lohen team: C0, Disaster and Remorse R1, 4pc Rising Winds (the guide''s best in slot), ATK%/Cryo/CRIT DMG, KQM-standard substats. Supports from the harvested Ganyu / Furina / Escoffier / Mona team; Escoffier and Furina raised to 175% ER, the least at which every member bursts every rotation. No waits. The guide recommends Marechaussee Hunter on Lohen in Freeze with Furina; the build keeps Rising Winds, as in every Lohen team.'
+cross_check:
+    note: 'Prydwen''s team chart (seen through search snippets, 2026-10-28; the page returns 403) rates this team 88.7% of Lohen / Nicole / Citlali / Durin, with a 23.5 s rotation; here it is 68% one pass (94.4k against 139.1k) and 69% looped (98.3k against 141.6k), about 23% lower relative to that team, with builds Prydwen does not state. No absolute number found (searched 2026-10-28: the KQM Lohen quick guide (team list and combos, no DPS, no gcsim links); the community gcsim database (no Lohen: upstream gcsim lacks him); web searches for gcsim share links or configs with Lohen (none; only fork pull requests); HoYoLAB, Icy Veins, GenshinBuilds, GameWith (team lists, no numbers); Prydwen returns 403, its team chart seen only through search snippets).'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 1.042
+    dps: 98313
+    draft: no reference DPS

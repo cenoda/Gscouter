@@ -1,0 +1,19 @@
+# KQM Lohen quick guide, example team 1 with Citlali:
+# Nicole EQ > Citlali EQ > Durin E N1 Q > Lohen [combo]
+# Lohen's average combo: E 2[N1C] E/Q 4[N1C] E 5[N1C] E. The first E opens
+# Masterstroke; each later E is Etched Into Bone and Soul (100 Joy, which
+# two N1C strings give). His burst is cast when ready, as the guide says.
+active nicole;
+nicole skill, burst;
+citlali skill, burst;
+durin skill, attack, burst;
+lohen skill,
+      attack, charge, attack, charge,
+      skill;
+if .lohen.burst.ready {
+  lohen burst;
+}
+lohen attack, charge, attack, charge, attack, charge, attack, charge,
+      skill,
+      attack, charge, attack, charge, attack, charge, attack, charge, attack, charge,
+      skill;

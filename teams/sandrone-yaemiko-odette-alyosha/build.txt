@@ -1,0 +1,47 @@
+# Sandrone: C0, A Teaspoon of Transcendence R1, 4pc Disenchantment in Deep
+# Shadow (the KQM Sandrone quick guide's best weapon and set),
+# ATK%/ATK%/CRIT DMG (the guide's main stats; CRIT DMG because her CRIT
+# Rate is already high from her ascension stat, the set and Cryo
+# resonance), KQM-standard substats, as in every Sandrone team except her
+# ER substats, which trade with CRIT DMG rolls: ER is the least in the
+# guide's ER table at which she bursts every rotation in this team
+# (138.6%, 7 rolls; the table's +2 Electro row is 120-140%).
+# Yae Miko from the harvested Sangonomiya Kokomi / Fischl / Dendro
+# Traveler / Yae Miko team
+# (teams/sangonomiyakokomi-fischl-travelerdendro-yaemiko).
+# Odette: no harvested team has her (the community database has no entry
+# with her), so as the KQM Odette quick guide recommends, with
+# KQM-standard substats: C0, Finale of the Deep R5 (its best 4-star
+# sword), 4pc Heart of the Furnace (no other holder here), ATK%/ATK%/CRIT
+# Rate, no ER beyond the standard's (111%: she bursts when ready, about
+# every other rotation, as the guide advises before C4).
+# Alyosha: no harvested team has him, so as the KQM Alyosha quick guide
+# recommends, with KQM-standard substats: C6, Favonius Lance R3, 4pc
+# Noblesse Oblige (Odette holds Heart of the Furnace), ATK%/ATK%/CRIT Rate
+# (no ER sands: with his ascension ER and the lance he has 168.3%, and
+# bursts every rotation).
+# Used to validate the rotation.
+
+sandrone char lvl=90/90 cons=0 talent=9,9,9;
+sandrone add weapon="ateaspoonoftranscendence" refine=1 lvl=90/90;
+sandrone add set="disenchantmentindeepshadow" count=4;
+sandrone add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cd=0.622;
+sandrone add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*7 em=19.82*2 cr=0.0331*12 cd=0.0662*7;
+
+yaemiko char lvl=90/90 cons=0 talent=9,9,9;
+yaemiko add weapon="thewidsith" refine=3 lvl=90/90;
+yaemiko add set="gildeddreams" count=4;
+yaemiko add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cd=0.622;
+yaemiko add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=79.28 cr=0.3972 cd=0.662;
+
+odette char lvl=90/90 cons=0 talent=9,9,9;
+odette add weapon="finale" refine=5 lvl=90/90;
+odette add set="heartofthefurnace" count=4;
+odette add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cr=0.311;
+odette add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*12;
+
+alyosha char lvl=90/90 cons=6 talent=9,9,9;
+alyosha add weapon="favlance" refine=3 lvl=90/90;
+alyosha add set="noblesseoblige" count=4;
+alyosha add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cr=0.311;
+alyosha add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*8 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*8;

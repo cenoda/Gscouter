@@ -1,0 +1,33 @@
+# Lohen: C0, Disaster and Remorse R1, 4pc A Day Carved From Rising Winds
+# (the KQM Lohen quick guide's best weapon and set), ATK%/Cryo/CRIT DMG
+# with KQM-standard substats and no ER (the guide: his burst does not
+# justify building ER), as in every Lohen team.
+# Supports from the harvested Wriothesley / Sucrose / Durin / Nicole team
+# (teams/wriothesley-sucrose-durin-nicole), the library's Cryo-carry team
+# with the same supports; Durin as in Lohen / Durin / Nicole / Citlali
+# (ER sands, 163% ER). Used to
+# validate the rotation.
+
+lohen char lvl=90/90 cons=0 talent=9,9,9;
+lohen add weapon="disasterandremorse" refine=1 lvl=90/90;
+lohen add set="risingwinds" count=4;
+lohen add stats hp=4780 atk=311 atk%=0.466 cryo%=0.466 cd=0.622;
+lohen add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*2 em=19.82*2 cr=0.0331*12 cd=0.0662*12;
+
+durin char lvl=90/90 cons=0 talent=9,9,9;
+durin add weapon="wolffang" refine=1 lvl=90/90;
+durin add set="risingwinds" count=4;
+durin add stats hp=4780 atk=311 er=0.518 pyro%=0.466 cd=0.622;
+durin add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*2 em=19.82*7 cr=0.0331*9 cd=0.0662*10;
+
+nicole char lvl=90/90 cons=0 talent=9,9,9;
+nicole add weapon="oathsworn" refine=5 lvl=90/90;
+nicole add set="cg" count=4;
+nicole add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 atk%=0.466;
+nicole add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=165.4 atk%=0.2976 er=0.0551*9 em=39.64 cr=0.0331*2 cd=0.1986;
+
+sucrose char lvl=90/90 cons=6 talent=9,9,9;
+sucrose add weapon="evenstar" refine=1 lvl=90/90;
+sucrose add set="vv" count=4;
+sucrose add stats hp=4780 atk=311 em=187 em=187 em=187;
+sucrose add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=118.92 cr=0.3972 cd=0.5296;

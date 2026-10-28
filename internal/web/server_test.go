@@ -42,6 +42,17 @@ func hutaoTeam() []enka.Character {
 	}
 }
 
+// lohenTeam is a showcase with Lohen, whom only the gcsim fork has, and
+// the members of his first library team.
+func lohenTeam() []enka.Character {
+	return []enka.Character{
+		char("lohen", "disasterandremorse", "adaycarvedfromrisingwinds", map[string]float64{"hp": 4780, "atk": 311, "atk%": 0.6, "cryo%": 0.466, "cr": 0.65, "cd": 1.2}),
+		char("durin", "wolffang", "adaycarvedfromrisingwinds", map[string]float64{"hp": 4780, "atk": 311, "atk%": 0.3, "pyro%": 0.466, "er": 0.8, "cr": 0.5, "cd": 1.0}),
+		char("nicole", "oathsworneye", "crimsonwitchofflames", map[string]float64{"hp": 4780, "atk": 311, "atk%": 1.6, "er": 0.45}),
+		char("citlali", "thrillingtalesofdragonslayers", "scrolloftheheroofcindercity", map[string]float64{"hp": 4780, "atk": 311, "em": 400, "er": 0.8}),
+	}
+}
+
 func newTestServer(t *testing.T) *httptest.Server {
 	t.Helper()
 	return newTestServerFor(t, newTestSite(t))
@@ -82,6 +93,7 @@ func newTestSiteWith(t *testing.T, edit func(*library.Library)) *Server {
 		// Zhongli has left this showcase.
 		"800000003": {UID: "800000003", Nickname: "Moved", Characters: hutaoTeam()[:3]},
 		"800000004": {UID: "800000004", Nickname: "Hymn", Characters: hymn},
+		"800000005": {UID: "800000005", Nickname: "Lohen", Characters: lohenTeam()},
 	}
 	srv, err := New(lib, profiles, Settings{Iterations: 4, Warmup: 30, Duration: 90, MaxConcurrent: 1, MaxQueue: 4})
 	if err != nil {
@@ -297,6 +309,15 @@ func TestForkOnlyWeaponBadge(t *testing.T) {
 	_, body = get(t, ts, "/score?server=1&a="+url.QueryEscape("800000001:hutao,yelan,xingqiu,zhongli"))
 	if strings.Contains(body, badge) || strings.Contains(body, "A weapon in this team") {
 		t.Error("verified team without a fork-only weapon shown as experimental")
+	}
+}
+
+func TestScoreForkOnlyCharacter(t *testing.T) {
+	ts := newTestServer(t)
+	_, body := get(t, ts, "/score?server=1&a="+url.QueryEscape("800000005:lohen,durin,nicole,citlali"))
+	mustContain(t, body, `<span class="badge">Experimental</span>`, "A member of this team is not in gcsim yet", "was written from a community guide")
+	if strings.Contains(body, "This team is not supported yet") {
+		t.Error("Lohen's library team scored as unsupported")
 	}
 }
 

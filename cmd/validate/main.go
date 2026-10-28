@@ -50,6 +50,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/cenoda/gscouter/internal/batch"
 	"github.com/cenoda/gscouter/internal/library"
 	"github.com/cenoda/gscouter/internal/score"
 	"github.com/cenoda/gscouter/internal/share"
@@ -69,36 +70,18 @@ func main() {
 		promote    = flag.Bool("promote", false, "record each result in team.yaml and set status: supported on teams that meet the criteria, draft on the others")
 		shard      = flag.String("shard", "", "k/n: check only every n-th team, from the k-th on")
 		jsonOut    = flag.String("json", "", "write each report as a JSON line to this file")
-		cache      = flag.String("cache", defaultCache(), `directory where simulation results are kept for later runs with the same gcsim, "" for none`)
+		cache      = flag.String("cache", batch.DefaultCache(), `directory where simulation results are kept for later runs with the same gcsim, "" for none`)
 		timeout    = flag.Duration("timeout", 2*time.Minute, "time one team's check may take before it fails as a rotation that never ends")
 	)
 	flag.Parse()
 
-	dirs := flag.Args()
-	if len(dirs) == 0 {
-		entries, err := os.ReadDir(*root)
-		if err != nil {
-			fmt.Fprintln(os.Stderr, "error:", err)
-			os.Exit(2)
-		}
-		for _, e := range entries {
-			if e.IsDir() {
-				dirs = append(dirs, filepath.Join(*root, e.Name()))
-			}
-		}
+	dirs, err := batch.Dirs(*root, flag.Args())
+	if err == nil {
+		dirs, err = batch.Shard(dirs, *shard)
 	}
-
-	if *shard != "" {
-		var k, n int
-		if _, err := fmt.Sscanf(*shard, "%d/%d", &k, &n); err != nil || n < 1 || k < 1 || k > n {
-			fmt.Fprintf(os.Stderr, "error: -shard %q: want k/n with 1 <= k <= n\n", *shard)
-			os.Exit(2)
-		}
-		var picked []string
-		for i := k - 1; i < len(dirs); i += n {
-			picked = append(picked, dirs[i])
-		}
-		dirs = picked
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "error:", err)
+		os.Exit(2)
 	}
 	var enc *json.Encoder
 	if *jsonOut != "" {
@@ -139,24 +122,9 @@ func main() {
 	s := validate.Settings{Iterations: *iterations, Warmup: *warmup, Duration: *duration, Cache: *cache, Timeout: *timeout}
 	// Each team is checked in its own process, so a rotation stuck
 	// inside gcsim cannot slow down the others.
-	reports := make([]chan *validate.Report, len(dirs))
-	for i := range reports {
-		reports[i] = make(chan *validate.Report, 1)
-	}
-	next := make(chan int)
-	go func() {
-		for i := range dirs {
-			next <- i
-		}
-		close(next)
-	}()
-	for range max(*jobs, 1) {
-		go func() {
-			for i := range next {
-				reports[i] <- validate.CheckIsolated(dirs[i], s)
-			}
-		}()
-	}
+	reports := batch.Parallel(len(dirs), *jobs, func(i int) *validate.Report {
+		return validate.CheckIsolated(dirs[i], s)
+	})
 	var failed, warned int
 	for _, ch := range reports {
 		r := <-ch
@@ -187,16 +155,6 @@ func main() {
 	if failed > 0 {
 		os.Exit(1)
 	}
-}
-
-// defaultCache is the directory for cached simulation results under the
-// user's cache directory, "" if there is none.
-func defaultCache() string {
-	dir, err := os.UserCacheDir()
-	if err != nil {
-		return ""
-	}
-	return filepath.Join(dir, "gscouter", "validate")
 }
 
 // record writes the check's result to team.yaml with the status it
