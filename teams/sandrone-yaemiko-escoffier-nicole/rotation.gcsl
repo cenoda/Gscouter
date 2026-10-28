@@ -1,0 +1,15 @@
+# KQM Sandrone quick guide, example team 4:
+# Nicole E > Yae Miko 3[E] > Escoffier (Q) E > Sandrone [combo]
+# Escoffier bursts when ready (the guide: her burst is optional here, for
+# healing); she cannot burst every rotation at any ER in this team.
+# Sandrone's C0 combo 3[C E] (Q), the burst after the first skill.
+active nicole;
+nicole skill;
+yaemiko skill:3;
+if .escoffier.burst.ready {
+  escoffier burst;
+}
+escoffier skill;
+sandrone charge, skill, burst,
+         charge, skill,
+         charge, skill;

@@ -1,0 +1,24 @@
+id: sandrone-yaemiko-qiqi-diona
+name: Sandrone / Yae Miko / Qiqi / Diona
+members:
+    - sandrone
+    - yaemiko
+    - qiqi
+    - diona
+archetype: Stellar-Conduct with Qiqi and Diona
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/sandrone-quickguide/
+notes: 'Written from the KQM Sandrone quick guide (design §5.4; no community gcsim config with Sandrone exists). The guide''s example team 3 with C6 Diona: Yae Miko 3[E] > Qiqi E > Diona hEQ > Sandrone [combo]. Sandrone plays the guide''s C0 combo 3[C E] (Q), the burst after the first skill, every rotation. Sandrone''s build is the same in every Sandrone team except her ER substats: C0, A Teaspoon of Transcendence R1, 4pc Disenchantment in Deep Shadow, ATK%/ATK%/CRIT DMG, KQM-standard substats, ER the least in the guide''s ER table at which she bursts every rotation (here 122%; the +2 Cryo row is 120-140%, and 111% would do). Yae Miko as in every Sandrone team, from a harvested team. Qiqi (C0, Favonius Sword, 4pc Scroll) from a harvested team; at C0 she skips her burst, as the guide''s rotation says. Diona (C6, Favonius Warbow R4, 4pc Noblesse Oblige, 257.2% ER) from a harvested team; she bursts when ready (every other rotation): even at that ER her own particles, which reach her off field, cannot fund her 80-energy burst every rotation. Sandrone bursts every rotation, with energy waits under 0.2 s per minute. Known problem: the fork''s calibration against HoYoLAB 46338256 is -11.9% for the team (Sandrone -16.7%, Yae Miko -16%, Escoffier +27%), cause unknown (design §5.4, Sandrone row).'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: the KQM Sandrone quick guide (team list and rotations, no DPS, no gcsim links); the community gcsim database (no Sandrone: upstream gcsim lacks her); web searches for DPS figures, showcases and gcsim configs for this team (Icy Veins, Mobalytics, GenshinBuilds, GameWith, Keengamer, playnews and weareplaystation team pages: ratings, roles and ER advice only; Mobalytics puts Sandrone''s ER need at about 100% with Qiqi and Escoffier and up to 140% with Nicole and Escoffier).'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 0.99
+    dps: 100261
+    draft: no reference DPS

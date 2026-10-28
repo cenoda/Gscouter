@@ -1,0 +1,15 @@
+# KQM Sandrone quick guide, example team 3:
+# Yae Miko 3[E] > Qiqi E > Beidou EQ > Sandrone [combo]
+# Beidou bursts when ready: her 20 s burst cooldown is longer than the
+# rotation, so bursting every rotation would make the team wait.
+# Sandrone's C0 combo 3[C E] (Q), the burst after the first skill.
+active yaemiko;
+yaemiko skill:3;
+qiqi skill;
+beidou skill;
+if .beidou.burst.ready {
+  beidou burst;
+}
+sandrone charge, skill, burst,
+         charge, skill,
+         charge, skill;
