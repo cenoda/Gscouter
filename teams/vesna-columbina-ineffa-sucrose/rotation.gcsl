@@ -1,0 +1,34 @@
+# GameWith Vesna team guide, Anemo on-field driver team:
+# Ineffa E (Q when available) > Columbina E Q > Sucrose E > Vesna [combo]
+# Columbina bursts when ready (no ER her build reaches gives a burst
+# every rotation).
+# Vesna's combo: E [N C E]x2 Q E [N C E]x2. With 5
+# Sword Essence per attack it pays for only four Windborne Swords even
+# with the burst, so whenever the next one is not ready she keeps
+# attacking ("use Normal and Charged Attacks to recharge her special
+# Skill"), until the fifth ends Armed for Action.
+active ineffa;
+ineffa skill;
+if .ineffa.burst.ready {
+  ineffa burst;
+}
+columbina skill;
+if .columbina.burst.ready {
+  columbina burst;
+}
+sucrose skill;
+vesna skill,
+      attack, charge, skill,
+      attack, charge, skill;
+vesna burst;
+while .vesna.armed {
+  while .vesna.armed && !.vesna.skill.ready {
+    vesna attack, charge;
+  }
+  if .vesna.armed {
+    vesna skill;
+  }
+  if .vesna.armed {
+    vesna attack, charge;
+  }
+}
