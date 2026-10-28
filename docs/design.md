@@ -368,7 +368,7 @@ Goal: every released character can be scored, including the ones upstream gcsim 
 
 **Characters on the fork** (fork `b029c45`, on upstream `2350be9`, 2026-10-28)
 
-Nefer, Linnea, Lohen, Sandrone and Vesna have draft library teams (Rotations below; Sandrone 17, one per team in her KQM quick guide; Vesna 75: one per team in the GameWith guide, and Vesna with Vodyanitsa and any two, or with any three, of Odette, the Cryo Traveler, Diona, Qiqi, Faruzan, Sucrose, Lan Yan and Nicole, at least one of them Cryo), and Vodyanitsa has 23, one with Sandrone and 22 with Vesna; Kachina has none yet. Lohen is fork commit `af3eb82` (our implementation, the commit before Sandrone's); his `ForkOnly` entry and Enka data came with Sandrone's Gscouter commit.
+Nefer, Linnea, Lohen, Sandrone and Vesna have draft library teams (Rotations below; Sandrone 18, one per team in her KQM quick guide and Sandrone / Yae Miko / Odette / Vodyanitsa, its example team 1 with Vodyanitsa in the flex slot as GenshinBuilds lists it; Vesna 75: one per team in the GameWith guide, and Vesna with Vodyanitsa and any two, or with any three, of Odette, the Cryo Traveler, Diona, Qiqi, Faruzan, Sucrose, Lan Yan and Nicole, at least one of them Cryo), and Vodyanitsa has 24, two with Sandrone and 22 with Vesna; Kachina has none yet. Lohen is fork commit `af3eb82` (our implementation, the commit before Sandrone's); his `ForkOnly` entry and Enka data came with Sandrone's Gscouter commit.
 
 | Character | Source | Frame data | Known problems |
 |---|---|---|---|

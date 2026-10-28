@@ -1,0 +1,26 @@
+id: sandrone-yaemiko-odette-vodyanitsa
+name: Sandrone / Yae Miko / Odette / Vodyanitsa
+members:
+    - sandrone
+    - yaemiko
+    - odette
+    - vodyanitsa
+archetype: Stellar-Conduct with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/sandrone-quickguide/
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+    - https://genshin-builds.com/en/teams/vodyanitsa
+notes: 'Written from the KQM Sandrone quick guide (design §5.4; no community gcsim config with Sandrone exists). No guide gives a rotation for exactly this team; GenshinBuilds lists it (Sandrone Stellar-Conduct team with Yae, Odette and Vodyanitsa, rated SS, no rotation or DPS). The rotation is the guide''s example team 1, Yae Miko 3[E] > Odette 2[E](Q) > flex > Sandrone [combo], with Vodyanitsa in the flex slot playing what the guide''s example team 2 and the KQM Vodyanitsa quick guide''s Sandrone team give her: Vodyanitsa E, no burst. The Vodyanitsa guide ranks her above every other option in the Sandrone / Odette / Alyosha team except Yae Miko; this team takes Yae Miko in place of Alyosha. Odette bursts when ready (the guide: use it when available, or skip it before C4); with no ER beyond the standard''s she bursts about every other rotation. Sandrone plays the guide''s C0 combo 3[C E] (Q), the burst after the first skill as in the fork''s calibration, every rotation. Sandrone''s build is the same in every Sandrone team except her ER substats: C0, A Teaspoon of Transcendence R1, 4pc Disenchantment in Deep Shadow, ATK%/ATK%/CRIT DMG, KQM-standard substats, ER the least in the guide''s ER table at which she bursts every rotation (here 149.6%; the +1 Cryo row is 130-165%, and at 144.1% she skips bursts). Yae Miko from a harvested team; Odette (C0, Finale of the Deep R5, 4pc Heart of the Furnace, 111% ER) from her KQM quick guide with KQM-standard substats. Vodyanitsa as in the Sandrone / Alyosha / Odette / Vodyanitsa team (C0, Thrilling Tales R5, 4pc Tenacity of the Millelith, HP%/HP%/HP%, from her KQM quick guide); she deals under 1% of the damage, her value being the buffs and Hydro for Freeze. Known problem: the fork''s calibration against HoYoLAB 46338256 is -11.9% for the team (Sandrone -16.7%, Yae Miko -16%, Escoffier +27%), cause unknown (design §5.4, Sandrone row).'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: the KQM Sandrone, Vodyanitsa and Odette quick guides (team lists and rotations, no DPS, no gcsim links; none lists this exact team); the community gcsim database (no Sandrone: upstream gcsim lacks her); web searches for DPS figures, showcases and gcsim configs for this team (GenshinBuilds'' Vodyanitsa team page lists it at SS, Icy Veins'' Odette team page: ratings and roles only).'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 1.158
+    dps: 175219
+    draft: no reference DPS
