@@ -149,6 +149,27 @@
   }
 })();
 </script>
+{{with .Prefetch}}
+<script>
+// Warms the browser build up while the visitor enters a UID or picks a
+// team, so that the result page starts sooner (design §4.7): the
+// download lands in the HTTP cache, and starting the Go runtime once
+// lets the browser keep the compiled code in its code cache, which the
+// result page's compile then reads. Not on Save-Data connections.
+(function () {
+  var v = {{.}}, c = navigator.connection;
+  if (!window.WebAssembly || !WebAssembly.compileStreaming || !window.Worker || c && c.saveData) return;
+  WebAssembly.compileStreaming(fetch("/static/gscouter.wasm?v=" + v)).then(function (module) {
+    var w = new Worker("/static/worker.js?v=" + v);
+    w.onmessage = w.onerror = function () {
+      w.terminate();
+      window.gscouterPrefetched = true;
+    };
+    w.postMessage({type: "init", module: module});
+  }).catch(function () {});
+})();
+</script>
+{{end}}
 {{template "foot"}}
 
 {{define "showcase"}}{{with .Profile}}

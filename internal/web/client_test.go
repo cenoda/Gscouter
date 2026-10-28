@@ -121,3 +121,16 @@ func TestStaticBuild(t *testing.T) {
 		t.Errorf("/static/other: status %d", code)
 	}
 }
+
+// The front page warms the browser build up for the result page, at the
+// URL the result page loads it from; without one it does not.
+func TestIndexPrefetchesClient(t *testing.T) {
+	srv, ts := newClientSite(t)
+	_, body := get(t, ts, "/")
+	mustContain(t, body, "gscouterPrefetched", `var v = "`+srv.client.version+`"`, `"/static/gscouter.wasm?v=" + v`)
+
+	plain := newTestServer(t)
+	if _, body := get(t, plain, "/"); strings.Contains(body, "gscouterPrefetched") {
+		t.Error("prefetching without a browser build")
+	}
+}
