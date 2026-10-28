@@ -15,7 +15,8 @@ const TableFormat = 1
 
 // Table is the weights of every library team, joined from the shards
 // of cmd/weights runs (Join). It lives at teams/weights.json, beside the
-// library it belongs to, to be embedded in the binary with it.
+// library it belongs to, stored through Git LFS; the binary embeds the
+// small table derived from it (Slim, internal/artifact).
 type Table struct {
 	Format int               `json:"format"`
 	Teams  map[string]*Entry `json:"teams"`

@@ -13,6 +13,7 @@
 //	weights -limit 100               # 100 teams spread evenly over the library
 //	weights -shard 2/4 -json b.jsonl # the second of four slices, as JSON lines
 //	weights -join teams/weights.json [-base teams/weights.json] a.jsonl b.jsonl ...
+//	weights -slim internal/artifact/table.json [teams/weights.json]
 //
 // Teams run in parallel (-j, one per CPU by default), each in its own
 // process, and each simulation on -workers CPUs (1 by default). -json
@@ -20,6 +21,10 @@
 // files, the shards of a run, into one table (weights.Table, by default
 // at teams/weights.json), replacing the entries of the teams they hold
 // in -base, if given.
+//
+// -slim writes the small table the server embeds (artifact.Table,
+// weights.Slim) from the full one: the table -join writes, or else the
+// one given as argument (teams/weights.json by default).
 //
 // A team whose build.txt does not hold, per character, its five main
 // stats and then its substat totals on two add stats lines
@@ -61,11 +66,12 @@ func main() {
 		verbose    = flag.Bool("v", false, "print per-character weights and main stats")
 		join       = flag.String("join", "", "join the JSON line files given as arguments (or glob patterns) into this table file, and calculate nothing")
 		base       = flag.String("base", "", "with -join: a table to start from; its teams that the files hold are replaced")
+		slim       = flag.String("slim", "", "write the small table derived from the full one to this file, and calculate nothing")
 	)
 	flag.Parse()
 
-	if *join != "" {
-		if err := joinFiles(*join, *base, flag.Args()); err != nil {
+	if *join != "" || *slim != "" {
+		if err := tables(*join, *base, *slim, flag.Args()); err != nil {
 			fmt.Fprintln(os.Stderr, "error:", err)
 			os.Exit(2)
 		}
@@ -186,65 +192,121 @@ func printResult(r *weights.Result, verbose bool) {
 	}
 }
 
-// joinFiles joins the JSON line files matching patterns into the table
-// at out, starting from the table at base if given.
-func joinFiles(out, base string, patterns []string) error {
-	var files []string
-	for _, p := range patterns {
-		m, err := filepath.Glob(p)
-		if err != nil {
+// tables runs -join and -slim: it joins the JSON line files matching
+// args into the table at join, if given, and writes the small table
+// derived from that table, or from the table args name, to slim.
+func tables(join, base, slim string, args []string) error {
+	var t *weights.Table
+	var err error
+	switch {
+	case join != "":
+		if t, err = joinFiles(join, base, args); err != nil {
 			return err
 		}
-		if len(m) == 0 {
-			return fmt.Errorf("%s: no such file", p)
+	case len(args) > 1:
+		return fmt.Errorf("-slim: give one table, not %d", len(args))
+	default:
+		name := "teams/weights.json"
+		if len(args) == 1 {
+			name = args[0]
 		}
-		files = append(files, m...)
-	}
-	if len(files) == 0 {
-		return fmt.Errorf("-join: no files to join")
-	}
-	var results []*weights.Result
-	for _, name := range files {
-		f, err := os.Open(name)
-		if err != nil {
-			return err
-		}
-		rs, err := weights.ReadResults(f)
-		f.Close()
-		if err != nil {
-			return fmt.Errorf("%s: %w", name, err)
-		}
-		results = append(results, rs...)
-	}
-	var from *weights.Table
-	if base != "" {
-		f, err := os.Open(base)
-		switch {
-		case err == nil:
-			from, err = weights.ReadTable(f)
-			f.Close()
-			if err != nil {
-				return fmt.Errorf("%s: %w", base, err)
-			}
-		case !os.IsNotExist(err):
+		if t, err = readTable(name); err != nil {
 			return err
 		}
 	}
-	t, tot, err := weights.Join(from, results)
+	if slim == "" {
+		return nil
+	}
+	return writeSlim(slim, t)
+}
+
+// readTable reads a full table. An error that is not the file missing
+// says to fetch the file through Git LFS, since a checkout without
+// LFS holds a pointer in its place.
+func readTable(name string) (*weights.Table, error) {
+	f, err := os.Open(name)
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
+	t, err := weights.ReadTable(f)
+	if err != nil {
+		return nil, fmt.Errorf("%s: %w (a Git LFS pointer? fetch it with git lfs pull)", name, err)
+	}
+	return t, nil
+}
+
+func writeSlim(name string, t *weights.Table) error {
+	s := weights.Slim(t)
+	f, err := os.Create(name)
 	if err != nil {
 		return err
 	}
-	f, err := os.Create(out)
+	n, err := s.WriteTo(f)
 	if err != nil {
-		return err
-	}
-	if _, err := t.WriteTo(f); err != nil {
 		f.Close()
 		return err
 	}
 	if err := f.Close(); err != nil {
 		return err
 	}
-	fmt.Printf("%s\n%d files joined into %s: %d teams with weights, %d without\n", summary(tot), len(files), out, len(t.Teams), len(t.Skipped))
+	fmt.Printf("small table %s: %d teams, %d bytes\n", name, len(s.Teams), n)
 	return nil
+}
+
+// joinFiles joins the JSON line files matching patterns into the table
+// at out, starting from the table at base if given, and returns it.
+func joinFiles(out, base string, patterns []string) (*weights.Table, error) {
+	var files []string
+	for _, p := range patterns {
+		m, err := filepath.Glob(p)
+		if err != nil {
+			return nil, err
+		}
+		if len(m) == 0 {
+			return nil, fmt.Errorf("%s: no such file", p)
+		}
+		files = append(files, m...)
+	}
+	if len(files) == 0 {
+		return nil, fmt.Errorf("-join: no files to join")
+	}
+	var results []*weights.Result
+	for _, name := range files {
+		f, err := os.Open(name)
+		if err != nil {
+			return nil, err
+		}
+		rs, err := weights.ReadResults(f)
+		f.Close()
+		if err != nil {
+			return nil, fmt.Errorf("%s: %w", name, err)
+		}
+		results = append(results, rs...)
+	}
+	var from *weights.Table
+	if base != "" {
+		var err error
+		from, err = readTable(base)
+		if err != nil && !os.IsNotExist(err) {
+			return nil, err
+		}
+	}
+	t, tot, err := weights.Join(from, results)
+	if err != nil {
+		return nil, err
+	}
+	f, err := os.Create(out)
+	if err != nil {
+		return nil, err
+	}
+	if _, err := t.WriteTo(f); err != nil {
+		f.Close()
+		return nil, err
+	}
+	if err := f.Close(); err != nil {
+		return nil, err
+	}
+	fmt.Printf("%s\n%d files joined into %s: %d teams with weights, %d without\n", summary(tot), len(files), out, len(t.Teams), len(t.Skipped))
+	return t, nil
 }
