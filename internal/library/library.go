@@ -58,7 +58,10 @@ var ForkOnly = map[string]bool{
 // one with a ForkOnly character. Update it whenever a weapon is added to
 // the fork or upstream merges one.
 var ForkOnlyWeapons = map[string]bool{
-	"hymnofthemaelstrom": true,
+	"hereticsmoltenblade": true,
+	"hymnofthemaelstrom":  true,
+	"newbough":            true,
+	"wintersheavyheart":   true,
 }
 
 // WeaponKey returns gcsim's key for a weapon name or one of its

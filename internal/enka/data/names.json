@@ -3946,6 +3946,23 @@
 			"zh-cn": "黎明神剑",
 			"zh-tw": "黎明神劍"
 		},
+		"hereticsmoltenblade": {
+			"de": "Klinge des Ketzerjägers",
+			"en": "Heretic's Molten Blade",
+			"es": "Filo de la Caza de los Herejes",
+			"fr": "Lame de lave de l'hérétique",
+			"id": "Heretic's Molten Blade",
+			"it": "Lama incandescente dell'eretico",
+			"ja": "異端を狩る熔刃",
+			"ko": "이단을 가르는 불꽃",
+			"pt": "Lâmina Derretida do Herege",
+			"ru": "Расплавленный клинок еретика",
+			"th": "Heretic's Molten Blade",
+			"tr": "Kafirin Kızgın Kılıcı",
+			"vi": "Lưỡi Kiếm Dung Luyện Dị Đoan",
+			"zh-cn": "熔猎异端之刃",
+			"zh-tw": "熔獵異端之刃"
+		},
 		"huntersbow": {
 			"de": "Jagdbogen",
 			"en": "Hunter's Bow",
@@ -4557,6 +4574,23 @@
 			"vi": "Ánh Trăng Mouun",
 			"zh-cn": "曚云之月",
 			"zh-tw": "曚雲之月"
+		},
+		"newbough": {
+			"de": "Neuer Zweig",
+			"en": "New Bough",
+			"es": "Nueva Rama",
+			"fr": "Nouvelle branche",
+			"id": "New Bough",
+			"it": "Nuovo ramo",
+			"ja": "新たなる枝",
+			"ko": "새순",
+			"pt": "Ramo Novo",
+			"ru": "Новая ветвь",
+			"th": "New Bough",
+			"tr": "Yeni Dal",
+			"vi": "Cành Mới",
+			"zh-cn": "新枝",
+			"zh-tw": "新枝"
 		},
 		"nightweaverslookingglass": {
 			"de": "Spiegel des Nachtwebers",
@@ -6461,6 +6495,23 @@
 			"vi": "Rượu Và Thơ Nơi Hẻm Tối",
 			"zh-cn": "暗巷的酒与诗",
 			"zh-tw": "暗巷的酒與詩"
+		},
+		"wintersheavyheart": {
+			"de": "Schweres Herz des Winters",
+			"en": "Winter's Heavy Heart",
+			"es": "Corazón del Invierno",
+			"fr": "Le cœur lourd de l'hiver",
+			"id": "Winter's Heavy Heart",
+			"it": "Cuore pesante dell'inverno",
+			"ja": "雪に沈む心",
+			"ko": "얼어붙은 심장",
+			"pt": "Coração Congelado",
+			"ru": "Застывшее сердце зимы",
+			"th": "Winter's Heavy Heart",
+			"tr": "Kışın Ağır Kalbi",
+			"vi": "Trái Tim Ngưng Tuyết",
+			"zh-cn": "凝雪沉心",
+			"zh-tw": "凝雪沉心"
 		},
 		"wolffang": {
 			"de": "Wolfszahn",
