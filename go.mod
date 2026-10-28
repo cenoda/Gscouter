@@ -27,4 +27,4 @@ require (
 	modernc.org/memory v1.12.1 // indirect
 )
 
-replace github.com/genshinsim/gcsim => github.com/cenoda/gcsim v0.0.0-20261028021822-b049a483e2ce
+replace github.com/genshinsim/gcsim => github.com/cenoda/gcsim v0.0.0-20261028022427-b029c4559f0a
