@@ -1,5 +1,5 @@
 // Command compare compares validation runs team by team, as the
-// regression run does (design §5.4): every report field at full
+// regression run does (docs/fork.md §2): every report field at full
 // precision, so the difference must be exactly 0.
 //
 // Usage:

@@ -40,7 +40,7 @@ const (
 )
 
 // ForkOnly holds the characters that only Gscouter's gcsim fork has, by
-// canonical key (design §5.4). A team is experimental exactly when it has
+// canonical key (docs/fork.md §3). A team is experimental exactly when it has
 // one of them. Update it whenever a character is added to the fork or
 // upstream merges one.
 var ForkOnly = map[string]bool{
@@ -54,7 +54,7 @@ var ForkOnly = map[string]bool{
 }
 
 // ForkOnlyWeapons holds the weapons that only Gscouter's gcsim fork has, by
-// gcsim key (design §5.4). A team or showcase that uses one is treated as
+// gcsim key (docs/fork.md §5). A team or showcase that uses one is treated as
 // one with a ForkOnly character. Update it whenever a weapon is added to
 // the fork or upstream merges one.
 var ForkOnlyWeapons = map[string]bool{

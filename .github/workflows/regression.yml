@@ -1,6 +1,6 @@
 name: regression
 
-# Fork regression run (design §5.4, "Verified scores must not move"): every
+# Fork regression run (docs/fork.md §2, "Verified scores must not move"): every
 # library team through the full check on two gcsim builds, compared field by
 # field. Only go.mod and go.sum (the gcsim version) come from each ref; the
 # validate and compare tools are built from this workflow's commit, and both
