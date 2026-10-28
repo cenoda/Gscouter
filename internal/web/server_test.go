@@ -73,11 +73,15 @@ func newTestSiteWith(t *testing.T, edit func(*library.Library)) *Server {
 	strong := hutaoTeam()
 	weak := hutaoTeam()
 	weak[0].Stats = map[string]float64{"hp": 4780, "atk": 311, "cr": 0.1, "cd": 0.3}
+	// Xingqiu with a weapon only the gcsim fork has.
+	hymn := hutaoTeam()
+	hymn[2].Weapon.Key = "hymnofthemaelstrom"
 	profiles := fakeProfiles{
 		"800000001": {UID: "800000001", Nickname: "Strong", Characters: append(strong, char("amber", "skywardharp", "noblesseoblige", nil))},
 		"800000002": {UID: "800000002", Nickname: "Weak", Characters: weak},
 		// Zhongli has left this showcase.
 		"800000003": {UID: "800000003", Nickname: "Moved", Characters: hutaoTeam()[:3]},
+		"800000004": {UID: "800000004", Nickname: "Hymn", Characters: hymn},
 	}
 	srv, err := New(lib, profiles, Settings{Iterations: 4, Warmup: 30, Duration: 90, MaxConcurrent: 1, MaxQueue: 4})
 	if err != nil {
@@ -236,21 +240,21 @@ func TestVersus(t *testing.T) {
 }
 
 func TestWarningsDraft(t *testing.T) {
-	got := warnings(localizer{Lang: langKorean}, &library.Team{Members: []string{"hutao"}, Status: library.StatusDraft}, &score.Result{})
+	got := warnings(localizer{Lang: langKorean}, &library.Team{Members: []string{"hutao"}, Status: library.StatusDraft}, nil, &score.Result{})
 	if len(got) != 1 || !strings.Contains(got[0], "검증 전") {
 		t.Errorf("draft team warnings %q", got)
 	}
-	if got := warnings(english, &library.Team{Members: []string{"hutao"}, Status: library.StatusSupported}, &score.Result{}); len(got) != 0 {
+	if got := warnings(english, &library.Team{Members: []string{"hutao"}, Status: library.StatusSupported}, nil, &score.Result{}); len(got) != 0 {
 		t.Errorf("supported team warnings %q", got)
 	}
 }
 
 func TestWarningsKnownIssues(t *testing.T) {
-	got := strings.Join(warnings(localizer{Lang: langKorean}, &library.Team{Members: []string{"arlecchino", "bennett"}}, &score.Result{}), "\n")
+	got := strings.Join(warnings(localizer{Lang: langKorean}, &library.Team{Members: []string{"arlecchino", "bennett"}}, nil, &score.Result{}), "\n")
 	if !strings.Contains(got, "아를레키노") || !strings.Contains(got, "20%") {
 		t.Errorf("no Arlecchino note in %q", got)
 	}
-	if got := warnings(english, &library.Team{Members: []string{"hutao"}}, &score.Result{}); len(got) != 0 {
+	if got := warnings(english, &library.Team{Members: []string{"hutao"}}, nil, &score.Result{}); len(got) != 0 {
 		t.Errorf("unexpected warnings %q", got)
 	}
 }
@@ -277,6 +281,22 @@ func TestExperimentalBadge(t *testing.T) {
 	_, body = get(t, newTestServer(t), "/score?server=1&a="+url.QueryEscape("800000001:hutao,yelan,xingqiu,zhongli"))
 	if strings.Contains(body, badge) || strings.Contains(body, "is not in gcsim yet") || strings.Contains(body, "written from a community guide") {
 		t.Error("verified team shown as experimental")
+	}
+}
+
+func TestForkOnlyWeaponBadge(t *testing.T) {
+	ts := newTestServer(t)
+	badge := `<span class="badge">Experimental</span>`
+	_, body := get(t, ts, "/score?server=1&a="+url.QueryEscape("800000004:hutao,yelan,xingqiu,zhongli"))
+	mustContain(t, body, badge, "A weapon in this team is not in gcsim yet")
+	if strings.Contains(body, "A member of this team is not in gcsim yet") {
+		t.Error("fork-only character warning on a team of upstream characters")
+	}
+
+	// Without the weapon, the same team stays verified.
+	_, body = get(t, ts, "/score?server=1&a="+url.QueryEscape("800000001:hutao,yelan,xingqiu,zhongli"))
+	if strings.Contains(body, badge) || strings.Contains(body, "A weapon in this team") {
+		t.Error("verified team without a fork-only weapon shown as experimental")
 	}
 }
 

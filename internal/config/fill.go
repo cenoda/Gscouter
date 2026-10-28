@@ -25,7 +25,16 @@ const (
 	// charge, such as Skirk's opening burst, written for her full
 	// starting Serpent's Subtlety, when the rotation loops.
 	FillSkip
+	// FillBrief: as FillParty, but the character attacks at most
+	// maxFillAttacks times and then passes a burst still not ready, as
+	// FillSkip. A player swaps out rather than stand on a support until
+	// its burst charges: Ineffa is played with two skills to a burst.
+	FillBrief
 )
+
+// maxFillAttacks is how many attacks FillBrief makes before passing the
+// burst.
+const maxFillAttacks = 2
 
 func (f Filler) String() string {
 	switch f {
@@ -33,6 +42,8 @@ func (f Filler) String() string {
 		return "party skills"
 	case FillSkip:
 		return "skipped bursts"
+	case FillBrief:
+		return "party skills, then skipped bursts"
 	}
 	return "own skill"
 }
@@ -101,11 +112,15 @@ func fillStatement(char, items string, energy, skill bool, party []string, forms
 			continue
 		}
 		switch {
-		case energy && action[0] == "burst" && how == FillSkip:
+		case energy && action[0] == "burst" && (how == FillSkip || how == FillBrief):
+			flush()
+			if how == FillBrief {
+				*n++
+				out = append(out, energyFiller(char, party, forms, how, fmt.Sprintf("gs_fill%d", *n)))
+			}
 			// The frame waited keeps time passing in a loop whose only
 			// actions are skipped bursts; gcsim cannot stop a loop that
 			// takes no time.
-			flush()
 			out = append(out, fmt.Sprintf("if .%s.burst.ready { %s %s; } else { wait(1); }", char, char, item))
 			continue
 		case energy && action[0] == "burst":
@@ -127,12 +142,17 @@ func fillStatement(char, items string, energy, skill bool, party []string, forms
 func energyFiller(char string, party []string, forms map[string]string, how Filler, v string) string {
 	var body strings.Builder
 	fmt.Fprintf(&body, "if .%s.skill.ready { %s %s; }", char, char, forms[char])
-	if how == FillParty {
+	if how == FillParty || how == FillBrief {
 		for _, m := range party {
 			if m != char {
 				fmt.Fprintf(&body, " else if .%s.skill.ready { %s %s; }", m, m, forms[m])
 			}
 		}
+	}
+	if how == FillBrief {
+		fmt.Fprintf(&body, " else { %s attack; %sa = %sa + 1; }", char, v, v)
+		return fmt.Sprintf("let %s = 0; let %sa = 0; while !.%s.burst.ready && %s < 20 && %sa < %d { %s %s = %s + 1; }",
+			v, v, char, v, v, maxFillAttacks, body.String(), v, v)
 	}
 	fmt.Fprintf(&body, " else { %s attack; }", char)
 	return fmt.Sprintf("let %s = 0; while !.%s.burst.ready && %s < 20 { %s %s = %s + 1; }", v, char, v, body.String(), v, v)

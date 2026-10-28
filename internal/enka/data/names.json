@@ -3980,6 +3980,23 @@
 			"zh-cn": "猎人之径",
 			"zh-tw": "獵人之徑"
 		},
+		"hymnofthemaelstrom": {
+			"de": "Loblied des Strudels",
+			"en": "Hymn of the Maelstrom",
+			"es": "Himno del Vórtice",
+			"fr": "Hymne dans le maelström",
+			"id": "Hymn of the Maelstrom",
+			"it": "Inno del gorgo",
+			"ja": "旋流の讃美歌",
+			"ko": "파도의 찬송가",
+			"pt": "Cântico Rodopiante",
+			"ru": "Ода водоворота",
+			"th": "Hymn of the Maelstrom",
+			"tr": "Girdap İlahisi",
+			"vi": "Thánh Ca Vòng Xoáy",
+			"zh-cn": "漩流颂歌",
+			"zh-tw": "漩流頌歌"
+		},
 		"ibispiercer": {
 			"de": "Durchdringer der Ibisse",
 			"en": "Ibis Piercer",
