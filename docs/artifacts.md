@@ -57,9 +57,10 @@ Weights are simulated, which no other site does:
 
 Flower and plume are fixed. Sands, goblet and circlet are judged on their own:
 
-- Each possible main stat is put in the reference build in turn and the team scored. A main stat is **right** when the team scores within 5% of the best one, so a CRIT Rate and a CRIT DMG circlet can both be right, as can ATK% and Elemental Mastery sands.
+- Each possible main stat is put in the reference build in turn and the team scored. A main stat is **right** when the team scores within 2% of the best one, so a CRIT Rate and a CRIT DMG circlet can both be right, as can ATK% and Elemental Mastery sands.
+- When every main stat of a slot is right, the slot has **little effect** on the team's DPS. The page shows that instead of ✓ or ✗, with the main stat that scored best, and gives no penalty: the choice can follow what the simulation does not measure, such as survival or healing. The threshold is the same for every character, since Genshin does not split supports and damage dealers strictly. In a 12-team trial a 5% threshold left 14 of 44 characters with every slot free; 2% leaves 6 (Aino twice, Barbara, Sucrose, Yaoyao, Zhongli), which is how little their main stats move the team's DPS. The first run on about 100 teams checks the threshold again.
 - A **wrong** main stat costs the DPS it loses against the best, converted into score points: (DPS lost ÷ DPS gained from the best stat's roll) × 7.77. The penalty is that converted value, unscaled. A main stat is worth several substat rolls, so it is large: a goblet that loses 18% of the DPS where one roll gains 2% costs 9 rolls, about 70 points.
-- The page shows, per character: substat score, main stat penalty, total (e.g. 185 · −70 · 115), and a ✓ or ✗ for sands, goblet and circlet.
+- The page shows, per character: substat score, main stat penalty, total (e.g. 185 · −70 · 115), and a ✓ or ✗ (or "little effect") for sands, goblet and circlet.
 
 ### 4.4 Teams outside the library
 

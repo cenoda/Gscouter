@@ -33,8 +33,9 @@ var Substats = []Roll{
 
 const (
 	// RightWithin is how close to the best main stat's DPS a main stat
-	// must score to be right.
-	RightWithin = 0.05
+	// must score to be right. A slot whose every main stat is right has
+	// little effect on the team's DPS (Slot.LowImpact).
+	RightWithin = 0.02
 	// Points is what one roll of the best substat is worth in the
 	// score: a maximum CRIT DMG roll, 7.77, as in CV.
 	Points = 7.77
@@ -125,6 +126,9 @@ type Slot struct {
 	Build string             `json:"build"` // the reference build's main stat
 	DPS   map[string]float64 `json:"dps"`   // team DPS by main stat
 	Right []string           `json:"right"` // within RightWithin of the best
+	// LowImpact is true when every main stat is right: the slot barely
+	// changes the team's DPS, so the page says so instead of ✓ or ✗.
+	LowImpact bool `json:"lowImpact,omitempty"`
 	// Penalty is each wrong main stat's cost in score points.
 	Penalty map[string]float64 `json:"penalty,omitempty"`
 }
@@ -159,7 +163,8 @@ func character(key string, reordered bool, ref float64, withRoll map[string]floa
 		right, penalty := Judge(dps, Options[i], bestGain)
 		roundAll(dps, 1)
 		roundAll(penalty, 1)
-		c.Main[name] = &Slot{Build: current[i], DPS: dps, Right: slices.Clip(right), Penalty: penalty}
+		low := len(dps) > 0 && len(right) == len(dps)
+		c.Main[name] = &Slot{Build: current[i], DPS: dps, Right: slices.Clip(right), LowImpact: low, Penalty: penalty}
 	}
 	roundAll(c.Gains, 2)
 	roundAll(c.Weights, 3)

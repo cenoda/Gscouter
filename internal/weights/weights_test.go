@@ -29,10 +29,13 @@ func TestWeights(t *testing.T) {
 func TestJudge(t *testing.T) {
 	// docs/artifacts.md §4.3: a goblet that loses 18% of the DPS where
 	// one roll gains 2% costs 9 rolls, about 70 points.
-	dps := map[string]float64{"pyro%": 1000, "atk%": 960, "em": 950.01, "hp%": 820, "phys%": 700}
+	dps := map[string]float64{"pyro%": 1000, "atk%": 985, "em": 980.01, "dendro%": 960, "hp%": 820, "phys%": 700}
 	right, penalty := Judge(dps, Options[1], 20)
 	if !slices.Equal(right, []string{"atk%", "em", "pyro%"}) {
 		t.Errorf("right %v, want atk%%, em, pyro%% in option order", right)
+	}
+	if got := penalty["dendro%"]; math.Abs(got-2*Points) > 1e-9 {
+		t.Errorf("dendro%% penalty %v, want %v", got, 2*Points)
 	}
 	if got := penalty["hp%"]; math.Abs(got-9*Points) > 1e-9 {
 		t.Errorf("hp%% penalty %v, want %v", got, 9*Points)
@@ -40,7 +43,7 @@ func TestJudge(t *testing.T) {
 	if got := penalty["phys%"]; math.Abs(got-15*Points) > 1e-9 {
 		t.Errorf("phys%% penalty %v, want %v", got, 15*Points)
 	}
-	if len(penalty) != 2 {
+	if len(penalty) != 3 {
 		t.Errorf("penalties %v, want only the wrong ones", penalty)
 	}
 	if _, p := Judge(dps, Options[1], 0); p != nil {
@@ -68,6 +71,15 @@ func TestCharacter(t *testing.T) {
 	}
 	if got := c.Main["circlet"].Right; !slices.Equal(got, []string{"cr", "cd"}) {
 		t.Errorf("right circlets %v", got)
+	}
+	for _, s := range Slots {
+		if c.Main[s].LowImpact {
+			t.Errorf("%s low impact with a wrong main stat", s)
+		}
+	}
+	withMain[1] = map[string]float64{"pyro%": 1000, "atk%": 985}
+	if c := character("xiangling", false, 1000, rolls, [3]string{"atk%", "pyro%", "cr"}, withMain); !c.Main["goblet"].LowImpact || len(c.Main["goblet"].Penalty) != 0 {
+		t.Errorf("goblet within 2%%: low impact %v, penalties %v", c.Main["goblet"].LowImpact, c.Main["goblet"].Penalty)
 	}
 	if c.Main["goblet"].Build != "pyro%" {
 		t.Errorf("goblet build %q", c.Main["goblet"].Build)
