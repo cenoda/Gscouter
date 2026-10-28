@@ -5,7 +5,7 @@
 # Supports from the harvested Wriothesley / Sucrose / Durin / Nicole team
 # (teams/wriothesley-sucrose-durin-nicole), the library's Cryo-carry team
 # with the same supports; Durin as in Lohen / Durin / Nicole / Citlali
-# (ER sands, 179% ER, the guide's range for the Pyro unit). Used to
+# (ER sands, 163% ER). Used to
 # validate the rotation.
 
 lohen char lvl=90/90 cons=0 talent=9,9,9;
@@ -18,7 +18,7 @@ durin char lvl=90/90 cons=0 talent=9,9,9;
 durin add weapon="wolffang" refine=1 lvl=90/90;
 durin add set="risingwinds" count=4;
 durin add stats hp=4780 atk=311 er=0.518 pyro%=0.466 cd=0.622;
-durin add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*5 em=19.82*4 cr=0.0331*9 cd=0.0662*10;
+durin add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*2 em=19.82*7 cr=0.0331*9 cd=0.0662*10;
 
 nicole char lvl=90/90 cons=0 talent=9,9,9;
 nicole add weapon="oathsworn" refine=5 lvl=90/90;
