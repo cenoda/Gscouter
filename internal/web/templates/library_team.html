@@ -1,0 +1,28 @@
+{{template "head" .Meta}}
+<div class="card">
+<div class="team-head">
+<div class="team-title">{{template "faces" .Team.Members}}<h1>{{teamName .Team}}</h1>{{if eq .Team.Tier "experimental"}}<span class="badge">{{t "tier.experimental"}}</span>{{end}}</div>
+<div class="chips">{{range .Chars}}<a href="/characters/{{.}}{{$.Lang}}">{{name .}}</a>{{end}}</div>
+</div>
+{{with .Team.Validation}}{{if .DPS}}<p class="score">{{thousands (float .DPS)}} <span class="muted">DPS</span></p>
+<p class="muted">{{t "lib.score_note"}}</p>{{end}}{{end}}
+{{with .Team.Reference}}<p>{{t "lib.source_dps" (thousands .DPS)}}</p>{{end}}
+{{if eq .Team.Status "blocked"}}<div class="bad">{{t "problem.blocked" .Team.Notes}}</div>{{end}}
+{{range .Warnings}}<div class="warn">{{.}}</div>{{end}}
+</div>
+{{template "library-try"}}
+<div class="card">
+{{with .Team.Sources}}<h2>{{t "lib.sources"}}</h2>
+<ul>{{range .}}<li><a href="{{.}}">{{.}}</a></li>{{end}}</ul>{{end}}
+<details class="rotation"><summary>{{t "tl.script"}}</summary><pre>{{.Team.Rotation}}</pre></details>
+</div>
+{{template "foot"}}
+
+{{define "library-try"}}<div class="card">
+<h2>{{t "lib.try"}}</h2>
+<form class="inline" action="/" method="get">
+<input type="text" name="uid" inputmode="numeric" pattern="[0-9]{9,10}" title="{{t "index.uid_title"}}" placeholder="{{t "index.uid_placeholder"}}" required>
+<button type="submit">{{t "index.load"}}</button>
+</form>
+<p class="muted">{{t "index.showcase_hint"}}</p>
+</div>{{end}}

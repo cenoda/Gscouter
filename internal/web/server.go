@@ -69,6 +69,11 @@ type Server struct {
 	client    *clientFiles           // nil: the server calculates every result
 	links     LinkStore              // nil: no short links (see SetLinks)
 	linkLimit *rateLimit
+
+	site     string                     // the site's URL (see SetSite)
+	byID     map[string]*library.Team   // library teams by ID
+	byChar   map[string][]*library.Team // by canonical member, best score first
+	indexNow *indexNow                  // nil: no IndexNow (see SetIndexNow)
 }
 
 func New(lib *library.Library, profiles ProfileSource, settings Settings) (*Server, error) {
@@ -83,7 +88,10 @@ func New(lib *library.Library, profiles ProfileSource, settings Settings) (*Serv
 			tmpls[l] = tmpl
 		}
 	}
+	byID, byChar := indexLibrary(lib)
 	return &Server{
+		byID:      byID,
+		byChar:    byChar,
 		lib:       lib,
 		profiles:  profiles,
 		settings:  settings,
@@ -100,6 +108,14 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("GET /{$}", s.handleIndex)
 	mux.HandleFunc("POST /showcase", s.handleShowcase)
 	mux.HandleFunc("GET /teams", s.handleTeams)
+	mux.HandleFunc("GET /teams/{id}", s.handleLibraryTeam)
+	mux.HandleFunc("GET /characters/{key}", s.handleCharacter)
+	mux.HandleFunc("GET /robots.txt", s.handleRobots)
+	mux.HandleFunc("GET /sitemap.xml", s.handleSitemapIndex)
+	mux.HandleFunc("GET /sitemaps/{file}", s.handleSitemap)
+	if s.indexNow != nil {
+		mux.HandleFunc("GET /"+s.indexNow.key+".txt", s.handleIndexNowKey)
+	}
 	mux.HandleFunc("GET /score", s.handleScore)
 	mux.HandleFunc("GET /versus", s.handleVersus)
 	mux.HandleFunc("POST /lang", s.handleLang)

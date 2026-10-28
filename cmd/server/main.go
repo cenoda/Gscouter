@@ -29,6 +29,8 @@ func main() {
 	flag.IntVar(&s.MaxQueue, "queue", s.MaxQueue, "simulations waiting before requests are rejected")
 	static := flag.String("static", os.Getenv("GSCOUTER_STATIC"), "directory of the browser build (cmd/wasm); browsers then calculate results")
 	linksDB := flag.String("links", os.Getenv("GSCOUTER_LINKS"), "SQLite file of short links; none turns them off")
+	site := flag.String("site", os.Getenv("GSCOUTER_SITE"), "the site's public URL, e.g. https://gscouter.example; without it, links for search engines take each request's host")
+	indexNow := flag.String("indexnow", os.Getenv("GSCOUTER_INDEXNOW"), "state file of IndexNow submissions (needs -site); none turns them off")
 	flag.Parse()
 
 	lib, err := library.LoadLibrary(teams.FS)
@@ -62,6 +64,19 @@ func main() {
 		}
 	}
 
+	if *site != "" {
+		srv.SetSite(*site)
+	}
+	if *indexNow != "" && *site != "" {
+		// Search engines are told what changed; the site works the
+		// same without it.
+		if err := srv.SetIndexNow(*indexNow); err != nil {
+			slog.Error("IndexNow off", "file", *indexNow, "err", err)
+		} else {
+			go submitChanges(srv)
+		}
+	}
+
 	httpSrv := &http.Server{
 		Addr:              *addr,
 		Handler:           srv.Handler(),
@@ -81,4 +96,16 @@ func main() {
 		slog.Error("serve", "err", err)
 		os.Exit(1)
 	}
+}
+
+// submitChanges tells search engines which pages changed, once the site
+// is up to serve the key file they check submissions against.
+func submitChanges(srv *web.Server) {
+	time.Sleep(time.Minute)
+	n, err := srv.SubmitChanges(context.Background())
+	if err != nil {
+		slog.Error("IndexNow", "submitted", n, "err", err)
+		return
+	}
+	slog.Info("IndexNow", "submitted", n)
 }
