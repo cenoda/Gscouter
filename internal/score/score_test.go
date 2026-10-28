@@ -139,14 +139,25 @@ func TestSlicesMergeToRun(t *testing.T) {
 	}
 }
 
+// talents are the talent levels of Details.
+func talents(t *testing.T, cfg string) [][3]int {
+	t.Helper()
+	ds, err := Details(cfg)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var out [][3]int
+	for _, d := range ds {
+		out = append(out, d.Talents)
+	}
+	return out
+}
+
 func TestTalents(t *testing.T) {
 	cfg := testConfig(t, 60)
 	// Skirk's passive raises the party's skill by 1 in a Hydro/Cryo
 	// party.
-	got, err := Talents(cfg)
-	if err != nil {
-		t.Fatal(err)
-	}
+	got := talents(t, cfg)
 	want := [][3]int{{9, 10, 9}, {1, 10, 9}, {1, 10, 9}, {1, 10, 9}}
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("Talents = %v, want %v", got, want)
@@ -156,12 +167,46 @@ func TestTalents(t *testing.T) {
 	// skill.
 	cfg = strings.Replace(cfg, "skirk char lvl=90/90 cons=0", "skirk char lvl=90/90 cons=3", 1)
 	cfg = strings.Replace(cfg, "furina char lvl=90/90 cons=0", "furina char lvl=90/90 cons=6", 1)
-	got, err = Talents(cfg)
-	if err != nil {
-		t.Fatal(err)
-	}
+	got = talents(t, cfg)
 	want = [][3]int{{9, 10, 12}, {1, 10, 9}, {1, 13, 12}, {1, 10, 9}}
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("Talents with constellations = %v, want %v", got, want)
+	}
+}
+
+// Details' stats are the character screen's: base, ascension and weapon
+// stats on top of the artifacts', with always-on set bonuses.
+func TestDetailStats(t *testing.T) {
+	ds, err := Details(testConfig(t, 60))
+	if err != nil {
+		t.Fatal(err)
+	}
+	skirk := ds[0].Stats
+	for _, c := range []struct {
+		key  string
+		want float64
+	}{
+		{"cr", 0.05 + 0.35 + 0.2205}, // base, artifacts, Azurelight's substat
+		{"cd", 0.5 + 1.122 + 0.384},  // base, artifacts, ascension
+		{"er", 1 + 0.11},             // the base 100% and the artifacts'
+		{"cryo%", 0.466 + 0.15},      // goblet and Finale of the Deep Galleries 2
+	} {
+		if got := skirk[c.key]; !near(got, c.want, 1e-3) {
+			t.Errorf("Skirk %s = %v, want %v", c.key, got, c.want)
+		}
+	}
+	// HP, ATK and DEF are flat totals: base and weapon ATK (about 1,000
+	// for a level-90 character with a 5-star weapon) grown by ATK%.
+	if atk := skirk["atk"]; atk < 1800 || atk > 2200 {
+		t.Errorf("Skirk atk = %v, want about 2,000", atk)
+	}
+	for _, key := range []string{"atk%", "hp%", "def%", "base_atk", "dmg%"} {
+		if v, ok := skirk[key]; ok {
+			t.Errorf("Skirk has %s = %v, want it left out", key, v)
+		}
+	}
+	// Emblem of Severed Fate 2 and Favonius Warbow's substat.
+	if got, want := ds[1].Stats["er"], 1+0.618+0.2+0.613; !near(got, want, 1e-3) {
+		t.Errorf("Yelan er = %v, want %v", got, want)
 	}
 }

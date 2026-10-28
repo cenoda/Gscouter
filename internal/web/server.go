@@ -224,8 +224,11 @@ type teamResult struct {
 	// plus constellation and passive bonuses. Nil when they could not
 	// be worked out.
 	Talents [][3]int
-	Team    *library.Team
-	Result  *score.Result // the looped rotation: the score
+	// Stats are Chars' total stats before the fight (score.Detail),
+	// nil when they could not be worked out.
+	Stats  []map[string]float64
+	Team   *library.Team
+	Result *score.Result // the looped rotation: the score
 	// OneRotation is a single pass from full energy, the number community
 	// gcsim configs report.
 	OneRotation *score.Result
@@ -265,6 +268,14 @@ func (tr teamResult) TalentsOf(i int) string {
 		parts = append(parts, part)
 	}
 	return strings.Join(parts, "/")
+}
+
+// StatsOf is character i's total stats, nil without them.
+func (tr teamResult) StatsOf(i int) map[string]float64 {
+	if i < len(tr.Stats) {
+		return tr.Stats[i]
+	}
+	return nil
 }
 
 // Experimental reports whether the result carries the experimental badge:
@@ -427,10 +438,13 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 	tr.OneRotation = oneRes
 	tr.Warnings = append(warnings(l, tr.Team, tr.Chars, res), duplicates(l, tr.Chars)...)
 	tr.Rotation = rotation
-	if talents, err := score.Talents(once); err != nil {
-		slog.Error("talent levels failed", "team", tr.Team.ID, "err", err)
-	} else if len(talents) == len(tr.Chars) {
-		tr.Talents = talents
+	if details, err := score.Details(once); err != nil {
+		slog.Error("character details failed", "team", tr.Team.ID, "err", err)
+	} else if len(details) == len(tr.Chars) {
+		for _, d := range details {
+			tr.Talents = append(tr.Talents, d.Talents)
+			tr.Stats = append(tr.Stats, d.Stats)
+		}
 	}
 	tr.Timelines = cycleViews(ctx, l, sim, set, *tr, once, config.Assemble(config.Conditions{Iterations: 1, Duration: set.Duration, Enemy: tr.Enemy}, build.String(), out.Looped), out.Filled)
 	for _, c := range tr.Chars {

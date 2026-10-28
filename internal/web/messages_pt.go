@@ -223,6 +223,7 @@ func init() {
 		"enemy.preset_note": "Um chefe predefinido preenche as resistências base dele a partir dos dados de monstros do gcsim e mantém o nível escolhido. Mudanças de fase, escudos e imunidade não são simulados.",
 		"err.boss":          "Chefe desconhecido: %q",
 
+		"art.totals":       "Totais dos artefatos",
 		"art.pieces":       "Artefatos peça por peça",
 		"art.slot.flower":  "Flor",
 		"art.slot.plume":   "Pena",

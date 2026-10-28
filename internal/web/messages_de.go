@@ -223,6 +223,7 @@ func init() {
 		"enemy.preset_note": "Eine Vorlage übernimmt die Grund-WDS des Bosses aus den Monsterdaten von gcsim und behält die eingestellte Stufe. Phasenwechsel, Schilde und Immunität werden nicht abgebildet.",
 		"err.boss":          "Unbekannter Boss: %q",
 
+		"art.totals":       "Summe der Artefakte",
 		"art.pieces":       "Artefakte im Einzelnen",
 		"art.slot.flower":  "Blume",
 		"art.slot.plume":   "Feder",

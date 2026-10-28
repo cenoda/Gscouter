@@ -15,6 +15,7 @@ import (
 	"sync"
 
 	"github.com/genshinsim/gcsim/pkg/core/action"
+	"github.com/genshinsim/gcsim/pkg/core/attributes"
 	"github.com/genshinsim/gcsim/pkg/core/info"
 	"github.com/genshinsim/gcsim/pkg/gcs/ast"
 	"github.com/genshinsim/gcsim/pkg/gcs/eval"
@@ -203,11 +204,26 @@ func Once(cfg string, seed int64) (*stats.Result, error) {
 	return &res, nil
 }
 
-// Talents returns the talent levels (normal attack, skill, burst) gcsim
-// gives cfg's characters in a fight, in config order: the base levels
-// plus the constellation bonus and passives that raise them, such as
-// Tartaglia's and Skirk's, which depend on the party.
-func Talents(cfg string) ([][3]int, error) {
+// Detail is what gcsim gives a character before the fight starts.
+type Detail struct {
+	// Talents are the talent levels (normal attack, skill, burst) in
+	// the fight: the base levels plus the constellation bonus and
+	// passives that raise them, such as Tartaglia's and Skirk's, which
+	// depend on the party.
+	Talents [3]int
+	// Stats are the total stats, as on the character screen, keyed by
+	// gcsim's stat names ("hp", "atk", "er", "cr", "pyro%", ...): base
+	// stats, ascension, weapon, artifacts and the set bonuses and
+	// passives that are always on. HP, ATK and DEF are flat totals, ER
+	// includes the base 100%, CRIT the base 5% and 50%. Zero stats are
+	// left out.
+	Stats map[string]float64
+}
+
+// Details returns what gcsim gives cfg's characters before the fight,
+// in config order. It sets the fight up without running it, so it costs
+// a fraction of one iteration, and does not depend on the seed.
+func Details(cfg string) ([]Detail, error) {
 	file := ast.NewFile()
 	simcfg, gcsl, err := parser.New(file, cfg).Parse()
 	if err != nil {
@@ -225,16 +241,40 @@ func Talents(cfg string) ([][3]int, error) {
 		return nil, err
 	}
 	// New sets the characters up and runs their Init, where passives
-	// tag the party.
-	if _, err := simulation.New(simcfg, ev, c); err != nil {
+	// tag the party and always-on bonuses are added.
+	sim, err := simulation.New(simcfg, ev, c)
+	if err != nil {
 		return nil, err
 	}
-	var out [][3]int
-	for _, ch := range c.Player.Chars() {
+	// CharacterDetails snapshots each character's stats with an attack
+	// of no kind, so only bonuses that apply to every attack count.
+	snaps := sim.CharacterDetails()
+	var out []Detail
+	for i, ch := range c.Player.Chars() {
 		// gcsim's levels are 0-based indexes into the talent tables.
-		out = append(out, [3]int{ch.TalentLvlAttack() + 1, ch.TalentLvlSkill() + 1, ch.TalentLvlBurst() + 1})
+		d := Detail{
+			Talents: [3]int{ch.TalentLvlAttack() + 1, ch.TalentLvlSkill() + 1, ch.TalentLvlBurst() + 1},
+			Stats:   map[string]float64{},
+		}
+		if i < len(snaps) {
+			for s, v := range snaps[i].SnapshotStats {
+				if name := attributes.Stat(s).String(); v != 0 && screenStats[name] {
+					d.Stats[name] = v
+				}
+			}
+		}
+		out = append(out, d)
 	}
 	return out, nil
+}
+
+// screenStats are the stats Detail keeps: those the character screen
+// shows. gcsim's snapshot also has attack speed, generic DMG bonus and
+// base stats, and the percentages of HP, ATK and DEF, which it folds
+// into the flat totals.
+var screenStats = map[string]bool{
+	"hp": true, "atk": true, "def": true, "em": true, "er": true, "cr": true, "cd": true, "heal": true,
+	"pyro%": true, "hydro%": true, "anemo%": true, "electro%": true, "dendro%": true, "cryo%": true, "geo%": true, "phys%": true,
 }
 
 // summarize reduces one run to the damage dealt from startBucket onwards.

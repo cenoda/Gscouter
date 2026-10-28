@@ -223,6 +223,7 @@ func init() {
 		"enemy.preset_note": "Preset mengisi RES dasar boss dari data monster gcsim dan mempertahankan level yang dipilih. Pergantian fase, perisai, dan kekebalan tidak dimodelkan.",
 		"err.boss":          "Boss tidak dikenal: %q",
 
+		"art.totals":       "Total artefak",
 		"art.pieces":       "Artefak per bagian",
 		"art.slot.flower":  "Bunga",
 		"art.slot.plume":   "Bulu",

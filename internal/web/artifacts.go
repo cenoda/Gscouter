@@ -12,8 +12,9 @@ import (
 	"github.com/cenoda/gscouter/internal/enka"
 )
 
-// Result pages show each character's artifact totals, and keep the
-// pieces folded until the visitor opens them (docs/artifacts.md §2).
+// Result pages show each character's total stats, and keep the artifact
+// totals and pieces folded until the visitor opens them
+// (docs/artifacts.md §2).
 
 // flatStats are the stats shown as whole numbers; the rest are
 // percentages.
@@ -50,19 +51,35 @@ func (l localizer) setName(key string) string {
 	return cmp.Or(enka.ArtifactName(key, l.Lang), key)
 }
 
-// totals describes a character's artifacts: the sets, then each total,
-// e.g. "Crimson Witch of Flames 4 · HP 4,780 · ATK 311 · ...".
-func (l localizer) totals(c enka.Character) string {
+// totals describes a character: the artifact sets, then the total
+// stats gcsim gives it before the fight (score.Detail), e.g. "Crimson
+// Witch of Flames 4 · HP 18,203 · ATK 2,041 · ... · Energy Recharge
+// 111.0% · CRIT Rate 62.1% · ...". Without them (the fight could not be
+// set up) it is the sets alone: the artifact totals are in the pieces
+// section (artTotals), and would read as the character's.
+func (l localizer) totals(c enka.Character, stats map[string]float64) string {
 	var parts []string
 	for _, set := range slices.Sorted(maps.Keys(c.Sets)) {
 		parts = append(parts, fmt.Sprintf("%s %d", l.setName(set), c.Sets[set]))
 	}
+	return strings.Join(append(parts, l.stats(stats)...), " · ")
+}
+
+// artTotals lists a character's artifact totals: main stats and
+// substats summed, e.g. "HP 4,780 · ATK 311 · ATK 46.6% · ...".
+func (l localizer) artTotals(c enka.Character) string {
+	return strings.Join(l.stats(c.Stats), " · ")
+}
+
+// stats are the nonzero stats in the character screen's order.
+func (l localizer) stats(stats map[string]float64) []string {
+	var parts []string
 	for _, key := range totalOrder {
-		if v := c.Stats[key]; v != 0 {
+		if v := stats[key]; v != 0 {
 			parts = append(parts, l.statText(enka.StatValue{Key: key, Value: v}))
 		}
 	}
-	return strings.Join(parts, " · ")
+	return parts
 }
 
 // pieceText describes a piece below its slot: set, rarity and level.
@@ -85,6 +102,10 @@ func (l localizer) subsText(p enka.Artifact) string {
 
 func hasFullPieces(chars []enka.Character) bool {
 	return slices.ContainsFunc(chars, func(c enka.Character) bool { return c.PieceDetail == enka.PiecesFull })
+}
+
+func hasTotals(chars []enka.Character) bool {
+	return slices.ContainsFunc(chars, func(c enka.Character) bool { return len(c.Stats) > 0 })
 }
 
 func hasPieces(chars []enka.Character) bool {
@@ -194,6 +215,8 @@ func (l localizer) verdict(v slotVerdict) string {
 func artifactFuncs(l localizer) template.FuncMap {
 	return template.FuncMap{
 		"totals":    l.totals,
+		"artTotals": l.artTotals,
+		"hasTotals": hasTotals,
 		"stat":      l.statText,
 		"pieceText": l.pieceText,
 		"verdict":   l.verdict,

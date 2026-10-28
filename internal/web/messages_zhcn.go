@@ -223,6 +223,7 @@ func init() {
 		"enemy.preset_note": "选择预设会填入gcsim怪物数据中该首领的基础抗性，等级保持不变。不模拟阶段性抗性变化、护盾和无敌。",
 		"err.boss":          "未知首领：%q",
 
+		"art.totals":       "圣遗物合计",
 		"art.pieces":       "圣遗物各部位",
 		"art.slot.flower":  "花",
 		"art.slot.plume":   "羽",

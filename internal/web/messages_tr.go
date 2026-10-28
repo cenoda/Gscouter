@@ -223,6 +223,7 @@ func init() {
 		"enemy.preset_note": "Hazır boss, boss'un temel dirençlerini gcsim'in canavar verilerinden doldurur ve seçtiğin seviyeyi korur. Faz değişimleri, kalkanlar ve dokunulmazlık modellenmez.",
 		"err.boss":          "Bilinmeyen boss: %q",
 
+		"art.totals":       "Yadigar toplamları",
 		"art.pieces":       "Tek tek yadigarlar",
 		"art.slot.flower":  "Çiçek",
 		"art.slot.plume":   "Tüy",
