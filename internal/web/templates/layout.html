@@ -18,6 +18,15 @@
 {{end}}{{with .Canonical}}<link rel="canonical" href="{{.}}">
 <meta property="og:url" content="{{.}}">
 {{end}}{{range .Alternates}}<link rel="alternate" hreflang="{{.Lang}}" href="{{.Href}}">
+{{end}}{{with .Home}}<script type="application/ld+json">
+[{"@context": "https://schema.org", "@type": "WebSite", "name": "Gscouter",
+  "alternateName": ["G Scouter", "지스카우터"], "url": {{.}}},
+ {"@context": "https://schema.org", "@type": "WebApplication", "name": "Gscouter",
+  "url": {{.}}, "description": {{$.Description}}, "inLanguage": {{lang}},
+  "applicationCategory": "GameApplication", "operatingSystem": "Any",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+  "about": {"@type": "VideoGame", "name": "Genshin Impact", "alternateName": ["원신", "原神"]}}]
+</script>
 {{end}}
 {{end}}<link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">

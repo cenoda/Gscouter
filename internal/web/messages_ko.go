@@ -7,7 +7,7 @@ func init() {
 		"lang.label":  "언어",
 		"lang.auto":   "자동",
 		"lang.apply":  "적용",
-		"site.title":  "Gscouter · 원신(Genshin Impact) 파티 DPS 계산",
+		"site.title":  "Gscouter · 원신(Genshin Impact) 파티 DPS·딜 계산기",
 		"site.desc":   "원신(Genshin Impact) UID로 쇼케이스 캐릭터 4명의 파티 DPS를 같은 적·같은 로테이션 기준으로 계산하고 다른 플레이어와 비교합니다.",
 		"foot.method": "계산 방식",
 		"foot.method1": "Lv.100 적 1명, 모든 내성 10%, 일정한 간격의 원소 입자 조건에서 커뮤니티 gcsim 로테이션을 끝없이 반복해, " +
@@ -34,7 +34,7 @@ func init() {
 
 		"index.vs_heading":       "비교할 상대 고르기",
 		"index.vs_lead":          "상대방의 UID를 불러와 파티를 고르면, 같은 조건에서 두 파티의 DPS를 나란히 계산합니다.",
-		"index.heading":          "쇼케이스 캐릭터로 파티 DPS 계산",
+		"index.heading":          "원신 쇼케이스 캐릭터로 파티 DPS 계산",
 		"index.lead":             "UID를 입력하고 캐릭터 4명을 고르면, 모든 파티를 같은 적·같은 로테이션 기준으로 계산합니다. 결과 링크를 공유하거나 다른 플레이어의 파티와 비교할 수 있습니다.",
 		"index.step1":            "UID 입력",
 		"index.step2":            "캐릭터 4명 선택",
@@ -69,7 +69,7 @@ func init() {
 		"score.opponent_uid":    "상대 UID",
 		"score.load_opponent":   "상대 불러오기",
 
-		"teams.title":       "지원하는 파티 · Gscouter",
+		"teams.title":       "원신 지원 파티 목록 · Gscouter",
 		"teams.placeholder": "캐릭터 이름 (예: 호두, 푸리나)",
 		"teams.search":      "찾기",
 		"teams.matching":    "\"%s\"이(가) 들어간 파티 %d개 (전체 %d개)",
@@ -79,14 +79,14 @@ func init() {
 		"teams.supported":   "지원",
 		"teams.blocked":     "엔진 미지원",
 
-		"lib.title":      "%s 파티 DPS · Gscouter",
+		"lib.title":      "원신 %s 파티 DPS · Gscouter",
 		"lib.desc":       "%s: 커뮤니티 gcsim 로테이션으로 계산한 원신(Genshin Impact) 파티 DPS. UID를 넣으면 내 빌드로 계산합니다.",
 		"lib.score_desc": "커뮤니티 빌드 점수: %s DPS.",
 		"lib.score_note": "내 결과와 같은 방식(같은 적, 로테이션 반복)으로, 이 로테이션을 가져온 커뮤니티 gcsim 설정의 빌드를 써서 계산한 점수입니다. 내 빌드의 점수는 다릅니다.",
 		"lib.source_dps": "출처에서는 자체 조건의 로테이션 1회 기준 %s DPS로 보고합니다.",
 		"lib.sources":    "출처",
 		"lib.try":        "내 빌드로 계산하기",
-		"char.title":     "%s 파티 DPS 순위 · Gscouter",
+		"char.title":     "원신 %s 파티 DPS 순위 · Gscouter",
 		"char.desc":      "%s이(가) 들어간 원신(Genshin Impact) 파티 %d개를 커뮤니티 빌드 기준 DPS 순으로 정리했습니다. UID를 넣으면 내 빌드로 계산합니다.",
 		"char.heading":   "%s 파티",
 		"char.team":      "파티",

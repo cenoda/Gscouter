@@ -209,6 +209,7 @@ func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 	data.Meta = pageMeta{Title: l.T("site.title"), Description: l.T("site.desc")}
 	if data.UID == "" && data.VS == "" && enemy == nil {
 		data.Meta = s.indexed(r, l, data.Meta, "/")
+		data.Meta.Home = s.base(r) + "/"
 	}
 	if data.UID != "" {
 		ctx, cancel := context.WithTimeout(r.Context(), 20*time.Second)

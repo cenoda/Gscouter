@@ -11,10 +11,12 @@ import (
 	"fmt"
 	"io"
 	"io/fs"
+	"maps"
 	"net/http"
 	"net/url"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 	"time"
 
@@ -185,7 +187,32 @@ func (s *Server) fingerprints() map[string]string {
 		}
 		out[characterPath(c)] = hex.EncodeToString(h.Sum(nil)[:8])
 	}
+	// The pages' text (titles, descriptions, headings) shows on all of
+	// them, so a change to it resubmits every page.
+	text := pageText()
+	for path, f := range out {
+		out[path] = text + f
+	}
 	return out
+}
+
+// pageText identifies the site's messages and templates.
+func pageText() string {
+	h := sha256.New()
+	for _, code := range slices.Sorted(maps.Keys(catalog)) {
+		for _, key := range slices.Sorted(maps.Keys(catalog[code])) {
+			fmt.Fprintf(h, "%s %s %q\n", code, key, catalog[code][key])
+		}
+	}
+	fs.WalkDir(templateFS, ".", func(path string, d fs.DirEntry, err error) error {
+		if err == nil && !d.IsDir() {
+			raw, _ := fs.ReadFile(templateFS, path)
+			fmt.Fprintf(h, "%s %d\n", path, len(raw))
+			h.Write(raw)
+		}
+		return nil
+	})
+	return hex.EncodeToString(h.Sum(nil)[:4])
 }
 
 // saveIndexNow writes st to file, replacing it whole.
