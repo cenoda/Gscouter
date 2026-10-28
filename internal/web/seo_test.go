@@ -210,3 +210,19 @@ func TestIndexNow(t *testing.T) {
 		t.Errorf("submitted %v", got)
 	}
 }
+
+func TestIcons(t *testing.T) {
+	ts := newTestServerFor(t, newTestSite(t))
+	for name, typ := range iconTypes {
+		resp, err := http.Get(ts.URL + "/" + name)
+		if err != nil {
+			t.Fatal(err)
+		}
+		resp.Body.Close()
+		if resp.StatusCode != http.StatusOK || resp.Header.Get("Content-Type") != typ {
+			t.Errorf("/%s: %d %q", name, resp.StatusCode, resp.Header.Get("Content-Type"))
+		}
+	}
+	_, body := get(t, ts, "/")
+	mustContain(t, body, `<link rel="icon" href="/favicon.ico" sizes="48x48">`)
+}
