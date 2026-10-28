@@ -1,0 +1,15 @@
+# KQM Sandrone quick guide, example team 1:
+# Yae Miko 3[E] > Odette 2[E](Q) > Alyosha EQ > Sandrone [combo]
+# Odette bursts when her burst is ready (the guide: use it when
+# available, or skip it before C4). Sandrone's C0 combo 3[C E] (Q),
+# the burst after the first skill.
+active yaemiko;
+yaemiko skill:3;
+odette skill:2;
+if .odette.burst.ready {
+  odette burst;
+}
+alyosha skill, burst;
+sandrone charge, skill, burst,
+         charge, skill,
+         charge, skill;

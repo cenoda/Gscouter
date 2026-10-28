@@ -1,0 +1,46 @@
+# Sandrone: C0, A Teaspoon of Transcendence R1, 4pc Disenchantment in Deep
+# Shadow (the KQM Sandrone quick guide's best weapon and set),
+# ATK%/ATK%/CRIT DMG (the guide's main stats; CRIT DMG because her CRIT
+# Rate is already high from her ascension stat, the set and Cryo
+# resonance), KQM-standard substats, as in every Sandrone team except her
+# ER substats, which trade with CRIT DMG rolls: ER is the least in the
+# guide's ER table at which she bursts every rotation in this team
+# (155.1%, 10 rolls; the table's +1 Cryo row is 130-165%, and at 149.6%
+# she skips bursts).
+# Yae Miko from the harvested Sangonomiya Kokomi / Fischl / Dendro
+# Traveler / Yae Miko team
+# (teams/sangonomiyakokomi-fischl-travelerdendro-yaemiko).
+# Odette: no harvested team has her (the community database has no entry
+# with her), so as the KQM Odette quick guide recommends, with
+# KQM-standard substats: C0, Finale of the Deep R5 (its best 4-star
+# sword), 4pc Heart of the Furnace (no other holder here), ATK%/ATK%/CRIT
+# Rate, no ER beyond the standard's (111%: she bursts when ready, about
+# every other rotation, as the guide advises before C4).
+# Sucrose from the harvested Arlecchino / Furina / Sucrose / Bennett team
+# (teams/arlecchino-furina-sucrose-bennett; Thrilling Tales R5, as the
+# guide suggests). The guide's rotation has no Sucrose burst.
+# Used to validate the rotation.
+
+sandrone char lvl=90/90 cons=0 talent=9,9,9;
+sandrone add weapon="ateaspoonoftranscendence" refine=1 lvl=90/90;
+sandrone add set="disenchantmentindeepshadow" count=4;
+sandrone add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cd=0.622;
+sandrone add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*2 er=0.0551*10 em=19.82*2 cr=0.0331*12 cd=0.0662*4;
+
+yaemiko char lvl=90/90 cons=0 talent=9,9,9;
+yaemiko add weapon="thewidsith" refine=3 lvl=90/90;
+yaemiko add set="gildeddreams" count=4;
+yaemiko add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cd=0.622;
+yaemiko add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=79.28 cr=0.3972 cd=0.662;
+
+odette char lvl=90/90 cons=0 talent=9,9,9;
+odette add weapon="finale" refine=5 lvl=90/90;
+odette add set="heartofthefurnace" count=4;
+odette add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cr=0.311;
+odette add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*12;
+
+sucrose char lvl=90/90 cons=6 talent=9,9,9;
+sucrose add weapon="ttds" refine=5 lvl=90/90;
+sucrose add set="viridescentvenerer" count=4;
+sucrose add stats hp=4780 atk=311 em=187 em=187 em=187;
+sucrose add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=118.92 cr=0.3972 cd=0.5296;
