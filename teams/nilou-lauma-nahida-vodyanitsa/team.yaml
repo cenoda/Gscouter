@@ -1,0 +1,25 @@
+id: nilou-lauma-nahida-vodyanitsa
+name: Nilou / Lauma / Nahida / Vodyanitsa
+members:
+    - nilou
+    - lauma
+    - nahida
+    - vodyanitsa
+archetype: Nilou Bloom with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+    - https://db.kqm.gg/db/FnJ9qqML8RpR
+notes: 'Written from the KQM Vodyanitsa quick guide (design §5.4; no community gcsim config with Vodyanitsa exists: upstream gcsim lacks her). Its Bloom team: Vodyanitsa as a Kokomi alternative in the typical Nilou Bloom team, her healing offsetting the Bloom self-damage, with its rotation as written: Vodyanitsa E > Nahida E Q N1 > Nilou E N2 E / Q (alternate between her Skill and Burst each rotation) > Lauma Q hE > Vodyanitsa N1 (Q every other rotation) N2C spam until her Skill is ready. Nilou alternates through a toggle, Skill first (her Golden Chalice from the Skill lasts over the Burst rotation); Vodyanitsa bursts when ready. Nilou, Lauma and Nahida are the harvested Nilou / Sangonomiya Kokomi / Lauma / Nahida team''s (Golden Chalice needs only Hydro and Dendro members: kept). Vodyanitsa is built as the guide says for Bloom: EM main stats and substats, 4pc Flower of Paradise Lost, an EM catalyst (Blackmarrow Lantern R5, the source team Kokomi''s; the guide names none). Bursts of Nilou, Lauma and Nahida that the looped rotation reaches short of energy are skipped (Nilou bursts on 9 of her 13 Burst rotations in 450 s; Kokomi gave more particles); Vodyanitsa bursts every other rotation at 111% ER, as the guide says, and her N2C spam waits 3.4 s/min for stamina. Against the harvested Nilou / Sangonomiya Kokomi / Lauma / Nahida team (78.0k looped, 20 iterations) the team scores 14% less; Vodyanitsa owns half its damage (Bloom).'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: the KQM Vodyanitsa quick guide (team, build and rotation, no DPS, no gcsim links); the community gcsim database (no Vodyanitsa: upstream gcsim lacks her); web searches for Nilou / Lauma / Nahida Bloom with Vodyanitsa (GenshinBuilds and GameWith Nilou team pages list Kokomi, not her; enjoygm has no Bloom team); Icy Veins returns 403.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 1.018
+    dps: 67068
+    draft: no reference DPS

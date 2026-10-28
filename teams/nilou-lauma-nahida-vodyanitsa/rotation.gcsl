@@ -1,0 +1,25 @@
+# KQM Vodyanitsa quick guide, Nilou Bloom team (Vodyanitsa in Kokomi's
+# place): Vodyanitsa E > Nahida E Q N1 > Nilou E N2 E / Q (alternate
+# between Nilou's Skill and Burst each rotation) > Lauma Q hE >
+# Vodyanitsa N1 (Q every other rotation) N2C spam until her Skill is
+# ready, as written. Nilou alternates through a toggle, Skill first;
+# Vodyanitsa bursts when ready.
+active vodyanitsa;
+let niloue = 1;
+vodyanitsa skill;
+nahida skill, burst, attack;
+if niloue == 1 {
+  nilou skill, attack:2, skill;
+  niloue = 0;
+} else {
+  nilou burst;
+  niloue = 1;
+}
+lauma burst, skill[hold=1];
+vodyanitsa attack;
+if .vodyanitsa.burst.ready {
+  vodyanitsa burst;
+}
+while !.vodyanitsa.skill.ready {
+  vodyanitsa attack:2, charge;
+}
