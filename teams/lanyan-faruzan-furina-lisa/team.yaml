@@ -16,8 +16,8 @@ reference:
     dps: 53495
     computed: "2026-10-01"
 validation:
-    date: "2026-10-27"
+    date: "2026-10-28"
     iterations: 20
     gap: -0.002
-    kept: 0.959
-    dps: 51169
+    kept: 0.979
+    dps: 52229

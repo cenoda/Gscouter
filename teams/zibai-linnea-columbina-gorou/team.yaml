@@ -18,7 +18,7 @@ notes: 'Written from the community guides (design §5.4): the Linnea quick guide
 cross_check:
     note: 'Korean community (arca.live 161869688, via search results; the page itself returns 403): Zibai about 200k at C0 and 240k at C1, all with C2 Columbina and her signature, in Zibai / Illuga / Columbina + Zhongli or Gorou. One rotation here: 235.9k at C0, 252.4k looped. Not the same team (Linnea instead of Illuga), so for scale only. With the same builds, Zibai / Illuga / Linnea / Columbina scores 214.9k one pass with C0 Illuga, 226.6k at C2 and 257.7k at C6, where this team is 91.5% of it (Prydwen: 85% of the best team); KQM says C6 Gorou performs like a pre-C4 Illuga. Illuga''s team also gives up the Ascendant Gleam bonus a non-Nod-Krai member (Gorou) grants.'
 validation:
-    date: "2026-10-27"
+    date: "2026-10-28"
     iterations: 20
     kept: 1.065
     dps: 253270

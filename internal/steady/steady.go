@@ -23,8 +23,10 @@ import (
 // still before it gets a filler.
 const minWait = 1.0
 
-// maxRuns bounds how many rotations Score simulates.
-const maxRuns = 16
+// maxRuns bounds how many rotations Score simulates in its search (brief's
+// runs come on top). At 16 the search stopped before it reached the best
+// filler for 12 of 116 searching teams, up to 12% below it; at 24, 6.
+const maxRuns = 24
 
 type Outcome struct {
 	Result *score.Result

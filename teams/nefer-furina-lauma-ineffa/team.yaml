@@ -17,7 +17,7 @@ notes: 'Written from the KQM Nefer quick guide (design §5.4): the guide''s four
 cross_check:
     note: 'No public number for this team (searched 2026-10-27: the KQM Nefer quick guide, which gives none; web searches for Nefer team DPS found only team lists (Icy Veins, Sportskeeda, GenshinBuilds, GameWith); the community gcsim database has no Nefer entry). For scale: Nefer / Lauma / Columbina / Sucrose, the strongest Nefer team by community account, is 183k in game (HoYoLAB 44026962) and 179.3k one pass, 168.7k looped here with the same Nefer build; this team scores 95.5k one pass and 110.8k looped.'
 validation:
-    date: "2026-10-27"
+    date: "2026-10-28"
     iterations: 100
     kept: 1.16
     dps: 110791

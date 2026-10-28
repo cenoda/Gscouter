@@ -17,7 +17,7 @@ notes: 'Added on request: Nefer / Lauma / Columbina / Nahida with Nilou for Colu
 cross_check:
     note: 'No public number for this team (searched 2026-10-27: the KQM Nilou quick guide gives none; web searches found team lists and community discussion only). For scale, at the same Nefer build: with Columbina instead of Nilou the team is 165.3k looped; this one 102.9k one pass, 104.9k looped. In a 120 s fight Nefer gets 32 Phantasm Performances here against 39 with Columbina, whose Moonridge Dew adds to the Verdant Dew, and Columbina deals about 12% of that team''s damage herself. Nilou''s constellations (looped, 500 iterations): C0 104.9k, C4 120.8k, C6 121.8k (C2''s RES shred under Golden Chalice).'
 validation:
-    date: "2026-10-27"
+    date: "2026-10-28"
     iterations: 100
     kept: 1.021
     dps: 104896

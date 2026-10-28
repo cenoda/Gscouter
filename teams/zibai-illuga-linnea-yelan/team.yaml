@@ -17,7 +17,7 @@ notes: 'Written from the community guide (design §5.4): the Zibai quick guide l
 cross_check:
     note: 'No public number for this exact team (searched 2026-10-27: the KQM Zibai and Illuga quick guides (no DPS numbers), the community gcsim database (no entry with Zibai, Linnea or Illuga), web search (only unsourced build-site figures)). For scale: Zibai / Linnea / Columbina / Gorou, same Zibai, Linnea and Columbina builds, is 235.9k one pass and 252.4k looped; the Korean community reports about 200k for C0 Zibai with C2 Columbina in Zibai / Illuga / Columbina + Zhongli or Gorou (arca.live 161869688).'
 validation:
-    date: "2026-10-27"
+    date: "2026-10-28"
     iterations: 100
     kept: 1.015
     dps: 149961

@@ -17,7 +17,7 @@ notes: 'Added on request (both Columbina and Nilou). Written from the KQM Nilou 
 cross_check:
     note: 'No public number for this team (searched 2026-10-27: the KQM Nilou quick guide gives none; web searches found team lists and community discussion only). For scale, at the same Nefer build: Nefer / Lauma / Columbina / Sucrose 168.7k looped (183k in game, HoYoLAB 44026962), with Nahida 165.3k; this team 164.4k one pass, 156.3k looped. Nilou''s constellations (looped, 500 iterations): C0 156.3k, C2 177.2k, C4 175.8k, C6 177.6k; Nahida in her place 165.2k, so Nilou is ahead from C2 (Hydro and Dendro RES shred under Golden Chalice).'
 validation:
-    date: "2026-10-27"
+    date: "2026-10-28"
     iterations: 100
     kept: 0.949
     dps: 156215

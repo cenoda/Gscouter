@@ -17,7 +17,7 @@ notes: 'Written from the community guides (design §5.4): the Linnea quick guide
 cross_check:
     note: 'No public number for this team (searched 2026-10-27: KQM quick guides, KQM TCL, the community gcsim database (no entry with Linnea), web search; Icy Veins, GameWith, GenshinBuilds and allthings.how rank Linnea teams without DPS numbers).'
 validation:
-    date: "2026-10-27"
+    date: "2026-10-28"
     iterations: 100
     kept: 0.93
     dps: 87462
