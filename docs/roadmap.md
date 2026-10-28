@@ -52,7 +52,7 @@ Status: ✅ done · 🔶 partly done · ❌ not started.
 | 1 | Tier & Wiki | DPS | 🔶 | Team and character tiers from scores. `/teams` lists the library; there are no tiers yet |
 | 1 | Artifacts | DPS | ❌ | Each artifact kept piece by piece, shown as totals by default, checked for duplicates (`docs/artifacts.md`) |
 | 1 | Cycle | DPS | 🔶 | The rotation and its timeline are shown (§4.5); nothing about it can be changed yet |
-| 1 | Pull a character | DPS | ❌ | The score with a character the player does not own, on an assumed build |
+| 1 | Pull a character | DPS | ❌ | The score with a character the player does not own: an assumed build from a preset, with advanced substat settings, or a character borrowed from another player (`docs/pull.md`) |
 | 2 | Arena | DPS (strongly), Tier & Wiki | ❌ | Players' scores ranked against each other. Results are never sent to the server today (§4.7), so this needs a design change |
 | 2 | Artifact score | Artifacts | ❌ | CV extended to every stat, with weights simulated on the library builds and a penalty for a wrong main stat (`docs/artifacts.md`) |
 | 2 | Artifact swap | Artifacts | ❌ | Swap an artifact and see the new score |
