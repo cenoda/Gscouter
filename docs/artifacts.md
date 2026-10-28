@@ -78,7 +78,10 @@ Weights are calculated once per library team, ahead of time, and embedded in the
 ## 6. On the result page
 
 - The artifact score is calculated only when the visitor asks for it, never automatically. With the weights precomputed, asking costs a table lookup and no simulation.
-- Order of work: pieces in `Character` and `Pack` (§1) → display and links (§2) → verified builds and duplicate check (§3) → `cmd/weights` on 100 teams → the full batch → score on the result page (§4).
+- Order of work, as agreed with the owner on 2026-10-28:
+  1. In parallel: pieces in `Character` and `Pack` (§1), and `cmd/weights` with its workflow, first run on about 100 teams to measure the cost (§5). Neither touches the web layer.
+  2. The full weights batch.
+  3. After faster DPS phase 1 (`docs/design.md` §4.7) is merged into `main`, since both change the web handlers and templates: display and links (§2), verified builds and the duplicate check (§3), the score on the result page (§4).
 
 ## 7. Not in this design
 
