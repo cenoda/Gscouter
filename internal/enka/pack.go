@@ -10,8 +10,9 @@ import (
 )
 
 // packVersion starts every packed build, so links made today still read
-// after the format changes.
-const packVersion = 1
+// after the format changes. Version 1 has the totals only; version 2
+// adds the artifact pieces (see appendPieces).
+const packVersion = 2
 
 // statScale is the precision stats are packed at. Config rounds to it
 // too, so a packed build writes the same gcsim config as the original.
@@ -51,6 +52,55 @@ func Pack(chars []Character) []byte {
 				b = binary.AppendVarint(b, int64(math.Round(c.Stats[name]*statScale)))
 			}
 		}
+		b = appendPieces(b, c, sets)
+	}
+	return b
+}
+
+// appendPieces writes a character's pieces, after its totals:
+//
+//	detail                 PieceDetail: 0 none, 1 full, 2 stripped
+//	count                  pieces, unless detail is none
+//	per piece, in slot order:
+//	  slot | rarity<<3     one byte
+//	  level
+//	  main stat            index into statOrder; the value comes from the
+//	                       main stat table
+//	  full pieces only:
+//	    set                index into the character's sorted Sets keys,
+//	                       or len(Sets) for a set gcsim does not have
+//	    substats           count, then per substat its index into
+//	                       statOrder and its value in tenths of Enka's
+//	                       display unit (39 for CRIT Rate 3.9%)
+//
+// Every number is a uvarint.
+func appendPieces(b []byte, c Character, sets []string) []byte {
+	detail := c.PieceDetail
+	if detail >= numPieceDetails {
+		detail = PiecesNone
+	}
+	b = binary.AppendUvarint(b, uint64(detail))
+	if detail == PiecesNone {
+		return b
+	}
+	b = binary.AppendUvarint(b, uint64(len(c.Pieces)))
+	for _, p := range c.Pieces {
+		b = binary.AppendUvarint(b, uint64(p.Slot)|uint64(p.Rarity)<<3)
+		b = binary.AppendUvarint(b, uint64(p.Level))
+		b = binary.AppendUvarint(b, uint64(slices.Index(statOrder, p.Main.Key)))
+		if detail != PiecesFull {
+			continue
+		}
+		set := slices.Index(sets, p.Set)
+		if p.Set == "" || set < 0 {
+			set = len(sets)
+		}
+		b = binary.AppendUvarint(b, uint64(set))
+		b = binary.AppendUvarint(b, uint64(len(p.Subs)))
+		for _, s := range p.Subs {
+			b = binary.AppendUvarint(b, uint64(slices.Index(statOrder, s.Key)))
+			b = binary.AppendUvarint(b, tenths(s))
+		}
 	}
 	return b
 }
@@ -69,7 +119,8 @@ func Unpack(b []byte) ([]Character, error) {
 		return nil, dataErr
 	}
 	r := &reader{b: b}
-	if r.byte() != packVersion {
+	version := r.byte()
+	if version < 1 || version > packVersion {
 		return nil, fmt.Errorf("%w: unknown version", errPacked)
 	}
 	n := r.uint(MaxPacked)
@@ -94,11 +145,16 @@ func Unpack(b []byte) ([]Character, error) {
 			Stats: map[string]float64{},
 		}
 		pieces := 0
+		var sets []string
 		for range r.uint(5) {
 			set, count := r.string(), r.int(1, 5)
 			if !data.hasArtifact(set) {
 				r.fail("unknown artifact set %q", set)
 			}
+			if len(sets) > 0 && set <= sets[len(sets)-1] {
+				r.fail("artifact sets out of order")
+			}
+			sets = append(sets, set)
 			c.Sets[set] += count
 			pieces += count
 		}
@@ -115,6 +171,9 @@ func Unpack(b []byte) ([]Character, error) {
 				}
 				c.Stats[name] = v
 			}
+		}
+		if version >= 2 {
+			r.pieces(&c, sets)
 		}
 		if _, ok := lookup(c.Key); !ok {
 			r.fail("unknown character %q", c.Key)
@@ -134,6 +193,75 @@ func Unpack(b []byte) ([]Character, error) {
 		return nil, r.err
 	}
 	return out, nil
+}
+
+// pieces reads what appendPieces wrote and checks it against the game's
+// limits and against the character's set counts.
+func (r *reader) pieces(c *Character, sets []string) {
+	c.PieceDetail = PieceDetail(r.uint(uint64(numPieceDetails) - 1))
+	if c.PieceDetail == PiecesNone {
+		return
+	}
+	n := r.uint(uint64(numSlots))
+	if r.err != nil {
+		return
+	}
+	c.Pieces = make([]Artifact, 0, n)
+	counts := map[string]int{}
+	for range n {
+		head := r.uint(5<<3 | uint64(numSlots) - 1)
+		p := Artifact{Slot: Slot(head & 7), Rarity: int(head >> 3), Level: r.int(0, 20)}
+		p.Main.Key = r.stat()
+		p.Main.Value, _ = data.mainValue(p.Main.Key, p.Rarity, p.Level)
+		if c.PieceDetail == PiecesFull {
+			if i := r.uint(uint64(len(sets))); int(i) < len(sets) {
+				p.Set = sets[i]
+			}
+			counts[p.Set]++
+			for range r.uint(4) {
+				key := r.stat()
+				p.Subs = append(p.Subs, StatValue{key, fromTenths(key, r.uint(1e5))})
+			}
+		}
+		c.Pieces = append(c.Pieces, p)
+	}
+	if r.err != nil {
+		return
+	}
+	if err := data.checkPieces(c.Pieces, c.PieceDetail); err != nil {
+		r.fail("%v", err)
+		return
+	}
+	// Full pieces must add up to the set counts the config is built from;
+	// stripped pieces carry no set, but there are no more of them than
+	// artifacts.
+	if c.PieceDetail == PiecesFull {
+		counts[""] -= c.UnknownSets
+		for set, n := range c.Sets {
+			counts[set] -= n
+		}
+		for _, n := range counts {
+			if n != 0 {
+				r.fail("pieces do not match the set counts")
+				return
+			}
+		}
+	} else if len(c.Pieces) != pieceCount(c) {
+		r.fail("pieces do not match the set counts")
+	}
+}
+
+func pieceCount(c *Character) int {
+	n := c.UnknownSets
+	for _, v := range c.Sets {
+		n += v
+	}
+	return n
+}
+
+// stat reads an index into statOrder.
+func (r *reader) stat() string {
+	return statOrder[r.uint(uint64(len(statOrder))-1)]
 }
 
 func (g *gameData) hasWeapon(key string) bool {

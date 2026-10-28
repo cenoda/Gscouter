@@ -51,6 +51,7 @@ type equip struct {
 	} `json:"weapon"`
 	Flat struct {
 		ItemType           string      `json:"itemType"`
+		EquipType          string      `json:"equipType"`
 		RankLevel          int         `json:"rankLevel"`
 		SetNameTextMapHash json.Number `json:"setNameTextMapHash"`
 		ReliquaryMainstat  struct {

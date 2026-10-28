@@ -28,6 +28,11 @@ type Character struct {
 	// UnknownSets counts artifacts whose set gcsim does not have. Their
 	// stats are kept; only the set bonus is missing.
 	UnknownSets int
+	// Pieces are the artifacts piece by piece, in slot order, as far as
+	// PieceDetail says. Sets and Stats stay the totals the gcsim config
+	// is built from.
+	Pieces      []Artifact
+	PieceDetail PieceDetail
 }
 
 type Weapon struct {
@@ -139,6 +144,8 @@ func (g *gameData) convert(a avatar) (Character, error) {
 	}
 
 	hasWeapon := false
+	var pieces []Artifact
+	piecesOK := true
 	for _, e := range a.EquipList {
 		switch e.Flat.ItemType {
 		case "ITEM_WEAPON":
@@ -158,43 +165,60 @@ func (g *gameData) convert(a avatar) (Character, error) {
 			}
 			hasWeapon = true
 		case "ITEM_RELIQUARY":
-			if set, ok := g.artifacts[e.Flat.SetNameTextMapHash.String()]; ok {
+			set, ok := g.artifacts[e.Flat.SetNameTextMapHash.String()]
+			if ok {
 				c.Sets[set]++
 			} else {
 				c.UnknownSets++
 			}
-			if err := g.addMainStat(c.Stats, e); err != nil {
+			main, err := g.mainStat(e)
+			if err != nil {
 				return Character{}, err
 			}
+			c.Stats[main.Key] += main.Value
+			slot, ok := equipSlots[e.Flat.EquipType]
+			piecesOK = piecesOK && ok
+			p := Artifact{Slot: slot, Set: set, Rarity: e.Flat.RankLevel, Level: e.Reliquary.Level - 1, Main: main}
 			for _, s := range e.Flat.ReliquarySubstats {
 				if st, ok := stats[s.AppendPropID]; ok {
 					c.Stats[st.gcsim] += s.StatValue / st.scale
+					// Pieces keep substats at the precision they are
+					// packed at; Stats keeps Enka's value as before.
+					v := math.Round(s.StatValue*10) / 10
+					p.Subs = append(p.Subs, StatValue{st.gcsim, v / st.scale})
+				} else {
+					piecesOK = false
 				}
 			}
+			pieces = append(pieces, p)
 		}
 	}
 	if !hasWeapon {
 		return Character{}, fmt.Errorf("character %s has no weapon", cd.Key)
 	}
+	// Pieces the game could not have (or that a link could not carry) are
+	// left out rather than failing the character: the totals still score.
+	slices.SortFunc(pieces, func(a, b Artifact) int { return int(a.Slot) - int(b.Slot) })
+	if piecesOK && g.checkPieces(pieces, PiecesFull) == nil {
+		c.Pieces, c.PieceDetail = pieces, PiecesFull
+	}
 	return c, nil
 }
 
-// addMainStat adds an artifact's main stat. The value is looked up from the
-// main stat table, since Enka rounds the displayed value.
-func (g *gameData) addMainStat(total map[string]float64, e equip) error {
+// mainStat returns an artifact's main stat. The value is looked up from
+// the main stat table, since Enka rounds the displayed value.
+func (g *gameData) mainStat(e equip) (StatValue, error) {
 	ms := e.Flat.ReliquaryMainstat
 	st, ok := stats[ms.MainPropID]
 	if !ok {
-		return fmt.Errorf("unknown artifact main stat %s", ms.MainPropID)
+		return StatValue{}, fmt.Errorf("unknown artifact main stat %s", ms.MainPropID)
 	}
 	value := ms.StatValue / st.scale
-	table := g.mainStats[strconv.Itoa(e.Flat.RankLevel)][st.good]
 	// Enka reports artifact level + 1.
-	if lvl := e.Reliquary.Level - 1; lvl >= 0 && lvl < len(table) {
-		value = table[lvl]
+	if v, ok := g.mainValue(st.gcsim, e.Flat.RankLevel, e.Reliquary.Level-1); ok {
+		value = v
 	}
-	total[st.gcsim] += value
-	return nil
+	return StatValue{st.gcsim, value}, nil
 }
 
 // Config renders the character as gcsim setup lines.

@@ -10,6 +10,7 @@ Today a build keeps only artifact totals: `enka.Character` has `Sets` (set → p
 
 - `Character` gains the five pieces: slot, set, rarity, level, main stat, substats. `Stats` stays the total the gcsim config is built from, so scores do not change.
 - `Pack` gets a new format version that carries the pieces. Links in the old format still open. Their artifact score is not shown, and the page asks the visitor to load the showcase again.
+  - Each build says which it carries (`Character.PieceDetail`): full pieces, stripped pieces (§2), or none (old format). A stripped piece also keeps its rarity, since the main stat's value depends on rarity and level.
 - The showcase holds up to 12 characters. That is three teams of four with no character shared, as content with three parties needs (Stygian Onslaught at its hardest difficulty).
 
 ## 2. Display: totals by default

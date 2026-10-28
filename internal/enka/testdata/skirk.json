@@ -14,7 +14,7 @@
           "itemId": 81234,
           "reliquary": {"level": 21},
           "flat": {
-            "itemType": "ITEM_RELIQUARY", "rankLevel": 5, "setNameTextMapHash": "2177723555",
+            "itemType": "ITEM_RELIQUARY", "equipType": "EQUIP_BRACER", "rankLevel": 5, "setNameTextMapHash": "2177723555",
             "reliquaryMainstat": {"mainPropId": "FIGHT_PROP_HP", "statValue": 4780},
             "reliquarySubstats": [
               {"appendPropId": "FIGHT_PROP_CRITICAL", "statValue": 10.5},
@@ -26,7 +26,7 @@
           "itemId": 81235,
           "reliquary": {"level": 21},
           "flat": {
-            "itemType": "ITEM_RELIQUARY", "rankLevel": 5, "setNameTextMapHash": 2177723555,
+            "itemType": "ITEM_RELIQUARY", "equipType": "EQUIP_RING", "rankLevel": 5, "setNameTextMapHash": 2177723555,
             "reliquaryMainstat": {"mainPropId": "FIGHT_PROP_ICE_ADD_HURT", "statValue": 46.6},
             "reliquarySubstats": [
               {"appendPropId": "FIGHT_PROP_CRITICAL", "statValue": 3.9},

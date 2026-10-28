@@ -17,7 +17,9 @@ func TestPackRoundTrip(t *testing.T) {
 		t.Fatal(err)
 	}
 	c := p.Characters[0]
+	// Totals only: pieces would have to match the set counts.
 	c.UnknownSets = 1
+	c.Pieces, c.PieceDetail = nil, PiecesNone
 	got, err := Unpack(Pack([]Character{c, c}))
 	if err != nil {
 		t.Fatal(err)
