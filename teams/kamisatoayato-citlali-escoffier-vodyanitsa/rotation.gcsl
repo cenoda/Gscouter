@@ -1,0 +1,13 @@
+# KQM Vodyanitsa quick guide, Ayato team: Ayato Q > Escoffier E >
+# Vodyanitsa E Q > Citlali EQ > Ayato E N15 > Escoffier Q E > Vodyanitsa
+# E Q > Citlali E > Ayato E N15, as written.
+active ayato;
+ayato burst;
+escoffier skill;
+vodyanitsa skill, burst;
+citlali skill, burst;
+ayato skill, attack:15;
+escoffier burst, skill;
+vodyanitsa skill, burst;
+citlali skill;
+ayato skill, attack:15;
