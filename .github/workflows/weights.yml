@@ -2,9 +2,12 @@ name: weights
 
 # Artifact score weights (docs/artifacts.md §5): cmd/weights over the
 # library teams, in shards on parallel runners, joined into one table
-# (teams/weights.json) that is pushed to a new branch, weights/<run id>,
-# for the owner to review and merge. Started by hand only; it never
-# pushes to an existing branch.
+# (teams/weights.json, stored through Git LFS) and the small table the
+# server embeds derived from it (internal/artifact/table.json), both
+# pushed to a new branch, weights/<run id>, for the owner to review and
+# merge. Started by hand only; it never pushes to an existing branch.
+# Only the join job reads the full table, so only it checks out LFS
+# files.
 on:
   workflow_dispatch:
     inputs:
@@ -115,7 +118,10 @@ jobs:
     permissions:
       contents: write
     steps:
+      # The table to start from is an LFS file.
       - uses: actions/checkout@v4
+        with:
+          lfs: true
       - uses: actions/download-artifact@v4
         with:
           name: bin
@@ -126,7 +132,7 @@ jobs:
           path: out
           merge-multiple: true
       # Teams already in the table and not calculated again keep their
-      # entries.
+      # entries. The small table is derived from the joined one.
       - name: join
         env:
           SHARDS: ${{ inputs.shards }}
@@ -134,7 +140,11 @@ jobs:
           TEAMS: ${{ inputs.teams }}
         run: |
           chmod +x bin/weights
-          bin/weights -join teams/weights.json -base teams/weights.json 'out/weights-*.jsonl' | tee join.txt
+          if head -c 100 teams/weights.json | grep -q '^version https://git-lfs'; then
+            echo "teams/weights.json is an LFS pointer: the checkout did not fetch it"
+            exit 1
+          fi
+          bin/weights -join teams/weights.json -base teams/weights.json -slim internal/artifact/table.json 'out/weights-*.jsonl' | tee join.txt
           {
             echo "## Weights: run ${{ github.run_id }}"
             echo
@@ -152,14 +162,23 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          # The clean filter stores teams/weights.json as an LFS pointer
+          # (.gitattributes); the pre-push hook uploads the object.
+          git lfs install --local
           git switch -c "$BRANCH"
-          git add teams/weights.json
+          git add teams/weights.json internal/artifact/table.json
           git commit -m "Weights table from run ${{ github.run_id }}" -m "$(cat join.txt)" -m "$RUN_URL"
+          if ! git cat-file -p HEAD:teams/weights.json | head -n 1 | grep -q '^version https://git-lfs'; then
+            echo "teams/weights.json was committed as a regular file, not through LFS"
+            exit 1
+          fi
           git push origin "$BRANCH"
           echo "pushed $BRANCH" >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: table
-          path: teams/weights.json
+          path: |
+            teams/weights.json
+            internal/artifact/table.json
           retention-days: 30
