@@ -18,7 +18,7 @@ notes: 'Written from the community guides (design §5.4): the Linnea quick guide
 cross_check:
     note: 'No public number for this team (searched 2026-10-27: KQM quick guides, KQM TCL, the community gcsim database, Prydwen (HTTP 403)). For scale: the strongest Nefer team, Nefer / Lauma / Columbina / Sucrose, is 183k in game at the same build level (HoYoLAB 44026962) and 179.3k one pass here; this team gives up Sucrose''s EM for Linnea''s nuke and scores 150.1k one pass.'
 validation:
-    date: "2026-10-27"
+    date: "2026-10-28"
     iterations: 20
     kept: 1.107
     dps: 167282

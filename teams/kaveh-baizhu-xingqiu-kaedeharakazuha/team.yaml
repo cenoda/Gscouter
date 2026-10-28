@@ -6,7 +6,7 @@ members:
     - xingqiu
     - kazuha
 archetype: ""
-status: supported
+status: draft
 rotation_version: 1
 gcsim_commit: 2350be9
 sources:
@@ -16,8 +16,9 @@ reference:
     dps: 99238
     computed: "2026-09-30"
 validation:
-    date: "2026-10-27"
+    date: "2026-10-28"
     iterations: 20
     gap: 0.024
-    kept: 1.241
-    dps: 17074
+    kept: 1.37
+    dps: 18841
+    draft: 'the looped score keeps 137% of one pass, more than 130%: the rotation depends on the source''s conditions'

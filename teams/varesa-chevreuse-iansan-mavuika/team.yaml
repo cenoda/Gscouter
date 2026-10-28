@@ -17,7 +17,7 @@ notes: 'Written from the community guides (design §5.4): the KQM Iansan quick g
 cross_check:
     note: 'Searched 2026-10-27: the KQM Iansan and Varesa quick guides (no DPS numbers or gcsim links), the KQM community gcsim database (no entry with Iansan), GenshinBuilds, Sportskeeda and GameWith team pages (no numbers), Prydwen (HTTP 403); no public number for this team. For scale, harvested teams with the same carry: Varesa / Bennett / Mavuika / Chevreuse 98.6k and Varesa / Fischl / Mavuika / Chevreuse 89.2k (source DPS).'
 validation:
-    date: "2026-10-27"
+    date: "2026-10-28"
     iterations: 100
     kept: 1.013
     dps: 86315

@@ -17,7 +17,7 @@ notes: 'Written from the community guides (design §5.4): the KQM Iansan quick g
 cross_check:
     note: 'Searched 2026-10-27: the KQM Iansan and Varesa quick guides (no DPS numbers or gcsim links), the KQM community gcsim database (no entry with Iansan), GenshinBuilds, Sportskeeda and GameWith team pages (no numbers), Prydwen (HTTP 403); no public number for this team. For scale, harvested teams with the same carry: Varesa / Ineffa / Furina / Xianyun 86.8k, / Xilonen 75.5k, / Electro Traveler 68.4k (source DPS).'
 validation:
-    date: "2026-10-27"
+    date: "2026-10-28"
     iterations: 100
     kept: 0.916
     dps: 69974

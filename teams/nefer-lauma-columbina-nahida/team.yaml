@@ -18,7 +18,7 @@ notes: 'Added on request. Written from the community guides (design §5.4): the 
 cross_check:
     note: 'No public number for this team (searched 2026-10-27: a showcase video lists none; KQM quick guides, KQM TCL and the community gcsim database have none). For scale: at the same build level the Sucrose team, 183k in game (HoYoLAB 44026962), scores 168.7k looped here and this one 165.3k, in line with that post calling the Sucrose team the strongest.'
 validation:
-    date: "2026-10-27"
+    date: "2026-10-28"
     iterations: 100
     kept: 1.178
     dps: 164945
