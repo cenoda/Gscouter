@@ -667,6 +667,11 @@ The first batch held the 64 teams with the most entries in the community databas
     - The library rerun with the cap at 24 (`cmd/validate -promote`, each team at its recorded iterations; `cmd/validate` ranks at full iterations, so only the cap matters there): 162 of 4,451 recorded scores rose (61 by more than 1%, 11 by more than 5%; Bennett / Furina / Jean / Mona +71%, Wanderer / Faruzan / Tartaglia / Bennett +32%, Gaming / Layla / Rosaria / Bennett +29%, Mavuika / Iansan / Citlali / Bennett +17%), none fell. Two teams change status: Gaming / Layla / Rosaria / Bennett now keeps 81% of its one pass (62% before) and meets the criteria, and Kaveh / Baizhu / Xingqiu / Kazuha keeps 137% (124% before), over the 130% limit.
     - In the browser, see §4.7 Speed.
 - [ ] Whether to support additional rulesets such as an AoE league or a short-fight league (out of scope for now)
+- [ ] The background animation stands still on a desktop computer (reported 2026-10-28, cause not confirmed)
+  - Not reproduced: in Chromium at 1440×900 and 390×844 every gear, ring and star in the background (`internal/web/templates/sky.html`) animates.
+  - The one way found to stop it is the OS's reduce-motion setting: under `prefers-reduced-motion: reduce` the page stops all of the background's animation by design. Windows turns this on when Settings → Accessibility → Visual effects → Animation effects is off, and macOS when Reduce motion is on. Desktops often have it on and phones rarely do, which fits "still on the computer, moving on the phone".
+  - Next: check that setting on the computer where the background stood still. If it is on, this is intended behavior. If it is off, record the browser and OS and look for another cause.
+  - The behavior stays as is until then. One option considered: under reduce motion, keep only the slow in-place turning of the gears and rings and stop the chains (the one part repainted each frame), the drifting light and rings, and the twinkling stars. Its performance cost is negligible, but it would override the visitor's explicit choice, and the site has no switch to turn the background off.
 - [x] How to share results: links that carry the builds, copied as short links (`/s/<id>`), with link-preview cards (§4.8)
 
 ## 10. Next Steps
