@@ -12,6 +12,8 @@ What each document is for, and the habits that keep them readable. These are con
 | `docs/roadmap.md` | Where the site goes after the MVP, as a map of nodes |
 | `docs/artifacts.md` | Roadmap nodes Artifacts and Artifact score |
 | `docs/pull.md` | Roadmap node Pull a character |
+| `docs/speed.md` | Roadmap node faster DPS: time to a score in the browser and in validation runs, and what was tried |
+| `docs/fillers.md` | How the looped score fills a character's waits for energy or cooldowns, and what that changes |
 | `docs/fork.md` | The gcsim fork: how it is kept, regression runs, the characters and weapons on it |
 | `docs/characters/<name>.md` | One character on the fork: its implementation notes (source, frame data, known problems) and its written library teams |
 | `docs/characters/first-batches.md` | The first written teams (Nefer, Linnea, Zibai, Iansan), recorded before characters had their own documents |
