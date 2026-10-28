@@ -1,0 +1,30 @@
+# KQM Sandrone quick guide, limited-roster team:
+# (Sandrone E, first rotation only) > Alyosha EQ > Charlotte EQ >
+# Sucrose ED N1 (Q) > Sandrone [combo]
+# Sandrone's C0 combo 3[C E] (Q), the burst after the first skill when
+# ready: no ER in the guide's table lets her burst every rotation here.
+# Every other burst is cast when ready too (see build.txt).
+active sandrone;
+let first = 1;
+if first == 1 {
+  sandrone skill;
+  first = 0;
+}
+alyosha skill;
+if .alyosha.burst.ready {
+  alyosha burst;
+}
+charlotte skill;
+if .charlotte.burst.ready {
+  charlotte burst;
+}
+sucrose skill, dash, attack;
+if .sucrose.burst.ready {
+  sucrose burst;
+}
+sandrone charge, skill;
+if .sandrone.burst.ready {
+  sandrone burst;
+}
+sandrone charge, skill,
+         charge, skill;

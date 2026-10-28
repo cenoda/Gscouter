@@ -1,0 +1,24 @@
+id: sandrone-beidou-diona-xilonen
+name: Sandrone / Beidou / Diona / Xilonen
+members:
+    - sandrone
+    - beidou
+    - diona
+    - xilonen
+archetype: Stellar-Conduct with Beidou and Diona
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/sandrone-quickguide/
+notes: 'Written from the KQM Sandrone quick guide (design §5.4; no community gcsim config with Sandrone exists). The guide''s example team 5 with Xilonen: Beidou EQ > Diona hEQ > Xilonen E N2 > Sandrone [combo]. Sandrone plays the guide''s C0 combo 3[C E] (Q), the burst after the first skill. Her build is the same in every Sandrone team except her ER substats: C0, A Teaspoon of Transcendence R1, 4pc Disenchantment in Deep Shadow, ATK%/ATK%/CRIT DMG, KQM-standard substats. This team is short of energy: no ER in the guide''s table (130-165% for +1 Cryo) lets her burst every rotation (at 166% she still skips or waits), so she follows the guide''s advice for that case: no ER beyond the standard''s (111%), burst when available. C6 Beidou (Favonius Greatsword, 194.4% ER) and C6 Diona (Favonius Warbow, 257.2% ER) from harvested teams, as in batch 2, burst when ready: Beidou''s 20 s cooldown is longer than the rotation, and Diona''s particles cannot fund her burst every rotation. C0 Xilonen (Favonius Sword, 4pc Scroll) from a harvested team; the guide''s rotation has no Xilonen burst. Every burst in the rotation therefore comes about every other rotation, and the looped score keeps only 80% of the one pass, which starts from full energy. Known problem: the fork''s calibration against HoYoLAB 46338256 is -11.9% for the team (Sandrone -16.7%, Yae Miko -16%, Escoffier +27%), cause unknown (design §5.4, Sandrone row).'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: the KQM Sandrone quick guide (team list and rotations, no DPS, no gcsim links); the community gcsim database (no Sandrone: upstream gcsim lacks her); web searches for DPS figures, showcases and gcsim configs for this team (Icy Veins, GenshinBuilds, playnews and other team pages: ratings and roles only).'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 0.795
+    dps: 69163
+    draft: no reference DPS

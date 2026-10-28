@@ -1,0 +1,21 @@
+# KQM Sandrone quick guide, example team 5:
+# Beidou EQ > Diona hEQ > Sucrose ED N1 > Sandrone [combo]
+# Sandrone's C0 combo 3[C E] (Q), the burst after the first skill when
+# ready: no ER in the guide's table lets her burst every rotation here.
+# Every other burst is cast when ready too (see build.txt).
+active beidou;
+beidou skill;
+if .beidou.burst.ready {
+  beidou burst;
+}
+diona skill[hold=1];
+if .diona.burst.ready {
+  diona burst;
+}
+sucrose skill, dash, attack;
+sandrone charge, skill;
+if .sandrone.burst.ready {
+  sandrone burst;
+}
+sandrone charge, skill,
+         charge, skill;
