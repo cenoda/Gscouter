@@ -1,0 +1,24 @@
+id: sandrone-yaemiko-odette-alyosha
+name: Sandrone / Yae Miko / Odette / Alyosha
+members:
+    - sandrone
+    - yaemiko
+    - odette
+    - alyosha
+archetype: Stellar-Conduct with Alyosha
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/sandrone-quickguide/
+notes: 'Written from the KQM Sandrone quick guide (design §5.4; no community gcsim config with Sandrone exists). The guide''s example team 1 with C6 Alyosha: Yae Miko 3[E] > Odette 2[E](Q) > Alyosha EQ > Sandrone [combo]. Odette bursts when ready (the guide: use it when available, or skip it before C4); with no ER beyond the standard''s she bursts about every other rotation. Sandrone plays the guide''s C0 combo 3[C E] (Q), the burst after the first skill as in the fork''s calibration, every rotation. Sandrone''s build is the same in every Sandrone team except her ER substats: C0, A Teaspoon of Transcendence R1, 4pc Disenchantment in Deep Shadow, ATK%/ATK%/CRIT DMG, KQM-standard substats, ER the least in the guide''s ER table at which she bursts every rotation (here 138.6%; the +2 Electro row is 120-140%). Yae Miko from a harvested team; Odette (C0, Finale of the Deep R5, 4pc Heart of the Furnace, 111% ER) from her KQM quick guide with KQM-standard substats, as no library team has her. Alyosha likewise from his KQM quick guide: C6, Favonius Lance R3, 4pc Noblesse Oblige (Odette holds Heart of the Furnace), ATK%/ATK%/CRIT Rate, 168.3% ER with his ascension stat and the lance, already above what he needs to burst every rotation. Every burst in the rotation is cast every rotation, with energy waits under 0.2 s per minute. Known problem: the fork''s calibration against HoYoLAB 46338256 is -11.9% for the team (Sandrone -16.7%, Yae Miko -16%, Escoffier +27%), cause unknown (design §5.4, Sandrone row).'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: the KQM Sandrone quick guide (team list and rotations, no DPS, no gcsim links); the community gcsim database (no Sandrone: upstream gcsim lacks her); web searches for DPS figures, showcases and gcsim configs for this team (GenshinBuilds, GameWith, topuplist, AllThingsHow and fandomwire team pages: ratings and roles only; AllThingsHow''s tier list gives Sandrone 156.9k without a team or build).'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 1.215
+    dps: 177018
+    draft: no reference DPS
