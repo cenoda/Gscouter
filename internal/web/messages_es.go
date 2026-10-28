@@ -236,7 +236,7 @@ func init() {
 		"warn.duplicate": "%s y %s llevan el mismo artefacto (%s). En el juego, un artefacto solo lo lleva un personaje a la vez, así que esta puntuación no se compara con las estándar.",
 
 		"art.score":      "Puntuación de artefactos",
-		"art.score_lead": "Los atributos secundarios cuentan según lo que una mejora aporta al DPS de este equipo; contando solo el CRIT, es el CV. Un atributo principal que resta DPS cuesta puntos.",
+		"art.score_lead": "Los atributos secundarios cuentan según lo que una mejora aporta al DPS de este equipo; contando solo el CRIT, es el CV. Un atributo principal que resta DPS cuesta puntos, contados en mejoras del secundario más valioso del equipo.",
 		"art.columns":    "Secundarios · principales · total",
 		"art.low":        "poco efecto (mejor: %s)",
 		"art.unplayable": "rotación imposible",

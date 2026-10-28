@@ -188,6 +188,7 @@ func Team(ctx context.Context, dir string, s Settings) *Result {
 		}
 		r.Characters = append(r.Characters, ch)
 	}
+	TeamPenalties(r.Characters)
 	return r
 }
 

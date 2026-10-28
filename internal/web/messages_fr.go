@@ -236,7 +236,7 @@ func init() {
 		"warn.duplicate": "%s et %s portent le même artéfact (%s). Dans le jeu, un artéfact n'est porté que par un personnage à la fois, ce score ne se compare donc pas aux scores standard.",
 
 		"art.score":      "Score d'artéfacts",
-		"art.score_lead": "Les stats secondaires comptent selon ce qu'une amélioration apporte au DPS de cette équipe ; avec le CRIT seul, c'est le CV. Une stat principale qui fait perdre du DPS coûte des points.",
+		"art.score_lead": "Les stats secondaires comptent selon ce qu'une amélioration apporte au DPS de cette équipe ; avec le CRIT seul, c'est le CV. Une stat principale qui fait perdre du DPS coûte des points, comptés en améliorations de la stat secondaire la plus utile de l'équipe.",
 		"art.columns":    "Secondaires · principales · total",
 		"art.low":        "peu d'effet (meilleure : %s)",
 		"art.unplayable": "rotation impossible",

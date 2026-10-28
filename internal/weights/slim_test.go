@@ -71,23 +71,23 @@ func TestSlim(t *testing.T) {
 }
 
 func TestSlimOthers(t *testing.T) {
-	s := slimSlot(&Slot{Right: []string{"pyro%"}, Penalty: map[string]float64{
+	s := slimSlot(&Slot{Right: []string{"pyro%"}}, map[string]float64{
 		"hp%": 35.5, "def%": 35.5, "hydro%": 35.5, "em": 30.1, "atk%": 12, "phys%": 33.7,
-	}}, Options[1])
+	}, Options[1])
 	if s.Others != 35.5 || !maps.Equal(s.Penalty, map[string]float64{"em": 30.1, "atk%": 12, "phys%": 33.7}) {
 		t.Errorf("others %v, penalty %v", s.Others, s.Penalty)
 	}
 	// Ties go to the smallest; one of each stays listed.
-	s = slimSlot(&Slot{Penalty: map[string]float64{"hp%": 2, "def%": 2, "em": 1, "atk%": 1}}, Options[0])
+	s = slimSlot(&Slot{}, map[string]float64{"hp%": 2, "def%": 2, "em": 1, "atk%": 1}, Options[0])
 	if s.Others != 1 || !maps.Equal(s.Penalty, map[string]float64{"hp%": 2, "def%": 2}) {
 		t.Errorf("tie: others %v, penalty %v", s.Others, s.Penalty)
 	}
-	s = slimSlot(&Slot{Penalty: map[string]float64{"hp%": 2, "em": 1}}, Options[0])
+	s = slimSlot(&Slot{}, map[string]float64{"hp%": 2, "em": 1}, Options[0])
 	if s.Others != 0 || len(s.Penalty) != 2 {
 		t.Errorf("all different: others %v, penalty %v", s.Others, s.Penalty)
 	}
 	// What the page computes from the slim slot is the full penalty.
-	c := &artifact.Character{Goblet: slimSlot(&Slot{Right: []string{"pyro%"}, Penalty: map[string]float64{"hp%": 35.5, "def%": 35.5, "em": 30.1}}, Options[1])}
+	c := &artifact.Character{Goblet: slimSlot(&Slot{Right: []string{"pyro%"}}, map[string]float64{"hp%": 35.5, "def%": 35.5, "em": 30.1}, Options[1])}
 	for k, want := range map[string]float64{"hp%": 35.5, "def%": 35.5, "em": 30.1} {
 		if j := c.Judge(map[string]string{"goblet": k})[1]; j.Verdict != artifact.Wrong || j.Penalty != want {
 			t.Errorf("goblet %s: %v %v, want wrong %v", k, j.Verdict, j.Penalty, want)

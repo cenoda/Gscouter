@@ -236,7 +236,7 @@ func init() {
 		"warn.duplicate": "%s e %s indossano lo stesso manufatto (%s). Nel gioco un manufatto va a un solo personaggio alla volta, quindi questo punteggio non è confrontabile con quelli standard.",
 
 		"art.score":      "Punteggio dei manufatti",
-		"art.score_lead": "Le statistiche secondarie contano per quanto un potenziamento aggiunge al DPS di questa squadra; contando solo il CRIT è il CV. Una statistica principale che fa perdere DPS costa punti.",
+		"art.score_lead": "Le statistiche secondarie contano per quanto un potenziamento aggiunge al DPS di questa squadra; contando solo il CRIT è il CV. Una statistica principale che fa perdere DPS costa punti, contati in potenziamenti della secondaria più preziosa della squadra.",
 		"art.columns":    "Secondarie · principali · totale",
 		"art.low":        "poco effetto (migliore: %s)",
 		"art.unplayable": "rotazione impossibile",

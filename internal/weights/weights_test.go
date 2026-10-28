@@ -66,8 +66,8 @@ func TestCharacter(t *testing.T) {
 	if c.Best != "cr" || c.Weights["cr"] != 1 || c.Weights["cd"] != 0.95 || c.Weights["atk%"] != 0.5 || c.Weights["hp"] != 0 {
 		t.Errorf("weights %v best %s", c.Weights, c.Best)
 	}
-	if got := c.Main["sands"].Penalty["hp%"]; math.Abs(got-100.0/20*Points) > 0.05+1e-9 {
-		t.Errorf("hp%% sands penalty %v", got)
+	if len(c.Main["sands"].Penalty) != 0 {
+		t.Errorf("sands penalties %v before TeamPenalties", c.Main["sands"].Penalty)
 	}
 	if got := c.Main["circlet"].Right; !slices.Equal(got, []string{"cr", "cd"}) {
 		t.Errorf("right circlets %v", got)
@@ -83,6 +83,29 @@ func TestCharacter(t *testing.T) {
 	}
 	if c.Main["goblet"].Build != "pyro%" {
 		t.Errorf("goblet build %q", c.Main["goblet"].Build)
+	}
+}
+
+func TestTeamPenalties(t *testing.T) {
+	// A support whose best roll gains 1 DPS loses 100 with a hp%% sands:
+	// counted in the carry's rolls (20 DPS), that is 5 rolls, not 100.
+	cs := []Character{
+		{Key: "carry", Gains: map[string]float64{"cd": 20, "cr": 18}, Best: "cd", Main: map[string]*Slot{
+			"goblet": {DPS: map[string]float64{"pyro%": 1000, "atk%": 960}},
+		}},
+		{Key: "support", Gains: map[string]float64{"er": 1}, Best: "er", Main: map[string]*Slot{
+			"sands": {DPS: map[string]float64{"er": 1000, "hp%": 900}},
+		}},
+	}
+	if u := TeamUnit(cs); u != 20 {
+		t.Errorf("team unit %v, want 20", u)
+	}
+	TeamPenalties(cs)
+	if got := cs[1].Main["sands"].Penalty["hp%"]; math.Abs(got-100.0/20*Points) > 0.05+1e-9 {
+		t.Errorf("support hp%% sands penalty %v, want %v", got, 100.0/20*Points)
+	}
+	if got := cs[0].Main["goblet"].Penalty["atk%"]; math.Abs(got-40.0/20*Points) > 0.05+1e-9 {
+		t.Errorf("carry atk%% goblet penalty %v", got)
 	}
 }
 

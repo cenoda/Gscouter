@@ -14,6 +14,9 @@ import (
 // penalty (1 decimal), whether the slot has little effect and then its
 // best main stat, and the unplayable options without gcsim's errors.
 // Gains, DPS, iterations and the skipped teams stay in the full table.
+// Penalties are converted again from the DPS with TeamUnit, so a full
+// table written before penalties were counted in the team's rolls
+// gives the same small table as a new one.
 func Slim(t *Table) *artifact.Table {
 	out := &artifact.Table{Format: artifact.TableFormat, Gcsim: commonGcsim(t), Teams: map[string]*artifact.Team{}}
 	for id, e := range t.Teams {
@@ -21,6 +24,7 @@ func Slim(t *Table) *artifact.Table {
 		if e.Gcsim != out.Gcsim {
 			team.Gcsim = e.Gcsim
 		}
+		unit := TeamUnit(e.Characters)
 		for _, c := range e.Characters {
 			ac := artifact.Character{Key: c.Key, Unplayable: inOrder(substatKeys(), c.Unplayable)}
 			for k, w := range c.Weights {
@@ -34,7 +38,8 @@ func Slim(t *Table) *artifact.Table {
 			slots := [3]**artifact.Slot{&ac.Sands, &ac.Goblet, &ac.Circlet}
 			for i, name := range Slots {
 				if s := c.Main[name]; s != nil {
-					*slots[i] = slimSlot(s, Options[i])
+					_, penalty := Judge(s.DPS, Options[i], unit)
+					*slots[i] = slimSlot(s, penalty, Options[i])
 				}
 			}
 			team.Characters = append(team.Characters, ac)
@@ -44,7 +49,7 @@ func Slim(t *Table) *artifact.Table {
 	return out
 }
 
-func slimSlot(s *Slot, options []string) *artifact.Slot {
+func slimSlot(s *Slot, penalty map[string]float64, options []string) *artifact.Slot {
 	out := &artifact.Slot{LowImpact: s.LowImpact, Unplayable: inOrder(options, s.Unplayable)}
 	if s.LowImpact {
 		// Every playable option is right: the first with the highest
@@ -60,7 +65,7 @@ func slimSlot(s *Slot, options []string) *artifact.Slot {
 	// The penalty most wrong main stats share, if at least two do, the
 	// smallest on a tie, goes to Others.
 	count := map[float64]int{}
-	for _, p := range s.Penalty {
+	for _, p := range penalty {
 		count[round(p, 1)]++
 	}
 	n := 1
@@ -69,7 +74,7 @@ func slimSlot(s *Slot, options []string) *artifact.Slot {
 			out.Others, n = p, count[p]
 		}
 	}
-	for k, p := range s.Penalty {
+	for k, p := range penalty {
 		if p = round(p, 1); n < 2 || p != out.Others {
 			if out.Penalty == nil {
 				out.Penalty = map[string]float64{}

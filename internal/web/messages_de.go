@@ -236,7 +236,7 @@ func init() {
 		"warn.duplicate": "%s und %s tragen dasselbe Artefakt (%s). Im Spiel trägt ein Artefakt nur ein Charakter zugleich, daher ist diese Punktzahl nicht mit Standardpunktzahlen vergleichbar.",
 
 		"art.score":      "Artefaktwertung",
-		"art.score_lead": "Nebenwerte zählen danach, wie viel eine Steigerung der DPS dieses Teams bringt; nur mit KRIT gewichtet ergibt das den CV. Ein Hauptwert, der DPS kostet, gibt Abzug.",
+		"art.score_lead": "Nebenwerte zählen danach, wie viel eine Steigerung der DPS dieses Teams bringt; nur mit KRIT gewichtet ergibt das den CV. Ein Hauptwert, der DPS kostet, gibt Abzug, gezählt in Steigerungen des wertvollsten Nebenwerts im Team.",
 		"art.columns":    "Nebenwerte · Hauptwerte · gesamt",
 		"art.low":        "wenig Einfluss (am besten: %s)",
 		"art.unplayable": "Rotation nicht spielbar",

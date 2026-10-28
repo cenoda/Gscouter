@@ -236,7 +236,7 @@ func init() {
 		"warn.duplicate": "%s dan %s memakai artefak yang sama (%s). Di game, satu artefak hanya bisa dipakai satu karakter dalam satu waktu, jadi skor ini tidak bisa dibandingkan dengan skor standar.",
 
 		"art.score":      "Skor artefak",
-		"art.score_lead": "Substat diberi bobot menurut tambahan DPS tim ini dari satu kenaikan; jika hanya CRIT yang dihitung, hasilnya CV. Main stat yang mengurangi DPS dikenai potongan poin.",
+		"art.score_lead": "Substat diberi bobot menurut tambahan DPS tim ini dari satu kenaikan; jika hanya CRIT yang dihitung, hasilnya CV. Main stat yang mengurangi DPS dikenai potongan poin, dihitung dalam kenaikan substat paling berharga di tim.",
 		"art.columns":    "Substat · main stat · total",
 		"art.low":        "pengaruh kecil (terbaik: %s)",
 		"art.unplayable": "rotasi tidak bisa dijalankan",

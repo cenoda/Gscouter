@@ -236,7 +236,7 @@ func init() {
 		"warn.duplicate": "%s ve %s aynı yadigarı takıyor (%s). Oyunda bir yadigar aynı anda yalnızca bir karakterde olabilir, bu yüzden bu puan standart puanlarla karşılaştırılamaz.",
 
 		"art.score":      "Yadigar puanı",
-		"art.score_lead": "Alt istatistikler, bir artışın bu takımın DPS'ine kattığına göre ağırlıklandırılır; yalnızca kritik sayılırsa CV'ye eşittir. DPS kaybettiren ana istatistik puan götürür.",
+		"art.score_lead": "Alt istatistikler, bir artışın bu takımın DPS'ine kattığına göre ağırlıklandırılır; yalnızca kritik sayılırsa CV'ye eşittir. DPS kaybettiren ana istatistik puan götürür; kayıp, takımdaki en değerli alt istatistiğin artışlarıyla sayılır.",
 		"art.columns":    "Alt · ana · toplam",
 		"art.low":        "az etkili (en iyisi: %s)",
 		"art.unplayable": "rotasyon oynanamaz",

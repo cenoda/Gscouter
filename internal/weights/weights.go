@@ -70,10 +70,9 @@ func Weights(gains map[string]float64) (weights map[string]float64, best string)
 // Judge returns, from the team DPS with each main stat of a slot, the
 // right main stats (within RightWithin of the best, in option order)
 // and the penalty of each wrong one: the DPS it loses against the best,
-// in rolls of the best substat (bestGain, the DPS one such roll gains),
-// times Points. Without a gain above 0 the loss cannot be converted
-// and penalty is nil.
-func Judge(dps map[string]float64, options []string, bestGain float64) (right []string, penalty map[string]float64) {
+// in rolls worth unit (TeamUnit), times Points. Without a unit above 0
+// the loss cannot be converted and penalty is nil.
+func Judge(dps map[string]float64, options []string, unit float64) (right []string, penalty map[string]float64) {
 	top := math.Inf(-1)
 	for _, k := range options {
 		if d, ok := dps[k]; ok && d > top {
@@ -83,7 +82,7 @@ func Judge(dps map[string]float64, options []string, bestGain float64) (right []
 	if math.IsInf(top, -1) {
 		return nil, nil
 	}
-	if bestGain > 0 {
+	if unit > 0 {
 		penalty = map[string]float64{}
 	}
 	for _, k := range options {
@@ -96,7 +95,7 @@ func Judge(dps map[string]float64, options []string, bestGain float64) (right []
 			continue
 		}
 		if penalty != nil {
-			penalty[k] = (top - d) / bestGain * Points
+			penalty[k] = (top - d) / unit * Points
 		}
 	}
 	return right, penalty
@@ -157,6 +156,35 @@ func roundAll(m map[string]float64, digits int) {
 	}
 }
 
+// TeamUnit is the DPS the team's most valuable roll gains: the largest
+// gain of any character's best substat. Penalties are counted in such
+// rolls (docs/artifacts.md §4.3). A support's own best roll gains
+// little, so counted in its rolls, a sands that costs the team its
+// energy would cost thousands of points.
+func TeamUnit(cs []Character) float64 {
+	unit := 0.0
+	for _, c := range cs {
+		if c.Best != "" {
+			unit = max(unit, c.Gains[c.Best])
+		}
+	}
+	return unit
+}
+
+// TeamPenalties sets the penalty of each wrong main stat of cs, in
+// rolls of TeamUnit, from the slots' DPS.
+func TeamPenalties(cs []Character) {
+	unit := TeamUnit(cs)
+	for _, c := range cs {
+		for i, name := range Slots {
+			if s := c.Main[name]; s != nil {
+				_, s.Penalty = Judge(s.DPS, Options[i], unit)
+				roundAll(s.Penalty, 1)
+			}
+		}
+	}
+}
+
 // character assembles a Character from the reference DPS, the team DPS
 // with each substat roll added and with each main stat per slot.
 func character(key string, reordered bool, ref float64, withRoll map[string]float64, current [3]string, withMain [3]map[string]float64) Character {
@@ -165,14 +193,12 @@ func character(key string, reordered bool, ref float64, withRoll map[string]floa
 		c.Gains[k] = d - ref
 	}
 	c.Weights, c.Best = Weights(c.Gains)
-	bestGain := c.Gains[c.Best]
 	for i, name := range Slots {
 		dps := withMain[i]
-		right, penalty := Judge(dps, Options[i], bestGain)
+		right, _ := Judge(dps, Options[i], 0)
 		roundAll(dps, 1)
-		roundAll(penalty, 1)
 		low := len(dps) > 0 && len(right) == len(dps)
-		c.Main[name] = &Slot{Build: current[i], DPS: dps, Right: slices.Clip(right), LowImpact: low, Penalty: penalty}
+		c.Main[name] = &Slot{Build: current[i], DPS: dps, Right: slices.Clip(right), LowImpact: low}
 	}
 	roundAll(c.Gains, 2)
 	roundAll(c.Weights, 3)

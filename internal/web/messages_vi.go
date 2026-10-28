@@ -236,7 +236,7 @@ func init() {
 		"warn.duplicate": "%s và %s đang trang bị cùng một Thánh Di Vật (%s). Trong game, mỗi Thánh Di Vật chỉ một nhân vật trang bị được tại một thời điểm, nên điểm này không so sánh được với điểm tiêu chuẩn.",
 
 		"art.score":      "Điểm Thánh Di Vật",
-		"art.score_lead": "Dòng phụ được tính trọng số theo lượng DPS mà một lần tăng mang lại cho đội này; nếu chỉ tính Bạo Kích thì bằng CV. Dòng chính làm giảm DPS sẽ bị trừ điểm.",
+		"art.score_lead": "Dòng phụ được tính trọng số theo lượng DPS mà một lần tăng mang lại cho đội này; nếu chỉ tính Bạo Kích thì bằng CV. Dòng chính làm giảm DPS sẽ bị trừ điểm, tính bằng số lần tăng của dòng phụ giá trị nhất trong đội.",
 		"art.columns":    "Dòng phụ · dòng chính · tổng",
 		"art.low":        "ảnh hưởng nhỏ (tốt nhất: %s)",
 		"art.unplayable": "không chạy được vòng xoay",
