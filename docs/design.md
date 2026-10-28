@@ -70,7 +70,10 @@ Hu Tao's `start_hp=1` param raises the one-rotation number by about 13% and has 
 | Setting | Standard error | Time (4 cores) |
 |---|---|---|
 | 1000 iterations (CLI) | ±0.2% | 9.8 s |
-| **100 iterations (site default)** | ±0.5% | about 1 s |
+| 100 iterations (site default until 2026-10-28) | ±0.5% | about 1 s |
+| **50 iterations (site default)** | ±0.7% | about 0.5 s |
+
+The site scores with 50 iterations since 2026-10-28, down from 100, to halve the time to a score; time is roughly linear in the iterations. Measured natively on 6 library teams, 31 seeds per count: the standard deviation of a score across seeds was 0.04–0.64% of its mean at 50 (worst seen 1.2%, apart from filler-dependent outliers) against 0.03–0.51% at 100, and with the site's seed every team chose the same filler at both counts. Shared links are calculated again with the new count, so their numbers move slightly; with the site's seed, 50 against 100: Hu Tao / Yelan / Xingqiu / Zhongli −0.53%, Hu Tao / Furina (no ER) −0.04%, an Arlecchino team −0.04%, a Skirk freeze team −0.04%, Raiden National +0.13%, a hyperbloom team +0.29%. Fillers are still ranked on 20 iterations and the best run again on 50 (§9); warmup, duration and seeds are unchanged.
 
 History: a first library batch of 64 rotations written by agents without sources scored about a third of community numbers and was removed. Rotations now come from community configs, or, for a team the database has no entry for, from a published community guide under the rules in §5.4. A rotation is never written from our own idea of a team.
 
@@ -83,14 +86,14 @@ History: a first library batch of 64 rotations written by agents without sources
 | Number of targets | 1 |
 | Enemy HP | Infinite (time-based end); the one-pass check gives the enemy `hp=999999999` so the run ends with the rotation |
 | Fight duration | 450 s with the rotation looped, first 150 s excluded; plus one pass from full energy (§3.1) |
-| Iterations | Site: 100 (±0.5%); fillers are ranked on 20 (§9). CLI: 1000 (±0.2%) |
+| Iterations | Site: 50 (±0.7%, §3.1); fillers are ranked on 20 (§9). CLI: 1000 (±0.2%) |
 | Energy | 1 clear particle every 8–12 s (`energy every interval=480,720 amount=1`). Provisional, see §9 |
 | Swap delay | 12 frames |
 
 As a gcsim config, roughly:
 
 ```
-options iteration=100 duration=450 swap_delay=12;
+options iteration=50 duration=450 swap_delay=12;
 target lvl=100 resist=0.1;
 energy every interval=480,720 amount=1;
 ```

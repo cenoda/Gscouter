@@ -42,7 +42,7 @@ type Settings struct {
 // DefaultSettings score the looped rotation over 150-450 s, after the
 // full starting energy has run out (design §3.1).
 var DefaultSettings = Settings{
-	Iterations:    100,
+	Iterations:    50,
 	Warmup:        150,
 	Duration:      450,
 	MaxConcurrent: 1,
