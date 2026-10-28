@@ -80,6 +80,9 @@ func TestNames(t *testing.T) {
 		{CharacterName("luminecryo", "fr"), "Voyageuse"},
 		{CharacterName("nobody", "en"), ""},
 		{WeaponName("staffofhoma", "ja"), "護摩の杖"},
+		{ArtifactName("crimsonwitchofflames", "ko"), "불타오르는 화염의 마녀"},
+		{StatName("cr", "en"), "CRIT Rate"},
+		{StatName("atk%", "ko"), "공격력"},
 	} {
 		if c.got != c.want {
 			t.Errorf("got %q, want %q", c.got, c.want)

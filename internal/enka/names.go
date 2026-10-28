@@ -19,6 +19,13 @@ func CharacterName(key, lang string) string { return name("characters", key, lan
 // WeaponName is CharacterName for weapons.
 func WeaponName(key, lang string) string { return name("weapons", key, lang) }
 
+// ArtifactName is CharacterName for artifact sets.
+func ArtifactName(key, lang string) string { return name("artifacts", key, lang) }
+
+// StatName is CharacterName for artifact stats by gcsim stat name ("cr",
+// "atk%"). A percentage has its flat stat's name, as in the game.
+func StatName(key, lang string) string { return name("stats", key, lang) }
+
 func name(kind, key, lang string) string {
 	namesOnce.Do(func() {
 		raw, err := dataFS.ReadFile("data/names.json")
