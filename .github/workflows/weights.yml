@@ -1,0 +1,165 @@
+name: weights
+
+# Artifact score weights (docs/artifacts.md §5): cmd/weights over the
+# library teams, in shards on parallel runners, joined into one table
+# (teams/weights.json) that is pushed to a new branch, weights/<run id>,
+# for the owner to review and merge. Started by hand only; it never
+# pushes to an existing branch.
+on:
+  workflow_dispatch:
+    inputs:
+      shards:
+        description: Shards (each runs on its own 4-vCPU runner)
+        type: choice
+        options: ['1', '2', '4', '8', '16', '20', '30', '40']
+        default: '20'
+      limit:
+        description: Calculate only this many teams, spread evenly over the library (0 for all)
+        required: false
+        default: '0'
+      teams:
+        description: Team ids to calculate, separated by spaces (empty for the whole library)
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+# One run at a time: a second dispatch waits instead of cancelling the first.
+concurrency:
+  group: weights
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      args: ${{ steps.plan.outputs.args }}
+    steps:
+      - id: plan
+        env:
+          SHARDS: ${{ inputs.shards }}
+          LIMIT: ${{ inputs.limit }}
+          TEAMS: ${{ inputs.teams }}
+        run: |
+          case "$LIMIT" in ''|*[!0-9]*) echo "limit must be a number: $LIMIT"; exit 1;; esac
+          args="-limit $LIMIT"
+          for id in $TEAMS; do
+            case "$id" in *[!a-z0-9-]*) echo "not a team id: $id"; exit 1;; esac
+            args="$args teams/$id"
+          done
+          echo "args=$args" >> "$GITHUB_OUTPUT"
+          matrix=$(jq -cn --argjson n "$SHARDS" '{shard: [range(1; $n + 1)]}')
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - run: |
+          mkdir -p bin
+          go build -o bin/weights ./cmd/weights
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bin
+          path: bin/
+          retention-days: 7
+
+  weights:
+    needs: [plan, build]
+    runs-on: ubuntu-latest
+    # GitHub stops a job after 6 hours.
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: bin
+          path: bin
+      # Four teams at once, each simulation on one CPU. Failed or
+      # skipped teams are results, not errors; only a crash fails the
+      # job. -cache "" makes every simulation run, so the wall time
+      # measures the real cost.
+      - name: weights shard ${{ matrix.shard }}/${{ inputs.shards }}
+        env:
+          ARGS: ${{ needs.plan.outputs.args }}
+        run: |
+          chmod +x bin/weights
+          out=weights-${{ matrix.shard }}.jsonl
+          # ARGS is checked in the plan job: flags and teams/<id> only.
+          # shellcheck disable=SC2086
+          bin/weights -cache "" -j 4 -workers 1 -timeout 30m -shard ${{ matrix.shard }}/${{ inputs.shards }} -json "$out" $ARGS > weights.log 2>&1
+          tail -n 3 weights.log
+          touch "$out"
+          echo "$(wc -l < "$out") teams"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: out-${{ matrix.shard }}
+          path: |
+            weights-${{ matrix.shard }}.jsonl
+            weights.log
+          retention-days: 7
+
+  join:
+    needs: weights
+    if: always() && needs.weights.result != 'cancelled'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: bin
+          path: bin
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: out-*
+          path: out
+          merge-multiple: true
+      # Teams already in the table and not calculated again keep their
+      # entries.
+      - name: join
+        env:
+          SHARDS: ${{ inputs.shards }}
+          LIMIT: ${{ inputs.limit }}
+          TEAMS: ${{ inputs.teams }}
+        run: |
+          chmod +x bin/weights
+          bin/weights -join teams/weights.json -base teams/weights.json 'out/weights-*.jsonl' | tee join.txt
+          {
+            echo "## Weights: run ${{ github.run_id }}"
+            echo
+            echo "- commit: ${{ github.sha }}"
+            echo "- shards: $SHARDS, limit: $LIMIT, teams: ${TEAMS:-all}"
+            echo
+            echo '```'
+            cat join.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: push to weights/${{ github.run_id }}
+        env:
+          BRANCH: weights/${{ github.run_id }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch -c "$BRANCH"
+          git add teams/weights.json
+          git commit -m "Weights table from run ${{ github.run_id }}" -m "$(cat join.txt)" -m "$RUN_URL"
+          git push origin "$BRANCH"
+          echo "pushed $BRANCH" >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: table
+          path: teams/weights.json
+          retention-days: 30
