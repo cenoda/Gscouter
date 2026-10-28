@@ -165,6 +165,61 @@ func TestLoadTier(t *testing.T) {
 	}
 }
 
+// TestLibraryBuilds loads the library from disk, with each team's
+// build.txt, which the embedded copy leaves out: a team whose build uses a
+// weapon only the gcsim fork has must be experimental with gcsim_fork.
+func TestLibraryBuilds(t *testing.T) {
+	lib, err := LoadLibrary(os.DirFS("../../teams"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	builds := 0
+	for _, team := range lib.Teams {
+		if team.Build != "" {
+			builds++
+		}
+	}
+	if builds < len(lib.Teams)/2 {
+		t.Errorf("only %d of %d teams have a build.txt", builds, len(lib.Teams))
+	}
+}
+
+func TestLoadForkOnlyWeapon(t *testing.T) {
+	for _, c := range []struct {
+		build, tier string
+		ok          bool
+	}{
+		{`a add weapon="hymnofthemaelstrom" refine=1;`, "experimental", true},
+		{`a add weapon="hymn" refine=5;`, "experimental", true}, // a gcsim shortcut
+		{`a add weapon="hymnofthemaelstrom" refine=1;`, "", false},
+		{`a add weapon="hymnofthemaelstrom" refine=1;`, "experimental-nofork", false},
+		{`a add weapon="staffofhoma" refine=1;`, "", true},
+		{`a add weapon="staffofhoma" refine=1;`, "experimental", false},
+	} {
+		dir := t.TempDir()
+		yaml := "id: x\nmembers: [a, b, c, d]\nstatus: draft\nreference: {dps: 1000}\n"
+		switch c.tier {
+		case "experimental":
+			yaml += "tier: experimental\ngcsim_fork: abc1234\n"
+		case "experimental-nofork":
+			yaml += "tier: experimental\n"
+		}
+		for name, content := range map[string]string{"team.yaml": yaml, "rotation.gcsl": "a attack;", "build.txt": c.build} {
+			if err := os.WriteFile(filepath.Join(dir, name), []byte(content), 0o644); err != nil {
+				t.Fatal(err)
+			}
+		}
+		team, err := Load(dir)
+		if (err == nil) != c.ok {
+			t.Errorf("%s, tier %q: error %v, want ok %v", c.build, c.tier, err, c.ok)
+			continue
+		}
+		if err == nil && team.HasForkOnly() != (c.tier == "experimental") {
+			t.Errorf("%s: HasForkOnly %v", c.build, team.HasForkOnly())
+		}
+	}
+}
+
 func TestWritten(t *testing.T) {
 	ref := &Reference{DPS: 1}
 	for _, c := range []struct {

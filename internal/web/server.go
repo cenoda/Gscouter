@@ -238,6 +238,19 @@ type teamResult struct {
 	Problem string
 }
 
+// Experimental reports whether the result carries the experimental badge:
+// the team is experimental, or the player's build uses a weapon only
+// Gscouter's gcsim fork has.
+func (tr teamResult) Experimental() bool {
+	return tr.Team != nil && tr.Team.Tier == library.TierExperimental || usesForkOnlyWeapon(tr.Chars)
+}
+
+// usesForkOnlyWeapon reports whether a character wields a weapon only
+// Gscouter's gcsim fork has.
+func usesForkOnlyWeapon(chars []enka.Character) bool {
+	return slices.ContainsFunc(chars, func(c enka.Character) bool { return library.ForkOnlyWeapons[library.WeaponKey(c.Weapon.Key)] })
+}
+
 // Simulator runs the simulations of a score: the server's own, queued
 // and cached, or a browser's workers (cmd/wasm).
 type Simulator interface {
@@ -380,7 +393,7 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 	tr.Filler = fillerNote(l, out)
 	tr.Result = res
 	tr.OneRotation = oneRes
-	tr.Warnings = warnings(l, tr.Team, res)
+	tr.Warnings = warnings(l, tr.Team, tr.Chars, res)
 	tr.Rotation = rotation
 	tr.Timelines = cycleViews(ctx, l, sim, set, *tr, once, config.Assemble(config.Conditions{Iterations: 1, Duration: set.Duration, Enemy: tr.Enemy}, build.String(), out.Looped), out.Filled)
 	for _, c := range tr.Chars {
@@ -458,13 +471,18 @@ var knownIssues = map[string]string{
 	"arlecchino": "issue.arlecchino",
 }
 
-func warnings(l localizer, team *library.Team, res *score.Result) []string {
+// warnings are the notes on a team's score. chars is the player's build,
+// nil for the library team's own page, which uses the team's build.
+func warnings(l localizer, team *library.Team, chars []enka.Character, res *score.Result) []string {
 	var out []string
 	if team.Status == library.StatusDraft {
 		out = append(out, l.T("warn.draft"))
 	}
-	if team.HasForkOnly() {
+	if team.HasForkOnlyMember() {
 		out = append(out, l.T("warn.experimental"))
+	}
+	if chars == nil && team.HasForkOnlyWeapon() || usesForkOnlyWeapon(chars) {
+		out = append(out, l.T("warn.experimental_weapon"))
 	}
 	if team.Written() {
 		out = append(out, l.T("warn.written"))

@@ -46,7 +46,7 @@ func (sp Split) Team(sources []string, ref *library.Reference, notes string) (*l
 	if len(sp.Params) > 0 {
 		t.Params = sp.Params
 	}
-	if slices.ContainsFunc(ids, func(k string) bool { return library.ForkOnly[k] }) {
+	if slices.ContainsFunc(ids, func(k string) bool { return library.ForkOnly[k] }) || library.UsesForkOnlyWeapon(sp.Build) {
 		t.Tier = library.TierExperimental
 		t.GcsimFork = GcsimFork
 	}
