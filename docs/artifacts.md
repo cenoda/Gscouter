@@ -41,7 +41,7 @@ score = Σ over substats (value ÷ maximum roll) × weight × 7.77
 ```
 
 - Maximum 5★ rolls: HP 298.75, ATK 19.45, DEF 23.15, HP% 5.83%, ATK% 5.83%, DEF% 7.29%, Elemental Mastery 23.31, Energy Recharge 6.48%, CRIT Rate 3.89%, CRIT DMG 7.77%.
-- A weight is between 0 and 1. With CRIT Rate and CRIT DMG at 1 and every other weight at 0, the score is CV.
+- A weight is between 0 and 1. With CRIT Rate and CRIT DMG at 1 and every other weight at 0, the score is CV to within 0.13%: the maximum CRIT Rate roll, 3.89%, is slightly more than half of 7.77%, so a CRIT Rate point counts 1.997 times instead of 2.
 - Only substats count. Main stats are judged separately (§4.3).
 
 ### 4.2 Weights
