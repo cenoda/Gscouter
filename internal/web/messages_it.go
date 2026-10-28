@@ -138,6 +138,7 @@ func init() {
 		"filler.skip":  "il Tripudio elementale di %s viene saltato quando manca l'energia",
 		"filler.party": "l'attesa di energia per il Tripudio elementale di %s viene riempita con Abilità elementali (passando a un altro membro per la sua e tornando subito indietro quando è in ricarica) o Attacchi normali",
 		"filler.self":  "l'attesa di energia per il Tripudio elementale di %s viene riempita con l'Abilità elementale del personaggio stesso o Attacchi normali",
+		"filler.brief": "l'attesa di energia per il Tripudio elementale di %s viene riempita con Abilità elementali (la propria, o quella di un altro membro quando è in ricarica) e al massimo due Attacchi normali; se l'energia manca ancora, il Tripudio elementale viene saltato",
 		"filler.skill": "l'attesa della ricarica dell'Abilità elementale di %s viene riempita con Attacchi normali",
 
 		"tl.heading":       "Cronologia della rotazione",

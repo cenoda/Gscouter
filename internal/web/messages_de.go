@@ -138,6 +138,7 @@ func init() {
 		"filler.skip":  "die Elementarexplosion von %s wird bei zu wenig Energie ausgelassen",
 		"filler.party": "Wartezeiten von %s auf Energie für die Elementarexplosion werden mit Elementarfähigkeiten gefüllt (bei Abklingzeit Wechsel zu einem anderen Teammitglied für dessen Fähigkeit und sofort zurück) oder mit Normalen Angriffen",
 		"filler.self":  "Wartezeiten von %s auf Energie für die Elementarexplosion werden mit der eigenen Elementarfähigkeit oder Normalen Angriffen gefüllt",
+		"filler.brief": "Wartezeiten von %s auf Energie für die Elementarexplosion werden mit Elementarfähigkeiten (der eigenen oder bei Abklingzeit der eines anderen Teammitglieds) und höchstens zwei Normalen Angriffen gefüllt; reicht die Energie dann noch nicht, wird die Elementarexplosion ausgelassen",
 		"filler.skill": "Wartezeiten von %s auf die Abklingzeit der Elementarfähigkeit werden mit Normalen Angriffen gefüllt",
 
 		"tl.heading":       "Rotations-Zeitleiste",

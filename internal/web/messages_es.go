@@ -138,6 +138,7 @@ func init() {
 		"filler.skip":  "la Habilidad Definitiva de %s se omite cuando falta energía",
 		"filler.party": "mientras se espera la energía para la Habilidad Definitiva de %s, el tiempo se rellena con Habilidades Elementales (si está en enfriamiento, se cambia a otro miembro para usar la suya y se vuelve enseguida) o con ataques normales",
 		"filler.self":  "mientras se espera la energía para la Habilidad Definitiva de %s, el tiempo se rellena con su propia Habilidad Elemental o con ataques normales",
+		"filler.brief": "mientras se espera la energía para la Habilidad Definitiva de %s, el tiempo se rellena con Habilidades Elementales (la suya, o la de otro miembro si está en enfriamiento) y como mucho dos ataques normales, y la Habilidad Definitiva se omite si aún falta energía",
 		"filler.skill": "mientras se espera el tiempo de enfriamiento de la Habilidad Elemental de %s, el tiempo se rellena con ataques normales",
 
 		"tl.heading":       "Cronología de la rotación",

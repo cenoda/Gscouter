@@ -138,6 +138,7 @@ func init() {
 		"filler.skip":  "%s, enerjisi yetmediğinde Element Patlamasını atlar",
 		"filler.party": "%s Element Patlaması için enerji beklerken bu süre Element Becerileriyle (beceri bekleme süresindeyse başka bir üyeye geçip onunkini kullanarak ve hemen geri dönerek) veya normal saldırılarla doldurulur",
 		"filler.self":  "%s Element Patlaması için enerji beklerken bu süre kendi Element Becerisiyle veya normal saldırılarla doldurulur",
+		"filler.brief": "%s Element Patlaması için enerji beklerken bu süre Element Becerileriyle (kendisininki veya bekleme süresindeyse başka bir üyeninki) ve en fazla iki normal saldırıyla doldurulur; enerji hâlâ yetmezse Element Patlaması atlanır",
 		"filler.skill": "%s Element Becerisinin bekleme süresini beklerken bu süre normal saldırılarla doldurulur",
 
 		"tl.heading":       "Rotasyon zaman çizelgesi",

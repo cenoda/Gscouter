@@ -82,3 +82,18 @@ func TestFillSkipPerMember(t *testing.T) {
 		}
 	}
 }
+
+func TestFillBrief(t *testing.T) {
+	rot := "active ineffa;\nineffa skill, burst;\n"
+	got := Fill(rot, map[string]Filler{"ineffa": FillBrief}, nil, []string{"ineffa", "ayato"})
+	want := "active ineffa;\nineffa skill; " +
+		"let gs_fill1 = 0; let gs_fill1a = 0; while !.ineffa.burst.ready && gs_fill1 < 20 && gs_fill1a < 2 { " +
+		"if .ineffa.skill.ready { ineffa skill; } else if .ayato.skill.ready { ayato skill; } else { ineffa attack; gs_fill1a = gs_fill1a + 1; } gs_fill1 = gs_fill1 + 1; } " +
+		"if .ineffa.burst.ready { ineffa burst; } else { wait(1); }\n"
+	if got != want {
+		t.Errorf("got:\n%s\nwant:\n%s", got, want)
+	}
+	if _, _, err := parser.New(ast.NewFile(), "ineffa char lvl=90/90 cons=0 talent=9,9,9;\n"+got).Parse(); err != nil {
+		t.Errorf("filled rotation does not parse: %v\n%s", err, got)
+	}
+}
