@@ -223,6 +223,7 @@ func init() {
 		"enemy.preset_note": "プリセットを選ぶと、gcsimのモンスターデータにあるボスの基礎耐性が入力され、レベルはそのまま残ります。フェーズごとの耐性変化、シールド、無敵は再現されません。",
 		"err.boss":          "不明なボスです：%q",
 
+		"art.totals":       "聖遺物の合計",
 		"art.pieces":       "聖遺物の部位別表示",
 		"art.slot.flower":  "花",
 		"art.slot.plume":   "羽",

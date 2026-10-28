@@ -223,6 +223,7 @@ func init() {
 		"enemy.preset_note": "프리셋을 고르면 gcsim 몬스터 데이터의 보스 기본 내성이 채워지고, 레벨은 입력한 값이 유지됩니다. 페이즈별 내성 변화, 실드, 무적은 반영되지 않습니다.",
 		"err.boss":          "알 수 없는 보스입니다: %q",
 
+		"art.totals":       "성유물 합계",
 		"art.pieces":       "성유물 부위별 보기",
 		"art.slot.flower":  "꽃",
 		"art.slot.plume":   "깃털",

@@ -461,7 +461,7 @@ function copyLink(btn) {
 <tbody>
 {{range $i, $c := .Result.Characters}}{{$e := index $.Chars $i}}
 <tr>
-<td><span class="who">{{template "face" $c.Name}}{{template "el" (element $c.Name)}}{{name $c.Name}}</span><span class="muted">Lv.{{$e.Level}} C{{$e.Cons}} · {{weapon $e.Weapon.Key}} R{{$e.Weapon.Refine}} · {{t "team.talents"}} {{$.TalentsOf $i}}</span><span class="muted">{{totals $e}}</span></td>
+<td><span class="who">{{template "face" $c.Name}}{{template "el" (element $c.Name)}}{{name $c.Name}}</span><span class="muted">Lv.{{$e.Level}} C{{$e.Cons}} · {{weapon $e.Weapon.Key}} R{{$e.Weapon.Refine}} · {{t "team.talents"}} {{$.TalentsOf $i}}</span><span class="muted">{{totals $e ($.StatsOf $i)}}</span></td>
 <td class="num">{{thousands $c.DPS}}</td>
 <td class="num">{{percent $c.Share}}<span class="bar"><i style="width: {{width $c.Share}}%"></i></span></td>
 </tr>
@@ -494,11 +494,12 @@ function copyLink(btn) {
 {{define "pieces"}}
 <details class="rotation">
 <summary>{{t "art.pieces"}}</summary>
-{{if not (hasPieces .Chars)}}<p class="muted">{{t "art.reload"}}</p>
-{{else}}<div class="table-wrap">
+{{$any := hasPieces .Chars}}{{if not $any}}<p class="muted">{{t "art.reload"}}</p>{{end}}
+{{if or $any (hasTotals .Chars)}}<div class="table-wrap">
 <table class="pieces">
 {{range .Chars}}<tr><th colspan="2"><span class="who">{{template "face" .Key}}{{name .Key}}</span></th></tr>
-{{if none .}}<tr><td colspan="2" class="muted">{{t "art.reload"}}</td></tr>
+{{with artTotals .}}<tr><td colspan="2">{{t "art.totals"}}<span class="muted">{{.}}</span></td></tr>
+{{end}}{{if none .}}{{if $any}}<tr><td colspan="2" class="muted">{{t "art.reload"}}</td></tr>{{end}}
 {{else}}{{$full := full .}}{{range .Pieces}}<tr><td>{{slotName .Slot}}<span class="muted">{{pieceText .}}</span></td><td>{{stat .Main}}<span class="muted">{{if $full}}{{subsText .}}{{else}}{{t "art.subs_out"}}{{end}}</span></td></tr>
 {{end}}{{end}}{{end}}
 </table>

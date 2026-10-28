@@ -223,6 +223,7 @@ func init() {
 		"enemy.preset_note": "A preset fills in the boss's base resistances from gcsim's monster data and keeps the level you set. Phase changes, shields and immunity are not modeled.",
 		"err.boss":          "Unknown boss: %q",
 
+		"art.totals":       "Artifact totals",
 		"art.pieces":       "Artifact pieces",
 		"art.slot.flower":  "Flower",
 		"art.slot.plume":   "Plume",
