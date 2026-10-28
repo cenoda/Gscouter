@@ -95,4 +95,13 @@ func TestTeamTier(t *testing.T) {
 			t.Errorf("%s: tier %q, fork %q, want neither", members, team.Tier, team.GcsimFork)
 		}
 	}
+	// A build with a weapon only the fork has makes the team experimental.
+	sp := Split{Members: strings.Split("hutao,xingqiu,zhongli,yelan", ","), Build: `xingqiu add weapon="hymnofthemaelstrom" refine=1 lvl=90/90;`}
+	team, err := sp.Team(nil, nil, "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if team.Tier != library.TierExperimental || team.GcsimFork != GcsimFork {
+		t.Errorf("Hymn build: tier %q, fork %q", team.Tier, team.GcsimFork)
+	}
 }

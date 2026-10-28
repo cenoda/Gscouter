@@ -18,7 +18,7 @@ const GcsimCommit = "2350be9"
 
 // GcsimFork is the commit of the fork in go.mod, recorded on experimental
 // teams: a fix on the fork changes their scores but not GcsimCommit.
-const GcsimFork = "efcbe0e"
+const GcsimFork = "76e8116"
 
 // Team builds the library entry for a split config. Its ID joins the
 // members' canonical names in config order.
@@ -46,7 +46,7 @@ func (sp Split) Team(sources []string, ref *library.Reference, notes string) (*l
 	if len(sp.Params) > 0 {
 		t.Params = sp.Params
 	}
-	if slices.ContainsFunc(ids, func(k string) bool { return library.ForkOnly[k] }) {
+	if slices.ContainsFunc(ids, func(k string) bool { return library.ForkOnly[k] }) || library.UsesForkOnlyWeapon(sp.Build) {
 		t.Tier = library.TierExperimental
 		t.GcsimFork = GcsimFork
 	}

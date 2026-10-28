@@ -26,7 +26,7 @@ func (s *Server) handleLibraryTeam(w http.ResponseWriter, r *http.Request) {
 	}
 	data := libraryTeamData{
 		Team:     t,
-		Warnings: warnings(l, t, &score.Result{}),
+		Warnings: warnings(l, t, nil, &score.Result{}),
 		Lang:     langQuery(r),
 	}
 	for _, m := range t.Members {

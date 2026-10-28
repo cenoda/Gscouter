@@ -437,7 +437,7 @@ function copyLink(btn) {
 
 {{define "team"}}
 {{if .Nickname}}<p class="muted">{{.Nickname}} · UID {{.Selection.UID}}</p>{{else}}<p class="muted">UID {{.Selection.UID}}</p>{{end}}
-{{if .Team}}<div class="team-head">{{if .Chars}}{{template "faces" (keys .Chars)}}{{end}}<h2 class="team-title">{{template "members" .Team.Members}} {{teamName .Team}}{{if eq .Team.Tier "experimental"}} <span class="badge">{{t "tier.experimental"}}</span>{{end}}</h2></div>{{end}}
+{{if .Team}}<div class="team-head">{{if .Chars}}{{template "faces" (keys .Chars)}}{{end}}<h2 class="team-title">{{template "members" .Team.Members}} {{teamName .Team}}{{if .Experimental}} <span class="badge">{{t "tier.experimental"}}</span>{{end}}</h2></div>{{end}}
 {{if .Problem}}
 <div class="bad">{{.Problem}}</div>
 {{else if not .Result}}

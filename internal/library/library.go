@@ -8,6 +8,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"regexp"
 	"slices"
 	"strings"
 
@@ -52,6 +53,38 @@ var ForkOnly = map[string]bool{
 	"vodyanitsa": true,
 }
 
+// ForkOnlyWeapons holds the weapons that only Gscouter's gcsim fork has, by
+// gcsim key (design §5.4). A team or showcase that uses one is treated as
+// one with a ForkOnly character. Update it whenever a weapon is added to
+// the fork or upstream merges one.
+var ForkOnlyWeapons = map[string]bool{
+	"hymnofthemaelstrom": true,
+}
+
+// WeaponKey returns gcsim's key for a weapon name or one of its
+// shortcuts, or the lowercased name when gcsim does not know it.
+func WeaponKey(name string) string {
+	name = strings.ToLower(name)
+	if key, ok := shortcut.WeaponNameToKey[name]; ok {
+		return key.String()
+	}
+	return name
+}
+
+// weaponLine matches the weapon of a gcsim setup line.
+var weaponLine = regexp.MustCompile(`\badd\s+weapon\s*=\s*"?([^"\s;]+)`)
+
+// UsesForkOnlyWeapon reports whether gcsim setup lines equip a weapon only
+// Gscouter's gcsim fork has.
+func UsesForkOnlyWeapon(build string) bool {
+	for _, m := range weaponLine.FindAllStringSubmatch(build, -1) {
+		if ForkOnlyWeapons[WeaponKey(m[1])] {
+			return true
+		}
+	}
+	return false
+}
+
 type Team struct {
 	ID              string   `yaml:"id"`
 	Name            string   `yaml:"name"`
@@ -83,6 +116,9 @@ type Team struct {
 
 	// Rotation is the contents of rotation.gcsl.
 	Rotation string `yaml:"-"`
+	// Build is the contents of build.txt, the build the rotation is
+	// validated with; empty when the team has none.
+	Build string `yaml:"-"`
 }
 
 type Reference struct {
@@ -107,10 +143,22 @@ func (t *Team) Written() bool {
 	return t.Tier == TierExperimental && t.Reference == nil
 }
 
-// HasForkOnly reports whether a member is a character only Gscouter's
-// gcsim fork has.
+// HasForkOnly reports whether the team needs Gscouter's gcsim fork: a
+// member or a weapon of its build is only on the fork.
 func (t *Team) HasForkOnly() bool {
+	return t.HasForkOnlyMember() || t.HasForkOnlyWeapon()
+}
+
+// HasForkOnlyMember reports whether a member is a character only
+// Gscouter's gcsim fork has.
+func (t *Team) HasForkOnlyMember() bool {
 	return slices.ContainsFunc(t.Members, func(m string) bool { return ForkOnly[Canonical(m)] })
+}
+
+// HasForkOnlyWeapon reports whether the team's build equips a weapon only
+// Gscouter's gcsim fork has.
+func (t *Team) HasForkOnlyWeapon() bool {
+	return UsesForkOnlyWeapon(t.Build)
 }
 
 type Validation struct {
@@ -154,12 +202,17 @@ func LoadFS(fsys fs.FS, dir string) (*Team, error) {
 	default:
 		return nil, fmt.Errorf("team %q: unknown tier %q", t.ID, t.Tier)
 	}
+	build, err := fs.ReadFile(fsys, path.Join(dir, "build.txt"))
+	if err != nil && !errors.Is(err, fs.ErrNotExist) {
+		return nil, err
+	}
+	t.Build = string(build)
 	forkOnly := t.HasForkOnly()
 	switch {
 	case forkOnly && t.Tier != TierExperimental:
-		return nil, fmt.Errorf("team %q: has a character only the gcsim fork has, so it needs tier: experimental", t.ID)
+		return nil, fmt.Errorf("team %q: has a character or weapon only the gcsim fork has, so it needs tier: experimental", t.ID)
 	case t.Tier == TierExperimental && !forkOnly && !t.Written():
-		return nil, fmt.Errorf("team %q: tier experimental, but every member is in upstream gcsim and the rotation has a source DPS", t.ID)
+		return nil, fmt.Errorf("team %q: tier experimental, but every member and weapon is in upstream gcsim and the rotation has a source DPS", t.ID)
 	}
 	if (t.GcsimFork != "") != forkOnly {
 		return nil, fmt.Errorf("team %q: gcsim_fork goes with tier experimental, and only with it", t.ID)
