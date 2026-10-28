@@ -6,6 +6,6 @@ status: blocked
 rotation_version: 0
 gcsim_commit: 2350be9
 tier: experimental
-gcsim_fork: efcbe0e
+gcsim_fork: b029c45
 sources: []
-notes: "Vesna and Vodyanitsa are both on the fork (87338fd), but no community rotation or config for this team exists yet, so it has no rotation."
+notes: "Vesna and Vodyanitsa are both on the fork (b029c45), but no published guide gives a rotation for this team (searched 2026-10-28: GameWith, Icy Veins, AllThingsHow, GenshinBuilds; no KQM Vesna quick guide), and no community gcsim config can exist while upstream gcsim lacks them, so it has no rotation. The guides' closest teams, which have library teams or rotations, replace Faruzan or Vodyanitsa with Odette (design §5.4, Added: Vesna)."
