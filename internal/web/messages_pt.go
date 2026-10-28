@@ -34,7 +34,7 @@ func init() {
 
 		"index.vs_heading":       "Escolha o adversário",
 		"index.vs_lead":          "Carregue o UID do outro jogador e escolha uma equipe para calcular o DPS das duas equipes lado a lado, nas mesmas condições.",
-		"index.heading":          "DPS de equipe com seus personagens da Exibição",
+		"index.heading":          "DPS de equipe de Genshin Impact com seus personagens da Exibição",
 		"index.lead":             "Digite um UID e escolha quatro personagens. Todas as equipes são calculadas contra o mesmo inimigo e com a mesma rotação. Compartilhe o link do resultado ou compare com a equipe de outro jogador.",
 		"index.step1":            "Digite um UID",
 		"index.step2":            "Escolha quatro personagens",
@@ -69,7 +69,7 @@ func init() {
 		"score.opponent_uid":    "UID do adversário",
 		"score.load_opponent":   "Carregar adversário",
 
-		"teams.title":       "Equipes suportadas · Gscouter",
+		"teams.title":       "Equipes suportadas · Genshin Impact · Gscouter",
 		"teams.placeholder": "Nomes de personagens (ex.: Hutao, Furina)",
 		"teams.search":      "Buscar",
 		"teams.matching":    "%[2]d equipes com \"%[1]s\" (de %[3]d)",
@@ -79,14 +79,14 @@ func init() {
 		"teams.supported":   "suportada",
 		"teams.blocked":     "não suportada pelo motor",
 
-		"lib.title":      "DPS da equipe %s · Gscouter",
+		"lib.title":      "DPS da equipe %s · Genshin Impact · Gscouter",
 		"lib.desc":       "%s: DPS da equipe de Genshin Impact calculado com a rotação do gcsim da comunidade. Digite seu UID para calcular a sua build.",
 		"lib.score_desc": "Pontuação com a build da comunidade: %s DPS.",
 		"lib.score_note": "Calculado como os seus resultados, contra o mesmo inimigo e repetindo a rotação, com a build da configuração do gcsim da comunidade de onde vem a rotação. A sua build terá outra pontuação.",
 		"lib.source_dps": "A fonte informa %s DPS por rotação nas próprias condições.",
 		"lib.sources":    "Fontes",
 		"lib.try":        "Calcule a sua build",
-		"char.title":     "Equipes com %s por DPS · Gscouter",
+		"char.title":     "Equipes com %s por DPS · Genshin Impact · Gscouter",
 		"char.desc":      "Equipes de Genshin Impact com %s (%d), ordenadas por DPS com a build da comunidade. Digite seu UID para calcular a sua.",
 		"char.heading":   "Equipes com %s",
 		"char.team":      "Equipe",
@@ -139,6 +139,7 @@ func init() {
 		"filler.skip":  "o Supremo de %s é pulado quando falta energia",
 		"filler.party": "enquanto se espera a energia do Supremo de %s, o tempo é preenchido com Habilidades Elementais (se estiver em Tempo de Recarga, troca-se para outro membro para usar a dele e volta-se logo em seguida) ou ataques normais",
 		"filler.self":  "enquanto se espera a energia do Supremo de %s, o tempo é preenchido com a própria Habilidade Elemental ou ataques normais",
+		"filler.brief": "enquanto se espera a energia do Supremo de %s, o tempo é preenchido com Habilidades Elementais (a própria, ou a de outro membro se estiver em Tempo de Recarga) e no máximo dois ataques normais, e o Supremo é pulado se ainda faltar energia",
 		"filler.skill": "enquanto se espera o Tempo de Recarga da Habilidade Elemental de %s, o tempo é preenchido com ataques normais",
 
 		"tl.heading":       "Linha do tempo da rotação",

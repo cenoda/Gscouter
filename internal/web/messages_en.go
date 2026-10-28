@@ -34,7 +34,7 @@ func init() {
 
 		"index.vs_heading":       "Pick the opponent",
 		"index.vs_lead":          "Load the other player's UID and pick a team to calculate both teams' DPS side by side under the same conditions.",
-		"index.heading":          "Team DPS from your showcase characters",
+		"index.heading":          "Genshin Impact team DPS from your showcase characters",
 		"index.lead":             "Enter a UID and pick four characters. Every team is calculated against the same enemy with the same rotation. Share the result link or compare it with another player's team.",
 		"index.step1":            "Enter a UID",
 		"index.step2":            "Pick four characters",
@@ -69,7 +69,7 @@ func init() {
 		"score.opponent_uid":    "Opponent UID",
 		"score.load_opponent":   "Load opponent",
 
-		"teams.title":       "Supported teams · Gscouter",
+		"teams.title":       "Supported teams · Genshin Impact · Gscouter",
 		"teams.placeholder": "Character names (e.g. Hu Tao, Furina)",
 		"teams.search":      "Search",
 		"teams.matching":    "%[2]d teams with \"%[1]s\" (of %[3]d)",
@@ -79,14 +79,14 @@ func init() {
 		"teams.supported":   "supported",
 		"teams.blocked":     "not supported by the engine",
 
-		"lib.title":      "%s team DPS · Gscouter",
+		"lib.title":      "%s team DPS · Genshin Impact · Gscouter",
 		"lib.desc":       "%s: Genshin Impact team DPS calculated with the community gcsim rotation. Enter your UID to score your own build.",
 		"lib.score_desc": "Score with the community build: %s DPS.",
 		"lib.score_note": "Calculated like your results, against the same enemy with the rotation looped, using the build from the community gcsim config the rotation comes from. Your own build will score differently.",
 		"lib.source_dps": "The source reports %s DPS for one rotation under its own conditions.",
 		"lib.sources":    "Sources",
 		"lib.try":        "Score your own build",
-		"char.title":     "%s teams ranked by DPS · Gscouter",
+		"char.title":     "%s teams ranked by DPS · Genshin Impact · Gscouter",
 		"char.desc":      "Genshin Impact teams with %s (%d), ranked by DPS with the community build. Enter your UID to score your own.",
 		"char.heading":   "%s teams",
 		"char.team":      "Team",
@@ -139,6 +139,7 @@ func init() {
 		"filler.skip":  "the burst of %s is skipped when short of energy",
 		"filler.party": "while %s wait for burst energy, the time is filled with Elemental Skills (swapping to another member for theirs and straight back when on cooldown) or normal attacks",
 		"filler.self":  "while %s wait for burst energy, the time is filled with their own Elemental Skill or normal attacks",
+		"filler.brief": "while %s wait for burst energy, the time is filled with Elemental Skills (their own, or another member's when on cooldown) and at most two normal attacks, and the burst is skipped if still short",
 		"filler.skill": "while %s wait for their Elemental Skill cooldown, the time is filled with normal attacks",
 
 		"tl.heading":       "Rotation timeline",

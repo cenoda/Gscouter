@@ -34,7 +34,7 @@ func init() {
 
 		"index.vs_heading":       "Elige al rival",
 		"index.vs_lead":          "Carga el UID del otro jugador y elige un equipo para calcular el DPS de ambos equipos, uno junto al otro, en las mismas condiciones.",
-		"index.heading":          "DPS de equipo con tus personajes de la exhibición",
+		"index.heading":          "DPS de equipo de Genshin Impact con tus personajes de la exhibición",
 		"index.lead":             "Introduce un UID y elige cuatro personajes. Todos los equipos se calculan contra el mismo enemigo y con la misma rotación. Comparte el enlace del resultado o compáralo con el equipo de otro jugador.",
 		"index.step1":            "Introduce un UID",
 		"index.step2":            "Elige cuatro personajes",
@@ -69,7 +69,7 @@ func init() {
 		"score.opponent_uid":    "UID del rival",
 		"score.load_opponent":   "Cargar rival",
 
-		"teams.title":       "Equipos compatibles · Gscouter",
+		"teams.title":       "Equipos compatibles · Genshin Impact · Gscouter",
 		"teams.placeholder": "Nombres de personajes (p. ej., Hu Tao, Furina)",
 		"teams.search":      "Buscar",
 		"teams.matching":    "%[2]d equipos con \"%[1]s\" (de %[3]d)",
@@ -79,14 +79,14 @@ func init() {
 		"teams.supported":   "compatible",
 		"teams.blocked":     "no compatible con el motor",
 
-		"lib.title":      "DPS del equipo %s · Gscouter",
+		"lib.title":      "DPS del equipo %s · Genshin Impact · Gscouter",
 		"lib.desc":       "%s: DPS del equipo de Genshin Impact calculado con la rotación de gcsim de la comunidad. Introduce tu UID para calcular tu propia build.",
 		"lib.score_desc": "Puntuación con la build de la comunidad: %s DPS.",
 		"lib.score_note": "Calculado como tus resultados, contra el mismo enemigo y repitiendo la rotación, con la build de la configuración de gcsim de la comunidad de la que procede la rotación. Tu propia build obtendrá otra puntuación.",
 		"lib.source_dps": "La fuente indica %s DPS por rotación en sus propias condiciones.",
 		"lib.sources":    "Fuentes",
 		"lib.try":        "Calcula tu propia build",
-		"char.title":     "Equipos de %s por DPS · Gscouter",
+		"char.title":     "Equipos de %s por DPS · Genshin Impact · Gscouter",
 		"char.desc":      "Equipos de Genshin Impact con %s (%d), ordenados por DPS con la build de la comunidad. Introduce tu UID para calcular la tuya.",
 		"char.heading":   "Equipos de %s",
 		"char.team":      "Equipo",
@@ -139,6 +139,7 @@ func init() {
 		"filler.skip":  "la Habilidad Definitiva de %s se omite cuando falta energía",
 		"filler.party": "mientras se espera la energía para la Habilidad Definitiva de %s, el tiempo se rellena con Habilidades Elementales (si está en enfriamiento, se cambia a otro miembro para usar la suya y se vuelve enseguida) o con ataques normales",
 		"filler.self":  "mientras se espera la energía para la Habilidad Definitiva de %s, el tiempo se rellena con su propia Habilidad Elemental o con ataques normales",
+		"filler.brief": "mientras se espera la energía para la Habilidad Definitiva de %s, el tiempo se rellena con Habilidades Elementales (la suya, o la de otro miembro si está en enfriamiento) y como mucho dos ataques normales, y la Habilidad Definitiva se omite si aún falta energía",
 		"filler.skill": "mientras se espera el tiempo de enfriamiento de la Habilidad Elemental de %s, el tiempo se rellena con ataques normales",
 
 		"tl.heading":       "Cronología de la rotación",

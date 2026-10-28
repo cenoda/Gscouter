@@ -34,7 +34,7 @@ func init() {
 
 		"index.vs_heading":       "Gegner auswählen",
 		"index.vs_lead":          "Lade die UID des anderen Spielers und wähle ein Team, um die DPS beider Teams unter gleichen Bedingungen nebeneinander zu berechnen.",
-		"index.heading":          "Team-DPS aus deinen ausgestellten Charakteren",
+		"index.heading":          "Genshin Impact Team-DPS aus deinen ausgestellten Charakteren",
 		"index.lead":             "Gib eine UID ein und wähle vier Charaktere. Jedes Team wird gegen denselben Gegner mit derselben Rotation berechnet. Teile den Ergebnislink oder vergleiche ihn mit dem Team eines anderen Spielers.",
 		"index.step1":            "UID eingeben",
 		"index.step2":            "Vier Charaktere wählen",
@@ -69,7 +69,7 @@ func init() {
 		"score.opponent_uid":    "UID des Gegners",
 		"score.load_opponent":   "Gegner laden",
 
-		"teams.title":       "Unterstützte Teams · Gscouter",
+		"teams.title":       "Unterstützte Teams · Genshin Impact · Gscouter",
 		"teams.placeholder": "Charakternamen (z. B. Hu Tao, Furina)",
 		"teams.search":      "Suchen",
 		"teams.matching":    "%[2]d Teams mit „%[1]s“ (von %[3]d)",
@@ -79,14 +79,14 @@ func init() {
 		"teams.supported":   "unterstützt",
 		"teams.blocked":     "von der Engine nicht unterstützt",
 
-		"lib.title":      "DPS des Teams %s · Gscouter",
+		"lib.title":      "DPS des Teams %s · Genshin Impact · Gscouter",
 		"lib.desc":       "%s: Team-DPS in Genshin Impact, berechnet mit der gcsim-Rotation der Community. Gib deine UID ein, um deinen eigenen Build zu berechnen.",
 		"lib.score_desc": "Wertung mit dem Community-Build: %s DPS.",
 		"lib.score_note": "Berechnet wie deine Ergebnisse, gegen denselben Gegner mit wiederholter Rotation, mit dem Build aus der gcsim-Konfiguration der Community, aus der die Rotation stammt. Dein eigener Build erzielt eine andere Wertung.",
 		"lib.source_dps": "Die Quelle gibt %s DPS für eine Rotation unter ihren eigenen Bedingungen an.",
 		"lib.sources":    "Quellen",
 		"lib.try":        "Eigenen Build berechnen",
-		"char.title":     "Teams mit %s nach DPS · Gscouter",
+		"char.title":     "Teams mit %s nach DPS · Genshin Impact · Gscouter",
 		"char.desc":      "Genshin-Impact-Teams mit %s (%d), nach DPS mit dem Community-Build sortiert. Gib deine UID ein, um deinen eigenen zu berechnen.",
 		"char.heading":   "Teams mit %s",
 		"char.team":      "Team",
@@ -139,6 +139,7 @@ func init() {
 		"filler.skip":  "die Elementarexplosion von %s wird bei zu wenig Energie ausgelassen",
 		"filler.party": "Wartezeiten von %s auf Energie für die Elementarexplosion werden mit Elementarfähigkeiten gefüllt (bei Abklingzeit Wechsel zu einem anderen Teammitglied für dessen Fähigkeit und sofort zurück) oder mit Normalen Angriffen",
 		"filler.self":  "Wartezeiten von %s auf Energie für die Elementarexplosion werden mit der eigenen Elementarfähigkeit oder Normalen Angriffen gefüllt",
+		"filler.brief": "Wartezeiten von %s auf Energie für die Elementarexplosion werden mit Elementarfähigkeiten (der eigenen oder bei Abklingzeit der eines anderen Teammitglieds) und höchstens zwei Normalen Angriffen gefüllt; reicht die Energie dann noch nicht, wird die Elementarexplosion ausgelassen",
 		"filler.skill": "Wartezeiten von %s auf die Abklingzeit der Elementarfähigkeit werden mit Normalen Angriffen gefüllt",
 
 		"tl.heading":       "Rotations-Zeitleiste",

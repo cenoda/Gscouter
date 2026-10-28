@@ -25,7 +25,7 @@ func TestLibraryTeamPage(t *testing.T) {
 	}
 	// The URL's language wins over the browser's, and links to the other
 	// indexed pages keep it.
-	mustContain(t, body, `<html lang="ko">`, "<title>호두 / 행추 / 종려 / 야란 파티 DPS · Gscouter</title>",
+	mustContain(t, body, `<html lang="ko">`, "<title>원신 호두 / 행추 / 종려 / 야란 파티 DPS · Gscouter</title>",
 		`class="score"`, `href="/characters/hutao?hl=ko"`, `href="https://db.kqm.gg/db/`,
 		`<link rel="canonical" href="`+ts.URL+`/teams/`+hutaoTeamID+`?hl=ko">`,
 		`<link rel="alternate" hreflang="en" href="`+ts.URL+`/teams/`+hutaoTeamID+`">`,
@@ -49,7 +49,7 @@ func TestCharacterPage(t *testing.T) {
 	if code != http.StatusOK {
 		t.Fatalf("status %d", code)
 	}
-	mustContain(t, body, "<title>Hu Tao teams ranked by DPS · Gscouter</title>", `href="/teams/`+hutaoTeamID+`"`,
+	mustContain(t, body, "<title>Hu Tao teams ranked by DPS · Genshin Impact · Gscouter</title>", `href="/teams/`+hutaoTeamID+`"`,
 		`<link rel="canonical" href="`+ts.URL+`/characters/hutao">`)
 	if code, _ := get(t, ts, "/characters/nobody"); code != http.StatusNotFound {
 		t.Errorf("unknown character: status %d", code)
@@ -208,5 +208,53 @@ func TestIndexNow(t *testing.T) {
 	if len(got) != 1 || !slices.Contains(got[0].URLList, "https://gscouter.example/teams/"+hutaoTeamID+"?hl=ko") ||
 		!slices.Contains(got[0].URLList, "https://gscouter.example/characters/yelan") {
 		t.Errorf("submitted %v", got)
+	}
+
+	// Changed text resubmits every page.
+	title := catalog[langEnglish]["lib.title"]
+	catalog[langEnglish]["lib.title"] = "changed " + title
+	defer func() { catalog[langEnglish]["lib.title"] = title }()
+	if n := submit(srv); n != len(srv.pages())*len(langs) {
+		t.Errorf("text changed: %d URLs, want %d", n, len(srv.pages())*len(langs))
+	}
+}
+
+func TestIcons(t *testing.T) {
+	ts := newTestServerFor(t, newTestSite(t))
+	for name, typ := range iconTypes {
+		resp, err := http.Get(ts.URL + "/" + name)
+		if err != nil {
+			t.Fatal(err)
+		}
+		resp.Body.Close()
+		if resp.StatusCode != http.StatusOK || resp.Header.Get("Content-Type") != typ {
+			t.Errorf("/%s: %d %q", name, resp.StatusCode, resp.Header.Get("Content-Type"))
+		}
+	}
+	_, body := get(t, ts, "/")
+	mustContain(t, body, `<link rel="icon" href="/favicon.ico" sizes="48x48">`)
+}
+
+func TestFrontPageStructuredData(t *testing.T) {
+	ts := newTestServer(t)
+	_, body := getKo(t, ts, "/")
+	_, ld, ok := strings.Cut(body, `<script type="application/ld+json">`)
+	if !ok {
+		t.Fatal("no structured data")
+	}
+	ld, _, _ = strings.Cut(ld, "</script>")
+	var items []map[string]any
+	if err := json.Unmarshal([]byte(ld), &items); err != nil {
+		t.Fatalf("structured data: %v\n%s", err, ld)
+	}
+	if len(items) != 2 || items[0]["url"] != ts.URL+"/" || items[1]["inLanguage"] != "ko" ||
+		!strings.Contains(items[1]["description"].(string), "Genshin") {
+		t.Errorf("structured data: %s", ld)
+	}
+
+	// Only the front page describes the site.
+	_, body = get(t, ts, "/teams")
+	if strings.Contains(body, "application/ld+json") {
+		t.Error("structured data on /teams")
 	}
 }

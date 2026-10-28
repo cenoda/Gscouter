@@ -34,7 +34,7 @@ func init() {
 
 		"index.vs_heading":       "Pilih lawan",
 		"index.vs_lead":          "Muat UID pemain lain dan pilih tim untuk menghitung DPS kedua tim secara berdampingan dalam kondisi yang sama.",
-		"index.heading":          "DPS tim dari karakter showcase-mu",
+		"index.heading":          "DPS tim Genshin Impact dari karakter showcase-mu",
 		"index.lead":             "Masukkan UID dan pilih empat karakter. Setiap tim dihitung melawan musuh yang sama dengan rotasi yang sama. Bagikan link hasilnya atau bandingkan dengan tim pemain lain.",
 		"index.step1":            "Masukkan UID",
 		"index.step2":            "Pilih empat karakter",
@@ -69,7 +69,7 @@ func init() {
 		"score.opponent_uid":    "UID lawan",
 		"score.load_opponent":   "Muat lawan",
 
-		"teams.title":       "Tim yang didukung · Gscouter",
+		"teams.title":       "Tim yang didukung · Genshin Impact · Gscouter",
 		"teams.placeholder": "Nama karakter (mis. Hu Tao, Furina)",
 		"teams.search":      "Cari",
 		"teams.matching":    "Tim dengan \"%s\": %d (dari %d)",
@@ -79,14 +79,14 @@ func init() {
 		"teams.supported":   "didukung",
 		"teams.blocked":     "tidak didukung engine",
 
-		"lib.title":      "DPS tim %s · Gscouter",
+		"lib.title":      "DPS tim %s · Genshin Impact · Gscouter",
 		"lib.desc":       "%s: DPS tim Genshin Impact yang dihitung dengan rotasi gcsim dari komunitas. Masukkan UID untuk menghitung build kamu sendiri.",
 		"lib.score_desc": "Skor dengan build komunitas: %s DPS.",
 		"lib.score_note": "Dihitung seperti hasilmu, melawan musuh yang sama dengan rotasi diulang, memakai build dari konfigurasi gcsim komunitas asal rotasi ini. Build kamu sendiri akan mendapat skor yang berbeda.",
 		"lib.source_dps": "Sumber melaporkan %s DPS untuk satu rotasi dengan kondisinya sendiri.",
 		"lib.sources":    "Sumber",
 		"lib.try":        "Hitung build kamu sendiri",
-		"char.title":     "Peringkat DPS tim dengan %s · Gscouter",
+		"char.title":     "Peringkat DPS tim dengan %s · Genshin Impact · Gscouter",
 		"char.desc":      "Tim Genshin Impact dengan %s (%d), diurutkan berdasarkan DPS dengan build komunitas. Masukkan UID untuk menghitung milikmu.",
 		"char.heading":   "Tim dengan %s",
 		"char.team":      "Tim",
@@ -139,6 +139,7 @@ func init() {
 		"filler.skip":  "Elemental Burst %s dilewati saat Energy kurang",
 		"filler.party": "selagi %s menunggu Energy untuk Elemental Burst, waktunya diisi dengan Elemental Skill (ganti ke anggota lain untuk skill mereka lalu langsung kembali saat cooldown) atau Normal Attack",
 		"filler.self":  "selagi %s menunggu Energy untuk Elemental Burst, waktunya diisi dengan Elemental Skill sendiri atau Normal Attack",
+		"filler.brief": "selagi %s menunggu Energy untuk Elemental Burst, waktunya diisi dengan Elemental Skill (milik sendiri, atau milik anggota lain saat cooldown) dan paling banyak dua Normal Attack, lalu Elemental Burst dilewati jika Energy masih kurang",
 		"filler.skill": "selagi %s menunggu cooldown Elemental Skill, waktunya diisi dengan Normal Attack",
 
 		"tl.heading":       "Timeline rotasi",

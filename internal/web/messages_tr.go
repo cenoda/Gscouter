@@ -34,7 +34,7 @@ func init() {
 
 		"index.vs_heading":       "Rakibi seç",
 		"index.vs_lead":          "Diğer oyuncunun UID'sini yükle ve bir takım seç; iki takımın DPS'i aynı koşullarda yan yana hesaplansın.",
-		"index.heading":          "Galerideki karakterlerinle takım DPS'i",
+		"index.heading":          "Galerideki karakterlerinle Genshin Impact takım DPS'i",
 		"index.lead":             "Bir UID gir ve dört karakter seç. Her takım aynı düşmana karşı, aynı rotasyonla hesaplanır. Sonuç bağlantısını paylaş veya başka bir oyuncunun takımıyla karşılaştır.",
 		"index.step1":            "UID gir",
 		"index.step2":            "Dört karakter seç",
@@ -69,7 +69,7 @@ func init() {
 		"score.opponent_uid":    "Rakip UID",
 		"score.load_opponent":   "Rakibi yükle",
 
-		"teams.title":       "Desteklenen takımlar · Gscouter",
+		"teams.title":       "Desteklenen takımlar · Genshin Impact · Gscouter",
 		"teams.placeholder": "Karakter adları (ör. Hu Tao, Furina)",
 		"teams.search":      "Ara",
 		"teams.matching":    "\"%s\" içeren %d takım (toplam %d)",
@@ -79,14 +79,14 @@ func init() {
 		"teams.supported":   "destekleniyor",
 		"teams.blocked":     "motor desteklemiyor",
 
-		"lib.title":      "%s takımının DPS'i · Gscouter",
+		"lib.title":      "%s takımının DPS'i · Genshin Impact · Gscouter",
 		"lib.desc":       "%s: Topluluğun gcsim rotasyonuyla hesaplanan Genshin Impact takım DPS'i. Kendi build'ini hesaplamak için UID'ini gir.",
 		"lib.score_desc": "Topluluk build'iyle puan: %s DPS.",
 		"lib.score_note": "Senin sonuçların gibi hesaplandı (aynı düşman, rotasyon tekrarlanarak); rotasyonun alındığı topluluk gcsim yapılandırmasındaki build kullanıldı. Kendi build'inin puanı farklı olacaktır.",
 		"lib.source_dps": "Kaynak, kendi koşullarında bir rotasyon için %s DPS bildiriyor.",
 		"lib.sources":    "Kaynaklar",
 		"lib.try":        "Kendi build'ini hesapla",
-		"char.title":     "%s takımları DPS sıralaması · Gscouter",
+		"char.title":     "%s takımları DPS sıralaması · Genshin Impact · Gscouter",
 		"char.desc":      "%s içeren Genshin Impact takımları (%d), topluluk build'iyle DPS'e göre sıralı. Kendi build'ini hesaplamak için UID'ini gir.",
 		"char.heading":   "%s takımları",
 		"char.team":      "Takım",
@@ -139,6 +139,7 @@ func init() {
 		"filler.skip":  "%s, enerjisi yetmediğinde Element Patlamasını atlar",
 		"filler.party": "%s Element Patlaması için enerji beklerken bu süre Element Becerileriyle (beceri bekleme süresindeyse başka bir üyeye geçip onunkini kullanarak ve hemen geri dönerek) veya normal saldırılarla doldurulur",
 		"filler.self":  "%s Element Patlaması için enerji beklerken bu süre kendi Element Becerisiyle veya normal saldırılarla doldurulur",
+		"filler.brief": "%s Element Patlaması için enerji beklerken bu süre Element Becerileriyle (kendisininki veya bekleme süresindeyse başka bir üyeninki) ve en fazla iki normal saldırıyla doldurulur; enerji hâlâ yetmezse Element Patlaması atlanır",
 		"filler.skill": "%s Element Becerisinin bekleme süresini beklerken bu süre normal saldırılarla doldurulur",
 
 		"tl.heading":       "Rotasyon zaman çizelgesi",

@@ -34,7 +34,7 @@ func init() {
 
 		"index.vs_heading":       "Scegli l'avversario",
 		"index.vs_lead":          "Carica l'UID dell'altro giocatore e scegli una squadra per calcolare il DPS di entrambe le squadre affiancate, nelle stesse condizioni.",
-		"index.heading":          "DPS di squadra dai personaggi in vetrina",
+		"index.heading":          "DPS di squadra di Genshin Impact dai personaggi in vetrina",
 		"index.lead":             "Inserisci un UID e scegli quattro personaggi. Ogni squadra viene calcolata contro lo stesso nemico con la stessa rotazione. Condividi il link del risultato o confrontalo con la squadra di un altro giocatore.",
 		"index.step1":            "Inserisci un UID",
 		"index.step2":            "Scegli quattro personaggi",
@@ -69,7 +69,7 @@ func init() {
 		"score.opponent_uid":    "UID avversario",
 		"score.load_opponent":   "Carica avversario",
 
-		"teams.title":       "Squadre supportate · Gscouter",
+		"teams.title":       "Squadre supportate · Genshin Impact · Gscouter",
 		"teams.placeholder": "Nomi dei personaggi (es. Hu Tao, Furina)",
 		"teams.search":      "Cerca",
 		"teams.matching":    "%[2]d squadre con \"%[1]s\" (su %[3]d)",
@@ -79,14 +79,14 @@ func init() {
 		"teams.supported":   "supportata",
 		"teams.blocked":     "non supportata dal motore",
 
-		"lib.title":      "DPS della squadra %s · Gscouter",
+		"lib.title":      "DPS della squadra %s · Genshin Impact · Gscouter",
 		"lib.desc":       "%s: DPS della squadra di Genshin Impact calcolato con la rotazione gcsim della community. Inserisci il tuo UID per calcolare la tua build.",
 		"lib.score_desc": "Punteggio con la build della community: %s DPS.",
 		"lib.score_note": "Calcolato come i tuoi risultati, contro lo stesso nemico ripetendo la rotazione, con la build della configurazione gcsim della community da cui proviene la rotazione. La tua build otterrà un punteggio diverso.",
 		"lib.source_dps": "La fonte riporta %s DPS per una rotazione nelle proprie condizioni.",
 		"lib.sources":    "Fonti",
 		"lib.try":        "Calcola la tua build",
-		"char.title":     "Squadre con %s per DPS · Gscouter",
+		"char.title":     "Squadre con %s per DPS · Genshin Impact · Gscouter",
 		"char.desc":      "Squadre di Genshin Impact con %s (%d), ordinate per DPS con la build della community. Inserisci il tuo UID per calcolare la tua.",
 		"char.heading":   "Squadre con %s",
 		"char.team":      "Squadra",
@@ -139,6 +139,7 @@ func init() {
 		"filler.skip":  "il Tripudio elementale di %s viene saltato quando manca l'energia",
 		"filler.party": "l'attesa di energia per il Tripudio elementale di %s viene riempita con Abilità elementali (passando a un altro membro per la sua e tornando subito indietro quando è in ricarica) o Attacchi normali",
 		"filler.self":  "l'attesa di energia per il Tripudio elementale di %s viene riempita con l'Abilità elementale del personaggio stesso o Attacchi normali",
+		"filler.brief": "l'attesa di energia per il Tripudio elementale di %s viene riempita con Abilità elementali (la propria, o quella di un altro membro quando è in ricarica) e al massimo due Attacchi normali; se l'energia manca ancora, il Tripudio elementale viene saltato",
 		"filler.skill": "l'attesa della ricarica dell'Abilità elementale di %s viene riempita con Attacchi normali",
 
 		"tl.heading":       "Cronologia della rotazione",

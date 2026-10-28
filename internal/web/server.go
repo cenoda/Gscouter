@@ -122,6 +122,9 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("GET /card/score.png", s.handleScoreCard)
 	mux.HandleFunc("GET /card/versus.png", s.handleVersusCard)
 	mux.HandleFunc("GET /static/{file}", s.handleStatic)
+	for name := range iconTypes {
+		mux.HandleFunc("GET /"+name, handleIcon)
+	}
 	mux.HandleFunc("POST /s", s.handleShorten)
 	mux.HandleFunc("GET /s/{id}", s.handleShort)
 	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, r *http.Request) {
@@ -535,6 +538,8 @@ func fillerNote(l localizer, o *steady.Outcome) string {
 			parts = append(parts, l.T("filler.skip", chars))
 		case config.FillParty:
 			parts = append(parts, l.T("filler.party", chars))
+		case config.FillBrief:
+			parts = append(parts, l.T("filler.brief", chars))
 		default:
 			parts = append(parts, l.T("filler.self", chars))
 		}

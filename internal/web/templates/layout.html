@@ -18,8 +18,19 @@
 {{end}}{{with .Canonical}}<link rel="canonical" href="{{.}}">
 <meta property="og:url" content="{{.}}">
 {{end}}{{range .Alternates}}<link rel="alternate" hreflang="{{.Lang}}" href="{{.Href}}">
+{{end}}{{with .Home}}<script type="application/ld+json">
+[{"@context": "https://schema.org", "@type": "WebSite", "name": "Gscouter",
+  "alternateName": ["G Scouter", "지스카우터"], "url": {{.}}},
+ {"@context": "https://schema.org", "@type": "WebApplication", "name": "Gscouter",
+  "url": {{.}}, "description": {{$.Description}}, "inLanguage": {{lang}},
+  "applicationCategory": "GameApplication", "operatingSystem": "Any",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+  "about": {"@type": "VideoGame", "name": "Genshin Impact", "alternateName": ["원신", "原神"]}}]
+</script>
 {{end}}
-{{end}}<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%23b08a45' stroke-width='2.5'/%3E%3Ccircle cx='12' cy='12' r='3' fill='%23b08a45'/%3E%3C/svg%3E">
+{{end}}<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <style>
 /* Celestia's marble and sky, with gold as the accent; the Abyss in dark. */
 :root {
@@ -252,7 +263,7 @@ details.rotation pre { background: var(--bg); border-radius: 8px; padding: 12px;
 {{template "sky"}}
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <defs>
-<symbol id="logo" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 1v5M12 18v5M1 12h5M18 12h5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2.5" fill="currentColor"/></symbol>
+<symbol id="logo" viewBox="4 4 56 56"><g fill="none" stroke="currentColor" stroke-linecap="round"><path d="M46.1 20.2A18.5 18.5 0 1 0 50.5 32H44" stroke-width="4.5"/><path d="M32 4.5v6M4.5 32h6M32 53.5v6" stroke-width="3"/></g><path fill="currentColor" d="M32 23Q33 31 39 32Q33 33 32 41Q31 33 25 32Q31 31 32 23Z"/><circle cx="52" cy="13" r="2.4" fill="currentColor"/></symbol>
 <symbol id="el-pyro" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2c.6 3.4 4.8 5.6 4.8 10.6A4.8 4.8 0 0 1 12 17.4a4.8 4.8 0 0 1-4.8-4.8c0-2.6 1.6-3.8 1.9-6.3 1.3.9 2 2.3 2 3.8 1-1.8 1.2-4.6.9-8.1zM6.5 18.5h11v2h-11z"/></symbol>
 <symbol id="el-hydro" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5C9 7 6 10.2 6 14.2a6 6 0 0 0 12 0c0-4-3-7.2-6-11.7zm-2.6 11.3a2.8 2.8 0 0 0 2.8 2.8v1.6a4.4 4.4 0 0 1-4.4-4.4z"/></symbol>
 <symbol id="el-anemo" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M3 9h11a3 3 0 1 0-3-3M3 13h15a3 3 0 1 1-3 3M3 17h7"/></symbol>
