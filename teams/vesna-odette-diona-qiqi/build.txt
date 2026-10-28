@@ -1,0 +1,38 @@
+# Vesna as in every Vesna team (no KQM Vesna quick guide exists; from
+# the GameWith Vesna team guide with KQM-standard substats): C0, Beyond
+# the Chrysalis R1, 4pc Scarlet Proof, ATK%/ATK%/CRIT DMG, 133.1% ER,
+# the one of 111%, 122%, 133% and 144% that scored highest here.
+# Odette as in the other Vesna teams (from her KQM quick guide): C0,
+# Finale of the Deep R5, 4pc Heart of the Furnace, ATK%/ATK%/CRIT Rate,
+# KQM-standard substats, 111% ER.
+# Diona as in the F2P Vesna team (from a harvested team): C6, Favonius
+# Warbow R4, 4pc Noblesse Oblige, ER/HP%/CRIT Rate, 257.2% ER.
+# Qiqi as in the Sandrone teams (from the harvested Skirk / Furina /
+# Qiqi / Escoffier team): C6, Favonius Sword R3, 4pc Scroll of the Hero
+# of Cinder City, ATK%/ATK%/CRIT Rate; Witch's Revelation on (gcsim's
+# default).
+# Used to validate the rotation.
+
+vesna char lvl=90/90 cons=0 talent=9,9,9;
+vesna add weapon="beyondthechrysalis" refine=1 lvl=90/90;
+vesna add set="scarletproof" count=4;
+vesna add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cd=0.622;
+vesna add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*6 em=19.82*2 cr=0.0331*12 cd=0.0662*6;
+
+odette char lvl=90/90 cons=0 talent=9,9,9;
+odette add weapon="finale" refine=5 lvl=90/90;
+odette add set="heartofthefurnace" count=4;
+odette add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cr=0.311;
+odette add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*12;
+
+diona char lvl=90/90 cons=6 talent=9,9,9;
+diona add weapon="favbow" refine=4 lvl=90/90;
+diona add set="no" count=4;
+diona add stats hp=4780 atk=311 er=0.518 hp%=0.466 cr=0.311;
+diona add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.4408 em=39.64 cr=0.331 cd=0.5296;
+
+qiqi char lvl=90/90 cons=6 talent=9,9,9;
+qiqi add weapon="favsword" refine=3 lvl=90/90;
+qiqi add set="scroll" count=4;
+qiqi add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cr=0.311;
+qiqi add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.331 cd=0.7944;
