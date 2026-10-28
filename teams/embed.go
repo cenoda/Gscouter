@@ -3,5 +3,5 @@ package teams
 
 import "embed"
 
-//go:embed */team.yaml */rotation.gcsl
+//go:embed */team.yaml */rotation.gcsl */build.txt
 var FS embed.FS
