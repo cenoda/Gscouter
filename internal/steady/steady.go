@@ -41,7 +41,7 @@ type Outcome struct {
 
 // energyFillers are the ways Score tries for each character that waits
 // for burst energy: fill the wait, or pass the burst.
-var energyFillers = []config.Filler{config.FillSelf, config.FillParty, config.FillSkip}
+var energyFillers = []config.Filler{config.FillSelf, config.FillParty, config.FillSkip, config.FillBrief}
 
 // Score loops rotation and scores it with run, which assembles and
 // simulates a looped rotation. members are the characters as the

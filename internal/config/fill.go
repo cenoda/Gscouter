@@ -13,8 +13,7 @@ type Filler int
 
 const (
 	// FillSelf: the character uses its own skill when ready, otherwise
-	// attacks, at most maxFillAttacks times; a burst still not ready
-	// then is passed, as with FillSkip.
+	// attacks.
 	FillSelf Filler = iota
 	// FillParty: as FillSelf, but when its skill is on cooldown another
 	// member whose skill is ready swaps in and uses it; the character's
@@ -26,7 +25,16 @@ const (
 	// charge, such as Skirk's opening burst, written for her full
 	// starting Serpent's Subtlety, when the rotation loops.
 	FillSkip
+	// FillBrief: as FillParty, but the character attacks at most
+	// maxFillAttacks times and then passes a burst still not ready, as
+	// FillSkip. A player swaps out rather than stand on a support until
+	// its burst charges: Ineffa is played with two skills to a burst.
+	FillBrief
 )
+
+// maxFillAttacks is how many attacks FillBrief makes before passing the
+// burst.
+const maxFillAttacks = 2
 
 func (f Filler) String() string {
 	switch f {
@@ -34,6 +42,8 @@ func (f Filler) String() string {
 		return "party skills"
 	case FillSkip:
 		return "skipped bursts"
+	case FillBrief:
+		return "party skills, then skipped bursts"
 	}
 	return "own skill"
 }
@@ -46,7 +56,7 @@ func (f Filler) String() string {
 //   - before each skill of a character in skill, it attacks until the
 //     skill is ready.
 //
-// The skill filler gives up after a fixed number of attacks, and the
+// Either filler gives up after a fixed number of actions, and the
 // rotation then waits as before. Names are as the rotation writes them;
 // party lists every member.
 func Fill(rotation string, energy map[string]Filler, skill, party []string) string {
@@ -102,9 +112,9 @@ func fillStatement(char, items string, energy, skill bool, party []string, forms
 			continue
 		}
 		switch {
-		case energy && action[0] == "burst":
+		case energy && action[0] == "burst" && (how == FillSkip || how == FillBrief):
 			flush()
-			if how != FillSkip {
+			if how == FillBrief {
 				*n++
 				out = append(out, energyFiller(char, party, forms, how, fmt.Sprintf("gs_fill%d", *n)))
 			}
@@ -113,6 +123,10 @@ func fillStatement(char, items string, energy, skill bool, party []string, forms
 			// takes no time.
 			out = append(out, fmt.Sprintf("if .%s.burst.ready { %s %s; } else { wait(1); }", char, char, item))
 			continue
+		case energy && action[0] == "burst":
+			flush()
+			*n++
+			out = append(out, energyFiller(char, party, forms, how, fmt.Sprintf("gs_fill%d", *n)))
 		case skill && action[0] == "skill":
 			flush()
 			*n++
@@ -128,24 +142,21 @@ func fillStatement(char, items string, energy, skill bool, party []string, forms
 func energyFiller(char string, party []string, forms map[string]string, how Filler, v string) string {
 	var body strings.Builder
 	fmt.Fprintf(&body, "if .%s.skill.ready { %s %s; }", char, char, forms[char])
-	if how == FillParty {
+	if how == FillParty || how == FillBrief {
 		for _, m := range party {
 			if m != char {
 				fmt.Fprintf(&body, " else if .%s.skill.ready { %s %s; }", m, m, forms[m])
 			}
 		}
 	}
-	fmt.Fprintf(&body, " else { %s attack; %sa = %sa + 1; }", char, v, v)
-	return fmt.Sprintf("let %s = 0; let %sa = 0; while !.%s.burst.ready && %s < 20 && %sa < %d { %s %s = %s + 1; }",
-		v, v, char, v, v, maxFillAttacks, body.String(), v, v)
+	if how == FillBrief {
+		fmt.Fprintf(&body, " else { %s attack; %sa = %sa + 1; }", char, v, v)
+		return fmt.Sprintf("let %s = 0; let %sa = 0; while !.%s.burst.ready && %s < 20 && %sa < %d { %s %s = %s + 1; }",
+			v, v, char, v, v, maxFillAttacks, body.String(), v, v)
+	}
+	fmt.Fprintf(&body, " else { %s attack; }", char)
+	return fmt.Sprintf("let %s = 0; while !.%s.burst.ready && %s < 20 { %s %s = %s + 1; }", v, char, v, body.String(), v, v)
 }
-
-// maxFillAttacks is how many attacks a character waiting for its burst
-// makes before passing the burst. A player swaps out rather than stand
-// on a support attacking until its burst charges: Ineffa is played with
-// two skills to a burst, and a filler that let her attack up to 20
-// times kept her on field for 8 s of every cycle.
-const maxFillAttacks = 2
 
 var (
 	anyActionRe = regexp.MustCompile(`(?m)(?:^|[;{}])\s*(\w+)\s+([^;{}()=\s][^;{}()]*);`)
