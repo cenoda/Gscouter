@@ -140,6 +140,7 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
 - **Talent levels**: pass base levels without the constellation bonus (+3).
   - gcsim adds the constellation bonus itself.
   - Check whether the Enka data includes the bonus and handle it accordingly.
+  - The result page shows both: the base level, and for a talent a bonus raises, the level in the fight as gcsim works it out (`score.Talents`), e.g. `13 (10+3)`. That covers the constellation bonus and party passives such as Tartaglia's (+1 normal attack) and Skirk's (+1 skill in a Hydro/Cryo party).
 - Sum artifact main stats and substats into gcsim `add stats` lines.
 - If anything lacks a mapping (new weapon, new set, etc.), skip the calculation and report it as "unsupported item".
 

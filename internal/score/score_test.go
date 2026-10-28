@@ -6,6 +6,7 @@ import (
 	"math"
 	"os"
 	"reflect"
+	"strings"
 	"testing"
 
 	"github.com/cenoda/gscouter/internal/config"
@@ -135,5 +136,32 @@ func TestSlicesMergeToRun(t *testing.T) {
 	}
 	if got := Aggregate(its, opts.Warmup); !reflect.DeepEqual(got, want) {
 		t.Errorf("merged slices = %+v\nwant %+v", got, want)
+	}
+}
+
+func TestTalents(t *testing.T) {
+	cfg := testConfig(t, 60)
+	// Skirk's passive raises the party's skill by 1 in a Hydro/Cryo
+	// party.
+	got, err := Talents(cfg)
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := [][3]int{{9, 10, 9}, {1, 10, 9}, {1, 10, 9}, {1, 10, 9}}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("Talents = %v, want %v", got, want)
+	}
+
+	// Skirk's C3 raises her burst by 3, Furina's C3 hers and C5 her
+	// skill.
+	cfg = strings.Replace(cfg, "skirk char lvl=90/90 cons=0", "skirk char lvl=90/90 cons=3", 1)
+	cfg = strings.Replace(cfg, "furina char lvl=90/90 cons=0", "furina char lvl=90/90 cons=6", 1)
+	got, err = Talents(cfg)
+	if err != nil {
+		t.Fatal(err)
+	}
+	want = [][3]int{{9, 10, 12}, {1, 10, 9}, {1, 13, 12}, {1, 10, 9}}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("Talents with constellations = %v, want %v", got, want)
 	}
 }

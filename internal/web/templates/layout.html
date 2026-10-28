@@ -454,7 +454,7 @@ function copyLink(btn) {
 <tbody>
 {{range $i, $c := .Result.Characters}}{{$e := index $.Chars $i}}
 <tr>
-<td><span class="who">{{template "face" $c.Name}}{{template "el" (element $c.Name)}}{{name $c.Name}}</span><span class="muted">Lv.{{$e.Level}} C{{$e.Cons}} · {{weapon $e.Weapon.Key}} R{{$e.Weapon.Refine}} · {{t "team.talents"}} {{index $e.Talents 0}}/{{index $e.Talents 1}}/{{index $e.Talents 2}}</span></td>
+<td><span class="who">{{template "face" $c.Name}}{{template "el" (element $c.Name)}}{{name $c.Name}}</span><span class="muted">Lv.{{$e.Level}} C{{$e.Cons}} · {{weapon $e.Weapon.Key}} R{{$e.Weapon.Refine}} · {{t "team.talents"}} {{$.TalentsOf $i}}</span></td>
 <td class="num">{{thousands $c.DPS}}</td>
 <td class="num">{{percent $c.Share}}<span class="bar"><i style="width: {{width $c.Share}}%"></i></span></td>
 </tr>

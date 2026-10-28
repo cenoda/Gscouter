@@ -14,6 +14,7 @@ import (
 	"log/slog"
 	"net/http"
 	"slices"
+	"strconv"
 	"strings"
 	"sync/atomic"
 	"time"
@@ -219,8 +220,12 @@ type teamResult struct {
 	Enemy    *config.Enemy
 	Nickname string
 	Chars    []enka.Character
-	Team     *library.Team
-	Result   *score.Result // the looped rotation: the score
+	// Talents are Chars' talent levels in the fight: the base levels
+	// plus constellation and passive bonuses. Nil when they could not
+	// be worked out.
+	Talents [][3]int
+	Team    *library.Team
+	Result  *score.Result // the looped rotation: the score
 	// OneRotation is a single pass from full energy, the number community
 	// gcsim configs report.
 	OneRotation *score.Result
@@ -239,6 +244,24 @@ type teamResult struct {
 	// Problem explains why there is no score: unsupported team, blocked
 	// team, Enka error, and so on.
 	Problem string
+}
+
+// TalentsOf describes character i's talent levels: each base level, or
+// for one a bonus raises, the level in the fight and how it is made up,
+// e.g. "9/13 (10+3)/9".
+func (tr teamResult) TalentsOf(i int) string {
+	base := tr.Chars[i].Talents
+	var parts []string
+	for j, b := range base {
+		part := strconv.Itoa(b)
+		if i < len(tr.Talents) {
+			if lvl := tr.Talents[i][j]; lvl != b {
+				part = fmt.Sprintf("%d (%d+%d)", lvl, b, lvl-b)
+			}
+		}
+		parts = append(parts, part)
+	}
+	return strings.Join(parts, "/")
 }
 
 // Experimental reports whether the result carries the experimental badge:
@@ -398,6 +421,11 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 	tr.OneRotation = oneRes
 	tr.Warnings = warnings(l, tr.Team, tr.Chars, res)
 	tr.Rotation = rotation
+	if talents, err := score.Talents(once); err != nil {
+		slog.Error("talent levels failed", "team", tr.Team.ID, "err", err)
+	} else if len(talents) == len(tr.Chars) {
+		tr.Talents = talents
+	}
 	tr.Timelines = cycleViews(ctx, l, sim, set, *tr, once, config.Assemble(config.Conditions{Iterations: 1, Duration: set.Duration, Enemy: tr.Enemy}, build.String(), out.Looped), out.Filled)
 	for _, c := range tr.Chars {
 		if c.UnknownSets > 0 {
