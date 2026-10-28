@@ -123,16 +123,28 @@ func Team(ctx context.Context, dir string, s Settings) *Result {
 
 	for i, c := range build.Chars {
 		withRoll := map[string]float64{}
+		var rollUnplayable map[string]string
 		for _, roll := range Substats {
 			res, err := run(build.WithSub(i, roll.Key, roll.Value), out.Looped)
-			if err != nil {
+			switch {
+			case err == nil:
+				withRoll[roll.Key] = res.DPS
+			case ctx.Err() != nil:
 				r.Error = fmt.Sprintf("%s with a %s roll: %v", c.Key, roll.Key, err)
 				return r
+			default:
+				// As for main stats below: the roll shifts the timing
+				// so that the rotation cannot be played. That substat
+				// gets no weight.
+				if rollUnplayable == nil {
+					rollUnplayable = map[string]string{}
+				}
+				rollUnplayable[roll.Key] = err.Error()
 			}
-			withRoll[roll.Key] = res.DPS
 		}
 		var current [3]string
 		var withMain [3]map[string]float64
+		var unplayable [3]map[string]string
 		for slot, options := range Options {
 			current[slot] = c.Main[slot].Key
 			withMain[slot] = map[string]float64{}
@@ -143,19 +155,38 @@ func Team(ctx context.Context, dir string, s Settings) *Result {
 					continue
 				}
 				b, err := build.WithMain(i, slot, key)
-				if err == nil {
-					var res *score.Result
-					if res, err = run(b, out.Looped); err == nil {
-						withMain[slot][key] = res.DPS
-					}
-				}
 				if err != nil {
 					r.Error = fmt.Sprintf("%s with a %s %s: %v", c.Key, key, Slots[slot], err)
 					return r
 				}
+				res, err := run(b, out.Looped)
+				switch {
+				case err == nil:
+					withMain[slot][key] = res.DPS
+				case ctx.Err() != nil:
+					r.Error = fmt.Sprintf("%s with a %s %s: %v", c.Key, key, Slots[slot], err)
+					return r
+				default:
+					// The rotation cannot be played with this main
+					// stat (gcsim rejects an action, say for lack of
+					// energy). Only this option is left out.
+					if unplayable[slot] == nil {
+						unplayable[slot] = map[string]string{}
+					}
+					unplayable[slot][key] = err.Error()
+				}
 			}
 		}
-		r.Characters = append(r.Characters, character(c.Key, c.Reordered, refDPS, withRoll, current, withMain))
+		ch := character(c.Key, c.Reordered, refDPS, withRoll, current, withMain)
+		ch.Unplayable = rollUnplayable
+		for slot, name := range Slots {
+			ch.Main[name].Unplayable = unplayable[slot]
+			if len(unplayable[slot]) > 0 {
+				// A main stat that breaks the rotation matters.
+				ch.Main[name].LowImpact = false
+			}
+		}
+		r.Characters = append(r.Characters, ch)
 	}
 	return r
 }

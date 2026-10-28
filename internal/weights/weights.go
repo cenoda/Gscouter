@@ -116,6 +116,10 @@ type Character struct {
 	// Reordered is true when build.txt does not write the main stats in
 	// the order flower, plume, sands, goblet, circlet.
 	Reordered bool `json:"reordered,omitempty"`
+	// Unplayable holds the substats whose roll makes the rotation
+	// impossible to play, and gcsim's error for each. They have no gain
+	// and no weight.
+	Unplayable map[string]string `json:"unplayable,omitempty"`
 	// Main is, per slot (sands, goblet, circlet), how the team scores
 	// with each main stat there.
 	Main map[string]*Slot `json:"main"`
@@ -131,6 +135,10 @@ type Slot struct {
 	LowImpact bool `json:"lowImpact,omitempty"`
 	// Penalty is each wrong main stat's cost in score points.
 	Penalty map[string]float64 `json:"penalty,omitempty"`
+	// Unplayable holds the main stats the rotation cannot be played
+	// with, and gcsim's error for each. They have no DPS and are
+	// neither right nor wrong.
+	Unplayable map[string]string `json:"unplayable,omitempty"`
 }
 
 // round rounds x to the given number of decimals.
