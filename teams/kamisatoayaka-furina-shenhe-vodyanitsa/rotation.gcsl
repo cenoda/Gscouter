@@ -1,0 +1,32 @@
+# Gaming ProMax's Ayaka / Vodyanitsa / Furina / Shenhe. Rotation from the
+# harvested Kamisato Ayaka / Furina / Shenhe / Escoffier team with
+# Vodyanitsa's skill in Escoffier's place, the last swap before Ayaka
+# (she holds Thrilling Tales); she bursts when ready.
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  if !.furina.mods.favonius-cd && .furina.weapon == .keys.weapon.favsword {
+    furina attack;
+  }
+  shenhe burst, skill;
+  for let j=0; j<2; j=j+1 {
+    if !.shenhe.mods.favonius-cd && .shenhe.weapon == .keys.weapon.favlance {
+      shenhe attack;
+    }
+  }
+  vodyanitsa skill;
+  if .vodyanitsa.burst.ready {
+    vodyanitsa burst;
+  }
+  ayaka skill, dash, attack:2, charge, dash, attack:2, burst,
+        attack, charge,
+        attack, charge;
+  shenhe attack:2, skill;
+  for let j=0; j<2; j=j+1 {
+    if !.shenhe.mods.favonius-cd && .shenhe.weapon == .keys.weapon.favlance {
+      shenhe attack;
+    }
+  }
+  ayaka skill, dash,
+        attack, charge;
+}

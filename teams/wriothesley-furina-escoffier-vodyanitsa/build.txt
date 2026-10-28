@@ -1,0 +1,36 @@
+# Wriothesley / Furina / Escoffier as in the harvested Wriothesley /
+# Furina / Escoffier / Citlali team
+# (teams/wriothesley-furina-escoffier-citlali), with Vodyanitsa in
+# Citlali's slot.
+# Vodyanitsa: no harvested team has her (the community database has no
+# entry with her), so as the KQM Vodyanitsa quick guide recommends, with
+# KQM-standard substats: C0, Thrilling Tales of Dragon Slayers R5 (its
+# default with an ATK-scaling on-field unit), 4pc Scroll of the Hero of
+# Cinder City (Furina holds Tenacity; the guide's alternative then,
+# since she triggers Frozen reliably), HP%/HP%/HP%, no ER beyond the
+# standard's (111%: she bursts when ready).
+# Used to validate the rotation.
+
+wrio char lvl=90/90 cons=0 talent=9,9,9;
+wrio add weapon="widsith" refine=3 lvl=90/90;
+wrio add set="mh" count=4;
+wrio add stats hp=4780 atk=311 atk%=0.466 cryo%=0.466 cd=0.622;
+wrio add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.248 er=0.1102 em=39.64 cr=0.3972 cd=0.5958;
+
+furina char lvl=90/90 cons=0 talent=9,9,9;
+furina add weapon="favsword" refine=3 lvl=90/90;
+furina add set="totm" count=5;
+furina add stats hp=4780 atk=311 er=0.518 hydro%=0.466 cd=0.622;
+furina add stats def%=0.124 def=39.36 hp=507.88 hp%=0.5456 atk=33.08 atk%=0.0992 er=0.1102 em=39.64 cr=0.3972 cd=0.1986;
+
+escoffier char lvl=90/90 cons=0 talent=9,9,9;
+escoffier add weapon="deathmatch" refine=1 lvl=90/90;
+escoffier add set="gt" count=4;
+escoffier add stats hp=4780 atk=311 atk%=0.466 cryo%=0.466 cd=0.622;
+escoffier add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.248 er=0.3306 em=39.64 cr=0.2317 cd=0.662;
+
+vodyanitsa char lvl=90/90 cons=0 talent=9,9,9;
+vodyanitsa add weapon="ttds" refine=5 lvl=90/90;
+vodyanitsa add set="scrolloftheheroofcindercity" count=4;
+vodyanitsa add stats hp=4780 atk=311 hp%=0.466 hp%=0.466 hp%=0.466;
+vodyanitsa add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*6 atk=16.54*2 atk%=0.0496*2 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*10;

@@ -1,0 +1,29 @@
+id: skirk-yelan-escoffier-vodyanitsa
+name: Skirk / Yelan / Escoffier / Vodyanitsa
+members:
+    - skirk
+    - yelan
+    - escoffier
+    - vodyanitsa
+archetype: Cryo Freeze with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+    - https://www.ldshop.gg/blog/genshin-impact/vodyanitsa-best-teams.html
+    - https://allthings.how/genshin-impact-vodyanitsa-best-build-and-teams-version-7-1/
+    - https://db.kqm.gg/db/Hh7dw6Ccqjqh
+notes: 'Written from guides (design §5.4; no community gcsim config with Vodyanitsa exists: upstream gcsim lacks her). LDShop, wishgm and AllThingsHow name Yelan (the closest buffer) as a substitute for Furina in Skirk / Furina / Escoffier / Vodyanitsa. The rotation and every other build are the harvested Skirk / Yelan / Citlali / Escoffier team''s, with Vodyanitsa''s skill in place of Citlali''s; Vodyanitsa casts her skill, the last swap before the carry where she holds Thrilling Tales (Gaming ProMax: Vodyanitsa should be the last swap before Skirk with it), and bursts when ready (the guide: the burst is lowest priority; with 111% ER about every other rotation or less). Her healing keeps Furina''s Fanfare up where Furina is in the team.'
+params:
+    skirk: start_serpents_subtlety=100
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: the KQM Vodyanitsa quick guide (team list and rotations, no DPS, no gcsim links); the community gcsim database (no Vodyanitsa: upstream gcsim lacks her); GenshinBuilds, GameWith, AllThingsHow, LDShop, enjoygm, Gaming ProMax and FandomWire Vodyanitsa team pages (team lists, ratings and roles; numbers only for Skirk / Furina / Escoffier / Vodyanitsa and Lohen / Escoffier / Mona / Vodyanitsa); Icy Veins and Prydwen return 403.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 0.993
+    dps: 125543
+    draft: no reference DPS

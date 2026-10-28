@@ -1,0 +1,49 @@
+# AllThingsHow's Skirk / Escoffier / Vodyanitsa / Mona team, in the
+# KQM Vodyanitsa quick guide's order for its Mona / Escoffier team
+# (Vodyanitsa E > Escoffier E > Mona). Rotation from the harvested Skirk /
+# Xingqiu / Mona / Escoffier team with Vodyanitsa's skill in Xingqiu's
+# place; she bursts when ready.
+# Escoffier bursts when ready (the KQM Vodyanitsa quick guide's Skirk
+# team alternates her burst between rotations; Vodyanitsa gives her
+# fewer particles than the member she replaces).
+let First_Rot_Nuke = true;
+active vodyanitsa;
+for let i=0; i<4; i=i+1 {
+  vodyanitsa skill;
+  if .vodyanitsa.burst.ready {
+    vodyanitsa burst;
+  }
+  escoffier skill, attack;
+  if .escoffier.burst.ready {
+    escoffier burst;
+  }
+  escoffier attack;
+  mona skill, burst;
+  if i == 0 && First_Rot_Nuke == true {
+    skirk burst;
+    skirk skill,
+          attack:5, dash,
+
+          attack:2, charge, dash,
+
+          attack:5, dash,
+          attack:5, dash,
+
+          attack:2, charge, dash,
+
+          attack:5, dash,
+          attack;
+  } else {
+    skirk skill,
+          attack:2, burst,
+
+          attack:5, dash,
+          attack:5, dash,
+          attack:5, dash,
+
+          attack:2, charge, dash,
+
+          attack:5, dash,
+          attack:2;
+  }
+}

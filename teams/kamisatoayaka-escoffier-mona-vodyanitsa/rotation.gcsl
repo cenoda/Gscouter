@@ -1,0 +1,31 @@
+# enjoygm's Ayaka / Escoffier / Mona / Vodyanitsa, in the KQM Vodyanitsa
+# quick guide's order for its Mona / Escoffier team (Vodyanitsa E >
+# Escoffier E > Mona). Rotation from the harvested Kamisato Ayaka /
+# Furina / Mona / Escoffier team with Vodyanitsa's skill in Furina's
+# place; she bursts when ready.
+# Escoffier bursts when ready (the KQM Vodyanitsa quick guide's Skirk
+# team alternates her burst between rotations; Vodyanitsa gives her
+# fewer particles than the member she replaces).
+active vodyanitsa;
+for let i=0; i<4; i=i+1 {
+  vodyanitsa skill;
+  if .vodyanitsa.burst.ready {
+    vodyanitsa burst;
+  }
+  escoffier skill;
+  if .escoffier.burst.ready {
+    escoffier burst;
+  }
+  if !.escoffier.mods.favonius-cd && .escoffier.weapon == .keys.weapon.favlance {
+    escoffier attack;
+  }
+  mona skill, burst;
+  ayaka skill, dash, attack, burst,
+        attack:2, charge, dash,
+        attack:2, charge;
+  escoffier attack:2, dash;
+  ayaka attack:2, charge,
+        skill, dash,
+        attack:2, charge,
+        attack;
+}

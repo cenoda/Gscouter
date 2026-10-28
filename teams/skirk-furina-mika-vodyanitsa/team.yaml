@@ -1,0 +1,28 @@
+id: skirk-furina-mika-vodyanitsa
+name: Skirk / Furina / Mika / Vodyanitsa
+members:
+    - skirk
+    - furina
+    - mika
+    - vodyanitsa
+archetype: Cryo Freeze with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+    - https://www.ldshop.gg/blog/genshin-impact/vodyanitsa-best-teams.html
+    - https://db.kqm.gg/db/LMQFDTQW9QQQ
+notes: 'Written from guides (design §5.4; no community gcsim config with Vodyanitsa exists: upstream gcsim lacks her). LDShop and wishgm name Mika as a substitute for Escoffier in Skirk / Furina / Escoffier / Vodyanitsa. The rotation and every other build are the harvested Skirk / Furina / Mika / Escoffier team''s, with Vodyanitsa''s skill in place of Escoffier''s, moved after Mika''s so that she is the last swap before Skirk; Vodyanitsa casts her skill, the last swap before the carry where she holds Thrilling Tales (Gaming ProMax: Vodyanitsa should be the last swap before Skirk with it), and bursts when ready (the guide: the burst is lowest priority; with 111% ER about every other rotation or less). Her healing keeps Furina''s Fanfare up where Furina is in the team.'
+params:
+    skirk: start_serpents_subtlety=100
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: the KQM Vodyanitsa quick guide (team list and rotations, no DPS, no gcsim links); the community gcsim database (no Vodyanitsa: upstream gcsim lacks her); GenshinBuilds, GameWith, AllThingsHow, LDShop, enjoygm, Gaming ProMax and FandomWire Vodyanitsa team pages (team lists, ratings and roles; numbers only for Skirk / Furina / Escoffier / Vodyanitsa and Lohen / Escoffier / Mona / Vodyanitsa); Icy Veins and Prydwen return 403.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 0.965
+    dps: 103754
+    draft: no reference DPS

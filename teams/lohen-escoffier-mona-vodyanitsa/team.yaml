@@ -1,0 +1,28 @@
+id: lohen-escoffier-mona-vodyanitsa
+name: Lohen / Escoffier / Mona / Vodyanitsa
+members:
+    - lohen
+    - escoffier
+    - mona
+    - vodyanitsa
+archetype: Cryo Freeze with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+    - https://keqingmains.com/q/lohen-quickguide/
+    - https://allthings.how/genshin-impact-vodyanitsa-best-build-and-teams-version-7-1/
+notes: 'Written from the KQM Vodyanitsa quick guide (design §5.4; no community gcsim config with Vodyanitsa or Lohen exists: upstream gcsim lacks both). Its Lohen team, Vodyanitsa / Lohen / Mona / Escoffier (she can take Furina''s place in Cryo-centric teams like this one), with its rotation: Vodyanitsa E > Escoffier E > Mona Q N1 E N1 > Lohen combo; AllThingsHow tested it at 164k with C4 Mona. Lohen plays the KQM Lohen quick guide''s Freeze combo E 15[N1C] N1 E, as in Lohen / Escoffier / Furina / Mona, whose builds this team copies (Lohen C0 Disaster and Remorse, Escoffier and Mona harvested). Vodyanitsa only casts her skill, as the rotation says; Escoffier only her skill, as the rotation says.'
+cross_check:
+    dps: 164000
+    source: https://allthings.how/genshin-impact-vodyanitsa-best-build-and-teams-version-7-1/
+    note: 'AllThingsHow''s tested 164k for Lohen / Escoffier / C4 Mona / Vodyanitsa (no other builds stated); this team has C0 Mona and the harvested 4-star support builds. Also searched 2026-10-28: the KQM Vodyanitsa quick guide (team list and rotations, no DPS, no gcsim links); the community gcsim database (no Vodyanitsa: upstream gcsim lacks her); GenshinBuilds, GameWith, AllThingsHow, LDShop, enjoygm, Gaming ProMax and FandomWire Vodyanitsa team pages (team lists, ratings and roles; numbers only for Skirk / Furina / Escoffier / Vodyanitsa and Lohen / Escoffier / Mona / Vodyanitsa); Icy Veins and Prydwen return 403.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 0.898
+    dps: 97290
+    draft: no reference DPS

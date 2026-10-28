@@ -1,0 +1,47 @@
+# KQM Vodyanitsa quick guide, Skirk team: Furina ED N1 Q > Escoffier
+# E(Q) > Vodyanitsa E(Q) > Skirk combo. Rotation from the harvested
+# Skirk / Furina / Citlali / Escoffier team with Vodyanitsa's skill in
+# Citlali's place, the last swap before Skirk (she holds Thrilling
+# Tales); she bursts when ready.
+# Escoffier bursts when ready (the KQM Vodyanitsa quick guide's Skirk
+# team alternates her burst between rotations; Vodyanitsa gives her
+# fewer particles than the member she replaces).
+active furina;
+furina attack, skill, dash;
+escoffier skill, attack;
+vodyanitsa skill;
+skirk skill,
+      attack:5, dash,
+
+      attack:5, burst,
+      attack:5, dash,
+
+      attack:2, charge, dash,
+
+      attack:5;
+furina swap;
+for let i=0; i<4; i=i+1 {
+  furina burst;
+  escoffier skill;
+  if .escoffier.burst.ready {
+    escoffier burst;
+  }
+  escoffier attack;
+  furina skill, dash, attack;
+  vodyanitsa skill;
+  if .vodyanitsa.burst.ready {
+    vodyanitsa burst;
+  }
+  skirk skill,
+        attack:2, burst,
+
+        attack:5, dash,
+        attack:5, dash,
+        attack:5, dash,
+
+        attack:2, charge, dash,
+
+        attack:5, dash,
+        attack:2;
+  furina attack:2;
+}

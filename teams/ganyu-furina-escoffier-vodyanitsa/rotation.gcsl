@@ -1,0 +1,22 @@
+# LDShop's Skirk / Furina / Escoffier / Vodyanitsa with Ganyu for Skirk.
+# Rotation from the harvested Ganyu / Furina / Escoffier / Citlali team
+# with Vodyanitsa's skill in Citlali's place, the last swap before Ganyu
+# (she holds Thrilling Tales); she bursts when ready.
+# Escoffier bursts when ready (the KQM Vodyanitsa quick guide's Skirk
+# team alternates her burst between rotations; Vodyanitsa gives her
+# fewer particles than the member she replaces).
+active ganyu;
+for let i=0; i<4; i=i+1 {
+  ganyu skill;
+  furina skill, dash, attack, burst;
+  escoffier skill;
+  if .escoffier.burst.ready {
+    escoffier burst;
+  }
+  vodyanitsa skill;
+  if .vodyanitsa.burst.ready {
+    vodyanitsa burst;
+  }
+  ganyu attack:3, aim, skill, burst, aim:4;
+}
+wait(27);

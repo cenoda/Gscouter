@@ -1,0 +1,45 @@
+# LDShop's Skirk / Furina / Escoffier / Vodyanitsa with Shenhe for
+# Escoffier. Rotation from the harvested Skirk / Furina / Shenhe /
+# Escoffier team with Vodyanitsa's skill in Escoffier's place, the last
+# swap before Skirk (she holds Thrilling Tales); she bursts when ready.
+active furina;
+furina attack, skill, dash;
+shenhe skill, attack:2;
+vodyanitsa skill;
+skirk skill,
+      attack:5, dash,
+
+      attack:2, burst,
+
+      attack:5, dash,
+      attack:5, dash;
+
+shenhe swap;
+for let i=0; i<4; i=i+1 {
+  shenhe skill, attack:2;
+  if i {
+    furina skill, dash;
+  } else {
+    furina attack;
+    while .furina.energy != .furina.energymax {
+      wait(1);
+    }
+  }
+  furina burst;
+  shenhe burst, skill[hold=1];
+  vodyanitsa skill;
+  if .vodyanitsa.burst.ready {
+    vodyanitsa burst;
+  }
+  skirk skill,
+        attack:2, burst,
+
+        attack:5, dash,
+        attack:5, dash,
+        attack:5, dash,
+
+        attack:2, charge, dash,
+
+        attack:5, dash,
+        attack:2;
+}
