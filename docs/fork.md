@@ -33,7 +33,7 @@ The server and the browser build (design §4.7) run both tiers on the same gcsim
 
 ## 3. Characters on the fork
 
-_Fork `b029c45`, on upstream `2350be9`, 2026-10-28._
+_Fork `9104976`, on upstream `2350be9`, 2026-10-29._
 
 Nefer, Linnea, Lohen, Sandrone and Vesna have draft library teams (each in its document in `docs/characters/`; Sandrone 18, one per team in her KQM quick guide and Sandrone / Yae Miko / Odette / Vodyanitsa, its example team 1 with Vodyanitsa in the flex slot as GenshinBuilds lists it; Vesna 75: one per team in the GameWith guide, and Vesna with Vodyanitsa and any two, or with any three, of Odette, the Cryo Traveler, Diona, Qiqi, Faruzan, Sucrose, Lan Yan and Nicole, at least one of them Cryo), and Vodyanitsa has 58: 22 with Vesna, 17 in Freeze teams (Skirk 7, Kamisato Ayaka 4, Lohen 3, Wriothesley, Ganyu, Kamisato Ayato), five with Sandrone and 14 others `docs/characters/vodyanitsa.md`; Kachina has none yet. Lohen is fork commit `af3eb82` (our implementation, the commit before Sandrone's); his `ForkOnly` entry and Enka data came with Sandrone's Gscouter commit.
 
