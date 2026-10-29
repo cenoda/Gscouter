@@ -45,6 +45,17 @@ if .furina.mods.favonius-cd { furina attack; }
 	if !strings.Contains(cfg, "while !1 && ") {
 		t.Errorf("Assemble does not guard the rotation:\n%s", cfg)
 	}
+	// Kokomi's Favonius weapon never procs; her Sacrificial one does.
+	kokomi := `kokomi char lvl=90/90 cons=0 talent=9,9,9;
+kokomi add weapon="favoniuscodex" refine=5 lvl=90/90;
+`
+	if got := GuardWeaponMods(kokomi, "while !.kokomi.mods.favonius-cd { kokomi attack; }"); got != "while !1 { kokomi attack; }" {
+		t.Errorf("Kokomi's Favonius wait not guarded: %s", got)
+	}
+	kokomi = strings.Replace(kokomi, "favoniuscodex", "sacrificialfragments", 1)
+	if r := "if .kokomi.mods.sacrificial-cd { kokomi attack; }"; GuardWeaponMods(kokomi, r) != r {
+		t.Errorf("Kokomi's Sacrificial read changed: %s", GuardWeaponMods(kokomi, r))
+	}
 	if got := GuardWeaponMods(weaponBuild, "active xilonen;\nxilonen skill;\n"); got != "active xilonen;\nxilonen skill;\n" {
 		t.Errorf("a rotation without weapon mods changed:\n%s", got)
 	}
