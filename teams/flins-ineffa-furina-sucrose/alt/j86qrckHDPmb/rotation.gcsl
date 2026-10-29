@@ -1,0 +1,24 @@
+active ineffa;
+for let i=0; i<4; i=i+1 {
+  ineffa skill;
+  if .ineffa.burst.ready {
+    ineffa burst;
+  } else {
+    ineffa attack;
+  }
+  if .furina.skill.ready { 
+    furina skill, dash, attack; 
+  } 
+  
+  sucrose attack, skill, dash;
+  
+  flins skill, attack:2;
+  flins skill, burst, attack:4, dash, attack:3;
+  flins skill, burst, attack:4, dash, attack:2;
+  flins skill, burst, attack:4; 
+  if .sucrose.burst.ready { 
+    sucrose burst;
+  } else {
+    sucrose skill; 
+  }
+}

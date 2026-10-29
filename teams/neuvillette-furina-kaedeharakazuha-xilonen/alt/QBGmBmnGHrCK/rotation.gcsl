@@ -1,0 +1,19 @@
+active neuvillette;
+for let i=0; i<5; i=i+1 {
+    neuvillette skill;
+    furina skill, dash, burst, attack;
+    xilonen skill, burst, attack:2;
+    
+    if .kazuha.burst.ready {
+      kazuha burst;
+    } else {
+      kazuha skill, high_plunge;
+    }  
+     
+    neuvillette charge, skill, charge, burst;
+    
+    xilonen skill, attack:2;
+    kazuha skill, high_plunge;
+    neuvillette charge[ticks=16];
+}
+ wait(310);

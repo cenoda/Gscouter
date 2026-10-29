@@ -1,0 +1,14 @@
+active bennett;
+for let i=0; i<5; i=i+1 {
+  bennett burst, skill;
+  furina burst, skill, dash; 
+  kazuha skill, high_plunge;
+  xiangling skill, burst;
+  furina charge;
+  delay(26);
+  furina attack:4, charge;
+  bennett skill;
+  kazuha skill, high_plunge, burst;
+  xiangling attack:3;
+  delay(96); 
+}

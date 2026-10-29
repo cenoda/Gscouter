@@ -1,0 +1,23 @@
+id: raidenshogun-kaedeharakazuha-yaoyao-kujousara
+name: Raidenshogun / Kaedeharakazuha / Yaoyao / Kujousara
+members:
+    - herexcellencythealmightynarukamiogoshogodofthunder
+    - kaedeharakazuha
+    - yaoyao
+    - kujousara
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/7jjpgNNHJcCP
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (kaedeharakazuha C0, kujousara C6, raidenshogun C0, yaoyao C5): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 50061
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.005
+    kept: 0.951
+    dps: 47355

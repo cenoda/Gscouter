@@ -1,0 +1,23 @@
+id: raidenshogun-kujousara-bennett-xilonen
+name: Raidenshogun / Kujousara / Bennett / Xilonen
+members:
+    - raidenshogun
+    - xilonen
+    - bennett
+    - kujousara
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/R6NLqzkK8Qzm
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (bennett C6, kujousara C6, raidenshogun C0, xilonen C2): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 51897
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.015
+    kept: 0.974
+    dps: 49787

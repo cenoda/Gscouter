@@ -1,0 +1,24 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+    neuvillette skill;
+    furina skill, dash; 
+    zhongli attack, skill[hold=1], dash, attack;
+    
+    while !pick_up_crystallize("hydro") {
+      wait(1);
+    }
+    
+    furina attack, burst, attack;
+    
+    if .kazuha.burst.ready {
+      kazuha burst;
+    } else {
+      kazuha skill, high_plunge;
+    }  
+     
+    neuvillette charge, skill, charge, burst;
+    kazuha skill, high_plunge;
+    
+    neuvillette charge[ticks=16];
+}
+ wait(310);

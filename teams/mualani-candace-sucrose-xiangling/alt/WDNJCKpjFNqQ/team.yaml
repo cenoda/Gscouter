@@ -1,0 +1,23 @@
+id: mualani-candace-sucrose-xiangling
+name: Mualani / Candace / Sucrose / Xiangling
+members:
+    - mualani
+    - candace
+    - sucrose
+    - xiangling
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/WDNJCKpjFNqQ
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (candace C6, mualani C0, sucrose C6, xiangling C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 70604
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.002
+    kept: 1.007
+    dps: 71240

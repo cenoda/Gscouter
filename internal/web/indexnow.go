@@ -174,7 +174,13 @@ func (s *Server) fingerprints() map[string]string {
 	all := sha256.New()
 	for _, t := range s.lib.Teams {
 		raw, _ := yaml.Marshal(t)
-		h := sha256.Sum256(append(raw, t.Rotation...))
+		raw = append(raw, t.Rotation...)
+		// The page lists the alternatives the score tries.
+		for _, alt := range t.Rotations()[1:] {
+			meta, _ := yaml.Marshal(alt)
+			raw = append(append(raw, meta...), alt.Rotation...)
+		}
+		h := sha256.Sum256(raw)
 		out[teamPath(t)] = hex.EncodeToString(h[:8])
 		fmt.Fprintln(all, t.ID)
 	}

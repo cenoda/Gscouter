@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+ayaka char lvl=90/90 cons=6 talent=10,10,10;
+ayaka add weapon="mistsplitterreforged" refine=5 lvl=90/90;
+ayaka add set="mh" count=4;
+ayaka add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cd=0.622;
+ayaka add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1488 er=0.1653 em=39.64 cr=0.3972 cd=0.662;
+
+shenhe char lvl=90/90 cons=6 talent=10,10,10;
+shenhe add weapon="favlance" refine=5 lvl=90/90;
+shenhe add set="no" count=4;
+shenhe add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 atk%=0.466;
+shenhe add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.551 em=39.64 cr=0.3972 cd=0.1324;
+
+furina char lvl=90/90 cons=6 talent=10,10,10;
+furina add weapon="fs" refine=5 lvl=90/90;
+furina add set="totm" count=4;
+furina add stats hp=4780 atk=311 er=0.518 hydro%=0.466 cr=0.311;
+furina add stats def%=0.124 def=39.36 hp=507.88 hp%=0.4464 atk=33.08 atk%=0.0992 er=0.1102 em=39.64 cr=0.1655 cd=0.7944;
+
+escoffier char lvl=90/90 cons=6 talent=10,10,10;
+escoffier add weapon="symphonistofscents" refine=5 lvl=90/90;
+escoffier add set="gt" count=4;
+escoffier add stats hp=4780 atk=311 atk%=0.466 cryo%=0.466 cr=0.311;
+escoffier add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.2976 er=0.1102 em=39.64 cr=0.2648 cd=0.7944;

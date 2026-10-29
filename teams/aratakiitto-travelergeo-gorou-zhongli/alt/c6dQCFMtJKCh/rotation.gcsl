@@ -1,0 +1,41 @@
+active zhongli;
+  zhongli skill[hold=1],dash;
+  aethergeo burst;
+  gorou swap; wait(5); gorou burst;
+  
+  itto attack, burst, skill[travel=0];
+  
+       while !.itto.skill.ready {
+       if .itto.tags.strStack > 0 { itto charge; }
+       else { itto attack; }
+       } 
+       
+       itto skill[travel=0];
+        
+       while .itto.mods.itto-q {
+       if .itto.tags.strStack > 0 { itto charge; }
+       else { itto attack; }
+       } 
+
+   for let i=0; i<4; i=i+1 {
+   
+   zhongli skill; 
+   aethergeo skill,burst;
+   gorou attack,burst;
+   zhongli skill[hold=1],dash;
+   
+   itto attack, burst, skill[travel=0];
+  
+       while !.itto.skill.ready {
+       if .itto.tags.strStack > 0 { itto charge; }
+       else { itto attack; }
+       } 
+       
+       itto skill[travel=0];
+        
+       while .itto.mods.itto-q {
+       if .itto.tags.strStack > 0 { itto charge; }
+       else { itto attack; }
+       } 
+       
+   }

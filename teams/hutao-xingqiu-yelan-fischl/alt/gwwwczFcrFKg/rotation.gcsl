@@ -1,0 +1,25 @@
+active yelan;
+for let i=0; i<3; i=i+1 { 
+  yelan burst, attack, skill;
+  fischl attack:2, burst;
+  xingqiu attack, skill, burst, attack;
+  hutao skill,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash;
+  yelan attack, skill, attack:2;
+  fischl skill, attack;
+  hutao skill,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:3;
+}

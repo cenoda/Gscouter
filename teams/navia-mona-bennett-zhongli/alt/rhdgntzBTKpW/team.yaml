@@ -1,0 +1,23 @@
+id: navia-mona-bennett-zhongli
+name: Navia / Mona / Bennett / Zhongli
+members:
+    - navia
+    - zhongli
+    - bennett
+    - mona
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/rhdgntzBTKpW
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (bennett C6, mona C4, navia C6, zhongli C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 119088
+    computed: "2026-09-30"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.011
+    kept: 1.053
+    dps: 104270

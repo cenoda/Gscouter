@@ -1,0 +1,23 @@
+id: arlecchino-citlali-sucrose-bennett
+name: Arlecchino / Citlali / Sucrose / Bennett
+members:
+    - arlecchino
+    - citlali
+    - sucrose
+    - bennett
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/MN6Gr6zWDzDG
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (arlecchino C2, bennett C6, citlali C0, sucrose C6): 2 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 188635
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.001
+    kept: 1.026
+    dps: 193331

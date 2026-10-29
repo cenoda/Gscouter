@@ -63,12 +63,18 @@ func (sp Split) Write(root string, t *library.Team, force bool) (string, error) 
 	} else if err != nil && !errors.Is(err, os.ErrNotExist) {
 		return "", err
 	}
+	return dir, sp.WriteDir(dir, t)
+}
+
+// WriteDir stores the team's files in dir, as Write does, replacing
+// those there. A team's alternative (library.AltDir) is written this way.
+func (sp Split) WriteDir(dir string, t *library.Team) error {
 	meta, err := yaml.Marshal(t)
 	if err != nil {
-		return "", err
+		return err
 	}
 	if err := os.MkdirAll(dir, 0o755); err != nil {
-		return "", err
+		return err
 	}
 	files := map[string]string{
 		"team.yaml":     string(meta),
@@ -78,10 +84,10 @@ func (sp Split) Write(root string, t *library.Team, force bool) (string, error) 
 	}
 	for name, content := range files {
 		if err := os.WriteFile(filepath.Join(dir, name), []byte(content), 0o644); err != nil {
-			return "", err
+			return err
 		}
 	}
-	return dir, nil
+	return nil
 }
 
 // displayName turns a gcsim key into a readable name ("hutao" -> "Hutao").

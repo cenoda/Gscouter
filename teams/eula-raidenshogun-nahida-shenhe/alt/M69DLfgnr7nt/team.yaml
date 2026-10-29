@@ -1,0 +1,23 @@
+id: eula-raidenshogun-nahida-shenhe
+name: Eula / Raidenshogun / Nahida / Shenhe
+members:
+    - eula
+    - raiden
+    - nahida
+    - shenhe
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/M69DLfgnr7nt
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (eula C6, nahida C6, raidenshogun C6, shenhe C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 116977
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.01
+    kept: 0.961
+    dps: 111284

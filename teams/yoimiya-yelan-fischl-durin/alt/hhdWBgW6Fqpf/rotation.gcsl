@@ -1,0 +1,19 @@
+active amy;
+for let i=0; i<4; i=i+1 {
+  if i {
+    if .yoimiya.burst.ready {
+      yoimiya burst;
+    } else {
+      yoimiya attack:3;
+    }
+  }
+  amy skill, attack;
+  yelan skill, attack, burst, attack;
+  durin skill:2, burst;
+  amy attack:2, burst;
+  yoimiya attack, skill,
+    attack:5, dash,
+    attack:5, dash,
+    attack:5, dash,
+    attack:1;
+}

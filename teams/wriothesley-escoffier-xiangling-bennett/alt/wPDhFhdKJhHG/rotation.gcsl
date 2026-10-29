@@ -1,0 +1,21 @@
+active escoffier;
+for let i=0; i<4; i=i+1 {
+  escoffier skill;
+
+     escoffier attack;
+  
+  bennett burst, skill;
+  xiangling burst, skill, dash, attack;
+  wrio skill,
+       attack:5, charge, dash,
+       attack:5, charge, dash, 
+       attack:5, charge, dash,
+       attack:3;
+  if .wrio.burst.ready && .wrio.energymax == .wrio.energy  {
+    wrio burst;
+  } else {
+    wrio charge, dash;
+  }
+  bennett skill, attack;
+  xiangling swap; wait(55);
+}

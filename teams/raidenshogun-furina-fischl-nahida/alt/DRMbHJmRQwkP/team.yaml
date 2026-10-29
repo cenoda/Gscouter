@@ -1,0 +1,23 @@
+id: raidenshogun-furina-fischl-nahida
+name: Raidenshogun / Furina / Fischl / Nahida
+members:
+    - raiden
+    - furina
+    - nahida
+    - fischl
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/DRMbHJmRQwkP
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (fischl C6, furina C6, nahida C6, raidenshogun C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 235175
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.002
+    kept: 0.985
+    dps: 231154

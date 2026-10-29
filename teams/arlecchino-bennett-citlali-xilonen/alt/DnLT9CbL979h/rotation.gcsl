@@ -1,0 +1,54 @@
+active arlecchino;
+fn WaitForCryo() {
+  let StartFrame = f();
+  if !.element.t0.pyro {      
+    while !.element.t0.cryo && f() - StartFrame < 120 {   
+      wait(1);
+    }
+  }
+}
+let sss = true; 
+for let i = 0; i < 4; i = i + 1 {
+  if .arle.weapon == .keys.weapon.crimsonmoonssemblance {
+    arle charge;
+  }
+  arlecchino skill;   delay(11);  
+  bennett skill, burst;
+  xilonen skill, attack:2; pick_up_crystallize("pyro");
+  citlali skill, attack;
+  arle swap;
+  if .arle.weapon == .keys.weapon.staffofthescarletsands {
+    if sss == true {
+      wait(2); 
+    }
+  }
+  arle charge[early_cancel=1], dash;
+  wait(47); 
+  
+  WaitForCryo();
+  arle attack:3, dash;
+  WaitForCryo();
+  arle attack:3, dash;
+  WaitForCryo();
+  arle attack:3, dash;
+  WaitForCryo();
+  arle attack:3;
+  if i<3 {
+    arle dash;
+    WaitForCryo();
+    arle attack:3, dash;
+    WaitForCryo();
+    arle attack:3;
+    if .arle.weapon != .keys.weapon.crimsonmoonssemblance {
+      arle dash;  
+      arle attack:3;
+    }
+  } else {
+    if .arle.weapon != .keys.weapon.crimsonmoonssemblance {
+      arle dash;
+      WaitForCryo();
+      arle attack:3;
+    }
+    arle burst;
+  }
+}

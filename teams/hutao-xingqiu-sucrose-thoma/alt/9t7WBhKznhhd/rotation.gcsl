@@ -1,0 +1,41 @@
+active xingqiu;
+for let i=0; i<4; i=i+1 {
+	xingqiu skill, dash, burst,attack;
+	thoma attack:2,skill,burst;
+	sucrose attack,skill, jump;
+	hutao skill;
+	let cacombo = 11;
+	let seqCount = 0;
+	while .hutao.mods.paramita && cacombo > 0  {   
+		if .hutao.mods.paramita {
+			hutao attack;
+		}
+		if .hutao.mods.paramita && seqCount == 2 {
+			hutao attack;
+			wait(rand() * 6);
+		}
+		if .hutao.mods.paramita {
+			hutao charge;
+			cacombo = cacombo - 1;
+			wait(rand() * 15);
+			if .stam >= 18 {
+				hutao dash;
+			} else {
+				hutao jump;
+				wait(rand() * 2);
+			}
+		}
+		if seqCount == 2 {
+			seqCount = 0;
+		} else {
+			seqCount = seqCount + 1;
+		}
+	}
+	if .sucrose.skill.ready {
+		sucrose skill;
+	}
+	while !.xingqiu.skill.ready {
+		sucrose attack;
+	}
+	print("done");
+}

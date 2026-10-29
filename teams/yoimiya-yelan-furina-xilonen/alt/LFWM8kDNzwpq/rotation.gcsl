@@ -1,0 +1,15 @@
+active furina;
+furina skill, dash; 
+for let i = 0; i < 4; i = i + 1 {
+  xilonen skill, attack:2;
+  if i {
+    furina skill, dash;
+  }
+  furina burst, attack;
+  if is_even(i) {
+    yoimiya burst;
+  }
+  yelan burst, skill, attack, skill, attack:4;
+  xilonen skill, attack:2;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+}

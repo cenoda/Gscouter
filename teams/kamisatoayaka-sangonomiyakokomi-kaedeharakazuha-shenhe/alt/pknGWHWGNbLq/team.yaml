@@ -1,0 +1,23 @@
+id: kamisatoayaka-sangonomiyakokomi-kaedeharakazuha-shenhe
+name: Kamisatoayaka / Sangonomiyakokomi / Kaedeharakazuha / Shenhe
+members:
+    - ayaka
+    - kokomi
+    - kazuha
+    - shenhe
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/pknGWHWGNbLq
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (kaedeharakazuha C6, kamisatoayaka C6, sangonomiyakokomi C6, shenhe C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 147079
+    computed: "2026-09-30"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.006
+    kept: 0.946
+    dps: 139926

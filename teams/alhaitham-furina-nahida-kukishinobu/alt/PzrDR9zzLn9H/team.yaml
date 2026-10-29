@@ -1,0 +1,25 @@
+id: alhaitham-furina-nahida-kukishinobu
+name: Alhaitham / Furina / Nahida / Kukishinobu
+members:
+    - alhaitham
+    - furina
+    - nahida
+    - kuki
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/PzrDR9zzLn9H
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (alhaitham C1, furina C0, kukishinobu C6, nahida C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+params:
+    kuki: start_hp=14000
+reference:
+    dps: 90350
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.001
+    kept: 1.002
+    dps: 91790

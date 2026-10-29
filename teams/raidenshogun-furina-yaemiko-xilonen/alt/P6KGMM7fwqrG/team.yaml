@@ -1,0 +1,23 @@
+id: raidenshogun-furina-yaemiko-xilonen
+name: Raidenshogun / Furina / Yaemiko / Xilonen
+members:
+    - raiden
+    - yaemiko
+    - furina
+    - xilonen
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/P6KGMM7fwqrG
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (furina C6, raidenshogun C6, xilonen C6, yaemiko C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 248596
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.002
+    kept: 1.006
+    dps: 250397

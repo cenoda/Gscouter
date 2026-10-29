@@ -10,6 +10,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/cenoda/gscouter/internal/config"
@@ -52,33 +53,39 @@ func run(teamDir, buildPath string, iterations int, warmup, duration float64, se
 		return fmt.Errorf("team %q is blocked: %s", team.ID, team.Notes)
 	}
 
-	build := string(raw)
-	for m, p := range team.Params {
-		build = config.AddParams(build, m, p)
+	// Each of the team's rotations may need params of its own.
+	rotations := team.Rotations()
+	builds := make([]string, len(rotations))
+	runs := make([]steady.Rotation, len(rotations))
+	for i, t := range rotations {
+		builds[i] = string(raw)
+		for m, p := range t.Params {
+			builds[i] = config.AddParams(builds[i], m, p)
+		}
+		runs[i] = steady.Rotation{Rotation: t.Rotation, Members: t.Members}
 	}
-	once := config.Assemble(config.Conditions{Iterations: iterations}, build, team.Rotation)
-	chars, err := config.Characters(once)
+	chars, err := config.Characters(config.Assemble(config.Conditions{Iterations: iterations}, builds[0], team.Rotation))
 	if err != nil {
 		return fmt.Errorf("config: %w", err)
 	}
 	if !team.Matches(chars) {
 		return fmt.Errorf("build characters %v do not match team %q %v", chars, team.ID, team.Members)
 	}
-	assemble := func(looped string) string {
-		return config.Assemble(config.Conditions{Iterations: iterations, Duration: duration}, build, looped)
+	assemble := func(i int, looped string) string {
+		return config.Assemble(config.Conditions{Iterations: iterations, Duration: duration}, builds[i], looped)
 	}
 	if dump {
 		looped, err := config.Loop(team.Rotation)
 		if err != nil {
 			return err
 		}
-		fmt.Print(assemble(looped))
+		fmt.Print(assemble(0, looped))
 		return nil
 	}
 
 	start := time.Now()
-	out, err := steady.Score(team.Rotation, team.Members, func(looped string) (*score.Result, error) {
-		return score.Run(context.Background(), assemble(looped), score.Options{
+	best, out, err := steady.Best(runs, func(i int, looped string, _ bool) (*score.Result, error) {
+		return score.Run(context.Background(), assemble(i, looped), score.Options{
 			Iterations: iterations,
 			Warmup:     warmup,
 			Seed:       seed,
@@ -88,6 +95,7 @@ func run(teamDir, buildPath string, iterations int, warmup, duration float64, se
 		return err
 	}
 	res := out.Result
+	once := config.Assemble(config.Conditions{Iterations: iterations}, builds[best], rotations[best].Rotation)
 	oneRes, err := score.Run(context.Background(), once, score.Options{Iterations: iterations, Seed: seed})
 	if err != nil {
 		return err
@@ -97,6 +105,13 @@ func run(teamDir, buildPath string, iterations int, warmup, duration float64, se
 	fmt.Printf("Score:     %.0f DPS ± %.0f (1 s.e.; s.d. %.0f)\n", res.DPS, res.StdErr, res.StdDev)
 	fmt.Printf("Window:    %.0fs–%.0fs of the looped rotation, %d iterations, %s\n", warmup, warmup+res.Window, res.Iterations, time.Since(start).Round(time.Millisecond))
 	fmt.Printf("One pass:  %.0f DPS over %.1fs from full energy (community gcsim measure)\n", oneRes.DPS, oneRes.Window)
+	if best > 0 {
+		var raised []string
+		for _, c := range rotations[best].Raised(team) {
+			raised = append(raised, fmt.Sprintf("C%d %s", c.Cons, c.Char))
+		}
+		fmt.Printf("Rotation:  alternative for %s (%s)\n", strings.Join(raised, ", "), strings.Join(rotations[best].Sources, " "))
+	}
 	if out.Filled {
 		fmt.Printf("Fillers:   %s\n", out)
 	}

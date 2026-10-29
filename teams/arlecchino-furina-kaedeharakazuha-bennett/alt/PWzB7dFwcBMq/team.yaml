@@ -1,0 +1,23 @@
+id: arlecchino-furina-kaedeharakazuha-bennett
+name: Arlecchino / Furina / Kaedeharakazuha / Bennett
+members:
+    - arle
+    - furina
+    - kazuha
+    - bennett
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/PWzB7dFwcBMq
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (arlecchino C0, bennett C6, furina C2, kaedeharakazuha C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 104904
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.004
+    kept: 1.023
+    dps: 106934

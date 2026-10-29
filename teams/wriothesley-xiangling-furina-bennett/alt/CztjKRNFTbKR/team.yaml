@@ -1,0 +1,23 @@
+id: wriothesley-xiangling-furina-bennett
+name: Wriothesley / Xiangling / Furina / Bennett
+members:
+    - wrio
+    - xiangling
+    - furina
+    - bennett
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/CztjKRNFTbKR
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (bennett C6, furina C0, wriothesley C1, xiangling C6): 2 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 65609
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.001
+    kept: 0.972
+    dps: 63718

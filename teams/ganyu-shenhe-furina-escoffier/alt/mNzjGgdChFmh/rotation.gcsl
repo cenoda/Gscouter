@@ -1,0 +1,10 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst, attack;  
+  shenhe burst, skill;
+  escoffier skill, burst;
+  ganyu skill, aim:2, burst, aim;
+  shenhe skill, attack;
+  ganyu aim, skill, aim;
+  ganyu attack, dash;  
+}

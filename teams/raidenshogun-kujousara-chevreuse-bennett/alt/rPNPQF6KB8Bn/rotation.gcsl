@@ -1,0 +1,20 @@
+active raiden;
+raiden skill;
+let r = 1;
+while r <= 5 {
+  while .bennett.skill.cd {
+    bennett attack;
+  }
+  if r > 1 {
+    sara skill, aim;
+  }
+  bennett burst;
+  chevreuse skill[hold=1], burst;
+  if .sara.skill.ready { sara skill, aim; }
+  sara burst;
+  raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  bennett skill;
+  
+  print("Rotation ", r, " done");
+  r = r + 1;
+}

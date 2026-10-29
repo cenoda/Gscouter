@@ -1,0 +1,23 @@
+id: raidenshogun-furina-yelan-citlali
+name: Raidenshogun / Furina / Yelan / Citlali
+members:
+    - raiden
+    - furina
+    - yelan
+    - citlali
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/c8R8zmM7tDdp
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (citlali C6, furina C6, raidenshogun C6, yelan C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 334514
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.004
+    kept: 1.044
+    dps: 348058

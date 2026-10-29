@@ -1,0 +1,23 @@
+id: noelle-furina-yelan-xilonen
+name: Noelle / Furina / Yelan / Xilonen
+members:
+    - noelle
+    - furina
+    - yelan
+    - xilonen
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/cp6jwz87tHkb
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (furina C2, noelle C6, xilonen C0, yelan C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 83354
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.002
+    kept: 0.993
+    dps: 82900

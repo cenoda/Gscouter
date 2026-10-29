@@ -1,0 +1,23 @@
+id: raidenshogun-chevreuse-mavuika-kujousara
+name: Raidenshogun / Chevreuse / Mavuika / Kujousara
+members:
+    - raiden
+    - sara
+    - mavuika
+    - chevreuse
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/gQGRTkcB7LWm
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (chevreuse C6, kujousara C6, mavuika C2, raidenshogun C2): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 133840
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.002
+    kept: 0.98
+    dps: 130930

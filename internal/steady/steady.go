@@ -7,6 +7,7 @@
 package steady
 
 import (
+	"cmp"
 	"context"
 	"errors"
 	"fmt"
@@ -150,6 +151,74 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 		followUp(c.energy, c.skill, res)
 	}
 	return brief(best, rotation, members, run, seen)
+}
+
+// Rotation is one of a team's rotations (library.Team.Rotations) as run
+// for a build: the script and its members as it names them.
+type Rotation struct {
+	Rotation string
+	Members  []string
+}
+
+// Best scores each rotation with Score and returns the index of the one
+// that scores best, with its outcome. The best rotation differs with the
+// build: one written for higher constellations can score far more with
+// them and far less without (docs/cycle.md §3).
+//
+// run assembles and simulates rotation i's looped script. Only the first
+// run of the first rotation, the team's own as written, and the runs
+// that confirm a winner are full runs; the others only rank (rank is
+// true) and may be cheaper. Ranked outcomes are confirmed with a full
+// run from the best down until one beats the full first run, which
+// stands otherwise, as fillers ranked on fewer iterations can come out
+// below it. A rotation after the first that fails to run is left out.
+func Best(rotations []Rotation, run func(i int, looped string, rank bool) (*score.Result, error)) (int, *Outcome, error) {
+	type scored struct {
+		i    int
+		out  *Outcome
+		full bool
+	}
+	var all []scored
+	var first *Outcome
+	for i, r := range rotations {
+		out, err := Score(r.Rotation, r.Members, func(looped string) (*score.Result, error) {
+			full := i == 0 && first == nil
+			res, err := run(i, looped, !full)
+			if err == nil && full {
+				first = &Outcome{Result: res, Looped: looped}
+			}
+			return res, err
+		})
+		if err != nil {
+			if i == 0 || isFatal(err) {
+				return 0, nil, err
+			}
+			continue
+		}
+		all = append(all, scored{i, out, out.Result == first.Result})
+	}
+	if !all[0].full {
+		all = append(all, scored{0, first, true})
+	}
+	slices.SortStableFunc(all, func(a, b scored) int { return cmp.Compare(b.out.Result.DPS, a.out.Result.DPS) })
+	for _, s := range all {
+		if s.full {
+			return s.i, s.out, nil
+		}
+		res, err := run(s.i, s.out.Looped, false)
+		if err != nil {
+			if isFatal(err) {
+				return 0, nil, err
+			}
+			continue
+		}
+		if res.DPS > first.Result.DPS {
+			out := *s.out
+			out.Result = res
+			return s.i, &out, nil
+		}
+	}
+	return 0, first, nil
 }
 
 // brief tries the best run again with FillBrief for the characters whose

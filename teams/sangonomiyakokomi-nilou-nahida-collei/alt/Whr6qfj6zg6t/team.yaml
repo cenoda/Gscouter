@@ -1,0 +1,23 @@
+id: sangonomiyakokomi-nilou-nahida-collei
+name: Sangonomiyakokomi / Nilou / Nahida / Collei
+members:
+    - nahida
+    - kokomi
+    - nilou
+    - collei
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Whr6qfj6zg6t
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (collei C6, nahida C0, nilou C0, sangonomiyakokomi C1): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 137472
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0
+    kept: 0.987
+    dps: 42907

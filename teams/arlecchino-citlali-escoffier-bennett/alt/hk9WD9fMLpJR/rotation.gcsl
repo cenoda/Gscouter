@@ -1,0 +1,29 @@
+fn WaitForCryo() {
+  let StartFrame = f();
+  if !.element.t0.pyro {      
+    while !.element.t0.cryo && f() - StartFrame < 120 {   
+      wait(1);
+    }
+  }
+}
+active arlecchino;
+for let i=0; i<4; i=i+1{
+  arle skill;
+  bennett skill, dash, burst;
+  escoffier skill, attack;
+  citlali skill, burst;
+  arle charge;
+  sleep(30);
+  WaitForCryo();
+  arle attack:2, walk,
+       attack:2;
+  citlali attack:2; 
+  arle attack:2, walk,
+       attack:2, walk,
+       attack:4;
+  WaitForCryo(); 
+  arle attack:1;
+  WaitForCryo();
+  arle attack:1,
+       attack:1;
+}

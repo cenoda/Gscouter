@@ -1,0 +1,23 @@
+id: arlecchino-kaeya-xilonen-bennett
+name: Arlecchino / Kaeya / Xilonen / Bennett
+members:
+    - arle
+    - kaeya
+    - xilonen
+    - bennett
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/pWQjnfqmQQLL
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (arlecchino C2, bennett C6, kaeya C6, xilonen C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 159748
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.006
+    kept: 0.995
+    dps: 159773

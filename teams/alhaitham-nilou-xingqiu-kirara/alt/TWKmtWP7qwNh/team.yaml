@@ -1,0 +1,23 @@
+id: alhaitham-nilou-xingqiu-kirara
+name: Alhaitham / Nilou / Xingqiu / Kirara
+members:
+    - alhaitham
+    - nilou
+    - xingqiu
+    - kirara
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/TWKmtWP7qwNh
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (alhaitham C0, kirara C6, nilou C2, xingqiu C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 224633
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.001
+    kept: 0.958
+    dps: 83688

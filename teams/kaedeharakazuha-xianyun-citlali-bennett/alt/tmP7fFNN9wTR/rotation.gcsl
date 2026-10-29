@@ -1,0 +1,30 @@
+fn KazuPlunge(){
+  kazuha jump;
+  if .airborne {
+    kazuha high_plunge[collision=rand()>0.5];
+  }
+}
+active bennett;
+for let i=0; i<4; i=i+1 {
+  
+  bennett skill;
+  while !.bennett.mods.favonius-cd {
+    bennett attack;
+  }
+  
+  xianyun skill, low_plunge, burst;
+  
+  citlali skill, burst;
+  
+  kazuha skill, high_plunge[collision=1], burst;
+  
+  bennett skill, burst;
+  
+  kazuha skill, high_plunge[collision=1];
+  KazuPlunge(); kazuha dash;
+  KazuPlunge(); kazuha dash;
+  KazuPlunge(); kazuha dash;
+  KazuPlunge();
+  kazuha skill, high_plunge[collision=1];
+  KazuPlunge();
+}

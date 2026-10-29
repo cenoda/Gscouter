@@ -1,0 +1,20 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst, attack;  
+  if is_even(i) { 
+    shenhe burst;
+  }
+  shenhe skill[hold=1];
+  escoffier skill, burst;
+  wrio  skill;
+  wrio  attack:5, charge, jump;
+  wrio  attack:5, charge, jump;
+  wrio  attack:5, charge;
+  if is_even(i)  {
+    wrio dash;
+    wrio burst;
+  } else {
+    wrio jump;
+    wrio attack:5, charge;
+  }
+}

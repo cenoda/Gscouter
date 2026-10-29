@@ -1,0 +1,23 @@
+id: chasca-xilonen-furina-bennett
+name: Chasca / Xilonen / Furina / Bennett
+members:
+    - xilonen
+    - chasca
+    - furina
+    - bennett
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/TzBTDHTnjzzL
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (bennett C6, chasca C2, furina C0, xilonen C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 144551
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.007
+    kept: 0.974
+    dps: 96850

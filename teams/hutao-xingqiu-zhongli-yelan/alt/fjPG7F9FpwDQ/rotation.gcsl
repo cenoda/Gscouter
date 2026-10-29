@@ -1,0 +1,25 @@
+active zhongli;
+zhongli skill[hold=1];
+yelan burst, attack;
+xingqiu burst, attack, skill, dash;
+if .xingqiu.skill.ready {
+  xingqiu skill, dash;
+}
+yelan attack, skill;
+if .yelan.skill.ready {
+  yelan attack, skill;
+}
+hutao skill,
+  attack:2, charge, dash,
+  attack:2, charge, dash,
+  attack:2, charge, dash,
+  attack:2, charge, dash,
+  attack:2, charge, dash,
+  attack:2, charge, dash,
+  attack:2, charge, dash,
+  attack:2, charge, dash,
+  attack:2, charge, dash,
+  attack:2, charge, dash;
+if .hutao.burst.ready {
+  hutao burst;
+}

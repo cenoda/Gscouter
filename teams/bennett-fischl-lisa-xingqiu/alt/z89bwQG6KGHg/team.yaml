@@ -1,0 +1,23 @@
+id: bennett-fischl-lisa-xingqiu
+name: Bennett / Fischl / Lisa / Xingqiu
+members:
+    - bennett
+    - fischl
+    - lisa
+    - xingqiu
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/z89bwQG6KGHg
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (bennett C6, fischl C6, lisa C6, xingqiu C6): 2 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 51215
+    computed: "2026-09-30"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.006
+    kept: 1.009
+    dps: 51360

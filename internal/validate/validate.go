@@ -262,7 +262,8 @@ func reference(ctx context.Context, dir string, s Settings) (*Report, string) {
 		return r, ""
 	}
 	r.Team = team
-	if team.ID != filepath.Base(dir) {
+	// A team's alternative is in <team>/alt/<entry>.
+	if want, _, _ := strings.Cut(library.DirName(dir), "/"); team.ID != want {
 		r.Failures = append(r.Failures, fmt.Sprintf("id %q does not match directory", team.ID))
 	}
 	if team.Status == library.StatusBlocked {

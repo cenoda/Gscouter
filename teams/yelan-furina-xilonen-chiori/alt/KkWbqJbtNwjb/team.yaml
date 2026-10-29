@@ -1,0 +1,23 @@
+id: yelan-furina-xilonen-chiori
+name: Yelan / Furina / Xilonen / Chiori
+members:
+    - xilonen
+    - furina
+    - chiori
+    - yelan
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/KkWbqJbtNwjb
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (chiori C6, furina C6, xilonen C6, yelan C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 484673
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.003
+    kept: 1.034
+    dps: 502760

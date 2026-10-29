@@ -1,0 +1,16 @@
+active kokomi;
+for let i = 0; i < 5; i = i + 1 {
+  kokomi skill;
+  nahida skill, burst, attack;
+  nilou skill:3, skill;
+  luminedendro skill, burst, attack;
+  kokomi attack, burst;
+  kokomi attack:2, charge;
+  kokomi attack:2, charge;
+  nahida attack, charge;
+  kokomi attack:2, charge;
+  nilou burst;
+  luminedendro skill, attack;
+  kokomi attack:2, charge, attack:2;
+  
+}

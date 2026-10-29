@@ -170,6 +170,7 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
 ### 4.5 Results
 
 - **Score**: team DPS with the rotation looped (150–450 s), plus the one-rotation number
+- **Rotation**: when one of the team's alternatives scored (§5.2), a note with the constellations it was written for and a link to its source; the one pass, timelines and script are then that rotation's
 - **Per-character contribution**: DPS and share, with each character's build: level, constellations, weapon, talents, artifact sets and total stats as on the character screen (docs/artifacts.md §2)
 - **Warnings**
   - Insufficient ER: time each character spent waiting for energy, in seconds per minute of the scoring window
@@ -227,6 +228,9 @@ teams/
     team.yaml        # metadata, character params, source and its DPS
     rotation.gcsl    # rotation from the source config (actions only)
     build.txt        # the source config's build, used for validation
+    source.txt       # the source config's conditions, for the reference check
+    alt/             # alternatives for higher constellations (§5.2), if any
+      <entry>/       # one per database entry, the same four files
 ```
 
 Example `team.yaml` (written by `cmd/harvest`; `cmd/import` writes the same fields, with the share's gcsim version):
@@ -263,10 +267,12 @@ validation:              # the last check (cmd/validate -promote, §5.3)
 - The rotation is the source config's action list. Gscouter loops it for the score and runs it once for validation, so the source must not loop forever itself.
   - When looping, the setup at the start of the rotation (`active`, `let`, `fn` and `set_*` statements) runs once, and the remaining statements repeat.
 - Character params the rotation assumes (e.g. Hu Tao `start_hp=1`) are stored in `team.yaml` and added to the player's build.
-- One rotation is used regardless of the user's build. Where that fails (constellations, the source's weapons) and what to change: `docs/cycle.md`.
+- A team's rotation is the one the score starts from. The best rotation changes with the build's constellations: a database entry written for higher constellations scores a median 12.4% more than the library rotation on its own build and 15% less on the library's (`docs/cycle.md` §3), so one rotation cannot serve both.
+  - **Alternatives**: a team also keeps, in `alt/<entry>/`, the database's rotations for higher constellations than its own: one per set of constellations the database has, chosen as the team's rotation is (§5.3, step 6). Each is a team directory of its own (`team.yaml` with the team's ID, rotation, build, conditions), validated like a team, and used only while `supported`.
+  - **The score runs them all and keeps the best** (`steady.Best`): the player's build with the team's rotation and with each alternative, each with its fillers (§3.1), the best confirmed with the full iterations. It does not decide from the constellations which rotation fits: which one does depends on several members' constellations at once (`docs/cycle.md` §3.1). When an alternative scores, the result says so, with the constellations it was written for and its source; the library team's page lists them. What it gains and costs: `docs/cycle.md` §7.
   - If an action can't be performed due to insufficient ER, rely on gcsim's wait/delay behavior and surface the delay as a warning.
-  - **Known limitation, urgent (2026-10-29): rotations that depend on constellations.** The best rotation can change with the build's constellations, and one rotation cannot serve both. A Vesna C2 / Odette C6 / Nicole C6 / Vodyanitsa C2 build scored 7–11% low because Nicole's burst pushed the end of Vesna's combo past Odette's Dance Double; dropping the burst helped that build and most C0 builds, so it was dropped in 19 of 22 teams, but the order that suits the C6 build best does little at C0 (`docs/characters/vesna.md` §2, Nicole's burst dropped).
-  - Needed: a team can carry rotation variants keyed by constellations (e.g. a variant for Odette C6 that casts her last), and the score uses the variant that matches the build, or runs the candidates and keeps the best, as the fillers do (`docs/fillers.md`). Each variant needs a source or a measured reason in `notes`, as a rotation does now (§5.4).
+  - **Known limitation: constellations the database has no entry for.** Alternatives come only from database entries, so 4,204 teams have none, and an experimental team's rotation written from a guide has none either. A Vesna C2 / Odette C6 / Nicole C6 / Vodyanitsa C2 build scored 7–11% low because Nicole's burst pushed the end of Vesna's combo past Odette's Dance Double; dropping the burst helped that build and most C0 builds, so it was dropped in 19 of 22 teams, but the order that suits the C6 build best does little at C0 (`docs/characters/vesna.md` §2, Nicole's burst dropped). A variant written from a guide (e.g. one for Odette C6 that casts her last) would be another alternative, with a source or a measured reason in `notes` as a rotation needs now (§5.4); alternatives require a source DPS today (`docs/cycle.md` §6, (4)).
+- Where one rotation still fails a build (the source's weapons, waits the fillers cannot see): `docs/cycle.md`.
 - Aim for a near-optimal standard rotation for the team. Uneven rotation quality across teams is itself unfairness.
 
 ### 5.3 Addition workflow (automated)
@@ -290,13 +296,14 @@ The library is filled from the community gcsim database at db.kqm.gg, the list g
 
    Each check runs in a child process, since gcsim cannot cancel a rotation stuck in a loop that takes no action. All entries are tried until five pass (`-tries` limits them).
 5. Teams run in parallel (`-j`, default one per CPU, each simulation on one CPU; on 4 CPUs this was as fast as one team at a time on all CPUs). Teams that fail every entry go to `teams/harvest-failed.txt` with the first entry's failure, and later runs skip them unless `-retry-failed` is set.
+6. **Alternatives** (§5.2) for each team harvested: the entries with a member at a higher constellation than the team's own entry, grouped by their constellations. Each group's entries are tried as in step 4, and the one picked is written to `alt/<entry>/` when its rotation is not one the team has already and it meets the approval criteria below; an experimental one is not kept, since a person reviews those. `-alternatives` does only this step again, for every team already in the library, and adds no team.
 
 Each team stores the source's options, target, energy and hurt lines in `source.txt`. Only the reference check uses them; the site's score and the looped checks use the common conditions (§3.2).
 
 | Step | Mode | Description |
 |---|---|---|
 | 1. Harvest | Automated | `cmd/harvest -n <teams>`; rerun to refresh. `cmd/import` adds a single gcsim share link by hand. A team the database has no entry for gets a rotation written from a community guide (§5.4); none is written without a source |
-| 2. Validation | Automated | `cmd/validate`. CI validates fully the team directories a push or pull request changes (30 of them, chosen at random, when it changes more), or 10 random teams when it changes none |
+| 2. Validation | Automated | `cmd/validate`, which checks a team's alternatives (§5.2) after it. CI validates fully the team directories a push or pull request changes (30 of them, chosen at random, when it changes more), or 10 random teams when it changes none |
 | 3. Approval | Automated | `cmd/validate -promote` sets `status: supported` on teams that meet the criteria below and returns the others to `draft`; `cmd/harvest` writes new teams the same way |
 | 4. Regression tests | Automated | Re-run everything on gcsim updates or game patches with `-promote`, so teams that no longer meet the criteria go back to `draft`. A looped score more than 5% from the recorded `validation.dps` is a warning, in CI too |
 
@@ -408,7 +415,7 @@ Characters in the game that upstream gcsim lacks, with their state upstream and 
 
 ## 10. Next Steps
 
-0. **Urgent: rotations that depend on constellations** (§5.2). One rotation per team scores high-constellation builds too low when their best cycle differs (a Vesna team 10% low, 2026-10-29).
+0. ~~**Urgent: rotations that depend on constellations**~~ (§5.2). Done for the database's rotations: teams keep the entries written for higher constellations as alternatives, and the score keeps the best (`docs/cycle.md` §7). Constellations the database has no entry for remain (§5.2, a Vesna team 10% low, 2026-10-29).
 1. ~~gcsim execution prototype~~ Done: `cmd/gscouter` scores a build file against a library team (see README).
 2. ~~Enka UID → gcsim config converter~~ Done (`internal/enka`). Artifact substats come from Enka's rounded display values; crit rate differs from Enka's final stats by under 0.1%p.
 3. ~~Website with versus view~~ Done (`cmd/server`, `internal/web`), deployed at https://gscouter.altsky.info (§4.6).

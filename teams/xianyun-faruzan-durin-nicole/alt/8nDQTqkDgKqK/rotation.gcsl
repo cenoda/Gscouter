@@ -1,0 +1,15 @@
+active nicole;
+for let i=0; i<4; i=i+1 {
+  nicole attack, skill;
+  durin skill:2, burst;
+  faruzan burst;
+  for let j=0; j<2; j=j+1 {
+    if !.faruzan.mods.favonius-cd {
+      faruzan attack;
+    }
+  }
+  xianyun skill, low_plunge, burst;
+  for let h = 6; h > 0; h = h - 1 {
+    xianyun skill:3, high_plunge;
+  }
+}

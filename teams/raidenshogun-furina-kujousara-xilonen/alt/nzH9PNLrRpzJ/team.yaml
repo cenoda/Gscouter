@@ -1,0 +1,23 @@
+id: raidenshogun-furina-kujousara-xilonen
+name: Raidenshogun / Furina / Kujousara / Xilonen
+members:
+    - raiden
+    - furina
+    - sara
+    - xilonen
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/nzH9PNLrRpzJ
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (furina C6, kujousara C6, raidenshogun C3, xilonen C3): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 213290
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.008
+    kept: 0.918
+    dps: 194240

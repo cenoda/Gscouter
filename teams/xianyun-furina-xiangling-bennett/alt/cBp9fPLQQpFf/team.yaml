@@ -1,0 +1,28 @@
+id: xianyun-furina-xiangling-bennett
+name: Xianyun / Furina / Xiangling / Bennett
+members:
+    - furina
+    - xiangling
+    - xianyun
+    - bennett
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/cBp9fPLQQpFf
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (bennett C6, furina C6, xiangling C6, xianyun C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+params:
+    bennett: start_hp%=50
+    furina: start_hp%=50
+    xiangling: start_hp%=50
+    xianyun: start_hp%=50
+reference:
+    dps: 168182
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.005
+    kept: 0.976
+    dps: 163324

@@ -1,0 +1,37 @@
+active furina;
+for let x = 0; x < 4; x = x + 1 {
+  furina skill, dash, burst;
+  
+  chongyun burst, skill;
+  
+  xianyun skill, low_plunge;
+  if !.xianyun.burst.ready && .xianyun.skill.ready {
+    xianyun skill, low_plunge, burst;
+  }
+  xianyun burst;
+  
+  kazuha attack, skill[hold=1], high_plunge[collision=rand()>0.5];
+  
+  while .kazuha.status.xianyun-airborne-buff {
+    if .kazuha.skill.ready {
+      kazuha skill, high_plunge[collision=rand()>0.5];
+    } else if .kazuha.burst.ready {
+      kazuha burst;
+    } else {
+      kazuha jump;
+      if .airborne {
+        kazuha high_plunge[collision=rand()>0.5], dash;
+      }
+    }
+  }
+  
+  while !.furina.skill.ready {
+    if .kazuha.skill.ready {
+      kazuha skill, high_plunge[collision=rand()>0.5];
+    } else {
+      kazuha attack;
+    }
+  }
+  
+  print("done");
+}

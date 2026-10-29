@@ -1,0 +1,11 @@
+active mualani;
+mualani attack; 
+for let i = 0; i < 4; i = i + 1 {
+  xilonen skill, attack:2;
+  if .chiori.burst.ready {
+    chiori burst, skill:2;
+  } else {
+    chiori skill:2;
+  }
+  mualani attack:28; 
+}

@@ -1,0 +1,11 @@
+active sigewinne;
+for let i = 0; i < 5; i = i + 1 {
+sigewinne skill; 
+yelan burst; 
+xilonen skill, attack:2; 
+furina skill, dash, burst, charge, attack:4, dash, charge; 
+yelan attack, skill, attack, skill, attack:3; 
+xilonen skill, attack:2; 
+sigewinne burst; 
+}
+wait(320);

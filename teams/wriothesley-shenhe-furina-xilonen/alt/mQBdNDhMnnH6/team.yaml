@@ -1,0 +1,23 @@
+id: wriothesley-shenhe-furina-xilonen
+name: Wriothesley / Shenhe / Furina / Xilonen
+members:
+    - wrio
+    - shenhe
+    - furina
+    - xilonen
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/mQBdNDhMnnH6
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (furina C6, shenhe C6, wriothesley C6, xilonen C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 311221
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.002
+    kept: 0.972
+    dps: 303108

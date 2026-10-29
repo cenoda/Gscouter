@@ -1,0 +1,15 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  bennett burst, skill;
+  xiangling burst, skill, dash;
+  wrio  skill,
+        attack:5, charge, dash,
+        attack:5, charge, dash,
+        attack:5, charge, dash;  
+  if .wriothesley.burst.ready {
+    wrio burst;
+  }
+  bennett skill, dash;
+  xiangling attack:2;
+}

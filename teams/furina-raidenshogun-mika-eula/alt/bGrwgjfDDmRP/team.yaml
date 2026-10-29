@@ -1,0 +1,23 @@
+id: furina-raidenshogun-mika-eula
+name: Furina / Raidenshogun / Mika / Eula
+members:
+    - eula
+    - raiden
+    - furina
+    - mika
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/bGrwgjfDDmRP
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (eula C6, furina C6, mika C6, raidenshogun C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 155961
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.027
+    kept: 0.965
+    dps: 146418

@@ -1,0 +1,15 @@
+active escoffier;
+for let i=0; i<4; i=i+1 {
+  escoffier skill, attack;
+  furina skill, dash, burst, attack:2;
+  citlali skill, attack;
+  yelan burst, attack, skill, attack, skill;
+  
+  yelan attack:4, dash;
+  yelan attack:4, dash;
+  yelan attack:4, dash;
+  
+  yelan attack:4, dash;
+  yelan attack:4, dash;
+  yelan attack:2;
+}

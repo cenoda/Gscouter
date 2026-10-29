@@ -1,0 +1,23 @@
+id: dehya-bennett-rosaria-citlali
+name: Dehya / Bennett / Rosaria / Citlali
+members:
+    - dehya
+    - citlali
+    - bennett
+    - rosaria
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/tmjgqKrTWCpC
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (bennett C6, citlali C2, dehya C4, rosaria C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 93289
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.003
+    kept: 1.005
+    dps: 93136

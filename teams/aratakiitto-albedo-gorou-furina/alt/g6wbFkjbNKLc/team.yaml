@@ -1,0 +1,23 @@
+id: aratakiitto-albedo-gorou-furina
+name: Aratakiitto / Albedo / Gorou / Furina
+members:
+    - itto
+    - albedo
+    - gorou
+    - furina
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/g6wbFkjbNKLc
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (albedo C0, aratakiitto C6, furina C3, gorou C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 111652
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.004
+    kept: 0.963
+    dps: 108000

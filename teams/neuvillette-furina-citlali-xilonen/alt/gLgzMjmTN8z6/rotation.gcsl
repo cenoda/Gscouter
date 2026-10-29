@@ -1,0 +1,21 @@
+active neuvillette;
+let UseXilonenDash = false;  
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  furina skill, dash, attack;
+  xilonen skill, attack:2;
+  if UseXilonenDash == true {
+    xilonen dash;   
+  }
+  pick_up_crystallize("hydro");
+  citlali skill, attack;
+  furina burst, attack;
+  neuvillette charge, burst;
+  xilonen skill, attack:2;
+  if UseXilonenDash == true {
+    xilonen dash;   
+  }
+  pick_up_crystallize("hydro");
+  neuvillette skill, charge;
+}
+wait(715);

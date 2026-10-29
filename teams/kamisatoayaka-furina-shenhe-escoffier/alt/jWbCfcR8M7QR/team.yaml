@@ -1,0 +1,23 @@
+id: kamisatoayaka-furina-shenhe-escoffier
+name: Kamisatoayaka / Furina / Shenhe / Escoffier
+members:
+    - ayaka
+    - shenhe
+    - furina
+    - escoffier
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/jWbCfcR8M7QR
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (escoffier C6, furina C6, kamisatoayaka C6, shenhe C6): 2 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 428201
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.002
+    kept: 0.998
+    dps: 428053

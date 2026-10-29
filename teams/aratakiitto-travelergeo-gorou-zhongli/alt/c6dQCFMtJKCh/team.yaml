@@ -1,0 +1,23 @@
+id: aratakiitto-travelergeo-gorou-zhongli
+name: Aratakiitto / Travelergeo / Gorou / Zhongli
+members:
+    - itto
+    - aethergeo
+    - gorou
+    - zhongli
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/c6dQCFMtJKCh
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (aratakiitto C6, gorou C6, travelergeo C6, zhongli C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 64145
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.001
+    kept: 0.98
+    dps: 62813

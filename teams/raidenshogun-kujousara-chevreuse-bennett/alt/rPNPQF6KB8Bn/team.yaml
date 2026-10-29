@@ -1,0 +1,23 @@
+id: raidenshogun-kujousara-chevreuse-bennett
+name: Raidenshogun / Kujousara / Chevreuse / Bennett
+members:
+    - raiden
+    - chevreuse
+    - bennett
+    - sara
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/rPNPQF6KB8Bn
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (bennett C5, chevreuse C6, kujousara C6, raidenshogun C2): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 76477
+    computed: "2026-09-30"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.009
+    kept: 1.007
+    dps: 76322

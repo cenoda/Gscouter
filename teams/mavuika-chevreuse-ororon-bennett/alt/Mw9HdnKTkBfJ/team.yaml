@@ -1,0 +1,23 @@
+id: mavuika-chevreuse-ororon-bennett
+name: Mavuika / Chevreuse / Ororon / Bennett
+members:
+    - mavuika
+    - ororon
+    - chevreuse
+    - bennett
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/Mw9HdnKTkBfJ
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (bennett C6, chevreuse C6, mavuika C6, ororon C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 484371
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0
+    kept: 1.011
+    dps: 489494

@@ -1,0 +1,23 @@
+id: neuvillette-furina-baizhu-kaedeharakazuha
+name: Neuvillette / Furina / Baizhu / Kaedeharakazuha
+members:
+    - neuvillette
+    - furina
+    - kazuha
+    - baizhu
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/GRJb7RnzKm8j
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (baizhu C6, furina C6, kaedeharakazuha C6, neuvillette C6): 2 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 289351
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.002
+    kept: 1.003
+    dps: 289658

@@ -122,6 +122,26 @@ type Team struct {
 	// Build is the contents of build.txt, the build the rotation is
 	// validated with; empty when the team has none.
 	Build string `yaml:"-"`
+	// Alternatives are the team's other rotations, from community
+	// configs written for higher constellations, each a team of its own
+	// in alt/<entry>/ (AltDir). The score runs a player's build with the
+	// rotation and with each supported alternative and keeps the best
+	// (design §5.2).
+	Alternatives []*Team `yaml:"-"`
+}
+
+// AltDir is the directory, under a team's, that holds its alternatives.
+const AltDir = "alt"
+
+// DirName names a team directory on disk: its base name, or for an
+// alternative (<team>/alt/<entry>) "<team>/alt/<entry>". Its first part
+// is the team's ID.
+func DirName(dir string) string {
+	parent := filepath.Dir(dir)
+	if filepath.Base(parent) != AltDir {
+		return filepath.Base(dir)
+	}
+	return path.Join(filepath.Base(filepath.Dir(parent)), AltDir, filepath.Base(dir))
 }
 
 type Reference struct {
@@ -225,7 +245,77 @@ func LoadFS(fsys fs.FS, dir string) (*Team, error) {
 		return nil, err
 	}
 	t.Rotation = string(rotation)
+	alts, err := fs.ReadDir(fsys, path.Join(dir, AltDir))
+	if err != nil && !errors.Is(err, fs.ErrNotExist) {
+		return nil, err
+	}
+	for _, e := range alts {
+		if !e.IsDir() {
+			continue
+		}
+		alt, err := LoadFS(fsys, path.Join(dir, AltDir, e.Name()))
+		if err != nil {
+			return nil, err
+		}
+		switch {
+		case alt.ID != t.ID || !alt.Matches(t.Members):
+			return nil, fmt.Errorf("team %q: alternative %s is for team %q %v", t.ID, e.Name(), alt.ID, alt.Members)
+		case alt.Reference == nil:
+			return nil, fmt.Errorf("team %q: alternative %s has no source DPS", t.ID, e.Name())
+		case len(alt.Alternatives) > 0:
+			return nil, fmt.Errorf("team %q: alternative %s has alternatives of its own", t.ID, e.Name())
+		}
+		t.Alternatives = append(t.Alternatives, alt)
+	}
 	return &t, nil
+}
+
+// Rotations returns the team's rotation followed by the alternatives the
+// score tries: the supported ones.
+func (t *Team) Rotations() []*Team {
+	out := []*Team{t}
+	for _, alt := range t.Alternatives {
+		if alt.Status == StatusSupported {
+			out = append(out, alt)
+		}
+	}
+	return out
+}
+
+// consLine matches a character's setup line and its constellations.
+var consLine = regexp.MustCompile(`(?m)^\s*(\w+)\s+char\b[^;]*\bcons\s*=\s*(\d+)`)
+
+// Constellations returns the constellations of the team's build by
+// canonical character name, empty when it has no build.
+func (t *Team) Constellations() map[string]int {
+	out := map[string]int{}
+	for _, m := range consLine.FindAllStringSubmatch(t.Build, -1) {
+		n := 0
+		fmt.Sscan(m[2], &n)
+		out[Canonical(m[1])] = n
+	}
+	return out
+}
+
+// Raised returns the members whose constellation in t's build is higher
+// than in base's, in t's member order, with t's constellation: what an
+// alternative was written for that the team's rotation was not.
+func (t *Team) Raised(base *Team) []Cons {
+	mine, theirs := t.Constellations(), base.Constellations()
+	var out []Cons
+	for _, m := range t.Members {
+		k := Canonical(m)
+		if mine[k] > theirs[k] {
+			out = append(out, Cons{Char: k, Cons: mine[k]})
+		}
+	}
+	return out
+}
+
+// Cons is a character's constellation.
+type Cons struct {
+	Char string // canonical name
+	Cons int
 }
 
 // Record rewrites the status and gcsim_commit lines of team.yaml in dir

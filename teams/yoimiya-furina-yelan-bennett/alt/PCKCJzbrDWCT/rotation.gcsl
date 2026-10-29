@@ -1,0 +1,10 @@
+active furina;
+for let i = 0; i < 6; i = i + 1 {
+  furina skill, dash, burst, attack;
+  yelan burst, skill, attack, skill, attack:4;
+  bennett skill, burst;
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  if is_even(i) && .yoimiya.burst.ready && .yoimiya.energy == .yoimiya.energymax {
+    yoimiya burst;
+  }
+}

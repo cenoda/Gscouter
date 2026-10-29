@@ -1,0 +1,25 @@
+# Build from the source config, used to validate the rotation.
+
+furina char lvl=90/90 cons=6 talent=9,9,9;
+furina add weapon="key" refine=1 lvl=90/90;
+furina add set="mh" count=4;
+furina add stats hp=4780 atk=311 hp%=0.466 hydro%=0.466 cd=0.622;
+furina add stats def%=0.124 def=39.36 hp=507.88 hp%=0.1984 atk=33.08 atk%=0.0992 er=0.1102 em=39.64 cr=0.3972 cd=0.662;
+
+bennett char lvl=90/90 cons=6 talent=9,9,9;
+bennett add weapon="favoniussword" refine=5 lvl=90/90;
+bennett add set="sodp" count=4;
+bennett add stats hp=4780 atk=311 er=0.518 pyro%=0.466 cr=0.311;
+bennett add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.2204 em=39.64 cr=0.331 cd=0.7944;
+
+kaz char lvl=90/90 cons=0 talent=9,9,9;
+kaz add weapon="xiphos" refine=5 lvl=90/90;
+kaz add set="vv" count=4;
+kaz add stats hp=4780 atk=311 em=187 em=187 em=187;
+kaz add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.248 er=0.1102 em=118.92 cr=0.3972 cd=0.331;
+
+xiangling char lvl=90/90 cons=6 talent=9,9,9;
+xiangling add weapon="favoniuslance" refine=5 lvl=90/90;
+xiangling add set="ins" count=4;
+xiangling add stats hp=3571 atk=232 er=0.518 pyro%=0.348 cr=0.232;
+xiangling add stats def%=0.10416 def=33.0624 hp=426.619 hp%=0.083328 atk=27.7872 atk%=0.083328 er=0.092568 em=33.2976 cr=0.27804 cd=0.333648;

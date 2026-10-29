@@ -1,0 +1,17 @@
+active yae;
+yae skill:3;
+for let i=0; i<4; i=i+1 { 
+  raiden skill;
+  
+  xilonen skill, burst, attack:2;
+	furina skill, attack, burst, attack;
+  yae burst, skill:3;
+	raiden burst, 
+	       attack:3, charge, dash, 
+	       attack:3, charge, dash, 
+	       attack;
+  xilonen skill, attack:2;
+	yae burst, skill:3;
+	raiden burst, 
+	       attack:3, charge, dash;
+}

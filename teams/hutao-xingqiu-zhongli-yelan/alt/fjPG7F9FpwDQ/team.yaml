@@ -1,0 +1,25 @@
+id: hutao-xingqiu-zhongli-yelan
+name: Hutao / Xingqiu / Zhongli / Yelan
+members:
+    - hutao
+    - yelan
+    - xingqiu
+    - zhongli
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/fjPG7F9FpwDQ
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (hutao C1, xingqiu C6, yelan C2, zhongli C1): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+params:
+    hutao: start_hp=1
+reference:
+    dps: 103148
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.002
+    kept: 0.87
+    dps: 89998
