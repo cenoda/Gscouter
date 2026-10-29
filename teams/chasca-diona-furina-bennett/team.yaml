@@ -11,7 +11,7 @@ rotation_version: 1
 gcsim_commit: 2350be9
 sources:
     - https://db.kqm.gg/db/cNBD9bqRttPr
-notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS.'
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS. The jump after the burst is skipped while Chasca is still in her Nightsoul Blessing, where gcsim has no jump: her faster C6 aims get there before it ends. With the source build it has always ended, so scores are unchanged (docs/fork.md §7).'
 reference:
     dps: 59876
     computed: "2026-10-02"

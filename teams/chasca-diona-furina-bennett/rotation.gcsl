@@ -7,7 +7,10 @@ for let i=0; i<4; i=i+1 {
   chasca aim:4;
   if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
     chasca burst;
-    chasca attack:2, jump;
+    chasca attack:2;
+    if !.chasca.nightsoul.state {
+      chasca jump;
+    }
   } else {
     chasca aim[bullets=4];
     chasca attack:2;
