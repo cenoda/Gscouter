@@ -107,6 +107,12 @@ type Team struct {
 	// key, e.g. {hutao: "start_hp=1"}. They are added to the player's
 	// character line.
 	Params map[string]string `yaml:"params,omitempty"`
+	// Variant is set on an alternative derived from the team's own
+	// rotation instead of taken from a community config: what it changes.
+	// It has no source DPS; cmd/variant measured that it scores higher
+	// with its build, and the score tries it only for builds with the
+	// constellations it was made for (RotationsFor, docs/cycle.md §7.2).
+	Variant *Variant `yaml:"variant,omitempty"`
 	// Reference is what the source config scored with its own build. The
 	// validator checks that the library reproduces it.
 	Reference *Reference `yaml:"reference,omitempty"`
@@ -129,6 +135,15 @@ type Team struct {
 	// (design §5.2).
 	Alternatives []*Team `yaml:"-"`
 }
+
+// Variant is a change to a team's rotation (Team.Variant).
+type Variant struct {
+	Drop string `yaml:"drop"` // the action taken out; only "burst" so far
+	Char string `yaml:"char"` // whose, as the rotation names the member
+}
+
+// VariantDrops are the actions a Variant can take out.
+var VariantDrops = []string{"burst"}
 
 // AltDir is the directory, under a team's, that holds its alternatives.
 const AltDir = "alt"
@@ -260,8 +275,10 @@ func LoadFS(fsys fs.FS, dir string) (*Team, error) {
 		switch {
 		case alt.ID != t.ID || !alt.Matches(t.Members):
 			return nil, fmt.Errorf("team %q: alternative %s is for team %q %v", t.ID, e.Name(), alt.ID, alt.Members)
-		case alt.Reference == nil:
+		case alt.Reference == nil && alt.Variant == nil:
 			return nil, fmt.Errorf("team %q: alternative %s has no source DPS", t.ID, e.Name())
+		case alt.Variant != nil && (!slices.Contains(VariantDrops, alt.Variant.Drop) || !slices.Contains(t.Members, alt.Variant.Char)):
+			return nil, fmt.Errorf("team %q: alternative %s drops %q of %q", t.ID, e.Name(), alt.Variant.Drop, alt.Variant.Char)
 		case len(alt.Alternatives) > 0:
 			return nil, fmt.Errorf("team %q: alternative %s has alternatives of its own", t.ID, e.Name())
 		}
@@ -282,14 +299,37 @@ func (t *Team) Rotations() []*Team {
 	return out
 }
 
+// RotationsFor returns the rotations the score tries for a build with
+// the given constellations, by canonical character name: Rotations,
+// without the variants made for constellations the build does not reach.
+func (t *Team) RotationsFor(cons map[string]int) []*Team {
+	return slices.DeleteFunc(t.Rotations(), func(r *Team) bool {
+		if r.Variant == nil {
+			return false
+		}
+		for _, c := range r.Raised(t) {
+			if cons[c.Char] < c.Cons {
+				return true
+			}
+		}
+		return false
+	})
+}
+
 // consLine matches a character's setup line and its constellations.
 var consLine = regexp.MustCompile(`(?m)^\s*(\w+)\s+char\b[^;]*\bcons\s*=\s*(\d+)`)
 
 // Constellations returns the constellations of the team's build by
 // canonical character name, empty when it has no build.
 func (t *Team) Constellations() map[string]int {
+	return BuildConstellations(t.Build)
+}
+
+// BuildConstellations returns the constellations of gcsim setup lines by
+// canonical character name.
+func BuildConstellations(build string) map[string]int {
 	out := map[string]int{}
-	for _, m := range consLine.FindAllStringSubmatch(t.Build, -1) {
+	for _, m := range consLine.FindAllStringSubmatch(build, -1) {
 		n := 0
 		fmt.Sscan(m[2], &n)
 		out[Canonical(m[1])] = n

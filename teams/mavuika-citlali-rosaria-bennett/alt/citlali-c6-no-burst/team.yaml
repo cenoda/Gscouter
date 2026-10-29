@@ -1,0 +1,22 @@
+id: mavuika-citlali-rosaria-bennett
+name: Mavuika / Citlali / Rosaria / Bennett
+members:
+    - mavuika
+    - citlali
+    - rosaria
+    - bennett
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/N8LcbPCD6Wqg
+notes: The team's rotation without citlali's burst, for citlali C6 (cmd/variant, docs/cycle.md §7.2). With the team's build at citlali C6 it scores 169642 DPS against 166734 with the team's rotation (+1.7%, looped with fillers, 200 iterations, 2026-10-29).
+variant:
+    drop: burst
+    char: citlali
+validation:
+    date: "2026-10-29"
+    iterations: 100
+    kept: 1.139
+    dps: 169545

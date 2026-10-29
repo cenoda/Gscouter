@@ -145,6 +145,8 @@ func init() {
 		"rotation.alternative": "Điểm này dùng một vòng xoay cộng đồng khác của đội này, viết cho %s: với build này nó cho điểm cao hơn vòng xoay chính của đội.",
 		"lib.alternatives":     "Vòng xoay cho cung mệnh cao hơn",
 		"lib.alternative_for":  "Cho %s. Điểm cũng chạy các vòng xoay này và giữ vòng tốt nhất cho build.",
+		"rotation.variant":     "Điểm này dùng vòng xoay của đội bỏ Kỹ Năng Nộ của %[2]s, đo được cao hơn cho %[1]s: với build này nó cho điểm cao hơn vòng xoay như đã viết.",
+		"lib.variant_for":      "Cho %[1]s: vòng xoay của đội bỏ Kỹ Năng Nộ của %[2]s. Điểm cũng chạy vòng xoay này và giữ vòng tốt nhất cho build.",
 
 		"tl.heading":       "Dòng thời gian vòng xoay",
 		"tl.label_cycle":   "Một vòng xoay",

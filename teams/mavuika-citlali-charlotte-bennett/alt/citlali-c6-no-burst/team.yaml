@@ -1,0 +1,22 @@
+id: mavuika-citlali-charlotte-bennett
+name: Mavuika / Citlali / Charlotte / Bennett
+members:
+    - mavuika
+    - citlali
+    - charlotte
+    - bennett
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/hbw8cWL8tChn
+notes: The team's rotation without citlali's burst, for citlali C6 (cmd/variant, docs/cycle.md §7.2). With the team's build at citlali C6 it scores 143371 DPS against 114849 with the team's rotation (+24.8%, looped with fillers, 200 iterations, 2026-10-29).
+variant:
+    drop: burst
+    char: citlali
+validation:
+    date: "2026-10-29"
+    iterations: 100
+    kept: 1.014
+    dps: 143351

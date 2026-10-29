@@ -396,6 +396,25 @@ type altResult struct {
 	log     string
 }
 
+// removeHarvested removes the team's alternatives that came from the
+// database, keeping its variants (library.Variant, cmd/variant).
+func removeHarvested(altRoot string) error {
+	entries, err := os.ReadDir(altRoot)
+	if err != nil && !os.IsNotExist(err) {
+		return err
+	}
+	for _, e := range entries {
+		dir := filepath.Join(altRoot, e.Name())
+		if alt, err := library.Load(dir); err == nil && alt.Variant != nil {
+			continue
+		}
+		if err := os.RemoveAll(dir); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 // alternatives replaces the team's alternatives (library.AltDir) with
 // those the database has: the entries with a member at a higher
 // constellation than in the entry the team's rotation came from, grouped
@@ -413,7 +432,7 @@ func alternatives(dir string, g *group, byID map[string]candidate, choose int, s
 		return fail(err)
 	}
 	altRoot := filepath.Join(dir, library.AltDir)
-	if err := os.RemoveAll(altRoot); err != nil {
+	if err := removeHarvested(altRoot); err != nil {
 		return fail(err)
 	}
 	if len(team.Sources) == 0 {

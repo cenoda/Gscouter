@@ -1,0 +1,23 @@
+active gaming; 
+for let i=0; i<4; i=i+1 {
+  xianyun skill, low_plunge, burst;
+  
+  nicole burst;
+  if .nicole.weapon == .keys.weapon.wineandsong {
+    nicole dash;
+  }
+  nicole skill;
+  
+  citlali skill;
+  
+  gaming burst;
+  let plungeCount = 0;
+  for let j = 0; j < 6; j = j + 1 {
+    
+    sleep(42); 
+    gaming skill, high_plunge;
+    plungeCount = plungeCount + 1; print(plungeCount);
+  }
+  sleep(30); 
+  gaming skill, high_plunge; print(plungeCount + 1); 
+}

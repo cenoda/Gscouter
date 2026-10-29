@@ -145,6 +145,8 @@ func init() {
 		"rotation.alternative": "Esta puntuación usa otra rotación de la comunidad para este equipo, escrita para %s: con esta build puntúa más que la rotación principal del equipo.",
 		"lib.alternatives":     "Rotaciones para constelaciones más altas",
 		"lib.alternative_for":  "Para %s. La puntuación también las ejecuta y se queda con la mejor para la build.",
+		"rotation.variant":     "Esta puntuación usa la rotación del equipo sin la Habilidad Definitiva de %[2]s, que según las mediciones puntúa más para %[1]s: con esta build puntúa más que la rotación tal como está escrita.",
+		"lib.variant_for":      "Para %[1]s: la rotación del equipo sin la Habilidad Definitiva de %[2]s. La puntuación también la ejecuta y se queda con la mejor para la build.",
 
 		"tl.heading":       "Cronología de la rotación",
 		"tl.label_cycle":   "Una rotación",

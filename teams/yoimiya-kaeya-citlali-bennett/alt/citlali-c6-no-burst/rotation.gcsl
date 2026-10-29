@@ -1,0 +1,12 @@
+active kaeya;
+for let i=0; i<4; i=i+1 {
+  bennett skill, burst;
+  
+  citlali skill, attack;
+  
+  kaeya skill, dash, burst;
+  
+  yoimiya skill, attack:5, dash, attack:5, dash, attack:5, dash, attack;
+  
+  kaeya skill, attack;
+}

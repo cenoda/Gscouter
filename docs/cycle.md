@@ -171,6 +171,16 @@ _2026-10-29._ For each of the 191 teams, every build it has (the library's and e
 - Mavuika teams, the alternative's build: Mavuika C6 on Mavuika / Chevreuse / Ororon / Bennett +17.4%, Mavuika / Yelan / Furina / Xilonen (all C6) +15.2%, the reported Mavuika / Citlali / Xilonen / Nicole (all C6) +9.3%, Raiden / Chevreuse / Mavuika / Sara (Raiden and Mavuika C2) +10.8%, Mavuika / Chasca / Citlali / Bennett (Chasca, Mavuika, Citlali C6) +69.3%.
 - **Cost**: on these 191 teams, the iterations simulated for a score grow by a median 1.64 times (mean 2.0–2.3), mostly the alternatives' filler searches at 10 iterations. The other 4,375 teams run as before.
 
+### 7.2 Variants
+
+_2026-10-29._ A variant is an alternative derived from the team's own rotation instead of a database entry, for a constellation the database has no entry for (§8): `variant: {drop: burst, char: <member>}` in its `team.yaml` (`library.Variant`), with the team's rotation minus that member's bursts (`config.DropBursts`) and the team's build with the member's constellation raised.
+
+- `cmd/variant -char <member> -cons <n> teams/...` scores each team's rotation and the variant on that build as the site does (looped, fillers, 200 iterations) and writes `alt/<member>-c<n>-no-burst/` as a draft only when the variant scores at least 1% more (`-min`), with both scores in `notes`. `cmd/validate -promote` then checks it like any alternative, except that it has no source DPS: the reference check is skipped ("variant of the team's rotation"), and the other criteria for supported apply.
+- Unlike a database alternative, the score tries a variant only for builds that reach the constellations its build raises (`library.Team.RotationsFor`): it costs nothing for other builds and cannot win by ranking noise there.
+- `cmd/harvest -alternatives` keeps variants when it replaces a team's alternatives.
+- The result says that the score uses the team's rotation without that member's burst and the constellations it was made for; the library team page lists it.
+- In the library: Citlali C6 without her burst, on 40 teams (`docs/characters/citlali.md`).
+
 ## 8. Teams without alternatives
 
 _2026-10-29._ Alternatives (§7) come only from database entries. Of the 4,566 library teams that are not blocked, **4,375 have none**:

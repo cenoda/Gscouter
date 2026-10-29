@@ -1,0 +1,16 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  if is_even(i) {
+    furina skill, dash, burst;
+    chev burst, skill[hold=1];
+  } else {
+    chev skill[hold=1], attack;
+  }
+  citlali skill;
+  chasca skill, aim:4;
+  chasca aim[bullets=4];
+  if is_even(i) {
+    chasca burst;
+  }
+}
+wait(82);

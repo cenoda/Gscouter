@@ -54,7 +54,7 @@ func run(teamDir, buildPath string, iterations int, warmup, duration float64, se
 	}
 
 	// Each of the team's rotations may need params of its own.
-	rotations := team.Rotations()
+	rotations := team.RotationsFor(library.BuildConstellations(string(raw)))
 	builds := make([]string, len(rotations))
 	runs := make([]steady.Rotation, len(rotations))
 	for i, t := range rotations {
@@ -110,7 +110,11 @@ func run(teamDir, buildPath string, iterations int, warmup, duration float64, se
 		for _, c := range rotations[best].Raised(team) {
 			raised = append(raised, fmt.Sprintf("C%d %s", c.Cons, c.Char))
 		}
-		fmt.Printf("Rotation:  alternative for %s (%s)\n", strings.Join(raised, ", "), strings.Join(rotations[best].Sources, " "))
+		if v := rotations[best].Variant; v != nil {
+			fmt.Printf("Rotation:  the team's without %s's %s, for %s\n", v.Char, v.Drop, strings.Join(raised, ", "))
+		} else {
+			fmt.Printf("Rotation:  alternative for %s (%s)\n", strings.Join(raised, ", "), strings.Join(rotations[best].Sources, " "))
+		}
 	}
 	if out.Filled {
 		fmt.Printf("Fillers:   %s\n", out)

@@ -145,6 +145,8 @@ func init() {
 		"rotation.alternative": "Ce score utilise une autre rotation communautaire pour cette équipe, écrite pour %s : avec ce build, elle score plus que la rotation principale de l'équipe.",
 		"lib.alternatives":     "Rotations pour des constellations plus élevées",
 		"lib.alternative_for":  "Pour %s. Le score les exécute aussi et garde la meilleure pour le build.",
+		"rotation.variant":     "Ce score utilise la rotation de l'équipe sans le déchaînement élémentaire de %[2]s, mesurée plus forte pour %[1]s : avec ce build, elle score plus que la rotation telle qu'écrite.",
+		"lib.variant_for":      "Pour %[1]s : la rotation de l'équipe sans le déchaînement élémentaire de %[2]s. Le score l'exécute aussi et garde la meilleure pour le build.",
 
 		"tl.heading":       "Chronologie de la rotation",
 		"tl.label_cycle":   "Une rotation",

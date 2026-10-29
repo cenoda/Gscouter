@@ -1,0 +1,22 @@
+id: diluc-citlali-escoffier-bennett
+name: Diluc / Citlali / Escoffier / Bennett
+members:
+    - diluc
+    - citlali
+    - escoffier
+    - bennett
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/q6jrbHbcPJT6
+notes: The team's rotation without citlali's burst, for citlali C6 (cmd/variant, docs/cycle.md §7.2). With the team's build at citlali C6 it scores 88187 DPS against 73527 with the team's rotation (+19.9%, looped with fillers, 200 iterations, 2026-10-29).
+variant:
+    drop: burst
+    char: citlali
+validation:
+    date: "2026-10-29"
+    iterations: 100
+    kept: 1.083
+    dps: 88037

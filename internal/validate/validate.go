@@ -185,8 +185,9 @@ func round(x float64, digits int) float64 {
 
 // Unpromotable says why the team does not meet the criteria for
 // status: supported, or "" if it does: the full check passes, the one
-// pass is within promoteReference of the source's DPS, and the looped
-// score keeps between promoteKept and promoteKeptMax of the one pass.
+// pass is within promoteReference of the source's DPS (a variant has
+// none), and the looped score keeps between promoteKept and
+// promoteKeptMax of the one pass.
 func (r *Report) Unpromotable() string {
 	switch {
 	case len(r.Failures) > 0:
@@ -198,7 +199,7 @@ func (r *Report) Unpromotable() string {
 	}
 	gap, ok := r.Gap()
 	switch {
-	case !ok:
+	case !ok && r.Team.Variant == nil:
 		return "no reference DPS"
 	case math.Abs(gap) > promoteReference:
 		return fmt.Sprintf("%+.1f%% from the source's DPS, more than %.0f%%", gap*100, promoteReference*100)
@@ -332,6 +333,10 @@ func reference(ctx context.Context, dir string, s Settings) (*Report, string) {
 				r.Warnings = append(r.Warnings, fmt.Sprintf("%+.1f%% from the cross-check's %.0f DPS", diff*100, cc.DPS))
 			}
 		}
+	} else if team.Variant != nil {
+		// Derived from the team's rotation, so no config scored it;
+		// cmd/variant measured it against the rotation it changes.
+		r.ReferenceSkipped = "variant of the team's rotation, no source DPS"
 	} else {
 		r.Warnings = append(r.Warnings, "no reference DPS to compare with")
 	}

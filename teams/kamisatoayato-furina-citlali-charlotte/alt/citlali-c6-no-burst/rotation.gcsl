@@ -1,0 +1,14 @@
+active charlotte;
+for let i=0; i<4; i=i+1{
+  furina skill, dash, attack, burst;
+  charlotte burst, skill;
+  citlali skill;
+  ayato skill, attack:15, burst;
+  citlali charge;
+  charlotte skill, charge, attack;
+  if !i{
+    
+    charlotte attack;
+  }
+  ayato skill, attack:15;
+}

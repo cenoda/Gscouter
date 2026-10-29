@@ -1,0 +1,23 @@
+active bennett;
+for let i = 0; i < 4; i = i + 1 {
+  bennett skill, burst;
+  
+  citlali skill;
+  if .citlali.burst.ready {
+    
+  } else {
+    citlali attack;
+  }
+  if !.citlali.mods.favonius-cd {
+    citlali attack;
+  }
+  mona attack, skill, burst;
+  
+  chasca skill;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst, aim:3;
+  } else { 
+    chasca aim:4;
+  }
+}
+wait(125);

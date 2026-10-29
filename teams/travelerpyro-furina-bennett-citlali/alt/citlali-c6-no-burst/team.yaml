@@ -1,0 +1,24 @@
+id: travelerpyro-furina-bennett-citlali
+name: Travelerpyro / Furina / Bennett / Citlali
+members:
+    - aetherpyro
+    - furina
+    - bennett
+    - citlali
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/k8NDCKjKPJ6D
+notes: The team's rotation without citlali's burst, for citlali C6 (cmd/variant, docs/cycle.md §7.2). With the team's build at citlali C6 it scores 104285 DPS against 95480 with the team's rotation (+9.2%, looped with fillers, 200 iterations, 2026-10-29).
+params:
+    aetherpyro: base_atk_buff=1, skirk_story_buff=1
+variant:
+    drop: burst
+    char: citlali
+validation:
+    date: "2026-10-29"
+    iterations: 100
+    kept: 0.945
+    dps: 104391

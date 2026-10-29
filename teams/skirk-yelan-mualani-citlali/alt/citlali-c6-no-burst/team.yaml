@@ -1,0 +1,24 @@
+id: skirk-yelan-mualani-citlali
+name: Skirk / Yelan / Mualani / Citlali
+members:
+    - skirk
+    - yelan
+    - mualani
+    - citlali
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/GGBq6WfQGk7T
+notes: The team's rotation without citlali's burst, for citlali C6 (cmd/variant, docs/cycle.md §7.2). With the team's build at citlali C6 it scores 100278 DPS against 96570 with the team's rotation (+3.8%, looped with fillers, 200 iterations, 2026-10-29).
+params:
+    skirk: start_serpents_subtlety=100
+variant:
+    drop: burst
+    char: citlali
+validation:
+    date: "2026-10-29"
+    iterations: 100
+    kept: 0.999
+    dps: 100113

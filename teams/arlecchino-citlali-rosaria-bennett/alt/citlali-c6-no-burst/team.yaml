@@ -1,0 +1,22 @@
+id: arlecchino-citlali-rosaria-bennett
+name: Arlecchino / Citlali / Rosaria / Bennett
+members:
+    - arle
+    - citlali
+    - rosaria
+    - bennett
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/9bcmptk9RgKT
+notes: The team's rotation without citlali's burst, for citlali C6 (cmd/variant, docs/cycle.md §7.2). With the team's build at citlali C6 it scores 140489 DPS against 136739 with the team's rotation (+2.7%, looped with fillers, 200 iterations, 2026-10-29).
+variant:
+    drop: burst
+    char: citlali
+validation:
+    date: "2026-10-29"
+    iterations: 100
+    kept: 1.059
+    dps: 141326

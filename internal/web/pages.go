@@ -22,6 +22,7 @@ type libraryTeamData struct {
 
 type alternativeView struct {
 	For      string // the constellations it was written for (writtenFor)
+	Variant  string // for a variant (library.Variant), whose burst it drops
 	Sources  []string
 	Rotation string
 }
@@ -42,7 +43,11 @@ func (s *Server) handleLibraryTeam(w http.ResponseWriter, r *http.Request) {
 		data.Chars = append(data.Chars, library.Canonical(m))
 	}
 	for _, alt := range t.Rotations()[1:] {
-		data.Alternatives = append(data.Alternatives, alternativeView{writtenFor(l, t, alt), alt.Sources, alt.Rotation})
+		v := alternativeView{For: writtenFor(l, t, alt), Sources: alt.Sources, Rotation: alt.Rotation}
+		if alt.Variant != nil {
+			v.Variant = l.charName(library.Canonical(alt.Variant.Char))
+		}
+		data.Alternatives = append(data.Alternatives, v)
 	}
 	name := l.teamName(t)
 	m := pageMeta{Title: l.T("lib.title", name), Description: l.T("lib.desc", name)}

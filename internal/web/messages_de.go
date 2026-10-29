@@ -145,6 +145,8 @@ func init() {
 		"rotation.alternative": "Diese Wertung nutzt eine andere Community-Rotation für dieses Team, geschrieben für %s: Mit diesem Build erzielt sie mehr als die Hauptrotation des Teams.",
 		"lib.alternatives":     "Rotationen für höhere Konstellationen",
 		"lib.alternative_for":  "Für %s. Die Wertung führt auch diese aus und behält die beste für den Build.",
+		"rotation.variant":     "Diese Wertung nutzt die Rotation des Teams ohne den Elementarstoß von %[2]s, die für %[1]s gemessen mehr erzielt: Mit diesem Build erzielt sie mehr als die Rotation wie geschrieben.",
+		"lib.variant_for":      "Für %[1]s: die Rotation des Teams ohne den Elementarstoß von %[2]s. Die Wertung führt sie auch aus und behält die beste für den Build.",
 
 		"tl.heading":       "Rotations-Zeitleiste",
 		"tl.label_cycle":   "Eine Rotation",
