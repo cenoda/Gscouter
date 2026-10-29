@@ -78,9 +78,28 @@ _2026-10-29._ A web search plus a reading of the gcsim source. Little turned up 
 - A block repeats as a first-class operation.
 - A refused note shows as the wait in front of it.
 
-## 6. Open questions
+## 6. Direction
 
-- Phone first or desktop first? The site's traffic comes from community posts read on phones; a lane editor needs at least tap-to-place and drag-to-reorder.
-- Whether time snaps at all: notes in order with real landing times (§2), or a grid that the simulation then corrects.
+_2026-10-29._ Decided with the owner: phone and desktop are both first-class. From ADOFAI only the principle is borrowed (time follows from the sequence); its turning tiles have no counterpart, and the chart is drawn on lanes like the timeline (§1).
+
+**Input is playing the game.** Players already know the controls, so the editor uses them:
+- Desktop: the game's PC keys. `1`–`4` swap, `E` skill (held `E`: hold skill), `Q` burst, click attack (held click: charge), `Shift` dash, `Space` jump, `Space` while airborne then click: plunge. Each key appends a note at the playhead.
+- Phone: the game's mobile HUD. Attack, skill and burst at the bottom right, dash and jump beside them, party portraits on the right. Tap appends; long-press is the hold form, as in the game.
+- Both: the chart sits above the controls and scrolls under a fixed playhead (osu!). Tapping a note selects it; insert, delete and "repeat block" act on the selection.
+
+**Parameters.** The library uses 31 parameter names, but a few forms dominate: `skill[hold=1]` alone in 2,074 places (Zhongli 370, Chevreuse 427 under both names, Navia 206), then Chasca `aim[bullets=4]` 138, Varesa `high_plunge[collision=1]` 125, Klee `attack[travel=6]` 93, Itto `burst[prestack=1]` 91. So:
+- The hold forms (`hold`, `short_hold`) come from the input (held key, long-press), never from a menu.
+- Each character's note starts with the form the library uses most for it (Chasca's aim is `bullets=4`, Klee's skill `bounce=3, mine=8`), counted from `teams/*/rotation.gcsl` at build time.
+- The other parameters sit on the selected note as a few chips, from gcsim's action list (`character.dm.json`, §5), only the ones whose values change damage or timing. A parameter no chip covers is not editable in the chart.
+
+**Time grid** (open). The notes are ordered, but the lanes are drawn at real time from the simulation, and that axis is where cooldowns live:
+- Each lane's background shows the skill cooldown and the burst's energy filling, from the seeded run, with a mark where each becomes ready. Energy depends on random particles, so this is one run's picture, which the page says.
+- A note sits at the earliest time gcsim lets it act. Dragging it right inserts a wait before it (snapped to 0.1 s, compiled as `wait`); it cannot be dragged left of the earliest time, and the lane shows why (the cooldown or energy bar it ran into).
+- Waits are relative to the note before, so changing an earlier note moves the later ones with it, as ADOFAI's tiles do.
+- Whether the grid needs more than this (absolute "at 12.0 s" notes, a beat-like snap) is not decided.
+
+## 7. Open questions
+
+- The time grid (§6).
 - Whether custom charts can be saved per team in the browser (`localStorage`, as showcase builds are) and shared as library alternatives once reviewed.
-- How a chart chooses parameters (`skill[hold=1]`, `aim[weakspot=1]`, plunge collision): per-character note variants from gcsim's action parameters.
+- The versus rule for custom rotations (§4).
