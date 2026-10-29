@@ -1,0 +1,22 @@
+# KQM Vodyanitsa quick guide, Varka team: Vodyanitsa E > Prune EQ > Mona
+# Q N1 E N3 > Varka combo, as written. The rotation gives Vodyanitsa no
+# burst; she bursts after her skill when ready (the guide: her burst is
+# lowest priority).
+# Varka's combo is the harvested Varka / Prune / Mona / Furina team's
+# (teams/varka-prune-mona-furina), its combo for rotations without
+# Furina's burst (the longer one stretches the rotation for her buff).
+active vodyanitsa;
+vodyanitsa skill;
+if .vodyanitsa.burst.ready {
+  vodyanitsa burst;
+}
+prune skill, burst;
+mona burst, attack, skill, attack:3;
+varka skill,
+      attack, charge, walk,
+      attack:4, skill,
+      attack, charge, walk,
+      attack, charge, walk,
+      attack, charge, walk,
+      attack, skill,
+      attack:2;

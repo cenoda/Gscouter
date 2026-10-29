@@ -14,7 +14,7 @@ Vodyanitsa (5★ Hydro, 7.1). Upstream gcsim: no PR. Scored in the experimental 
 
 ## 2. Library teams
 
-Two teams with Sandrone (`docs/characters/sandrone.md`, batch 4) and 22 with Vesna (`docs/characters/vesna.md`) are recorded with those characters. This section has the teams with a Cryo carry.
+Two teams with Sandrone (`docs/characters/sandrone.md`, batch 4) and 22 with Vesna (`docs/characters/vesna.md`) are recorded with those characters. This section has the others: Freeze teams with a Cryo carry, then the rest.
 
 ### With Cryo carries
 
@@ -55,4 +55,47 @@ The source teams' looped scores are their recorded validations (20 iterations; L
 - In Escoffier's slot she loses: 1.5% (Skirk with Citlali), 4% (Mika), 12% (Skirk with Shenhe), 38% (Ayaka with Shenhe), in line with AllThingsHow and LDShop (taking out Escoffier costs damage).
 - Cross-checks: Skirk / Furina / Escoffier / Vodyanitsa is 13.8% below AllThingsHow's 187k (no builds stated; the harvested 4★ supports and a C0 Thrilling Tales Vodyanitsa here). Lohen / Escoffier / Mona / Vodyanitsa is 33.9% below AllThingsHow's 164k with C4 Mona, in line with the low Lohen scores already known (`docs/characters/lohen.md` §2). No public number exists for the other teams.
 - Not added: Lohen / Furina / Prune / Vodyanitsa (no harvested team or guide gives a Prune build), the Ayaka / Xingqiu / Diona and Kaeya budget teams (no harvested rotation for that core), and Freminet, Rosaria or Citlali as carries (no source names a team).
+- Only team directories and this document changed, so no regression run was needed.
+
+### Kamisato Ayato / Citlali / Escoffier / Vodyanitsa
+
+_2026-10-28, same fork and conditions, `status: draft`._
+
+A Hydro carry, but a Freeze team, and the one Freeze team in the KQM Vodyanitsa quick guide without a Cryo carry; no other team page found lists Ayato with her. It plays the guide's rotation as written: Ayato Q > Escoffier E > Vodyanitsa E Q > Citlali EQ > Ayato E N15 > Escoffier Q E > Vodyanitsa E Q > Citlali E > Ayato E N15. Ayato, Citlali and Escoffier are the harvested Kamisato Ayato / Citlali / Furina / Escoffier team's; Vodyanitsa wears Prototype Amber R5 (the guide's weapon when she bursts every rotation beside a Hydro damage dealer) and 4pc Tenacity, at 155.1% ER (10 ER rolls in place of CRIT rolls), the least at which she bursts twice per rotation (the guide's double Hydro range with Amber is 145–155%; at 144.1% she waits 7 s/min for energy, and at 111% the looped score skips her bursts, −2.4%).
+
+- Result: 68.3k one pass, 69.4k looped (kept 102%); Ayato deals 39%, Escoffier 39%, Vodyanitsa 14%, Citlali 8%. The source team with Furina in her place scores 70.0k (20 iterations), so in the sim she is about even with C0 Furina there.
+- No public number for this team (searched 2026-10-28: the KQM guide gives no DPS or gcsim links; GenshinBuilds, AllThingsHow, enjoygm, FandomWire and Mobalytics list no Ayato team with her; Icy Veins and Prydwen return 403).
+
+### Other teams
+
+_2026-10-28, same fork and conditions, all `status: draft`, 100 iterations._
+
+Every remaining team in the KQM Vodyanitsa quick guide (Hydro carries, Stellar Swirl and Stellar-Conduct, Bloom) and the ones other team pages add (GenshinBuilds, AllThingsHow, enjoygm, LDShop, wishgm, Gaming ProMax, GameWith), 18 in all. Where the KQM guide gives a rotation it is played as written; otherwise the rotation is the closest library team's (the same carry and two of the same supports) with Vodyanitsa in the replaced member's slot, as in the Cryo batch above. Her build follows the guide: Prototype Amber R5 where she bursts every rotation beside Hydro damage dealers or a teammate holds Thrilling Tales, Thrilling Tales R5 otherwise; 2pc Tenacity + 2pc Vourukasha's Glow beside Neuvillette and Mizuki (not ATK-scaling), 4pc Tenacity or 4pc Scroll otherwise; EM mains, Blackmarrow Lantern R5 and 4pc Flower of Paradise Lost in the Bloom team (the guide's EM build; Kokomi's weapon and set in the source team); ER raised only where the guide's rotation has her burst every rotation. Bursts the guide does not give her are cast when ready (its advice outside Hydro teams). Supports' bursts that stalled the one pass once she replaced a particle source are cast when ready, and each team's notes say which.
+
+| Team | Rotation | Vodyanitsa | Looped (score) | Kept | Source team, looped |
+|---|---|---|---|---|---|
+| Sandrone / Alyosha / Cryo Traveler / Vodyanitsa | Sandrone / Alyosha / Odette / Vodyanitsa's, Traveler for Odette (enjoygm) | TTDS, Tenacity | 146.0k | 99% | 182.2k (with Odette) |
+| Sandrone / Yae Miko / Cryo Traveler / Vodyanitsa | Sandrone / Yae Miko / Odette / Vodyanitsa's, Traveler for Odette (enjoygm) | TTDS, Tenacity | 130.4k | 108% | 175.2k (with Odette) |
+| Cryo Traveler / Yae Miko / Odette / Vodyanitsa | KQM, as written | TTDS, Tenacity | 122.8k | 112% | – |
+| Varka / Prune / Mona / Vodyanitsa | KQM, as written (Varka's combo from Varka / Prune / Mona / Furina) | Amber, Tenacity | 119.8k | 100% | 116.2k (Furina for Vodyanitsa) |
+| Neuvillette / Furina / Escoffier / Vodyanitsa | KQM, as written | Amber, 2+2, 133.1% ER | 111.5k | 107% | 89.3k (Neuvillette / Furina / Xilonen / Escoffier) |
+| Neuvillette / Furina / Xilonen / Vodyanitsa | KQM, as written | Amber, 2+2, 133.1% ER | 109.3k | 109% | 89.3k; with Ineffa 94.3k |
+| Sandrone / Odette / Sucrose / Vodyanitsa | Sandrone / Odette / Sucrose / Cryo Traveler's, Vodyanitsa for the Traveler (LDShop, enjoygm, AllThingsHow) | Amber, Tenacity | 108.0k | 89% | 95.9k |
+| Varka / Prune / Furina / Vodyanitsa | Varka / Prune / Mona / Furina's, Vodyanitsa for Mona (GenshinBuilds, AllThingsHow) | TTDS, Scroll | 107.8k | 101% | 116.2k |
+| Neuvillette / Xilonen / Kazuha / Vodyanitsa | KQM, as written | Amber, 2+2, 155.1% ER | 95.5k | 116% | 94.4k (Furina for Vodyanitsa) |
+| Lohen / Furina / Prune / Vodyanitsa | Lohen / Escoffier / Furina / Vodyanitsa's, Prune for Escoffier (enjoygm) | TTDS, Scroll | 91.5k | 92% | 120.9k (with Escoffier) |
+| Mizuki / Odette / Cryo Traveler / Vodyanitsa | KQM, as written | TTDS, 2+2 | 82.6k | 151% | – |
+| Chasca / Furina / Mavuika / Vodyanitsa | KQM, as written | TTDS, 2+2 | 81.0k | 103% | 79.4k (Chasca / Furina / Mavuika / Bennett) |
+| Chasca / Mavuika / Bennett / Vodyanitsa | Chasca / Furina / Mavuika / Bennett's, Vodyanitsa for Furina (enjoygm) | TTDS, Tenacity | 67.2k | 98% | 79.4k |
+| Nilou / Lauma / Nahida / Vodyanitsa | KQM, as written (Bloom) | Blackmarrow Lantern, Flower of Paradise Lost, EM | 67.1k | 102% | 78.0k (Kokomi for Vodyanitsa) |
+| Mizuki / Odette / Sucrose / Vodyanitsa | KQM's Mizuki rotation, Sucrose for the Traveler (enjoygm) | Amber, 2+2 | 60.0k | 125% | – |
+| Chasca / Iansan / Bennett / Vodyanitsa | Chasca / Iansan / Bennett / Furina's, Vodyanitsa for Furina (enjoygm) | TTDS, Tenacity | 52.5k | 92% | 57.8k |
+| Mizuki / Cryo Traveler / Diona / Vodyanitsa | KQM, as written (limited roster) | TTDS, 2+2 | 43.2k | 168% | – |
+| Hydro Traveler / Mona / Albedo / Vodyanitsa | KQM, as written | Amber, Tenacity | 37.4k | 98% | – |
+
+ER is 111% unless stated. "2+2" is 2pc Tenacity + 2pc Vourukasha's Glow.
+
+- The two KQM Mizuki teams keep 151% and 168% of their one pass, outside the 80–130% range. The one pass is a single weak first rotation (the guide skips the Traveler's N1C Q there, and Stellar Swirl has not built up); three rotations from full energy keep 91% and 102%.
+- Cross-checks against AllThingsHow's tested numbers (no builds stated; C0 4★ supports here): Neuvillette / Furina / Xilonen / Vodyanitsa −24.8% one pass from 133k ("Neuvillette core"), Varka / Prune / Furina / Vodyanitsa −32.6% from 159k, Mizuki / Odette / Cryo Traveler / Vodyanitsa −70.8% from 187k, Sandrone / Odette / Sucrose / Vodyanitsa −50.7% from 247k (with the fork's −11.9% Sandrone calibration gap). AllThingsHow says she adds 1–5k over Ineffa for Neuvillette; here she adds 15k (+16%). No public number for the others.
+- Not added, no rotation to build on: Chasca / Odette / Nicole / Vodyanitsa (GenshinBuilds SS; no Chasca Stellar Swirl rotation anywhere, no library team with Chasca and Odette); Sucrose / Cryo Traveler / Diona / Vodyanitsa (GameWith's F2P team, a general support order only); enjoygm's starter Stellar teams (Mizuki or Anemo Traveler / Kaeya or Rosaria / Sucrose / Vodyanitsa; no rotation, and in the fork Kaeya and Rosaria do not enable Stellar Swirl); the budget Freeze teams Ayaka / Xingqiu / Diona and Kaeya / Xingqiu or Mona / Diona with Vodyanitsa (no library team shares two supports, no Kaeya Freeze rotation found).
 - Only team directories and this document changed, so no regression run was needed.

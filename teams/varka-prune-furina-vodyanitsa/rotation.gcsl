@@ -1,0 +1,45 @@
+# No guide gives a rotation for this team (GenshinBuilds, AllThingsHow,
+# enjoygm and wishgm list it without one). Rotation from the harvested
+# Varka / Prune / Mona / Furina team (teams/varka-prune-mona-furina)
+# with Vodyanitsa's skill in Mona's place (already the last swap before
+# Varka, as she holds Thrilling Tales); she bursts when ready.
+let ttds_extend = 0;
+active varka;
+for let x=0; x<6; x=x+1 {
+  furina skill, dash;
+  if .furina.burst.ready && .furina.energy == .furina.energymax  {
+    furina burst;
+    ttds_extend = 1;
+  } else {
+    furina attack;
+    ttds_extend = 0;
+  }
+  prune burst, skill;
+  vodyanitsa skill;
+  if .vodyanitsa.burst.ready {
+    vodyanitsa burst;
+  }
+  if ttds_extend == 1 { 
+    
+    varka skill, 
+          attack, charge, walk, 
+          attack, charge, walk, 
+          attack, charge, walk, 
+          attack:2, skill,
+          attack, charge, walk, 
+          attack, charge, walk, 
+          attack, charge, walk, 
+          attack, skill, 
+          attack:2; 
+  } else {
+
+    varka skill, 
+          attack, charge, walk,
+          attack:4, skill, 
+          attack, charge, walk,
+          attack, charge, walk,
+          attack, charge, walk,
+          attack, skill, 
+          attack:2;
+  }
+}

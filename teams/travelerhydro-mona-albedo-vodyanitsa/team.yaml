@@ -1,0 +1,24 @@
+id: travelerhydro-mona-albedo-vodyanitsa
+name: Hydro Traveler / Mona / Albedo / Vodyanitsa
+members:
+    - travelerhydro
+    - mona
+    - albedo
+    - vodyanitsa
+archetype: Hydro Traveler with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+notes: 'Written from the KQM Vodyanitsa quick guide (design §5.4; no community gcsim config with Vodyanitsa exists: upstream gcsim lacks her). Its Hydro Traveler team, Vodyanitsa / Hydro Traveler / Mona / Albedo (the guide: the Traveler is a viable Hydro damage dealer with the quest self-buffs and Exaiphanes Blade), with its rotation as written: Albedo E N1 > Mona Q N1 > Vodyanitsa E > Mona N1 E N1 > Traveler hE (full hold) N1C > (Vodyanitsa Q / Traveler Q). The guide says Vodyanitsa can burst every rotation or alternate her burst with the Traveler''s, so she bursts when ready and the Traveler bursts when she cannot; with 111% ER they alternate (14 and 13 bursts in 28 rotations). The Traveler is the harvested Hydro Traveler / Furina / Citlali / Escoffier team''s (C6, 4pc Marechaussee Hunter) with Exaiphanes Blade R1 (the fork has it; R1 as in the library''s Cryo Traveler teams, so its refinement-2 CRIT DMG bonus is off) for Finale of the Deep; the fork applies the Traveler''s quest buffs (base ATK, Skirk story and True Moon buffs) by default. Mona and Albedo are the harvested Arataki Itto / Albedo / Gorou / Mona team''s. Vodyanitsa: C0, Prototype Amber R5 (Thrilling Tales would buff Mona, the last swap before the Traveler in the guide''s order), 4pc Tenacity of the Millelith, HP%/HP%/HP%, KQM-standard substats, 111% ER (133.1% and 155.1% score lower, 37.1k and 36.8k). The team scores low next to the library''s other Hydro Traveler teams (29.4k-124.1k looped); the Traveler deals 53%, mostly from the held skill''s Dewdrops.'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: the KQM Vodyanitsa quick guide (team and rotation, no DPS, no gcsim links); the community gcsim database (no Vodyanitsa: upstream gcsim lacks her); GenshinBuilds, AllThingsHow, enjoygm and FandomWire Vodyanitsa team pages (none lists a Hydro Traveler team); Icy Veins and Prydwen return 403.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 0.984
+    dps: 37377
+    draft: no reference DPS

@@ -1,0 +1,26 @@
+# enjoygm's Lohen / Furina / Prune / Vodyanitsa. Rotation of the written
+# Lohen / Escoffier / Furina / Vodyanitsa team (the KQM Lohen quick
+# guide's Freeze rotation, Furina ED N1 Q > Escoffier EQ > Mona EQ N1 >
+# Lohen combo, with Vodyanitsa's skill in Mona's place), with Prune in
+# Escoffier's place. Prune's actions are the harvested Varka / Prune /
+# Mona / Furina team's (Prune Q E after Furina, before the supports that
+# precede the carry). Vodyanitsa is the last swap before Lohen (she holds
+# Thrilling Tales) and bursts when ready. Lohen plays the guide's Freeze
+# combo E 15[N1C] N1 E.
+active furina;
+furina skill, dash, attack, burst;
+prune burst, skill;
+vodyanitsa skill;
+if .vodyanitsa.burst.ready {
+  vodyanitsa burst;
+}
+lohen skill,
+      attack, charge, attack, charge, attack, charge,
+      attack, charge, attack, charge, attack, charge,
+      attack, charge, attack, charge, attack, charge,
+      attack, charge, attack, charge, attack, charge,
+      attack, charge, attack, charge, attack, charge,
+      attack, skill;
+if .lohen.burst.ready {
+  lohen burst;
+}

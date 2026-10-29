@@ -1,0 +1,25 @@
+id: neuvillette-furina-escoffier-vodyanitsa
+name: Neuvillette / Furina / Escoffier / Vodyanitsa
+members:
+    - neuvillette
+    - furina
+    - escoffier
+    - vodyanitsa
+archetype: Neuvillette hypercarry with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+    - https://db.kqm.gg/db/WF8hjMPpQm6Q
+notes: 'Written from the KQM Vodyanitsa quick guide (design §5.4; no community gcsim config with Vodyanitsa exists: upstream gcsim lacks her). Its Neuvillette team, Vodyanitsa / Neuvillette / Furina / Escoffier (the guide: one of Neuvillette''s best teams, despite one A1 stack at C0), with its rotation as written: Neuvillette E > Furina ED N3 > Escoffier EQ > Vodyanitsa EQ > Furina Q > Neuvillette C E C Q > Escoffier E N1 > Vodyanitsa EQ > Neuvillette 2[C]. Neuvillette''s C is his charged attack (Equitable Judgment, held to its end, as gcsim''s charge and the harvested Neuvillette rotations write it); 2[C] is two of them. Neuvillette, Furina and Escoffier are the harvested Neuvillette / Furina / Xilonen / Escoffier team''s. Vodyanitsa: C0, Prototype Amber R5 (the guide: she bursts every rotation beside Hydro damage dealers, with Amber), 2pc Tenacity of the Millelith + 2pc Vourukasha''s Glow (the guide''s choice when the main DPS does not scale with ATK, such as Neuvillette), HP%/HP%/HP%, KQM-standard substats, 133.1% ER (6 ER rolls in place of 4 CRIT rolls), the least at which she bursts twice per rotation as the rotation says (the guide''s triple Hydro range with Amber is 100-130%; at 122% she waits 2.6 s/min for energy, and at 111% the looped score skips her bursts). Her second skill comes about 12 s after the first against a 16 s cooldown, so she waits 4.4 s/min for it (the guide''s rotation as written; the 28 s rotation fits two skills only with that wait). Against the harvested Neuvillette / Furina / Xilonen / Escoffier team (89.3k looped, 20 iterations), Vodyanitsa in Xilonen''s slot scores about 25% more.'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: the KQM Vodyanitsa quick guide (team and rotation, no DPS, no gcsim links); the community gcsim database (no Vodyanitsa: upstream gcsim lacks her); GenshinBuilds, AllThingsHow, enjoygm and FandomWire Vodyanitsa team pages (AllThingsHow gives 133k for an unnamed Neuvillette core with Vodyanitsa, recorded on the Xilonen variant; no number for the Escoffier version); Icy Veins and Prydwen return 403.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 1.073
+    dps: 111522
+    draft: no reference DPS

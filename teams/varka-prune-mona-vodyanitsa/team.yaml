@@ -1,0 +1,26 @@
+id: varka-prune-mona-vodyanitsa
+name: Varka / Prune / Mona / Vodyanitsa
+members:
+    - varka
+    - prune
+    - mona
+    - vodyanitsa
+archetype: Anemo hypercarry (Hydro) with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+    - https://www.enjoygm.com/blog/genshin-impact/vodyanitsa-team-guide
+    - https://db.kqm.gg/db/rptrLthqPrbj
+notes: 'Written from guides (design §5.4; no community gcsim config with Vodyanitsa exists: upstream gcsim lacks her). The KQM Vodyanitsa quick guide''s Varka team (Vodyanitsa is his new best Hydro teammate), with its rotation as written: Vodyanitsa E > Prune EQ > Mona Q N1 E N3 > Varka combo; enjoygm lists Varka / Prune / Furina or Mona / Vodyanitsa. Varka''s combo and the Varka, Prune and Mona builds are the harvested Varka / Prune / Mona / Furina team''s (its combo for rotations without Furina''s burst). Vodyanitsa: C0, Prototype Amber R5 (Mona holds Thrilling Tales), 4pc Tenacity, HP%/HP%/HP%, KQM-standard substats, 111% ER. The guide''s rotation gives her no burst; she bursts after her skill when ready (about every other rotation). The guide says she bursts every rotation in teams of Hydro damage dealers, which needs 182.7% ER here (15 ER rolls for CRIT rolls; the guide''s double Hydro range with Amber is 145-155%), and that scores 1.2% less looped (118.3k), so the standard ER is kept. The harvested team with Furina in her slot scores 116.2k looped (20 iterations).'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: the KQM Vodyanitsa quick guide (team lists and rotations, no DPS, no gcsim links); the community gcsim database (no Vodyanitsa: upstream gcsim lacks her); GenshinBuilds, AllThingsHow, enjoygm and wishgm Vodyanitsa team pages; Icy Veins and Prydwen return 403. AllThingsHow''s 159k is for the Furina version (Varka / Prune / Furina / Vodyanitsa).'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 0.997
+    dps: 119816
+    draft: no reference DPS

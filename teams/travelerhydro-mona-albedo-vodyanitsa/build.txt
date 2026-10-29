@@ -1,0 +1,43 @@
+# Hydro Traveler: no KQM quick guide or build page gives a build, so as
+# in the harvested Hydro Traveler / Furina / Citlali / Escoffier team
+# (teams/travelerhydro-furina-citlali-escoffier: C6, 4pc Marechaussee
+# Hunter, ER/Hydro/CRIT DMG), with Exaiphanes Blade R1 (the Traveler's
+# free sword, which the KQM Vodyanitsa guide names for this team) in
+# place of Finale of the Deep. The fork applies the Traveler's quest
+# buffs by default.
+# Mona and Albedo as in the harvested Arataki Itto / Albedo / Gorou /
+# Mona team (teams/aratakiitto-albedo-gorou-mona).
+# Vodyanitsa: no harvested team has her (the community database has no
+# entry with her), so as the KQM Vodyanitsa quick guide recommends, with
+# KQM-standard substats: C0, Prototype Amber R5 (the guide's weapon when
+# she bursts beside Hydro damage dealers; Thrilling Tales would go to
+# Mona, the last swap before the Traveler in the guide's rotation), 4pc
+# Tenacity of the Millelith (the Traveler scales with ATK; no other
+# holder), HP%/HP%/HP%, no ER beyond the standard's (111%): she bursts
+# when ready, alternating with the Traveler as the guide allows (133.1%
+# and 155.1% ER score lower: 37.1k and 36.8k looped).
+# Used to validate the rotation.
+
+travelerhydro char lvl=90/90 cons=6 talent=9,9,9;
+travelerhydro add weapon="exaiphanesblade" refine=1 lvl=90/90;
+travelerhydro add set="marechausseehunter" count=4;
+travelerhydro add stats hp=4780 atk=311 er=0.518 hydro%=0.466 cd=0.622;
+travelerhydro add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.3972 cd=0.662;
+
+mona char lvl=90/90 cons=0 talent=9,9,9;
+mona add weapon="favoniuscodex" refine=3 lvl=90/90;
+mona add set="noblesse" count=4;
+mona add stats hp=4780 atk=311 er=0.518 hydro%=0.466 cr=0.311;
+mona add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.2204 em=39.64 cr=0.331 cd=0.7944;
+
+albedo char lvl=90/90 cons=0 talent=9,9,9;
+albedo add weapon="cinnabarspindle" refine=5 lvl=90/90;
+albedo add set="goldentroupe" count=4;
+albedo add stats hp=4780 atk=311 def%=0.583 geo%=0.466 cr=0.311;
+albedo add stats def%=0.248 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=39.64 cr=0.331 cd=0.7944;
+
+vodyanitsa char lvl=90/90 cons=0 talent=9,9,9;
+vodyanitsa add weapon="prototypeamber" refine=5 lvl=90/90;
+vodyanitsa add set="tenacityofthemillelith" count=4;
+vodyanitsa add stats hp=4780 atk=311 hp%=0.466 hp%=0.466 hp%=0.466;
+vodyanitsa add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*6 atk=16.54*2 atk%=0.0496*2 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*10;

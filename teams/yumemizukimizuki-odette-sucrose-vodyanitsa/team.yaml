@@ -1,0 +1,25 @@
+id: yumemizukimizuki-odette-sucrose-vodyanitsa
+name: Yumemizuki Mizuki / Odette / Sucrose / Vodyanitsa
+members:
+    - mizuki
+    - odette
+    - sucrose
+    - vodyanitsa
+archetype: Stellar Swirl with Vodyanitsa
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+gcsim_fork: b029c45
+sources:
+    - https://www.enjoygm.com/blog/genshin-impact/vodyanitsa-team-guide
+    - https://keqingmains.com/q/vodyanitsa-quickguide/
+notes: 'Written from guides (design §5.4; no community gcsim config with Vodyanitsa exists: upstream gcsim lacks her). enjoygm lists Mizuki / Odette / Cryo Traveler or Sucrose / Vodyanitsa without a rotation, so the rotation is adapted from the KQM Vodyanitsa quick guide''s Mizuki team (Vodyanitsa E > Odette Q/E E > Traveler E N1C Q > Mizuki E (Q)) with Sucrose in the Traveler''s place, playing her skill as in the Vesna Stellar Swirl teams (GameWith: Sucrose E): Vodyanitsa E > Odette Q/E E > Sucrose E > Mizuki E (Q). Odette bursts every other rotation from the second on (an odq toggle, bursting if ready), Mizuki whenever available. Mizuki''s combo and build are the harvested Yumemizuki Mizuki / Ineffa / Columbina / Ororon team''s (Evenstar R1, 4pc Viridescent Venerer). Odette as in the Sandrone teams (Finale of the Deep R5, 4pc Heart of the Furnace); Sucrose as in the Vesna / Columbina / Ineffa / Sucrose team (C6, Thrilling Tales R5, 4pc Instructor, since Mizuki holds Viridescent Venerer); Vodyanitsa from her KQM quick guide: C0, Prototype Amber R5 (Sucrose holds Thrilling Tales), 2pc Tenacity + 2pc Vourukasha''s Glow, HP%/HP%/HP%, skill only.'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-28: the community gcsim database (no Vodyanitsa: upstream gcsim lacks her); the KQM Vodyanitsa quick guide (team lists and rotations, no DPS, no gcsim links); AllThingsHow (tested numbers only for Sandrone / Odette / Sucrose / Vodyanitsa 247k, Vesna / Odette / Cryo Traveler / Vodyanitsa 223k, Mizuki / Odette / Cryo Traveler / Vodyanitsa 187k and Freeze teams, no builds); GameWith, LDShop, wishgm, enjoygm, Gaming ProMax and GenshinBuilds Vodyanitsa team pages (team lists, ratings and roles only); Icy Veins and Prydwen return 403.'
+validation:
+    date: "2026-10-28"
+    iterations: 100
+    kept: 1.252
+    dps: 59961
+    draft: no reference DPS

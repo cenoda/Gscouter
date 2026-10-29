@@ -1,0 +1,49 @@
+# enjoygm lists Chasca / Bennett / Iansan / Vodyanitsa without a rotation.
+# Rotation from the written Chasca / Iansan / Bennett / Furina team
+# (teams/chasca-iansan-bennett-furina), which follows the KQM Iansan
+# quick guide, with Vodyanitsa's skill in Furina's place, moved to the
+# last swap before Chasca as she holds Thrilling Tales; she bursts when
+# ready. Bennett's opening skill is cast only when ready: without
+# Furina's actions between them, his closing skill (the guide's
+# "(Bennett E)") leaves it on cooldown (9.5 s/min of waits otherwise).
+# That team's guide rotation, Iansan / Chasca / Bennett / Furina:
+#   Furina ED Q > Bennett EQ N1(1) > Iansan ECQ > Chasca E 4[C] (C/Q)(2) >
+#   (Bennett E)(3)
+#   1 reapplies Pyro if Furina vaporizes (C6 Bennett); 2 burst when
+#   available, else hold the charged attack until she lands; 3 for his ER
+# Chasca's combo in gcsim (skill, four aimed shots, then the burst or a
+# last shot) is the one of the community config behind Chasca / Furina /
+# Mavuika / Bennett (db.kqm.gg), which also ends with Bennett's skill.
+# Iansan's burst restores Nightsoul points from the active character's
+# movement, which gcsim counts only when the rotation reports it. The
+# Iansan quick guide says Chasca can maintain Iansan's ATK buff uptime
+# as long as she constantly moves during her aerial state, so every
+# action reports movement at 9 m/s since the previous one: the lowest
+# speed tried (6, 9, 12) above which the score stops rising, so her
+# higher ATK buff stays up (design §5.4).
+let _last = f();
+let _ea = execute_action;
+fn execute_action(c number, a number, p map) {
+  let now = f();
+  movement(9 * (now - _last) / 60);
+  _last = now;
+  return _ea(c, a, p);
+}
+active bennett;
+if .bennett.skill.ready {
+  bennett skill;
+}
+bennett burst, attack;
+iansan skill, charge, burst;
+vodyanitsa skill;
+if .vodyanitsa.burst.ready {
+  vodyanitsa burst;
+}
+chasca skill;
+chasca aim:4;
+if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+  chasca burst;
+} else {
+  chasca aim[bullets=4];
+}
+bennett skill;

@@ -1,0 +1,31 @@
+# KQM Vodyanitsa quick guide, Stellar-Conduct team (Vodyanitsa / Cryo
+# Traveler / Odette / Yae Miko), as written:
+# Yae 3[E] > Odette Q/E E > Vodyanitsa E > Traveler E 2[N2CD] N2C Q D
+# N2C > (Yae E Q / Cryo Traveler D N2C)
+# The Traveler bursts when ready: no ER the substats reach gives a burst
+# every rotation without waits, and the score falls as her ER rises
+# (see build.txt).
+# Odette: "Burst whenever available; otherwise, use her Skill."
+# Traveler: dash forwards after the burst. Last step: Yae's E Q if her
+# burst is available, the Traveler's D N2C otherwise.
+active yaemiko;
+yaemiko skill:3;
+if .odette.burst.ready {
+  odette burst, skill;
+} else {
+  odette skill:2;
+}
+vodyanitsa skill;
+travelercryo skill,
+             attack:2, charge, dash,
+             attack:2, charge, dash,
+             attack:2, charge;
+if .travelercryo.burst.ready {
+  travelercryo burst, dash;
+}
+travelercryo attack:2, charge;
+if .yaemiko.burst.ready {
+  yaemiko skill, burst;
+} else {
+  travelercryo dash, attack:2, charge;
+}
