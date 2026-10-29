@@ -1,8 +1,8 @@
 # Cycle
 
-> Status: In progress (§5.1 implemented) · Last updated: 2026-10-29
+> Status: In progress (§5.1 and §7 implemented) · Last updated: 2026-10-29
 
-Roadmap node Cycle (`docs/roadmap.md`): what the fixed rotation (design §5.2) does with builds other than the one it was written for, and where the score stops being trustworthy because of it. §5.1 is implemented; §6 proposes the rest.
+Roadmap node Cycle (`docs/roadmap.md`): what the fixed rotation (design §5.2) does with builds other than the one it was written for, and where the score stops being trustworthy because of it. §5.1 and §7 are implemented; §6 proposes the rest, and §8 says what teams without an alternative still need.
 
 ## 1. The report
 
@@ -118,10 +118,53 @@ Found while checking the 12 teams above, not fixed. 101 library rotations wait f
 
 ## 6. Proposal
 
-(1)–(4) in order of how much trust each buys for its cost; (5) was found later. (1) is done, the others are not decided.
+(1)–(4) in order of how much trust each buys for its cost; (5) was found later. (1) and (2) are done; (3) and (4) are what teams without an alternative need (§8); (5) is not decided.
 
 1. ~~**Weapon-dependent loops** (§5).~~ Done (§5.1): weapon mods are read as always on without the weapon, and validation fails a collapse.
-2. **Keep the best of a team's rotations.** Harvest keeps, besides the rotation it picks now, the best passing entry for each higher-constellation profile the database has; the score runs the player's build with each and keeps the best, as fillers keep the best run (design §3.1). On the 191 teams measured it raises higher-constellation builds by a median of 12.4% and leaves the library builds where they are. Cost: one more scoring (with its filler search) per extra rotation, on about 217 teams; the result page would say which rotation scored. A rotation could be skipped when the player's constellations are far below its entry's, but §3.1 shows the boundary depends on several members at once, so that needs measuring first.
+2. ~~**Keep the best of a team's rotations.**~~ Done (§7). Harvest keeps, besides the rotation it picks now, the best passing entry for each higher-constellation profile the database has; the score runs the player's build with each and keeps the best, as fillers keep the best run (design §3.1). On the 191 teams measured it raises higher-constellation builds by a median of 12.4% and leaves the library builds where they are. Cost: one more scoring (with its filler search) per extra rotation, on about 217 teams; the result page would say which rotation scored. A rotation could be skipped when the player's constellations are far below its entry's, but §3.1 shows the boundary depends on several members at once, so that needs measuring first.
 3. **Say what the rotation assumes.** The result page shows the constellations the rotation was written for, and a note when a member's constellation is higher: "This rotation was written for C0 Furina; a C6 Furina is played differently, and the score may be low." Cheap, and it covers the 4,204 teams with no higher-constellation entry.
-4. **Rotations for constellations the database lacks.** For a constellation that changes a role (Furina C6, and the characters of the table in §3), a rotation written from a community guide under the rules of design §5.4, as a second rotation of the team kept by (2). Later, once (2) exists.
+4. **Rotations for constellations the database lacks.** For a constellation that changes a role (Furina C6, and the characters of the table in §3), a rotation written from a community guide under the rules of design §5.4, as a second rotation of the team kept by (2). Needed now that (2) exists (§8).
 5. **Loops that wait for a burst** (§5.2): make them visible to the fillers.
+
+## 7. Keeping the best rotation
+
+_2026-10-29._ (2) of §6, implemented.
+
+- **Alternatives**: `cmd/harvest` keeps, for each team, the database's rotations for higher constellations than its own entry's in `teams/<id>/alt/<entry>/` (design §5.1). The entries with a member at a higher constellation are grouped by their constellations; each group's entries are tried as the team's are (reference check, full check, the one that keeps most of its one pass among the first five that pass), and the pick is kept when its rotation differs from the team's and it meets the criteria for supported. `cmd/harvest -alternatives` redoes only this for every team in the library.
+- The run of 2026-10-29 (database of 6,021 entries, 1 min 49 s on 4 CPUs) wrote **207 alternatives for 191 teams**. 13 picks were not kept for missing the criteria (11 keeping under 80% or over 130% of one pass when looped, 1 more than 5% from the source, 1 not reproducing it), 5 groups had no entry that passed, and 1 group's rotation was the team's own.
+- **The score** (`steady.Best`, used by the site and `cmd/gscouter`) runs the build with the team's rotation and with each supported alternative, each with its fillers. As before, only the first run of the team's own rotation uses the full iterations and the rest rank with 10; the best ranked run is then confirmed with the full iterations, and if it does not beat the team's own rotation as written, the next is tried, down to that one. An alternative gcsim rejects is left out.
+- The result says when an alternative scored, with the constellations it was written for and its source; the library team page lists the alternatives. `cmd/validate` checks each alternative after its team, so CI covers them.
+- Mavuika: 15 teams have an alternative, mostly from all-C6 entries, among them the reported Mavuika / Citlali / Xilonen / Nicole (§3.1) with its C6 entry `npQhNPRFDqhn`.
+
+## 8. Teams without alternatives
+
+_2026-10-29._ Alternatives (§7) come only from database entries. Of the 4,566 library teams that are not blocked, **4,375 have none**:
+
+- 4,204 harvested teams have no database entry at higher constellations than their own (§2);
+- 171 experimental teams have a rotation written from a guide (design §5.4), which harvest never gives alternatives, and an alternative needs a source DPS today (`library.LoadFS`). The Vesna teams are among them: a Vesna C2 / Odette C6 / Nicole C6 / Vodyanitsa C2 build scored 7–11% low (design §5.2).
+
+Their high-constellation builds are still scored with one rotation, written for the source's constellations, so they can score low by the margins §3 measured where an entry existed: a median 12.4%, and twice the score for a constellation that changes a role (Furina C6 on Bennett / Xiangling / Furina / Kazuha, +105%). Nothing on the result says so.
+
+The characters whose higher constellations changed the rotation most in §3, with the library teams that have them and how many of those have no alternative:
+
+| Character | Teams | Without an alternative |
+|---|---|---|
+| Furina | 1,324 | 1,244 |
+| Nahida | 683 | 654 |
+| Yelan | 632 | 603 |
+| Xilonen | 479 | 430 |
+| Raiden | 366 | 344 |
+| Neuvillette | 245 | 236 |
+| Mavuika | 244 | 230 |
+| Citlali | 221 | 202 |
+| Hu Tao | 128 | 110 |
+
+**Needed: a way to score these teams' high-constellation builds with a rotation that fits them.** Not decided. The ways found, cheapest first:
+
+1. **Say what the rotation assumes** (§6, (3)). The result names the constellations the rotation was written for and notes when a member of the build is higher: "This rotation was written for C0 Furina; a C6 Furina plays differently, and the score may be low." It does not raise the score, but it stops a low score from passing as the build's worth. Covers every team, and costs one comparison of constellations per member (`library.Team.Constellations`).
+2. **More database entries.** `cmd/harvest -alternatives` picks up any entry the database gains at higher constellations, with no code change. High-constellation configs submitted to the database (db.kqm.gg) for the characters above become alternatives on the next run.
+3. **Alternatives written from a guide** (§6, (4)). For a constellation that changes a role (Furina C6, Neuvillette, Citlali C6, Mavuika C1–C2 riding longer), a rotation written from a published community guide under the rules of design §5.4, stored as an alternative. It needs: alternatives without a source DPS when written (`sources` and a `cross_check` note, as a written team), validation as for a written team, and review by a person before it is `supported`, as for any experimental team. One archetype at a time, from the characters above.
+
+Not usable: a high-constellation rotation of another team. A rotation names all four members and times its actions on them, so moving it to another party is writing a new rotation, which design §5.4 allows only from a guide.
+
+Since the score keeps the best rotation, an added alternative cannot lower a build's score (beyond the noise of ranking on fewer iterations); what it costs is the time of its runs (§7).
