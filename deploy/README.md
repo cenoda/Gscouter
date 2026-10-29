@@ -33,5 +33,6 @@ The VM pulls the image without credentials, so the `gscouter` package on GitHub 
   SQL
   ```
   It works while the app runs, and the short link stops working at once. The `chown` keeps the database files writable by the app.
+- Usage counts: `docker run --rm -v gscouter_links:/data busybox:1.37 cat /data/usage.json` shows, per UTC day, front page views (`pages`), result page views (`results`) and distinct UIDs looked up (`uids`). The file is saved every 10 minutes and on shutdown.
 
 Without SSH, use the Azure portal's "Run command" (RunShellScript) for these.

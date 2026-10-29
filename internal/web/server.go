@@ -75,6 +75,7 @@ type Server struct {
 	byID     map[string]*library.Team   // library teams by ID
 	byChar   map[string][]*library.Team // by canonical member, best score first
 	indexNow *indexNow                  // nil: no IndexNow (see SetIndexNow)
+	usage    *usage                     // nil: no usage counts (see SetUsage)
 }
 
 func New(lib *library.Library, profiles ProfileSource, settings Settings) (*Server, error) {
