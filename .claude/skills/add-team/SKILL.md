@@ -18,7 +18,10 @@ Library rotations have a source, in this order:
    in `sources`, no `reference`, a `cross_check` recording a public DPS
    or what was searched, and must pass the full check. `cmd/validate`
    skips the reference comparison for such a team, and `cmd/harvest`
-   replaces it once a database entry for it passes.
+   replaces it once a database entry for it passes. Record the batch
+   (guide, builds, scores, cross-check, known problems) in its
+   character's document, `docs/characters/<name>.md`, not in the
+   design document.
 
 Never write a rotation from your own idea of the team: a batch written
 that way scored a third of the community numbers and was deleted. Stop

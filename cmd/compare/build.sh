@@ -1,6 +1,6 @@
 #!/bin/sh
 # Builds cmd/validate once per gcsim version for the regression run
-# (design §5.4), into <dir>:
+# (docs/fork.md §2), into <dir>:
 #   validate-fork      go.mod as it is (the gcsim fork)
 #   validate-upstream  go.mod without the gcsim replace directive
 #   validate-<name>    the fork at <commit>, for each <name>=<commit>

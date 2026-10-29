@@ -34,8 +34,8 @@ type Cache struct {
 }
 
 // Gcsim returns the gcsim module this program is built with, after its
-// replace directive if any, and whether it is replaced (a fork, design
-// §5.4) rather than upstream.
+// replace directive if any, and whether it is replaced (a fork,
+// docs/fork.md) rather than upstream.
 func Gcsim() (module *debug.Module, replaced bool, err error) {
 	info, ok := debug.ReadBuildInfo()
 	if !ok {
