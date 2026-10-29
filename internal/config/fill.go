@@ -30,6 +30,11 @@ const (
 	// FillSkip. A player swaps out rather than stand on a support until
 	// its burst charges: Ineffa is played with two skills to a burst.
 	FillBrief
+	// FillAsWritten leaves the character as the rotation writes it: its
+	// own loops that attack until its burst is ready stay unbounded (see
+	// waitLoops), and its bursts get no filler. It is not a filler but
+	// the rotation as written, which the search keeps as a candidate.
+	FillAsWritten
 )
 
 // maxFillAttacks is how many attacks FillBrief makes before passing the
@@ -44,6 +49,8 @@ func (f Filler) String() string {
 		return "skipped bursts"
 	case FillBrief:
 		return "party skills, then skipped bursts"
+	case FillAsWritten:
+		return "as written"
 	}
 	return "own skill"
 }
@@ -74,6 +81,7 @@ func Fill(rotation string, energy map[string]Filler, skill, party []string) stri
 				char := rotation[i+m[4] : i+m[5]]
 				items := rotation[i+m[6] : i+m[7]]
 				how, inEnergy := energy[char]
+				inEnergy = inEnergy && how != FillAsWritten
 				if inEnergy || slices.Contains(skill, char) {
 					b.WriteString(lead)
 					b.WriteString(fillStatement(char, items, inEnergy, slices.Contains(skill, char), party, forms, how, &n))
@@ -184,7 +192,7 @@ func waitLoops(rotation string, energy map[string]Filler, party []string) string
 		}
 		how, ok := energy[char]
 		switch {
-		case ok && how == FillSelf:
+		case ok && (how == FillSelf || how == FillAsWritten):
 			return m[0]
 		case ok:
 			return ""
@@ -193,6 +201,17 @@ func waitLoops(rotation string, energy map[string]Filler, party []string) string
 		v := fmt.Sprintf("gs_wait%d", n)
 		return fmt.Sprintf("let %s = 0; while !.%s.burst.ready && %s < %d { %s attack; %s = %s + 1; }", v, char, v, maxFillAttacks, char, v, v)
 	})
+}
+
+// WaitLoopMembers lists the members whose own loops waitLoops bounds.
+func WaitLoopMembers(rotation string, party []string) []string {
+	var out []string
+	for _, m := range waitLoopRe.FindAllStringSubmatch(rotation, -1) {
+		if m[1] == m[2] && slices.Contains(party, m[1]) && !slices.Contains(out, m[1]) {
+			out = append(out, m[1])
+		}
+	}
+	return out
 }
 
 // replaceSubmatch is re.ReplaceAllStringFunc with the submatches.

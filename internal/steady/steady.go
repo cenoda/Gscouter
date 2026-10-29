@@ -12,6 +12,7 @@ import (
 	"errors"
 	"fmt"
 	"maps"
+	"math"
 	"slices"
 	"strings"
 
@@ -115,6 +116,17 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 			}
 		}
 	}
+	// Bounding the rotation's own waits for a burst (config.Fill) shows
+	// them to the search, but the rotation as written, which attacks
+	// until the burst is ready, can score best; it is tried first, and
+	// its follow-ups are the search the rotation had before.
+	if loops := config.WaitLoopMembers(rotation, members); len(loops) > 0 {
+		asWritten := map[string]config.Filler{}
+		for _, m := range loops {
+			asWritten[m] = config.FillAsWritten
+		}
+		queue = append(queue, candidate{asWritten, nil, false, math.Inf(1)})
+	}
 	followUp(nil, nil, res)
 
 	seen := map[string]bool{config.Fill(rotation, nil, nil, members): true}
@@ -146,7 +158,7 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 			continue
 		}
 		if res.DPS > best.Result.DPS {
-			best = &Outcome{Result: res, Filled: true, Energy: c.energy, Skill: c.skill, Looped: looped}
+			best = &Outcome{Result: res, Filled: fills(c.energy, c.skill), Energy: c.energy, Skill: c.skill, Looped: looped}
 		}
 		followUp(c.energy, c.skill, res)
 	}
@@ -247,7 +259,7 @@ func Best(rotations []Rotation, run func(i int, looped string, rank bool) (*scor
 // so that it cannot crowd the search's own runs out of maxRuns: tried
 // in the search, it lowered 58 library teams, one by 19%.
 func brief(best *Outcome, rotation string, members []string, run func(string) (*score.Result, error), seen map[string]bool) (*Outcome, error) {
-	if !best.Filled || len(best.Energy) == 0 {
+	if len(best.Energy) == 0 {
 		return best, nil
 	}
 	handled := slices.Sorted(maps.Keys(best.Energy))
@@ -287,6 +299,17 @@ func brief(best *Outcome, rotation string, members []string, run func(string) (*
 		}
 	}
 	return best, nil
+}
+
+// fills says whether energy and skill fill anything: the rotation as
+// written (config.FillAsWritten) is not filled.
+func fills(energy map[string]config.Filler, skill []string) bool {
+	for _, how := range energy {
+		if how != config.FillAsWritten {
+			return true
+		}
+	}
+	return len(skill) > 0
 }
 
 // addStarved returns energy and skill extended with the members that
