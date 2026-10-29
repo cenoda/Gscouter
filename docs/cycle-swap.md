@@ -1,6 +1,6 @@
 # Cycle swap
 
-> Status: Research (no code yet) · Last updated: 2026-10-29
+> Status: In progress (§11) · Last updated: 2026-10-29
 
 Roadmap node Cycle swap (`docs/roadmap.md`): a player writes or changes a team's rotation and sees the new score. The owner's premise: nobody will type gcsim script, so the editor is built like a **rhythm-game chart editor**: one lane per character, actions as notes on a time axis. This document records what the code and the library allow, what other tools do, and the open decisions.
 
@@ -140,3 +140,21 @@ _2026-10-29._ Decided with the owner: a team with no library entry can be scored
 
 - The time grid (§6).
 - Which character params change the looped score (§9).
+
+## 11. Implementation
+
+Steps, in order: (1) the chart format and recording, (2) the editor page with a preview from gcsim, (3) scoring a chart on result and versus pages, (4) saving in the browser and the params sheet, (5) sending a chart, (6) teams the library doesn't have.
+
+### 11.1 Chart format and recording
+
+_2026-10-29._ Done (`internal/chart`).
+
+- **Text form** (`Chart.String`, `Parse`): notes in order, separated by spaces. `2E(hold=1)` is slot 2's skill with a param, `3Q?` slot 3's burst played only when ready, `~30` waits 30 frames before the next note, `[0N 0C 0D]3` repeats a block, and `; p0 start_hp=1` sets slot 0's character params. Slots are the members' canonical names sorted, as `library.Key` sorts them, so a chart does not depend on the order a player picked them in. Action codes: N attack, C charge, E skill, Q burst, A aim, H high plunge, L low plunge, D dash, J jump, W walk. Swaps are implicit, as in gcsl.
+- **In a link** (`Encode`, `Decode`): the text form, deflated, in base64url. Parsing checks every note: at most 400 notes, waits up to 10 s, repeats of 2–20 that don't nest or overlap, at most 4 params per note and 6 per character, param names `[a-z][a-z0-9_%]*`. A chart someone wrote cannot inject gcsl.
+- **Into gcsl** (`Chart.Gcsl`): `active` the first note's member, then one statement per note. A ready note becomes `if .x.burst.ready { x burst; }`, a wait `wait(N);`, a repeat `for let rK = 0; ...`. There are no `while` loops, so a chart cannot hang a fight. `config.Loop` repeats everything after `active`.
+- **Recording a rotation** (`chart.Record`): the library rotation runs with the player's build, with each pass in a block of its own between markers (`delay(987654)`, which `score.Requests` records and does not play). The chart is what the second pass asked for: the actions the script requested in order, with their params, waits and delays. It is not what the fight executed (`score.Trace`), which loses waits and doesn't know params a wait swallowed. Runs of a repeated block (up to 16 notes, up to 20 times) become repeats. A rotation whose pass never ends (an action priority list, `for { switch ... }`, 3 of 60) gives the stretch it asked for from 30 to 60 s.
+- **How close a recorded chart plays the rotation.** 60 random supported teams, library build. Each was scored as the site scores, looped with fillers (`steady.Score`, 10 iterations), once with the library rotation and once with its recorded chart:
+  - 44 of 59 within 2% of the library rotation, median +0.0%, from −22.8% to +11.6%.
+  - The losses come from conditions the chart replays as decided once: an `if` that held in the second pass and not in later ones, `is_even` alternation, priority lists (−14% to −23%).
+  - Marking every burst "only when ready" did worse (median −4.5%, 22 within 2%), so recorded bursts are plain notes and fillers handle the waits.
+  - One team failed: Navia / Gorou / Furina / Xianyun, a high plunge recorded after Xianyun's airborne window, which gcsim rejects from the ground. Guarding plunges with `if .airborne` was tried and dropped: gcsl reads `.airborne` when it asks for the action, before the previous action has made the character airborne, and 23 teams lost (within 2% fell from 44 to 37). The editor shows such a failure at its note.
