@@ -125,9 +125,49 @@ func enkaKey(name string) string {
 func face(name string) string { return enka.IconURL(enkaKey(name)) }
 
 // charName returns a character's in-game name in l's language, or name
-// itself when the game data doesn't know it.
+// itself when the game data doesn't know it. The game names the Traveler
+// the same in every element, so the element follows: "Traveler (Cryo)".
 func (l localizer) charName(name string) string {
-	return cmp.Or(enka.CharacterName(enkaKey(name), l.Lang), name)
+	key := enkaKey(name)
+	n := cmp.Or(enka.CharacterName(key, l.Lang), name)
+	for _, prefix := range []string{"aether", "lumine"} {
+		if elem, ok := strings.CutPrefix(key, prefix); ok {
+			if e := l.elementName(elem); e != "" {
+				return n + " (" + e + ")"
+			}
+		}
+	}
+	return n
+}
+
+// elementNames are the game's names for the elements, by language.
+var elementNames = map[string][7]string{
+	// pyro, hydro, anemo, electro, dendro, cryo, geo
+	"en":    {"Pyro", "Hydro", "Anemo", "Electro", "Dendro", "Cryo", "Geo"},
+	"ko":    {"불", "물", "바람", "번개", "풀", "얼음", "바위"},
+	"ja":    {"炎", "水", "風", "雷", "草", "氷", "岩"},
+	"zh-cn": {"火", "水", "风", "雷", "草", "冰", "岩"},
+	"zh-tw": {"火", "水", "風", "雷", "草", "冰", "岩"},
+	"de":    {"Pyro", "Hydro", "Anemo", "Elektro", "Dendro", "Kryo", "Geo"},
+	"fr":    {"Pyro", "Hydro", "Anémo", "Électro", "Dendro", "Cryo", "Géo"},
+	"ru":    {"Пиро", "Гидро", "Анемо", "Электро", "Дендро", "Крио", "Гео"},
+	"th":    {"ไฟ", "น้ำ", "ลม", "ไฟฟ้า", "ไม้", "น้ำแข็ง", "หิน"},
+	"tr":    {"Ateş", "Su", "Rüzgar", "Elektrik", "Doğa", "Buz", "Toprak"},
+	"vi":    {"Hỏa", "Thủy", "Phong", "Lôi", "Thảo", "Băng", "Nham"},
+}
+
+// elementName is the game's name for an element ("pyro", ...) in l's
+// language, else in English, or "" for an unknown element.
+func (l localizer) elementName(elem string) string {
+	i := slices.Index([]string{"pyro", "hydro", "anemo", "electro", "dendro", "cryo", "geo"}, elem)
+	if i < 0 {
+		return ""
+	}
+	names, ok := elementNames[l.Lang]
+	if !ok {
+		names = elementNames[langEnglish]
+	}
+	return names[i]
 }
 
 // charNames is charName of each name, joined by ", ".
