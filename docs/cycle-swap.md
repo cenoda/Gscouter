@@ -123,9 +123,13 @@ _2026-10-29._ Decided with the owner: a team with no library entry can be scored
 - **Score**: as for any rotation (looped, fillers). There is no one-pass reference and no validation against a source, so the page says the rotation is the player's. The library's character params (Hu Tao's `start_hp=1`, design §5.2) come with library teams only. A chart sets none, so the editor needs a way to set the few that matter.
 - **Path into the library**: such a chart, sent (§7), is how a team the community database lacks gets its first rotation. It enters as an experimental team (design §5.4) after review, which turns the unsupported log into a queue of actual rotations.
 
-## 9. Open questions
+## 9. Decided since
+
+- **Review of a sent chart** (2026-10-29): we verify the gain ourselves, by recalculating the sent link; nothing is automated, so no rule for automatic acceptance is needed.
+- **Whose build** (2026-10-29): a gain on the sender's build is enough to keep the chart as an alternative. An alternative only competes, so it cannot lower another build's score (`docs/cycle.md` §8).
+- **Character params** (2026-10-29, counted over `teams/*/team.yaml` and `alt/*/team.yaml`): not only Hu Tao. 248 teams set params: Skirk `start_serpents_subtlety` 146, `start_hp` / `start_hp%` on many characters (Hu Tao 42, Neuvillette 19, Furina 14, Kuki 12, ...), `start_energy` (Furina, Escoffier, Vodyanitsa, Shenhe), the Traveler's `base_atk_buff` and `skirk_story_buff` 21, Yelan `breakthrough` 4. Most are starting states, which the scoring window (150–450 s) mostly forgets (Hu Tao's `start_hp=1` has no effect on the looped score, design §3.1); `base_atk_buff` lasts the whole fight. Proposal: a chart for a library team takes the team's params; a chart for another team takes, per character, the value the library uses most. To check first: which params change the looped score at all.
+
+## 10. Open questions
 
 - The time grid (§6).
-- What review a sent chart needs before it is `supported`. A person, as for experimental teams, or the measured gain alone for an alternative to a verified team.
-- Whether a sent chart's gain must hold on more than the sender's build (the library build, other constellations) to be kept. An alternative only competes and can't lower a score (`docs/cycle.md` §8), so the sender's build may be enough.
-- Character params for charts (§8).
+- Which character params change the looped score (§9).
