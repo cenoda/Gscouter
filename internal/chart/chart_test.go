@@ -9,6 +9,7 @@ import (
 	"github.com/cenoda/gscouter/internal/config"
 	"github.com/cenoda/gscouter/internal/library"
 	"github.com/cenoda/gscouter/internal/score"
+	"github.com/cenoda/gscouter/internal/timeline"
 	"github.com/cenoda/gscouter/teams"
 )
 
@@ -166,6 +167,37 @@ func TestPreview(t *testing.T) {
 	}
 	if p.Error == nil || p.Error.Note != 1 {
 		t.Errorf("a plunge from the ground: error %+v, want at note 1", p.Error)
+	}
+}
+
+// A chart that asks for a burst it lacks the energy for stands still in
+// gcsim, but the score fills that wait, and so does the preview's DPS:
+// it comes out near the chart that passes the burst when not ready.
+func TestPreviewFilled(t *testing.T) {
+	team, err := library.LoadFS(teams.FS, "flins-ineffa-aino-sucrose")
+	if err != nil {
+		t.Fatal(err)
+	}
+	names := [Slots]string{"aino", "flins", "ineffa", "sucrose"}
+	dps := func(s string) (float64, *Preview) {
+		c, err := Parse(s)
+		if err != nil {
+			t.Fatal(err)
+		}
+		p, err := c.Preview(c.WithParams(team.Build, names, [Slots]string{}), names, nil)
+		if err != nil || p.Error != nil {
+			t.Fatalf("Preview(%q): %v %+v", s, err, p.Error)
+		}
+		return p.DPS, p
+	}
+	stuck, p := dps("2E 2N 0E 0Q 3E 3N 1E 1E 1Q [1N 1N 1N 1N 1D]2 1E 1Q [1N 1N 1N 1N 1D]2 1E 1Q [1N 1N 1N 1N 1D]2")
+	passed, _ := dps("2E 2N 0E 0Q 3E 3N 1E 1E 1Q [1N 1N 1N 1N 1D]2 1E 1Q? [1N 1N 1N 1N 1D]2 1E 1Q? [1N 1N 1N 1N 1D]2")
+	// The lanes still show the chart as written, standing still.
+	if !slices.ContainsFunc(p.Lanes[1].Waits, func(w timeline.Wait) bool { return w.Reason == "insufficient_energy" }) {
+		t.Errorf("Flins' wait for energy not shown: %+v", p.Lanes[1].Waits)
+	}
+	if stuck < passed*0.9 {
+		t.Errorf("preview DPS %.0f with the wait, %.0f passing the burst", stuck, passed)
 	}
 }
 
