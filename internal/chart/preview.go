@@ -15,6 +15,7 @@ import (
 	"github.com/genshinsim/gcsim/pkg/core"
 	"github.com/genshinsim/gcsim/pkg/core/action"
 	"github.com/genshinsim/gcsim/pkg/core/event"
+	"github.com/genshinsim/gcsim/pkg/stats"
 )
 
 // PreviewPasses is how many times a preview plays the chart: the first
@@ -36,7 +37,7 @@ type Preview struct {
 	Passes []float64   `json:"passes"` // when each pass started
 	End    float64     `json:"end"`
 	Lanes  [Slots]Lane `json:"lanes"`
-	DPS    float64     `json:"dps"` // from the second pass on
+	DPS    float64     `json:"dps"` // from the second pass on, waits filled (filledDPS)
 	// Error is gcsim's, when the fight stopped at a note.
 	Error *NoteError `json:"error,omitempty"`
 }
@@ -207,22 +208,94 @@ func (c *Chart) Preview(build string, names [Slots]string, enemy *config.Enemy) 
 		l := &p.Lanes[slotOf[i]]
 		l.Field, l.Waits = ch.Field, ch.Waits
 	}
-	// DPS from the second pass on, as the score leaves out the opener;
-	// over the whole run when the first pass never ended.
+	p.DPS = passDPS(res, p.Passes)
+	if p.Error == nil {
+		p.DPS = max(p.DPS, c.filledDPS(build, names, enemy, p.Lanes))
+	}
+	return p, nil
+}
+
+// passDPS is a preview run's DPS from the second pass on, as the score
+// leaves out the opener; over the whole run when the first pass never
+// ended.
+func passDPS(res *stats.Result, passes []float64) float64 {
+	end := float64(res.Duration) / 60
 	from := 0.0
-	if len(p.Passes) > 1 && p.End > p.Passes[1] {
-		from = p.Passes[1]
+	if len(passes) > 1 && end > passes[1] {
+		from = passes[1]
 	}
 	var dmg float64
 	for _, ch := range res.Characters {
 		for _, d := range ch.DamageEvents {
-			if sec(d.Frame) >= from {
+			if float64(d.Frame)/60 >= from {
 				dmg += d.Damage
 			}
 		}
 	}
-	if p.End > from {
-		p.DPS = dmg / (p.End - from)
+	if end <= from {
+		return 0
 	}
-	return p, nil
+	return dmg / (end - from)
+}
+
+// filledDPS is the best DPS of the chart played with the fillers the
+// score tries first (steady.Score) for the members lanes show waiting:
+// each way of handling a wait for burst energy, with skill cooldowns
+// filled. The score fills such waits, so a chart that stands still
+// waiting for a burst would otherwise preview far below its score. The
+// lanes keep the chart as written, waits and all. 0 when no member
+// waits.
+func (c *Chart) filledDPS(build string, names [Slots]string, enemy *config.Enemy, lanes [Slots]Lane) float64 {
+	var energy, skill []string
+	for s, l := range lanes {
+		for _, w := range l.Waits {
+			switch w.Reason {
+			case "insufficient_energy":
+				if !slices.Contains(energy, names[s]) {
+					energy = append(energy, names[s])
+				}
+			case "skill_cd":
+				if !slices.Contains(skill, names[s]) {
+					skill = append(skill, names[s])
+				}
+			}
+		}
+	}
+	if len(energy) == 0 && len(skill) == 0 {
+		return 0
+	}
+	marked := c.marked(names)
+	ways := []config.Filler{config.FillSelf, config.FillParty, config.FillSkip}
+	if len(energy) == 0 {
+		ways = ways[:1]
+	}
+	best := 0.0
+	for _, f := range ways {
+		m := map[string]config.Filler{}
+		for _, n := range energy {
+			m[n] = f
+		}
+		rotation := config.Fill(marked, m, skill, names[:])
+		cfg := config.Assemble(config.Conditions{Iterations: 1, Duration: previewFight, Enemy: enemy}, build, rotation)
+		ctx, stop := context.WithCancel(context.Background())
+		var passes []float64
+		res, err := score.Play(ctx, cfg, 1, nil, func(core *core.Core, e *action.Eval) {
+			if !score.IsMarker(e) || e.Param["f"] > score.Marker {
+				return
+			}
+			if len(passes) == PreviewPasses {
+				stop()
+				return
+			}
+			passes = append(passes, float64(core.F)/60)
+		})
+		stop()
+		// A filler can lead the chart into actions gcsim rejects; that
+		// filler is then not an option, as in the score.
+		if res == nil || err != nil && !errors.Is(err, context.Canceled) {
+			continue
+		}
+		best = max(best, passDPS(res, passes))
+	}
+	return best
 }
