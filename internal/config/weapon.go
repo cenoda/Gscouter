@@ -33,6 +33,11 @@ var modWeapons = map[keys.Weapon]modWeapon{
 	keys.SacrificialFragments:  {"sacrificial-cd", keys.TheWidsith},
 }
 
+// neverCrits are the characters whose Favonius passive, which procs on
+// a CRIT Hit, never procs: Kokomi's passive takes 100% off her CRIT Rate,
+// more than artifacts and team buffs give back.
+var neverCrits = map[string]bool{keys.SangonomiyaKokomi.String(): true}
+
 // weaponModRead matches a rotation's read of a weapon mod, such as
 // ".zhongli.mods.favonius-cd".
 var weaponModRead = regexp.MustCompile(`\.([A-Za-z0-9]+)\.mods\.(favonius-cd|sacrificial-cd)\b`)
@@ -42,7 +47,8 @@ var buildWeapon = regexp.MustCompile(`(?m)^(\s*([A-Za-z0-9]+)\s+add\s+weapon\s*=
 
 // GuardWeaponMods rewrites a rotation's reads of weapon mods for the
 // build: a character whose weapon does not give the mod reads it as
-// always on, a cooldown that never ends, since its passive never procs.
+// always on, a cooldown that never ends, since its passive never procs;
+// so does one whose Favonius weapon never procs (neverCrits).
 // A rotation written for Favonius Lance on Zhongli otherwise waits for
 // the proc forever with any other weapon, and the team's score collapses
 // to a few percent (docs/cycle.md §5). Reads of characters the build does
@@ -52,8 +58,9 @@ func GuardWeaponMods(build, rotation string) string {
 	weapons := buildWeapons(build)
 	return weaponModRead.ReplaceAllStringFunc(rotation, func(read string) string {
 		m := weaponModRead.FindStringSubmatch(read)
-		w, ok := weapons[charKey(m[1])]
-		if !ok || modWeapons[w].mod == m[2] {
+		key := charKey(m[1])
+		w, ok := weapons[key]
+		if !ok || modWeapons[w].mod == m[2] && !(m[2] == "favonius-cd" && neverCrits[key]) {
 			return read
 		}
 		return "1"

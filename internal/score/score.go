@@ -16,6 +16,7 @@ import (
 
 	"github.com/genshinsim/gcsim/pkg/core/action"
 	"github.com/genshinsim/gcsim/pkg/core/attributes"
+	"github.com/genshinsim/gcsim/pkg/core/event"
 	"github.com/genshinsim/gcsim/pkg/core/info"
 	"github.com/genshinsim/gcsim/pkg/gcs/ast"
 	"github.com/genshinsim/gcsim/pkg/gcs/eval"
@@ -138,8 +139,11 @@ func RunIterations(ctx context.Context, cfg string, opts Options) ([]Iteration, 
 			defer wg.Done()
 			for i := range jobs {
 				seed := opts.Seed + int64(opts.First+i)
-				res, err := simulate(file, simcfg, gcsl, seed)
+				res, err := simulate(ctx, file, simcfg, gcsl, seed)
 				if err != nil {
+					if ctx.Err() != nil {
+						continue // returned below
+					}
 					errOnce.Do(func() {
 						firstErr = fmt.Errorf("iteration %d (seed %d): %w", opts.First+i, seed, err)
 						cancel()
@@ -169,7 +173,20 @@ feed:
 	return results, nil
 }
 
-func simulate(file *ast.File, simcfg *info.ActionList, gcsl ast.Node, seed int64) (stats.Result, error) {
+// maxFightFrames is the longest a fight runs. A config without a
+// duration runs until its action list ends or the enemy's 999,999,999 HP
+// run out, which a rotation stuck in a loop can put off for weeks of
+// fight: one waiting for a Favonius proc that never comes attacks until
+// the enemy dies, and with a build that deals no damage it never does.
+// The library's one-pass
+// rotations end within 53,000 s, or 15 h, except for a draft whose loop
+// never ends.
+const maxFightFrames = 100_000 * 60
+
+// simulate runs one iteration. It ends the fight early, as at the end of
+// its duration, when ctx is done or the fight reaches maxFightFrames;
+// the result is then the fight so far, and the error ctx's.
+func simulate(ctx context.Context, file *ast.File, simcfg *info.ActionList, gcsl ast.Node, seed int64) (stats.Result, error) {
 	cfg := simcfg.Copy()
 	c, err := simulation.NewCore(seed, false, cfg)
 	if err != nil {
@@ -183,7 +200,23 @@ func simulate(file *ast.File, simcfg *info.ActionList, gcsl ast.Node, seed int64
 	if err != nil {
 		return stats.Result{}, err
 	}
-	return sim.Run()
+	// gcsim has no way to stop a fight from outside, so this ends it as a
+	// fight with a duration ends: its stop check, run after OnTick, ends
+	// the fight on the frame of the duration, outside damage mode.
+	stopped := false
+	c.Events.Subscribe(event.OnTick, func(...any) {
+		if stopped || c.F%60 != 0 || c.F < maxFightFrames && ctx.Err() == nil {
+			return
+		}
+		stopped = true
+		c.Combat.DamageMode = false
+		cfg.Settings.Duration = (float64(c.F) + 0.5) / 60
+	}, "gscouter-stop")
+	res, err := sim.Run()
+	if err == nil {
+		err = ctx.Err()
+	}
+	return res, err
 }
 
 // Once runs cfg a single time and returns gcsim's full result, for
@@ -197,7 +230,7 @@ func Once(cfg string, seed int64) (*stats.Result, error) {
 	if len(simcfg.Errors) > 0 {
 		return nil, fmt.Errorf("invalid config: %w", errors.Join(simcfg.Errors...))
 	}
-	res, err := simulate(file, simcfg, gcsl, seed)
+	res, err := simulate(context.Background(), file, simcfg, gcsl, seed)
 	if err != nil {
 		return nil, err
 	}

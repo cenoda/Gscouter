@@ -17,9 +17,9 @@ import (
 const gcsimModule = "github.com/genshinsim/gcsim"
 
 // cacheFormat names how Iteration is computed from a gcsim run. Change
-// it whenever summarize, Iteration or the collectors change, so that
-// iterations cached before are not used.
-const cacheFormat = "score-2"
+// it whenever summarize, Iteration, the collectors or how a fight ends
+// (simulate) change, so that iterations cached before are not used.
+const cacheFormat = "score-3"
 
 // Cache keeps the iterations RunIterations computed in a directory, so
 // a config run again with the same options and the same gcsim is not
