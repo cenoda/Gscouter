@@ -162,3 +162,27 @@ func TestEveryLanguage(t *testing.T) {
 		}
 	}
 }
+
+// The game names the Traveler alike in every element, so the site adds it.
+func TestTravelerName(t *testing.T) {
+	ko, en := localizer{Lang: langKorean}, localizer{Lang: langEnglish}
+	for name, want := range map[string]string{
+		"travelercryo": "여행자 (얼음)",
+		"aetherpyro":   "여행자 (불)",
+		"lumineanemo":  "여행자 (바람)",
+		"bennett":      "베넷",
+	} {
+		if got := ko.charName(name); got != want {
+			t.Errorf("ko charName(%q) = %q, want %q", name, got, want)
+		}
+	}
+	if got := en.charName("traveleranemo"); got != "Traveler (Anemo)" {
+		t.Errorf("en charName(traveleranemo) = %q", got)
+	}
+	for _, lang := range langs {
+		l := localizer{Lang: lang.Code}
+		if l.elementName("geo") == "" {
+			t.Errorf("%s: no name for geo", lang.Code)
+		}
+	}
+}
