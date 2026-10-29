@@ -28,6 +28,7 @@ go run ./cmd/server          # http://localhost:8080
 | `-links` | `$GSCOUTER_LINKS` | SQLite file of short links (`/s/...`); without it (or `none`), copying a result copies its long link |
 | `-site` | `$GSCOUTER_SITE` | The site's public URL (e.g. `https://gscouter.example`) for canonical links, sitemaps and IndexNow; without it, they take each request's host |
 | `-indexnow` | `$GSCOUTER_INDEXNOW` | State file of [IndexNow](https://www.indexnow.org) submissions (needs `-site`); without it (or `none`), nothing is submitted |
+| `-usage` | `$GSCOUTER_USAGE` | JSON file of daily usage counts (front page and result page views, distinct UIDs; counts only, see design §4.6); without it (or `none`), nothing is counted |
 
 Search engines index the library's pages: the front page, `/teams`, a page per team (`/teams/<id>`) and per character (`/characters/<key>`), each in every site language (`?hl=<code>`; English has none). `/robots.txt` keeps crawlers off results and points them to `/sitemap.xml`, which lists a sitemap per language. With `-indexnow`, the server creates a key on first start and, a minute after each start, submits the pages whose library data changed since the last submission to IndexNow (Bing, Naver, Yandex and others): every page the first time, then only what a library update changed.
 
