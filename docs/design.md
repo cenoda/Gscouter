@@ -304,7 +304,7 @@ Validation checks:
 - The team reproduces the source's DPS with the source's build under the source's conditions within 15% (a warning above 5%). The tolerance allows for the source having run on another gcsim version
 - The rotation finishes, and one fight of the looped rotation ends within 20 s. A loop that takes no action, such as `while rotations { ... }` with the counter set once in the setup, spins inside gcsim without time passing once the counter is spent; gcsim cannot cancel it, so `cmd/validate` checks each team in its own process and such teams are removed
 - Action waits and members with almost no damage in the looped rotation are reported as warnings
-- A rotation that reads a weapon's status mod (§4.4) is scored once more, as written and looped, with those weapons swapped for a weapon of the same type without one (`config.SwapModWeapons`). Keeping under 50% of the score with the reference build fails the team, under 80% is a warning (`docs/cycle.md` §5)
+- A rotation that reads a weapon's status mod (§4.4) is scored once more, as written and looped, with those weapons swapped for a weapon of the same type without one (`config.SwapModWeapons`). Keeping under 20% of the score with the reference build fails the team (a loop waiting for a passive that never comes), under 50% is a warning (it depends on the weapon's energy more than fillers make up for) (`docs/cycle.md` §5)
 
 Approval criteria (`validate.Report.Unpromotable`). A team is `supported` when:
 - the validation passes;
@@ -375,7 +375,7 @@ Characters in the game that upstream gcsim lacks, with their state upstream and 
 - **New character lag**: until gcsim supports a character, teams using it are `blocked`.
   - Vesna and Vodyanitsa are still not in upstream gcsim more than a month after release; Gscouter scores them on its fork (§5.4, §6.3).
   - The experimental tier (§5.4) is meant to close this gap, at the cost of less certain numbers for those teams.
-- **Fixed rotation limits**: the optimal rotation can vary with the build (e.g. high ER enables a more aggressive cycle). Initially we ignore this and use one standard rotation. Measured (2026-10-29, `docs/cycle.md`): a database entry written for higher constellations scores a median 12.4% more than the library rotation on its own build and 15% less on the library's; 329 rotations wait for a Favonius weapon's cooldown and collapse with any other weapon.
+- **Fixed rotation limits**: the optimal rotation can vary with the build (e.g. high ER enables a more aggressive cycle). Initially we ignore this and use one standard rotation. Measured (2026-10-29, `docs/cycle.md`): a database entry written for higher constellations scores a median 12.4% more than the library rotation on its own build and 15% less on the library's; 329 rotations waited for a Favonius weapon's cooldown and collapsed with any other weapon, now fixed (§4.4).
 
 ## 8. Risks
 

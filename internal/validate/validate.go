@@ -62,12 +62,13 @@ const (
 	promoteKeptMax = 1.3
 
 	// The score with the weapons whose mods the rotation reads swapped
-	// out (config.SwapModWeapons) keeps less than this of the score: the
-	// rotation depends on those weapons, by waiting for their passive or
-	// for the energy their particles give, and players without them
-	// would get a fraction of the score (docs/cycle.md §5).
-	failSwapKept = 0.5
-	warnSwapKept = 0.8
+	// out (config.SwapModWeapons) keeps less than this of the score.
+	// Under failSwapKept the rotation waits for a weapon's passive that
+	// never comes: such loops kept 1-20% before config.GuardWeaponMods.
+	// Under warnSwapKept it depends on the energy the weapon's particles
+	// give, more than the fillers make up for (docs/cycle.md §5).
+	failSwapKept = 0.2
+	warnSwapKept = 0.5
 )
 
 type Settings struct {

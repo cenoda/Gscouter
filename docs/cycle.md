@@ -1,8 +1,8 @@
 # Cycle
 
-> Status: Investigation · Last updated: 2026-10-29
+> Status: In progress (§5.1 implemented) · Last updated: 2026-10-29
 
-Roadmap node Cycle (`docs/roadmap.md`): what the fixed rotation (design §5.2) does with builds other than the one it was written for, and where the score stops being trustworthy because of it. Nothing here changes the site yet. §6 proposes what to change.
+Roadmap node Cycle (`docs/roadmap.md`): what the fixed rotation (design §5.2) does with builds other than the one it was written for, and where the score stops being trustworthy because of it. §5.1 is implemented; §6 proposes the rest.
 
 ## 1. The report
 
@@ -89,14 +89,39 @@ Found while checking collapsed runs in §3, and a worse problem than constellati
 | 95% or more | 1 |
 
   The loops that do not collapse have a second way out (`while !.faruzan.mods.favonius-cd && !.faruzan.burst.ready`), and still lose time attacking.
-- One library rotation already guards the loop the right way: `if .furina.weapon == .keys.weapon.favsword && ...` (Wanderer / Furina / Faruzan / Bennett).
-- Other `while` conditions on mods are on a character's own state (`razor-q` 57, `xingqiuburst` 20, `bennett-field` 17, `yelanburst` 16, ...), which every build has; they were not tested.
+- A few library rotations already guard the read the right way: `if .furina.weapon == .keys.weapon.favsword && ...` (Wanderer / Furina / Faruzan / Bennett).
+- Other `while` conditions on mods are on a character's own state (`razor-q` 57, `xingqiuburst` 20, `bennett-field` 17, `yelanburst` 16, ...), which every build has; they were not tested. One rotation reads `sacrificial-cd` the same way, and two misspell the mod (`favnoius-cd`) in an `if`, which costs one action and is the same for every build.
+
+### 5.1 The fix
+
+_2026-10-29._ Implemented.
+
+- `config.Assemble` and `config.AssembleSource` rewrite a rotation's reads of `.X.mods.favonius-cd` and `.X.mods.sacrificial-cd` to `1` (the cooldown always running) for a character whose weapon does not give that mod (`config.GuardWeaponMods`). Character aliases (`xilo`, `rosa`) and weapon shortcuts resolve through gcsim. A build with the weapon gets the config it had, so its score and cache key do not change.
+- 600 library rotations read one of these mods. The rewrite leaves the library builds' configs as they were except in 21 teams whose build does not give that character the weapon; all 21 scored as recorded, to the DPS, apart from Razor / Xingqiu / Raiden / Nahida (−0.2%).
+- Yelan / Sigewinne / Furina / Xilonen with Xilonen's Favonius Sword swapped out: 1.3k before, 68.1k after (74.2k with it).
+- **Validation check**: `cmd/validate` scores every team whose rotation reads a weapon mod once more, as the site does (fillers included), with those weapons swapped for a weapon of the same type without one (`config.SwapModWeapons`: The Alley Flash, Rainslasher, The Stringless, The Widsith, Dragon's Bane). It records the ratio as `SwapKept` in `-json`. Under 20% fails the team, a loop waiting for a passive that never comes; under 50% is a warning.
+- The 600 teams (`cmd/validate -iter 20`), 585 with a weapon to swap:
+
+| Score with the weapons swapped, of the score | Teams |
+|---|---|
+| under 20% | 0 (271 of 301 before the fix, §5) |
+| 20–50% | 12 |
+| 50–80% | 182 |
+| 80–95% | 295 |
+| 95% or more | 96 |
+
+  Median 86%. What remains is energy: the swapped weapon gives no particles. A lower score there is the rule of design §2 ("managing ER is part of building"). The 12 under 50% get the warning. Two of them wait for a burst or skill in a loop (Alhaitham / Xingqiu / Yelan / Raiden, Tighnari / Collei / Fischl / Zhongli; §5.2); the other ten were not looked into further.
+
+### 5.2 Loops that wait for a burst
+
+Found while checking the 12 teams above, not fixed. 101 library rotations wait for energy by attacking: `while !.xingqiu.burst.ready { xingqiu attack; }`. gcsim does not count that as waiting for energy, so the fillers (`docs/fillers.md`) never see it, and a build short of Energy Recharge attacks on a support instead of passing the burst as a player would. Alhaitham / Xingqiu / Yelan / Raiden without its Favonius weapons keeps 24% of its score this way. A fix would make these loops visible to the fillers, for instance by turning each into a bounded wait the filler search can replace; it needs its own measurement on the library.
 
 ## 6. Proposal
 
-Not decided; in order of how much trust each buys for its cost.
+(1)–(4) in order of how much trust each buys for its cost; (5) was found later. (1) is done, the others are not decided.
 
-1. **Weapon-dependent loops** (§5). Guard each `while !.X.mods.favonius-cd` with `.X.weapon` being a Favonius weapon, either as a rewrite when the rotation is loaded (like the key rewrite of design §4.4) or in the rotation files with a library test that rejects an unguarded one. Add a validation check that scores each team with its Favonius weapons swapped out and fails a collapse, so a new harvest cannot bring the problem back. Editing rotations changes their cache keys and moves those teams' recorded scores only where the guard matters.
+1. ~~**Weapon-dependent loops** (§5).~~ Done (§5.1): weapon mods are read as always on without the weapon, and validation fails a collapse.
 2. **Keep the best of a team's rotations.** Harvest keeps, besides the rotation it picks now, the best passing entry for each higher-constellation profile the database has; the score runs the player's build with each and keeps the best, as fillers keep the best run (design §3.1). On the 191 teams measured it raises higher-constellation builds by a median of 12.4% and leaves the library builds where they are. Cost: one more scoring (with its filler search) per extra rotation, on about 217 teams; the result page would say which rotation scored. A rotation could be skipped when the player's constellations are far below its entry's, but §3.1 shows the boundary depends on several members at once, so that needs measuring first.
 3. **Say what the rotation assumes.** The result page shows the constellations the rotation was written for, and a note when a member's constellation is higher: "This rotation was written for C0 Furina; a C6 Furina is played differently, and the score may be low." Cheap, and it covers the 4,204 teams with no higher-constellation entry.
 4. **Rotations for constellations the database lacks.** For a constellation that changes a role (Furina C6, and the characters of the table in §3), a rotation written from a community guide under the rules of design §5.4, as a second rotation of the team kept by (2). Later, once (2) exists.
+5. **Loops that wait for a burst** (§5.2): make them visible to the fillers.
