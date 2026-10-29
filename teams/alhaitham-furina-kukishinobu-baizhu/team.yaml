@@ -6,7 +6,7 @@ members:
     - kuki
     - baizhu
 archetype: ""
-status: draft
+status: supported
 rotation_version: 1
 gcsim_commit: 2350be9
 sources:
@@ -21,9 +21,8 @@ reference:
     dps: 70406
     computed: "2026-10-01"
 validation:
-    date: "2026-10-28"
+    date: "2026-10-29"
     iterations: 20
     gap: -0.01
-    kept: 0.737
-    dps: 35680
-    draft: the looped score keeps 74% of one pass, less than 80%
+    kept: 1.066
+    dps: 51626

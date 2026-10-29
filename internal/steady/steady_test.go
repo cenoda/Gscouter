@@ -167,3 +167,42 @@ func TestBestSkipsFailedAlternative(t *testing.T) {
 		t.Error("want an error when no rotation runs")
 	}
 }
+
+// Xingqiu attacks until his burst is ready in a loop gcsim does not count
+// as a wait. The first run bounds the loop, which shows the wait; the
+// loop as written and the passed burst are both tried.
+func TestScoreSeesWaitLoops(t *testing.T) {
+	rot := "active xingqiu;\nwhile !.xingqiu.burst.ready { xingqiu attack; }\nxingqiu burst;\nayato skill, attack:15;\n"
+	members := []string{"xingqiu", "ayato"}
+	for _, c := range []struct {
+		asWritten, skip float64
+		want            float64
+		filled          bool
+	}{
+		{asWritten: 120, skip: 150, want: 150, filled: true},
+		{asWritten: 160, skip: 150, want: 160, filled: false},
+	} {
+		run := func(looped string) (*score.Result, error) {
+			dps, wait := 100.0, 0.0
+			switch {
+			case strings.Contains(looped, "gs_wait1 < 2"):
+				wait = 30
+			case strings.Contains(looped, "if .xingqiu.burst.ready { xingqiu burst; }"):
+				dps = c.skip
+			case strings.Contains(looped, "while !.xingqiu.burst.ready { xingqiu attack; }"):
+				dps = c.asWritten
+			}
+			return &score.Result{DPS: dps, Characters: []score.Character{
+				{Name: "xingqiu", Waits: map[string]float64{"insufficient_energy": wait}},
+				{Name: "ayato"},
+			}}, nil
+		}
+		out, err := Score(rot, members, run)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if out.Result.DPS != c.want || out.Filled != c.filled {
+			t.Errorf("as written %.0f, skipped %.0f: got %.0f DPS (filled %v), want %.0f (filled %v)", c.asWritten, c.skip, out.Result.DPS, out.Filled, c.want, c.filled)
+		}
+	}
+}
