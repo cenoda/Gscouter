@@ -36,6 +36,27 @@ func TestFillPartyAndSkill(t *testing.T) {
 	}
 }
 
+// A rotation that writes members under gcsim aliases ("chev", "xl") is
+// filled for them, under the party's names.
+func TestFillAliases(t *testing.T) {
+	rot := "active fischl;\nchev burst, skill[hold=1], attack;\nxl burst, skill;\nchev attack:3;\n"
+	party := []string{"fischl", "beidou", "xiangling", "chevreuse"}
+	got := Fill(rot, map[string]Filler{"chevreuse": FillParty, "xiangling": FillSkip}, nil, party)
+	for _, s := range []string{
+		"if .chevreuse.skill.ready { chevreuse skill[hold=1]; } else if .fischl.skill.ready { fischl skill; } else if .beidou.skill.ready { beidou skill; } else if .xiangling.skill.ready { xiangling skill; } else { chevreuse attack; }",
+		"chevreuse burst, skill[hold=1], attack;",
+		"if .xiangling.burst.ready { xiangling burst; } else { wait(1); } xiangling skill;",
+		"chevreuse attack:3;",
+	} {
+		if !strings.Contains(got, s) {
+			t.Errorf("missing %q in:\n%s", s, got)
+		}
+	}
+	if _, _, err := parser.New(ast.NewFile(), "chevreuse char lvl=90/90 cons=0 talent=9,9,9;\n"+got).Parse(); err != nil {
+		t.Errorf("filled rotation does not parse: %v\n%s", err, got)
+	}
+}
+
 func TestFillLeavesOthers(t *testing.T) {
 	rot := "active a;\nlet x = 1;\nif .a.burst.ready { b burst; }\n"
 	if got := Fill(rot, map[string]Filler{"a": FillSelf}, nil, []string{"a", "b"}); got != rot {
