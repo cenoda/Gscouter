@@ -33,6 +33,7 @@ var updates = []update{
 			"A rotation editor: change a team's rotation as notes on its members' lanes, with the game's keys, and score it against the library's. A rotation that scores higher can be sent to the developer, teams outside the library can be scored with a rotation you write, and a switch picks up crystallize shards automatically.",
 			"In the rotation editor, a gray band joins a selected note to the playhead when the two are apart.",
 			"Weapons and artifact pieces show their icons, framed in their rarity's color.",
+			"The rotation editor has settings: its keys can be changed (mouse buttons too), and the party can be dragged into your own order, which the number keys and the lanes follow.",
 		},
 		Ko: []string{
 			"높은 돌파 수치에 맞춰 쓰인 로테이션이 있으면 그것도 시도해 가장 높은 점수를 씁니다. 차스카 6돌과 시틀라리 6돌부터 적용했습니다.",
@@ -43,6 +44,7 @@ var updates = []update{
 			"로테이션 에디터: 파티의 로테이션을 캐릭터별 레인 위 노트로 게임 키 그대로 고치고, 라이브러리 로테이션과 비교해 점수를 계산합니다. 더 높게 나온 로테이션은 개발자에게 보낼 수 있고, 라이브러리에 없는 파티도 직접 짠 로테이션으로 계산할 수 있으며, 결정화 조각을 자동으로 줍는 스위치가 있습니다.",
 			"로테이션 에디터에서 선택한 노트와 플레이헤드가 떨어져 있으면 회색 띠로 이어 보여 줍니다.",
 			"무기와 성유물 부위에 아이콘을 표시하고, 등급은 테두리 색으로 보여 줍니다.",
+			"로테이션 에디터에 설정이 생겼습니다. 키를 바꿀 수 있고(마우스 버튼 포함), 파티 순서를 끌어서 정하면 숫자 키와 레인이 그 순서를 따릅니다.",
 		},
 	},
 	{
