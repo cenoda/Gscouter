@@ -1,0 +1,28 @@
+# GameWith "Best Teams For Cyno", Stellar-Conduct team (Cyno, Odette,
+# Qiqi, Nicole):
+#   1 Odette: Elemental Skill, (Elemental Burst)
+#   2 Qiqi: Elemental Skill, Elemental Burst
+#   3 Nicole: Elemental Skill, Elemental Burst
+#   4 Cyno: Elemental Skill, Elemental Burst
+#   5 deal damage with Normal Attacks
+#   6 use Cyno's Elemental Skill when the screen overlay appears
+#     (Judication ready, the cyno-a1 mod)
+#   7 repeat from step 1
+# Odette casts her skill twice, as in the KQM Odette quick guide's
+# rotations (2[E]): the second places her Dance Double. With one skill
+# she deals 3% of the damage and the looped score is 59.6k against
+# 67.8k (20 iterations). Her optional burst is skipped, as the KQM
+# guide advises (it tends to extend rotations). Cyno stays on field while
+# Pactsworn Pathclearer lasts.
+active odette;
+odette skill:2;
+qiqi skill, burst;
+nicole skill, burst;
+cyno skill, burst;
+while .cyno.mods.cyno-q {
+  if .cyno.mods.cyno-a1 && .cyno.skill.ready {
+    cyno skill;
+  } else {
+    cyno attack;
+  }
+}

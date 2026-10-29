@@ -243,7 +243,8 @@ func init() {
 		"art.score":      "Score d'artéfacts",
 		"art.score_lead": "Les stats secondaires comptent selon ce qu'une amélioration apporte au DPS de cette équipe ; avec le CRIT seul, c'est le CV. Une stat principale qui fait perdre du DPS coûte des points, comptés en améliorations de la stat secondaire la plus utile de l'équipe.",
 		"art.columns":    "Secondaires · principales · total",
-		"art.low":        "peu d'effet (meilleure : %s)",
+		"art.low":        "peu d'effet : toute stat principale reste à moins de 2 %% de DPS (meilleure : %s)",
+		"art.low_best":   "(la meilleure ; toute stat principale reste à moins de 2 % de DPS)",
 		"art.unplayable": "rotation impossible",
 		"art.unknown":    "non évalué",
 	}

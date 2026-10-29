@@ -6,7 +6,7 @@ members:
     - xilonen
     - citlali
 archetype: ""
-status: supported
+status: draft
 rotation_version: 1
 gcsim_commit: 2350be9
 sources:
@@ -16,8 +16,9 @@ reference:
     dps: 293665
     computed: "2026-10-01"
 validation:
-    date: "2026-10-28"
+    date: "2026-10-29"
     iterations: 20
-    gap: 0
-    kept: 1.039
-    dps: 304986
+    gap: 0.067
+    kept: 1.038
+    dps: 325183
+    draft: +6.7% from the source's DPS, more than 5%

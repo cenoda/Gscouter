@@ -1,0 +1,39 @@
+# Cyno: C0, Staff of the Scarlet Sands R1, 4pc Disenchantment in Deep
+# Shadow, EM/EM/CRIT Rate (the best weapon, set and main stats in the
+# GameWith, GenshinBuilds and AllThingsHow Cyno Stellar-Conduct guides;
+# the KQM Odette quick guide gives no Cyno build), KQM-standard substats.
+# Yae Miko as in the Sandrone teams, from the harvested Sangonomiya
+# Kokomi / Fischl / Dendro Traveler / Yae Miko team
+# (teams/sangonomiyakokomi-fischl-travelerdendro-yaemiko).
+# Odette as in the Sandrone teams, from the KQM Odette quick guide with
+# KQM-standard substats: C0, Finale of the Deep R5, 4pc Heart of the
+# Furnace, ATK%/ATK%/CRIT Rate, no ER beyond the standard's (her burst
+# is skipped).
+# Alyosha as in the Sandrone teams, from the KQM Alyosha quick guide
+# with KQM-standard substats: C6, Favonius Lance R3, 4pc Noblesse
+# Oblige, ATK%/ATK%/CRIT Rate (168.3% ER).
+# Used to validate the rotation.
+
+cyno char lvl=90/90 cons=0 talent=9,9,9;
+cyno add weapon="scarletsands" refine=1 lvl=90/90;
+cyno add set="disenchantmentindeepshadow" count=4;
+cyno add stats hp=4780 atk=311 em=187 em=187 cr=0.311;
+cyno add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*12;
+
+yaemiko char lvl=90/90 cons=0 talent=9,9,9;
+yaemiko add weapon="thewidsith" refine=3 lvl=90/90;
+yaemiko add set="gildeddreams" count=4;
+yaemiko add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cd=0.622;
+yaemiko add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=79.28 cr=0.3972 cd=0.662;
+
+odette char lvl=90/90 cons=0 talent=9,9,9;
+odette add weapon="finale" refine=5 lvl=90/90;
+odette add set="heartofthefurnace" count=4;
+odette add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cr=0.311;
+odette add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*12;
+
+alyosha char lvl=90/90 cons=6 talent=9,9,9;
+alyosha add weapon="favlance" refine=3 lvl=90/90;
+alyosha add set="noblesseoblige" count=4;
+alyosha add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cr=0.311;
+alyosha add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*8 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*8;

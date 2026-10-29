@@ -243,7 +243,8 @@ func init() {
 		"art.score":      "Yadigar puanı",
 		"art.score_lead": "Alt istatistikler, bir artışın bu takımın DPS'ine kattığına göre ağırlıklandırılır; yalnızca kritik sayılırsa CV'ye eşittir. DPS kaybettiren ana istatistik puan götürür; kayıp, takımdaki en değerli alt istatistiğin artışlarıyla sayılır.",
 		"art.columns":    "Alt · ana · toplam",
-		"art.low":        "az etkili (en iyisi: %s)",
+		"art.low":        "az etkili: hangi ana stat olursa olsun DPS farkı %%2 içinde (en iyisi: %s)",
+		"art.low_best":   "(en iyisi; burada hangi ana stat olursa olsun DPS farkı %2 içinde)",
 		"art.unplayable": "rotasyon oynanamaz",
 		"art.unknown":    "değerlendirilmedi",
 	}

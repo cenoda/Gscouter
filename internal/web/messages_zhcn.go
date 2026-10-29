@@ -243,7 +243,8 @@ func init() {
 		"art.score":      "圣遗物评分",
 		"art.score_lead": "副词条按每次提升为本队伍DPS带来的增益加权；只计暴击时即为双暴分。降低DPS的主词条会扣分，按队伍中最有价值副词条的提升次数计算。",
 		"art.columns":    "副词条 · 主词条 · 合计",
-		"art.low":        "影响小（最佳：%s）",
+		"art.low":        "影响小——任何主词条的DPS差距都在2%%以内（最佳：%s）",
+		"art.low_best":   "（最佳——此部位任何主词条的DPS差距都在2%以内）",
 		"art.unplayable": "无法执行循环",
 		"art.unknown":    "未判定",
 	}

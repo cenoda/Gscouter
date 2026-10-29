@@ -1,0 +1,18 @@
+# KQM Odette quick guide, Stellar-Conduct, Odette / Cyno / Yae Miko /
+# Qiqi:
+# Yae 3[E] > Odette 2[E] > Qiqi E(Q)(1) > Cyno E N1 Q N2E 4[N4D N4E]
+#   1 only use Qiqi Q if she is C6
+# Odette's burst is skipped (the guide: it tends to extend rotations).
+# Cyno's first skill, outside his burst, grants Pactsworn Pathclearer
+# through his Witch's Revelation.
+active yaemiko;
+yaemiko skill:3;
+odette skill:2;
+qiqi skill;
+if .qiqi.cons >= 6 {
+  qiqi burst;
+}
+cyno skill, attack, burst, attack:2, skill;
+for let i=0; i<4; i=i+1 {
+  cyno attack:4, dash, attack:4, skill;
+}

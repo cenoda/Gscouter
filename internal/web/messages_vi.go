@@ -243,7 +243,8 @@ func init() {
 		"art.score":      "Điểm Thánh Di Vật",
 		"art.score_lead": "Dòng phụ được tính trọng số theo lượng DPS mà một lần tăng mang lại cho đội này; nếu chỉ tính Bạo Kích thì bằng CV. Dòng chính làm giảm DPS sẽ bị trừ điểm, tính bằng số lần tăng của dòng phụ giá trị nhất trong đội.",
 		"art.columns":    "Dòng phụ · dòng chính · tổng",
-		"art.low":        "ảnh hưởng nhỏ (tốt nhất: %s)",
+		"art.low":        "ảnh hưởng nhỏ: chỉ số chính nào cũng chênh DPS dưới 2%% (tốt nhất: %s)",
+		"art.low_best":   "(tốt nhất; ở ô này chỉ số chính nào cũng chênh DPS dưới 2%)",
 		"art.unplayable": "không chạy được vòng xoay",
 		"art.unknown":    "chưa đánh giá",
 	}

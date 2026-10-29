@@ -57,8 +57,11 @@ func (f Filler) String() string {
 //     skill is ready.
 //
 // Either filler gives up after a fixed number of actions, and the
-// rotation then waits as before. Names are as the rotation writes them;
-// party lists every member.
+// rotation then waits as before. party lists every member, and energy
+// and skill name members as party does. A rotation may write a member
+// under one of gcsim's aliases ("chev" for "chevreuse", "amy" for
+// "fischl"): its statements are matched by gcsim key, and a filled
+// statement is written under the party's name.
 func Fill(rotation string, energy map[string]Filler, skill, party []string) string {
 	forms := skillForms(rotation, party)
 	var b strings.Builder
@@ -68,7 +71,7 @@ func Fill(rotation string, energy map[string]Filler, skill, party []string) stri
 		if start {
 			if m := actionRe.FindStringSubmatchIndex(rotation[i:]); m != nil {
 				lead := rotation[i+m[2] : i+m[3]]
-				char := rotation[i+m[4] : i+m[5]]
+				char := member(rotation[i+m[4]:i+m[5]], party)
 				items := rotation[i+m[6] : i+m[7]]
 				how, inEnergy := energy[char]
 				if inEnergy || slices.Contains(skill, char) {
@@ -175,8 +178,8 @@ var waitLoopRe = regexp.MustCompile(`while\s*!\s*\.(\w+)\.burst\.ready\s*\{\s*(\
 func WaitLoops(rotation string, energy map[string]Filler, party []string) string {
 	n := 0
 	return replaceSubmatch(waitLoopRe, rotation, func(m []string) string {
-		char := m[1]
-		if m[2] != char || !slices.Contains(party, char) {
+		char := member(m[1], party)
+		if member(m[2], party) != char || !slices.Contains(party, char) {
 			return m[0]
 		}
 		how, ok := energy[char]
@@ -188,7 +191,7 @@ func WaitLoops(rotation string, energy map[string]Filler, party []string) string
 		}
 		n++
 		v := fmt.Sprintf("gs_wait%d", n)
-		return fmt.Sprintf("let %s = 0; while !.%s.burst.ready && %s < %d { %s attack; %s = %s + 1; }", v, char, v, maxFillAttacks, char, v, v)
+		return fmt.Sprintf("let %s = 0; while !.%s.burst.ready && %s < %d { %s attack; %s = %s + 1; }", v, m[1], v, maxFillAttacks, m[2], v, v)
 	})
 }
 
@@ -223,7 +226,7 @@ var (
 func skillForms(rotation string, party []string) map[string]string {
 	forms := map[string]string{}
 	for _, m := range anyActionRe.FindAllStringSubmatch(rotation, -1) {
-		char := m[1]
+		char := member(m[1], party)
 		if !slices.Contains(party, char) || forms[char] != "" {
 			continue
 		}
@@ -251,4 +254,21 @@ func skillForms(rotation string, party []string) map[string]string {
 		}
 	}
 	return forms
+}
+
+// member returns the party member a rotation's name stands for, matched
+// by gcsim key, or the name itself when it is no member's. Before
+// matching by key, a member written under an alias was never filled:
+// 765 library teams write one that way (docs/fillers.md §2).
+func member(name string, party []string) string {
+	if slices.Contains(party, name) {
+		return name
+	}
+	key := charKey(name)
+	for _, m := range party {
+		if charKey(m) == key {
+			return m
+		}
+	}
+	return name
 }

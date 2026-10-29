@@ -6,7 +6,7 @@ members:
     - chevreuse
     - xiangling
 archetype: ""
-status: supported
+status: draft
 rotation_version: 1
 gcsim_commit: 2350be9
 sources:
@@ -16,8 +16,9 @@ reference:
     dps: 96106
     computed: "2026-10-01"
 validation:
-    date: "2026-10-28"
+    date: "2026-10-29"
     iterations: 20
-    gap: 0.002
-    kept: 0.988
-    dps: 41137
+    gap: 0.067
+    kept: 1
+    dps: 44461
+    draft: +6.7% from the source's DPS, more than 5%

@@ -1,0 +1,42 @@
+# Wriothesley: C0, Cashflow Supervision R1, 4pc Disenchantment in Deep
+# Shadow (the KQM Wriothesley quick guide's best weapon and set for
+# Stellar-Conduct), ATK%/ATK%/CRIT Rate (the guide: ATK% or EM sands and
+# goblet, no Cryo DMG goblet as Stellar-Conduct DMG does not scale with
+# it; CRIT circlet), KQM-standard substats with no ER beyond the
+# standard's (the guide: he skips his burst, so no ER on him).
+# Yae Miko from the harvested Sangonomiya Kokomi / Fischl / Dendro
+# Traveler / Yae Miko team (teams/sangonomiyakokomi-fischl-travelerdendro-yaemiko),
+# as in the Sandrone teams, with 4pc Disenchantment in Deep Shadow in
+# place of Gilded Dreams (the guide: she almost always uses it).
+# Odette as in the Sandrone teams, from the KQM Odette quick guide with
+# KQM-standard substats: C0, Finale of the Deep R5, 4pc Heart of the
+# Furnace, ATK%/ATK%/CRIT Rate, no ER beyond the standard's (her burst
+# is skipped).
+# Escoffier from the harvested Ganyu / Furina / Escoffier / Mona team
+# (teams/ganyu-furina-escoffier-mona), with 4pc Tenacity of the
+# Millelith in place of Golden Troupe (the guide: she should hold it).
+# Used to validate the rotation.
+
+wriothesley char lvl=90/90 cons=0 talent=9,9,9;
+wriothesley add weapon="cashflow" refine=1 lvl=90/90;
+wriothesley add set="disenchantmentindeepshadow" count=4;
+wriothesley add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cr=0.311;
+wriothesley add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*12;
+
+yaemiko char lvl=90/90 cons=0 talent=9,9,9;
+yaemiko add weapon="thewidsith" refine=3 lvl=90/90;
+yaemiko add set="disenchantmentindeepshadow" count=4;
+yaemiko add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cd=0.622;
+yaemiko add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=79.28 cr=0.3972 cd=0.662;
+
+odette char lvl=90/90 cons=0 talent=9,9,9;
+odette add weapon="finale" refine=5 lvl=90/90;
+odette add set="heartofthefurnace" count=4;
+odette add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cr=0.311;
+odette add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*10 cd=0.0662*12;
+
+escoffier char lvl=90/90 cons=0 talent=9,9,9;
+escoffier add weapon="favlance" refine=3 lvl=90/90;
+escoffier add set="totm" count=4;
+escoffier add stats hp=4780 atk=311 atk%=0.466 cryo%=0.466 cd=0.622;
+escoffier add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1653 em=39.64 cr=0.3972 cd=0.5958;
