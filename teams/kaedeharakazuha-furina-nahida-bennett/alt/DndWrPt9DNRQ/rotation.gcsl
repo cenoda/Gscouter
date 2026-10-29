@@ -1,0 +1,12 @@
+active nahida;
+for let i=0; i<5; i=i+1 {
+  nahida skill, burst;
+  bennett burst, skill;
+  furina burst, skill;
+  kazuha burst, skill, high_plunge, attack;
+  furina charge, attack:4, charge;
+  bennett skill, attack;
+  kazuha skill[hold=1], high_plunge;
+  nahida attack:2;
+  
+}

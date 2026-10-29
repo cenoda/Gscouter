@@ -1,0 +1,12 @@
+active raiden;
+raiden skill;
+for let i=0; i<4; i=i+1 {
+	furina skill, dash, burst;
+	mika burst, skill;
+	eula skill;
+	if i != 0 {
+    eula attack:2; 
+  }
+	eula burst, walk, attack:3, skill[hold=1], walk[f=11], attack:4, dash, attack:2, skill;
+	raiden burst, attack:4, skill, attack:4, dash, attack:4;
+}

@@ -1,0 +1,23 @@
+active nicole;
+let walk_cancel=true; 
+fn walk_or_not() {
+  if walk_cancel {
+    varka walk;
+  }
+}
+for let i=0; i<6; i=i+1 {
+  if i {
+    nicole swap;
+    wait(24); 
+  }
+  nicole skill;
+  durin skill, burst, skill;
+  prune burst, skill;
+  varka skill;
+  varka attack, skill;
+  varka attack, charge;
+  varka attack:3, skill;
+  varka attack, charge;
+  varka attack:3, skill;
+  varka attack, charge;
+}

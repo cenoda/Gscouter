@@ -1,0 +1,14 @@
+active raiden;
+raidenshogun skill;
+for let x = 0; x < 5; x = x + 1 {
+  kazuha skill, high_plunge;
+  kujousara skill, aim;
+  wait(25);
+  bennett burst;
+  kazuha burst;
+  kujousara burst;
+  raidenshogun burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:4;
+  bennett skill, attack:2, dash;
+  
+  print("Rotation Done");
+}

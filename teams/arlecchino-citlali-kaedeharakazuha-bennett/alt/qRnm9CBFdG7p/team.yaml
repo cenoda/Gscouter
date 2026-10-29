@@ -1,0 +1,23 @@
+id: arlecchino-citlali-kaedeharakazuha-bennett
+name: Arlecchino / Citlali / Kaedeharakazuha / Bennett
+members:
+    - arlecchino
+    - bennett
+    - citlali
+    - kazuha
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/qRnm9CBFdG7p
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (arlecchino C1, bennett C6, citlali C0, kaedeharakazuha C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 162583
+    computed: "2026-09-30"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0
+    kept: 1.032
+    dps: 167771

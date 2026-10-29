@@ -1,0 +1,28 @@
+active ayaka;
+ayaka dash;
+for let i = 0; i < 5; i = i + 1 {
+  kazuha skill[hold=1], high_plunge, burst;
+  shenhe burst, skill;
+  mona skill, burst;
+  ayaka skill, dash, attack:2, charge, burst;
+  kazuha skill, high_plunge;
+  shenhe skill;
+  
+  if .shenhe.skill.ready {
+    shenhe skill;
+  } else {
+    shenhe attack;
+  }
+  
+  ayaka dash, attack:2;
+  if .ayaka.skill.cd > 8 {
+    ayaka attack;
+    if .ayaka.skill.cd > 12 {
+      ayaka attack;
+    }
+  } else {
+    wait(8);
+  }
+  ayaka skill, attack:2, charge;
+  print("Rotation Done");
+}

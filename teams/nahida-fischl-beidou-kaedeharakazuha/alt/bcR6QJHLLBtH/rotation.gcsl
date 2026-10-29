@@ -1,0 +1,57 @@
+fn rand_delay(mean, stddev) {
+  let del = randnorm() * stddev + mean;
+  if del > (mean + mean) {
+    del = mean + mean;
+  }
+  delay(del);
+}
+let prev_char_id = -1;
+let prev_action_id = -1;
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  if prev_char_id != char_id && action_id != .action.swap {
+    execute_action(char_id, .action.swap, []);
+  }
+  if action_id == .action.swap {
+    rand_delay(6, 2);
+  }
+  prev_char_id = char_id;
+  prev_action_id = action_id;
+  return _execute_action(char_id, action_id, p);
+}
+active fischl;
+for let r = 5; r > 0; r = r - 1 {
+  let src = f();
+  let counter_chance = rand();
+  
+  fischl skill, attack;
+  
+  if !.nahida.mods.instructor-4pc && .nahida.skill.ready {
+    nahida skill, attack;
+  }
+  
+  if counter_chance <= 0.1 { 
+    beidou skill[counter=2];
+  } else if counter_chance <= 0.5 { 
+    beidou skill[counter=1];
+  } else {
+    beidou skill;
+  }
+  
+  beidou burst;
+  delay(17); 
+  
+  kazuha attack, skill, high_plunge, attack, burst, attack;
+  fischl attack, aim[hold=0], burst;
+  kazuha attack, skill, high_plunge, attack;
+  
+  while f() - src <= 20.5 * 60 {
+    if .fischl.normal > 2 { 
+      fischl aim[hold=0];
+    } else if !.nahida.mods.instructor-4pc && .nahida.skill.ready && .nahida.swap.ready { 
+      nahida skill, attack;
+    } else {
+      fischl attack;
+    }
+  }
+}

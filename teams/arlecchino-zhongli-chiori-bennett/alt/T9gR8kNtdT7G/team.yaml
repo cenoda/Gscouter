@@ -1,0 +1,23 @@
+id: arlecchino-zhongli-chiori-bennett
+name: Arlecchino / Zhongli / Chiori / Bennett
+members:
+    - chiori
+    - arlecchino
+    - bennett
+    - zhongli
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/T9gR8kNtdT7G
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (arlecchino C1, bennett C6, chiori C6, zhongli C1): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 175319
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.001
+    kept: 1.052
+    dps: 175329

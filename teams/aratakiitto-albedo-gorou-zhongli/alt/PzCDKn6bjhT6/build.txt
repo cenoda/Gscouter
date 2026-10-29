@@ -1,0 +1,26 @@
+# Build from the source config, used to validate the rotation.
+
+itto char lvl=90/90 cons=6 talent=10,10,10;
+itto add weapon="redhorn" refine=5 lvl=90/90;
+itto add set="husk" count=5 +params=[stacks=4];
+itto add stats hp=4780 atk=311 def%=0.583 geo%=0.466 cr=0.311;
+itto add stats def%=0.248 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=39.64 cr=0.331 cd=0.7944;
+
+albedo char lvl=90/90 cons=6 talent=10,10,10;
+albedo add weapon="cinnabarspindle" refine=5 lvl=90/90;
+albedo add set="husk" count=5 +params=[stacks=4];
+albedo add stats hp=4780 atk=311 def%=0.583 geo%=0.466 cr=0.311;
+albedo add stats def%=0.248 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.1102 em=39.64 cr=0.331 cd=0.7944;
+albedo add stats geo%=0.125;
+
+gorou char lvl=90/90 cons=6 talent=10,10,10;
+gorou add weapon="favoniuswarbow" refine=5 lvl=90/90;
+gorou add set="noblesse" count=5;
+gorou add stats hp=4780 atk=311 er=0.518 geo%=0.466 cr=0.311;
+gorou add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.0992 er=0.2204 em=39.64 cr=0.331 cd=0.7944;
+
+zhongli char lvl=90/90 cons=6 talent=10,10,10;
+zhongli add weapon="homa" refine=5 lvl=90/90;
+zhongli add set="tenacity" count=5;
+zhongli add stats hp=4780 atk=311 atk%=0.466 geo%=0.466 cr=0.311;
+zhongli add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.331 cd=0.7944;

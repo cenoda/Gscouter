@@ -1,0 +1,30 @@
+active furina;
+for let i=0; i<6; i=i+1 {
+  furina skill, burst;
+  if i && .ineffa.burst.ready {
+    ineffa skill, burst;
+  } else {
+    ineffa attack, skill;
+  }
+  bina skill;
+  if .bina.burst.ready {
+    bina burst;
+  }
+  hutao skill,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash,
+        attack:2, charge, dash;
+  if .hutao.burst.ready {
+    hutao attack, burst;
+  } else {
+    hutao attack:2, charge, dash;
+  }
+  
+}

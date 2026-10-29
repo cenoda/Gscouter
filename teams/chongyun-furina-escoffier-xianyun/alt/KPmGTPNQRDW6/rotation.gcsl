@@ -1,0 +1,22 @@
+active esco;
+esco skill;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  chongyun burst, skill;
+  
+  xianyun skill, low_plunge, burst;
+
+  while .esco.status.xianyun-airborne-buff {
+    esco jump;
+    if .airborne {
+      esco high_plunge[collision=rand()>0.5];
+    }
+  }
+  
+  if .esco.burst.ready {
+    esco burst;
+  }
+  esco skill;
+  
+}

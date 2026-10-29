@@ -1,0 +1,28 @@
+fn mualani_combo() {
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+  mualani walk[f=1];
+}
+active candace;
+for let i=0; i<2; i=i+1 {
+  candace burst,skill;
+  sucrose attack,skill;
+  xiangling burst,skill;
+  
+  mualani skill;
+  mualani_combo();
+  mualani burst;
+  
+  candace attack:2,skill;
+  xiangling skill;
+  sucrose attack,skill,burst;
+  mualani skill;
+  mualani_combo();
+}

@@ -1,0 +1,18 @@
+active dehya;
+for let i=0; i<5; i=i+1 {
+  dehya skill;
+  
+  xilonen skill, attack:2, dash;
+  pick_up_crystallize("pyro");
+  bennett skill, burst;
+	citlali skill, burst, attack;
+  dehya burst, attack:7;
+  if !i {  
+    wait(17);
+  } else {
+    dehya attack;
+  }
+  dehya attack:7;
+	bennett skill, dash;
+  dehya skill;
+}

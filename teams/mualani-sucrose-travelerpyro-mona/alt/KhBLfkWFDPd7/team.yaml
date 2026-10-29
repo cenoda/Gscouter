@@ -1,0 +1,23 @@
+id: mualani-sucrose-travelerpyro-mona
+name: Mualani / Sucrose / Travelerpyro / Mona
+members:
+    - mualani
+    - sucrose
+    - aetherpyro
+    - mona
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/KhBLfkWFDPd7
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (mona C4, mualani C2, sucrose C6, travelerpyro C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 249135
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.006
+    kept: 0.988
+    dps: 247577

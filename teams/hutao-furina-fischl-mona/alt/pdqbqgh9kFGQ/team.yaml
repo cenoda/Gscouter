@@ -1,0 +1,25 @@
+id: hutao-furina-fischl-mona
+name: Hutao / Furina / Fischl / Mona
+members:
+    - hutao
+    - furina
+    - mona
+    - fischl
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/pdqbqgh9kFGQ
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (fischl C6, furina C0, hutao C1, mona C4): 2 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+params:
+    hutao: start_hp%=70
+reference:
+    dps: 116451
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.007
+    kept: 1.005
+    dps: 116719

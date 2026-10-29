@@ -1,0 +1,23 @@
+id: kaedeharakazuha-furina-nahida-bennett
+name: Kaedeharakazuha / Furina / Nahida / Bennett
+members:
+    - furina
+    - bennett
+    - kaz
+    - nahida
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/DndWrPt9DNRQ
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (bennett C6, furina C6, kaedeharakazuha C0, nahida C0): 2 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 152165
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.002
+    kept: 1.028
+    dps: 156769

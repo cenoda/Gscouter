@@ -1,0 +1,19 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  
+  faruzan skill, burst;
+  
+  bennett skill, burst;
+  xianyun skill:3, high_plunge, burst;
+  while .xianyun.status.xianyun-airborne-buff {
+    if .xianyun.skill.ready {
+      xianyun skill:3, high_plunge;
+    } else if .xianyun.status.xianyun-airborne-buff {
+      xianyun jump;
+      if .airborne {
+        xianyun high_plunge[collision=rand()>0.5], dash;
+      }
+    }
+  }
+}

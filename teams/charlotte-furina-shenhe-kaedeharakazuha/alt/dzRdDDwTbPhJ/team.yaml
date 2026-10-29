@@ -1,0 +1,23 @@
+id: charlotte-furina-shenhe-kaedeharakazuha
+name: Charlotte / Furina / Shenhe / Kaedeharakazuha
+members:
+    - charlotte
+    - shenhe
+    - furina
+    - kazuha
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/dzRdDDwTbPhJ
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (charlotte C6, furina C0, kaedeharakazuha C0, shenhe C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 43485
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.002
+    kept: 1.003
+    dps: 43519

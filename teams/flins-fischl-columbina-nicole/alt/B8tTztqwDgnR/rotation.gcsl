@@ -1,0 +1,33 @@
+active fischl;
+for let i=0; i<6; i=i+1 {
+  
+  if !is_even(i) {
+    fischl attack:2, burst;
+    columbina skill, attack;
+    nicole skill, burst;
+  } else {
+    fischl skill;
+    if i {
+      fischl attack;
+    }
+    columbina skill, burst;
+    nicole skill, burst;
+  }
+  
+  flins skill, attack, 
+        skill, attack:3, dash, attack:3, burst, 
+        attack, 
+        skill, attack, burst, 
+        attack:3, dash, attack:3;
+  
+  if .flins.status.manifest-flame {   
+    flins skill;
+    if .flins.energy >= 30 {
+      flins burst;
+    }
+  }
+  flins attack:2, dash;
+  if !is_even(i) {
+    flins attack:3;
+  }
+}

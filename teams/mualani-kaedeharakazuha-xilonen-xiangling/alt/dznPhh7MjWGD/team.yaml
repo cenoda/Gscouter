@@ -1,0 +1,23 @@
+id: mualani-kaedeharakazuha-xilonen-xiangling
+name: Mualani / Kaedeharakazuha / Xilonen / Xiangling
+members:
+    - mualani
+    - xiangling
+    - xilonen
+    - kazuha
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/dznPhh7MjWGD
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (kaedeharakazuha C2, mualani C2, xiangling C6, xilonen C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 156672
+    computed: "2026-09-30"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0
+    kept: 0.995
+    dps: 155844

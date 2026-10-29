@@ -1,0 +1,30 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active furina;
+for let i=0; i<3; i=i+1 {
+  if !i {   
+    furina skill, dash, burst, attack;
+    xilonen skill, attack:2;        pick_up_crystallize("any");
+  } else {  
+    xilonen skill, attack:2;        pick_up_crystallize("any");
+    furina skill, dash, burst, attack:2;
+  }
+  chiori skill:2;                   pick_up_crystallize("any");
+  clorinde_combo();
+  chiori skill:2;                   pick_up_crystallize("any");
+  clorinde burst;
+  
+  xilonen skill, attack:2;          pick_up_crystallize("any");
+  furina burst, attack;
+  chiori skill:2;                   pick_up_crystallize("any");
+  clorinde_combo();
+  clorinde burst;
+}

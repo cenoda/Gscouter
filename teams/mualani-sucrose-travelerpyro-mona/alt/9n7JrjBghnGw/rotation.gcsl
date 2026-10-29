@@ -1,0 +1,31 @@
+fn mualani_n1_func() {
+  while .mualani.nightsoul.state {
+    for let k=0; k<1; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+  mualani walk[f=1];
+}
+active mona;
+for let i=0; i<4; i=i+1 {
+  mona skill; 
+  aetherpyro skill, attack:1;
+  mona burst, attack:2;
+  sucrose skill, attack:1;
+  mualani skill;
+  mualani_n1_func();
+  mualani skill, burst[travel=0];
+  mona attack:3;
+  if .sucrose.skill.ready {
+    sucrose skill, dash, attack:2;
+  } else {
+    sucrose attack, charge;
+  }
+  aetherpyro burst;
+  mualani skill;
+  mualani_n1_func();
+}

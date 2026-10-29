@@ -1,0 +1,39 @@
+active yelan ;
+for let i=0; i<4; i=i+1 {
+  yelan skill:2, burst, attack;
+  if .fischl.skill.ready {
+    fischl skill;
+  }
+  else {
+    fischl burst;
+  }
+  zhongli attack, skill[hold=1];
+  hutao skill;
+  	let cacombo = 8;
+      if .hutao.cons >= 1 {
+          cacombo = 10;
+      }
+       for .hutao.mods.paramita && cacombo > 0;cacombo = cacombo - 1  {
+          if .hutao.mods.paramita {
+              hutao attack;
+          }
+          if .hutao.mods.paramita {
+              hutao attack;
+          }
+          if .hutao.mods.paramita {
+              hutao charge;
+          }
+          if cacombo == 1 && .hutao.energy ==60  {
+              hutao burst;
+          }
+          else if .hutao.cons >= 1 {
+              hutao dash;
+          } 
+          else {
+              hutao jump;
+          }
+       }
+       if i != 3 {
+         zhongli attack:4, jump;
+       }
+}

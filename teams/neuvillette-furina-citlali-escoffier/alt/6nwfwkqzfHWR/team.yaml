@@ -1,0 +1,23 @@
+id: neuvillette-furina-citlali-escoffier
+name: Neuvillette / Furina / Citlali / Escoffier
+members:
+    - neuvillette
+    - furina
+    - citlali
+    - escoffier
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/6nwfwkqzfHWR
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (citlali C6, escoffier C6, furina C6, neuvillette C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 468008
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.004
+    kept: 0.984
+    dps: 462549

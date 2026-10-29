@@ -1,0 +1,18 @@
+active bennett;
+for let i = 0; i < 4 ; i = i+1 {
+    bennett skill;
+    navia burst, dash;
+    pick_up_crystallize("any");
+    zhongli skill[hold=1], dash;
+    pick_up_crystallize("any");
+    bennett skill, burst;
+    pick_up_crystallize("any");
+    mona burst, skill;
+    pick_up_crystallize("any");
+    navia attack, skill, attack:3;
+    pick_up_crystallize("any");
+    navia skill[hold=1], attack:2, dash, attack;
+    mona attack:2;
+    pick_up_crystallize("any");
+
+}

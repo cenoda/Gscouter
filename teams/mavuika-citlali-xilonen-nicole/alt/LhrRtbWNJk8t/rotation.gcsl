@@ -1,0 +1,24 @@
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  mavuika skill, attack;
+  nicole skill, attack;
+  xilo skill, attack:2;
+  pick_up_crystallize("any");
+  if is_even(i) {
+    citlali skill, attack;
+    mavuika burst;
+    mavuika charge:3, charge[hold=6], charge[final=1], dash;
+    mavuika charge:3, charge[hold=6], charge[final=1], dash; 
+    mavuika charge:1, charge[hold=6], charge[final=1], dash;
+    mavuika charge:1, charge[hold=6], charge[final=1], dash;
+    mavuika charge;
+  } else {
+    citlali skill, burst, attack:2;
+    mavuika burst;
+    mavuika charge:3, charge[hold=6], charge[final=1], dash;
+    mavuika charge:3, charge[hold=6], charge[final=1], dash; 
+    mavuika charge:1, charge[hold=6], charge[final=1], dash;
+    mavuika charge:1, charge[hold=6], charge[final=1], dash;
+    mavuika charge, dash, attack;
+  }
+}

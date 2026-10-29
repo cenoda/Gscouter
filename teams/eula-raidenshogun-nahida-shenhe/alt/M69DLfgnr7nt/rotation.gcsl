@@ -1,0 +1,13 @@
+active raiden;
+    raiden skill;
+for let i=0; i<4; i=i+1 {
+	shenhe skill[hold=1], burst;
+	nahida attack, skill, attack;
+	eula skill;
+	while !.eula.burst.ready {
+	  eula attack;
+	} 
+	eula burst, walk, attack:4, skill[hold=1], walk[f=11], attack:4;
+	shenhe skill, attack;
+	raiden burst, attack:4, skill, attack:4, dash, attack:4, dash, attack:3;
+}

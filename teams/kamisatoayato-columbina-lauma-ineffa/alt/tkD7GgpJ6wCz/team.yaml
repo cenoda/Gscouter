@@ -1,0 +1,23 @@
+id: kamisatoayato-columbina-lauma-ineffa
+name: Kamisatoayato / Columbina / Lauma / Ineffa
+members:
+    - columbina
+    - ineffa
+    - lauma
+    - ayato
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/tkD7GgpJ6wCz
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (columbina C0, ineffa C0, kamisatoayato C1, lauma C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 126641
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.003
+    kept: 1.02
+    dps: 129490

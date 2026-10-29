@@ -1,0 +1,15 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 {
+  neuvillette skill;
+  furina skill, dash, attack;
+  if is_even(i) {
+    kazuha burst;
+  } else {
+    kazuha skill, high_plunge;
+  }
+  furina burst, attack;
+  neuvillette charge, burst;
+  kazuha skill, high_plunge;
+  neuvillette skill, charge;
+}
+wait(715);

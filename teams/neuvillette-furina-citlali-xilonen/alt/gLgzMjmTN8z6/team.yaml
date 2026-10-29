@@ -1,0 +1,23 @@
+id: neuvillette-furina-citlali-xilonen
+name: Neuvillette / Furina / Citlali / Xilonen
+members:
+    - neuvillette
+    - furina
+    - citlali
+    - xilonen
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/gLgzMjmTN8z6
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (citlali C6, furina C6, neuvillette C6, xilonen C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 593474
+    computed: "2026-09-30"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0
+    kept: 1.011
+    dps: 600002

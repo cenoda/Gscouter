@@ -1,0 +1,23 @@
+id: freminet-xingqiu-lisa-mika
+name: Freminet / Xingqiu / Lisa / Mika
+members:
+    - freminet
+    - xingqiu
+    - lisa
+    - mika
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/FpPWKFmJbbTL
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (freminet C6, lisa C6, mika C6, xingqiu C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 37169
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.003
+    kept: 0.987
+    dps: 35679

@@ -1,0 +1,23 @@
+id: mualani-mona-sucrose-mavuika
+name: Mualani / Mona / Sucrose / Mavuika
+members:
+    - mualani
+    - mona
+    - sucrose
+    - mavuika
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/DjkBz9MFDTjC
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (mavuika C0, mona C4, mualani C1, sucrose C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 229957
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.02
+    kept: 1.017
+    dps: 229171

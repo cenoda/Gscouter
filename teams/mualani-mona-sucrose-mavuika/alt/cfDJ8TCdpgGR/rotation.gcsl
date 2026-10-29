@@ -1,0 +1,51 @@
+active mavuika;
+fn mualani_combo2() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<2; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+  mualani walk[f=1];
+}
+fn mualani_combo3() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+  mualani walk[f=1];
+}
+for let i=0; i<6; i=i+1 {
+  
+  mona skill;
+  
+  if .mav.burst.ready {
+    mav burst, skill, attack;
+  } else {
+    mav charge, skill[hold=1];
+  }
+  mona burst, attack;
+  sucrose skill, dash;
+  if .sucrose.burst.ready {
+    sucrose burst;
+  }
+  mualani skill;
+  if .mualani.burst.ready {
+    mualani walk, burst;
+    mualani_combo2();
+  }
+  else {
+    mualani_combo3();
+  }
+
+}

@@ -28,6 +28,12 @@ func TestLoadAllTeams(t *testing.T) {
 		if team.Status != StatusBlocked && team.Written() && (len(team.Sources) == 0 || team.CrossCheck == nil || team.CrossCheck.Note == "") {
 			t.Errorf("%s: written rotation without sources or a cross_check note", team.ID)
 		}
+		// An alternative is another community rotation (design §5.2).
+		for _, alt := range team.Alternatives {
+			if len(alt.Sources) == 0 || strings.Join(strings.Fields(alt.Rotation), " ") == strings.Join(strings.Fields(team.Rotation), " ") {
+				t.Errorf("%s: alternative %v without a source or with the team's own rotation", team.ID, alt.Sources)
+			}
+		}
 	}
 }
 
@@ -233,6 +239,55 @@ func TestWritten(t *testing.T) {
 	} {
 		if got := c.team.Written(); got != c.want {
 			t.Errorf("tier %q, reference %v: Written() = %v", c.team.Tier, c.team.Reference != nil, got)
+		}
+	}
+}
+
+func TestLoadAlternatives(t *testing.T) {
+	write := func(dir, yaml, build string) {
+		t.Helper()
+		if err := os.MkdirAll(dir, 0o755); err != nil {
+			t.Fatal(err)
+		}
+		for name, content := range map[string]string{"team.yaml": yaml, "rotation.gcsl": "active a;\n", "build.txt": build} {
+			if err := os.WriteFile(filepath.Join(dir, name), []byte(content), 0o644); err != nil {
+				t.Fatal(err)
+			}
+		}
+	}
+	team := "id: x\nmembers: [furina, xilonen, c, d]\nstatus: supported\n"
+	alt := "id: x\nmembers: [xilonen, Furina, d, c]\nreference: {dps: 1000}\nstatus: "
+	root := t.TempDir()
+	write(root, team, "furina char lvl=90/90 cons=0 talent=9,9,9;\nxilonen char lvl=90/90 cons=2 talent=9,9,9;\n")
+	write(filepath.Join(root, AltDir, "e1"), alt+"supported\n", "furina char lvl=90/90 cons=6 talent=9,9,9;\nxilonen char lvl=90/90 cons=2 talent=9,9,9;\n")
+	write(filepath.Join(root, AltDir, "e2"), alt+"draft\n", "")
+	got, err := Load(root)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(got.Alternatives) != 2 {
+		t.Fatalf("loaded %d alternatives, want 2", len(got.Alternatives))
+	}
+	// A draft alternative is not tried.
+	if rs := got.Rotations(); len(rs) != 2 || rs[0] != got || rs[1] != got.Alternatives[0] {
+		t.Errorf("Rotations() = %v, want the team and its supported alternative", rs)
+	}
+	if r := got.Alternatives[0].Raised(got); len(r) != 1 || r[0] != (Cons{"furina", 6}) {
+		t.Errorf("Raised = %v, want [{furina 6}]", r)
+	}
+	if n := DirName(filepath.Join(root, AltDir, "e1")); n != filepath.Base(root)+"/alt/e1" {
+		t.Errorf("DirName = %q", n)
+	}
+
+	// An alternative must be the same team, with a source DPS.
+	for _, bad := range []string{
+		"id: y\nmembers: [furina, xilonen, c, d]\nreference: {dps: 1000}\nstatus: supported\n",
+		"id: x\nmembers: [furina, xilonen, c, e]\nreference: {dps: 1000}\nstatus: supported\n",
+		"id: x\nmembers: [furina, xilonen, c, d]\nstatus: supported\n",
+	} {
+		write(filepath.Join(root, AltDir, "e2"), bad, "")
+		if _, err := Load(root); err == nil {
+			t.Errorf("expected an error for alternative %q", bad)
 		}
 	}
 }

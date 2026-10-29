@@ -1,0 +1,23 @@
+id: raidenshogun-xiangling-dehya-chevreuse
+name: Raidenshogun / Xiangling / Dehya / Chevreuse
+members:
+    - raiden
+    - chevreuse
+    - xiangling
+    - dehya
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/bwG8nQQpNC7z
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (chevreuse C6, dehya C2, raidenshogun C0, xiangling C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 54566
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.001
+    kept: 0.929
+    dps: 51234

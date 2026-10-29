@@ -242,6 +242,11 @@ type teamResult struct {
 	Timelines []*timelineView
 	// Rotation is the library rotation as run for this player.
 	Rotation string
+	// Alternative is the team's alternative (library.Team.Alternatives)
+	// that scored best for this build, nil when its own rotation did, and
+	// AlternativeNote says so.
+	Alternative     *library.Team
+	AlternativeNote string
 	// ID tells the teams on one page apart, for element ids.
 	ID string
 	// Problem explains why there is no score: unsupported team, blocked
@@ -367,57 +372,54 @@ const exploreIterations = 10
 // compute calculates a prepared team with sim, filling in its score, or
 // its Problem when the calculation fails.
 func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *teamResult) {
-	var build strings.Builder
-	renames := map[string]string{}
-	for _, c := range tr.Chars {
-		line := c.Config()
-		for _, m := range tr.Team.Members {
-			if library.Canonical(m) == library.Canonical(c.Key) {
-				renames[m] = c.Key
-				line = config.AddParams(line, c.Key, tr.Team.Params[m])
+	// Each of the team's rotations (its own and its alternatives) names
+	// the members its own way and may need params of its own.
+	rotations := tr.Team.Rotations()
+	builds := make([]string, len(rotations))
+	runs := make([]steady.Rotation, len(rotations))
+	for i, t := range rotations {
+		var build strings.Builder
+		renames := map[string]string{}
+		for _, c := range tr.Chars {
+			line := c.Config()
+			for _, m := range t.Members {
+				if library.Canonical(m) == library.Canonical(c.Key) {
+					renames[m] = c.Key
+					line = config.AddParams(line, c.Key, t.Params[m])
+				}
 			}
+			build.WriteString(line)
+			build.WriteString("\n")
 		}
-		build.WriteString(line)
-		build.WriteString("\n")
-	}
-	rotation := config.RenameCharacters(tr.Team.Rotation, renames)
-	var members []string
-	for _, m := range tr.Team.Members {
-		members = append(members, cmp.Or(renames[m], m))
-	}
-	once := config.Assemble(config.Conditions{Iterations: set.Iterations, Enemy: tr.Enemy}, build.String(), rotation)
-	looped := func(rotation string, iterations int) (*score.Result, error) {
-		cfg := config.Assemble(config.Conditions{Iterations: iterations, Duration: set.Duration, Enemy: tr.Enemy}, build.String(), rotation)
-		return sim.Score(ctx, cfg, set.Warmup, iterations)
+		builds[i] = build.String()
+		runs[i].Rotation = config.RenameCharacters(t.Rotation, renames)
+		for _, m := range t.Members {
+			runs[i].Members = append(runs[i].Members, cmp.Or(renames[m], m))
+		}
 	}
 
 	// The rotation as written runs with the full iterations; most teams
-	// stop there. Fillers are only ranked, with fewer.
-	var first *steady.Outcome
-	out, err := steady.Score(rotation, members, func(rotation string) (*score.Result, error) {
+	// stop there. Fillers and alternatives are only ranked, with fewer,
+	// and the best of them confirmed with the full iterations.
+	best, out, err := steady.Best(runs, func(i int, rotation string, rank bool) (*score.Result, error) {
 		iterations := set.Iterations
-		if first != nil {
+		if rank {
 			iterations = min(iterations, exploreIterations)
 		}
-		res, err := looped(rotation, iterations)
+		cfg := config.Assemble(config.Conditions{Iterations: iterations, Duration: set.Duration, Enemy: tr.Enemy}, builds[i], rotation)
+		res, err := sim.Score(ctx, cfg, set.Warmup, iterations)
 		if err != nil && (errors.Is(err, errBusy) || ctx.Err() != nil) {
 			return nil, steady.Fatal(err)
 		}
-		if err == nil && first == nil {
-			first = &steady.Outcome{Result: res, Looped: rotation}
+		if err != nil && i > 0 {
+			slog.Warn("alternative rotation failed", "team", tr.Team.ID, "source", rotations[i].Sources, "err", err)
 		}
 		return res, err
 	})
-	if err == nil && out.Filled && out.Result.Iterations < set.Iterations {
-		var res *score.Result
-		if res, err = looped(out.Looped, set.Iterations); err == nil {
-			out.Result = res
-			// Ranked on fewer iterations, the filler can come out
-			// below the rotation as written.
-			if res.DPS <= first.Result.DPS {
-				out = first
-			}
-		}
+	var build, rotation, once string
+	if err == nil {
+		build, rotation = builds[best], runs[best].Rotation
+		once = config.Assemble(config.Conditions{Iterations: set.Iterations, Enemy: tr.Enemy}, build, rotation)
 	}
 	var oneRes *score.Result
 	if err == nil {
@@ -434,6 +436,10 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 	}
 	res := out.Result
 	tr.Filler = fillerNote(l, out)
+	if best > 0 {
+		tr.Alternative = rotations[best]
+		tr.AlternativeNote = alternativeNote(l, tr.Team, tr.Alternative)
+	}
 	tr.Result = res
 	tr.OneRotation = oneRes
 	tr.Warnings = append(warnings(l, tr.Team, tr.Chars, res), duplicates(l, tr.Chars)...)
@@ -446,7 +452,7 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 			tr.Stats = append(tr.Stats, d.Stats)
 		}
 	}
-	tr.Timelines = cycleViews(ctx, l, sim, set, *tr, once, config.Assemble(config.Conditions{Iterations: 1, Duration: set.Duration, Enemy: tr.Enemy}, build.String(), out.Looped), out.Filled)
+	tr.Timelines = cycleViews(ctx, l, sim, set, *tr, once, config.Assemble(config.Conditions{Iterations: 1, Duration: set.Duration, Enemy: tr.Enemy}, build, out.Looped), out.Filled)
 	for _, c := range tr.Chars {
 		if c.UnknownSets > 0 {
 			tr.Warnings = append(tr.Warnings, l.T("warn.unknown_sets", l.charName(c.Key), c.UnknownSets))
@@ -571,6 +577,30 @@ func sorted(s []string) []string {
 	out := slices.Clone(s)
 	slices.Sort(out)
 	return out
+}
+
+// alternativeNote says that the score uses one of the team's
+// alternatives, and the constellations it was written for.
+func alternativeNote(l localizer, team, alt *library.Team) string {
+	return l.T("rotation.alternative", writtenFor(l, team, alt))
+}
+
+// writtenFor lists the constellations an alternative was written for
+// that the team's rotation was not, e.g. "C6 Furina, C2 Xilonen"; all of
+// its constellations if none is higher.
+func writtenFor(l localizer, team, alt *library.Team) string {
+	raised := alt.Raised(team)
+	if len(raised) == 0 {
+		cons := alt.Constellations()
+		for _, m := range alt.Members {
+			raised = append(raised, library.Cons{Char: library.Canonical(m), Cons: cons[library.Canonical(m)]})
+		}
+	}
+	var parts []string
+	for _, c := range raised {
+		parts = append(parts, fmt.Sprintf("C%d %s", c.Cons, l.charName(c.Char)))
+	}
+	return strings.Join(parts, ", ")
 }
 
 // fillerNote explains how the score fills the rotation's waits.

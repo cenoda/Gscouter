@@ -1,0 +1,31 @@
+active ineffa;
+for let i=0; i<6; i=i+1 {
+  
+  if !is_even(i) {
+    ineffa skill, burst;
+    columbina skill, attack;
+  } else {
+    ineffa skill;
+    if i {
+      ineffa attack;
+    }
+    columbina skill, burst;
+  }
+  
+  durin skill:2, burst;
+  
+  flins skill, attack, 
+        skill, burst, 
+        attack:4, dash, attack:2, 
+        skill, attack, burst, 
+        attack:4, dash, attack:2, 
+        skill, attack, burst, 
+        attack;
+  if !is_even(i) {
+    if .flins.weapon == .keys.weapon.bloodsoakedruins {
+      flins attack:2, dash;
+    } else {
+      flins attack:3, dash; 
+    }
+  }
+}

@@ -8,12 +8,16 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io/fs"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"runtime/debug"
 	"strings"
+
+	"github.com/cenoda/gscouter/internal/library"
 )
 
 // Dirs returns dirs when any are given, else every directory directly
@@ -32,6 +36,25 @@ func Dirs(root string, dirs []string) ([]string, error) {
 		}
 	}
 	return dirs, nil
+}
+
+// WithAlternatives returns dirs with, after each team directory, those of
+// its alternatives (library.AltDir), in name order.
+func WithAlternatives(dirs []string) ([]string, error) {
+	var out []string
+	for _, dir := range dirs {
+		out = append(out, dir)
+		entries, err := os.ReadDir(filepath.Join(dir, library.AltDir))
+		if err != nil && !errors.Is(err, fs.ErrNotExist) {
+			return nil, err
+		}
+		for _, e := range entries {
+			if e.IsDir() {
+				out = append(out, filepath.Join(dir, library.AltDir, e.Name()))
+			}
+		}
+	}
+	return out, nil
 }
 
 // Shard returns every n-th of dirs from the k-th on, for spec "k/n"; an

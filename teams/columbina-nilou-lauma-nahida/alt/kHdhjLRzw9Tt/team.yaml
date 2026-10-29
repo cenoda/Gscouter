@@ -1,0 +1,23 @@
+id: columbina-nilou-lauma-nahida
+name: Columbina / Nilou / Lauma / Nahida
+members:
+    - columbina
+    - nilou
+    - nahida
+    - lauma
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/kHdhjLRzw9Tt
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (columbina C6, lauma C6, nahida C6, nilou C6): 3 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 1.076241e+06
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.004
+    kept: 1.015
+    dps: 1097755

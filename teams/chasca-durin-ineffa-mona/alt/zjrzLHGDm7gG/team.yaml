@@ -1,0 +1,23 @@
+id: chasca-durin-ineffa-mona
+name: Chasca / Durin / Ineffa / Mona
+members:
+    - chasca
+    - ineffa
+    - mona
+    - durin
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/zjrzLHGDm7gG
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (chasca C0, durin C0, ineffa C0, mona C4): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 101852
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.007
+    kept: 0.949
+    dps: 97345

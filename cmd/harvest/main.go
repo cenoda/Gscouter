@@ -21,6 +21,15 @@
 // Teams that fail every entry are recorded in <root>/harvest-failed.txt
 // and skipped by the next run unless -retry-failed is set.
 //
+// Each team harvested also gets its alternatives (library.AltDir): for
+// every set of constellations above those of the team's entry that the
+// database has, the entry chosen the same way among those written for
+// it, kept when its rotation differs from the team's and it meets the
+// criteria for supported. The score tries them besides the team's own
+// rotation and keeps the best (design §5.2). -alternatives only
+// harvests them again, for the teams already in the library, and adds
+// no team.
+//
 // An experimental team whose rotation was written from a guide
 // (library.Team.Written) is replaced, without -force, once the database
 // has an entry for it that passes; until then it is kept as it is.
@@ -30,6 +39,7 @@
 //	harvest                                # the 64 most common teams into teams/
 //	harvest -n 10000 -cache kqm.json       # every team, reusing a saved download
 //	harvest -n 100 -force                  # replace existing teams
+//	harvest -n 10000 -cache kqm.json -alternatives  # redo every team's alternatives
 package main
 
 import (
@@ -51,6 +61,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/cenoda/gscouter/internal/batch"
 	"github.com/cenoda/gscouter/internal/config"
 	"github.com/cenoda/gscouter/internal/kqm"
 	"github.com/cenoda/gscouter/internal/library"
@@ -62,16 +73,17 @@ import (
 const failedFile = "harvest-failed.txt"
 
 type options struct {
-	root        string
-	n           int
-	minEntries  int
-	tries       int
-	choose      int
-	iterations  int
-	jobs        int
-	cache       string
-	force       bool
-	retryFailed bool
+	root         string
+	n            int
+	minEntries   int
+	tries        int
+	choose       int
+	iterations   int
+	jobs         int
+	cache        string
+	force        bool
+	retryFailed  bool
+	alternatives bool
 }
 
 func main() {
@@ -87,6 +99,7 @@ func main() {
 	flag.StringVar(&o.cache, "cache", "", "file to save the database download to, and to read it from when it exists")
 	flag.BoolVar(&o.force, "force", false, "replace teams already in the library")
 	flag.BoolVar(&o.retryFailed, "retry-failed", false, "try again the teams listed in "+failedFile)
+	flag.BoolVar(&o.alternatives, "alternatives", false, "only harvest again the alternatives of the teams already in the library")
 	flag.Parse()
 	if err := run(o); err != nil {
 		fmt.Fprintln(os.Stderr, "error:", err)
@@ -164,10 +177,18 @@ func run(o options) error {
 
 	// Choose the teams to harvest in rank order.
 	var todo []*group
+	// alts are the teams whose alternatives are harvested afterwards.
+	var alts []altJob
 	held, skippedFailed := 0, 0
 	for _, g := range groups {
 		if held+len(todo) >= o.n || len(g.candidates) < o.minEntries {
 			break
+		}
+		if o.alternatives {
+			if ex, ok := existing[g.key]; ok && !ex.team.Written() {
+				alts = append(alts, altJob{ex.dir, g})
+			}
+			continue
 		}
 		if ex, ok := existing[g.key]; ok {
 			// A written rotation gives way to the database's entry, but
@@ -221,12 +242,13 @@ func run(o options) error {
 				next++
 				mu.Unlock()
 
-				ok, reason, log := harvest(o.root, g, o.tries, o.choose, settings)
+				dir, reason, log := harvest(o.root, g, o.tries, o.choose, settings)
 				mu.Lock()
 				fmt.Print(log)
-				if ok {
+				if dir != "" {
 					added++
 					delete(failed, g.key)
+					alts = append(alts, altJob{dir, g})
 				} else {
 					if g.replaces != "" {
 						held++ // the written rotation stays
@@ -243,31 +265,43 @@ func run(o options) error {
 	}
 	fmt.Printf("\nharvested %d of %d teams in %v; the library holds %d teams. %d failed teams are listed in %s.\n",
 		added, len(todo), time.Since(harvestStart).Round(time.Second), held+added, len(failed), filepath.Join(o.root, failedFile))
+
+	altStart := time.Now()
+	slices.SortFunc(alts, func(a, b altJob) int { return cmp.Compare(a.dir, b.dir) })
+	written, withAlts := 0, 0
+	for _, ch := range batch.Parallel(len(alts), o.jobs, func(i int) altResult {
+		return alternatives(alts[i].dir, alts[i].g, byID, o.choose, settings)
+	}) {
+		r := <-ch
+		fmt.Print(r.log)
+		written += r.written
+		if r.written > 0 {
+			withAlts++
+		}
+	}
+	if len(alts) > 0 {
+		fmt.Printf("\nwrote %d alternatives for %d of %d teams in %v.\n", written, withAlts, len(alts), time.Since(altStart).Round(time.Second))
+	}
 	return nil
 }
 
-// harvest imports the team's entry that loops best. It tries the
+// harvest imports the team's entry that loops best and returns its
+// directory, "" for a team that fails. It tries the
 // entries from the lowest investment up: an entry must pass the
 // reference check and then the full check (the looped rotation must
 // not stall), and of the first choose entries that pass both it keeps
 // the one whose score keeps most of its one pass (validate.Report.Kept,
 // counted up to 100%; a lower investment wins within 2%). It returns, for a team that
 // fails, the reason the first entry failed, and what to print.
-func harvest(root string, g *group, tries, choose int, s validate.Settings) (bool, string, string) {
+func harvest(root string, g *group, tries, choose int, s validate.Settings) (string, string, string) {
 	cs := slices.Clone(g.candidates)
-	slices.SortFunc(cs, func(a, b candidate) int {
-		return cmp.Or(
-			cmp.Compare(a.entry.Investment(), b.entry.Investment()),
-			cmp.Compare(b.entry.LastUpdate, a.entry.LastUpdate),
-			cmp.Compare(a.entry.ID, b.entry.ID),
-		)
-	})
+	sortCandidates(cs)
 	if tries > 0 {
 		cs = cs[:min(tries, len(cs))]
 	}
 	tmp, err := os.MkdirTemp("", "harvest-")
 	if err != nil {
-		return false, err.Error(), "error: " + err.Error() + "\n"
+		return "", err.Error(), "error: " + err.Error() + "\n"
 	}
 	defer os.RemoveAll(tmp)
 
@@ -315,18 +349,19 @@ func harvest(root string, g *group, tries, choose int, s validate.Settings) (boo
 		if g.replaces != "" {
 			// The entry's directory may be named in another member order.
 			if err := os.RemoveAll(g.replaces); err != nil {
-				return false, err.Error(), "error: " + err.Error() + "\n"
+				return "", err.Error(), "error: " + err.Error() + "\n"
 			}
 		}
 		best.team.Validation = best.r.Validation(s.Iterations)
 		if best.team.Validation.Draft == "" {
 			best.team.Status = library.StatusSupported
 		}
-		if _, err := best.split.Write(root, best.team, true); err != nil {
-			return false, err.Error(), "error: " + err.Error() + "\n"
+		dir, err := best.split.Write(root, best.team, true)
+		if err != nil {
+			return "", err.Error(), "error: " + err.Error() + "\n"
 		}
 		r := best.r
-		return true, "", fmt.Sprintf("add  %-46s looped %8.0f  one rotation %8.0f  kept %3.0f%% (source %8.0f, %d of %d entries passed, %s)\n",
+		return dir, "", fmt.Sprintf("add  %-46s looped %8.0f  one rotation %8.0f  kept %3.0f%% (source %8.0f, %d of %d entries passed, %s)\n",
 			best.team.ID, r.Res.DPS, r.Once.DPS, r.Kept()*100, best.team.Reference.DPS, passed, len(g.candidates), best.entry.ID)
 	}
 	var b strings.Builder
@@ -335,7 +370,178 @@ func harvest(root string, g *group, tries, choose int, s validate.Settings) (boo
 		fmt.Fprintf(&b, "       %s\n", f)
 	}
 	reason := fmt.Sprintf("%d entries tried; first: %s", len(cs), strings.Join(strings.Fields(failures[0]), " "))
-	return false, reason[:min(len(reason), 300)], b.String()
+	return "", reason[:min(len(reason), 300)], b.String()
+}
+
+// sortCandidates orders entries from the lowest investment up, the most
+// recent first within one.
+func sortCandidates(cs []candidate) {
+	slices.SortFunc(cs, func(a, b candidate) int {
+		return cmp.Or(
+			cmp.Compare(a.entry.Investment(), b.entry.Investment()),
+			cmp.Compare(b.entry.LastUpdate, a.entry.LastUpdate),
+			cmp.Compare(a.entry.ID, b.entry.ID),
+		)
+	})
+}
+
+// altJob is a team whose alternatives are harvested.
+type altJob struct {
+	dir string
+	g   *group
+}
+
+type altResult struct {
+	written int
+	log     string
+}
+
+// alternatives replaces the team's alternatives (library.AltDir) with
+// those the database has: the entries with a member at a higher
+// constellation than in the entry the team's rotation came from, grouped
+// by their constellations. Each group's entries are tried as harvest
+// tries a team's, at most choose passing, and the one that keeps most
+// of its one pass is written, if its rotation is not one the team has
+// already and it meets the criteria for supported. A team whose own
+// entry is not in the database gets none.
+func alternatives(dir string, g *group, byID map[string]candidate, choose int, s validate.Settings) altResult {
+	fail := func(err error) altResult {
+		return altResult{log: fmt.Sprintf("alt  %-46s error: %v\n", filepath.Base(dir), err)}
+	}
+	team, err := library.Load(dir)
+	if err != nil {
+		return fail(err)
+	}
+	altRoot := filepath.Join(dir, library.AltDir)
+	if err := os.RemoveAll(altRoot); err != nil {
+		return fail(err)
+	}
+	if len(team.Sources) == 0 {
+		return altResult{}
+	}
+	id, _ := strings.CutPrefix(team.Sources[0], "https://db.kqm.gg/db/")
+	base, ok := byID[id]
+	if !ok {
+		return altResult{}
+	}
+	baseCons := entryCons(base.entry)
+	groups := map[string][]candidate{}
+	for _, c := range g.candidates {
+		cons := entryCons(c.entry)
+		if c.entry.ID == id || !slices.ContainsFunc(slices.Collect(maps.Keys(cons)), func(k string) bool { return cons[k] > baseCons[k] }) {
+			continue
+		}
+		var profile []string
+		for _, k := range slices.Sorted(maps.Keys(cons)) {
+			profile = append(profile, fmt.Sprintf("%s C%d", k, cons[k]))
+		}
+		key := strings.Join(profile, ", ")
+		groups[key] = append(groups[key], c)
+	}
+	if len(groups) == 0 {
+		return altResult{}
+	}
+	tmp, err := os.MkdirTemp("", "harvest-alt-")
+	if err != nil {
+		return fail(err)
+	}
+	defer os.RemoveAll(tmp)
+
+	rotations := map[string]bool{normalize(team.Rotation): true}
+	var out altResult
+	var b strings.Builder
+	for n, profile := range slices.Sorted(maps.Keys(groups)) {
+		cs := groups[profile]
+		sortCandidates(cs)
+		type pick struct {
+			split share.Split
+			team  *library.Team
+			entry *kqm.Entry
+			r     *validate.Report
+		}
+		var best *pick
+		var failures []string
+		passed, same := 0, 0
+		for i, c := range cs {
+			if choose > 0 && passed >= choose {
+				break
+			}
+			if rotations[normalize(c.split.Rotation)] {
+				same++
+				continue
+			}
+			notes := fmt.Sprintf("Harvested from the KQM gcsim database as an alternative for higher constellations (%s): %d entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.", profile, len(cs))
+			alt, err := c.split.Team([]string{c.entry.Link()}, reference(c.entry), notes)
+			if err != nil {
+				failures = append(failures, c.entry.ID+": "+err.Error())
+				continue
+			}
+			alt.ID, alt.Name = team.ID, team.Name
+			tdir := filepath.Join(tmp, fmt.Sprintf("%d-%d", n, i), team.ID, library.AltDir, c.entry.ID)
+			if err := c.split.WriteDir(tdir, alt); err != nil {
+				return fail(err)
+			}
+			r := validate.CheckReferenceIsolated(tdir, s)
+			if len(r.Failures) == 0 {
+				r = validate.CheckIsolated(tdir, s)
+			}
+			if len(r.Failures) > 0 {
+				failures = append(failures, c.entry.ID+": "+strings.Join(r.Failures, "; "))
+				continue
+			}
+			passed++
+			if best == nil || min(r.Kept(), 1) > min(best.r.Kept(), 1)+0.02 {
+				best = &pick{c.split, alt, c.entry, r}
+			}
+		}
+		switch {
+		case best == nil && same == len(cs):
+			fmt.Fprintf(&b, "alt  %-46s %s: same rotation as the team's\n", team.ID, profile)
+			continue
+		case best == nil:
+			fmt.Fprintf(&b, "alt  %-46s %s: none of %d entries passed\n", team.ID, profile, len(cs))
+			for _, f := range failures {
+				fmt.Fprintf(&b, "       %s\n", f)
+			}
+			continue
+		}
+		best.team.Validation = best.r.Validation(s.Iterations)
+		if d := best.team.Validation.Draft; d != "" {
+			fmt.Fprintf(&b, "alt  %-46s %s: %s not kept, %s\n", team.ID, profile, best.entry.ID, d)
+			continue
+		}
+		if best.team.Tier == library.TierExperimental {
+			// A person reviews an experimental team before it is
+			// supported (design §5.4); an alternative is never reviewed.
+			fmt.Fprintf(&b, "alt  %-46s %s: %s not kept, experimental\n", team.ID, profile, best.entry.ID)
+			continue
+		}
+		best.team.Status = library.StatusSupported
+		if err := best.split.WriteDir(filepath.Join(altRoot, best.entry.ID), best.team); err != nil {
+			return fail(err)
+		}
+		rotations[normalize(best.split.Rotation)] = true
+		out.written++
+		r := best.r
+		fmt.Fprintf(&b, "alt  %-46s %s: %s looped %8.0f  one rotation %8.0f  kept %3.0f%% (%d of %d entries passed)\n",
+			team.ID, profile, best.entry.ID, r.Res.DPS, r.Once.DPS, r.Kept()*100, passed, len(cs))
+	}
+	out.log = b.String()
+	return out
+}
+
+// entryCons returns an entry's constellations by canonical name.
+func entryCons(e *kqm.Entry) map[string]int {
+	out := map[string]int{}
+	for _, c := range e.Summary.Team {
+		out[library.Canonical(c.Name)] = c.Cons
+	}
+	return out
+}
+
+// normalize collapses a rotation's whitespace, to compare rotations.
+func normalize(rotation string) string {
+	return strings.Join(strings.Fields(rotation), " ")
 }
 
 // reference is the entry's team DPS. The database reports DPS per

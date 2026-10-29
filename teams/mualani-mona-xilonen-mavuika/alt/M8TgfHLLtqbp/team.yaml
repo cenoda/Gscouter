@@ -1,0 +1,23 @@
+id: mualani-mona-xilonen-mavuika
+name: Mualani / Mona / Xilonen / Mavuika
+members:
+    - mualani
+    - mona
+    - xilonen
+    - mavuika
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/M8TgfHLLtqbp
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (mavuika C0, mona C2, mualani C0, xilonen C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 111099
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.001
+    kept: 0.974
+    dps: 108146

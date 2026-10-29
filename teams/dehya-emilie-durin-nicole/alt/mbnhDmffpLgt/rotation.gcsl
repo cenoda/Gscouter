@@ -1,0 +1,15 @@
+active dehya;
+for let i=0; i<6; i=i+1 {
+  dehya skill;
+  if i > 0 && .emilie.burst.ready {
+    emilie burst;
+  } else {
+    emilie skill;
+  }
+  
+  nicole burst, skill;
+  
+  durin burst, attack, skill:2, attack;
+  
+  dehya burst, attack:15;
+}

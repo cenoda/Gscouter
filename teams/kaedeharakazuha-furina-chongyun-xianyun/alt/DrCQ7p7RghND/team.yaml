@@ -1,0 +1,23 @@
+id: kaedeharakazuha-furina-chongyun-xianyun
+name: Kaedeharakazuha / Furina / Chongyun / Xianyun
+members:
+    - kazuha
+    - furina
+    - chongyun
+    - xianyun
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/DrCQ7p7RghND
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (chongyun C6, furina C6, kaedeharakazuha C6, xianyun C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 139757
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0
+    kept: 1.01
+    dps: 141169

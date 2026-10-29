@@ -1,0 +1,23 @@
+id: clorinde-furina-xilonen-chiori
+name: Clorinde / Furina / Xilonen / Chiori
+members:
+    - clorinde
+    - furina
+    - xilonen
+    - chiori
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/fQHPqwGcjzF7
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (chiori C6, clorinde C6, furina C6, xilonen C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 396081
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0
+    kept: 1.018
+    dps: 403095

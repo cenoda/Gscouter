@@ -1,0 +1,18 @@
+active keq;
+keq skill;
+for let i=0; i<6; i=i+1 {
+	nicole burst, skill;
+	chev burst, skill[hold=1];
+	
+	durin burst, skill:2;
+  keq skill, burst, skill,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      attack, charge,
+      skill, skill,
+      attack, charge,
+      attack, charge,
+      attack, charge;
+}

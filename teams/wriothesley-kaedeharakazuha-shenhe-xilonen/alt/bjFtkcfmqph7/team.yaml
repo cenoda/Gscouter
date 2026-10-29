@@ -1,0 +1,23 @@
+id: wriothesley-kaedeharakazuha-shenhe-xilonen
+name: Wriothesley / Kaedeharakazuha / Shenhe / Xilonen
+members:
+    - wrio
+    - shenhe
+    - kazuha
+    - xilonen
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/bjFtkcfmqph7
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (kaedeharakazuha C6, shenhe C6, wriothesley C6, xilonen C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 300775
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.001
+    kept: 0.996
+    dps: 299855

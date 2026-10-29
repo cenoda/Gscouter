@@ -1,0 +1,22 @@
+active bennett;
+for let r = 0; r < 4; r = r + 1 {
+  bennett skill, burst;
+  
+  chevreuse burst, skill[hold=1], skill[hold=1], attack;
+  
+  if .fischl.skill.ready {
+    fischl attack:2,skill;
+  } else if .fischl.burst.ready {
+    fischl attack:2, burst;
+  }
+  bennett skill, attack;
+  keqing skill,
+  attack:2, charge, 
+  attack, charge, 
+  attack, charge, 
+  attack, charge,
+  attack, charge,
+  attack, charge,
+  attack, charge,
+  attack, charge;
+}

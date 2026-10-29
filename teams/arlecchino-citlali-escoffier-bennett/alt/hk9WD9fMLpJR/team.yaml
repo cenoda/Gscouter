@@ -1,0 +1,23 @@
+id: arlecchino-citlali-escoffier-bennett
+name: Arlecchino / Citlali / Escoffier / Bennett
+members:
+    - arlecchino
+    - escoffier
+    - citlali
+    - bennett
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/hk9WD9fMLpJR
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (arlecchino C2, bennett C6, citlali C0, escoffier C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 157751
+    computed: "2026-09-30"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.003
+    kept: 1.024
+    dps: 162110

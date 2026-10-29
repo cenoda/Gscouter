@@ -1,0 +1,21 @@
+active nicole;
+for let i = 0; i < 4; i = i + 1 {
+  
+  nicole attack:2, skill;
+  
+  yelan skill, burst, attack;
+  mona skill, burst, attack;
+  wait(17);
+  mona attack;
+  
+  tao skill,
+      attack:2, charge, dash,
+      attack:2, charge, dash,
+      attack:2, charge, dash,
+      attack:2, charge, dash,   
+      attack:2, charge, dash,
+      attack:2, charge, dash,
+      attack:2, charge, dash,
+      attack:2, charge, dash,   
+      attack:1, charge, dash, attack:1, charge, jump; 
+}

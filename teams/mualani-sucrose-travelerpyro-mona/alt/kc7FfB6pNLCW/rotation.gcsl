@@ -1,0 +1,46 @@
+active mona;
+fn mualani_combo2() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<2; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+  mualani walk[f=1];
+}
+fn mualani_combo3() {
+  
+  while .mualani.nightsoul.state {
+    for let k=0; k<3; k=k+1 {
+      while .mualani.momentum < 3 {
+        mualani walk[f=1];
+      }
+      mualani attack;
+    }
+    break;
+  }
+  mualani walk[f=1];
+}
+for let i=0; i<6; i=i+1 {
+  
+  mona skill, attack, burst, attack;
+  wait(17);
+  mona attack:3;
+  while !.luminepyro.skill.ready {
+    mona attack;
+  }
+  luminepyro skill;   
+  delay(29);
+  sucrose skill;
+  mualani skill;
+  if .mualani.burst.ready {
+    mualani walk, burst;
+    mualani_combo2();
+  } else {
+    mualani_combo3();
+  }
+}

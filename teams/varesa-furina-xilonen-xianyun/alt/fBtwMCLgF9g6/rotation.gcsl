@@ -1,0 +1,42 @@
+fn varesa_combo(amt) {
+  for let j = 0; j < amt; j = j + 1 {
+    if .varesa.skill.ready {
+      varesa skill, attack, high_plunge[collision=1]; 
+
+    } else {
+      varesa charge, high_plunge[collision=1]; 
+    }
+    if .varesa.energy >= 30 && .varesa.status.apex-drive {
+      varesa burst;
+    }
+  }
+}
+fn varesa_combo_xianyun(amt) {
+  for let j = 0; j < amt; j = j + 1 {
+    varesa jump;
+    if .airborne {
+      varesa high_plunge[collision=1]; 
+    }
+    if .varesa.energy >= 30 && .varesa.status.apex-drive {
+      varesa burst;
+    }
+  }
+}
+active varesa;
+for let i=0; i<4; i=i+1 {
+  if !.element.t0.electro {
+    varesa attack;
+  }
+  xilonen skill, attack:2;
+  furina skill, dash, burst, attack:2;
+  varesa swap; wait(38);	
+  varesa attack;
+  xianyun attack, skill, low_plunge, burst;
+  varesa_combo(1);
+  if !.element.t0.electro {
+    varesa attack;
+  }
+  xilonen skill, attack:2;	
+  varesa_combo_xianyun(3);
+  varesa_combo(1);
+}

@@ -1,0 +1,23 @@
+id: xiao-faruzan-furina-xianyun
+name: Xiao / Faruzan / Furina / Xianyun
+members:
+    - xiao
+    - faruzan
+    - furina
+    - xianyun
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/n8fCP7cBnnWz
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (faruzan C6, furina C0, xianyun C0, xiao C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 75864
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0
+    kept: 0.992
+    dps: 75254

@@ -1,0 +1,23 @@
+id: keqing-nahida-furina-fischl
+name: Keqing / Nahida / Furina / Fischl
+members:
+    - keqing
+    - fischl
+    - nahida
+    - furina
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/PCGJzJJQjjPP
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (fischl C6, furina C6, keqing C6, nahida C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 166318
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0
+    kept: 1.026
+    dps: 173094

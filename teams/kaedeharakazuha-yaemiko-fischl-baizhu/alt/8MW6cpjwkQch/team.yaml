@@ -1,0 +1,23 @@
+id: kaedeharakazuha-yaemiko-fischl-baizhu
+name: Kaedeharakazuha / Yaemiko / Fischl / Baizhu
+members:
+    - yae
+    - fischl
+    - kazuha
+    - baizhu
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/8MW6cpjwkQch
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (baizhu C6, fischl C6, kaedeharakazuha C0, yaemiko C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 71115
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.002
+    kept: 1.05
+    dps: 74516

@@ -1,0 +1,28 @@
+active lauma;
+lauma attack;
+for let i=0; i<6; i=i+1 {
+  
+  if .columbina.burst.ready {
+    columbina burst;
+  } 
+  columbina skill;
+  
+  ineffa skill;
+  
+  ayato skill, attack:2;
+  
+  lauma attack, skill[hold=.dew>0], burst;
+  
+  columbina attack, charge, dash, charge, dash;
+  columbina attack, charge;
+  
+  if .ayato.burst.ready {
+    ayato burst, attack;
+  } else {
+    ayato attack, charge;
+  }
+  
+  columbina attack, charge, dash, charge, dash;
+  columbina attack, charge;
+}
+columbina dash, attack;

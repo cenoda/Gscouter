@@ -1,0 +1,23 @@
+id: yelan-furina-escoffier-citlali
+name: Yelan / Furina / Escoffier / Citlali
+members:
+    - yelan
+    - furina
+    - escoffier
+    - citlali
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/FTjTFjpN7fpm
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (citlali C6, escoffier C6, furina C6, yelan C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 443252
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0
+    kept: 1.026
+    dps: 454893

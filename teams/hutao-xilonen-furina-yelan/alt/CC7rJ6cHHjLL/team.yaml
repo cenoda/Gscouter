@@ -1,0 +1,25 @@
+id: hutao-xilonen-furina-yelan
+name: Hutao / Xilonen / Furina / Yelan
+members:
+    - hutao
+    - yelan
+    - furina
+    - xilonen
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/CC7rJ6cHHjLL
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (furina C6, hutao C6, xilonen C6, yelan C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+params:
+    hutao: start_hp%=50
+reference:
+    dps: 373495
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.002
+    kept: 0.957
+    dps: 356878

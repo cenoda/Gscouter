@@ -1,0 +1,23 @@
+id: arlecchino-rosaria-kaeya-bennett
+name: Arlecchino / Rosaria / Kaeya / Bennett
+members:
+    - arle
+    - rosaria
+    - kaeya
+    - bennett
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/QWRCBGLDDbNC
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (arlecchino C0, bennett C6, kaeya C6, rosaria C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 73553
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.003
+    kept: 1.023
+    dps: 75014

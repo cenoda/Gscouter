@@ -1,0 +1,21 @@
+active arle;
+for let i = 0; i < 7; i = i + 1 {
+  arle charge, skill;
+  bennett skill, burst;
+  sucrose skill;
+  if .sucrose.burst.ready {
+    sucrose dash, burst, attack;
+  } else {
+    sucrose dash, attack;
+  }
+  citlali skill, burst;
+  arle charge[early_cancel=1], dash; 
+  arle attack, walk,
+       attack:3, dash,
+       attack:3, dash,
+       attack:3;
+  citlali attack;
+  arle attack, walk,
+       attack:3, dash,
+       attack:3;
+}

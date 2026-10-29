@@ -1,0 +1,23 @@
+id: xianyun-faruzan-durin-nicole
+name: Xianyun / Faruzan / Durin / Nicole
+members:
+    - xianyun
+    - faruzan
+    - durin
+    - nicole
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/nW9RNPm7kn7L
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (durin C0, faruzan C6, nicole C0, xianyun C1): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 79915
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.002
+    kept: 0.909
+    dps: 72554

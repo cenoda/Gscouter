@@ -1,0 +1,23 @@
+active yelan;
+for let i=0; i<4; i=i+1 {
+  yelan skill, attack:2, burst;
+  bennett attack, burst, attack, skill;
+  if .fischl.burst.ready {
+    fischl attack, burst; 
+  } else {
+    fischl attack, skill; 
+  }
+  hutao skill,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack, charge, dash;
+  bennett skill;
+}

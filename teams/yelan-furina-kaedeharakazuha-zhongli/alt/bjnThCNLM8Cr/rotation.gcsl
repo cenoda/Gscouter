@@ -1,0 +1,16 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, burst, attack;
+  yelan burst, attack;
+  if .kazuha.burst.ready {
+    kazuha burst;
+  } else {
+    kazuha skill,high_plunge;
+  }
+  kazuha attack;
+  furina attack, charge, attack, attack, charge;
+  zhongli skill[hold=1], dash;
+  kazuha skill, high_plunge;
+  yelan attack, skill, attack, skill, attack:2, dash;
+  yelan attack:4, dash, attack:4, dash;
+}

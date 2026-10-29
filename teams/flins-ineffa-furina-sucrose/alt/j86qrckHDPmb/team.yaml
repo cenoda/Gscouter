@@ -1,0 +1,23 @@
+id: flins-ineffa-furina-sucrose
+name: Flins / Ineffa / Furina / Sucrose
+members:
+    - flins
+    - ineffa
+    - sucrose
+    - furina
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/j86qrckHDPmb
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (flins C1, furina C0, ineffa C0, sucrose C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 150203
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.001
+    kept: 1
+    dps: 150370

@@ -1,0 +1,23 @@
+id: nahida-fischl-beidou-kaedeharakazuha
+name: Nahida / Fischl / Beidou / Kaedeharakazuha
+members:
+    - fischl
+    - beidou
+    - kazuha
+    - nahida
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/bcR6QJHLLBtH
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (beidou C6, fischl C6, kaedeharakazuha C2, nahida C3): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 147498
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.002
+    kept: 0.81
+    dps: 57097

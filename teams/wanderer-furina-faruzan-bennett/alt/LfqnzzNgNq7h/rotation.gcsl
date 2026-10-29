@@ -1,0 +1,21 @@
+active faruzan;
+for let i = 0; i < 4; i = i + 1  {
+  faruzan burst;
+  furina skill, dash, burst, attack:2;
+  bennett skill, burst;
+  wanderer attack, skill;
+  while .wanderer.skydweller-points > 12 {
+    if .wanderer.normal == 3 && .wanderer.mods.wanderer-a4 {
+      wanderer dash;
+    } else {
+      wanderer attack;
+    }
+  }
+  if .wanderer.burst.ready { 
+    wanderer burst;
+  }
+  if .wanderer.mods.windfavored-state {
+    wanderer skill;
+  }
+  bennett skill;
+}

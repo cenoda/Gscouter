@@ -1,0 +1,25 @@
+id: hutao-columbina-fischl-mona
+name: Hutao / Columbina / Fischl / Mona
+members:
+    - hutao
+    - fischl
+    - mona
+    - columbina
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/wWBKQkFnFdDk
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (columbina C0, fischl C6, hutao C1, mona C4): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+params:
+    hutao: start_hp=1
+reference:
+    dps: 133376
+    computed: "2026-09-30"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.001
+    kept: 0.976
+    dps: 130229

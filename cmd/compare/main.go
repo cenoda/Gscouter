@@ -39,6 +39,7 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/cenoda/gscouter/internal/library"
 	"github.com/cenoda/gscouter/internal/score"
 	"github.com/cenoda/gscouter/internal/validate"
 )
@@ -113,7 +114,7 @@ func (s *side) loadFile(name, pattern string, seen map[string]bool) error {
 		if err := json.Unmarshal(sc.Bytes(), &l); err != nil || l.Report == nil {
 			return fmt.Errorf("%s: not a report: %v", name, err)
 		}
-		team := filepath.Base(l.Dir)
+		team := library.DirName(l.Dir)
 		if seen[team] {
 			return fmt.Errorf("%s: %s is already in %s", name, team, pattern)
 		}

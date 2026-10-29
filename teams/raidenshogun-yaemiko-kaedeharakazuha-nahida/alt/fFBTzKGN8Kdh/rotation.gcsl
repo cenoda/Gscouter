@@ -1,0 +1,15 @@
+active yae;
+for let i=0; i<6; i=i+1 {
+  yaemiko skill:3;
+  if !i {
+    herexcellencythealmightynarukamiogoshogodofthunder attack, skill;
+  }
+  kazuha skill, high_plunge; 
+  nahida burst, skill, attack;
+  yaemiko attack, burst, skill:3;
+  kazuha skill, high_plunge, burst;
+  herexcellencythealmightynarukamiogoshogodofthunder burst, 
+                                                     attack:4, dash, attack:4, skill, attack:4, dash;
+                                                  
+  print("rotation done");
+}

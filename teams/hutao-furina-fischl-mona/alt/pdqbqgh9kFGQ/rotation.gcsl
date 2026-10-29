@@ -1,0 +1,20 @@
+active furina;
+for let x=0; x<3; x=x+1 {
+  fischl skill, attack;
+  furina skill, burst;
+  fischl attack:2, burst;
+  mona skill, burst, attack;
+  hutao skill,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash, 
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash;
+
+}

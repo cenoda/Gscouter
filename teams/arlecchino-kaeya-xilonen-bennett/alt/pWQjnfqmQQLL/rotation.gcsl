@@ -1,0 +1,28 @@
+active arlecchino;
+for let i=0; i<4; i=i+1 {
+  arle charge,skill;
+  if i {
+    arle attack;
+  }
+  bennett skill, burst;
+  xilonen skill, attack:2;
+  kaeya skill, dash; pick_up_crystallize("pyro");
+  kaeya burst;
+  arle  charge[early_cancel=1], dash;
+  while !.element.t0.cryo {
+    for let r = 0; r <50; r= r+1{
+      if !.element.t0.cryo {
+        wait(1);
+      } else {
+        break;
+      }
+    }
+  }
+  arle  attack:3, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, dash,
+        attack:3, jump,
+        attack:3;
+        
+}
