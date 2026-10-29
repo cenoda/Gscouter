@@ -222,7 +222,7 @@ _2026-10-29._ A community report says that C6 Skirk "doesn't count". It does: on
 
 ## 10. Mavuika's normal attacks
 
-_2026-10-29._ A second comment on the post of §1 ran Mavuika / Citlali / Xilonen / Nicole (Mavuika C2 with A Thousand Blazing Suns, Citlali C0, Xilonen C0 with Favonius Sword, Nicole C6 with Skyward Atlas) and read Mavuika's stint on the page as "E → charged → dash → normal → charged → Q → (charged ×5 · dash) ×2 → normal → E → normal". The charged attacks and the burst made sense to the poster; the normal attacks did not.
+_2026-10-29._ A second comment on the post of §1 ran Mavuika / Citlali / Xilonen / Nicole (Mavuika C2 with A Thousand Blazing Suns, Citlali C0 with Thrilling Tales of Dragon Slayers, Xilonen C0 with Favonius Sword, Nicole C6 with Skyward Atlas) and read Mavuika's stint on the page as "E → charged → dash → normal → charged → Q → (charged ×5 · dash) ×2 → normal → E → normal". The charged attacks and the burst made sense to the poster; the normal attacks did not.
 
 **What the stint is.** It is the library rotation (`N9CT6r6b7LGC`, C0) as one on-field stint, from Mavuika's swap-in to her swap-out, so it starts in the middle of the rotation's loop:
 
@@ -237,7 +237,7 @@ _2026-10-29._ A second comment on the post of §1 ran Mavuika / Citlali / Xilone
 
 The page labels the recast and the tap both "E", so the stint looks like it starts and ends with the same skill.
 
-**What each normal is worth.** The loop takes 18 s, the burst's cooldown, and Fighting Spirit is at its cap of 200 at every burst whether the normals are there or not (debug log, both builds), so no normal is there to charge the burst. Each was removed in turn (`cmd/gscouter`, 50 iterations; the commenter's build is the library build with the changes above, Citlali's weapon left as is):
+**What each normal is worth.** The loop takes 18 s, the burst's cooldown, and Fighting Spirit is at its cap of 200 at every burst whether the normals are there or not (debug log, both builds), so no normal is there to charge the burst. Each was removed in turn (`cmd/gscouter`, 50 iterations; the commenter's build is the library build with the changes above; its Citlali already has Thrilling Tales of Dragon Slayers, at R5):
 
 | Rotation | Library build | Commenter's build |
 |---|---|---|
