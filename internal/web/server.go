@@ -71,11 +71,12 @@ type Server struct {
 	links     LinkStore              // nil: no short links (see SetLinks)
 	linkLimit *rateLimit
 
-	site     string                     // the site's URL (see SetSite)
-	byID     map[string]*library.Team   // library teams by ID
-	byChar   map[string][]*library.Team // by canonical member, best score first
-	indexNow *indexNow                  // nil: no IndexNow (see SetIndexNow)
-	usage    *usage                     // nil: no usage counts (see SetUsage)
+	site       string                     // the site's URL (see SetSite)
+	byID       map[string]*library.Team   // library teams by ID
+	byChar     map[string][]*library.Team // by canonical member, best score first
+	indexNow   *indexNow                  // nil: no IndexNow (see SetIndexNow)
+	usage      *usage                     // nil: no usage counts (see SetUsage)
+	usageToken string                     // reads the counts at /healthz (see SetUsageToken)
 }
 
 func New(lib *library.Library, profiles ProfileSource, settings Settings) (*Server, error) {
@@ -131,9 +132,7 @@ func (s *Server) Handler() http.Handler {
 	}
 	mux.HandleFunc("POST /s", s.handleShorten)
 	mux.HandleFunc("GET /s/{id}", s.handleShort)
-	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("ok"))
-	})
+	mux.HandleFunc("GET /healthz", s.handleHealth)
 	return mux
 }
 

@@ -84,6 +84,7 @@ func main() {
 			slog.Error("usage counts off", "file", *usageFile, "err", err)
 		} else {
 			slog.Info("usage counts", "file", *usageFile)
+			srv.SetUsageToken(os.Getenv("GSCOUTER_USAGE_TOKEN"))
 		}
 	}
 
