@@ -50,6 +50,9 @@ func rgb(v uint32) color.RGBA {
 
 func (s *Server) handleScoreCard(w http.ResponseWriter, r *http.Request) {
 	sel, err := parseSelection(r.URL.Query().Get("a"))
+	if err == nil {
+		sel, err = withChart(sel, r.URL.Query(), "r")
+	}
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -71,6 +74,12 @@ func (s *Server) handleScoreCard(w http.ResponseWriter, r *http.Request) {
 func (s *Server) handleVersusCard(w http.ResponseWriter, r *http.Request) {
 	a, errA := parseSelection(r.URL.Query().Get("a"))
 	b, errB := parseSelection(r.URL.Query().Get("b"))
+	if errA == nil {
+		a, errA = withChart(a, r.URL.Query(), "ra")
+	}
+	if errB == nil {
+		b, errB = withChart(b, r.URL.Query(), "rb")
+	}
 	if errA != nil || errB != nil {
 		http.Error(w, "bad selection", http.StatusBadRequest)
 		return

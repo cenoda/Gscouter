@@ -1,6 +1,7 @@
 package chart
 
 import (
+	"slices"
 	"strings"
 	"testing"
 
@@ -109,5 +110,58 @@ func TestRecord(t *testing.T) {
 	}
 	if _, err := score.Once(config.Assemble(config.Conditions{Iterations: 1}, build, d.Gcsl(names)), 1); err != nil {
 		t.Errorf("recorded chart does not run: %v", err)
+	}
+}
+
+func TestPreview(t *testing.T) {
+	team, err := library.LoadFS(teams.FS, "hutao-xingqiu-zhongli-yelan")
+	if err != nil {
+		t.Fatal(err)
+	}
+	names := [Slots]string{"hutao", "xingqiu", "yelan", "zhongli"}
+	c, err := Parse("3E(hold=1) ~20 2E 2Q? 1Q? 1E [0N 0C]2 0E 0Q 2N")
+	if err != nil {
+		t.Fatal(err)
+	}
+	build := c.WithParams(team.Build, names, [Slots]string{"start_hp=1"})
+	p, err := c.Preview(build, names, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if p.Error != nil {
+		t.Fatalf("error at note %d: %s", p.Error.Note, p.Error.Message)
+	}
+	if len(p.Passes) != PreviewPasses {
+		t.Fatalf("passes %v", p.Passes)
+	}
+	// Pass 0 plays every note once, the repeated two twice.
+	var first []int
+	for _, n := range p.Notes {
+		if n.Pass == 0 {
+			first = append(first, n.Note)
+			if n.Start < n.Asked {
+				t.Errorf("note %d ran at %v before it was asked at %v", n.Note, n.Start, n.Asked)
+			}
+		}
+	}
+	want := []int{0, 1, 2, 3, 4, 5, 6, 5, 6, 7, 8, 9}
+	if !slices.Equal(first, want) {
+		t.Errorf("first pass notes %v, want %v", first, want)
+	}
+	// The wait before note 1 holds it back at least a third of a second.
+	if n := p.Notes[1]; n.Start-n.Asked < 20.0/60 {
+		t.Errorf("note 1 asked %v ran %v", n.Asked, n.Start)
+	}
+	if len(p.Lanes[3].Cooldown) == 0 || len(p.Lanes[0].Energy) == 0 || p.DPS <= 0 {
+		t.Errorf("lanes or DPS missing: %+v DPS %v", p.Lanes[3], p.DPS)
+	}
+
+	bad, _ := Parse("3E 2H")
+	p, err = bad.Preview(build, names, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if p.Error == nil || p.Error.Note != 1 {
+		t.Errorf("a plunge from the ground: error %+v, want at note 1", p.Error)
 	}
 }

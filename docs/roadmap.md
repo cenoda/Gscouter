@@ -56,7 +56,7 @@ Status: ✅ done · 🔶 partly done · ❌ not started.
 | 2 | Arena | DPS (strongly), Tier & Wiki | ❌ | Players' scores ranked against each other. Results are never sent to the server today (§4.7), so this needs a design change |
 | 2 | Artifact score | Artifacts | ❌ | CV extended to every stat, with weights simulated on the library builds and a penalty for a wrong main stat (`docs/artifacts.md`) |
 | 2 | Artifact swap | Artifacts | ❌ | Swap an artifact and see the new score |
-| 2 | Cycle swap | Cycle | ❌ | Change the rotation and see the new score |
+| 2 | Cycle swap | Cycle | 🔶 | Change the rotation and see the new score. The editor writes a rotation as a chart of notes, previews it with gcsim and scores it against the library's (`docs/cycle-swap.md`); saving, sending and teams outside the library are next |
 | 2 | Boss | Cycle | 🔶 | Score against a particular boss. Boss presets for level and resistances exist (§3.3) |
 | 2 | Pull planning | Pull a character | ❌ | Which characters to aim for |
 | 2 | Primogem priority | Pull a character | ❌ | Where primogems raise DPS the most |

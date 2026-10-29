@@ -97,12 +97,12 @@ func shortTarget(u string) (string, error) {
 	if err != nil || p.Scheme != "" || p.Host != "" {
 		return "", errors.New("not a result link")
 	}
-	var params []string
+	var params, charts []string
 	switch p.Path {
 	case "/score":
-		params = []string{"a"}
+		params, charts = []string{"a"}, []string{"r"}
 	case "/versus":
-		params = []string{"a", "b"}
+		params, charts = []string{"a", "b"}, []string{"ra", "rb"}
 	default:
 		return "", errors.New("not a result link")
 	}
@@ -121,6 +121,14 @@ func shortTarget(u string) (string, error) {
 	want := url.Values{}
 	for _, k := range params {
 		want.Set(k, q.Get(k))
+	}
+	for _, k := range charts {
+		if _, err := withChart(selection{}, q, k); err != nil {
+			return "", errors.New("not a result link")
+		}
+		if c := q.Get(k); c != "" {
+			want.Set(k, c)
+		}
 	}
 	addEnemy(want, enemy)
 	return p.Path + "?" + want.Encode(), nil

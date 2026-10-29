@@ -18,7 +18,7 @@ A user submits the builds of their party members, and Gscouter computes the team
 
 These set the scope of the MVP. Changing rotations, build recommendations and real content are planned beyond it, in `docs/roadmap.md`.
 
-- Evaluating player control/execution. Rotations are fixed by the system and cannot be changed by users.
+- Evaluating player control/execution. Each team's library rotation is fixed by the system; a player can score their own rotation in the editor (`docs/cycle-swap.md`), which the result names as theirs.
 - Predicting clear times for actual content (Spiral Abyss, Imaginarium Theater, etc.)
 - Build recommendations or artifact optimization
 

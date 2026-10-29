@@ -158,3 +158,22 @@ _2026-10-29._ Done (`internal/chart`).
   - The losses come from conditions the chart replays as decided once: an `if` that held in the second pass and not in later ones, `is_even` alternation, priority lists (−14% to −23%).
   - Marking every burst "only when ready" did worse (median −4.5%, 22 within 2%), so recorded bursts are plain notes and fillers handle the waits.
   - One team failed: Navia / Gorou / Furina / Xianyun, a high plunge recorded after Xianyun's airborne window, which gcsim rejects from the ground. Guarding plunges with `if .airborne` was tried and dropped: gcsl reads `.airborne` when it asks for the action, before the previous action has made the character airborne, and 23 teams lost (within 2% fell from 44 to 37). The editor shows such a failure at its note.
+
+### 11.2 The editor
+
+_2026-10-29._ Done (`/edit`, `internal/web/edit.go`, `templates/edit.html`, `chart.Preview`).
+
+- `/edit?a=<selection>&r=<chart>` opens the editor for a result page's team. Like result pages it redirects to the link with the builds. Without `r` it starts from the chart this browser kept for the team (`localStorage`, key `gscouter.chart:` and the members by slot), else from the library rotation recorded with the player's build (`chart.Record`, run in the browser). The result page has an "Edit the rotation" button.
+- The browser build (`cmd/wasm`) gives the editor `record`, `preview` and `encode`; the editor runs one worker (`static/worker.js`, message `call`).
+- **Preview** (`chart.Preview`): one gcsim run (seed 1, the player's build) of the chart looped three times, up to 240 s. Before each note the compiled chart has a marker (`delay(987654 + 1 + note)`), and one opens each pass. `score.Play` records the markers and does not play them, so each played note is known with when the chart reached it (`asked`) and when gcsim ran it (`start`). A note "only when ready" that was skipped has `start` −1. Every 15 frames the preview samples each member's burst energy and skill cooldown; field time and waits come from the result (`timeline.Build`). When gcsim stops the fight, the error names the note it was at. It takes about 10 ms natively.
+- **Drawing** follows the mockup (§6): lanes at 46 px/s, pass 1 editable and passes 2–3 faded, waits gcsim imposed hatched in the warning color, waits the chart asks for hatched gray, cooldown bars with a ◆ where the skill is ready, the energy line in each lane's bottom band, repeat brackets, and the playhead. A phone held sideways gets shorter lanes and the controls beside the chart.
+- **Input**: the controls and the game's PC keys (`Z` for attack, §6). A long press or held key gives the held form. Drag a note right to add a wait before it (0.1 s steps). Selection allows tap or hold, "only when ready", insert before, a range with a repeat count, and delete. Undo, and the chart in the address bar (`r`) after each change.
+- Not yet: the character params sheet (§9), saving several named charts (§7), and the versus page's own editor links.
+
+### 11.3 Scoring a chart
+
+_2026-10-29._ Done.
+
+- A result page with `r` (a versus page with `ra` and `rb`) scores that side's chart. The picker form already uses `c`, hence `r`. The chart is part of the selection (`selection.Chart`), so link previews, short links (`shortTarget` keeps a valid chart), the enemy form and the link without artifacts keep it.
+- `compute` scores the team's rotations as before, then the chart with the same pipeline (looped, fillers, `steady.Best` with the chart as its only rotation, with the team's character params unless the chart sets its own). The page shows the chart's score, with a note giving the library rotations' score on the same build and the chart's difference. A browser that opened the library score first has those simulations kept, so only the chart's are new.
+- A chart gcsim cannot play gives a problem in place of the score, with gcsim's error.

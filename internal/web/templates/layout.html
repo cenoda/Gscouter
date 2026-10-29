@@ -456,6 +456,7 @@ function copyLink(btn) {
 <p class="muted">±{{thousands .Result.StdErr}} ({{t "team.stderr"}}){{with .Team.Archetype}} · {{.}}{{end}}</p>
 {{with .OneRotation}}<p class="muted">{{t "team.one_rotation" (thousands .DPS)}}</p>{{end}}
 {{with .Filler}}<p class="muted">{{.}}</p>{{end}}
+{{with .ChartNote}}<p class="muted">{{.}}</p>{{end}}
 {{with .AlternativeNote}}<p class="muted">{{.}}{{with $.Alternative}}{{range .Sources}} <a href="{{.}}">{{t "lib.sources"}}</a>{{end}}{{end}}</p>{{end}}
 {{range .Warnings}}<div class="warn">{{.}}</div>{{end}}
 <div class="table-wrap">
