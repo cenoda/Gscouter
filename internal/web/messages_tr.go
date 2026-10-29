@@ -145,6 +145,8 @@ func init() {
 		"rotation.alternative": "Bu puan, bu takım için %s için yazılmış başka bir topluluk rotasyonunu kullanır: bu yapıyla takımın ana rotasyonundan daha yüksek puan verir.",
 		"lib.alternatives":     "Daha yüksek takımyıldızlar için rotasyonlar",
 		"lib.alternative_for":  "%s için. Puan bunları da çalıştırır ve yapı için en iyisini tutar.",
+		"rotation.variant":     "Bu puan, %[1]s için ölçülerek daha yüksek bulunan, %[2]s'nin Elemental Burst'ü olmadan takımın rotasyonunu kullanır: bu yapıyla yazıldığı haliyle rotasyondan daha yüksek puan verir.",
+		"lib.variant_for":      "%[1]s için: %[2]s'nin Elemental Burst'ü olmadan takımın rotasyonu. Puan bunu da çalıştırır ve yapı için en iyisini tutar.",
 
 		"tl.heading":       "Rotasyon zaman çizelgesi",
 		"tl.label_cycle":   "Tek rotasyon",

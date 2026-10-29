@@ -2,6 +2,7 @@ package web
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -363,6 +364,31 @@ func TestScoreUsesBestAlternative(t *testing.T) {
 		t.Fatalf("status %d: %s", code, body)
 	}
 	mustContain(t, body, "written for C6 Hu Tao", "https://db.kqm.gg/db/alternative", "hutao skill")
+}
+
+// A variant of the team's rotation is tried only for a build with the
+// constellations it was made for, and the result says what it changed.
+func TestScoreUsesVariantForItsConstellations(t *testing.T) {
+	for _, cons := range []int{6, 0} {
+		srv := newTestSiteWith(t, func(lib *library.Library) {
+			team := lib.Find([]string{"hutao", "yelan", "xingqiu", "zhongli"})
+			alt := *team
+			alt.Variant = &library.Variant{Drop: "burst", Char: "zhongli"}
+			// The team's build has a C0 Zhongli, as the player's.
+			alt.Build = fmt.Sprintf("zhongli char lvl=90/90 cons=%d talent=9,9,9;\n", cons)
+			team.Alternatives = []*library.Team{&alt}
+			// The team's own rotation barely does anything.
+			team.Rotation = "active zhongli;\nzhongli attack;\n"
+		})
+		ts := newTestServerFor(t, srv)
+		code, body := get(t, ts, "/score?uid=800000001&c=hutao&c=yelan&c=xingqiu&c=zhongli")
+		if code != http.StatusOK {
+			t.Fatalf("status %d: %s", code, body)
+		}
+		if got, want := strings.Contains(body, "Elemental Burst, made for"), cons == 0; got != want {
+			t.Errorf("variant for C%d Zhongli scored a C0 Zhongli: %v, want %v", cons, got, want)
+		}
+	}
 }
 
 func TestLibraryTeamListsAlternatives(t *testing.T) {

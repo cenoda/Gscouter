@@ -291,3 +291,44 @@ func TestLoadAlternatives(t *testing.T) {
 		}
 	}
 }
+
+func TestRotationsForVariant(t *testing.T) {
+	write := func(dir, yaml, build string) {
+		t.Helper()
+		if err := os.MkdirAll(dir, 0o755); err != nil {
+			t.Fatal(err)
+		}
+		for name, content := range map[string]string{"team.yaml": yaml, "rotation.gcsl": "active a;\n", "build.txt": build} {
+			if err := os.WriteFile(filepath.Join(dir, name), []byte(content), 0o644); err != nil {
+				t.Fatal(err)
+			}
+		}
+	}
+	root := t.TempDir()
+	write(root, "id: x\nmembers: [mavuika, citlali, c, d]\nstatus: supported\n", "citlali char lvl=90/90 cons=0 talent=9,9,9;\n")
+	write(filepath.Join(root, AltDir, "e1"), "id: x\nmembers: [mavuika, citlali, c, d]\nreference: {dps: 1000}\nstatus: supported\n", "mavuika char lvl=90/90 cons=2 talent=9,9,9;\n")
+	write(filepath.Join(root, AltDir, "v"), "id: x\nmembers: [mavuika, citlali, c, d]\nvariant: {drop: burst, char: citlali}\nstatus: supported\n", "citlali char lvl=90/90 cons=6 talent=9,9,9;\n")
+	got, err := Load(root)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// A variant, unlike a community alternative, is tried only for the
+	// constellations it was made for.
+	if n := len(got.RotationsFor(map[string]int{"citlali": 5})); n != 2 {
+		t.Errorf("RotationsFor(citlali C5) = %d rotations, want 2", n)
+	}
+	if n := len(got.RotationsFor(map[string]int{"citlali": 6})); n != 3 {
+		t.Errorf("RotationsFor(citlali C6) = %d rotations, want 3", n)
+	}
+
+	// A variant drops a known action of a member.
+	for _, bad := range []string{
+		"id: x\nmembers: [mavuika, citlali, c, d]\nvariant: {drop: skill, char: citlali}\nstatus: supported\n",
+		"id: x\nmembers: [mavuika, citlali, c, d]\nvariant: {drop: burst, char: xilonen}\nstatus: supported\n",
+	} {
+		write(filepath.Join(root, AltDir, "v"), bad, "")
+		if _, err := Load(root); err == nil {
+			t.Errorf("expected an error for variant %q", bad)
+		}
+	}
+}

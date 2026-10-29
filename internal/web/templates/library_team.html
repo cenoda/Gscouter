@@ -16,7 +16,7 @@
 <ul>{{range .}}<li><a href="{{.}}">{{.}}</a></li>{{end}}</ul>{{end}}
 <details class="rotation"><summary>{{t "tl.script"}}</summary><pre>{{.Team.Rotation}}</pre></details>
 {{with .Alternatives}}<h2>{{t "lib.alternatives"}}</h2>
-{{range .}}<p>{{t "lib.alternative_for" .For}}</p>
+{{range .}}<p>{{if .Variant}}{{t "lib.variant_for" .For .Variant}}{{else}}{{t "lib.alternative_for" .For}}{{end}}</p>
 <ul>{{range .Sources}}<li><a href="{{.}}">{{.}}</a></li>{{end}}</ul>
 <details class="rotation"><summary>{{t "tl.script"}}</summary><pre>{{.Rotation}}</pre></details>
 {{end}}{{end}}

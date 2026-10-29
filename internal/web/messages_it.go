@@ -145,6 +145,8 @@ func init() {
 		"rotation.alternative": "Questo punteggio usa un'altra rotazione della community per questa squadra, scritta per %s: con questa build ottiene più della rotazione principale della squadra.",
 		"lib.alternatives":     "Rotazioni per costellazioni più alte",
 		"lib.alternative_for":  "Per %s. Il punteggio esegue anche queste e tiene la migliore per la build.",
+		"rotation.variant":     "Questo punteggio usa la rotazione della squadra senza il Tripudio elementale di %[2]s, misurata più alta per %[1]s: con questa build ottiene più della rotazione così com'è scritta.",
+		"lib.variant_for":      "Per %[1]s: la rotazione della squadra senza il Tripudio elementale di %[2]s. Il punteggio esegue anche questa e tiene la migliore per la build.",
 
 		"tl.heading":       "Cronologia della rotazione",
 		"tl.label_cycle":   "Una rotazione",

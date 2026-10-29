@@ -145,6 +145,8 @@ func init() {
 		"rotation.alternative": "Skor ini memakai rotasi komunitas lain untuk tim ini, yang ditulis untuk %s: dengan build ini skornya lebih tinggi daripada rotasi utama tim.",
 		"lib.alternatives":     "Rotasi untuk konstelasi lebih tinggi",
 		"lib.alternative_for":  "Untuk %s. Skor juga menjalankan rotasi ini dan memakai yang terbaik untuk build.",
+		"rotation.variant":     "Skor ini memakai rotasi tim tanpa Elemental Burst %[2]s, yang terukur lebih tinggi untuk %[1]s: dengan build ini skornya lebih tinggi daripada rotasi aslinya.",
+		"lib.variant_for":      "Untuk %[1]s: rotasi tim tanpa Elemental Burst %[2]s. Skor juga menjalankannya dan memakai yang terbaik untuk build.",
 
 		"tl.heading":       "Timeline rotasi",
 		"tl.label_cycle":   "Satu rotasi",

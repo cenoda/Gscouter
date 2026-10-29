@@ -145,6 +145,8 @@ func init() {
 		"rotation.alternative": "此分数使用了该队伍为%s编写的另一套社区循环：在此配装下，它的分数高于队伍的主循环。",
 		"lib.alternatives":     "高命座循环",
 		"lib.alternative_for":  "适用于%s。计算分数时也会运行这些循环，并取对该配装最好的一个。",
+		"rotation.variant":     "此分数使用了去掉%[2]s元素爆发的队伍循环，经测量对%[1]s更高：在此配装下，它的分数高于原循环。",
+		"lib.variant_for":      "适用于%[1]s：去掉%[2]s元素爆发的队伍循环。计算分数时也会运行它，并取对该配装最好的一个。",
 
 		"tl.heading":       "循环时间轴",
 		"tl.label_cycle":   "单轮循环",

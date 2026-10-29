@@ -374,7 +374,11 @@ const exploreIterations = 10
 func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *teamResult) {
 	// Each of the team's rotations (its own and its alternatives) names
 	// the members its own way and may need params of its own.
-	rotations := tr.Team.Rotations()
+	cons := map[string]int{}
+	for _, c := range tr.Chars {
+		cons[library.Canonical(c.Key)] = c.Cons
+	}
+	rotations := tr.Team.RotationsFor(cons)
 	builds := make([]string, len(rotations))
 	runs := make([]steady.Rotation, len(rotations))
 	for i, t := range rotations {
@@ -582,6 +586,9 @@ func sorted(s []string) []string {
 // alternativeNote says that the score uses one of the team's
 // alternatives, and the constellations it was written for.
 func alternativeNote(l localizer, team, alt *library.Team) string {
+	if alt.Variant != nil {
+		return l.T("rotation.variant", writtenFor(l, team, alt), l.charName(library.Canonical(alt.Variant.Char)))
+	}
 	return l.T("rotation.alternative", writtenFor(l, team, alt))
 }
 

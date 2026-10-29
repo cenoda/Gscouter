@@ -145,6 +145,8 @@ func init() {
 		"rotation.alternative": "Esta pontuação usa outra rotação da comunidade para esta equipe, escrita para %s: com esta build ela pontua mais que a rotação principal da equipe.",
 		"lib.alternatives":     "Rotações para constelações mais altas",
 		"lib.alternative_for":  "Para %s. A pontuação também as executa e fica com a melhor para a build.",
+		"rotation.variant":     "Esta pontuação usa a rotação da equipe sem o Supremo Elemental de %[2]s, medida como mais alta para %[1]s: com esta build ela pontua mais que a rotação como escrita.",
+		"lib.variant_for":      "Para %[1]s: a rotação da equipe sem o Supremo Elemental de %[2]s. A pontuação também a executa e fica com a melhor para a build.",
 
 		"tl.heading":       "Linha do tempo da rotação",
 		"tl.label_cycle":   "Uma rotação",

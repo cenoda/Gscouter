@@ -145,6 +145,8 @@ func init() {
 		"rotation.alternative": "This score uses another community rotation for this team, written for %s: it scores higher with this build than the team's main rotation.",
 		"lib.alternatives":     "Rotations for higher constellations",
 		"lib.alternative_for":  "For %s. The score also runs these and keeps the best for the build.",
+		"rotation.variant":     "This score uses the team's rotation without %[2]s's Elemental Burst, made for %[1]s: it scores higher with this build than the rotation as written.",
+		"lib.variant_for":      "For %[1]s: the team's rotation without %[2]s's Elemental Burst. The score also runs it and keeps the best for the build.",
 
 		"tl.heading":       "Rotation timeline",
 		"tl.label_cycle":   "One rotation",
