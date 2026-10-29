@@ -243,7 +243,8 @@ func init() {
 		"art.score":      "Artefaktwertung",
 		"art.score_lead": "Nebenwerte zählen danach, wie viel eine Steigerung der DPS dieses Teams bringt; nur mit KRIT gewichtet ergibt das den CV. Ein Hauptwert, der DPS kostet, gibt Abzug, gezählt in Steigerungen des wertvollsten Nebenwerts im Team.",
 		"art.columns":    "Nebenwerte · Hauptwerte · gesamt",
-		"art.low":        "wenig Einfluss (am besten: %s)",
+		"art.low":        "wenig Einfluss: jeder Hauptwert liegt hier innerhalb von 2%% DPS (am besten: %s)",
+		"art.low_best":   "(am besten; jeder Hauptwert liegt hier innerhalb von 2% DPS)",
 		"art.unplayable": "Rotation nicht spielbar",
 		"art.unknown":    "nicht bewertet",
 	}

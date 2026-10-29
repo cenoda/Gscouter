@@ -243,7 +243,8 @@ func init() {
 		"art.score":      "Puntuación de artefactos",
 		"art.score_lead": "Los atributos secundarios cuentan según lo que una mejora aporta al DPS de este equipo; contando solo el CRIT, es el CV. Un atributo principal que resta DPS cuesta puntos, contados en mejoras del secundario más valioso del equipo.",
 		"art.columns":    "Secundarios · principales · total",
-		"art.low":        "poco efecto (mejor: %s)",
+		"art.low":        "poco efecto: cualquier atributo principal queda a menos del 2%% de DPS (mejor: %s)",
+		"art.low_best":   "(el mejor; cualquier atributo principal queda a menos del 2% de DPS)",
 		"art.unplayable": "rotación imposible",
 		"art.unknown":    "sin valorar",
 	}

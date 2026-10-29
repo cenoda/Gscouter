@@ -243,7 +243,8 @@ func init() {
 		"art.score":      "Skor artefak",
 		"art.score_lead": "Substat diberi bobot menurut tambahan DPS tim ini dari satu kenaikan; jika hanya CRIT yang dihitung, hasilnya CV. Main stat yang mengurangi DPS dikenai potongan poin, dihitung dalam kenaikan substat paling berharga di tim.",
 		"art.columns":    "Substat · main stat · total",
-		"art.low":        "pengaruh kecil (terbaik: %s)",
+		"art.low":        "pengaruh kecil: stat utama apa pun selisih DPS-nya di bawah 2%% (terbaik: %s)",
+		"art.low_best":   "(terbaik; stat utama apa pun di sini selisih DPS-nya di bawah 2%)",
 		"art.unplayable": "rotasi tidak bisa dijalankan",
 		"art.unknown":    "tidak dinilai",
 	}

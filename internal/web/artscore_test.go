@@ -79,7 +79,7 @@ func TestScoreArtifactScore(t *testing.T) {
 	for _, a := range []string{sel.String(), teamResult{Selection: sel}.Stripped()} {
 		_, body := get(t, ts, "/score?a="+url.QueryEscape(a))
 		mustContain(t, body, "<summary>Artifact score</summary>", tr.ArtifactScores[0].Points(), tr.ArtifactScores[3].Points(),
-			"Sands ✓ ATK%", "Goblet Cryo DMG Bonus little effect (best: Cryo DMG Bonus)")
+			"Sands ✓ ATK%", "Goblet ✓ Cryo DMG Bonus (best; every main stat here is within 2% DPS)")
 	}
 	sel.Builds = lohenTeam()
 	_, body := get(t, ts, "/score?a="+url.QueryEscape(sel.String()))
