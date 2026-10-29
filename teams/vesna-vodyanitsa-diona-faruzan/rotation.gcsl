@@ -15,6 +15,11 @@
 # and the burst pay for all five Windborne Swords; when the burst is not
 # ready, or the next sword is not, she keeps attacking until the fifth
 # ends Armed for Action.
+# Since 2026-10-29 (fork 9104976, two wind pinions per Charged Attack)
+# Vesna's combo is shorter and Diona or Faruzan no longer gets her burst
+# back every rotation, so Vesna adds 2 N C pairs after her burst: looped
+# 128.3k without, 127.7k with 1, 133.7k with 2, 128.6k with 3, 121.0k
+# with 4.
 active diona;
 diona skill[hold=1];
 if .diona.burst.ready {
@@ -31,6 +36,8 @@ vesna skill,
 if .vesna.burst.ready {
   vesna burst;
 }
+vesna attack, charge;
+vesna attack, charge;
 while .vesna.armed {
   while .vesna.armed && !.vesna.skill.ready {
     vesna attack, charge;
