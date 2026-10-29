@@ -79,7 +79,16 @@ Found while checking collapsed runs in §3, and a worse problem than constellati
 
 - 329 library rotations (325 `supported`) wait in a loop for a Favonius weapon's cooldown: `while !.xilonen.mods.favonius-cd { xilonen attack; }`. The source's build gives that character a Favonius weapon. With any other weapon the mod never appears, the character attacks for the rest of the fight, and the team's score collapses. No energy or cooldown wait shows, so fillers (`docs/fillers.md`) do not see it.
 - Yelan / Sigewinne / Furina / Xilonen, the library build with only Xilonen's Favonius Sword changed to a Sacrificial Sword: 74k → 1.3k.
-- Every such team, its library build with each looping character's Favonius weapon changed to the Sacrificial weapon of its type (Dragon's Bane for a polearm), 2 iterations (run in progress): all of the first 36 teams collapse, to 2–15% of their score (median about 3%).
+- Every such team, its library build with each looping character's Favonius weapon changed to the Sacrificial weapon of its type (Dragon's Bane for a polearm), 2 iterations, against the library build as it is. 301 of the 329 could be tested (in 28 the swap did not apply: the build names the character by another alias, such as `rosa`, or the loop is already guarded):
+
+| Score with the weapon swapped, of the score as it is | Teams |
+|---|---|
+| under 20% (median 3.5%, 0.9–19.7%) | 271 |
+| 20–80% | 18 |
+| 80–95% | 11 |
+| 95% or more | 1 |
+
+  The loops that do not collapse have a second way out (`while !.faruzan.mods.favonius-cd && !.faruzan.burst.ready`), and still lose time attacking.
 - One library rotation already guards the loop the right way: `if .furina.weapon == .keys.weapon.favsword && ...` (Wanderer / Furina / Faruzan / Bennett).
 - Other `while` conditions on mods are on a character's own state (`razor-q` 57, `xingqiuburst` 20, `bennett-field` 17, `yelanburst` 16, ...), which every build has; they were not tested.
 
