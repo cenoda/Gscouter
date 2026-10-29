@@ -118,3 +118,35 @@ func TestFillBrief(t *testing.T) {
 		t.Errorf("filled rotation does not parse: %v\n%s", err, got)
 	}
 }
+
+func TestWaitLoops(t *testing.T) {
+	rot := "active raiden;\nraiden skill;\nwhile !.xingqiu.burst.ready {\n  xingqiu attack;\n}\nxingqiu burst;\nwhile !.yelan.burst.ready { bennett attack; }\nyelan burst;\n"
+	party := []string{"raiden", "xingqiu", "yelan", "bennett"}
+	loop := "while !.xingqiu.burst.ready {\n  xingqiu attack;\n}"
+	other := "while !.yelan.burst.ready { bennett attack; }"
+	bounded := "let gs_wait1 = 0; while !.xingqiu.burst.ready && gs_wait1 < 2 { xingqiu attack; gs_wait1 = gs_wait1 + 1; }"
+	for _, c := range []struct {
+		energy      map[string]Filler
+		has, hasNot []string
+	}{
+		{nil, []string{bounded, other}, []string{loop}},
+		{map[string]Filler{"xingqiu": FillSelf}, []string{loop}, []string{bounded}},
+		{map[string]Filler{"xingqiu": FillSkip}, []string{"if .xingqiu.burst.ready { xingqiu burst; }"}, []string{loop, bounded, "xingqiu attack"}},
+		{map[string]Filler{"xingqiu": FillBrief}, []string{"gs_fill1a < 2"}, []string{loop, bounded}},
+	} {
+		got := Fill(WaitLoops(rot, c.energy, party), c.energy, nil, party)
+		for _, s := range c.has {
+			if !strings.Contains(got, s) {
+				t.Errorf("%v: missing %q in:\n%s", c.energy, s, got)
+			}
+		}
+		for _, s := range c.hasNot {
+			if strings.Contains(got, s) {
+				t.Errorf("%v: unexpected %q in:\n%s", c.energy, s, got)
+			}
+		}
+		if _, _, err := parser.New(ast.NewFile(), got).Parse(); err != nil {
+			t.Errorf("%v: filled rotation does not parse: %v\n%s", c.energy, err, got)
+		}
+	}
+}

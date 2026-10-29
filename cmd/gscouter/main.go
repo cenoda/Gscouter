@@ -75,7 +75,7 @@ func run(teamDir, buildPath string, iterations int, warmup, duration float64, se
 		return config.Assemble(config.Conditions{Iterations: iterations, Duration: duration}, builds[i], looped)
 	}
 	if dump {
-		looped, err := config.Loop(team.Rotation)
+		looped, err := steady.Looped(team.Rotation, team.Members)
 		if err != nil {
 			return err
 		}

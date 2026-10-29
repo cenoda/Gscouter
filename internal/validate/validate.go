@@ -352,7 +352,7 @@ func looped(ctx context.Context, r *Report, build string, s Settings) {
 		}
 		r.Common = res
 	}
-	rot, probed, msg := probe(ctx, build, team.Rotation, s)
+	rot, probed, msg := probe(ctx, build, team.Rotation, team.Members, s)
 	if msg != "" {
 		r.Failures = append(r.Failures, msg)
 		return
@@ -448,8 +448,8 @@ func swapWeapons(ctx context.Context, r *Report, build string, s Settings) {
 // which is the first iteration of the looped score (seed 1). A stuck
 // fight keeps running until the process exits; cmd/validate checks each
 // team in its own process.
-func probe(ctx context.Context, build, rotation string, s Settings) (string, []score.Iteration, string) {
-	rot, err := config.Loop(rotation)
+func probe(ctx context.Context, build, rotation string, members []string, s Settings) (string, []score.Iteration, string) {
+	rot, err := steady.Looped(rotation, members)
 	if err != nil {
 		return "", nil, "looped simulation: " + err.Error()
 	}

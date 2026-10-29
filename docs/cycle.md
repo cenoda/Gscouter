@@ -1,8 +1,8 @@
 # Cycle
 
-> Status: In progress (§5.1 and §7 implemented) · Last updated: 2026-10-29
+> Status: In progress (§5.1, §5.2 and §7 implemented) · Last updated: 2026-10-29
 
-Roadmap node Cycle (`docs/roadmap.md`): what the fixed rotation (design §5.2) does with builds other than the one it was written for, and where the score stops being trustworthy because of it. §5.1 and §7 are implemented; §6 proposes the rest, and §8 says what teams without an alternative still need.
+Roadmap node Cycle (`docs/roadmap.md`): what the fixed rotation (design §5.2) does with builds other than the one it was written for, and where the score stops being trustworthy because of it. §5.1, §5.2 and §7 are implemented; §6 proposes the rest, and §8 says what teams without an alternative still need.
 
 ## 1. The report
 
@@ -134,17 +134,17 @@ Matching aliases also lowered one: Escoffier / Citlali / Bennett / Xianyun with 
 
 ### 5.2 Loops that wait for a burst
 
-Found while checking the 12 teams above, not fixed. 101 library rotations wait for energy by attacking: `while !.xingqiu.burst.ready { xingqiu attack; }`. gcsim does not count that as waiting for energy, so the fillers (`docs/fillers.md`) never see it, and a build short of Energy Recharge attacks on a support instead of passing the burst as a player would. Alhaitham / Xingqiu / Yelan / Raiden without its Favonius weapons keeps 24% of its score this way. A fix would make these loops visible to the fillers, for instance by turning each into a bounded wait the filler search can replace; it needs its own measurement on the library.
+Found while checking the 12 teams above. 101 library rotations wait for energy by attacking: `while !.xingqiu.burst.ready { xingqiu attack; }`. gcsim does not count that as waiting for energy, so the fillers (`docs/fillers.md`) never see it, and a build short of Energy Recharge attacks on a support instead of passing the burst as a player would. Alhaitham / Xingqiu / Yelan / Raiden without its Favonius weapons keeps 24% of its score this way. Fixed (2026-10-29, `docs/fillers.md` §6): the score bounds the 83 loops of this exact form (61 rotations; the others also read `.X.onfield`, a weapon mod or another member, or use skills) to 2 attacks, so the wait shows and the fillers handle it, and keeps the rotation as written as a candidate. That team keeps 79% now (24% before); on the 61 teams no library build scores lower, and with ER substats removed the median rises 6.3%.
 
 ## 6. Proposal
 
-(1)–(4) in order of how much trust each buys for its cost; (5) was found later. (1) and (2) are done; (3) and (4) are what teams without an alternative need (§8); (5) is not decided.
+(1)–(4) in order of how much trust each buys for its cost; (5) was found later. (1), (2) and (5) are done; (3) and (4) are what teams without an alternative need (§8).
 
 1. ~~**Weapon-dependent loops** (§5).~~ Done (§5.1): weapon mods are read as always on without the weapon, and validation fails a collapse.
 2. ~~**Keep the best of a team's rotations.**~~ Done (§7). Harvest keeps, besides the rotation it picks now, the best passing entry for each higher-constellation profile the database has; the score runs the player's build with each and keeps the best, as fillers keep the best run (design §3.1). On the 191 teams measured it raises higher-constellation builds by a median of 12.4% and leaves the library builds where they are. Cost: one more scoring (with its filler search) per extra rotation, on about 217 teams; the result page would say which rotation scored. A rotation could be skipped when the player's constellations are far below its entry's, but §3.1 shows the boundary depends on several members at once, so that needs measuring first.
 3. **Say what the rotation assumes.** The result page shows the constellations the rotation was written for, and a note when a member's constellation is higher: "This rotation was written for C0 Furina; a C6 Furina is played differently, and the score may be low." Cheap, and it covers the 4,204 teams with no higher-constellation entry.
 4. **Rotations for constellations the database lacks.** For a constellation that changes a role (Furina C6, and the characters of the table in §3), a rotation written from a community guide under the rules of design §5.4, as a second rotation of the team kept by (2). Needed now that (2) exists (§8).
-5. **Loops that wait for a burst** (§5.2): make them visible to the fillers.
+5. ~~**Loops that wait for a burst** (§5.2): make them visible to the fillers.~~ Done (`docs/fillers.md` §6).
 
 ## 7. Keeping the best rotation
 
