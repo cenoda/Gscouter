@@ -1,8 +1,8 @@
 # Cycle
 
-> Status: In progress (§5.1 and §7 implemented) · Last updated: 2026-10-29
+> Status: In progress (§5.1, §5.2 and §7 implemented) · Last updated: 2026-10-29
 
-Roadmap node Cycle (`docs/roadmap.md`): what the fixed rotation (design §5.2) does with builds other than the one it was written for, and where the score stops being trustworthy because of it. §5.1 and §7 are implemented; §6 proposes the rest, §8 says what teams without an alternative still need, and §9 records Skirk's C6.
+Roadmap node Cycle (`docs/roadmap.md`): what the fixed rotation (design §5.2) does with builds other than the one it was written for, and where the score stops being trustworthy because of it. §5.1, §5.2 and §7 are implemented; §6 proposes the rest, §8 says what teams without an alternative still need, and §9 records Skirk's C6.
 
 ## 1. The report
 
@@ -110,21 +110,41 @@ _2026-10-29._ Implemented.
 | 80–95% | 295 |
 | 95% or more | 96 |
 
-  Median 86%. What remains is energy: the swapped weapon gives no particles. A lower score there is the rule of design §2 ("managing ER is part of building"). The 12 under 50% get the warning. Two of them wait for a burst or skill in a loop (Alhaitham / Xingqiu / Yelan / Raiden, Tighnari / Collei / Fischl / Zhongli; §5.2); the other ten were not looked into further.
+  Median 86%. What remains is energy: the swapped weapon gives no particles. A lower score there is the rule of design §2 ("managing ER is part of building"). The 12 under 50% get the warning; why each falls is in §5.3.
+
+### 5.3 The 12 teams under 50%
+
+_2026-10-29._ Each team with its library build and with its Favonius weapons swapped (`config.SwapModWeapons`), `cmd/gscouter`, 50 iterations, fillers as on the site. Three causes:
+
+- **Fillers did not reach members written under an alias** (6 teams). The rotation names Chevreuse `chev`, Fischl `amy`, Ayaka `ayaka`, while the filler search is given the team's names (`chevreuse`, `fischl`, `kamisatoayaka`). `config.Fill` found no statement of that member to fill, so the run was the rotation as written, and the member stood still: Chevreuse waited 42 s/min on Fischl / Beidou / Xiangling / Chevreuse. Given the alias instead, two of the three fillers wrote a statement gcsim rejects (`chev ;`, from the skill forms keyed by party name). Fixed by matching names by gcsim key (`docs/fillers.md` §2):
+
+| Team | Kept before | Kept after |
+|---|---|---|
+| Tighnari / Collei / Fischl / Zhongli | 34% | 99% |
+| Klee / Furina / Citlali / Escoffier | 47% | 96% |
+| Mavuika / Xilonen / Bennett / Ayaka | 47% | 95% |
+| Neuvillette / Rosaria / Kazuha / Barbara | 50% | 83% |
+| Fischl / Beidou / Xiangling / Chevreuse | 29% | 82% |
+| Cyno / Chevreuse / Fischl / Xiangling | 29% | 52% |
+
+- **The team's bursts run on the Favonius particles** (5 teams), and the build has no Energy Recharge to replace them. Kaeya, Eula, Freminet and Escoffier with Citlali / Bennett / Xianyun (34–46%): every burst, Xianyun's above all, is paid for by Bennett's Favonius Sword; without it the best filler passes Xianyun's burst, and the plunges lose her buff (Kaeya 72.8k → 27.2k). Gaming / Rosaria / Chevreuse / Sucrose (46%): Rosaria cannot burst every rotation; filling the wait stretches the rotation (15 rotations in the fight instead of 24), and passing the burst costs the Cryo for Gaming's Melts (159 → 96). This is the rule of design §2: such a player needs more Energy Recharge.
+- **A loop that waits for a burst** (§5.2): Alhaitham / Xingqiu / Yelan / Raiden (24%), `while !.xingqiu.burst.ready { xingqiu attack; }`.
+
+Matching aliases also lowered one: Escoffier / Citlali / Bennett / Xianyun with Bennett off Favonius went from 42% to 34%. Its rotation writes `esco skill`; the cooldown filler listed for Escoffier did nothing before and now makes her attack until her skill is ready, which costs Xianyun's plunge window. The search always fills every cooldown wait it finds together with each energy filler, so it does not try the energy fillers without that one (`docs/fillers.md` §3).
 
 ### 5.2 Loops that wait for a burst
 
-Found while checking the 12 teams above, not fixed. 101 library rotations wait for energy by attacking: `while !.xingqiu.burst.ready { xingqiu attack; }`. gcsim does not count that as waiting for energy, so the fillers (`docs/fillers.md`) never see it, and a build short of Energy Recharge attacks on a support instead of passing the burst as a player would. Alhaitham / Xingqiu / Yelan / Raiden without its Favonius weapons keeps 24% of its score this way. A fix would make these loops visible to the fillers, for instance by turning each into a bounded wait the filler search can replace; it needs its own measurement on the library.
+Found while checking the 12 teams above. 101 library rotations wait for energy by attacking: `while !.xingqiu.burst.ready { xingqiu attack; }`. gcsim does not count that as waiting for energy, so the fillers (`docs/fillers.md`) never see it, and a build short of Energy Recharge attacks on a support instead of passing the burst as a player would. Alhaitham / Xingqiu / Yelan / Raiden without its Favonius weapons keeps 24% of its score this way. Fixed (2026-10-29, `docs/fillers.md` §6): the score bounds the 83 loops of this exact form (61 rotations; the others also read `.X.onfield`, a weapon mod or another member, or use skills) to 2 attacks, so the wait shows and the fillers handle it, and keeps the rotation as written as a candidate. That team keeps 79% now (24% before); on the 61 teams no library build scores lower, and with ER substats removed the median rises 6.3%.
 
 ## 6. Proposal
 
-(1)–(4) in order of how much trust each buys for its cost; (5) was found later. (1) and (2) are done; (3) and (4) are what teams without an alternative need (§8); (5) is not decided.
+(1)–(4) in order of how much trust each buys for its cost; (5) was found later. (1), (2) and (5) are done; (3) and (4) are what teams without an alternative need (§8).
 
 1. ~~**Weapon-dependent loops** (§5).~~ Done (§5.1): weapon mods are read as always on without the weapon, and validation fails a collapse.
 2. ~~**Keep the best of a team's rotations.**~~ Done (§7). Harvest keeps, besides the rotation it picks now, the best passing entry for each higher-constellation profile the database has; the score runs the player's build with each and keeps the best, as fillers keep the best run (design §3.1). On the 191 teams measured it raises higher-constellation builds by a median of 12.4% and leaves the library builds where they are. Cost: one more scoring (with its filler search) per extra rotation, on about 217 teams; the result page would say which rotation scored. A rotation could be skipped when the player's constellations are far below its entry's, but §3.1 shows the boundary depends on several members at once, so that needs measuring first.
 3. **Say what the rotation assumes.** The result page shows the constellations the rotation was written for, and a note when a member's constellation is higher: "This rotation was written for C0 Furina; a C6 Furina is played differently, and the score may be low." Cheap, and it covers the 4,204 teams with no higher-constellation entry.
 4. **Rotations for constellations the database lacks.** For a constellation that changes a role (Furina C6, and the characters of the table in §3), a rotation written from a community guide under the rules of design §5.4, as a second rotation of the team kept by (2). Needed now that (2) exists (§8).
-5. **Loops that wait for a burst** (§5.2): make them visible to the fillers.
+5. ~~**Loops that wait for a burst** (§5.2): make them visible to the fillers.~~ Done (`docs/fillers.md` §6).
 
 ## 7. Keeping the best rotation
 

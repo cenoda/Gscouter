@@ -36,6 +36,27 @@ func TestFillPartyAndSkill(t *testing.T) {
 	}
 }
 
+// A rotation that writes members under gcsim aliases ("chev", "xl") is
+// filled for them, under the party's names.
+func TestFillAliases(t *testing.T) {
+	rot := "active fischl;\nchev burst, skill[hold=1], attack;\nxl burst, skill;\nchev attack:3;\n"
+	party := []string{"fischl", "beidou", "xiangling", "chevreuse"}
+	got := Fill(rot, map[string]Filler{"chevreuse": FillParty, "xiangling": FillSkip}, nil, party)
+	for _, s := range []string{
+		"if .chevreuse.skill.ready { chevreuse skill[hold=1]; } else if .fischl.skill.ready { fischl skill; } else if .beidou.skill.ready { beidou skill; } else if .xiangling.skill.ready { xiangling skill; } else { chevreuse attack; }",
+		"chevreuse burst, skill[hold=1], attack;",
+		"if .xiangling.burst.ready { xiangling burst; } else { wait(1); } xiangling skill;",
+		"chevreuse attack:3;",
+	} {
+		if !strings.Contains(got, s) {
+			t.Errorf("missing %q in:\n%s", s, got)
+		}
+	}
+	if _, _, err := parser.New(ast.NewFile(), "chevreuse char lvl=90/90 cons=0 talent=9,9,9;\n"+got).Parse(); err != nil {
+		t.Errorf("filled rotation does not parse: %v\n%s", err, got)
+	}
+}
+
 func TestFillLeavesOthers(t *testing.T) {
 	rot := "active a;\nlet x = 1;\nif .a.burst.ready { b burst; }\n"
 	if got := Fill(rot, map[string]Filler{"a": FillSelf}, nil, []string{"a", "b"}); got != rot {
@@ -95,5 +116,37 @@ func TestFillBrief(t *testing.T) {
 	}
 	if _, _, err := parser.New(ast.NewFile(), "ineffa char lvl=90/90 cons=0 talent=9,9,9;\n"+got).Parse(); err != nil {
 		t.Errorf("filled rotation does not parse: %v\n%s", err, got)
+	}
+}
+
+func TestWaitLoops(t *testing.T) {
+	rot := "active raiden;\nraiden skill;\nwhile !.xingqiu.burst.ready {\n  xingqiu attack;\n}\nxingqiu burst;\nwhile !.yelan.burst.ready { bennett attack; }\nyelan burst;\n"
+	party := []string{"raiden", "xingqiu", "yelan", "bennett"}
+	loop := "while !.xingqiu.burst.ready {\n  xingqiu attack;\n}"
+	other := "while !.yelan.burst.ready { bennett attack; }"
+	bounded := "let gs_wait1 = 0; while !.xingqiu.burst.ready && gs_wait1 < 2 { xingqiu attack; gs_wait1 = gs_wait1 + 1; }"
+	for _, c := range []struct {
+		energy      map[string]Filler
+		has, hasNot []string
+	}{
+		{nil, []string{bounded, other}, []string{loop}},
+		{map[string]Filler{"xingqiu": FillSelf}, []string{loop}, []string{bounded}},
+		{map[string]Filler{"xingqiu": FillSkip}, []string{"if .xingqiu.burst.ready { xingqiu burst; }"}, []string{loop, bounded, "xingqiu attack"}},
+		{map[string]Filler{"xingqiu": FillBrief}, []string{"gs_fill1a < 2"}, []string{loop, bounded}},
+	} {
+		got := Fill(WaitLoops(rot, c.energy, party), c.energy, nil, party)
+		for _, s := range c.has {
+			if !strings.Contains(got, s) {
+				t.Errorf("%v: missing %q in:\n%s", c.energy, s, got)
+			}
+		}
+		for _, s := range c.hasNot {
+			if strings.Contains(got, s) {
+				t.Errorf("%v: unexpected %q in:\n%s", c.energy, s, got)
+			}
+		}
+		if _, _, err := parser.New(ast.NewFile(), got).Parse(); err != nil {
+			t.Errorf("%v: filled rotation does not parse: %v\n%s", c.energy, err, got)
+		}
 	}
 }

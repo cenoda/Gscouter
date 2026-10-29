@@ -57,8 +57,11 @@ func (f Filler) String() string {
 //     skill is ready.
 //
 // Either filler gives up after a fixed number of actions, and the
-// rotation then waits as before. Names are as the rotation writes them;
-// party lists every member.
+// rotation then waits as before. party lists every member, and energy
+// and skill name members as party does. A rotation may write a member
+// under one of gcsim's aliases ("chev" for "chevreuse", "amy" for
+// "fischl"): its statements are matched by gcsim key, and a filled
+// statement is written under the party's name.
 func Fill(rotation string, energy map[string]Filler, skill, party []string) string {
 	forms := skillForms(rotation, party)
 	var b strings.Builder
@@ -68,7 +71,7 @@ func Fill(rotation string, energy map[string]Filler, skill, party []string) stri
 		if start {
 			if m := actionRe.FindStringSubmatchIndex(rotation[i:]); m != nil {
 				lead := rotation[i+m[2] : i+m[3]]
-				char := rotation[i+m[4] : i+m[5]]
+				char := member(rotation[i+m[4]:i+m[5]], party)
 				items := rotation[i+m[6] : i+m[7]]
 				how, inEnergy := energy[char]
 				if inEnergy || slices.Contains(skill, char) {
@@ -158,6 +161,59 @@ func energyFiller(char string, party []string, forms map[string]string, how Fill
 	return fmt.Sprintf("let %s = 0; while !.%s.burst.ready && %s < 20 { %s %s = %s + 1; }", v, char, v, body.String(), v, v)
 }
 
+// waitLoopRe matches a loop in which a character attacks until its burst
+// is ready: "while !.<char>.burst.ready { <char> attack; }".
+var waitLoopRe = regexp.MustCompile(`while\s*!\s*\.(\w+)\.burst\.ready\s*\{\s*(\w+)\s+attack\s*;\s*\}`)
+
+// WaitLoops rewrites the loops in which a member attacks until its burst
+// is ready, for Fill with energy to fill after. gcsim does not count such
+// a loop as a wait for energy, so a build short of Energy Recharge
+// attacks on a support for as long as its burst takes to charge, and no
+// filler sees it (Alhaitham / Xingqiu / Yelan / Raiden without its
+// Favonius weapons kept 23% of its score). A member energy does not map
+// attacks at most maxFillAttacks times, and the rest of its wait is
+// gcsim's, which the filler search sees. For FillSelf, which also attacks
+// until the burst is ready, the loop stays as written; for the other
+// fillers it goes, and their filler before the burst takes its place.
+func WaitLoops(rotation string, energy map[string]Filler, party []string) string {
+	n := 0
+	return replaceSubmatch(waitLoopRe, rotation, func(m []string) string {
+		char := member(m[1], party)
+		if member(m[2], party) != char || !slices.Contains(party, char) {
+			return m[0]
+		}
+		how, ok := energy[char]
+		switch {
+		case ok && how == FillSelf:
+			return m[0]
+		case ok:
+			return ""
+		}
+		n++
+		v := fmt.Sprintf("gs_wait%d", n)
+		return fmt.Sprintf("let %s = 0; while !.%s.burst.ready && %s < %d { %s attack; %s = %s + 1; }", v, m[1], v, maxFillAttacks, m[2], v, v)
+	})
+}
+
+// replaceSubmatch is re.ReplaceAllStringFunc with the submatches.
+func replaceSubmatch(re *regexp.Regexp, s string, f func([]string) string) string {
+	var b strings.Builder
+	last := 0
+	for _, m := range re.FindAllStringSubmatchIndex(s, -1) {
+		b.WriteString(s[last:m[0]])
+		sub := make([]string, len(m)/2)
+		for i := range sub {
+			if m[2*i] >= 0 {
+				sub[i] = s[m[2*i]:m[2*i+1]]
+			}
+		}
+		b.WriteString(f(sub))
+		last = m[1]
+	}
+	b.WriteString(s[last:])
+	return b.String()
+}
+
 var (
 	anyActionRe = regexp.MustCompile(`(?m)(?:^|[;{}])\s*(\w+)\s+([^;{}()=\s][^;{}()]*);`)
 	plungeRe    = regexp.MustCompile(`^(high|low)_plunge\b`)
@@ -170,7 +226,7 @@ var (
 func skillForms(rotation string, party []string) map[string]string {
 	forms := map[string]string{}
 	for _, m := range anyActionRe.FindAllStringSubmatch(rotation, -1) {
-		char := m[1]
+		char := member(m[1], party)
 		if !slices.Contains(party, char) || forms[char] != "" {
 			continue
 		}
@@ -198,4 +254,21 @@ func skillForms(rotation string, party []string) map[string]string {
 		}
 	}
 	return forms
+}
+
+// member returns the party member a rotation's name stands for, matched
+// by gcsim key, or the name itself when it is no member's. Before
+// matching by key, a member written under an alias was never filled:
+// 765 library teams write one that way (docs/fillers.md §2).
+func member(name string, party []string) string {
+	if slices.Contains(party, name) {
+		return name
+	}
+	key := charKey(name)
+	for _, m := range party {
+		if charKey(m) == key {
+			return m
+		}
+	}
+	return name
 }
