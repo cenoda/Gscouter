@@ -520,6 +520,9 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 	case tr.Selection.Chart != "":
 		tr.ChartNote = l.T("score.chart_only")
 	}
+	if c, err := chart.Decode(tr.Selection.Chart); err == nil && c.Pickup {
+		tr.ChartNote += " " + l.T("score.chart_pickup")
+	}
 	if best > 0 {
 		tr.Alternative = rotations[best]
 		tr.AlternativeNote = alternativeNote(l, tr.Team, tr.Alternative)

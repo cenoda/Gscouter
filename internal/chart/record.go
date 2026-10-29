@@ -84,6 +84,10 @@ func Record(build, rotation string, names [Slots]string) (*Chart, error) {
 		wait = 0
 	}
 	c := compress(notes)
+	// A rotation that picks up crystallize shards gets its chart picking
+	// them up: the script's calls are not actions, so they are not
+	// recorded (docs/cycle-swap.md §11.7).
+	c.Pickup = strings.Contains(rotation, "pick_up_crystallize")
 	if err := c.Validate(); err != nil {
 		return nil, err
 	}

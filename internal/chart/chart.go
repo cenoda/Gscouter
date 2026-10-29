@@ -11,7 +11,8 @@
 // A note is a slot (0-3) and an action code, optionally gcsim params in
 // parentheses and "?" to play it only when ready. "~N" waits N frames
 // before the next note. "[" ... "]N" plays the notes inside N times.
-// After ";", "pS k=v ..." are the character params of slot S.
+// After ";", "pS k=v ..." are the character params of slot S, and
+// "pickup" picks up crystallize shards after every action.
 package chart
 
 import (
@@ -73,6 +74,11 @@ type Chart struct {
 	Repeats []Repeat
 	// Params are each slot's gcsim character params (start_hp=1, ...).
 	Params [Slots][]Param
+	// Pickup picks up any crystallize shard on the ground after every
+	// action, as library rotations do with pick_up_crystallize: the
+	// shard's shield triggers Archaic Petra, Navia's Shrapnel and the
+	// like (docs/cycle-swap.md §11.7).
+	Pickup bool
 }
 
 type Note struct {
@@ -202,6 +208,9 @@ func (c *Chart) String() string {
 			toks = append(toks, b.String())
 		}
 	}
+	if c.Pickup {
+		toks = append(toks, "; pickup")
+	}
 	return strings.Join(toks, " ")
 }
 
@@ -275,6 +284,13 @@ func Parse(s string) (*Chart, error) {
 	for _, part := range strings.Split(params, ";") {
 		f := strings.Fields(part)
 		if len(f) == 0 {
+			continue
+		}
+		if len(f) == 1 && f[0] == "pickup" {
+			if c.Pickup {
+				return nil, errors.New("pickup twice")
+			}
+			c.Pickup = true
 			continue
 		}
 		if len(f[0]) != 2 || f[0][0] != 'p' || f[0][1] < '0' || f[0][1] >= '0'+Slots {
@@ -372,6 +388,29 @@ func Decode(s string) (*Chart, error) {
 // by slot. Its setup is the active member, so config.Loop repeats the
 // rest.
 func (c *Chart) Gcsl(names [Slots]string) string {
+	return c.setup() + c.actions(names)
+}
+
+// pickupHook makes every action pick up a crystallize shard of any
+// element once it ends, if one is on the ground (Chart.Pickup).
+const pickupHook = `let gscouter_action = execute_action;
+fn execute_action(c number, a number, p map) {
+  let done = gscouter_action(c, a, p);
+  pick_up_crystallize("any");
+  return done;
+}
+`
+
+// setup is what the chart sets up before its active member.
+func (c *Chart) setup() string {
+	if c.Pickup {
+		return pickupHook
+	}
+	return ""
+}
+
+// actions is the chart's active member and notes, after its setup.
+func (c *Chart) actions(names [Slots]string) string {
 	var b strings.Builder
 	fmt.Fprintf(&b, "active %s;\n", names[c.Notes[0].Slot])
 	indent := ""
@@ -447,5 +486,6 @@ func (c *Chart) Remap(slots [Slots]int) *Chart {
 			out.Params[to] = ps
 		}
 	}
+	out.Pickup = c.Pickup
 	return out
 }

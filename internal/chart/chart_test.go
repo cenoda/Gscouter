@@ -1,6 +1,7 @@
 package chart
 
 import (
+	"context"
 	"slices"
 	"strings"
 	"testing"
@@ -16,6 +17,7 @@ func TestRoundTrip(t *testing.T) {
 		"2E(hold=1) 3E 3Q? 3N 1Q? 1E 0E 0N 0C 0D [0N 0C 0D]3 0Q?",
 		"0E ~30 1N [~12 1C 1D]2 2Q ; p0 start_hp=1 ; p3 start_energy=40 breakthrough=1",
 		"[0N]2 [1N 1N]3",
+		"0E 1N ; p2 start_energy=0 ; pickup",
 	} {
 		c, err := Parse(s)
 		if err != nil {
@@ -53,6 +55,7 @@ func TestParseRejects(t *testing.T) {
 		"0N ; p4 a=1",
 		"0N ; p0 a=1 ; p0 b=2",
 		"0E(x=1);0N",
+		"0N ; pickup ; pickup",
 		strings.Repeat("0N ", MaxNotes+1),
 	} {
 		if _, err := Parse(s); err == nil {
@@ -189,5 +192,45 @@ func TestRemap(t *testing.T) {
 	got := c.Remap([Slots]int{1, 0, -1, 3}).String()
 	if want := "1E 0Q [0N]3 3E ; p0 start_hp=1"; got != want {
 		t.Errorf("Remap() = %q, want %q", got, want)
+	}
+}
+
+// A rotation that picks up crystallize shards records into a chart that
+// picks them up, and the chart scores as the rotation does.
+func TestRecordPickup(t *testing.T) {
+	team, err := library.LoadFS(teams.FS, "arlecchino-kaeya-yunjin-xilonen")
+	if err != nil {
+		t.Fatal(err)
+	}
+	names := [Slots]string{"arlecchino", "kaeya", "xilonen", "yunjin"}
+	c, err := Record(team.Build, team.Rotation, names)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !c.Pickup || !strings.HasSuffix(c.String(), "; pickup") {
+		t.Fatalf("no pickup in %s", c)
+	}
+	looped := func(rot string) float64 {
+		l, err := config.Loop(rot)
+		if err != nil {
+			t.Fatal(err)
+		}
+		res, err := score.Run(context.Background(), config.Assemble(config.Conditions{Iterations: 4, Duration: 300}, team.Build, l), score.Options{Iterations: 4, Warmup: 100, Seed: 1})
+		if err != nil {
+			t.Fatal(err)
+		}
+		return res.DPS
+	}
+	with := looped(c.Gcsl(names))
+	c.Pickup = false
+	without := looped(c.Gcsl(names))
+	// Yun Jin's Archaic Petra: +35% Pyro DMG for Arlecchino.
+	if with < without*1.05 {
+		t.Errorf("picking up shards: %.0f DPS, without: %.0f", with, without)
+	}
+	c.Pickup = true
+	p, err := c.Preview(team.Build, names, nil)
+	if err != nil || p.Error != nil {
+		t.Fatalf("preview: %v %+v", err, p.Error)
 	}
 }

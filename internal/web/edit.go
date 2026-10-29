@@ -31,6 +31,9 @@ type editData struct {
 	Rotation string
 	// Chart is the chart's text form from the link, "" to record one.
 	Chart string
+	// LibraryPickup says whether the library rotation picks up
+	// crystallize shards, which its recorded chart then does too.
+	LibraryPickup bool
 	// Score is the result page's link without its chart.
 	Score   string
 	Version string
@@ -158,6 +161,7 @@ func (s *Server) handleEdit(w http.ResponseWriter, r *http.Request) {
 		Version: s.client.version,
 	}
 	d.Rotation = config.RenameCharacters(tr.Team.Rotation, renames(tr.Team, tr.Chars))
+	d.LibraryPickup = strings.Contains(d.Rotation, "pick_up_crystallize")
 	d.Names, d.Defaults = chartSlots(tr.Team, tr.Chars)
 	if tr.Team.Rotation == "" {
 		if t := s.templateFor(sel.Chars); t != nil {

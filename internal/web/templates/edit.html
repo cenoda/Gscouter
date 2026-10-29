@@ -87,7 +87,8 @@
   .ed-head { flex-wrap: nowrap; } .ed-head h1 { font-size: 1rem; white-space: nowrap; }
   .ed .card { padding: 8px 10px; margin: 0; }
   .ed-labels { width: 46px; } .ed-lane .face { width: 32px; height: 32px; }
-  #ed-help, .ed-side .help, .ed-saves { display: none; }
+  #ed-help, .ed-side .help, .ed-saves, .ed-pickup details { display: none; }
+  .ed-pickup { margin-top: 4px; }
   .ed-hudwrap { grid-template-columns: 1fr; gap: 6px; }
   .ed-side { order: 2; }
   .ed-side .row button { padding: 4px 8px; font-size: .75rem; }
@@ -103,6 +104,11 @@
 .ed-saves select, .ed-saves input { font: inherit; font-size: .9rem; padding: 6px 8px; border: 1px solid var(--line); border-radius: 4px; background: var(--card); color: var(--text); min-width: 0; }
 .ed-saves input { width: 12em; }
 .ed-saves [hidden] { display: none; }
+.ed-pickup { display: grid; gap: 4px; margin-top: 10px; }
+.ed-pickup label { display: inline-flex; gap: 8px; align-items: center; font-weight: 600; font-size: .9rem; }
+.ed-pickup details { font-size: .85rem; color: var(--muted); }
+.ed-pickup summary { cursor: pointer; width: fit-content; }
+.ed-pickup p { margin: 6px 0 0; max-width: 65ch; }
 .ed-saves button { padding: 6px 12px; font-size: .9rem; }
 .ed-sheet-bg { position: fixed; inset: 0; background: rgba(10,12,20,.35); z-index: 30; display: grid; place-items: center; padding: 16px; }
 .ed-sheet { background: var(--card); border: 1px solid var(--line); border-radius: 10px; width: min(380px, 100%); padding: 16px; display: grid; gap: 14px; }
@@ -137,6 +143,14 @@
 <input type="text" id="ed-name" maxlength="40" placeholder="{{t "ed.chart_name"}}" aria-label="{{t "ed.chart_name"}}">
 <button type="button" class="secondary" id="ed-save">{{t "ed.save"}}</button>
 <button type="button" class="secondary" id="ed-unsave" hidden>{{t "ed.delete_saved"}}</button>
+</div>
+<div class="ed-pickup">
+<label for="ed-pickup"><input type="checkbox" id="ed-pickup"> {{t "ed.pickup"}}</label>
+<details><summary>{{t "ed.pickup_what"}}</summary>
+<p>{{t "ed.pickup_help"}}</p>
+<p>{{t "ed.pickup_default"}}</p>
+<p>{{if .Team.Team.Rotation}}{{if .LibraryPickup}}{{t "ed.pickup_library_on"}}{{else}}{{t "ed.pickup_library_off"}}{{end}}{{else}}{{t "ed.pickup_custom"}}{{end}}</p>
+</details>
 </div>
 </div>
 
@@ -213,7 +227,7 @@
 
   // ---- The text form (internal/chart): parse and write ----
   function parse(text) {
-    var halves = text.split(";"), notes = [], repeats = [], params = [[], [], [], []], open = -1, wait = 0;
+    var halves = text.split(";"), notes = [], repeats = [], params = [[], [], [], []], open = -1, wait = 0, pickup = false;
     halves[0].split(/\s+/).filter(Boolean).forEach(function (tok) {
       if (tok[0] === "[") { open = notes.length; tok = tok.slice(1); if (!tok) return; }
       if (tok[0] === "~") { wait += +tok.slice(1); return; }
@@ -230,9 +244,10 @@
     halves.slice(1).forEach(function (part) {
       var f = part.trim().split(/\s+/).filter(Boolean);
       if (!f.length) return;
+      if (f[0] === "pickup") { pickup = true; return; }
       params[+f[0].slice(1)] = f.slice(1).map(function (kv) { var x = kv.split("="); return [x[0], +x[1]]; });
     });
-    return {notes: notes, repeats: repeats, params: params};
+    return {notes: notes, repeats: repeats, params: params, pickup: pickup};
   }
   function write(st) {
     var toks = [];
@@ -248,6 +263,7 @@
     st.params.forEach(function (ps, s) {
       if (ps.length) toks.push("; p" + s + " " + ps.map(function (p) { return p[0] + "=" + p[1]; }).join(" "));
     });
+    if (st.pickup) toks.push("; pickup");
     return toks.join(" ");
   }
 
@@ -724,6 +740,10 @@
   // browser, else the library rotation recorded with the player's build.
   function load(text) {
     st = parse(text); undoStack = []; cursor = st.notes.length; sel = null; rangeEnd = null;
+    // A team the library doesn't have picks shards up unless its chart
+    // came with a choice: nothing to compare with makes it unfair.
+    if (!ROTATION && !text) st.pickup = true;
+    $("ed-pickup").checked = st.pickup;
     active = st.notes.length ? st.notes[st.notes.length - 1].s : 0;
     changed();
   }
@@ -735,7 +755,8 @@
       if (!TEMPLATE) { notice = S.blank; load(""); return message(S.blank, false); }
       message(S.recording, false);
       return call("record", [TEMPLATE_BUILD, TEMPLATE.rotation, TEMPLATE_NAMES, MOVES]).then(function (t) {
-        notice = S.template.replace("%s", TEMPLATE.name); load(t);
+        notice = S.template.replace("%s", TEMPLATE.name);
+        load(t.indexOf("; pickup") < 0 ? t + " ; pickup" : t);
       }, function () { notice = S.blank; load(""); message(S.blank, false); });
     }
     message(S.recording, false);
@@ -744,6 +765,10 @@
       load("");
     });
   }
+  $("ed-pickup").addEventListener("change", function () {
+    if (!st) return;
+    snapshot(); st.pickup = this.checked; changed();
+  });
   if (!window.WebAssembly || !window.Worker) { message(S.broken.replace("%s", "WebAssembly"), true); return; }
   boot();
   var kept = null;

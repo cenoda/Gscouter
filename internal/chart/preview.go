@@ -85,8 +85,9 @@ func (c *Chart) WithParams(build string, names, defaults [Slots]string) string {
 // marked is the chart looped, with a marker starting each pass and one
 // before each note, which tells Play which note the fight is at.
 func (c *Chart) marked(names [Slots]string) string {
-	src := c.Gcsl(names)
+	src := c.actions(names)
 	var b strings.Builder
+	b.WriteString(c.setup())
 	note := 0
 	for _, line := range strings.SplitAfter(src, "\n") {
 		t := strings.TrimSpace(line)

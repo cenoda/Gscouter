@@ -114,3 +114,14 @@ func TestEditUnsupportedTeam(t *testing.T) {
 	_, body = get(t, ts2, "/score?"+q.Encode())
 	mustContain(t, body, "DPS", "the library has no rotation for this team")
 }
+
+func TestPickupExplained(t *testing.T) {
+	_, ts := newClientSite(t)
+	_, body := get(t, ts, "/edit?a=800000001:hutao,yelan,xingqiu,zhongli")
+	mustContain(t, body, "Pick up crystallize shards automatically", "Archaic Petra", "does not pick up shards")
+
+	ts2 := newTestServer(t)
+	c, _ := chart.Parse("3E(hold=1) 2E 1E 0E [0N 0C 0D]6 ; pickup")
+	_, body = get(t, ts2, "/score?"+url.Values{"a": {"800000001:hutao,yelan,xingqiu,zhongli"}, "r": {c.Encode()}}.Encode())
+	mustContain(t, body, "picks up crystallize shards after every action")
+}
