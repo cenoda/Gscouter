@@ -46,6 +46,7 @@
   --bad-bg: #f9e5e1; --bad: #9c2a1e; --good: #2f7a4a;
   --pyro: #e2603c; --hydro: #3a8fd0; --anemo: #2fae8e; --electro: #9a5fd6;
   --dendro: #5fa632; --cryo: #4fb3cc; --geo: #c9962a;
+  --r1: #8a909c; --r2: #4f9a6a; --r3: #4f8fc6; --r4: #9b6fcf; --r5: #c48a3a;
   /* Party slots, in order: categorical, validated for adjacent pairs. */
   --s0: #2a78d6; --s1: #eb6834; --s2: #1baf7a; --s3: #eda100;
 }
@@ -61,6 +62,7 @@
     --bad-bg: #3b1d1d; --bad: #f19999; --good: #6fcf97;
     --pyro: #f27f5c; --hydro: #5eaee8; --anemo: #55cfae; --electro: #b88af0;
     --dendro: #86c75a; --cryo: #7fd3e6; --geo: #e0b452;
+    --r1: #9aa0ab; --r2: #6fbf8a; --r3: #6fa9de; --r4: #b48ee6; --r5: #e0a752;
     --s0: #3987e5; --s1: #d95926; --s2: #199e70; --s3: #c98500;
   }
 }
@@ -149,6 +151,15 @@ td .who + .muted, td .muted + .muted { display: block; font-size: .8rem; margin-
 .pieces td .muted { display: block; font-size: .8rem; }
 .pieces th { color: var(--text); padding-top: 12px; }
 td .who .face { width: 40px; height: 40px; }
+.item { display: inline-block; flex: none; width: 44px; height: 44px; border: 2px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--accent-soft); }
+.item img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.item.r1 { border-color: var(--r1); background: color-mix(in srgb, var(--r1) 18%, var(--card)); }
+.item.r2 { border-color: var(--r2); background: color-mix(in srgb, var(--r2) 18%, var(--card)); }
+.item.r3 { border-color: var(--r3); background: color-mix(in srgb, var(--r3) 18%, var(--card)); }
+.item.r4 { border-color: var(--r4); background: color-mix(in srgb, var(--r4) 18%, var(--card)); }
+.item.r5 { border-color: var(--r5); background: color-mix(in srgb, var(--r5) 18%, var(--card)); }
+.muted .item { width: 24px; height: 24px; border-width: 1.5px; border-radius: 5px; vertical-align: -7px; margin-right: 4px; }
+.piece { display: flex; gap: 10px; align-items: center; }
 td.num .bar { min-width: 64px; }
 td .who { display: flex; gap: 6px; align-items: center; font-weight: 600; }
 .bar { display: block; height: 5px; border-radius: 1px; background: var(--line); margin-top: 4px; overflow: hidden; }
@@ -296,6 +307,10 @@ details.rotation pre { background: var(--bg); border-radius: 8px; padding: 12px;
 {{define "el"}}{{if .}}<svg class="el el-{{.}}" aria-hidden="true"><use href="#el-{{.}}"/></svg>{{end}}{{end}}
 
 {{define "face"}}{{with face .}}<img class="face" src="{{.}}" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer">{{end}}{{end}}
+
+{{define "item"}}<span class="item r{{.Rarity}}">{{with .URL}}<img src="{{.}}" alt="" width="44" height="44" loading="lazy" referrerpolicy="no-referrer">{{end}}</span>{{end}}
+
+{{define "weaponIcon"}}{{with weaponIcon .}}{{if .URL}}{{template "item" .}}{{end}}{{end}}{{end}}
 
 {{define "faces"}}<span class="faces">{{range .}}{{template "face" .}}{{end}}</span>{{end}}
 
@@ -475,7 +490,7 @@ function copyLink(btn) {
 <tbody>
 {{range $i, $c := .Result.Characters}}{{$e := index $.Chars $i}}
 <tr>
-<td><span class="who">{{template "face" $c.Name}}{{template "el" (element $c.Name)}}{{name $c.Name}}</span><span class="muted">Lv.{{$e.Level}} C{{$e.Cons}} · {{weapon $e.Weapon.Key}} R{{$e.Weapon.Refine}} · {{t "team.talents"}} {{$.TalentsOf $i}}</span><span class="muted">{{totals $e ($.StatsOf $i)}}</span></td>
+<td><span class="who">{{template "face" $c.Name}}{{template "el" (element $c.Name)}}{{name $c.Name}}</span><span class="muted">Lv.{{$e.Level}} C{{$e.Cons}} · {{template "weaponIcon" $e.Weapon}}{{weapon $e.Weapon.Key}} R{{$e.Weapon.Refine}} · {{t "team.talents"}} {{$.TalentsOf $i}}</span><span class="muted">{{totals $e ($.StatsOf $i)}}</span></td>
 <td class="num">{{thousands $c.DPS}}</td>
 <td class="num">{{percent $c.Share}}<span class="bar"><i style="width: {{width $c.Share}}%"></i></span></td>
 </tr>
@@ -514,7 +529,7 @@ function copyLink(btn) {
 {{range .Chars}}<tr><th colspan="2"><span class="who">{{template "face" .Key}}{{name .Key}}</span></th></tr>
 {{with artTotals .}}<tr><td colspan="2">{{t "art.totals"}}<span class="muted">{{.}}</span></td></tr>
 {{end}}{{if none .}}{{if $any}}<tr><td colspan="2" class="muted">{{t "art.reload"}}</td></tr>{{end}}
-{{else}}{{$full := full .}}{{range .Pieces}}<tr><td>{{slotName .Slot}}<span class="muted">{{pieceText .}}</span></td><td>{{stat .Main}}<span class="muted">{{if $full}}{{subsText .}}{{else}}{{t "art.subs_out"}}{{end}}</span></td></tr>
+{{else}}{{$full := full .}}{{range .Pieces}}<tr><td><div class="piece">{{template "item" (pieceIcon .)}}<div>{{slotName .Slot}}<span class="muted">{{pieceText .}}</span></div></div></td><td>{{stat .Main}}<span class="muted">{{if $full}}{{subsText .}}{{else}}{{t "art.subs_out"}}{{end}}</span></td></tr>
 {{end}}{{end}}{{end}}
 </table>
 </div>{{end}}

@@ -29,11 +29,14 @@ type charData struct {
 }
 
 type weaponData struct {
-	ID  int    `json:"id"`
-	Key string `json:"key"`
+	ID        int    `json:"id"`
+	Key       string `json:"key"`
+	Rarity    int    `json:"rarity"`
+	ImageName string `json:"image_name"`
 }
 
 type artifactData struct {
+	ID        int    `json:"id"`
 	TextMapID int64  `json:"text_map_id"`
 	Key       string `json:"key"`
 }
@@ -43,6 +46,9 @@ type gameData struct {
 	chars     map[string]charData // by avatar ID, or "avatarID-skillDepotID" for the Traveler
 	weapons   map[int]string      // weapon item ID -> gcsim key
 	artifacts map[string]string   // set name text map hash -> gcsim key
+	// weaponsByKey and setIDs serve the icons, by gcsim key.
+	weaponsByKey map[string]weaponData
+	setIDs       map[string]int
 	// mainStats[rarity][GOOD stat key][level] is an artifact main stat value.
 	mainStats map[string]map[string][]float64
 }
@@ -61,6 +67,9 @@ func loadGameData() (*gameData, error) {
 		chars:     map[string]charData{},
 		weapons:   map[int]string{},
 		artifacts: map[string]string{},
+
+		weaponsByKey: map[string]weaponData{},
+		setIDs:       map[string]int{},
 	}
 	for file, v := range map[string]any{
 		"data/character.dm.json":      &chars,
@@ -81,9 +90,11 @@ func loadGameData() (*gameData, error) {
 	}
 	for _, w := range weapons.Data {
 		g.weapons[w.ID] = w.Key
+		g.weaponsByKey[w.Key] = w
 	}
 	for _, a := range artifacts.Data {
 		g.artifacts[strconv.FormatInt(a.TextMapID, 10)] = a.Key
+		g.setIDs[a.Key] = a.ID
 	}
 	return g, nil
 }
