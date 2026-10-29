@@ -54,12 +54,15 @@ func (f Filler) String() string {
 //     burst is ready, or skips the burst when it is not ready, as
 //     energy maps the character (see Filler);
 //   - before each skill of a character in skill, it attacks until the
-//     skill is ready.
+//     skill is ready;
+//   - it bounds the rotation's own waits for a burst (see waitLoops),
+//     with or without fillers.
 //
 // Either filler gives up after a fixed number of actions, and the
 // rotation then waits as before. Names are as the rotation writes them;
 // party lists every member.
 func Fill(rotation string, energy map[string]Filler, skill, party []string) string {
+	rotation = waitLoops(rotation, energy, party)
 	forms := skillForms(rotation, party)
 	var b strings.Builder
 	n := 0
@@ -156,6 +159,59 @@ func energyFiller(char string, party []string, forms map[string]string, how Fill
 	}
 	fmt.Fprintf(&body, " else { %s attack; }", char)
 	return fmt.Sprintf("let %s = 0; while !.%s.burst.ready && %s < 20 { %s %s = %s + 1; }", v, char, v, body.String(), v, v)
+}
+
+// waitLoopRe matches a loop in which a character attacks until its burst
+// is ready: "while !.<char>.burst.ready { <char> attack; }".
+var waitLoopRe = regexp.MustCompile(`while\s*!\s*\.(\w+)\.burst\.ready\s*\{\s*(\w+)\s+attack\s*;\s*\}`)
+
+// waitLoops rewrites the loops in which a member attacks until its burst
+// is ready. gcsim does not count such a loop as a wait for energy, so a
+// build short of Energy Recharge attacks on a support for as long as its
+// burst takes to charge, and no filler sees it (Alhaitham / Xingqiu /
+// Yelan / Raiden without its Favonius weapons kept 23% of its score).
+// A member without a filler attacks at most maxFillAttacks times, and the
+// rest of its wait is gcsim's, which the filler search sees. With a
+// filler, the loop is as written for FillSelf, which also attacks until
+// the burst is ready, and goes for the others, whose filler before the
+// burst takes its place.
+func waitLoops(rotation string, energy map[string]Filler, party []string) string {
+	n := 0
+	return replaceSubmatch(waitLoopRe, rotation, func(m []string) string {
+		char := m[1]
+		if m[2] != char || !slices.Contains(party, char) {
+			return m[0]
+		}
+		how, ok := energy[char]
+		switch {
+		case ok && how == FillSelf:
+			return m[0]
+		case ok:
+			return ""
+		}
+		n++
+		v := fmt.Sprintf("gs_wait%d", n)
+		return fmt.Sprintf("let %s = 0; while !.%s.burst.ready && %s < %d { %s attack; %s = %s + 1; }", v, char, v, maxFillAttacks, char, v, v)
+	})
+}
+
+// replaceSubmatch is re.ReplaceAllStringFunc with the submatches.
+func replaceSubmatch(re *regexp.Regexp, s string, f func([]string) string) string {
+	var b strings.Builder
+	last := 0
+	for _, m := range re.FindAllStringSubmatchIndex(s, -1) {
+		b.WriteString(s[last:m[0]])
+		sub := make([]string, len(m)/2)
+		for i := range sub {
+			if m[2*i] >= 0 {
+				sub[i] = s[m[2*i]:m[2*i+1]]
+			}
+		}
+		b.WriteString(f(sub))
+		last = m[1]
+	}
+	b.WriteString(s[last:])
+	return b.String()
 }
 
 var (

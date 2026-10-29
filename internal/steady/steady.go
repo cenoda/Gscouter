@@ -66,7 +66,7 @@ const maxBriefRuns = 4
 // first, then those of better runs, and at most maxRuns rotations run in
 // all.
 func Score(rotation string, members []string, run func(looped string) (*score.Result, error)) (*Outcome, error) {
-	looped, err := config.Loop(rotation)
+	looped, err := Looped(rotation, members)
 	if err != nil {
 		return nil, err
 	}
@@ -117,7 +117,7 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 	}
 	followUp(nil, nil, res)
 
-	seen := map[string]bool{rotation: true}
+	seen := map[string]bool{config.Fill(rotation, nil, nil, members): true}
 	for len(queue) > 0 && len(seen) < maxRuns {
 		i := 0
 		for j, c := range queue {
@@ -151,6 +151,12 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 		followUp(c.energy, c.skill, res)
 	}
 	return brief(best, rotation, members, run, seen)
+}
+
+// Looped is the rotation as Score first runs it: looped, with its own
+// waits for a burst bounded so that the search sees them (config.Fill).
+func Looped(rotation string, members []string) (string, error) {
+	return config.Loop(config.Fill(rotation, nil, nil, members))
 }
 
 // Rotation is one of a team's rotations (library.Team.Rotations) as run
