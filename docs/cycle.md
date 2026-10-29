@@ -2,7 +2,7 @@
 
 > Status: In progress (§5.1, §5.2 and §7 implemented) · Last updated: 2026-10-29
 
-Roadmap node Cycle (`docs/roadmap.md`): what the fixed rotation (design §5.2) does with builds other than the one it was written for, and where the score stops being trustworthy because of it. §5.1, §5.2 and §7 are implemented; §6 proposes the rest, §8 says what teams without an alternative still need, §9 records Skirk's C6, and §10 explains the normal attacks in Mavuika's rotation.
+Roadmap node Cycle (`docs/roadmap.md`): what the fixed rotation (design §5.2) does with builds other than the one it was written for, and where the score stops being trustworthy because of it. §5.1, §5.2 and §7 are implemented; §6 proposes the rest, §8 says what teams without an alternative still need, §9 records Skirk's C6, and §10 explains the normal attacks in Mavuika's rotation and how the page names her actions.
 
 ## 1. The report
 
@@ -250,7 +250,9 @@ The page labels the recast and the tap both "E", so the stint looks like it star
 - The normal before Q is worth more than its own hit. Damage by ability over 30 seeds (36–108 s of a 120 s looped fight, library build): with it, 16 of the 32 cyclic charged hits Melt; without it, 12. It moves the burst 0.6 s later, and the spins that follow land on Citlali's Cryo one more time per loop. Its own hit is under 1% of the team's damage. This is a timing found by the source's author in gcsim's aura and ICD model; whether it holds in game is not known.
 - The other two normals fill time the cooldowns leave free (E 15 s, Q 18 s). Each is worth its own hit, 0.5–3%, and idling instead loses it.
 
-**What could change.** Not decided:
+**What changed.** _2026-10-29._ Implemented:
 
-1. Tell the recast from the tap on the page ("E (recast)"). The timeline is built from gcsim's action stats, which do not carry an action's params, so this needs the params recorded with each action (`internal/timeline`).
-2. Show a held charged attack written as `charge:3, charge[hold=6], charge[final=1]` as one held charged attack, as players play it.
+1. The page tells a recast and a held skill from a tap: "E (recast)", "Hold E". gcsim's action stats do not carry an action's params, so `score.Trace` records them from the same run, and `timeline.Build` reads them.
+2. Mavuika's charges ending in `charge[final=1]` show as one held charged attack ("Hold CA") from its first charge. Her stint now reads "E (recast) → CA → Dash → NA → CA → Q → (Hold CA · Dash) ×2 → NA → E → NA".
+
+Scores do not change: the score runs do not record params.
