@@ -557,14 +557,16 @@ function copyLink(btn) {
 
   // Finished simulations are kept for the tab's session: they don't
   // depend on the language, so switching it (a reload) renders the page
-  // again without calculating it again.
+  // again without calculating it again. They do depend on the engine, so
+  // the key carries its version: after an update, a reload calculates
+  // again instead of showing the old engine's scores.
   var saved = "gscouter.run:";
   function recall(key) {
-    try { return sessionStorage.getItem(saved + key); } catch (e) { return null; }
+    try { return sessionStorage.getItem(saved + v + ":" + key); } catch (e) { return null; }
   }
   function keep(key, result) {
     for (var tries = 0; tries < 2; tries++) {
-      try { return sessionStorage.setItem(saved + key, result); } catch (e) {}
+      try { return sessionStorage.setItem(saved + v + ":" + key, result); } catch (e) {}
       // Full: make room by forgetting the older simulations.
       try {
         for (var i = sessionStorage.length - 1; i >= 0; i--) {
