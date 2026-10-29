@@ -255,5 +255,23 @@ func init() {
 		"art.low_best":   "(terbaik; stat utama apa pun di sini selisih DPS-nya di bawah 2%)",
 		"art.unplayable": "rotasi tidak bisa dijalankan",
 		"art.unknown":    "tidak dinilai",
+
+		"about.title":     "Janji kami",
+		"about.desc":      "Apa yang dijanjikan Gscouter kepada pengunjung, dan apa yang disimpannya.",
+		"about.promise_h": "Janji kami",
+		"about.p_free":    "Tanpa iklan, tanpa donasi, tanpa fitur berbayar, dan tanpa akun.",
+		"about.p_track":   "Tanpa skrip analitik atau pelacak. Satu-satunya cookie adalah bahasa yang kamu pilih. Gambar karakter dimuat dari Enka.Network.",
+		"about.p_same":    "Setiap tim dihitung dengan cara yang sama, melawan musuh yang sama dengan rotasi yang sama, siapa pun yang mencarinya.",
+		"about.data_h":    "Apa yang disimpan, dan di mana",
+		"about.d_browser": "Di browser kamu: bahasa yang dipilih, UID terbaru beserta build dari etalasenya, dan perhitungan yang selesai di tab yang terbuka. Menghapus data situs di browser akan menghapusnya.",
+		"about.d_server":  "Di server, hanya di memori: etalase yang dicari selama diizinkan Enka.Network, dan skor selama satu hari. Alamat IP kamu dipakai selama satu menit untuk membatasi jumlah tautan pendek yang dibuat satu pengunjung. Siapa mengunjungi halaman apa tidak dicatat: server hanya menyimpan total harian (jumlah tampilan halaman dan banyaknya UID berbeda yang dicari), dan tidak ada yang bisa ditelusuri ke siapa pun.",
+		"about.d_links":   "Tautan pendek: menyalin tautan hasil akan menyimpan alamat hasil itu agar tautan pendeknya tetap berfungsi. Alamat itu berisi UID, nama panggilan, dan build dari etalase publik. Tautan pendek disimpan tanpa batas waktu.",
+		"about.delete":    `Untuk menghapus tautan pendek, kirimkan tautannya kepada kami di <a href="https://discord.gg/PkkN9D4M4G">Discord</a>. Tautan panjang memuat data yang sama di dalamnya, jadi tetap berfungsi bagi siapa pun yang memilikinya.`,
+		"about.scores_h":  "Tentang skor",
+		"about.scores":    `Skor adalah simulasi gcsim dalam kondisi tetap, bukan hasil pengukuran di dalam game. Skor bisa meleset dan berubah saat engine atau rotasi diperbarui: lihat <a href="/updates">pembaruan</a>.`,
+		"updates.title":   "Pembaruan",
+		"updates.lead":    "Perubahan yang bisa disadari pengunjung, dari yang terbaru. Isinya dalam bahasa Inggris.",
+		"updates.scores":  "Skor berubah",
+		"foot.updated":    "Diperbarui %s",
 	}
 }

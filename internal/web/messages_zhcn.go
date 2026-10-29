@@ -255,5 +255,23 @@ func init() {
 		"art.low_best":   "（最佳——此部位任何主词条的DPS差距都在2%以内）",
 		"art.unplayable": "无法执行循环",
 		"art.unknown":    "未判定",
+
+		"about.title":     "我们的承诺",
+		"about.desc":      "Gscouter 对访客的承诺，以及保存的信息。",
+		"about.promise_h": "承诺",
+		"about.p_free":    "没有广告、捐赠、付费内容，也没有账号。",
+		"about.p_track":   "不使用访问统计脚本或追踪工具。唯一的 Cookie 是你选择的语言。角色图片从 Enka.Network 加载。",
+		"about.p_same":    "无论谁来查询，所有队伍都以同一个敌人、同一套轮转同样计算。",
+		"about.data_h":    "保存的信息与位置",
+		"about.d_browser": "浏览器中：你选择的语言、最近的 UID 及其展柜配装，以及当前标签页中已完成的计算。在浏览器中清除本站数据即可删除。",
+		"about.d_server":  "服务器（仅内存）：查询过的展柜在 Enka.Network 允许的时间内保存，分数保存一天。IP 地址仅用一分钟，用于限制一位访客生成短链接的数量。不记录谁访问了哪个页面，只保留每日总数（页面浏览量和被查询的不同 UID 数），无法从中追溯到任何人。",
+		"about.d_links":   "短链接：复制结果链接时，会保存结果地址，使短链接持续有效。地址包含公开展柜中的 UID、昵称和配装。短链接不设期限。",
+		"about.delete":    `如需删除短链接，请在 <a href="https://discord.gg/PkkN9D4M4G">Discord</a> 上把链接发给我们。长链接本身就包含同样的信息，所以持有它的人仍可使用。`,
+		"about.scores_h":  "关于分数",
+		"about.scores":    `分数是固定条件下的 gcsim 模拟，并非游戏内的实测值。可能有偏差，并会随引擎或轮转更新而变化：见<a href="/updates">更新记录</a>。`,
+		"updates.title":   "更新记录",
+		"updates.lead":    "访客能注意到的变更，按时间倒序。条目为英文。",
+		"updates.scores":  "分数变化",
+		"foot.updated":    "更新于 %s",
 	}
 }

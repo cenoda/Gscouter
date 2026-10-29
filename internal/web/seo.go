@@ -102,7 +102,7 @@ func referenceScore(t *library.Team) int {
 
 // pages lists the paths of the indexed pages.
 func (s *Server) pages() []string {
-	out := []string{"/", "/teams"}
+	out := []string{"/", "/teams", "/about"}
 	for _, t := range s.lib.Teams {
 		out = append(out, teamPath(t))
 	}

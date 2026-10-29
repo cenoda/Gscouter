@@ -255,5 +255,23 @@ func init() {
 		"art.low_best":   "(en iyisi; burada hangi ana stat olursa olsun DPS farkı %2 içinde)",
 		"art.unplayable": "rotasyon oynanamaz",
 		"art.unknown":    "değerlendirilmedi",
+
+		"about.title":     "Sözlerimiz",
+		"about.desc":      "Gscouter'ın ziyaretçilerine verdiği sözler ve sakladığı bilgiler.",
+		"about.promise_h": "Verdiğimiz sözler",
+		"about.p_free":    "Reklam yok, bağış yok, ücretli bir şey yok ve hesap yok.",
+		"about.p_track":   "Analiz betiği veya izleme aracı yok. Tek çerez seçtiğin dildir. Karakter görselleri Enka.Network'ten yüklenir.",
+		"about.p_same":    "Kim bakarsa baksın, her takım aynı düşmana karşı aynı rotasyonla aynı şekilde hesaplanır.",
+		"about.data_h":    "Ne saklanır, nerede",
+		"about.d_browser": "Tarayıcında: seçtiğin dil, vitrin build'leriyle birlikte son UID'lerin ve açık sekmede biten hesaplamalar. Tarayıcıda sitenin verilerini silmek bunları kaldırır.",
+		"about.d_server":  "Sunucuda, yalnızca bellekte: bakılan vitrinler Enka.Network'ün izin verdiği süre boyunca, puanlar bir gün saklanır. IP adresin, bir ziyaretçinin oluşturduğu kısa bağlantı sayısını sınırlamak için bir dakika kullanılır. Kimin hangi sayfayı ziyaret ettiği kaydedilmez: sunucu yalnızca günlük toplamları (sayfa görüntülemeleri ve bakılan farklı UID sayısı) tutar ve bunlardan kimseye ulaşılamaz.",
+		"about.d_links":   "Kısa bağlantılar: bir sonucun bağlantısını kopyaladığında, kısa bağlantının çalışmaya devam etmesi için sonucun adresi saklanır. Adres, herkese açık vitrindeki UID'yi, takma adı ve build'leri içerir. Kısa bağlantılar süresiz saklanır.",
+		"about.delete":    `Bir kısa bağlantının kaldırılmasını istersen bize <a href="https://discord.gg/PkkN9D4M4G">Discord</a> üzerinden gönder. Uzun bağlantı aynı verileri kendi içinde taşır, bu yüzden ona sahip olan herkes için çalışmaya devam eder.`,
+		"about.scores_h":  "Puanlar hakkında",
+		"about.scores":    `Puanlar sabit koşullarda yapılan gcsim simülasyonlarıdır, oyun içi ölçümler değildir. Sapabilir ve motor ya da rotasyonlar güncellendiğinde değişir: <a href="/updates">güncellemelere</a> bak.`,
+		"updates.title":   "Güncellemeler",
+		"updates.lead":    "Ziyaretçilerin fark edebileceği değişiklikler, en yenisi önce. Kayıtlar İngilizcedir.",
+		"updates.scores":  "Puanlar değişti",
+		"foot.updated":    "Güncelleme: %s",
 	}
 }

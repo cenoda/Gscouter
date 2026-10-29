@@ -255,5 +255,23 @@ func init() {
 		"art.low_best":   "(best; every main stat here is within 2% DPS)",
 		"art.unplayable": "rotation cannot be played",
 		"art.unknown":    "not judged",
+
+		"about.title":     "Our promises",
+		"about.desc":      "What Gscouter promises its visitors, and what it keeps.",
+		"about.promise_h": "What we promise",
+		"about.p_free":    "No ads, no donations, nothing to pay for, and no accounts.",
+		"about.p_track":   "No analytics scripts or trackers. The only cookie is the language you pick. Character images load from Enka.Network.",
+		"about.p_same":    "Every team is scored the same way, against the same enemy with the same rotation, whoever looks it up.",
+		"about.data_h":    "What is kept, and where",
+		"about.d_browser": "In your browser: the language you picked, your recent UIDs with their showcase builds, and finished calculations for the open tab. Clearing the site's data in your browser removes them.",
+		"about.d_server":  "On the server, in memory only: looked-up showcases for as long as Enka.Network allows, and scores for a day. Your IP address is used for a minute to limit how many short links one visitor makes. Who visits which page is not recorded: the server keeps only daily totals (page views and how many different UIDs were looked up), and nothing in them leads back to anyone.",
+		"about.d_links":   "Short links: copying a result's link stores the result's address so that the short link keeps working. The address holds the UID, nickname and builds from the public showcase. Short links are kept with no end date.",
+		"about.delete":    `To have a short link removed, send it to us on <a href="https://discord.gg/PkkN9D4M4G">Discord</a>. The long link holds the same data in itself, so it keeps working for anyone who has it.`,
+		"about.scores_h":  "About the scores",
+		"about.scores":    `Scores are gcsim simulations under fixed conditions, not measurements from the game. They can be off, and they change when the engine or rotations are updated: see the <a href="/updates">updates</a>.`,
+		"updates.title":   "Updates",
+		"updates.lead":    "Changes visitors can notice, newest first.",
+		"updates.scores":  "Scores changed",
+		"foot.updated":    "Updated %s",
 	}
 }
