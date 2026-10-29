@@ -18,6 +18,6 @@ reference:
 validation:
     date: "2026-10-29"
     iterations: 20
-    gap: 0.004
+    gap: 0.003
     kept: 1.014
-    dps: 58915
+    dps: 58897

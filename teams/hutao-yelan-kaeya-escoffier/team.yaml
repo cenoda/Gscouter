@@ -19,5 +19,5 @@ validation:
     date: "2026-10-29"
     iterations: 20
     gap: 0
-    kept: 0.993
-    dps: 58652
+    kept: 0.994
+    dps: 58682
