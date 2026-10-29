@@ -129,6 +129,11 @@ _2026-10-29._ Decided with the owner: a team with no library entry can be scored
 - **Whose build** (2026-10-29): a gain on the sender's build is enough to keep the chart as an alternative. An alternative only competes, so it cannot lower another build's score (`docs/cycle.md` §8).
 - **Character params** (2026-10-29, counted over `teams/*/team.yaml` and `alt/*/team.yaml`): not only Hu Tao. 248 teams set params: Skirk `start_serpents_subtlety` 146, `start_hp` / `start_hp%` on many characters (Hu Tao 42, Neuvillette 19, Furina 14, Kuki 12, ...), `start_energy` (Furina, Escoffier, Vodyanitsa, Shenhe), the Traveler's `base_atk_buff` and `skirk_story_buff` 21, Yelan `breakthrough` 4. Most are starting states, which the scoring window (150–450 s) mostly forgets (Hu Tao's `start_hp=1` has no effect on the looped score, design §3.1); `base_atk_buff` lasts the whole fight. Proposal: a chart for a library team takes the team's params; a chart for another team takes, per character, the value the library uses most. To check first: which params change the looped score at all.
 
+- **Params in the editor** (2026-10-29, owner: adjustable, without adding to the UI). gcsim reads few: `start_hp`, `start_hp%` and `start_energy` for every character (`pkg/core/core.go`), and about ten of its own for 18 characters (`internal/characters`: `hexerei` 9 uses, `revelation` 4, Skirk's `start_serpents_subtlety`, Yelan's `breakthrough`, the Traveler's story buffs, Mavuika's and Skirk's `start_energy`, Fischl's `oz_travel`, ...). So:
+  - They live behind the character's portrait at the start of its lane: tapping or clicking it opens a small sheet with that character's params, one control each (a slider for HP and energy, a switch or a few values for the rest). Nothing else on the editor changes.
+  - The sheet opens filled with the defaults above (the team's params, else the library's most used value). A dot on the portrait marks a character whose params differ from them, and the sheet has "reset".
+  - The params travel with the chart (link, browser save, send), so a sent chart is recalculated with them.
+
 ## 10. Open questions
 
 - The time grid (§6).
