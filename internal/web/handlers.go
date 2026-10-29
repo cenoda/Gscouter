@@ -414,7 +414,9 @@ func canonical(w http.ResponseWriter, r *http.Request, path string, enemy *confi
 
 type versusData struct {
 	A, B teamResult
-	// Diff is (A - B) / B; only set when both teams have a score.
+	// Diff is the higher team's lead over the lower one, relative to the
+	// lower: (A - B) / B when A leads, -(B - A) / A when B leads. Only set
+	// when both teams have a score.
 	Diff   float64
 	Scored bool
 	Tie    bool
@@ -517,9 +519,14 @@ func (s *Server) versus(ctx context.Context, l localizer, a, b selection, enemy 
 func newVersus(a, b teamResult) versusData {
 	data := versusData{A: a, B: b}
 	data.A.ID, data.B.ID = "a", "b"
-	if data.A.Result != nil && data.B.Result != nil && data.B.Result.DPS > 0 {
+	if data.A.Result != nil && data.B.Result != nil && data.A.Result.DPS > 0 && data.B.Result.DPS > 0 {
 		data.Scored = true
-		data.Diff = (data.A.Result.DPS - data.B.Result.DPS) / data.B.Result.DPS
+		a, b := data.A.Result.DPS, data.B.Result.DPS
+		if a >= b {
+			data.Diff = (a - b) / b
+		} else {
+			data.Diff = -(b - a) / a
+		}
 		data.Tie = math.Abs(data.Diff) < tieThreshold
 	}
 	return data
