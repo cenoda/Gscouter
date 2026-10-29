@@ -1,0 +1,30 @@
+# KQM Wriothesley quick guide, Stellar-Conduct, sample rotation:
+# Yae Miko 3[E] > Odette 2[E](1) > Escoffier E > Wriothesley combo
+#   1 from the second rotation onwards, start with Odette first
+# Odette's burst is skipped (the guide: often a DPS loss in Wriothesley
+# teams), and so is Wriothesley's (no ER on him in these teams).
+# Wriothesley's combo with no HP loss from enemy attacks: E N5 2[N5CD]
+# in the first rotation, E 3[N5CD] N2 from the second on. Below 60% HP
+# his charged attack is Luster: Vaulting Fist, which heals him.
+let rotation = 0;
+active yaemiko;
+if rotation == 0 {
+  yaemiko skill:3;
+  odette skill:2;
+} else {
+  odette skill:2;
+  yaemiko skill:3;
+}
+escoffier skill;
+if rotation == 0 {
+  wriothesley skill, attack:5,
+              attack:5, charge, dash,
+              attack:5, charge, dash;
+} else {
+  wriothesley skill,
+              attack:5, charge, dash,
+              attack:5, charge, dash,
+              attack:5, charge, dash,
+              attack:2;
+}
+rotation = rotation + 1;

@@ -1,0 +1,23 @@
+id: wriothesley-odette-yaemiko-escoffier
+name: Wriothesley / Odette / Yae Miko / Escoffier
+members:
+    - wriothesley
+    - odette
+    - yaemiko
+    - escoffier
+archetype: Stellar-Conduct
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://keqingmains.com/q/wriothesley-quickguide/
+notes: 'Written from the KQM Wriothesley quick guide''s Stellar-Conduct section (design §5.4; the community gcsim database has no Wriothesley team with a Stellar-Conduct enabler). Needs his Witch''s Revelation (upstream PR #3212, on the fork; gcsim''s default revelation=1): inside a Polestar Field his N3, N5 and Luster: Vaulting Fist deal Stellar-Conduct DMG. The guide''s sample rotation: Yae Miko 3[E] > Odette 2[E] > Escoffier E > Wriothesley combo, Odette first from the second rotation on, neither Odette''s nor Wriothesley''s burst; his combo E N5 2[N5CD] in the first rotation and E 3[N5CD] N2 after. Wriothesley: C0, Cashflow Supervision R1 (with upstream''s 6.7 Stellar-Conduct bonus, PR #3247, on the fork), 4pc Disenchantment in Deep Shadow, ATK%/ATK%/CRIT Rate, KQM-standard substats. Yae Miko from a harvested team with the guide''s 4pc Disenchantment in Deep Shadow; Odette as in the Sandrone teams; Escoffier from a harvested team with the guide''s 4pc Tenacity of the Millelith. Known problem: the enemy deals no damage, so his HP falls only through his own skill, as the guide''s combo assumes.'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-29: the KQM Wriothesley quick guide (teams, rotations and builds, no DPS, no gcsim links); web searches for Stellar-Conduct Wriothesley DPS figures and gcsim configs (AllThingsHow, Game8, GameWith, Sportskeeda: mechanics and ratings only); upstream gcsim PR #3212 (no sample config); the community gcsim database (6,021 entries: none with Wriothesley and Odette, Sandrone or the Cryo Traveler).'
+validation:
+    date: "2026-10-29"
+    iterations: 100
+    kept: 1.25
+    dps: 149144
+    draft: no reference DPS

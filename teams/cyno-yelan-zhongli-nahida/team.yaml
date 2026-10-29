@@ -6,7 +6,7 @@ members:
     - zhongli
     - nahida
 archetype: ""
-status: supported
+status: draft
 rotation_version: 1
 gcsim_commit: 2350be9
 sources:
@@ -16,8 +16,9 @@ reference:
     dps: 50434
     computed: "2026-10-02"
 validation:
-    date: "2026-10-28"
+    date: "2026-10-29"
     iterations: 20
-    gap: 0.009
-    kept: 0.988
-    dps: 50293
+    gap: 0.064
+    kept: 1
+    dps: 53663
+    draft: +6.4% from the source's DPS, more than 5%

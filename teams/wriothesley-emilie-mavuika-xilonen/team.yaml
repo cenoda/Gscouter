@@ -6,7 +6,7 @@ members:
     - mavuika
     - xilonen
 archetype: ""
-status: supported
+status: draft
 rotation_version: 1
 gcsim_commit: 2350be9
 sources:
@@ -16,8 +16,9 @@ reference:
     dps: 359550
     computed: "2026-10-02"
 validation:
-    date: "2026-10-28"
+    date: "2026-10-29"
     iterations: 20
-    gap: 0
-    kept: 0.998
-    dps: 358804
+    gap: 0.148
+    kept: 0.996
+    dps: 410947
+    draft: +14.8% from the source's DPS, more than 5%

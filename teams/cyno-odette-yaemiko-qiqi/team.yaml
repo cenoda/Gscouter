@@ -1,0 +1,23 @@
+id: cyno-odette-yaemiko-qiqi
+name: Cyno / Odette / Yae Miko / Qiqi
+members:
+    - cyno
+    - odette
+    - yaemiko
+    - qiqi
+archetype: Stellar-Conduct
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://keqingmains.com/q/odette-quickguide/
+notes: 'Written from the KQM Odette quick guide''s Stellar-Conduct section (design §5.4), Odette / Cyno / Yae Miko / Qiqi, which it calls one of Cyno''s strongest teams: Yae 3[E] > Odette 2[E] > Qiqi E(Q) > Cyno E N1 Q N2E 4[N4D N4E], Qiqi''s burst only at C6. Needs Cyno''s Witch''s Revelation (upstream PR #3250, on the fork; gcsim''s default revelation=1): inside a Polestar Field his Duststalker Bolts become Starsame bolts, 200% ATK plus 600% EM as Stellar-Conduct DMG, and his skill outside the burst grants 6 s of Pactsworn Pathclearer. Cyno: C0, Staff of the Scarlet Sands R1, 4pc Disenchantment in Deep Shadow, EM/EM/CRIT Rate, KQM-standard substats (the GameWith, GenshinBuilds and AllThingsHow guides'' best). Yae Miko, Odette and Qiqi (C6, so she bursts) as in the Sandrone teams.'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-29: the KQM Odette quick guide (teams and rotations, no DPS, no gcsim links); GameWith, GenshinBuilds, AllThingsHow, Gaming ProMax, Icy Veins and Prydwen Cyno pages (mechanics, builds and ratings only); the community gcsim database (6,021 entries: none with Cyno and Odette, Sandrone or the Cryo Traveler); upstream gcsim PR #3250 (no sample config).'
+validation:
+    date: "2026-10-29"
+    iterations: 100
+    kept: 1.065
+    dps: 89556
+    draft: no reference DPS
