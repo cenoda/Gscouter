@@ -1,0 +1,24 @@
+id: skirk-furina-citlali-mika
+name: Skirk / Furina / Citlali / Mika
+members:
+    - skirk
+    - furina
+    - citlali
+    - mika
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/fKNqgzRqnKmB
+notes: The team's rotation without citlali's burst, for citlali C6 (cmd/variant, docs/cycle.md §10). With the team's build at citlali C6 it scores 104834 DPS against 102233 with the team's rotation (+2.5%, looped with fillers, 200 iterations, 2026-10-29).
+params:
+    skirk: start_serpents_subtlety=100
+variant:
+    drop: burst
+    char: citlali
+validation:
+    date: "2026-10-29"
+    iterations: 100
+    kept: 1.01
+    dps: 104802

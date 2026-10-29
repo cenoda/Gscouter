@@ -1,0 +1,14 @@
+active neuvillette;
+for let i=0; i<4; i=i+1 { 
+  neuvillette skill, attack:2, dash, attack:2; 
+  citlali skill;
+  if !.citlali.mods.favonius-cd {
+    citlali attack;
+  }
+  emilie attack, skill;
+  xiangling skill, dash, burst;  
+  neuvillette charge, burst, skill, charge;
+  xiangling attack:2, skill;
+  neuvillette charge, charge;
+}
+wait(173);

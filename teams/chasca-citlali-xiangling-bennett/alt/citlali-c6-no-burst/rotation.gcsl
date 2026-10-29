@@ -1,0 +1,16 @@
+active bennett;
+for let i=0; i<4; i=i+1 {
+  bennett skill;
+  xiangling swap; wait(55);
+  citlali skill, attack;
+  bennett burst, skill;
+  xiangling burst, skill, dash;
+  chasca skill;
+  chasca aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}
+wait(82);

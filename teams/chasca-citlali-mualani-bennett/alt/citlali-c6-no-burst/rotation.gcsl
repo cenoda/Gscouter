@@ -1,0 +1,23 @@
+active bennett;
+for let i=0; i<4; i=i+1 {
+  bennett skill[hold_c4=1]; 
+  citlali skill, attack;
+  bennett burst;            
+  let StartFrame = f();     
+  mualani skill;
+  if !.element.t0.pyro {
+    while !.element.t0.cryo && f() - StartFrame < 180 {
+      mualani walk[f=1];
+    }
+  }
+  mualani attack;
+  mualani walk[f=1];
+  chasca skill;
+  chasca aim:4;
+  if .chasca.burst.ready && .chasca.energy == .chasca.energymax {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}
+wait(82);

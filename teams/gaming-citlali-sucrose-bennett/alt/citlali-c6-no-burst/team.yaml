@@ -1,0 +1,23 @@
+id: gaming-citlali-sucrose-bennett
+name: Gaming / Citlali / Sucrose / Bennett
+members:
+    - gaming
+    - citlali
+    - sucrose
+    - bennett
+archetype: ""
+status: draft
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/btCNhrLRkKzk
+notes: The team's rotation without citlali's burst, for citlali C6 (cmd/variant, docs/cycle.md §10). With the team's build at citlali C6 it scores 137854 DPS against 123893 with the team's rotation (+11.3%, looped with fillers, 200 iterations, 2026-10-29).
+variant:
+    drop: burst
+    char: citlali
+validation:
+    date: "2026-10-29"
+    iterations: 100
+    kept: 1.4
+    dps: 137777
+    draft: 'the looped score keeps 140% of one pass, more than 130%: the rotation depends on the source''s conditions'

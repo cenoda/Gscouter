@@ -1,0 +1,22 @@
+id: citlali-xilonen-bennett-kaeya
+name: Citlali / Xilonen / Bennett / Kaeya
+members:
+    - citlali
+    - xilonen
+    - bennett
+    - kaeya
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/kqcfwqQpnWnn
+notes: The team's rotation without citlali's burst, for citlali C6 (cmd/variant, docs/cycle.md §10). With the team's build at citlali C6 it scores 89402 DPS against 82811 with the team's rotation (+8.0%, looped with fillers, 200 iterations, 2026-10-29).
+variant:
+    drop: burst
+    char: citlali
+validation:
+    date: "2026-10-29"
+    iterations: 100
+    kept: 1.038
+    dps: 89667

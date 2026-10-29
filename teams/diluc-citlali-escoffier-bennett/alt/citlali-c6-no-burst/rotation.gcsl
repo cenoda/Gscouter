@@ -1,0 +1,19 @@
+active diluc; 
+for let i = 0; i < 4; i = i + 1 {
+  esco skill;
+  
+  bennett skill, dash, burst, attack;
+  
+  citlali skill;
+  
+  diluc skill,
+        skill, attack:4, 
+        skill, attack:2,
+        burst;
+  
+  bennett skill;
+  
+  diluc skill, attack:1, 
+        skill, attack:1, 
+        skill;
+}

@@ -1,0 +1,19 @@
+active mavuika;
+for let i = 0; i < 4; i = i + 1 {
+  mavuika skill;
+  escoffier dash, skill;
+  
+  citlali skill;
+  
+  mavuika burst;
+  
+  mavuika charge, dash;
+  
+  chasca skill;
+  if .chasca.burst.ready {
+    chasca burst, aim:4;
+  } else { 
+    chasca aim:4, aim[bullets=4];
+  }
+}
+wait(82);

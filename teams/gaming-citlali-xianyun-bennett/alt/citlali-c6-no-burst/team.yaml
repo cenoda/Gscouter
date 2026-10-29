@@ -1,0 +1,22 @@
+id: gaming-citlali-xianyun-bennett
+name: Gaming / Citlali / Xianyun / Bennett
+members:
+    - gaming
+    - citlali
+    - xianyun
+    - bennett
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/fBgqpCwhrjMd
+notes: The team's rotation without citlali's burst, for citlali C6 (cmd/variant, docs/cycle.md §10). With the team's build at citlali C6 it scores 127842 DPS against 107559 with the team's rotation (+18.9%, looped with fillers, 200 iterations, 2026-10-29).
+variant:
+    drop: burst
+    char: citlali
+validation:
+    date: "2026-10-29"
+    iterations: 100
+    kept: 1.11
+    dps: 128066
