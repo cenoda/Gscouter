@@ -186,6 +186,8 @@ func (s *Server) fingerprints() map[string]string {
 	}
 	list := hex.EncodeToString(all.Sum(nil)[:8])
 	out["/"], out["/teams"] = list, list
+	// The about page is all text, which pageText covers.
+	out["/about"] = ""
 	for c, teams := range s.byChar {
 		h := sha256.New()
 		for _, t := range teams {

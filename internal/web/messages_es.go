@@ -249,5 +249,23 @@ func init() {
 		"art.low_best":   "(el mejor; cualquier atributo principal queda a menos del 2% de DPS)",
 		"art.unplayable": "rotación imposible",
 		"art.unknown":    "sin valorar",
+
+		"about.title":     "Nuestras promesas",
+		"about.desc":      "Lo que Gscouter promete a sus visitantes y lo que guarda.",
+		"about.promise_h": "Lo que prometemos",
+		"about.p_free":    "Sin anuncios, sin donaciones, nada de pago y sin cuentas.",
+		"about.p_track":   "Sin analíticas ni rastreadores. La única cookie es el idioma que eliges. Las imágenes de personajes se cargan desde Enka.Network.",
+		"about.p_same":    "Todos los equipos se calculan igual, contra el mismo enemigo y con la misma rotación, lo consulte quien lo consulte.",
+		"about.data_h":    "Qué se guarda y dónde",
+		"about.d_browser": "En tu navegador: el idioma elegido, tus UID recientes con los builds de su escaparate y los cálculos terminados de la pestaña abierta. Borrar los datos del sitio en tu navegador los elimina.",
+		"about.d_server":  "En el servidor, solo en memoria: los escaparates consultados mientras Enka.Network lo permita y las puntuaciones durante un día. Tu dirección IP se usa durante un minuto para limitar cuántos enlaces cortos crea cada visitante. Las páginas que visitas no se registran.",
+		"about.d_links":   "Enlaces cortos: al copiar el enlace de un resultado se guarda su dirección para que el enlace corto siga funcionando. La dirección contiene el UID, el apodo y los builds del escaparate público. Los enlaces cortos se guardan sin fecha de caducidad.",
+		"about.delete":    `Para que eliminemos un enlace corto, envíanoslo por <a href="https://discord.gg/PkkN9D4M4G">Discord</a>. El enlace largo contiene los mismos datos en sí mismo, así que sigue funcionando para quien lo tenga.`,
+		"about.scores_h":  "Sobre las puntuaciones",
+		"about.scores":    `Las puntuaciones son simulaciones de gcsim en condiciones fijas, no mediciones del juego. Pueden desviarse y cambian cuando se actualizan el motor o las rotaciones: consulta las <a href="/updates">novedades</a>.`,
+		"updates.title":   "Novedades",
+		"updates.lead":    "Cambios que un visitante puede notar, del más reciente al más antiguo. Las entradas están en inglés.",
+		"updates.scores":  "Puntuaciones cambiadas",
+		"foot.updated":    "Actualizado el %s",
 	}
 }

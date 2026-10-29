@@ -249,5 +249,23 @@ func init() {
 		"art.low_best":   "(am besten; jeder Hauptwert liegt hier innerhalb von 2% DPS)",
 		"art.unplayable": "Rotation nicht spielbar",
 		"art.unknown":    "nicht bewertet",
+
+		"about.title":     "Unsere Versprechen",
+		"about.desc":      "Was Gscouter seinen Besuchern verspricht und was es speichert.",
+		"about.promise_h": "Was wir versprechen",
+		"about.p_free":    "Keine Werbung, keine Spenden, nichts Kostenpflichtiges und keine Konten.",
+		"about.p_track":   "Keine Analyse- oder Tracking-Tools. Das einzige Cookie ist die gewählte Sprache. Charakterbilder werden von Enka.Network geladen.",
+		"about.p_same":    "Jedes Team wird gleich berechnet, gegen denselben Gegner mit derselben Rotation, egal wer es abruft.",
+		"about.data_h":    "Was gespeichert wird und wo",
+		"about.d_browser": "In deinem Browser: die gewählte Sprache, deine letzten UIDs mit den Builds ihres Schaukastens und fertige Berechnungen des offenen Tabs. Wenn du die Daten der Seite im Browser löschst, sind sie weg.",
+		"about.d_server":  "Auf dem Server, nur im Arbeitsspeicher: abgerufene Schaukästen, solange Enka.Network es erlaubt, und Ergebnisse für einen Tag. Deine IP-Adresse wird eine Minute lang genutzt, um zu begrenzen, wie viele Kurzlinks ein Besucher erstellt. Besuchte Seiten werden nicht protokolliert.",
+		"about.d_links":   "Kurzlinks: Wenn du den Link eines Ergebnisses kopierst, wird dessen Adresse gespeichert, damit der Kurzlink weiter funktioniert. Die Adresse enthält UID, Spitznamen und Builds aus dem öffentlichen Schaukasten. Kurzlinks werden ohne Ablaufdatum gespeichert.",
+		"about.delete":    `Um einen Kurzlink entfernen zu lassen, schick ihn uns auf <a href="https://discord.gg/PkkN9D4M4G">Discord</a>. Der lange Link enthält dieselben Daten selbst und funktioniert daher für alle weiter, die ihn haben.`,
+		"about.scores_h":  "Zu den Ergebnissen",
+		"about.scores":    `Ergebnisse sind gcsim-Simulationen unter festen Bedingungen, keine Messungen im Spiel. Sie können abweichen und ändern sich, wenn Engine oder Rotationen aktualisiert werden: siehe <a href="/updates">Neuigkeiten</a>.`,
+		"updates.title":   "Neuigkeiten",
+		"updates.lead":    "Änderungen, die Besucher bemerken können, die neuesten zuerst. Die Einträge sind auf Englisch.",
+		"updates.scores":  "Ergebnisse geändert",
+		"foot.updated":    "Aktualisiert am %s",
 	}
 }

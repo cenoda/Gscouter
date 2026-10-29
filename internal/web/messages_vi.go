@@ -249,5 +249,23 @@ func init() {
 		"art.low_best":   "(tốt nhất; ở ô này chỉ số chính nào cũng chênh DPS dưới 2%)",
 		"art.unplayable": "không chạy được vòng xoay",
 		"art.unknown":    "chưa đánh giá",
+
+		"about.title":     "Cam kết của chúng tôi",
+		"about.desc":      "Những gì Gscouter cam kết với người truy cập và những gì được lưu giữ.",
+		"about.promise_h": "Cam kết",
+		"about.p_free":    "Không quảng cáo, không quyên góp, không có gì phải trả tiền và không có tài khoản.",
+		"about.p_track":   "Không dùng công cụ phân tích hay theo dõi. Cookie duy nhất là ngôn ngữ bạn chọn. Hình ảnh nhân vật được tải từ Enka.Network.",
+		"about.p_same":    "Mọi đội hình đều được tính như nhau, với cùng một kẻ địch và cùng một vòng xoay, bất kể ai tra cứu.",
+		"about.data_h":    "Những gì được lưu và lưu ở đâu",
+		"about.d_browser": "Trong trình duyệt của bạn: ngôn ngữ đã chọn, các UID gần đây cùng build trong tủ trưng bày, và các phép tính đã xong của thẻ đang mở. Xóa dữ liệu của trang trong trình duyệt sẽ xóa chúng.",
+		"about.d_server":  "Trên máy chủ, chỉ trong bộ nhớ: tủ trưng bày đã tra cứu được giữ trong thời gian Enka.Network cho phép, điểm được giữ một ngày. Địa chỉ IP của bạn chỉ được dùng trong một phút để giới hạn số liên kết ngắn mỗi người tạo. Các trang bạn xem không được ghi lại.",
+		"about.d_links":   "Liên kết ngắn: khi sao chép liên kết kết quả, địa chỉ của kết quả được lưu để liên kết ngắn tiếp tục hoạt động. Địa chỉ này chứa UID, biệt danh và build từ tủ trưng bày công khai. Liên kết ngắn được lưu không thời hạn.",
+		"about.delete":    `Để xóa một liên kết ngắn, hãy gửi nó cho chúng tôi trên <a href="https://discord.gg/PkkN9D4M4G">Discord</a>. Liên kết dài tự chứa cùng dữ liệu nên vẫn hoạt động với bất kỳ ai có nó.`,
+		"about.scores_h":  "Về điểm số",
+		"about.scores":    `Điểm số là mô phỏng gcsim trong điều kiện cố định, không phải số đo trong game. Chúng có thể sai lệch và thay đổi khi engine hoặc vòng xoay được cập nhật: xem <a href="/updates">cập nhật</a>.`,
+		"updates.title":   "Cập nhật",
+		"updates.lead":    "Những thay đổi người truy cập có thể nhận thấy, mới nhất trước. Nội dung bằng tiếng Anh.",
+		"updates.scores":  "Điểm thay đổi",
+		"foot.updated":    "Cập nhật %s",
 	}
 }

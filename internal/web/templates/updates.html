@@ -1,0 +1,10 @@
+{{template "head" .Meta}}
+<div class="card">
+<h1>{{t "updates.title"}}</h1>
+<p class="muted">{{t "updates.lead"}}</p>
+{{range .Updates}}<h2>{{.Date}}{{if .Scores}} <span class="badge">{{t "updates.scores"}}</span>{{end}}</h2>
+<ul>
+{{range .Lines}}<li>{{.}}</li>
+{{end}}</ul>
+{{end}}</div>
+{{template "foot"}}

@@ -249,5 +249,23 @@ func init() {
 		"art.low_best":   "(la meilleure ; toute stat principale reste à moins de 2 % de DPS)",
 		"art.unplayable": "rotation impossible",
 		"art.unknown":    "non évalué",
+
+		"about.title":     "Nos engagements",
+		"about.desc":      "Ce que Gscouter promet à ses visiteurs et ce qu'il conserve.",
+		"about.promise_h": "Ce que nous promettons",
+		"about.p_free":    "Pas de publicité, pas de dons, rien de payant et pas de comptes.",
+		"about.p_track":   "Pas de mesure d'audience ni de traceurs. Le seul cookie est la langue que vous choisissez. Les images des personnages sont chargées depuis Enka.Network.",
+		"about.p_same":    "Chaque équipe est calculée de la même façon, contre le même ennemi avec la même rotation, quelle que soit la personne qui la consulte.",
+		"about.data_h":    "Ce qui est conservé, et où",
+		"about.d_browser": "Dans votre navigateur : la langue choisie, vos UID récents avec les builds de leur vitrine, et les calculs terminés de l'onglet ouvert. Effacer les données du site dans votre navigateur les supprime.",
+		"about.d_server":  "Sur le serveur, en mémoire seulement : les vitrines consultées tant qu'Enka.Network le permet, et les scores pendant un jour. Votre adresse IP sert pendant une minute à limiter le nombre de liens courts qu'un visiteur crée. Les pages que vous visitez ne sont pas enregistrées.",
+		"about.d_links":   "Liens courts : copier le lien d'un résultat enregistre son adresse pour que le lien court continue de fonctionner. L'adresse contient l'UID, le pseudo et les builds de la vitrine publique. Les liens courts sont conservés sans date de fin.",
+		"about.delete":    `Pour faire supprimer un lien court, envoyez-le-nous sur <a href="https://discord.gg/PkkN9D4M4G">Discord</a>. Le lien long contient lui-même les mêmes données et continue donc de fonctionner pour qui le possède.`,
+		"about.scores_h":  "À propos des scores",
+		"about.scores":    `Les scores sont des simulations gcsim dans des conditions fixes, pas des mesures en jeu. Ils peuvent être inexacts et changent quand le moteur ou les rotations sont mis à jour : voir les <a href="/updates">mises à jour</a>.`,
+		"updates.title":   "Mises à jour",
+		"updates.lead":    "Les changements qu'un visiteur peut remarquer, du plus récent au plus ancien. Les entrées sont en anglais.",
+		"updates.scores":  "Scores modifiés",
+		"foot.updated":    "Mis à jour le %s",
 	}
 }

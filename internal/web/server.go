@@ -111,6 +111,8 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("GET /teams", s.handleTeams)
 	mux.HandleFunc("GET /teams/{id}", s.handleLibraryTeam)
 	mux.HandleFunc("GET /characters/{key}", s.handleCharacter)
+	mux.HandleFunc("GET /about", s.handleAbout)
+	mux.HandleFunc("GET /updates", s.handleUpdates)
 	mux.HandleFunc("GET /robots.txt", s.handleRobots)
 	mux.HandleFunc("GET /sitemap.xml", s.handleSitemapIndex)
 	mux.HandleFunc("GET /sitemaps/{file}", s.handleSitemap)

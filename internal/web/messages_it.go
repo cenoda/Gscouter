@@ -249,5 +249,23 @@ func init() {
 		"art.low_best":   "(la migliore; ogni statistica principale resta entro il 2% di DPS)",
 		"art.unplayable": "rotazione impossibile",
 		"art.unknown":    "non valutato",
+
+		"about.title":     "I nostri impegni",
+		"about.desc":      "Cosa promette Gscouter ai visitatori e cosa conserva.",
+		"about.promise_h": "Cosa promettiamo",
+		"about.p_free":    "Niente pubblicità, niente donazioni, niente a pagamento e nessun account.",
+		"about.p_track":   "Nessuno strumento di analisi o tracciamento. L'unico cookie è la lingua che scegli. Le immagini dei personaggi vengono caricate da Enka.Network.",
+		"about.p_same":    "Ogni squadra viene calcolata allo stesso modo, contro lo stesso nemico con la stessa rotazione, chiunque la consulti.",
+		"about.data_h":    "Cosa viene conservato, e dove",
+		"about.d_browser": "Nel tuo browser: la lingua scelta, i tuoi UID recenti con le build della vetrina e i calcoli completati della scheda aperta. Cancellare i dati del sito nel browser li rimuove.",
+		"about.d_server":  "Sul server, solo in memoria: le vetrine consultate finché Enka.Network lo consente e i punteggi per un giorno. Il tuo indirizzo IP viene usato per un minuto per limitare quanti link brevi crea ogni visitatore. Le pagine che visiti non vengono registrate.",
+		"about.d_links":   "Link brevi: copiando il link di un risultato se ne salva l'indirizzo, così il link breve continua a funzionare. L'indirizzo contiene UID, nickname e build della vetrina pubblica. I link brevi sono conservati senza scadenza.",
+		"about.delete":    `Per far rimuovere un link breve, inviacelo su <a href="https://discord.gg/PkkN9D4M4G">Discord</a>. Il link lungo contiene in sé gli stessi dati, quindi continua a funzionare per chi lo possiede.`,
+		"about.scores_h":  "Sui punteggi",
+		"about.scores":    `I punteggi sono simulazioni gcsim in condizioni fisse, non misurazioni nel gioco. Possono discostarsi e cambiano quando il motore o le rotazioni vengono aggiornati: vedi gli <a href="/updates">aggiornamenti</a>.`,
+		"updates.title":   "Aggiornamenti",
+		"updates.lead":    "Le modifiche che un visitatore può notare, dalle più recenti. Le voci sono in inglese.",
+		"updates.scores":  "Punteggi cambiati",
+		"foot.updated":    "Aggiornato il %s",
 	}
 }

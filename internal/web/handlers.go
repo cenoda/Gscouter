@@ -23,9 +23,10 @@ import (
 )
 
 var funcs = template.FuncMap{
-	"thousands": thousands,
-	"float":     func(v int) float64 { return float64(v) },
-	"percent":   func(v float64) string { return fmt.Sprintf("%.1f%%", v*100) },
+	"thousands":  thousands,
+	"lastUpdate": lastUpdate,
+	"float":      func(v int) float64 { return float64(v) },
+	"percent":    func(v float64) string { return fmt.Sprintf("%.1f%%", v*100) },
 	"oneDecimal": func(v float64) string {
 		return fmt.Sprintf("%.1f", v)
 	},
