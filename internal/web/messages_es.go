@@ -15,6 +15,7 @@ func init() {
 		"foot.method2": "Cuando la energía o un tiempo de enfriamiento dejarían a un personaje quieto esperando, la puntuación se queda con lo mejor entre esperar y rellenar ese tiempo con Habilidades Elementales, cambios de personaje o ataques normales. " +
 			"\"Una rotación\" es una sola pasada con la energía llena, la cifra que dan las configuraciones de gcsim de la comunidad.",
 		"foot.credits": `Simulación <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotaciones <a href="https://db.kqm.gg">KQM gcsim DB</a> · Datos de personajes <a href="https://enka.network">Enka.Network</a>`,
+		"foot.discord": `Preguntas y reportes de puntuaciones: <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouter es un proyecto no oficial y sin ánimo de lucro hecho por fans, sin anuncios ni donaciones, y no está afiliado a HoYoverse. ` +
 			`Genshin Impact y los nombres relacionados son marcas comerciales de HoYoverse; las imágenes de personajes son © HoYoverse y se cargan desde <a href="https://enka.network">Enka.Network</a>.`,
 		"js.copied":      "Enlace copiado",

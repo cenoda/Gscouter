@@ -15,6 +15,7 @@ func init() {
 		"foot.method2": "Quand l'énergie ou un temps de recharge laisserait un personnage immobile, le score retient le meilleur choix entre attendre et combler ce temps avec des Compétences élémentaires, des changements de personnage ou des Attaques normales. " +
 			"« Une rotation » correspond à un seul passage avec l'énergie au maximum, le chiffre indiqué par les configurations gcsim de la communauté.",
 		"foot.credits": `Simulation <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotations <a href="https://db.kqm.gg">KQM gcsim DB</a> · Données des personnages <a href="https://enka.network">Enka.Network</a>`,
+		"foot.discord": `Questions et signalements de scores : <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouter est un projet de fan non officiel et non commercial, sans publicité ni dons, et n'est pas affilié à HoYoverse. ` +
 			`Genshin Impact et les noms associés sont des marques de HoYoverse ; les images des personnages sont © HoYoverse et chargées depuis <a href="https://enka.network">Enka.Network</a>.`,
 		"js.copied":      "Lien copié",

@@ -15,6 +15,7 @@ func init() {
 		"foot.method2": "When energy or a cooldown would leave a character standing still, the score takes the better of waiting and filling the time with Elemental Skills, swaps or normal attacks. " +
 			"\"One rotation\" is a single pass from full energy, the number community gcsim configs report.",
 		"foot.credits": `Simulation <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotations <a href="https://db.kqm.gg">KQM gcsim DB</a> · Character data <a href="https://enka.network">Enka.Network</a>`,
+		"foot.discord": `Questions and score reports: <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouter is an unofficial, non-commercial fan project with no ads or donations, and is not affiliated with HoYoverse. ` +
 			`Genshin Impact and related names are trademarks of HoYoverse; character images are © HoYoverse, loaded from <a href="https://enka.network">Enka.Network</a>.`,
 		"js.copied":      "Link copied",

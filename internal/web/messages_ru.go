@@ -15,6 +15,7 @@ func init() {
 		"foot.method2": "Если из-за энергии или отката персонаж стоял бы без дела, берётся лучший из вариантов: ждать или заполнять это время элементальными навыками, сменой персонажей или обычными атаками. " +
 			"«Одна ротация» — один проход с полной энергией; именно это число указывают конфиги gcsim сообщества.",
 		"foot.credits": `Симуляция <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Ротации <a href="https://db.kqm.gg">KQM gcsim DB</a> · Данные персонажей <a href="https://enka.network">Enka.Network</a>`,
+		"foot.discord": `Вопросы и сообщения о результатах: <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouter — неофициальный некоммерческий фанатский проект без рекламы и пожертвований, не связанный с HoYoverse. ` +
 			`Genshin Impact и связанные с ней названия являются товарными знаками HoYoverse; изображения персонажей © HoYoverse, загружаются с <a href="https://enka.network">Enka.Network</a>.`,
 		"js.copied":      "Ссылка скопирована",

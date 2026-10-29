@@ -15,6 +15,7 @@ func init() {
 		"foot.method2": "元素エネルギーやクールタイムのせいでキャラクターが立ち止まって待つことになる場合は、その時間を元素スキル・交代・通常攻撃で埋めた場合と比べて高いほうを採用します。" +
 			"「ローテーション1回」はエネルギー満タンの状態から1周した値で、コミュニティのgcsim設定が報告する数値と同じ基準です。",
 		"foot.credits": `シミュレーション <a href="https://github.com/genshinsim/gcsim">gcsim</a> · ローテーション <a href="https://db.kqm.gg">KQM gcsim DB</a> · キャラクター情報 <a href="https://enka.network">Enka.Network</a>`,
+		"foot.discord": `質問とスコアの報告: <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouterは広告や寄付のない非営利・非公式のファンプロジェクトであり、HoYoverseとは関係ありません。` +
 			`原神および関連する名称はHoYoverseの商標です。キャラクター画像は© HoYoverseで、<a href="https://enka.network">Enka.Network</a>から読み込んでいます。`,
 		"js.copied":      "リンクをコピーしました",

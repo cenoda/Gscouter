@@ -15,6 +15,7 @@ func init() {
 		"foot.method2": "에너지나 쿨타임 때문에 캐릭터가 서서 기다리게 되면, 그 시간을 원소전투 스킬·교체·평타로 채운 경우와 비교해 높은 쪽을 씁니다. " +
 			"\"로테이션 1회\"는 에너지가 가득한 상태에서 한 번 돌린 값으로, 커뮤니티 gcsim 설정이 보고하는 숫자와 같은 기준입니다.",
 		"foot.credits": `시뮬레이션 <a href="https://github.com/genshinsim/gcsim">gcsim</a> · 로테이션 <a href="https://db.kqm.gg">KQM gcsim DB</a> · 캐릭터 정보 <a href="https://enka.network">Enka.Network</a>`,
+		"foot.discord": `문의와 점수 제보: <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouter는 광고·후원 없이 운영하는 비영리 비공식 팬 프로젝트로 HoYoverse와 관련이 없습니다. ` +
 			`원신 및 관련 명칭은 HoYoverse의 상표이며, 캐릭터 이미지는 © HoYoverse로 <a href="https://enka.network">Enka.Network</a>에서 불러옵니다.`,
 		"js.copied":      "링크를 복사했습니다",
