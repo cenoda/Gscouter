@@ -29,7 +29,7 @@ The server and the browser build (design §4.7) run both tiers on the same gcsim
 - Result for fork `efcbe0e` (the two upstream artifact fixes below, 2026-10-28): the `regression` workflow, baseline `main` (fork `87338fd`) and candidate `claude/upstream-artifact-fixes-probe` (fork `fc10145`, the same tree as `efcbe0e`: the commits differ only in their messages), the candidate's teams on both sides ([run 40601948636](https://github.com/cenoda/Gscouter/actions/runs/40601948636)): 4,433 teams, 0 differ (0 DIFF, 0 REGRESSION, 0 NONDETERMINISTIC), none on one side only. As expected: no library team wears Disenchantment in Deep Shadow, and the 31 teams with Scroll of the Hero of Cinder City include none of the 20 with a Stellar character (Odette, Qiqi, Alyosha, the Cryo Traveler, Sandrone, Vesna, Vodyanitsa), so no wearer triggers a Stellar Swirl.
 - Result for fork `76e8116` (Hymn of the Maelstrom, 2026-10-28): the `regression` workflow, baseline `main` (fork `efcbe0e`) and candidate `claude/hymn-fork` (fork `76e8116`), the candidate's teams on both sides ([run 40617384146](https://github.com/cenoda/Gscouter/actions/runs/40617384146)): 4,433 teams, 0 differ (0 DIFF, 0 REGRESSION, 0 NONDETERMINISTIC), none on one side only. No library team wears Hymn, so this checks that the new weapon key, which moved 148 weapon keys up by one, changes nothing.
 - Result for fork `b029c45` (Heretic's Molten Blade, New Bough, Winter's Heavy Heart, 2026-10-28): the `regression` workflow, baseline `main` (fork `76e8116`) and candidate `claude/three-weapons` (fork `b029c45`, which includes `b049a48`), the candidate's teams on both sides ([run 40620981827](https://github.com/cenoda/Gscouter/actions/runs/40620981827)): 4,433 teams, 1 differs (1 DIFF), none on one side only. The one is Kazuha / Bennett / Yelan / Xianyun, Xianyun's one-rotation DPS 1,652.15 against 1,652.24. Rerun 20 times on each side (`validate -cache "" -iter 20`, `cmd/compare/build.sh` with `base=76e8116`): NONDETERMINISTIC, the baseline alone gives five results (16+1+1+1+1) and the candidate two (19+1), the common one the same. No library team wears the three weapons, so this checks that the new keys, which move later weapon keys up, change nothing.
-- Result for fork `ee3fc92` (Witch's Revelation for Wriothesley and Cyno, §7, 2026-10-29), the first fork update that moves verified scores on purpose. The upgrade is the game's behavior since 6.7 and gcsim's default, so these teams take the new scores. Measured locally: the 224 library teams with Wriothesley or Cyno through `cmd/validate` (20 iterations, `-cache ""`) on `b029c45` and on the fork with the four commits. 141 identical, 83 changed:
+- Result for fork `eb21884` (Witch's Revelation for Wriothesley and Cyno, §7, 2026-10-29), the first fork update that moves verified scores on purpose. The upgrade is the game's behavior since 6.7 and gcsim's default, so these teams take the new scores. Measured locally: the 224 library teams with Wriothesley or Cyno through `cmd/validate` (20 iterations, `-cache ""`) on `b029c45` and on the fork with the four commits. 141 identical, 83 changed:
   - The two C6 Wriothesley teams: +10.4% and +14.5% looped, from his C2's Revelation bonus outside the field.
   - 81 Cyno teams: looped −1.0% to +10.9%, median +1.4%; 14 above +5%.
   - Two Cyno teams failed with the upgrade (`cyno: need to use attack right before charge`): their pre-6.7 rotation charges after a skill that now grants Pactsworn Pathclearer. They keep their rotation with `params: cyno: revelation=0` (Cyno / Furina / Yelan / Escoffier identical, Cyno / Yelan / Furina / Mika +0.02% from the N4 cancel fix, which the parameter does not gate).
@@ -39,7 +39,7 @@ The server and the browser build (design §4.7) run both tiers on the same gcsim
 
 ## 3. Characters on the fork
 
-_Fork `ee3fc92`, on upstream `2350be9`, 2026-10-29._
+_Fork `eb21884`, on upstream `2350be9`, 2026-10-29._
 
 Nefer, Linnea, Lohen, Sandrone and Vesna have draft library teams (each in its document in `docs/characters/`; Sandrone 18, one per team in her KQM quick guide and Sandrone / Yae Miko / Odette / Vodyanitsa, its example team 1 with Vodyanitsa in the flex slot as GenshinBuilds lists it; Vesna 75: one per team in the GameWith guide, and Vesna with Vodyanitsa and any two, or with any three, of Odette, the Cryo Traveler, Diona, Qiqi, Faruzan, Sucrose, Lan Yan and Nicole, at least one of them Cryo), and Vodyanitsa has 58: 22 with Vesna, 17 in Freeze teams (Skirk 7, Kamisato Ayaka 4, Lohen 3, Wriothesley, Ganyu, Kamisato Ayato), five with Sandrone and 14 others `docs/characters/vodyanitsa.md`; Kachina has none yet. Lohen is fork commit `af3eb82` (our implementation, the commit before Sandrone's); his `ForkOnly` entry and Enka data came with Sandrone's Gscouter commit.
 
@@ -64,12 +64,12 @@ Two artifact bugs found while calibrating Vesna, each its own fork commit after 
 - Disenchantment in Deep Shadow (`efcbe0e`): the 4pc's 16% CRIT Rate against a Superconducted or Stellar-Conducted opponent went to every party member's special reaction contributions (Stellar Swirl, Lunar). In `Relic_6.6_Superconductor` (`ConfigAbility_Relic2`) it is part of the wearer's modifier, so now only the wearer's damage gets it.
 
 Witch's Revelation (§7), taken from upstream ahead of the next rebase. Drop each commit when the fork is rebased onto an upstream that has it.
-- Wriothesley, [PR #3212](https://github.com/genshinsim/gcsim/pull/3212), merged upstream as `8e0bc71` (`108f379` here).
-- Cyno, [PR #3250](https://github.com/genshinsim/gcsim/pull/3250), still open, squashed under its author (`2f22f22`).
-- Cashflow Supervision's 6.7 Stellar-Conduct bonus, [PR #3247](https://github.com/genshinsim/gcsim/pull/3247), merged upstream as `2999df3` (`6ca5a4d` here). It applies only to direct Stellar-Conduct hits, so it moves no existing team.
-- Ours (`ee3fc92`): Wriothesley's out-of-field C2 Revelation bonus requires 5 Prosecution Edict stacks, as its text says (`docs/characters/wriothesley.md`). To be offered upstream.
+- Wriothesley, [PR #3212](https://github.com/genshinsim/gcsim/pull/3212), merged upstream as `8e0bc71` (`ae87199` here).
+- Cyno, [PR #3250](https://github.com/genshinsim/gcsim/pull/3250), still open, squashed under its author (`fa4cd10`).
+- Cashflow Supervision's 6.7 Stellar-Conduct bonus, [PR #3247](https://github.com/genshinsim/gcsim/pull/3247), merged upstream as `2999df3` (`9f56ae6` here). It applies only to direct Stellar-Conduct hits, so it moves no existing team.
+- Ours (`eb21884`): Wriothesley's out-of-field C2 Revelation bonus requires 5 Prosecution Edict stacks, as its text says (`docs/characters/wriothesley.md`). To be offered upstream.
 
-The fork branch is `claude/revelation` until it is fast-forwarded into `gscouter`.
+The fork branch is `claude/revelation-on-9104976` until it is fast-forwarded into `gscouter`.
 
 ## 5. Weapons on the fork
 
@@ -112,7 +112,7 @@ The fork and the three PR characters are in place (2026-10-27): the site builds 
 
 ## 7. Witch's Revelation for Wriothesley and Cyno
 
-_Checked 2026-10-29 against upstream `main` and the two PRs' diffs. On the fork since `ee3fc92`._
+_Checked 2026-10-29 against upstream `main` and the two PRs' diffs. On the fork since `eb21884`._
 
 Version 6.7 gave seven characters a Witch's Revelation upgrade, unlocked by a world quest once the character is level 70 or higher: Wriothesley, Yae Miko, Cyno, Qiqi, Diona, Beidou and Yumemizuki Mizuki ([AllThingsHow](https://allthings.how/genshin-impact-6-7-character-buffs-and-witchs-revelation-luna-viii/)). Wriothesley's and Cyno's upgrades let them deal Stellar-Conduct DMG. Like Qiqi's, they need a Polestar Field: while inside one they are in the Radiance: Stellar-Conduct state. Neither of them enables the reaction, so a team still needs an enabler (Odette, Sandrone or the Cryo Traveler) and Cryo and Electro hits to make the field. gcsim models being inside the field as having `reactable.PolestarFieldKey` active, as Qiqi's `stellar.go` does.
 
@@ -123,6 +123,6 @@ Version 6.7 gave seven characters a Witch's Revelation upgrade, unlocked by a wo
   - The PR also fixes the N4 → charged attack cancel inside the burst (from N4's first hitmark to its second), which applies to every Cyno team.
   - No KQM guide covers his Stellar-Conduct play yet; [Gaming ProMax](https://gamingpromax.com/cyno-stellar-conduct-build/) uses his enhanced skill hits with Odette, Sandrone or the Cryo Traveler.
 
-**The upgrade is on.** Both PRs read a `revelation` character parameter that defaults to 1, as Qiqi's does. A profile cannot show whether the quest is done, so the library follows gcsim's default, as the Vesna teams do for Qiqi (`docs/characters/vesna.md`). A team whose rotation breaks with it sets `revelation=0` in its params and says why. Existing teams took the new scores (§2, result for `ee3fc92`).
+**The upgrade is on.** Both PRs read a `revelation` character parameter that defaults to 1, as Qiqi's does. A profile cannot show whether the quest is done, so the library follows gcsim's default, as the Vesna teams do for Qiqi (`docs/characters/vesna.md`). A team whose rotation breaks with it sets `revelation=0` in its params and says why. Existing teams took the new scores (§2, result for `eb21884`).
 
 **Next:** Cyno Stellar-Conduct teams, once a published rotation guide covers them (design §5.4).

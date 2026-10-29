@@ -6,7 +6,7 @@ Wriothesley (5★ Cryo, 4.1) is in upstream gcsim. His 6.7 Witch's Revelation, w
 
 ## 1. On the fork
 
-**Source.** Upstream [PR #3212](https://github.com/genshinsim/gcsim/pull/3212) (`8e0bc71` upstream, `108f379` on the fork), unchanged. Two more commits come with it: upstream's Cashflow Supervision 6.7 update ([PR #3247](https://github.com/genshinsim/gcsim/pull/3247), `6ca5a4d`), which adds 14% Stellar-Conduct DMG per stack at R1, and our fix `ee3fc92`. The upgrade is on by default (`revelation=1`).
+**Source.** Upstream [PR #3212](https://github.com/genshinsim/gcsim/pull/3212) (`8e0bc71` upstream, `ae87199` on the fork), unchanged. Two more commits come with it: upstream's Cashflow Supervision 6.7 update ([PR #3247](https://github.com/genshinsim/gcsim/pull/3247), `9f56ae6`), which adds 14% Stellar-Conduct DMG per stack at R1, and our fix `eb21884`. The upgrade is on by default (`revelation=1`).
 
 **What changes.** Inside a Polestar Field, in his skill state:
 - N3 and N5 deal 60% and 80% of their Cryo DMG as direct Stellar-Conduct DMG.
@@ -15,7 +15,7 @@ Wriothesley (5★ Cryo, 4.1) is in upstream gcsim. His 6.7 Witch's Revelation, w
 
 C1, C2, C4 and C6 each switch to a Stellar-Conduct version. Outside the field, C2 at 5 Prosecution Edict stacks multiplies enhanced normal attacks by 1.25 and charged attacks by 1.3 in his skill state.
 
-**Our fix (`ee3fc92`).** The PR gave the out-of-field C2 bonus without the 5-stack condition that its own comment quotes. Without the fix, the two C6 library teams score about 0.8% above the fixed value (Wriothesley / Emilie / Mavuika / Xilonen: 414,172 bugged against 410,947 fixed, looped, 20 iterations). To be offered upstream.
+**Our fix (`eb21884`).** The PR gave the out-of-field C2 bonus without the 5-stack condition that its own comment quotes. Without the fix, the two C6 library teams score about 0.8% above the fixed value (Wriothesley / Emilie / Mavuika / Xilonen: 414,172 bugged against 410,947 fixed, looped, 20 iterations). To be offered upstream.
 
 **Known problems.** Damage he takes is not modeled (the PR's C4 `TODO`: 25% less DMG taken), and the enemy deals none, so his HP falls only through his own skill, as the KQM combo assumes.
 

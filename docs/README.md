@@ -1,6 +1,6 @@
 # Documents
 
-> Last updated: 2026-10-28
+> Last updated: 2026-10-29
 
 What each document is for, and the habits that keep them readable. These are conventions, not rules: follow them unless a document has a reason not to, and change them here when they stop fitting.
 
@@ -13,6 +13,7 @@ What each document is for, and the habits that keep them readable. These are con
 | `docs/artifacts.md` | Roadmap nodes Artifacts and Artifact score |
 | `docs/pull.md` | Roadmap node Pull a character |
 | `docs/speed.md` | Roadmap node faster DPS: time to a score in the browser and in validation runs, and what was tried |
+| `docs/cycle.md` | Roadmap node Cycle: how the fixed rotation fits builds other than the source's (constellations, weapons), and what to change |
 | `docs/fillers.md` | How the looped score fills a character's waits for energy or cooldowns, and what that changes |
 | `docs/fork.md` | The gcsim fork: how it is kept, regression runs, the characters and weapons on it |
 | `docs/characters/<name>.md` | One character on the fork: its implementation notes (source, frame data, known problems) and its written library teams |

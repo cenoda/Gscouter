@@ -165,6 +165,7 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
 - **Where it runs**: in the visitor's browser (§4.7), or on the server for link-preview cards and browsers that cannot.
 - **Cache key** = hash of the assembled config. The config contains the build, the rotation and the conditions, and the gcsim version is fixed per deployment, so the same build is never recomputed.
 - Characters are compared by canonical name: gcsim aliases resolve to one key (`kazuha` = `kaedeharakazuha`), and both Traveler genders fold into `traveler<element>`. When the player's key differs from the library's (e.g. `aethercryo` vs. `travelercryo`), the rotation is rewritten to the player's key.
+- **Weapon passives**: a rotation that reads a weapon's status mod (`.zhongli.mods.favonius-cd`, `sacrificial-cd`) reads it as always on for a character whose weapon does not give it (`config.GuardWeaponMods`). Such rotations wait for the source build's Favonius or Sacrificial proc (`while !.zhongli.mods.favonius-cd { zhongli attack; }`), which never comes with another weapon: the score fell to a few percent. A build with the weapon gets the same config as before (`docs/cycle.md` §5).
 
 ### 4.5 Results
 
@@ -262,7 +263,7 @@ validation:              # the last check (cmd/validate -promote, §5.3)
 - The rotation is the source config's action list. Gscouter loops it for the score and runs it once for validation, so the source must not loop forever itself.
   - When looping, the setup at the start of the rotation (`active`, `let`, `fn` and `set_*` statements) runs once, and the remaining statements repeat.
 - Character params the rotation assumes (e.g. Hu Tao `start_hp=1`) are stored in `team.yaml` and added to the player's build.
-- One rotation is used regardless of the user's build.
+- One rotation is used regardless of the user's build. Where that fails (constellations, the source's weapons) and what to change: `docs/cycle.md`.
   - If an action can't be performed due to insufficient ER, rely on gcsim's wait/delay behavior and surface the delay as a warning.
   - **Known limitation, urgent (2026-10-29): rotations that depend on constellations.** The best rotation can change with the build's constellations, and one rotation cannot serve both. A Vesna C2 / Odette C6 / Nicole C6 / Vodyanitsa C2 build scored 7–11% low because Nicole's burst pushed the end of Vesna's combo past Odette's Dance Double; dropping the burst helped that build and most C0 builds, so it was dropped in 19 of 22 teams, but the order that suits the C6 build best does little at C0 (`docs/characters/vesna.md` §2, Nicole's burst dropped).
   - Needed: a team can carry rotation variants keyed by constellations (e.g. a variant for Odette C6 that casts her last), and the score uses the variant that matches the build, or runs the candidates and keeps the best, as the fillers do (`docs/fillers.md`). Each variant needs a source or a measured reason in `notes`, as a rotation does now (§5.4).
@@ -305,6 +306,7 @@ Validation checks:
 - The team reproduces the source's DPS with the source's build under the source's conditions within 15% (a warning above 5%). The tolerance allows for the source having run on another gcsim version
 - The rotation finishes, and one fight of the looped rotation ends within 20 s. A loop that takes no action, such as `while rotations { ... }` with the counter set once in the setup, spins inside gcsim without time passing once the counter is spent; gcsim cannot cancel it, so `cmd/validate` checks each team in its own process and such teams are removed
 - Action waits and members with almost no damage in the looped rotation are reported as warnings
+- A rotation that reads a weapon's status mod (§4.4) is scored once more, as written and looped, with those weapons swapped for a weapon of the same type without one (`config.SwapModWeapons`). Keeping under 20% of the score with the reference build fails the team (a loop waiting for a passive that never comes), under 50% is a warning (it depends on the weapon's energy more than fillers make up for) (`docs/cycle.md` §5)
 
 Approval criteria (`validate.Report.Unpromotable`). A team is `supported` when:
 - the validation passes;
@@ -375,7 +377,7 @@ Characters in the game that upstream gcsim lacks, with their state upstream and 
 - **New character lag**: until gcsim supports a character, teams using it are `blocked`.
   - Vesna and Vodyanitsa are still not in upstream gcsim more than a month after release; Gscouter scores them on its fork (§5.4, §6.3).
   - The experimental tier (§5.4) is meant to close this gap, at the cost of less certain numbers for those teams.
-- **Fixed rotation limits**: the optimal rotation can vary with the build (e.g. high ER enables a more aggressive cycle). Initially we ignore this and use one standard rotation.
+- **Fixed rotation limits**: the optimal rotation can vary with the build (e.g. high ER enables a more aggressive cycle). Initially we ignore this and use one standard rotation. Measured (2026-10-29, `docs/cycle.md`): a database entry written for higher constellations scores a median 12.4% more than the library rotation on its own build and 15% less on the library's; 329 rotations waited for a Favonius weapon's cooldown and collapsed with any other weapon, now fixed (§4.4).
 
 ## 8. Risks
 
