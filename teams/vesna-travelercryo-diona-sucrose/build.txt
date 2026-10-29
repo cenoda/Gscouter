@@ -8,6 +8,9 @@
 # is the least at which she bursts every rotation here (133.1% waits 3 s
 # per minute): 76.5k looped, against 71.9k at 111% with the burst when
 # ready.
+# Rechecked on 2026-10-29 with two wind pinions per Charged Attack (fork
+# 9104976): 111% now scores highest (looped 111% 85.1k, 122% 82.7k, 133%
+# 81.2k, 138.6% 81.7k, 144% 82.5k), so she has 111%.
 # Cryo Traveler: no KQM quick guide and no harvested team, so as in the
 # Sandrone Stellar Swirl team (C0, Exaiphanes Blade R1, ATK%/ATK%/CRIT
 # DMG, KQM-standard substats, 111% ER) but with 4pc Heart of the Furnace,
@@ -30,7 +33,7 @@ vesna char lvl=90/90 cons=0 talent=9,9,9;
 vesna add weapon="beyondthechrysalis" refine=1 lvl=90/90;
 vesna add set="scarletproof" count=4;
 vesna add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cd=0.622;
-vesna add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*7 em=19.82*2 cr=0.0331*12 cd=0.0662*5;
+vesna add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*12 cd=0.0662*10;
 
 travelercryo char lvl=90/90 cons=0 talent=9,9,9;
 travelercryo add weapon="exaiphanesblade" refine=1 lvl=90/90;

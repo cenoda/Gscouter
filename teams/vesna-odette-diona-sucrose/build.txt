@@ -1,6 +1,6 @@
 # Vesna as in every Vesna team (no KQM Vesna quick guide exists; from
 # the GameWith Vesna team guide with KQM-standard substats): C0, Beyond
-# the Chrysalis R1, 4pc Scarlet Proof, ATK%/ATK%/CRIT DMG, 122.0% ER,
+# the Chrysalis R1, 4pc Scarlet Proof, ATK%/ATK%/CRIT DMG, 111.0% ER,
 # the one of 111%, 122%, 133% and 144% that scored highest here.
 # Odette as in the other Vesna teams (from her KQM quick guide): C0,
 # Finale of the Deep R5, 4pc Heart of the Furnace, ATK%/ATK%/CRIT Rate,
@@ -17,7 +17,7 @@ vesna char lvl=90/90 cons=0 talent=9,9,9;
 vesna add weapon="beyondthechrysalis" refine=1 lvl=90/90;
 vesna add set="scarletproof" count=4;
 vesna add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cd=0.622;
-vesna add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*4 em=19.82*2 cr=0.0331*12 cd=0.0662*8;
+vesna add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*12 cd=0.0662*10;
 
 odette char lvl=90/90 cons=0 talent=9,9,9;
 odette add weapon="finale" refine=5 lvl=90/90;
