@@ -10,10 +10,11 @@
 # Faruzan's C is her hold-mode aimed shot. gcsim needs a normal attack
 # before the Traveler's charged attack.
 # Vesna's combo as in every Vesna team (GameWith's): E [N C E]x2 Q E [N
-# C E]x2, the burst when ready. With 5 Sword Essence per attack it pays
-# for only four Windborne Swords even with the burst, so whenever the
-# next one is not ready she keeps attacking until the fifth ends Armed
-# for Action.
+# C E]x2, the burst when ready. With 5 Sword Essence per wind pinion
+# (one with N1, two with each Charged Attack) its 8 attacks, the skill
+# and the burst pay for all five Windborne Swords; when the burst is not
+# ready, or the next sword is not, she keeps attacking until the fifth
+# ends Armed for Action.
 active travelercryo;
 travelercryo skill, attack, charge;
 if .travelercryo.burst.ready {
