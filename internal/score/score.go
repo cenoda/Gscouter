@@ -10,10 +10,12 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"maps"
 	"math"
 	"runtime"
 	"sync"
 
+	"github.com/genshinsim/gcsim/pkg/core"
 	"github.com/genshinsim/gcsim/pkg/core/action"
 	"github.com/genshinsim/gcsim/pkg/core/attributes"
 	"github.com/genshinsim/gcsim/pkg/core/event"
@@ -178,19 +180,27 @@ feed:
 // run out, which a rotation stuck in a loop can put off for weeks of
 // fight: one waiting for a Favonius proc that never comes attacks until
 // the enemy dies, and with a build that deals no damage it never does.
-// The library's one-pass
-// rotations end within 53,000 s, or 15 h, except for a draft whose loop
-// never ends.
+// The library's one-pass rotations end within 53,000 s, or 15 h, except
+// for a draft whose loop never ends.
 const maxFightFrames = 100_000 * 60
 
 // simulate runs one iteration. It ends the fight early, as at the end of
 // its duration, when ctx is done or the fight reaches maxFightFrames;
 // the result is then the fight so far, and the error ctx's.
 func simulate(ctx context.Context, file *ast.File, simcfg *info.ActionList, gcsl ast.Node, seed int64) (stats.Result, error) {
+	return simulateWith(ctx, file, simcfg, gcsl, seed, nil)
+}
+
+// simulateWith is simulate, calling setup with the fight's core before
+// the fight is set up.
+func simulateWith(ctx context.Context, file *ast.File, simcfg *info.ActionList, gcsl ast.Node, seed int64, setup func(*core.Core)) (stats.Result, error) {
 	cfg := simcfg.Copy()
 	c, err := simulation.NewCore(seed, false, cfg)
 	if err != nil {
 		return stats.Result{}, err
+	}
+	if setup != nil {
+		setup(c)
 	}
 	ev, err := eval.NewEvaluator(file, gcsl.Copy(), c)
 	if err != nil {
@@ -222,19 +232,44 @@ func simulate(ctx context.Context, file *ast.File, simcfg *info.ActionList, gcsl
 // Once runs cfg a single time and returns gcsim's full result, for
 // inspecting what a rotation does.
 func Once(cfg string, seed int64) (*stats.Result, error) {
+	res, _, err := Trace(cfg, seed)
+	return res, err
+}
+
+// Action is an action a character took, with the params the rotation
+// gave it (skill[hold=1] has {"hold": 1}).
+type Action struct {
+	Frame  int
+	Action string // gcsim action name: "skill", "charge", ...
+	Params map[string]int
+}
+
+// Trace is Once, also returning every action each character took, in
+// party order: gcsim's result has the actions but not their params.
+func Trace(cfg string, seed int64) (*stats.Result, [][]Action, error) {
 	file := ast.NewFile()
 	simcfg, gcsl, err := parser.New(file, cfg).Parse()
 	if err != nil {
-		return nil, fmt.Errorf("parse config: %w", err)
+		return nil, nil, fmt.Errorf("parse config: %w", err)
 	}
 	if len(simcfg.Errors) > 0 {
-		return nil, fmt.Errorf("invalid config: %w", errors.Join(simcfg.Errors...))
+		return nil, nil, fmt.Errorf("invalid config: %w", errors.Join(simcfg.Errors...))
 	}
-	res, err := simulate(context.Background(), file, simcfg, gcsl, seed)
+	actions := make([][]Action, len(simcfg.Characters))
+	res, err := simulateWith(context.Background(), file, simcfg, gcsl, seed, func(c *core.Core) {
+		c.Events.Subscribe(event.OnActionExec, func(args ...any) {
+			char := args[0].(int)
+			a := Action{Frame: c.F, Action: args[1].(action.Action).String()}
+			if p, _ := args[2].(map[string]int); len(p) > 0 {
+				a.Params = maps.Clone(p)
+			}
+			actions[char] = append(actions[char], a)
+		}, "gscouter-trace")
+	})
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	return &res, nil
+	return &res, actions, nil
 }
 
 // Detail is what gcsim gives a character before the fight starts.

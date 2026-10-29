@@ -8,6 +8,7 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/cenoda/gscouter/internal/score"
 	"github.com/genshinsim/gcsim/pkg/stats"
 )
 
@@ -38,6 +39,7 @@ type Character struct {
 type Action struct {
 	Time float64
 	Kind string // gcsim action name: "skill", "burst", "attack", ...
+	Form string // how it is played, where players tell it apart: "hold", "recast" or ""
 }
 
 type Span struct{ Start, End float64 }
@@ -68,18 +70,20 @@ type Stint struct {
 	Total  float64
 }
 
-// Run is consecutive actions of one kind, e.g. three normal attacks.
+// Run is consecutive actions of one kind and form, e.g. three normal
+// attacks.
 type Run struct {
 	Kind  string
+	Form  string
 	Count int
 }
 
 // hidden actions are not drawn: swaps show as stints, the rest is idle time.
 var hidden = map[string]bool{"swap": true, "wait": true, "delay": true}
 
-// Build reduces res to the frames [from, to). to is clamped to the end of
-// the fight.
-func Build(res *stats.Result, from, to int) *Timeline {
+// Build reduces res to the frames [from, to), with actions the actions of
+// the same run (score.Trace). to is clamped to the end of the fight.
+func Build(res *stats.Result, actions [][]score.Action, from, to int) *Timeline {
 	to = min(to, res.Duration)
 	from = min(from, to)
 	sec := func(f int) float64 { return float64(f) / 60 }
@@ -90,9 +94,11 @@ func Build(res *stats.Result, from, to int) *Timeline {
 	buckets := cumulativeBuckets(res)
 	for ci, cr := range res.Characters {
 		c := Character{Name: cr.Name, Buckets: make([]float64, nb)}
-		for _, a := range cr.ActionEvents {
-			if inside(a.Frame) && !hidden[a.Action] {
-				c.Actions = append(c.Actions, Action{Time: sec(a.Frame), Kind: a.Action})
+		if ci < len(actions) {
+			for _, a := range actions[ci] {
+				if inside(a.Frame) && !hidden[a.Action] {
+					c.Actions = addAction(c.Actions, cr.Name, a, sec(a.Frame))
+				}
 			}
 		}
 		for _, f := range cr.FailedActions {
@@ -161,6 +167,31 @@ func Build(res *stats.Result, from, to int) *Timeline {
 	return t
 }
 
+// addAction appends a, taken at time sec by character char, to actions.
+func addAction(actions []Action, char string, a score.Action, sec float64) []Action {
+	act := Action{Time: sec, Kind: a.Action}
+	switch {
+	case a.Action == "skill" && a.Params["recast"] != 0:
+		act.Form = "recast"
+	case a.Action == "skill" && a.Params["hold"] != 0:
+		act.Form = "hold"
+	case a.Action == "charge" && char == "mavuika" && a.Params["final"] != 0:
+		// Mavuika's held charged attack on Flamestrider is written as
+		// charges ending in charge[final=1] (charge:3, charge[hold=6],
+		// charge[final=1]); in game it is one held charged attack.
+		i := len(actions)
+		for i > 0 && actions[i-1].Kind == "charge" && actions[i-1].Form == "" {
+			i--
+		}
+		if i < len(actions) {
+			act.Time = actions[i].Time
+		}
+		act.Form = "hold"
+		return append(actions[:i], act)
+	}
+	return append(actions, act)
+}
+
 // activeAfter is the character on field from frame end, the first to act
 // from then on, or -1. gcsim logs a swap on the character leaving.
 func activeAfter(res *stats.Result, end int) int {
@@ -202,10 +233,10 @@ func stints(t *Timeline, res *stats.Result, from, to int) []Stint {
 		for _, a := range c.Actions {
 			if i := find(a.Time); i >= 0 {
 				st := &out[i]
-				if n := len(st.Actions); n > 0 && st.Actions[n-1].Kind == a.Kind {
+				if n := len(st.Actions); n > 0 && st.Actions[n-1].Kind == a.Kind && st.Actions[n-1].Form == a.Form {
 					st.Actions[n-1].Count++
 				} else {
-					st.Actions = append(st.Actions, Run{Kind: a.Kind, Count: 1})
+					st.Actions = append(st.Actions, Run{Kind: a.Kind, Form: a.Form, Count: 1})
 				}
 			}
 		}
