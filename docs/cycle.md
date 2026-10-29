@@ -2,7 +2,7 @@
 
 > Status: In progress (§5.1, §5.2 and §7 implemented) · Last updated: 2026-10-29
 
-Roadmap node Cycle (`docs/roadmap.md`): what the fixed rotation (design §5.2) does with builds other than the one it was written for, and where the score stops being trustworthy because of it. §5.1, §5.2 and §7 are implemented; §6 proposes the rest, §8 says what teams without an alternative still need, and §9 records Skirk's C6.
+Roadmap node Cycle (`docs/roadmap.md`): what the fixed rotation (design §5.2) does with builds other than the one it was written for, and where the score stops being trustworthy because of it. §5.1, §5.2 and §7 are implemented; §6 proposes the rest, §8 says what teams without an alternative still need, §9 records Skirk's C6, and §10 explains the normal attacks in Mavuika's rotation and how the page names her actions.
 
 ## 1. The report
 
@@ -219,3 +219,40 @@ Since the score keeps the best rotation, an added alternative cannot lower a bui
 ## 9. Skirk C6
 
 _2026-10-29._ A community report says that C6 Skirk "doesn't count". It does: on the 131 library teams where Skirk plays on field, a C6 Skirk scores a median 1.82× her C0, mostly from Havoc: Sever on her N3 and N5. Havoc: Ruin, which spends every Sever stack at 750% ATK, never fires in their looped score, because the rotations burst only inside Seven-Phase Flash or open with a Ruin the loop skips. The two all-C6 alternatives play Ruin the same way. A test variant that casts a stacked Ruin once per loop scored −4.6% to +2.4% (the held skill it needs costs a skill cooldown), so Ruin is not where the score is short. What a C6 rotation adds is better Seven-Phase Flash play: +8% to +19% from the database's C6 alternative on Skirk / Furina / Shenhe / Escoffier. The database has no other C6-Skirk entries, so `cmd/harvest -alternatives` adds none. Two teams (Skirk / Furina / Citlali / Mika, Skirk / Furina / Sigewinne / Citlali) scored 0 with a C6 Skirk: a confirmation run failed and `steady.Best` fell back to the rotation as written. Fixed: `steady.Best` now confirms the rotation's next-best run instead (165.9k and 176.9k). Recommended next: say on the page what the rotation assumes (§8, 1). Measurements, tables, options and the open problems: `docs/characters/skirk.md` (§6.1).
+
+## 10. Mavuika's normal attacks
+
+_2026-10-29._ A second comment on the post of §1 ran Mavuika / Citlali / Xilonen / Nicole (Mavuika C2 with A Thousand Blazing Suns, Citlali C0 with Thrilling Tales of Dragon Slayers, Xilonen C0 with Favonius Sword, Nicole C6 with Skyward Atlas) and read Mavuika's stint on the page as "E → charged → dash → normal → charged → Q → (charged ×5 · dash) ×2 → normal → E → normal". The charged attacks and the burst made sense to the poster; the normal attacks did not.
+
+**What the stint is.** It is the library rotation (`N9CT6r6b7LGC`, C0) as one on-field stint, from Mavuika's swap-in to her swap-out, so it starts in the middle of the rotation's loop:
+
+| Shown | Rotation | What it does |
+|---|---|---|
+| E | `skill[recast=1]` | Recast: the Ring placed at the end of her previous stint becomes Flamestrider |
+| charged → dash → normal → charged | `charge, dash, attack, charge` | Flamestrider hits before the burst |
+| Q | `burst` | Sunfell Slice, Flamestrider for 7 s |
+| (charged ×5 · dash) ×2 | `charge:3, charge[hold=6], charge[final=1], dash` ×2 | Two held spins, each ending in the final slash and dash-cancelled; one held charged attack each in game, five actions in gcsim |
+| normal | `attack; delay(13)` | One Flamestrider normal while E comes back |
+| E → normal | `skill, attack` (start of the next loop) | Tap E while riding: refreshes Nightsoul; the swap to Nicole then turns Flamestrider back into the Ring, which hits off field |
+
+The page labels the recast and the tap both "E", so the stint looks like it starts and ends with the same skill.
+
+**What each normal is worth.** The loop takes 18 s, the burst's cooldown, and Fighting Spirit is at its cap of 200 at every burst whether the normals are there or not (debug log, both builds), so no normal is there to charge the burst. Each was removed in turn (`cmd/gscouter`, 50 iterations; the commenter's build is the library build with the changes above; its Citlali already has Thrilling Tales of Dragon Slayers, at R5):
+
+| Rotation | Library build | Commenter's build |
+|---|---|---|
+| As in the library | 118.0k | 374.8k |
+| Without the normal before Q (`charge, dash, charge`) | 110.6k (−6.3%) | 342.4k (−8.6%) |
+| Without dash, normal and charge before Q (`charge`) | 111.2k (−5.8%) | 345.4k (−7.8%) |
+| Without the last normal in the burst (`delay(13)` kept) | 117.2k (−0.6%) | 369.0k (−1.5%) |
+| Without the normal after the tap E | 115.5k (−2.1%) | 362.2k (−3.4%) |
+
+- The normal before Q is worth more than its own hit. Damage by ability over 30 seeds (36–108 s of a 120 s looped fight, library build): with it, 16 of the 32 cyclic charged hits Melt; without it, 12. It moves the burst 0.6 s later, and the spins that follow land on Citlali's Cryo one more time per loop. Its own hit is under 1% of the team's damage. This is a timing found by the source's author in gcsim's aura and ICD model; whether it holds in game is not known.
+- The other two normals fill time the cooldowns leave free (E 15 s, Q 18 s). Each is worth its own hit, 0.5–3%, and idling instead loses it.
+
+**What changed.** _2026-10-29._ Implemented:
+
+1. The page tells a recast and a held skill from a tap: "E (recast)", "Hold E". gcsim's action stats do not carry an action's params, so `score.Trace` records them from the same run, and `timeline.Build` reads them.
+2. Mavuika's charges ending in `charge[final=1]` show as one held charged attack ("Hold CA") from its first charge. Her stint now reads "E (recast) → CA → Dash → NA → CA → Q → (Hold CA · Dash) ×2 → NA → E → NA".
+
+Scores do not change: the score runs do not record params.

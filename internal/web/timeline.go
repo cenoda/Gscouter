@@ -44,11 +44,11 @@ func (s *Server) timeline(ctx context.Context, cfg string, from, to float64) (*t
 	}
 	defer func() { <-s.sem }()
 
-	res, err := score.Once(cfg, 1)
+	res, actions, err := score.Trace(cfg, 1)
 	if err != nil {
 		return nil, err
 	}
-	t := timeline.Build(res, int(from*60), int(to*60))
+	t := timeline.Build(res, actions, int(from*60), int(to*60))
 	s.timelines.put(key, t, 24*time.Hour)
 	return t, nil
 }
@@ -251,7 +251,7 @@ func layoutTimeline(l localizer, id, label, note string, t *timeline.Timeline) *
 				Tip: l.T("tl.tip_wait", name, seconds(w.End-w.Start), l.name("wait.", w.Reason))})
 		}
 		for _, a := range c.Actions {
-			m := mark{X: x(a.Time), Kind: "minor", Tip: l.T("tl.tip_action", a.Time, name, l.name("action_long.", a.Kind))}
+			m := mark{X: x(a.Time), Kind: "minor", Tip: l.T("tl.tip_action", a.Time, name, actionName(l, "action_long.", a.Kind, a.Form))}
 			switch a.Kind {
 			case "skill":
 				m.Kind, m.Label = "skill", "E"
@@ -307,12 +307,23 @@ func layoutTimeline(l localizer, id, label, note string, t *timeline.Timeline) *
 	return v
 }
 
+// actionName names an action of kind played in form ("hold", "recast"),
+// falling back to the kind's name for a form without one.
+func actionName(l localizer, prefix, kind, form string) string {
+	if form != "" {
+		if _, ok := catalog[defaultLang][prefix+kind+"_"+form]; ok {
+			return l.name(prefix, kind+"_"+form)
+		}
+	}
+	return l.name(prefix, kind)
+}
+
 // actionChips names a stint's actions, folding a repeated pattern into
 // one chip: "NA×2 · CA · Dash" seven times becomes
 // "(NA×2 · CA · Dash) ×7".
 func actionChips(l localizer, runs []timeline.Run) []string {
 	name := func(r timeline.Run) string {
-		n := l.name("action.", r.Kind)
+		n := actionName(l, "action.", r.Kind, r.Form)
 		if r.Count > 1 {
 			n += fmt.Sprintf("×%d", r.Count)
 		}
