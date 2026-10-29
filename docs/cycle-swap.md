@@ -168,7 +168,7 @@ _2026-10-29._ Done (`/edit`, `internal/web/edit.go`, `templates/edit.html`, `cha
 - **Preview** (`chart.Preview`): one gcsim run (seed 1, the player's build) of the chart looped three times, up to 240 s. Before each note the compiled chart has a marker (`delay(987654 + 1 + note)`), and one opens each pass. `score.Play` records the markers and does not play them, so each played note is known with when the chart reached it (`asked`) and when gcsim ran it (`start`). A note "only when ready" that was skipped has `start` −1. Every 15 frames the preview samples each member's burst energy and skill cooldown; field time and waits come from the result (`timeline.Build`). When gcsim stops the fight, the error names the note it was at. It takes about 10 ms natively.
 - **Drawing** follows the mockup (§6): lanes at 46 px/s, pass 1 editable and passes 2–3 faded, waits gcsim imposed hatched in the warning color, waits the chart asks for hatched gray, cooldown bars with a ◆ where the skill is ready, the energy line in each lane's bottom band, repeat brackets, and the playhead. A phone held sideways gets shorter lanes and the controls beside the chart.
 - **Input**: the controls and the game's PC keys (`Z` for attack, §6). A long press or held key gives the held form. Drag a note right to add a wait before it (0.1 s steps). Selection allows tap or hold, "only when ready", insert before, a range with a repeat count, and delete. Undo, and the chart in the address bar (`r`) after each change.
-- Not yet: the character params sheet (§9), saving several named charts (§7), and the versus page's own editor links.
+- Not yet: the versus page's own editor links (a chart reaches a versus page only through its link, `ra`/`rb`).
 
 ### 11.3 Scoring a chart
 
@@ -177,3 +177,27 @@ _2026-10-29._ Done.
 - A result page with `r` (a versus page with `ra` and `rb`) scores that side's chart. The picker form already uses `c`, hence `r`. The chart is part of the selection (`selection.Chart`), so link previews, short links (`shortTarget` keeps a valid chart), the enemy form and the link without artifacts keep it.
 - `compute` scores the team's rotations as before, then the chart with the same pipeline (looped, fillers, `steady.Best` with the chart as its only rotation, with the team's character params unless the chart sets its own). The page shows the chart's score, with a note giving the library rotations' score on the same build and the chart's difference. A browser that opened the library score first has those simulations kept, so only the chart's are new.
 - A chart gcsim cannot play gives a problem in place of the score, with gcsim's error.
+
+### 11.4 Saving and params
+
+_2026-10-29._ Done.
+
+- **Saved charts**: a row under the editor's title keeps named charts per team in `localStorage` (`gscouter.charts:` and the members by slot; up to 20, newest first) and loads or deletes them. The chart being edited is also kept as a draft (§11.2). A phone held sideways hides the row.
+- **Params sheet**: each lane's portrait opens its character's settings: starting HP and starting energy for everyone, Yelan's `breakthrough`, Skirk's `start_serpents_subtlety`, the Traveler's story buffs, and any param the library team sets. A dot marks a portrait whose params the chart sets. `Chart.WithParams` merges them over the team's own (the chart's value wins per key), so changing one param keeps the others, such as Hu Tao's `start_hp=1`.
+
+### 11.5 Sending a chart
+
+_2026-10-29._ Done (`POST /send`, `internal/web/send.go`, `cmd/sends`).
+
+- A result scored with a chart that beats the library rotations on that build (`teamResult.Beats`) shows "Send this rotation to the developer". It posts the page's link; the server checks it as a short link (`shortTarget`, which must keep a valid `r`), keeps it in the short-link database's `sends` table (once per link, at most 5 a minute per visitor), and answers 204. The button says what the link holds, and `/about` lists it with the other things the server keeps.
+- `go run ./cmd/sends -links <db> -site <url>` lists them, newest first, as links that recalculate the chart against the library when opened. Review is by hand (§9): a gain that holds on the sender's build is enough to add the chart as an alternative.
+- Not built yet: turning a sent chart into `teams/<id>/alt/<id>/` (a written alternative, design §5.4's third kind of source).
+
+### 11.6 Teams outside the library
+
+_2026-10-29._ Done.
+
+- **Picker**: four characters that are not a library team enable the button, which opens the editor instead of the result (`index.pick_custom`). A versus pick still needs a library team.
+- **Result page**: an unsupported team's message says it can be scored with a written rotation, with a button to the editor (`teamResult.Writable`). A result with `r` scores a team the library doesn't have with the chart alone (`customTeam`: members, no rotation), with a note that nothing compares.
+- **Editor**: the first chart is a library team sharing three members, recorded with its own build and moved to the player's slots, the missing member's notes dropped (`Chart.Remap`, `record`'s fourth argument), with a note naming that team; with none, an empty chart. Which team: the first by ID among supported teams sharing three members; not measured for how good a start it makes.
+- A character gcsim lacks still fails: its preview or score shows gcsim's error.

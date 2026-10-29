@@ -143,14 +143,22 @@ func await(p js.Value) (js.Value, error) {
 	}
 }
 
-// record(build, rotation, names) writes a rotation as a chart for the
-// members named names (a JSON array, by slot) and returns its text, or
-// {error}.
+// record(build, rotation, names, moves) writes a rotation as a chart for
+// the members named names (a JSON array, by slot) and returns its text,
+// or {error}. moves, a JSON array by slot or "", moves the chart to the
+// player's slots (chart.Remap), for a rotation of another team.
 func record(_ js.Value, args []js.Value) any {
 	names, err := slots(args[2].String())
 	if err == nil {
 		var c *chart.Chart
 		if c, err = chart.Record(args[0].String(), args[1].String(), names); err == nil {
+			if len(args) > 3 && args[3].String() != "" {
+				var moves [chart.Slots]int
+				if err = json.Unmarshal([]byte(args[3].String()), &moves); err != nil {
+					return map[string]any{"error": err.Error()}
+				}
+				c = c.Remap(moves)
+			}
 			return c.String()
 		}
 	}

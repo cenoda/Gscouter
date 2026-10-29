@@ -60,7 +60,7 @@ func TestScoreInBrowser(t *testing.T) {
 
 	// Nothing to calculate: no job.
 	_, body = get(t, ts, "/score?a=800000001:amber,yelan,xingqiu,zhongli")
-	mustContain(t, body, "not supported")
+	mustContain(t, body, "not in the library yet", "/edit?a=800000001")
 	if strings.Contains(body, "/static/worker.js") {
 		t.Error("job for an unsupported team")
 	}

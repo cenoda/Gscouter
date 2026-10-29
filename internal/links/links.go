@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/url"
+	"time"
 
 	_ "modernc.org/sqlite"
 )
@@ -25,6 +26,10 @@ func Open(path string) (*Store, error) {
 	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS links (
 		id      TEXT PRIMARY KEY,
 		target  TEXT NOT NULL,
+		created INTEGER NOT NULL DEFAULT (unixepoch())
+	) WITHOUT ROWID;
+	CREATE TABLE IF NOT EXISTS sends (
+		target  TEXT PRIMARY KEY,
 		created INTEGER NOT NULL DEFAULT (unixepoch())
 	) WITHOUT ROWID`)
 	if err != nil {
@@ -55,6 +60,39 @@ func (s *Store) Get(ctx context.Context, id string) (string, error) {
 		return "", nil
 	}
 	return target, err
+}
+
+// AddSend keeps a result link a visitor sent to the developer: a
+// custom rotation that scores higher than the library's
+// (docs/cycle-swap.md §7). Sending the same link again keeps it once.
+func (s *Store) AddSend(ctx context.Context, target string) error {
+	_, err := s.db.ExecContext(ctx, `INSERT OR IGNORE INTO sends (target) VALUES (?)`, target)
+	return err
+}
+
+// Send is a result link a visitor sent, and when.
+type Send struct {
+	Target  string
+	Created time.Time
+}
+
+// Sends are the links sent, newest first.
+func (s *Store) Sends(ctx context.Context) ([]Send, error) {
+	rows, err := s.db.QueryContext(ctx, `SELECT target, created FROM sends ORDER BY created DESC`)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var out []Send
+	for rows.Next() {
+		var t string
+		var c int64
+		if err := rows.Scan(&t, &c); err != nil {
+			return nil, err
+		}
+		out = append(out, Send{t, time.Unix(c, 0).UTC()})
+	}
+	return out, rows.Err()
 }
 
 func (s *Store) Close() error { return s.db.Close() }

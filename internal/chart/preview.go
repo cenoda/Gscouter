@@ -4,6 +4,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"slices"
+	"strconv"
 	"strings"
 
 	"github.com/cenoda/gscouter/internal/config"
@@ -60,15 +62,22 @@ type NoteError struct {
 	Message string `json:"message"`
 }
 
-// WithParams adds to build each slot's character params: the chart's,
-// else defaults (the library team's), by slot.
+// WithParams adds to build each slot's character params: defaults (the
+// library team's, as "k=v, k=v"), with the chart's own in their place.
 func (c *Chart) WithParams(build string, names, defaults [Slots]string) string {
 	for s, name := range names {
-		p := c.CharParams(s)
-		if p == "" {
-			p = defaults[s]
+		var ps []Param
+		for _, kv := range strings.Split(defaults[s], ",") {
+			k, v, ok := strings.Cut(strings.TrimSpace(kv), "=")
+			n, err := strconv.Atoi(strings.TrimSpace(v))
+			if ok && err == nil && !slices.ContainsFunc(c.Params[s], func(p Param) bool { return p.Key == strings.TrimSpace(k) }) {
+				ps = append(ps, Param{strings.TrimSpace(k), n})
+			}
 		}
-		build = config.AddParams(build, name, p)
+		ps = append(ps, c.Params[s]...)
+		var b strings.Builder
+		writeParams(&b, ps, ", ")
+		build = config.AddParams(build, name, b.String())
 	}
 	return build
 }

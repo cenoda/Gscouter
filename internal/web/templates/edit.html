@@ -87,7 +87,7 @@
   .ed-head { flex-wrap: nowrap; } .ed-head h1 { font-size: 1rem; white-space: nowrap; }
   .ed .card { padding: 8px 10px; margin: 0; }
   .ed-labels { width: 46px; } .ed-lane .face { width: 32px; height: 32px; }
-  #ed-help, .ed-side .help { display: none; }
+  #ed-help, .ed-side .help, .ed-saves { display: none; }
   .ed-hudwrap { grid-template-columns: 1fr; gap: 6px; }
   .ed-side { order: 2; }
   .ed-side .row button { padding: 4px 8px; font-size: .75rem; }
@@ -95,6 +95,29 @@
   .ed-key.dash, .ed-key.jump, .ed-key.plunge { width: 40px; height: 40px; font-size: .72rem; }
   .ed-key small { display: none; } .ed-pad { gap: 6px; } .ed-party { gap: 5px; }
   .ed-pm { padding: 2px; } .ed-pm span:not(.kb) { display: none; } .ed-pm .face { width: 34px; height: 34px; }
+}
+.ed-face { position: relative; padding: 0; border-radius: 50%; background: none; }
+.ed-face .dot { position: absolute; right: -2px; top: -2px; width: 11px; height: 11px; border-radius: 50%; background: var(--gold); border: 2px solid var(--card); }
+.ed-face .gear { position: absolute; right: -4px; bottom: -4px; width: 16px; height: 16px; border-radius: 50%; background: var(--card); color: var(--muted); font-size: 10px; line-height: 14px; border: 1px solid var(--line); }
+.ed-saves { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 10px; }
+.ed-saves select, .ed-saves input { font: inherit; font-size: .9rem; padding: 6px 8px; border: 1px solid var(--line); border-radius: 4px; background: var(--card); color: var(--text); min-width: 0; }
+.ed-saves input { width: 12em; }
+.ed-saves [hidden] { display: none; }
+.ed-saves button { padding: 6px 12px; font-size: .9rem; }
+.ed-sheet-bg { position: fixed; inset: 0; background: rgba(10,12,20,.35); z-index: 30; display: grid; place-items: center; padding: 16px; }
+.ed-sheet { background: var(--card); border: 1px solid var(--line); border-radius: 10px; width: min(380px, 100%); padding: 16px; display: grid; gap: 14px; }
+.ed-sheet h2 { margin: 0; font-size: 1rem; display: flex; align-items: center; gap: 10px; }
+.ed-sheet h2 .face { width: 32px; height: 32px; }
+.ed-param { display: grid; gap: 4px; }
+.ed-param label { display: flex; justify-content: space-between; gap: 8px; font-size: .9rem; }
+.ed-param label b { font-variant-numeric: tabular-nums; font-weight: 600; }
+.ed-param input[type=range] { width: 100%; accent-color: var(--accent); }
+.ed-param input[type=number] { font: inherit; width: 7em; padding: 4px 6px; border: 1px solid var(--line); border-radius: 4px; background: var(--card); color: var(--text); }
+.ed-param .def { font-size: .75rem; color: var(--muted); }
+.ed-sheet .row { display: flex; justify-content: space-between; gap: 8px; }
+@media (max-width: 640px) {
+  .ed-sheet-bg { place-items: end center; padding: 0; }
+  .ed-sheet { border-radius: 14px 14px 0 0; width: 100%; padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
 }
 @media (prefers-reduced-motion: reduce) { .ed-key.down { transform: none; } }
 </style>
@@ -109,11 +132,17 @@
 <button type="button" id="ed-score" disabled>{{t "ed.score"}}</button>
 </div>
 </div>
+<div class="ed-saves">
+<select id="ed-saved" aria-label="{{t "ed.saved_charts"}}"><option value="">{{t "ed.saved_charts"}}</option></select>
+<input type="text" id="ed-name" maxlength="40" placeholder="{{t "ed.chart_name"}}" aria-label="{{t "ed.chart_name"}}">
+<button type="button" class="secondary" id="ed-save">{{t "ed.save"}}</button>
+<button type="button" class="secondary" id="ed-unsave" hidden>{{t "ed.delete_saved"}}</button>
+</div>
 </div>
 
 <div class="card" style="display:grid; gap:10px; margin:0">
 <div class="ed-chart">
-<div class="ed-labels"><div class="ed-ruler"></div>{{range .Members}}<div class="ed-lane">{{template "face" .Key}}</div>{{end}}</div>
+<div class="ed-labels" id="ed-labels"><div class="ed-ruler"></div>{{range $i, $m := .Members}}<div class="ed-lane"><button type="button" class="ed-face" data-p="{{$i}}" aria-label="{{t "ed.params_title" (name $m.Key)}}">{{template "face" $m.Key}}<span class="gear" aria-hidden="true">⚙</span></button></div>{{end}}</div>
 <div class="ed-scroll" id="ed-scroll"><svg class="ed-svg" id="ed-svg" role="img" aria-label="{{t "ed.title"}}"></svg></div>
 </div>
 <div class="ed-tools" id="ed-tools"></div>
@@ -143,6 +172,7 @@
 </div>
 </div>
 </div>
+<div id="ed-layer"></div>
 
 <script>
 // The chart editor (docs/cycle-swap.md): a chart is notes in order, and
@@ -151,6 +181,8 @@
   var V = {{.Version}}, BUILD = {{.Build}}, ROTATION = {{.Rotation}}, SCORE = {{.Score}};
   var NAMES = JSON.stringify({{.Names}}), DEFAULTS = JSON.stringify({{.Defaults}});
   var START = {{.Chart}};
+  var TEMPLATE = {{with .Template}}{name: {{teamName .}}, rotation: {{.Rotation}}}{{else}}null{{end}};
+  var TEMPLATE_BUILD = {{.TemplateBuild}}, TEMPLATE_NAMES = JSON.stringify({{.TemplateNames}}), MOVES = JSON.stringify({{.Moves}});
   var CHARS = [{{range $i, $m := .Members}}{{if $i}}, {{end}}{{name $m.Key}}{{end}}];
   var S = {
     loading: {{t "ed.loading"}}, recording: {{t "ed.recording"}}, select: {{t "ed.select"}},
@@ -160,7 +192,10 @@
     passEdit: {{t "ed.pass_edit"}}, passPreview: {{t "ed.pass_preview"}}, ghost: {{t "ed.ghost"}},
     failed: {{t "ed.failed"}}, notEarlier: {{t "ed.not_earlier"}}, prevEnd: {{t "ed.prev_end"}}, nothingUndo: {{t "ed.nothing_undo"}},
     pickNote: {{t "ed.pick_note"}}, pickEnd: {{t "ed.pick_end"}}, repeatHint: {{t "ed.repeat_hint"}}, readyHint: {{t "ed.ready_hint"}}, dragHint: {{t "ed.drag_hint"}},
-    broken: {{t "ed.broken"}}, recordFailed: {{t "ed.record_failed"}},
+    broken: {{t "ed.broken"}}, recordFailed: {{t "ed.record_failed"}}, template: {{t "ed.template"}}, blank: {{t "ed.blank"}},
+    paramsTitle: {{t "ed.params_title"}}, startHP: {{t "ed.start_hp"}}, startEnergy: {{t "ed.start_energy"}}, paramDefault: {{t "ed.param_default"}},
+    paramsNote: {{t "ed.params_note"}}, resetParams: {{t "ed.reset_params"}}, close: {{t "ed.close"}},
+    savedMsg: {{t "ed.saved_msg"}}, nameFirst: {{t "ed.name_first"}},
     reasons: {insufficient_energy: {{t "wait.insufficient_energy"}}, skill_cd: {{t "wait.skill_cd"}}, burst_cd: {{t "wait.burst_cd"}}, insufficient_stamina: {{t "wait.insufficient_stamina"}}},
     actions: {attack: {{t "ed.attack"}}, charge: {{t "ed.charge"}}, skill: {{t "tl.skill"}}, burst: {{t "tl.burst"}}, dash: {{t "ed.dash"}}, jump: {{t "ed.jump"}}, high_plunge: {{t "ed.plunge"}}, low_plunge: {{t "ed.plunge"}}, aim: {{t "ed.aim"}}, walk: {{t "ed.walk"}}}
   };
@@ -251,7 +286,9 @@
   var st = null, P = null, undoStack = [], cursor = 0, sel = null, rangeEnd = null, rangeMode = false, active = 0;
   var store = "gscouter.chart:" + JSON.parse(NAMES).join(",");
   var $ = function (id) { return document.getElementById(id); };
-  function snapshot() { undoStack.push(write(st)); if (undoStack.length > 100) undoStack.shift(); }
+  // notice is what the chart started from, shown until the first edit.
+  var notice = "";
+  function snapshot() { notice = ""; undoStack.push(write(st)); if (undoStack.length > 100) undoStack.shift(); }
   function undo() {
     var h = undoStack.pop();
     if (!h) return toast(S.nothingUndo);
@@ -397,8 +434,9 @@
     $("ed-score").disabled = !st.notes.length || !P || !!P.error;
     tools();
     party();
+    labels();
     if (P && P.error) message(S.failed.replace("%s", P.error.message), true);
-    else if (P && sel === null) message(S.ghost, false);
+    else if (P && sel === null) message(notice || S.ghost, false);
   }
   function playhead(pl) {
     if (cursor < st.notes.length && pl.first[cursor]) return pl.first[cursor].p.asked - 0.05;
@@ -552,12 +590,13 @@
   var keyMap = {e: "skill", q: "burst", z: "attack", shift: "dash", " ": "jump", x: "high_plunge"}, downAt = {};
   window.addEventListener("keydown", function (e) {
     if (e.target.closest && e.target.closest("input, textarea, select")) return;
+    if ($("ed-layer").innerHTML && e.key !== "Escape") return;
     var k = e.key.toLowerCase();
     if ((e.ctrlKey || e.metaKey) && k === "z") { e.preventDefault(); return undo(); }
     if (e.ctrlKey || e.metaKey || e.altKey) return;
     if (k >= "1" && k <= "4") { active = +k - 1; return party(); }
     if (k === "delete" || k === "backspace") { e.preventDefault(); return del(); }
-    if (k === "escape") { sel = null; rangeEnd = null; return render(); }
+    if (k === "escape") { closeSheet(); sel = null; rangeEnd = null; return render(); }
     if (keyMap[k] && !e.repeat) { e.preventDefault(); downAt[k] = Date.now(); press(k, true); }
   });
   window.addEventListener("keyup", function (e) {
@@ -574,6 +613,113 @@
     t.textContent = msg; t.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.hidden = true; }, 2400);
   }
 
+
+  // ---- Character params, behind each lane's portrait (§9) ----
+  var KEYS = JSON.parse(NAMES), DEFS = JSON.parse(DEFAULTS).map(function (d) {
+    var out = {};
+    d.split(",").forEach(function (kv) { var x = kv.split("="); if (x.length === 2) out[x[0].trim()] = +x[1]; });
+    return out;
+  });
+  function paramsFor(s) {
+    var key = KEYS[s], list = [
+      {k: "start_hp%", label: S.startHP, min: 1, max: 100, unit: "%", base: 100},
+      {k: "start_energy", label: S.startEnergy, min: 0, max: 100, unit: "", base: 100}
+    ];
+    if (key === "yelan") list.push({k: "breakthrough", bool: true, base: 1});
+    if (key === "skirk") list.push({k: "start_serpents_subtlety", min: 0, max: 100, unit: "", base: 0});
+    if (/^(aether|lumine|traveler)/.test(key)) list.push({k: "base_atk_buff", bool: true, base: 1}, {k: "skirk_story_buff", bool: true, base: 0});
+    Object.keys(DEFS[s]).forEach(function (k) {
+      if (!list.some(function (p) { return p.k === k; })) list.push({k: k, number: true, base: 0});
+    });
+    return list;
+  }
+  function paramValue(s, k) {
+    var mine = st.params[s].filter(function (p) { return p[0] === k; })[0];
+    return mine ? mine[1] : undefined;
+  }
+  function labels() {
+    document.querySelectorAll("#ed-labels [data-p]").forEach(function (b) {
+      var s = +b.dataset.p, dot = b.querySelector(".dot"), on = st && st.params[s].length > 0;
+      if (on && !dot) { dot = document.createElement("span"); dot.className = "dot"; b.appendChild(dot); }
+      if (!on && dot) dot.remove();
+    });
+  }
+  function openSheet(s) {
+    var face = document.querySelector('#ed-labels [data-p="' + s + '"] img');
+    var h = '<div class="ed-sheet-bg" id="ed-sheet-bg"><div class="ed-sheet" role="dialog" aria-modal="true" aria-label="' + esc(S.paramsTitle.replace("%s", CHARS[s])) + '"><h2>' + (face ? face.outerHTML : "") + esc(S.paramsTitle.replace("%s", CHARS[s])) + '</h2>';
+    paramsFor(s).forEach(function (p) {
+      var v = paramValue(s, p.k), def = DEFS[s][p.k], shown = v !== undefined ? v : def !== undefined ? def : p.base, id = "ed-p-" + s + "-" + p.k.replace(/\W/g, "_");
+      var defLine = def !== undefined ? '<span class="def">' + esc(S.paramDefault.replace("%s", def + (p.unit || ""))) + '</span>' : "";
+      if (p.bool) {
+        h += '<div class="ed-param"><label for="' + id + '"><span>' + esc(p.label || p.k) + '</span><input type="checkbox" id="' + id + '" data-k="' + p.k + '"' + (shown ? " checked" : "") + '></label>' + defLine + '</div>';
+      } else if (p.number) {
+        h += '<div class="ed-param"><label for="' + id + '"><span>' + esc(p.k) + '</span><input type="number" id="' + id + '" data-k="' + p.k + '" value="' + shown + '"></label>' + defLine + '</div>';
+      } else {
+        h += '<div class="ed-param"><label for="' + id + '"><span>' + esc(p.label || p.k) + '</span><b>' + shown + (p.unit || "") + '</b></label><input type="range" id="' + id + '" data-k="' + p.k + '" min="' + p.min + '" max="' + p.max + '" value="' + shown + '">' + defLine + '</div>';
+      }
+    });
+    h += '<p class="muted" style="margin:0;font-size:.8rem">' + esc(S.paramsNote) + '</p><div class="row"><button type="button" class="secondary" id="ed-p-reset">' + esc(S.resetParams) + '</button><button type="button" id="ed-p-close">' + esc(S.close) + '</button></div></div></div>';
+    var layer = $("ed-layer");
+    layer.innerHTML = h;
+    var touched = false;
+    layer.querySelectorAll("input").forEach(function (inp) {
+      inp.addEventListener("input", function () {
+        if (!touched) { snapshot(); touched = true; }
+        var k = inp.dataset.k, v = inp.type === "checkbox" ? (inp.checked ? 1 : 0) : Math.round(+inp.value);
+        st.params[s] = st.params[s].filter(function (p) { return p[0] !== k; });
+        st.params[s].push([k, v]);
+        var b = inp.closest(".ed-param").querySelector("b");
+        if (b) b.textContent = inp.value + (k === "start_hp%" ? "%" : "");
+        labels();
+      });
+      inp.addEventListener("change", changed);
+    });
+    $("ed-p-reset").onclick = function () { snapshot(); st.params[s] = []; changed(); openSheet(s); };
+    $("ed-p-close").onclick = closeSheet;
+    $("ed-sheet-bg").addEventListener("click", function (e) { if (e.target.id === "ed-sheet-bg") closeSheet(); });
+    $("ed-p-close").focus();
+  }
+  function closeSheet() { $("ed-layer").innerHTML = ""; }
+  $("ed-labels").addEventListener("click", function (e) { var b = e.target.closest("[data-p]"); if (b && st) openSheet(+b.dataset.p); });
+
+  // ---- Charts kept in this browser, by name (§7) ----
+  var savedKey = "gscouter.charts:" + KEYS.join(",");
+  function savedList() { try { return JSON.parse(localStorage.getItem(savedKey)) || []; } catch (e) { return []; } }
+  function fillSaved(pick) {
+    var sel = $("ed-saved"), list = savedList();
+    while (sel.options.length > 1) sel.remove(1);
+    list.forEach(function (c, i) { var o = document.createElement("option"); o.value = String(i); o.textContent = c.n; sel.appendChild(o); });
+    sel.value = pick !== undefined ? String(pick) : "";
+    $("ed-unsave").hidden = sel.value === "";
+  }
+  $("ed-saved").onchange = function () {
+    var c = savedList()[+this.value];
+    $("ed-unsave").hidden = !c;
+    if (!c) return;
+    $("ed-name").value = c.n;
+    if (st) snapshot();
+    var keep = undoStack;
+    load(c.t);
+    undoStack = keep;
+  };
+  $("ed-save").onclick = function () {
+    var name = $("ed-name").value.trim();
+    if (!name) { $("ed-name").focus(); return toast(S.nameFirst); }
+    var list = savedList().filter(function (c) { return c.n !== name; });
+    list.unshift({n: name, t: write(st), d: new Date().toISOString().slice(0, 10)});
+    list = list.slice(0, 20);
+    try { localStorage.setItem(savedKey, JSON.stringify(list)); } catch (e) {}
+    fillSaved(0);
+    toast(S.savedMsg.replace("%s", name));
+  };
+  $("ed-unsave").onclick = function () {
+    var i = +$("ed-saved").value, list = savedList();
+    list.splice(i, 1);
+    try { localStorage.setItem(savedKey, JSON.stringify(list)); } catch (e) {}
+    fillSaved();
+  };
+  fillSaved();
+
   // ---- Start: the chart from the link, else the one kept in this
   // browser, else the library rotation recorded with the player's build.
   function load(text) {
@@ -583,6 +729,15 @@
   }
   function start(text) {
     if (text) return load(text);
+    if (!ROTATION) {
+      // A team the library doesn't have: a library team's rotation
+      // without the member this team lacks, else an empty chart.
+      if (!TEMPLATE) { notice = S.blank; load(""); return message(S.blank, false); }
+      message(S.recording, false);
+      return call("record", [TEMPLATE_BUILD, TEMPLATE.rotation, TEMPLATE_NAMES, MOVES]).then(function (t) {
+        notice = S.template.replace("%s", TEMPLATE.name); load(t);
+      }, function () { notice = S.blank; load(""); message(S.blank, false); });
+    }
     message(S.recording, false);
     call("record", [BUILD, ROTATION, NAMES]).then(load, function (err) {
       message(S.recordFailed.replace("%s", err.message), true);

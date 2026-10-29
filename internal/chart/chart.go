@@ -413,3 +413,39 @@ func (c *Chart) CharParams(slot int) string {
 	writeParams(&b, c.Params[slot], ", ")
 	return b.String()
 }
+
+// Remap moves the chart to other slots: slots[s] is the slot that slot s
+// becomes, or -1 to drop its notes, repeats and params. A repeat that
+// loses all its notes goes.
+func (c *Chart) Remap(slots [Slots]int) *Chart {
+	out := &Chart{}
+	index := make([]int, len(c.Notes)) // new index of each note, -1 if dropped
+	for i, n := range c.Notes {
+		index[i] = -1
+		if to := slots[n.Slot]; to >= 0 {
+			n.Slot = to
+			index[i] = len(out.Notes)
+			out.Notes = append(out.Notes, n)
+		}
+	}
+	for _, r := range c.Repeats {
+		from, to := -1, -1
+		for i := r.From; i <= r.To; i++ {
+			if index[i] >= 0 {
+				if from < 0 {
+					from = index[i]
+				}
+				to = index[i]
+			}
+		}
+		if from >= 0 {
+			out.Repeats = append(out.Repeats, Repeat{From: from, To: to, Times: r.Times})
+		}
+	}
+	for s, ps := range c.Params {
+		if to := slots[s]; to >= 0 {
+			out.Params[to] = ps
+		}
+	}
+	return out
+}

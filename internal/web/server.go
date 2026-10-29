@@ -72,6 +72,8 @@ type Server struct {
 	client    *clientFiles           // nil: the server calculates every result
 	links     LinkStore              // nil: no short links (see SetLinks)
 	linkLimit *rateLimit
+	sends     SendStore // nil: no sending charts (see SetSends)
+	sendLimit *rateLimit
 
 	site       string                     // the site's URL (see SetSite)
 	byID       map[string]*library.Team   // library teams by ID
@@ -134,6 +136,7 @@ func (s *Server) Handler() http.Handler {
 		mux.HandleFunc("GET /"+name, handleIcon)
 	}
 	mux.HandleFunc("POST /s", s.handleShorten)
+	mux.HandleFunc("POST /send", s.handleSend)
 	mux.HandleFunc("GET /s/{id}", s.handleShort)
 	mux.HandleFunc("GET /healthz", s.handleHealth)
 	return mux
@@ -270,6 +273,9 @@ type teamResult struct {
 	// AlternativeNote says so.
 	Alternative     *library.Team
 	AlternativeNote string
+	// Writable is set on a team the library doesn't have, which the
+	// player can score with a rotation written in the editor.
+	Writable bool
 	// Library is the library rotations' score of a build scored with a
 	// chart (Selection.Chart), for the comparison; ChartNote says so.
 	Library   *score.Result
@@ -378,9 +384,14 @@ func (s *Server) prepare(ctx context.Context, l localizer, sel selection, enemy 
 
 	tr.Team = s.lib.Find(sel.Chars)
 	switch {
+	case tr.Team == nil && sel.Chart != "":
+		// A team the library doesn't have, scored with the player's own
+		// rotation (docs/cycle-swap.md §8).
+		tr.Team = customTeam(sel.Chars)
 	case tr.Team == nil:
 		slog.Info("unsupported team", "members", strings.Join(sorted(sel.Chars), ","))
 		tr.Problem = l.T("problem.unsupported")
+		tr.Writable = true
 		return tr
 	case tr.Team.Status == library.StatusBlocked:
 		tr.Problem = l.T("problem.blocked", tr.Team.Notes)
@@ -406,6 +417,9 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 		cons[library.Canonical(c.Key)] = c.Cons
 	}
 	rotations := tr.Team.RotationsFor(cons)
+	if tr.Team.Rotation == "" {
+		rotations = nil // a team outside the library: only the chart
+	}
 	builds := make([]string, len(rotations))
 	runs := make([]steady.Rotation, len(rotations))
 	for i, t := range rotations {
@@ -449,17 +463,26 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 			return res, err
 		}
 	}
-	best, out, err := steady.Best(runs, rank(builds, func(i int, err error) {
-		slog.Warn("alternative rotation failed", "team", tr.Team.ID, "source", rotations[i].Sources, "err", err)
-	}))
-	var build, rotation, once string
-	if err == nil {
-		build, rotation = builds[best], runs[best].Rotation
+	var (
+		best                  int
+		out                   *steady.Outcome
+		err                   error
+		build, rotation, once string
+	)
+	if len(runs) > 0 {
+		best, out, err = steady.Best(runs, rank(builds, func(i int, err error) {
+			slog.Warn("alternative rotation failed", "team", tr.Team.ID, "source", rotations[i].Sources, "err", err)
+		}))
+		if err == nil {
+			build, rotation = builds[best], runs[best].Rotation
+		}
 	}
 	// A chart is scored as the team's rotations are, and they are scored
 	// too, for the comparison (docs/cycle-swap.md §7).
 	if c, cerr := chart.Decode(tr.Selection.Chart); err == nil && cerr == nil {
-		tr.Library = out.Result
+		if out != nil {
+			tr.Library = out.Result
+		}
 		names, defaults := chartSlots(tr.Team, tr.Chars)
 		build = c.WithParams(buildLines(tr.Chars), names, defaults)
 		rotation = c.Gcsl(names)
@@ -469,6 +492,9 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 			return
 		}
 		best = 0
+	}
+	if err == nil && out == nil {
+		err = errors.New("no rotation to score")
 	}
 	if err == nil {
 		once = config.Assemble(config.Conditions{Iterations: set.Iterations, Enemy: tr.Enemy}, build, rotation)
@@ -488,8 +514,11 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 	}
 	res := out.Result
 	tr.Filler = fillerNote(l, out)
-	if tr.Library != nil {
+	switch {
+	case tr.Library != nil:
 		tr.ChartNote = l.T("score.chart_note", thousands(tr.Library.DPS), signedPercent(res.DPS/tr.Library.DPS-1))
+	case tr.Selection.Chart != "":
+		tr.ChartNote = l.T("score.chart_only")
 	}
 	if best > 0 {
 		tr.Alternative = rotations[best]

@@ -165,3 +165,29 @@ func TestPreview(t *testing.T) {
 		t.Errorf("a plunge from the ground: error %+v, want at note 1", p.Error)
 	}
 }
+
+func TestWithParams(t *testing.T) {
+	c, err := Parse("0E ; p0 start_energy=20 ; p2 breakthrough=0")
+	if err != nil {
+		t.Fatal(err)
+	}
+	build := "hutao char lvl=90/90 cons=0 talent=9,9,9;\nxingqiu char lvl=90/90 cons=0 talent=9,9,9;\nyelan char lvl=90/90 cons=0 talent=9,9,9;\n"
+	got := c.WithParams(build, [Slots]string{"hutao", "xingqiu", "yelan", "zhongli"}, [Slots]string{"start_hp=1, start_energy=60", "", ""})
+	for _, want := range []string{"hutao char lvl=90/90 cons=0 talent=9,9,9 +params=[start_hp=1, start_energy=20];", "xingqiu char lvl=90/90 cons=0 talent=9,9,9;", "yelan char lvl=90/90 cons=0 talent=9,9,9 +params=[breakthrough=0];"} {
+		if !strings.Contains(got, want) {
+			t.Errorf("WithParams() =\n%s\nwant a line %q", got, want)
+		}
+	}
+}
+
+func TestRemap(t *testing.T) {
+	c, err := Parse("0E 1Q [2N 1N]3 [2C]2 3E ; p1 start_hp=1 ; p2 start_energy=0")
+	if err != nil {
+		t.Fatal(err)
+	}
+	// Slot 2 leaves, 1 becomes 0, 0 becomes 1.
+	got := c.Remap([Slots]int{1, 0, -1, 3}).String()
+	if want := "1E 0Q [0N]3 3E ; p0 start_hp=1"; got != want {
+		t.Errorf("Remap() = %q, want %q", got, want)
+	}
+}

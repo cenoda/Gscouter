@@ -1,6 +1,7 @@
 package web
 
 import (
+	"context"
 	"net/http"
 	"net/url"
 	"strings"
@@ -60,4 +61,56 @@ func TestShortTargetKeepsChart(t *testing.T) {
 	if _, err := shortTarget("/score?" + url.Values{"a": {sel}, "r": {"bad"}}.Encode()); err == nil {
 		t.Error("a bad chart passed")
 	}
+}
+
+type memSends struct{ got []string }
+
+func (m *memSends) AddSend(_ context.Context, target string) error {
+	m.got = append(m.got, target)
+	return nil
+}
+
+func TestSendChart(t *testing.T) {
+	srv := newTestSite(t)
+	sends := &memSends{}
+	srv.SetSends(sends)
+	ts := newTestServerFor(t, srv)
+	packed := "800000001~" + packBuilds("Strong", hutaoTeam())
+	c, _ := chart.Parse("0E 0N")
+	post := func(u string) int {
+		resp, err := ts.Client().PostForm(ts.URL+"/send", url.Values{"u": {u}})
+		if err != nil {
+			t.Fatal(err)
+		}
+		resp.Body.Close()
+		return resp.StatusCode
+	}
+	if code := post("/score?" + url.Values{"a": {packed}, "r": {c.Encode()}}.Encode()); code != http.StatusNoContent {
+		t.Errorf("send: status %d", code)
+	}
+	// A result without a chart, or not a result, is not sent.
+	if code := post("/score?" + url.Values{"a": {packed}}.Encode()); code != http.StatusBadRequest {
+		t.Errorf("send without a chart: status %d", code)
+	}
+	if code := post("/edit?" + url.Values{"a": {packed}, "r": {c.Encode()}}.Encode()); code != http.StatusBadRequest {
+		t.Errorf("send of the editor: status %d", code)
+	}
+	if len(sends.got) != 1 || !strings.Contains(sends.got[0], "r="+c.Encode()) {
+		t.Errorf("kept %v", sends.got)
+	}
+}
+
+// A team the library doesn't have: the editor starts from a library
+// team sharing three members, and the chart scores it.
+func TestEditUnsupportedTeam(t *testing.T) {
+	_, ts := newClientSite(t)
+	_, body := get(t, ts, "/edit?a=800000001:hutao,yelan,xingqiu,amber")
+	mustContain(t, body, "Rotation editor", "ROTATION = \"\"", "TEMPLATE = {name:")
+
+	ts2 := newTestServer(t)
+	// Slots: amber, hutao, xingqiu, yelan.
+	c, _ := chart.Parse("3E 3Q? 2Q? 2E 1E [1N 1C 1D]5 1Q?")
+	q := url.Values{"a": {"800000001:hutao,yelan,xingqiu,amber"}, "r": {c.Encode()}}
+	_, body = get(t, ts2, "/score?"+q.Encode())
+	mustContain(t, body, "DPS", "the library has no rotation for this team")
 }
