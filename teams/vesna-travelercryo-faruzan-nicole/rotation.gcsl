@@ -1,6 +1,6 @@
 # Written in the order of the GameWith Vesna team guide's Stellar Swirl
 # rotations (Cryo supports, then the other supports, then Vesna's
-# combo): Cryo Traveler E N1C Q > Faruzan E C Q > Nicole E Q > Vesna
+# combo): Cryo Traveler E N1C Q > Faruzan E C Q > Nicole E > Vesna
 # combo. GameWith's Stellar Swirl teams are Vesna / Odette / Cryo
 # Traveler / Vodyanitsa and Vesna / Cryo Traveler / Diona / Sucrose; for
 # the Cryo slots it lists Odette, the Cryo Traveler, Diona and Qiqi, and
@@ -8,7 +8,7 @@
 # The KQM Vodyanitsa quick guide also has C6 Faruzan replace Odette or
 # the Cryo Traveler. No guide puts Nicole in a Stellar Swirl team;
 # GameWith lists her as an ATK% buffer for Vesna's Anemo driver team, so
-# she takes a support slot here. Cryo Traveler, Faruzan and Nicole burst
+# she takes a support slot here. Cryo Traveler and Faruzan burst
 # when ready. Faruzan's C is her hold-mode aimed shot. gcsim needs a
 # normal attack before the Traveler's charged attack.
 # Vesna's combo as in every Vesna team (GameWith's): E [N C E]x2 Q E [N
@@ -16,6 +16,10 @@
 # for only four Windborne Swords even with the burst, so whenever the
 # next one is not ready she keeps attacking until the fifth ends Armed
 # for Action.
+# Nicole's burst was dropped on 2026-10-29: its 1.9 s animation
+# lengthened the cycle so that the end of Vesna's combo fell outside the
+# supports' buffs. Looped score with build.txt 83.5k before, 84.5k
+# without it; the numbers above are from before.
 active travelercryo;
 travelercryo skill, attack, charge;
 if .travelercryo.burst.ready {
@@ -26,9 +30,6 @@ if .faruzan.burst.ready {
   faruzan burst;
 }
 nicole skill;
-if .nicole.burst.ready {
-  nicole burst;
-}
 vesna skill,
       attack, charge, skill,
       attack, charge, skill;
