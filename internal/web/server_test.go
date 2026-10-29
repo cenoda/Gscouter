@@ -251,6 +251,17 @@ func TestVersus(t *testing.T) {
 	mustContain(t, body, "About even", "Copy comparison link")
 }
 
+func TestVersusDiff(t *testing.T) {
+	team := func(dps float64) teamResult { return teamResult{Result: &score.Result{DPS: dps}} }
+	// The lead is relative to the lower team, whichever side wins.
+	if d := newVersus(team(100000), team(50000)); d.Diff != 1 {
+		t.Errorf("left 100k vs right 50k: diff %v, want 1", d.Diff)
+	}
+	if d := newVersus(team(50000), team(100000)); d.Diff != -1 {
+		t.Errorf("left 50k vs right 100k: diff %v, want -1", d.Diff)
+	}
+}
+
 func TestWarningsDraft(t *testing.T) {
 	got := warnings(localizer{Lang: langKorean}, &library.Team{Members: []string{"hutao"}, Status: library.StatusDraft}, nil, &score.Result{})
 	if len(got) != 1 || !strings.Contains(got[0], "검증 전") {
