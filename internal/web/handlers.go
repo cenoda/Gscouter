@@ -212,6 +212,7 @@ func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	data.Enemy = enemy
+	s.usage.page(r)
 	data.Meta = pageMeta{Title: l.T("site.title"), Description: l.T("site.desc")}
 	if data.UID == "" && data.VS == "" && enemy == nil {
 		data.Meta = s.indexed(r, l, data.Meta, "/")
@@ -224,6 +225,7 @@ func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			data.Problem = enkaMessage(l, err)
 		} else {
+			s.usage.uid(r, data.UID)
 			s.showcase(&data, p)
 		}
 	}
@@ -277,6 +279,7 @@ func (s *Server) handleShowcase(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, enkaMessage(l, err), http.StatusBadGateway)
 		return
 	}
+	s.usage.uid(r, data.UID)
 	merged := *p
 	merged.Characters = slices.Clone(p.Characters)
 	for _, k := range kept {
@@ -379,6 +382,7 @@ func (s *Server) handleScore(w http.ResponseWriter, r *http.Request) {
 	if canonical(w, r, "/score", enemy, "a", sel.String()) {
 		return
 	}
+	s.usage.result(r)
 	form := newEnemyForm("/score", enemy, "a", sel.String())
 	if s.inBrowser(r) {
 		tr := s.prepare(ctx, l, sel, enemy)
@@ -453,6 +457,7 @@ func (s *Server) handleVersus(w http.ResponseWriter, r *http.Request) {
 	if canonical(w, r, "/versus", enemy, "a", a.String(), "b", b.String()) {
 		return
 	}
+	s.usage.result(r)
 	form := newEnemyForm("/versus", enemy, "a", a.String(), "b", b.String())
 	if s.inBrowser(r) {
 		data := newVersus(s.prepare(ctx, l, a, enemy), s.prepare(ctx, l, b, enemy))

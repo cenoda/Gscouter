@@ -1,0 +1,64 @@
+package web
+
+import (
+	"encoding/json"
+	"net/http/httptest"
+	"os"
+	"path/filepath"
+	"testing"
+	"time"
+)
+
+func TestUsage(t *testing.T) {
+	file := filepath.Join(t.TempDir(), "usage.json")
+	s := &Server{}
+	if err := s.SetUsage(file); err != nil {
+		t.Fatal(err)
+	}
+	day := time.Date(2026, 10, 29, 23, 0, 0, 0, time.UTC)
+	s.usage.now = func() time.Time { return day }
+
+	r := httptest.NewRequest("GET", "/", nil)
+	r.Header.Set("User-Agent", "Mozilla/5.0")
+	bot := httptest.NewRequest("GET", "/", nil)
+	bot.Header.Set("User-Agent", "Mozilla/5.0 (compatible; Googlebot/2.1)")
+
+	s.usage.page(r)
+	s.usage.page(bot)
+	s.usage.uid(r, "800000001")
+	s.usage.uid(r, "800000001")
+	s.usage.uid(r, "800000002")
+	s.usage.result(r)
+	day = day.Add(2 * time.Hour) // the next day
+	s.usage.uid(r, "800000001")
+	if err := s.FlushUsage(); err != nil {
+		t.Fatal(err)
+	}
+
+	raw, err := os.ReadFile(file)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var got map[string]usageDay
+	if err := json.Unmarshal(raw, &got); err != nil {
+		t.Fatal(err)
+	}
+	want := map[string]usageDay{
+		"2026-10-29": {Pages: 1, Results: 1, UIDs: 2},
+		"2026-10-30": {UIDs: 1},
+	}
+	if len(got) != len(want) || got["2026-10-29"] != want["2026-10-29"] || got["2026-10-30"] != want["2026-10-30"] {
+		t.Errorf("saved %v, want %v", got, want)
+	}
+
+	// The counts continue after a restart.
+	s = &Server{}
+	if err := s.SetUsage(file); err != nil {
+		t.Fatal(err)
+	}
+	s.usage.now = func() time.Time { return day }
+	s.usage.page(r)
+	if d := s.usage.days["2026-10-30"]; d.Pages != 1 || d.UIDs != 1 {
+		t.Errorf("after restart %+v, want 1 page and 1 UID", *d)
+	}
+}

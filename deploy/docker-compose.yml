@@ -9,8 +9,10 @@ services:
       GSCOUTER_LINKS: /data/links.db
       GSCOUTER_SITE: https://${DOMAIN}
       GSCOUTER_INDEXNOW: /data/indexnow.json
+      GSCOUTER_USAGE: /data/usage.json
     volumes:
-      # Short links (/s/...) and the IndexNow state, kept across updates.
+      # Short links (/s/...), the IndexNow state and the usage counts,
+      # kept across updates.
       - links:/data
     depends_on:
       links-owner:

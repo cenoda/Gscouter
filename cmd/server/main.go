@@ -31,6 +31,7 @@ func main() {
 	linksDB := flag.String("links", os.Getenv("GSCOUTER_LINKS"), "SQLite file of short links; none turns them off")
 	site := flag.String("site", os.Getenv("GSCOUTER_SITE"), "the site's public URL, e.g. https://gscouter.example; without it, links for search engines take each request's host")
 	indexNow := flag.String("indexnow", os.Getenv("GSCOUTER_INDEXNOW"), "state file of IndexNow submissions (needs -site); none turns them off")
+	usageFile := flag.String("usage", os.Getenv("GSCOUTER_USAGE"), "JSON file of daily usage counts; none turns them off")
 	flag.Parse()
 
 	lib, err := library.LoadLibrary(teams.FS)
@@ -77,6 +78,15 @@ func main() {
 		}
 	}
 
+	if on(*usageFile) {
+		// Counts only: views and distinct UIDs per day (see web.SetUsage).
+		if err := srv.SetUsage(*usageFile); err != nil {
+			slog.Error("usage counts off", "file", *usageFile, "err", err)
+		} else {
+			slog.Info("usage counts", "file", *usageFile)
+		}
+	}
+
 	httpSrv := &http.Server{
 		Addr:              *addr,
 		Handler:           srv.Handler(),
@@ -95,6 +105,9 @@ func main() {
 	if err := httpSrv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		slog.Error("serve", "err", err)
 		os.Exit(1)
+	}
+	if err := srv.FlushUsage(); err != nil {
+		slog.Error("usage", "err", err)
 	}
 }
 
