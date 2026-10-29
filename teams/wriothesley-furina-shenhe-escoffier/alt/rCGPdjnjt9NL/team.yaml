@@ -1,0 +1,23 @@
+id: wriothesley-furina-shenhe-escoffier
+name: Wriothesley / Furina / Shenhe / Escoffier
+members:
+    - wrio
+    - shenhe
+    - furina
+    - escoffier
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/rCGPdjnjt9NL
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (escoffier C6, furina C6, shenhe C6, wriothesley C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 404648
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.001
+    kept: 0.971
+    dps: 392852

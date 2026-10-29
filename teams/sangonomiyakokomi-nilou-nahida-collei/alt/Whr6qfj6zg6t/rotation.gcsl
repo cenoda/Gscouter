@@ -1,0 +1,141 @@
+active nahida;
+let koko_q = 0; 
+let collei_q = 0; 
+let nahida_q = 0; 
+for let i=0; i<10; i=i+1 {
+  
+  koko_q = 0;
+  collei_q = 0;
+  nahida_q = 0;
+ 
+  while !.nahida.skill.ready
+  {
+    nahida attack:1, charge;
+  }
+
+  if .nahida.energy < 50
+  {
+    
+    nahida attack:1, skill;
+ 
+  }
+  else
+  {
+    nahida skill, burst;
+    nahida_q = 1;
+  }
+
+  if .kokomi.skill.ready
+  {
+    kokomi skill, attack:1;
+  }
+  else
+  {
+     kokomi charge, dash; 
+  }
+
+  nilou skill:4;  
+  
+  if .collei.energy < 60
+  {
+    
+    if .collei.skill.ready
+    {
+      collei skill;
+      wait(24); 
+
+      if .collei.burst.ready
+        {
+          collei burst;
+        }
+      else
+      {
+         
+        if nahida_q == 0 && .nahida.burst.ready
+        {
+          nahida burst;
+          nahida_q = 1;
+        }
+      }
+      
+    }
+    else
+    {
+      
+      nahida attack:1, skill;
+    }
+    
+  }
+  else
+  {
+    if .collei.skill.ready
+    {
+       collei skill, burst;
+    }
+    else
+    {
+      collei burst;
+
+      if nahida_q == 0 && .nahida.burst.ready
+      {
+        nahida burst;
+      }
+    }
+  }
+
+  if .kokomi.energy < 70
+  {
+    kokomi charge;
+  }
+  else
+  {
+    kokomi burst;
+    koko_q = 1;
+  }
+
+  if collei_q == 1
+  {
+      
+      kokomi attack:1, charge, attack:6;
+
+      nahida skill, attack:1;
+  }
+  else
+  {
+      
+      kokomi attack:3, dash, charge;
+
+      nahida skill, attack:1;
+  } 
+
+  if .kokomi.skill.ready && (koko_q == 0)
+  {
+    kokomi skill, attack:1;
+  }
+  else
+  { 
+    
+    if .nilou.burst.ready
+    {
+      nilou burst;
+      
+    }
+    else
+    {
+      kokomi attack:1, charge;
+    }
+  }
+
+  if .collei.skill.ready
+  {
+    collei skill;
+  }
+  else
+  {
+    nahida attack:1, charge;
+  }
+
+  kokomi attack:1, charge;
+
+  print("Nilou bloom has destroyed the simulation!");
+}

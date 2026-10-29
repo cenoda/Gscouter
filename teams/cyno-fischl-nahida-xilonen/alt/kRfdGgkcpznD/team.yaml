@@ -1,0 +1,23 @@
+id: cyno-fischl-nahida-xilonen
+name: Cyno / Fischl / Nahida / Xilonen
+members:
+    - cyno
+    - fischl
+    - nahida
+    - xilonen
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/kRfdGgkcpznD
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (cyno C6, fischl C6, nahida C6, xilonen C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 214820
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.014
+    kept: 0.992
+    dps: 210258

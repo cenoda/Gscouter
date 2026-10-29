@@ -1,0 +1,23 @@
+id: kamisatoayato-nilou-nahida-baizhu
+name: Kamisatoayato / Nilou / Nahida / Baizhu
+members:
+    - ayato
+    - nilou
+    - nahida
+    - baizhu
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/kCQMzp8whGcM
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (baizhu C1, kamisatoayato C0, nahida C2, nilou C2): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 196698
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.005
+    kept: 1.015
+    dps: 66505

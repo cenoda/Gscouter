@@ -1,0 +1,49 @@
+active fischl;
+for let i=0; i<6; i=i+1 {
+  
+  if !is_even(i) {
+    fischl attack:2, burst;
+    columbina skill, attack:2;
+  } else {
+    fischl skill;
+    if i {
+      fischl attack;
+      sucrose swap;         print("Sucrose N2D > Columbina E Q");
+      sucrose attack:2, dash;
+    }
+    columbina skill, burst;
+  }
+  
+  if !is_even(i) && .sucrose.burst.ready {
+    sucrose attack, burst;
+  } else if .sucrose.skill.ready {
+    sucrose swap; wait(8); 
+    sucrose attack, skill, dash;
+  } else {
+    sucrose attack, charge;
+  }
+  
+  flins skill, attack, 
+        skill, burst, 
+        attack:4, dash, attack:2, 
+        skill, attack, burst, 
+        attack:4, dash, attack:2;
+  if .flins.status.manifest-flame {   
+    flins skill, attack;
+    if .flins.energy >= 30 {
+      flins burst;
+    }
+    flins attack;
+    if is_even(i) {
+      flins attack;
+    }
+  } else { 
+    flins dash, attack:4;
+  }
+  
+  if .sucrose.skill.ready {
+    sucrose attack, skill, dash;
+  } else {
+    sucrose attack, charge;
+  }
+}

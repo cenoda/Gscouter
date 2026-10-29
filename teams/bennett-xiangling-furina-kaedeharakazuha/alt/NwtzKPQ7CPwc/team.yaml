@@ -1,0 +1,28 @@
+id: bennett-xiangling-furina-kaedeharakazuha
+name: Bennett / Xiangling / Furina / Kaedeharakazuha
+members:
+    - furina
+    - bennett
+    - kaz
+    - xiangling
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/NwtzKPQ7CPwc
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (bennett C6, furina C6, kaedeharakazuha C0, xiangling C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+params:
+    bennett: start_hp%=50
+    furina: start_hp%=50
+    kaz: start_hp%=50
+    xiangling: start_hp%=50
+reference:
+    dps: 168279
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.019
+    kept: 1.017
+    dps: 174357

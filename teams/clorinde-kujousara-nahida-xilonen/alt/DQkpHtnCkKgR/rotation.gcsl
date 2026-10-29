@@ -1,0 +1,26 @@
+fn clorinde_combo() {
+  clorinde skill;
+  while .clorinde.status.clorinde-night-watch {
+    if .clorinde.bolratio >= 1 {
+      clorinde skill;
+    } else {
+      clorinde attack;
+    }
+  }
+}
+active sara; 
+for let r=0; r<5; r=r+1 { 
+  sara skill, aim;
+  wait(12);
+  xilonen skill, attack:2;
+  nahida skill;
+  if .nahida.burst.ready { 
+    nahida burst;
+  } else {
+    nahida attack;
+  }
+  nahida dash; pick_up_crystallize("electro");
+  sara burst;  
+  clorinde_combo();
+  clorinde burst;
+}

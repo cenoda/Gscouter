@@ -1,0 +1,10 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst, attack:2;
+  xilonen skill, attack:2;
+  bennett burst, dash; pick_up_crystallize("hydro");
+  ayato skill, attack:15, burst;
+  xilonen skill, attack:2;
+  bennett skill, attack:2, dash; pick_up_crystallize("hydro");
+  ayato skill, attack:17;
+}

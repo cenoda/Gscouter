@@ -1,0 +1,23 @@
+id: cyno-kaedeharakazuha-fischl-nahida
+name: Cyno / Kaedeharakazuha / Fischl / Nahida
+members:
+    - cyno
+    - kazuha
+    - amy
+    - nahida
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/nghw7Br6TtQw
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (cyno C6, fischl C6, kaedeharakazuha C6, nahida C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 140365
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.001
+    kept: 1.01
+    dps: 141909

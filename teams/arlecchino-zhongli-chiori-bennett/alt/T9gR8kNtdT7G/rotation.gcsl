@@ -1,0 +1,21 @@
+active arle;
+for let i = 0; i < 6; i = i + 1 {
+  chiori skill:2;
+  arlecchino skill, attack;
+  zhongli skill[hold=1], dash; pick_up_crystallize("pyro");
+  zhongli attack:2;
+  
+  bennett skill, burst, attack;
+  
+  if .chiori.burst.ready {
+    chiori burst;
+  } 
+  chiori skill:2;
+  arlecchino charge, 
+             attack:3, dash, 
+             attack:3, dash, 
+             attack:3, dash,
+             attack:3, dash,
+             attack:3, dash,
+             attack:3;
+}

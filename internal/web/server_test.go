@@ -344,3 +344,32 @@ func TestTalentsOf(t *testing.T) {
 		t.Errorf("without bonuses: %q, want %q", got, want)
 	}
 }
+
+// A team's alternative that scores more for the build scores it, and the
+// result says which rotation it used.
+func TestScoreUsesBestAlternative(t *testing.T) {
+	srv := newTestSiteWith(t, func(lib *library.Library) {
+		team := lib.Find([]string{"hutao", "yelan", "xingqiu", "zhongli"})
+		alt := *team
+		alt.Sources = []string{"https://db.kqm.gg/db/alternative"}
+		alt.Build = "hutao char lvl=90/90 cons=6 talent=9,9,9;\n"
+		team.Alternatives = []*library.Team{&alt}
+		// The team's own rotation barely does anything.
+		team.Rotation = "active zhongli;\nzhongli attack;\n"
+	})
+	ts := newTestServerFor(t, srv)
+	code, body := get(t, ts, "/score?uid=800000001&c=hutao&c=yelan&c=xingqiu&c=zhongli")
+	if code != http.StatusOK {
+		t.Fatalf("status %d: %s", code, body)
+	}
+	mustContain(t, body, "written for C6 Hu Tao", "https://db.kqm.gg/db/alternative", "hutao skill")
+}
+
+func TestLibraryTeamListsAlternatives(t *testing.T) {
+	ts := newTestServer(t)
+	code, body := get(t, ts, "/teams/yoimiya-yelan-fischl-durin")
+	if code != http.StatusOK {
+		t.Fatalf("status %d: %s", code, body)
+	}
+	mustContain(t, body, "Rotations for higher constellations", "For C1 Yoimiya.", "https://db.kqm.gg/db/hhdWBgW6Fqpf")
+}

@@ -1,0 +1,17 @@
+active lyney;
+for let i=0; i<4; i=i+1 {
+  lyney aim[weakspot=1];
+  lynette skill, attack:2;
+  bennett attack, burst, skill;
+  xiangling burst, skill, dash;
+  if .lynette.burst.ready{
+    lynette attack,burst;
+  }
+  else {
+    lynette skill, attack:2;
+  }
+  lyney aim[weakspot=1], aim, aim, burst;
+  delay(13);
+  lyney skill:2;
+  bennett attack, skill;
+}

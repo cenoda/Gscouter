@@ -1,0 +1,23 @@
+id: dehya-bennett-furina-kaedeharakazuha
+name: Dehya / Bennett / Furina / Kaedeharakazuha
+members:
+    - dehya
+    - kazuha
+    - bennett
+    - furina
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/BnjBwTgnP6HT
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (bennett C6, dehya C4, furina C2, kaedeharakazuha C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 88706
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.007
+    kept: 0.99
+    dps: 82456

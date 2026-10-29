@@ -1,0 +1,36 @@
+active yae;
+    yae skill, skill, skill;
+    nahida skill, burst, attack, charge;
+    amy attack:2, skill;
+    tighnari skill, aim:3;
+    	
+    yae attack, burst, attack, skill, attack, skill, attack, skill, attack:3;
+    nahida skill, attack:2, charge;
+    amy attack:2, burst;
+    tighnari skill, aim:3;
+    if .tighnari.burst.ready {
+      tighnari burst;
+    } else {
+      tighnari aim[hold=2];
+    }
+for let i = 0; i < 2; i = i + 1 {
+	yae skill, attack:2, skill, attack:2, skill, attack:3;
+	nahida skill, burst, attack, charge;
+	amy attack:2, skill;
+	tighnari skill, aim:3;
+    if .tighnari.burst.ready {
+      tighnari burst;
+    } else {
+      tighnari aim[hold=2];
+    }
+    	
+    yae attack, burst, attack, skill, attack, skill, attack, skill, attack:3;
+    nahida skill, attack:2, charge;
+    amy attack:2, burst;
+    tighnari skill, aim:3;
+    if .tighnari.burst.ready {
+      tighnari burst;
+    } else {
+      tighnari aim[hold=2];
+    }
+}

@@ -1,0 +1,23 @@
+id: nahida-xingqiu-yelan-raidenshogun
+name: Nahida / Xingqiu / Yelan / Raidenshogun
+members:
+    - nahida
+    - xingqiu
+    - yelan
+    - raiden
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/6zWp6LCM8B9c
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (nahida C2, raidenshogun C0, xingqiu C6, yelan C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 102103
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0
+    kept: 0.98
+    dps: 106034

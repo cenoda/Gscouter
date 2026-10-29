@@ -1,0 +1,19 @@
+active raiden;
+raidenshogun skill;
+for let x = 0; x < 4; x = x + 1 {
+  xilonen skill, attack:2;
+
+  kujousara skill, aim;
+  bennett skill, burst;
+  kujousara burst;
+  raidenshogun burst; 
+  for let j = 0; j < 3; j = j + 1 {
+    raiden attack:4;
+    if .raiden.skill.ready {
+      raiden skill;
+    } else {
+      raiden dash;
+    }
+  }
+  raidenshogun attack:4;
+}

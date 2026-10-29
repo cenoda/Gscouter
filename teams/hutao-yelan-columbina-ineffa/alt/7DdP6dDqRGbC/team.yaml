@@ -1,0 +1,25 @@
+id: hutao-yelan-columbina-ineffa
+name: Hutao / Yelan / Columbina / Ineffa
+members:
+    - hutao
+    - yelan
+    - ineffa
+    - columbina
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/7DdP6dDqRGbC
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (columbina C0, hutao C1, ineffa C0, yelan C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+params:
+    hutao: start_hp=1
+reference:
+    dps: 119945
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.001
+    kept: 0.999
+    dps: 119867

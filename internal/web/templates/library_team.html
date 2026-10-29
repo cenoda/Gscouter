@@ -15,6 +15,11 @@
 {{with .Team.Sources}}<h2>{{t "lib.sources"}}</h2>
 <ul>{{range .}}<li><a href="{{.}}">{{.}}</a></li>{{end}}</ul>{{end}}
 <details class="rotation"><summary>{{t "tl.script"}}</summary><pre>{{.Team.Rotation}}</pre></details>
+{{with .Alternatives}}<h2>{{t "lib.alternatives"}}</h2>
+{{range .}}<p>{{t "lib.alternative_for" .For}}</p>
+<ul>{{range .Sources}}<li><a href="{{.}}">{{.}}</a></li>{{end}}</ul>
+<details class="rotation"><summary>{{t "tl.script"}}</summary><pre>{{.Rotation}}</pre></details>
+{{end}}{{end}}
 </div>
 {{template "foot"}}
 

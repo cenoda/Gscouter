@@ -1,0 +1,21 @@
+active bina;
+for let i=0; i<6; i=i+1 {
+  bina skill;
+  if is_even(i) {
+    fischl attack:2, burst;
+  } else {
+    fischl skill, attack;
+  } 
+  mona burst, attack:3, skill, attack;
+  hutao skill,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge;
+}

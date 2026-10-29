@@ -1,0 +1,25 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+ furina skill, walk, burst;
+ if .charlotte.burst.ready && i != 0 {
+   if .charlotte.skill.ready {
+     charlotte skill;
+   }
+   charlotte burst;
+ }
+ kazuha skill, high_plunge;
+ if .kazuha.burst.ready {
+   kazuha burst;
+ }
+ shenhe skill, burst, skill[hold=1];
+ for let j = 0; j < 12; j = j + 1 {
+   charlotte attack:3;
+   if j != 12 {
+     if .charlotte.skill.ready {
+       charlotte skill;
+     } else {
+       charlotte dash;
+     }
+   }
+ }
+}

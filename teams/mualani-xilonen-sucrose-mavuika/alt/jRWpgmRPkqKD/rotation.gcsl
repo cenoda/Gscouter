@@ -1,0 +1,29 @@
+active mualani;
+set_swap_icd(24);
+for let i=0; i<5; i=i+1 {
+  mualani attack;
+  sucrose skill, dash;
+  
+  wait(50);
+  mavuika burst, attack;
+  xilonen skill, attack:2;
+  mualani skill;
+  while .mualani.momentum < 3 {
+    mualani walk[f=1];
+  }
+  mualani attack, skill, attack;
+  mavuika skill;
+  sucrose skill, dash;
+
+  mualani burst[travel=1];
+  
+  xilonen attack:2, skill, attack:2;
+  mualani skill;
+  for let j=0; j<3; j=j+1 {
+    while .mualani.momentum < 3 {
+      mualani walk[f=1];
+    }
+    mualani attack;
+  }
+  mualani skill;
+}

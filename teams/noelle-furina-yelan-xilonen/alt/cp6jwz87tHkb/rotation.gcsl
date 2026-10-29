@@ -1,0 +1,11 @@
+active noelle;
+for let i=0; i<4; i=i+1 {
+  furina skill, attack, burst;
+  yelan skill, burst;
+  xilonen skill, attack:2;
+  noelle skill, burst;
+  noelle attack:4, dash,
+         attack:4, dash;
+  xilonen skill, attack:2;
+  noelle attack:4, dash;
+}

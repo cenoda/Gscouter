@@ -1,0 +1,41 @@
+active escoffier;
+escoffier skill, attack:2;
+furina attack, skill, dash;
+mona skill;
+skirk skill,
+      attack:5, dash,
+      
+      attack:2, burst,
+      
+      attack:5, dash,
+      
+      attack:2, charge, dash,
+      
+      attack:5, dash,
+      
+      attack:2;
+      
+furina swap;
+print("Skirk E cd (60 FPS) is ", .skirk.skill.cd);
+print("Skirk Q cd (60 FPS) is ", .skirk.burst.cd);
+for let i=0; i<4; i=i+1 { 
+  if i {
+    furina skill, dash;
+  } else {
+    furina attack;
+  }
+  furina burst;
+  escoffier skill, burst;
+  mona skill, burst;
+  skirk skill,
+        attack:2, burst,
+        
+        attack:5, dash,
+        attack:5, dash,
+        attack:5, dash,
+        
+        attack:2, charge, dash,
+      
+        attack:5, dash,
+        attack:3;
+}

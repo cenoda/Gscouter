@@ -1,0 +1,29 @@
+active mavuika;
+for let i = 0; i < 4; i = i + 1 {
+  if !i {
+    mavuika skill;    
+  }
+  ororon skill, burst;  
+  chevreuse skill[hold=1], attack;
+  if i {
+    mavuika skill;
+  }
+  mavuika burst, charge:2, dash, charge:2, dash, charge:2, dash, charge, dash;
+  clorinde skill;
+  if .clorinde.bolratio >= 1 && .clorinde.status.clorinde-night-watch {
+    clorinde skill;
+  }
+  for let i=0; i<6; i=i+1 {
+    clorinde attack:3;
+    if .clorinde.bolratio >= 1 && .clorinde.status.clorinde-night-watch {
+      clorinde skill;
+    }
+  }
+  if .clorinde.status.clorinde-night-watch {
+    clorinde attack;
+  }
+  if .clorinde.burst.ready {
+    clorinde burst;
+  }
+ 
+}

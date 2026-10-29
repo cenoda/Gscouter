@@ -1,0 +1,16 @@
+active kirara;
+for let i=0; i<4; i=i+1 {
+  
+  kirara skill[hold=5], burst;
+  kokomi skill, attack, charge, walk;
+  collei skill, burst;
+  nilou skill, attack:2,
+        attack:3,
+        attack:3,
+        attack:3,
+        attack:3,
+        attack:3,
+        attack:1;                
+if.nilou.burst.ready { nilou burst;} 
+else { kokomi attack, burst, attack;}
+}

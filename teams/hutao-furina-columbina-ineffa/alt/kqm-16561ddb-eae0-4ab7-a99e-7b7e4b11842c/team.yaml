@@ -1,0 +1,25 @@
+id: hutao-furina-columbina-ineffa
+name: Hutao / Furina / Columbina / Ineffa
+members:
+    - hutao
+    - furina
+    - columbina
+    - ineffa
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/kqm-16561ddb-eae0-4ab7-a99e-7b7e4b11842c
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (columbina C0, furina C1, hutao C1, ineffa C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+params:
+    hutao: start_hp=1
+reference:
+    dps: 138199
+    computed: "2026-10-28"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.002
+    kept: 1.006
+    dps: 138682

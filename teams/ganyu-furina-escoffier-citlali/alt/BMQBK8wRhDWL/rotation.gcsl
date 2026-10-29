@@ -1,0 +1,7 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, dash, burst;
+  citlali skill, attack;
+  escoffier skill, burst;
+  ganyu skill, aim, burst, aim, skill, aim:5;
+}

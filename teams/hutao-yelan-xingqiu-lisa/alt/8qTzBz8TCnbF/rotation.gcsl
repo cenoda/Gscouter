@@ -1,0 +1,25 @@
+active lisa;
+for let i = 0; i < 4; i = i + 1 {
+  
+  lisa skill[hold=1], burst;
+  xingqiu attack, burst, attack;
+  yelan burst, attack, skill, attack;
+  hutao skill,
+      attack:2, charge, dash,
+      attack:2, charge, dash,
+      attack:2, charge, dash,
+      attack:2, charge, dash,
+      attack:2, charge, dash,
+      attack:2, charge, dash,
+      attack:2, charge, dash,
+      attack:2, charge, dash,
+      attack:2, charge, dash,
+      attack:2, charge, dash,
+      attack:2, charge, dash;
+  if .yelan.tags.yelan_breakthrough {
+    yelan aim, skill, attack;
+  } else {
+    yelan attack, skill; 
+  } 
+  xingqiu attack, skill, dash, attack;
+}

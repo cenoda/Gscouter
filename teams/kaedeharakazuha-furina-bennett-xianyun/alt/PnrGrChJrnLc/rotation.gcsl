@@ -1,0 +1,18 @@
+active furina;
+for let i=0; i<4; i=i+1 {
+  furina skill, attack, burst, attack;
+  xianyun skill, low_plunge, burst;
+  kazuha burst;
+  bennett skill, dash, burst, attack;
+  kazuha skill, high_plunge; 
+  kazuha jump, high_plunge;
+  kazuha dash, jump, high_plunge;
+  kazuha dash, jump, high_plunge;
+  kazuha dash, jump, high_plunge;
+  kazuha skill, high_plunge;
+  kazuha jump, high_plunge;
+  kazuha dash, jump, high_plunge;
+  xianyun attack, skill, low_plunge;
+  kazuha attack, skill, high_plunge;
+  bennett skill;
+}

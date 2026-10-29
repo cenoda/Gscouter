@@ -1,0 +1,25 @@
+id: hutao-yelan-aino-ineffa
+name: Hutao / Yelan / Aino / Ineffa
+members:
+    - hutao
+    - yelan
+    - ineffa
+    - aino
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/nKWfzCChmKbr
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (aino C6, hutao C1, ineffa C0, yelan C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+params:
+    hutao: start_hp%=1
+reference:
+    dps: 96200
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.001
+    kept: 0.984
+    dps: 94715

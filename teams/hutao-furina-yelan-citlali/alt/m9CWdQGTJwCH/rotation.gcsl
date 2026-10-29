@@ -1,0 +1,21 @@
+active furina; 
+for let i=0; i<4; i=i+1 {
+  furina skill, burst, attack:2;
+  
+  yelan burst, attack:2, skill, attack:2, skill, attack;
+  
+  citlali skill, attack;
+ 
+  hutao skill,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash,
+    attack:2, charge, dash;
+}

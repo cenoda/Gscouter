@@ -1,0 +1,23 @@
+id: yoimiya-furina-yunjin-xilonen
+name: Yoimiya / Furina / Yunjin / Xilonen
+members:
+    - yoimiya
+    - furina
+    - xilonen
+    - yunjin
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/rk6QCLfwKJkD
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (furina C6, xilonen C6, yoimiya C6, yunjin C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 234806
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.008
+    kept: 1.013
+    dps: 239710

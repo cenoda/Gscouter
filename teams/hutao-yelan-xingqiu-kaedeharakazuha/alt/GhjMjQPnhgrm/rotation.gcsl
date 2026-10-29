@@ -1,0 +1,37 @@
+let shim=1;
+	
+active yelan;
+for let i=0; i<4; i=i+1 {
+  xingqiu burst, attack, skill;
+  yelan skill, burst, attack, skill;
+  kazuha attack, skill, high_plunge, burst, attack;
+  hutao skill;
+  	let cacombo = 8;
+  	let nx=2; 
+      if .hutao.cons >= 1 {
+          cacombo = 10;
+      }
+     
+      while .hutao.mods.paramita && cacombo > 0  {
+          if .hutao.mods.paramita {
+              hutao attack;
+          }
+          if .hutao.mods.paramita && nx==2 {
+              hutao attack;
+          }
+          if .hutao.mods.paramita {
+              hutao charge;
+              cacombo = cacombo - 1;
+          }
+       
+          if .hutao.burst.cd != 900 {  
+              if .hutao.cons >= 1 {
+                  hutao dash;
+              } 
+              else {
+                  hutao jump;
+              }
+         }
+      }
+  kazuha attack, skill, high_plunge;
+}

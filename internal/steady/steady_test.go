@@ -1,6 +1,7 @@
 package steady
 
 import (
+	"errors"
 	"strings"
 	"testing"
 
@@ -83,5 +84,86 @@ func TestScoreTriesBriefOnBest(t *testing.T) {
 	}
 	if out.Result.DPS != 130 || out.Energy["ineffa"] != config.FillBrief {
 		t.Errorf("got %.0f DPS with %v, want 130 with ineffa filled briefly", out.Result.DPS, out.Energy)
+	}
+}
+
+// bestRun scores rotation i at dps[i] when ranked and full[i] in a full
+// run, and counts the full runs.
+func bestRun(dps, full []float64, fullRuns *int) func(int, string, bool) (*score.Result, error) {
+	return func(i int, _ string, rank bool) (*score.Result, error) {
+		d := dps[i]
+		if !rank {
+			*fullRuns++
+			d = full[i]
+		}
+		return &score.Result{DPS: d, Characters: []score.Character{{Name: "a"}}}, nil
+	}
+}
+
+func TestBestKeepsTheBestRotation(t *testing.T) {
+	rotations := []Rotation{
+		{"active a;\na skill;\n", []string{"a"}},
+		{"active a;\na burst;\n", []string{"a"}},
+		{"active a;\na attack;\n", []string{"a"}},
+	}
+	fullRuns := 0
+	i, out, err := Best(rotations, bestRun([]float64{100, 150, 120}, []float64{100, 140, 120}, &fullRuns))
+	if err != nil {
+		t.Fatal(err)
+	}
+	// The team's own rotation runs in full once, the winner once more.
+	if i != 1 || out.Result.DPS != 140 || fullRuns != 2 {
+		t.Errorf("got rotation %d at %.0f DPS after %d full runs; want 1 at 140 after 2", i, out.Result.DPS, fullRuns)
+	}
+}
+
+// A rotation that ranks best but scores below the team's own in a full
+// run gives way to the next, and the team's own stands when none beats it.
+func TestBestConfirmsWithFullRuns(t *testing.T) {
+	rotations := []Rotation{
+		{"active a;\na skill;\n", []string{"a"}},
+		{"active a;\na burst;\n", []string{"a"}},
+		{"active a;\na attack;\n", []string{"a"}},
+	}
+	fullRuns := 0
+	i, out, err := Best(rotations, bestRun([]float64{100, 150, 120}, []float64{100, 95, 110}, &fullRuns))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if i != 2 || out.Result.DPS != 110 {
+		t.Errorf("got rotation %d at %.0f DPS; want 2 at 110", i, out.Result.DPS)
+	}
+	i, out, err = Best(rotations, bestRun([]float64{100, 150, 120}, []float64{100, 95, 90}, &fullRuns))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if i != 0 || out.Result.DPS != 100 {
+		t.Errorf("got rotation %d at %.0f DPS; want 0 at 100", i, out.Result.DPS)
+	}
+}
+
+// A rotation gcsim rejects is left out, the team's own included; the
+// score fails only when none runs.
+func TestBestSkipsFailedAlternative(t *testing.T) {
+	rotations := []Rotation{
+		{"active a;\na skill;\n", []string{"a"}},
+		{"active a;\na burst;\n", []string{"a"}},
+	}
+	fail := func(bad int) func(int, string, bool) (*score.Result, error) {
+		return func(i int, _ string, _ bool) (*score.Result, error) {
+			if i == bad {
+				return nil, errors.New("invalid config")
+			}
+			return &score.Result{DPS: 100, Characters: []score.Character{{Name: "a"}}}, nil
+		}
+	}
+	if i, _, err := Best(rotations, fail(1)); err != nil || i != 0 {
+		t.Errorf("got rotation %d, error %v; want 0 without error", i, err)
+	}
+	if i, out, err := Best(rotations, fail(0)); err != nil || i != 1 || out.Result.DPS != 100 {
+		t.Errorf("got rotation %d, error %v; want 1 without error", i, err)
+	}
+	if _, _, err := Best(rotations[:1], fail(0)); err == nil {
+		t.Error("want an error when no rotation runs")
 	}
 }

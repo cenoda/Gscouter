@@ -1,0 +1,13 @@
+active dehya;
+for let i =0; i < 5; i = i + 1 {
+	dehya skill;
+	bennett skill, burst;
+	rosaria skill, burst;
+	kaeya skill, burst;
+	dehya burst, skill:10;
+	bennett skill;
+	dehya skill, attack;
+	rosaria skill;
+	kaeya skill, attack;
+	dehya attack:2;
+}

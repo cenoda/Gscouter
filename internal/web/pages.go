@@ -15,6 +15,15 @@ type libraryTeamData struct {
 	Chars    []string // canonical member keys
 	Warnings []string
 	Lang     string // langQuery, for links to other indexed pages
+	// Alternatives are the team's rotations for higher constellations
+	// that the score tries besides its own.
+	Alternatives []alternativeView
+}
+
+type alternativeView struct {
+	For      string // the constellations it was written for (writtenFor)
+	Sources  []string
+	Rotation string
 }
 
 func (s *Server) handleLibraryTeam(w http.ResponseWriter, r *http.Request) {
@@ -31,6 +40,9 @@ func (s *Server) handleLibraryTeam(w http.ResponseWriter, r *http.Request) {
 	}
 	for _, m := range t.Members {
 		data.Chars = append(data.Chars, library.Canonical(m))
+	}
+	for _, alt := range t.Rotations()[1:] {
+		data.Alternatives = append(data.Alternatives, alternativeView{writtenFor(l, t, alt), alt.Sources, alt.Rotation})
 	}
 	name := l.teamName(t)
 	m := pageMeta{Title: l.T("lib.title", name), Description: l.T("lib.desc", name)}

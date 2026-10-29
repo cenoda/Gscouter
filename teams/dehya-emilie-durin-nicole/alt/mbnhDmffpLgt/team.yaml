@@ -1,0 +1,23 @@
+id: dehya-emilie-durin-nicole
+name: Dehya / Emilie / Durin / Nicole
+members:
+    - dehya
+    - emilie
+    - durin
+    - nicole
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/mbnhDmffpLgt
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (dehya C6, durin C0, emilie C1, nicole C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 104083
+    computed: "2026-09-30"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.002
+    kept: 0.988
+    dps: 102694

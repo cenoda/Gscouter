@@ -1,0 +1,23 @@
+active nicole;
+for let i = 0; i < 4; i = i + 1 {
+  
+  nicole skill;
+  
+  if i > 0 {
+    nicole attack;
+  }
+  
+  durin burst;
+  
+  xilonen skill, attack:2; 
+  
+  noelle skill, burst, attack:3, dash, attack:4;
+  
+  durin skill:2;
+  
+  nicole burst;
+  xilonen skill, attack:2;
+  
+  noelle attack:3, dash, attack:2;
+
+}

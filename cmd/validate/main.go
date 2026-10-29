@@ -1,4 +1,5 @@
-// Command validate runs every library team with its reference build. It
+// Command validate runs every library team, and each of its alternatives
+// (library.AltDir), with its reference build. It
 // checks that one pass of the rotation under the source's own conditions
 // (source.txt) reproduces the DPS its source config reported, then scores
 // the looped rotation as the site does, under the common conditions, and
@@ -45,7 +46,6 @@ import (
 	"fmt"
 	"maps"
 	"os"
-	"path/filepath"
 	"slices"
 	"strings"
 	"time"
@@ -76,6 +76,9 @@ func main() {
 	flag.Parse()
 
 	dirs, err := batch.Dirs(*root, flag.Args())
+	if err == nil {
+		dirs, err = batch.WithAlternatives(dirs)
+	}
 	if err == nil {
 		dirs, err = batch.Shard(dirs, *shard)
 	}
@@ -206,7 +209,7 @@ func printReport(r *validate.Report, verbose bool) {
 	case len(r.Warnings) > 0:
 		verdict = "WARN"
 	}
-	name := filepath.Base(r.Dir)
+	name := library.DirName(r.Dir)
 	if r.Res != nil {
 		ref := "      -"
 		if r.Team.Reference != nil {

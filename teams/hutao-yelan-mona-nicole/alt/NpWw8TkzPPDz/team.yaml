@@ -1,0 +1,25 @@
+id: hutao-yelan-mona-nicole
+name: Hutao / Yelan / Mona / Nicole
+members:
+    - hutao
+    - mona
+    - nicole
+    - yelan
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/NpWw8TkzPPDz
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (hutao C1, mona C4, nicole C2, yelan C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+params:
+    hutao: start_hp%=1
+reference:
+    dps: 143847
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.004
+    kept: 1.024
+    dps: 146764

@@ -1,0 +1,21 @@
+active ineffa;
+for let i=0; i<6; i=i+1 {
+  ineffa skill;
+  if i && .ineffa.burst.ready {
+    ineffa burst;
+  }
+  
+  if !i {
+    durin skill, burst, attack;
+  } else {
+    durin skill:2, burst;
+  }
+  mona attack, burst, attack:3, skill, attack;
+  
+  chasca skill, aim:4;
+  if is_even(i) {
+    chasca burst;
+  } else {
+    chasca aim[bullets=4];
+  }
+}

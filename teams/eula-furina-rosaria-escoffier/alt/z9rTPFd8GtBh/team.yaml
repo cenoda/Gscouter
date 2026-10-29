@@ -1,0 +1,23 @@
+id: eula-furina-rosaria-escoffier
+name: Eula / Furina / Rosaria / Escoffier
+members:
+    - eula
+    - furina
+    - rosaria
+    - escoffier
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/z9rTPFd8GtBh
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (escoffier C6, eula C6, furina C6, rosaria C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 248328
+    computed: "2026-10-01"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.002
+    kept: 1.012
+    dps: 252019

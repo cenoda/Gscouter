@@ -1,0 +1,16 @@
+active shenhe;
+for let i=0; i<4; i=i+1 {
+  shenhe skill[hold=1];
+  if is_even(i) {
+    shenhe burst;
+  }
+  xilonen skill, attack:2;
+  kazuha skill, high_plunge;
+  wrio  skill;
+  wrio  attack:5, charge, jump;
+  wrio  attack:5, charge, jump;
+  wrio  attack:5, charge, dash;
+  if is_even(i) && .wrio.burst.ready && .wrio.energy == .wrio.energymax  {
+    wrio burst;
+  }
+}

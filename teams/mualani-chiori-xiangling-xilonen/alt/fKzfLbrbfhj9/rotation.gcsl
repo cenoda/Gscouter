@@ -1,0 +1,56 @@
+active chiori;
+let _execute_action = execute_action;
+fn execute_action(char_id number, action_id number, p map) {
+  
+  if rand() >= 0.5 && (
+       action_id == .action.dash
+    || char_id == .keys.char.mualani && action_id == .action.walk
+    || char_id == .keys.char.xilonen && action_id == .action.skill
+  ) {
+    pick_up_crystallize("any");
+  }
+  return _execute_action(char_id, action_id, p);
+}
+let last_burst = false;
+fn mualani_combo() {
+  last_burst = false;
+  mualani skill;
+  for let k = 0; k < 3 && .mualani.nightsoul.state; k = k + 1 {
+    if k == 2 && .mualani.burst.ready {
+      mualani burst;
+      last_burst = true;
+      break;
+    }
+    
+    while .mualani.momentum < 3 {
+      mualani walk[f=1];
+    }
+    mualani attack;
+  }
+  
+  if .mualani.nightsoul.state {
+    mualani skill;
+  }
+}
+for let i = 0; i < 4; i = i + 1 {
+  chiori skill:2;
+  mualani attack:3;
+  xilonen skill, attack:2;
+
+  for let k = 0; k < 3; k = k + 1 {
+    if .xiangling.burst.ready {
+      xiangling burst;
+      break;
+    }
+    xiangling attack;
+  }
+  xiangling skill, dash;
+  
+  if .chiori.skill.ready { 
+    chiori skill:2;
+  }
+  mualani_combo();
+}
+if last_burst {
+  wait(12);
+}

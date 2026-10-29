@@ -1,0 +1,18 @@
+active noelle;
+for let i=0; i<4; i=i+1 {
+  
+  furina skill, dash, attack:2, burst;
+  xilonen skill, attack:2;
+  gorou skill, burst;
+  
+  if !.gorou.mods.favonius-cd {
+    gorou attack;
+  }
+  
+  noelle skill, burst, attack:4, dash, attack:2, dash;
+  xilonen attack;
+  wait(10);
+  xilonen skill;
+  gorou skill, attack;
+  noelle attack:4, dash, attack:2, dash;
+}

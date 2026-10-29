@@ -1,0 +1,23 @@
+id: aratakiitto-gorou-zhongli-bennett
+name: Aratakiitto / Gorou / Zhongli / Bennett
+members:
+    - itto
+    - gorou
+    - zhongli
+    - bennett
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/tbCbDkPd6ndC
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (aratakiitto C6, bennett C6, gorou C6, zhongli C0): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 62632
+    computed: "2026-09-30"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0.008
+    kept: 1.01
+    dps: 63770

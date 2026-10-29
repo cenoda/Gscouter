@@ -1,0 +1,23 @@
+id: bennett-lynette-xiangling-lyney
+name: Bennett / Lynette / Xiangling / Lyney
+members:
+    - bennett
+    - lynette
+    - xiangling
+    - lyney
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/jNtRRhR8NM9m
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (bennett C6, lynette C6, lyney C0, xiangling C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 63129
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.005
+    kept: 1.011
+    dps: 63485

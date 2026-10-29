@@ -1,0 +1,55 @@
+fn sethosCombo() {
+  if .sethos.skill.ready {
+    sethos skill;
+  }
+  sethos burst;
+  while .sethos.mods.sethos-burst {
+    if .sethos.skill.ready {
+      sethos skill;
+    } else if .sethos.normal > 2 {
+      sethos walk;
+    } else {
+      sethos attack;
+    }
+  }
+}
+active amy;
+for let i=0; i<4; i=i+1 {
+  while !.amy.skill.ready {
+    amy attack;
+  }
+  amy skill, attack;
+  
+  xilonen skill, attack:2;
+  xilonen burst;
+  
+  nahida skill, attack;
+  
+  if .nahida.burst.ready {
+    nahida burst;
+  } else {
+    nahida charge;
+  }
+  
+  if .nahida.sets.ap {
+    nahida dash; 
+    pick_up_crystallize("electro");
+  }
+
+  sethos aim[hold=2]:2;
+  sethos skill; 
+  sethos aim[hold=2]:2;
+  
+  amy attack:2, burst;
+  
+  xilonen skill, attack:2;
+  
+  sethosCombo();
+  
+  while .sethos.energy > 20 {
+    sethos aim[hold=1];
+    if .sethos.skill.ready {
+      sethos skill;
+    }
+  }
+}

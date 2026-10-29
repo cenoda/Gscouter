@@ -1,0 +1,21 @@
+active ayaka;
+ayaka dash;
+for let i = 0; i < 5; i = i + 1{
+  venti skill, burst;
+  shenhe skill, burst;
+  kokomi skill, dash;
+  ayaka skill, dash, attack:2, charge, burst;
+  venti skill, attack;
+  shenhe skill;
+  if .shenhe.skill.ready {
+    wait(8);
+    shenhe skill;
+  } else {
+    shenhe attack;
+  }
+  ayaka dash, attack:2, charge, 
+              attack:2, skill, 
+        dash, attack:2, charge, 
+              attack:3;
+  print("rotation done");
+}

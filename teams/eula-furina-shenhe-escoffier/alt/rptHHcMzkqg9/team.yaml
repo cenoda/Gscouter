@@ -1,0 +1,23 @@
+id: eula-furina-shenhe-escoffier
+name: Eula / Furina / Shenhe / Escoffier
+members:
+    - eula
+    - furina
+    - shenhe
+    - escoffier
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/rptHHcMzkqg9
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (escoffier C6, eula C6, furina C6, shenhe C6): 1 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 283549
+    computed: "2026-09-30"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: -0.006
+    kept: 1.011
+    dps: 285025

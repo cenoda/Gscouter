@@ -1,0 +1,18 @@
+active mavuika; 
+for let i=0; i<4; i=i+1 {
+  mona skill, burst, attack;
+  xilonen skill, attack:2; pick_up_crystallize("hydro");
+  mavuika skill, burst, charge;
+  mualani skill,
+          walk[f=90], attack,
+          walk[f=90], attack,
+          walk[f=90], attack;
+  if .mualani.burst.ready {
+    mualani burst;
+  } else {
+    if i != 3 {
+      mualani walk[f=1];
+      xilonen burst; 
+    }
+  }
+}

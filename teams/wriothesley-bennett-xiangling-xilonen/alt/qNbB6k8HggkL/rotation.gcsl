@@ -1,0 +1,25 @@
+active wrio;
+let N1E_tech = false;  
+wrio attack;
+for let i=0; i<4; i=i+1 {
+  xilonen skill, attack:2;
+  bennett attack:2, burst, skill;
+  xiangling burst, skill, dash;
+  if N1E_tech == false {
+    wrio  skill;
+    wrio  attack:5, charge, jump;
+  } else {
+    wrio  attack, skill;
+    wrio  attack:4, charge, jump;
+  }
+  wrio  attack:5, charge, jump;
+  wrio  attack:5, charge;
+  if .wrio.burst.ready && .wrio.energy == .wrio.energymax  {
+    wrio dash;
+    wrio burst;
+    wrio attack:3, charge; 
+  } else {
+    wrio jump;
+    wrio attack:5, charge;
+  }
+}

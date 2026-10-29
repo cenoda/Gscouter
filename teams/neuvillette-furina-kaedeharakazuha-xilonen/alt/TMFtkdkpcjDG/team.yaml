@@ -1,0 +1,23 @@
+id: neuvillette-furina-kaedeharakazuha-xilonen
+name: Neuvillette / Furina / Kaedeharakazuha / Xilonen
+members:
+    - neuvillette
+    - kazuha
+    - xilonen
+    - furina
+archetype: ""
+status: supported
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://db.kqm.gg/db/TMFtkdkpcjDG
+notes: 'Harvested from the KQM gcsim database as an alternative for higher constellations (furina C2, kaedeharakazuha C2, neuvillette C2, xilonen C0): 2 entries are at these constellations; of those that reproduce their DPS, this one keeps the most of it when looped, at the lowest refinements.'
+reference:
+    dps: 169253
+    computed: "2026-10-02"
+validation:
+    date: "2026-10-29"
+    iterations: 20
+    gap: 0
+    kept: 0.988
+    dps: 167327

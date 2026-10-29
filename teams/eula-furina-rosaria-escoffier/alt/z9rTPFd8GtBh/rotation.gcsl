@@ -1,0 +1,22 @@
+active furina;
+for let i=0; i<4; i=i+1 { 
+  furina skill, dash;
+  if .furina.weapon == .keys.weapon.favsword && (!.furina.mods.favonius-cd || !.furina.burst.ready) {
+    furina attack;
+  }
+  furina burst;
+  
+  escoffier skill, burst;
+  
+  rosaria skill;
+  eula skill;
+  rosaria burst;
+  if !i {
+    eula burst, skill, attack:4, dash, attack:2, skill[hold=1], walk[f=11], attack:3;
+  } else {
+    eula burst, skill[hold=1], walk[f=11], attack:2, dash, attack:3, skill, attack:2;
+  }
+  rosaria skill;
+  
+  eula attack, skill;
+}
