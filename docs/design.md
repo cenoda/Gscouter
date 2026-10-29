@@ -165,6 +165,7 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
 - **Where it runs**: in the visitor's browser (§4.7), or on the server for link-preview cards and browsers that cannot.
 - **Cache key** = hash of the assembled config. The config contains the build, the rotation and the conditions, and the gcsim version is fixed per deployment, so the same build is never recomputed.
 - Characters are compared by canonical name: gcsim aliases resolve to one key (`kazuha` = `kaedeharakazuha`), and both Traveler genders fold into `traveler<element>`. When the player's key differs from the library's (e.g. `aethercryo` vs. `travelercryo`), the rotation is rewritten to the player's key.
+- **Weapon passives**: a rotation that reads a weapon's status mod (`.zhongli.mods.favonius-cd`, `sacrificial-cd`) reads it as always on for a character whose weapon does not give it (`config.GuardWeaponMods`). Such rotations wait for the source build's Favonius or Sacrificial proc (`while !.zhongli.mods.favonius-cd { zhongli attack; }`), which never comes with another weapon: the score fell to a few percent. A build with the weapon gets the same config as before (`docs/cycle.md` §5).
 
 ### 4.5 Results
 
@@ -303,6 +304,7 @@ Validation checks:
 - The team reproduces the source's DPS with the source's build under the source's conditions within 15% (a warning above 5%). The tolerance allows for the source having run on another gcsim version
 - The rotation finishes, and one fight of the looped rotation ends within 20 s. A loop that takes no action, such as `while rotations { ... }` with the counter set once in the setup, spins inside gcsim without time passing once the counter is spent; gcsim cannot cancel it, so `cmd/validate` checks each team in its own process and such teams are removed
 - Action waits and members with almost no damage in the looped rotation are reported as warnings
+- A rotation that reads a weapon's status mod (§4.4) is scored once more, as written and looped, with those weapons swapped for a weapon of the same type without one (`config.SwapModWeapons`). Keeping under 50% of the score with the reference build fails the team, under 80% is a warning (`docs/cycle.md` §5)
 
 Approval criteria (`validate.Report.Unpromotable`). A team is `supported` when:
 - the validation passes;
