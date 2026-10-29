@@ -184,87 +184,88 @@ A player (arca.live) timed Vesna's field time at C2 with the combo `E EE Q EE NC
 
 - **Cause: too little Sword Essence.** The fork summoned one wind pinion (5 Essence) with every attack. Prydwen (search extracts; the page returns 403) says the third and sixth normal attacks, the charged attack and the plunging attack summon two, so 6 pinions make one Windborne Sword: `N1 C` restores half (15), `N3 C` a whole one (30). With one pinion each, `N1 C` restored 10, so the library rotations' `while` loop added `N C` pairs until the window ended, and the player's combo could not be played at all: after its first `NCNC` she had 20 Essence and stood until Armed for Action ran out.
 - **Field time** in the library rotation of the player's team with a C2 Vesna (skill press to swap): 15.57 s before, matching the calculator's 15.6 s, and 14.15 s with two pinions; the player's own combo now takes 13.1 s. The rest of the gap to 14.5 s is the estimated frames and gcsim's frame-perfect inputs. The premium team's rotation takes 18.3 s, against HoYoLAB 46785086's 18.48 s (§1).
-- **Fix:** fork commit `9104976` (N3, N6 and charged attacks summon two pinions; the plunge is still not modeled). Only Vesna's package changed. The rotations are unchanged: their `while` loop now runs only when the burst is not ready, and their comments and notes say so.
+- **Fix:** fork commit `9104976` (N3, N6 and charged attacks summon two pinions; the plunge is still not modeled). Only Vesna's package changed. The rotations are unchanged but for 8 (extra N C pairs below): their `while` loop now runs only when the burst is not ready, and their comments and notes say so.
 - **Vesna's ER rechecked** (111%, 122%, 133%, 144%; also 138.6% in the F2P team): the shorter cycle changes what she needs. A new ER is kept only where it scores higher than her current one: 36 teams, +0.5% to +10.5%; the other 39 keep theirs.
-- **Result:** 62 of 75 teams higher, median +10%. The 13 lower all have Faruzan or Diona: in the shorter cycle (21.5 s → 18.6 s in Vesna / Diona / Faruzan / Nicole) Diona, Faruzan and Vesna no longer get their bursts back every rotation (22 of 22 rotations before, 13 or 14 of 25 after), and no ER of Vesna's makes it up. Their supports' ER was not changed. Some teams now wait 2–5 s per minute for Vesna's skill (18 s cooldown), as a shorter cycle should.
+- **Result:** 64 of 75 teams higher, median +10%. The teams that lost most have Faruzan or Diona: in the shorter cycle (21.5 s → 18.6 s in Vesna / Diona / Faruzan / Nicole) Diona, Faruzan and Vesna no longer get their bursts back every rotation (22 of 22 rotations before, 13 or 14 of 25 after), and no ER of Vesna's makes it up. Their supports' ER was not changed. Some teams now wait 2–5 s per minute for Vesna's skill (18 s cooldown), as a shorter cycle should.
+- **Extra N C pairs** for the 13 teams that scored lower: Vesna adds 1 to 4 `N C` pairs after her burst, lengthening the cycle again. The best count is kept where it beats the score without them: 8 teams (rotation version raised by one; the column above), 2 of them above their score from before. In the other 5 every count scores lower. 11 teams stay below their score from before, by 0.1% to 6.8%.
 
-| Team | Before | After | Change | Vesna ER |
-|---|---|---|---|---|
-| Vesna / Cryo Traveler / Diona / Lan Yan | 60.9k | 72.2k | +18.5% | 111% |
-| Vesna / Diona / Lan Yan / Nicole | 46.7k | 55.2k | +18.2% | 111% |
-| Vesna / Odette / Lan Yan / Vodyanitsa | 128.1k | 150.9k | +17.8% | 111% |
-| Vesna / Diona / Sucrose / Lan Yan | 52.3k | 61.4k | +17.4% | 111% |
-| Vesna / Odette / Lan Yan / Nicole | 94.5k | 110.9k | +17.4% | 111% |
-| Vesna / Odette / Qiqi / Lan Yan | 98.5k | 115.3k | +17.1% | 111% |
-| Vesna / Odette / Sucrose / Lan Yan | 84.6k | 98.9k | +16.9% | 111% |
-| Vesna / Cryo Traveler / Sucrose / Vodyanitsa | 98.3k | 114.8k | +16.8% | 144% → 111% |
-| Vesna / Odette / Cryo Traveler / Vodyanitsa | 150.5k | 175.0k | +16.3% | 111% |
-| Vesna / Odette / Cryo Traveler / Qiqi | 108.7k | 126.2k | +16.1% | 144% → 111% |
-| Vesna / Qiqi / Lan Yan / Vodyanitsa | 87.0k | 100.9k | +16.0% | 144% → 111% |
-| Vesna / Cryo Traveler / Sucrose / Nicole | 73.6k | 85.4k | +15.9% | 111% |
-| Vesna / Odette / Cryo Traveler / Nicole | 116.6k | 135.1k | +15.9% | 111% |
-| Vesna / Odette / Diona / Vodyanitsa | 152.4k | 176.4k | +15.8% | 111% |
-| Vesna / Qiqi / Lan Yan / Nicole | 60.2k | 69.3k | +15.1% | 111% |
-| Vesna / Cryo Traveler / Sucrose / Lan Yan | 56.6k | 65.1k | +15.1% | 111% |
-| Vesna / Cryo Traveler / Lan Yan / Vodyanitsa | 92.5k | 106.2k | +14.9% | 111% |
-| Vesna / Odette / Faruzan / Vodyanitsa | 154.0k | 176.9k | +14.8% | 111% |
-| Vesna / Cryo Traveler / Lan Yan / Nicole | 63.1k | 72.4k | +14.7% | 111% |
-| Vesna / Odette / Diona / Lan Yan | 96.8k | 110.8k | +14.5% | 111% |
-| Vesna / Cryo Traveler / Diona / Nicole | 75.9k | 86.7k | +14.2% | 111% |
-| Vesna / Odette / Sucrose / Nicole | 109.4k | 124.8k | +14.1% | 111% |
-| Vesna / Odette / Nicole / Vodyanitsa | 151.2k | 172.6k | +14.1% | 111% |
-| Vesna / Odette / Cryo Traveler / Lan Yan | 98.9k | 112.7k | +14.0% | 111% |
-| Vesna / Cryo Traveler / Qiqi / Lan Yan | 68.5k | 78.1k | +14.0% | 111% |
-| Vesna / Cryo Traveler / Nicole / Vodyanitsa | 104.7k | 119.1k | +13.7% | 111% |
-| Vesna / Cryo Traveler / Diona / Vodyanitsa | 107.9k | 122.5k | +13.5% | 111% |
-| Vesna / Odette / Sucrose / Vodyanitsa | 141.3k | 159.4k | +12.9% | 144% → 111% |
-| Vesna / Odette / Cryo Traveler / Diona | 108.9k | 122.5k | +12.4% | 144% → 111% |
-| Vesna / Qiqi / Sucrose / Lan Yan | 58.3k | 64.9k | +11.4% | 144% → 111% |
-| Vesna / Cryo Traveler / Diona / Sucrose | 76.5k | 85.1k | +11.3% | 138.6% → 111% |
-| Vesna / Vodyanitsa / Cryo Traveler / Faruzan | 116.6k | 129.5k | +11.1% | 122% → 111% |
-| Vesna / Odette / Faruzan / Lan Yan | 99.9k | 111.0k | +11.1% | 111% |
-| Vesna / Cryo Traveler / Faruzan / Lan Yan | 67.3k | 74.6k | +10.8% | 122% → 111% |
-| Vesna / Odette / Diona / Nicole | 115.8k | 127.8k | +10.4% | 111% |
-| Vesna / Odette / Cryo Traveler / Sucrose | 117.2k | 129.3k | +10.3% | 144% → 111% |
-| Vesna / Diona / Sucrose / Vodyanitsa | 97.4k | 107.3k | +10.2% | 111% |
-| Vesna / Cryo Traveler / Diona / Qiqi | 80.6k | 88.7k | +10.1% | 133% → 111% |
-| Vesna / Cryo Traveler / Faruzan / Nicole | 84.5k | 93.0k | +10.0% | 111% |
-| Vesna / Odette / Faruzan / Nicole | 126.4k | 137.6k | +8.8% | 111% |
-| Vesna / Diona / Nicole / Vodyanitsa | 67.3k | 73.1k | +8.7% | 144% → 111% |
-| Vesna / Cryo Traveler / Qiqi / Nicole | 85.8k | 93.0k | +8.5% | 144% → 111% |
-| Vesna / Odette / Cryo Traveler / Faruzan | 127.1k | 137.8k | +8.4% | 111% |
-| Vesna / Cryo Traveler / Qiqi / Vodyanitsa | 118.0k | 127.6k | +8.2% | 144% → 111% |
-| Vesna / Odette / Qiqi / Nicole | 126.4k | 136.6k | +8.1% | 144% → 111% |
-| Vesna / Odette / Qiqi / Faruzan | 147.6k | 158.7k | +7.5% | 111% |
-| Vesna / Qiqi / Sucrose / Vodyanitsa | 108.8k | 116.4k | +7.0% | 122% → 111% |
-| Vesna / Odette / Qiqi / Vodyanitsa | 167.0k | 178.4k | +6.8% | 133% → 111% |
-| Vesna / Diona / Sucrose / Nicole | 75.8k | 80.8k | +6.7% | 133% → 111% |
-| Vesna / Odette / Diona / Sucrose | 119.8k | 127.5k | +6.4% | 122% → 111% |
-| Vesna / Diona / Qiqi / Lan Yan | 65.6k | 69.2k | +5.5% | 111% |
-| Vesna / Odette / Qiqi / Sucrose | 129.9k | 136.7k | +5.2% | 122% → 133% |
-| Vesna / Qiqi / Sucrose / Nicole | 83.9k | 87.1k | +3.7% | 133% → 111% |
-| Vesna / Qiqi / Nicole / Vodyanitsa | 102.1k | 105.2k | +3.0% | 144% → 111% |
-| Vesna / Diona / Qiqi / Vodyanitsa | 111.6k | 114.7k | +2.7% | 133% → 111% |
-| Vesna / Cryo Traveler / Qiqi / Sucrose | 87.6k | 89.9k | +2.6% | 122% → 133% |
-| Vesna / Columbina / Ineffa / Sucrose | 80.5k | 82.1k | +1.9% | 122% → 111% |
-| Vesna / Cryo Traveler / Qiqi / Faruzan | 102.0k | 103.3k | +1.3% | 111% → 122% |
-| Vesna / Qiqi / Faruzan / Nicole | 104.1k | 105.2k | +1.1% | 111% |
-| Vesna / Odette / Diona / Qiqi | 120.7k | 121.2k | +0.5% | 133% → 111% |
-| Vesna / Diona / Qiqi / Nicole | 80.9k | 81.2k | +0.4% | 133% → 111% |
-| Vesna / Qiqi / Faruzan / Vodyanitsa | 136.2k | 136.3k | +0.1% | 111% |
-| Vesna / Odette / Faruzan / Sucrose | 134.4k | 134.3k | -0.1% | 111% → 133% |
-| Vesna / Diona / Qiqi / Faruzan | 110.2k | 108.8k | -1.3% | 111% |
-| Vesna / Cryo Traveler / Faruzan / Sucrose | 90.0k | 87.6k | -2.6% | 111% → 133% |
-| Vesna / Diona / Qiqi / Sucrose | 94.7k | 91.7k | -3.2% | 111% → 122% |
-| Vesna / Qiqi / Faruzan / Sucrose | 102.2k | 98.9k | -3.2% | 111% → 122% |
-| Vesna / Diona / Lan Yan / Vodyanitsa | 84.4k | 81.6k | -3.3% | 111% |
-| Vesna / Odette / Diona / Faruzan | 154.3k | 146.4k | -5.1% | 111% → 122% |
-| Vesna / Diona / Faruzan / Sucrose | 99.0k | 92.8k | -6.3% | 111% → 122% |
-| Vesna / Diona / Faruzan / Vodyanitsa | 137.3k | 128.3k | -6.5% | 111% |
-| Vesna / Cryo Traveler / Diona / Faruzan | 103.1k | 96.0k | -6.8% | 111% → 122% |
-| Vesna / Qiqi / Faruzan / Lan Yan | 84.0k | 77.6k | -7.6% | 111% |
-| Vesna / Diona / Faruzan / Lan Yan | 83.3k | 71.9k | -13.7% | 111% |
-| Vesna / Diona / Faruzan / Nicole | 87.3k | 66.1k | -24.3% | 111% → 144% |
+| Team | Before | After | Change | Vesna ER | N C added |
+|---|---|---|---|---|---|
+| Vesna / Cryo Traveler / Diona / Lan Yan | 60.9k | 72.2k | +18.5% | 111% |  |
+| Vesna / Diona / Lan Yan / Nicole | 46.7k | 55.2k | +18.2% | 111% |  |
+| Vesna / Odette / Lan Yan / Vodyanitsa | 128.1k | 150.9k | +17.8% | 111% |  |
+| Vesna / Diona / Sucrose / Lan Yan | 52.3k | 61.4k | +17.4% | 111% |  |
+| Vesna / Odette / Lan Yan / Nicole | 94.5k | 110.9k | +17.4% | 111% |  |
+| Vesna / Odette / Qiqi / Lan Yan | 98.5k | 115.3k | +17.1% | 111% |  |
+| Vesna / Odette / Sucrose / Lan Yan | 84.6k | 98.9k | +16.9% | 111% |  |
+| Vesna / Cryo Traveler / Sucrose / Vodyanitsa | 98.3k | 114.8k | +16.8% | 144% → 111% |  |
+| Vesna / Odette / Cryo Traveler / Vodyanitsa | 150.5k | 175.0k | +16.3% | 111% |  |
+| Vesna / Odette / Cryo Traveler / Qiqi | 108.7k | 126.2k | +16.1% | 144% → 111% |  |
+| Vesna / Qiqi / Lan Yan / Vodyanitsa | 87.0k | 100.9k | +16.0% | 144% → 111% |  |
+| Vesna / Cryo Traveler / Sucrose / Nicole | 73.6k | 85.4k | +15.9% | 111% |  |
+| Vesna / Odette / Cryo Traveler / Nicole | 116.6k | 135.1k | +15.9% | 111% |  |
+| Vesna / Odette / Diona / Vodyanitsa | 152.4k | 176.4k | +15.8% | 111% |  |
+| Vesna / Qiqi / Lan Yan / Nicole | 60.2k | 69.3k | +15.1% | 111% |  |
+| Vesna / Cryo Traveler / Sucrose / Lan Yan | 56.6k | 65.1k | +15.1% | 111% |  |
+| Vesna / Cryo Traveler / Lan Yan / Vodyanitsa | 92.5k | 106.2k | +14.9% | 111% |  |
+| Vesna / Odette / Faruzan / Vodyanitsa | 154.0k | 176.9k | +14.8% | 111% |  |
+| Vesna / Cryo Traveler / Lan Yan / Nicole | 63.1k | 72.4k | +14.7% | 111% |  |
+| Vesna / Odette / Diona / Lan Yan | 96.8k | 110.8k | +14.5% | 111% |  |
+| Vesna / Cryo Traveler / Diona / Nicole | 75.9k | 86.7k | +14.2% | 111% |  |
+| Vesna / Odette / Sucrose / Nicole | 109.4k | 124.8k | +14.1% | 111% |  |
+| Vesna / Odette / Nicole / Vodyanitsa | 151.2k | 172.6k | +14.1% | 111% |  |
+| Vesna / Odette / Cryo Traveler / Lan Yan | 98.9k | 112.7k | +14.0% | 111% |  |
+| Vesna / Cryo Traveler / Qiqi / Lan Yan | 68.5k | 78.1k | +14.0% | 111% |  |
+| Vesna / Cryo Traveler / Nicole / Vodyanitsa | 104.7k | 119.1k | +13.7% | 111% |  |
+| Vesna / Cryo Traveler / Diona / Vodyanitsa | 107.9k | 122.5k | +13.5% | 111% |  |
+| Vesna / Odette / Sucrose / Vodyanitsa | 141.3k | 159.4k | +12.9% | 144% → 111% |  |
+| Vesna / Odette / Cryo Traveler / Diona | 108.9k | 122.5k | +12.4% | 144% → 111% |  |
+| Vesna / Qiqi / Sucrose / Lan Yan | 58.3k | 64.9k | +11.4% | 144% → 111% |  |
+| Vesna / Cryo Traveler / Diona / Sucrose | 76.5k | 85.1k | +11.3% | 138.6% → 111% |  |
+| Vesna / Vodyanitsa / Cryo Traveler / Faruzan | 116.6k | 129.5k | +11.1% | 122% → 111% |  |
+| Vesna / Odette / Faruzan / Lan Yan | 99.9k | 111.0k | +11.1% | 111% |  |
+| Vesna / Cryo Traveler / Faruzan / Lan Yan | 67.3k | 74.6k | +10.8% | 122% → 111% |  |
+| Vesna / Odette / Diona / Nicole | 115.8k | 127.8k | +10.4% | 111% |  |
+| Vesna / Odette / Cryo Traveler / Sucrose | 117.2k | 129.3k | +10.3% | 144% → 111% |  |
+| Vesna / Diona / Sucrose / Vodyanitsa | 97.4k | 107.3k | +10.2% | 111% |  |
+| Vesna / Cryo Traveler / Diona / Qiqi | 80.6k | 88.7k | +10.1% | 133% → 111% |  |
+| Vesna / Cryo Traveler / Faruzan / Nicole | 84.5k | 93.0k | +10.0% | 111% |  |
+| Vesna / Diona / Lan Yan / Vodyanitsa | 84.4k | 92.1k | +9.1% | 111% | 2 |
+| Vesna / Odette / Faruzan / Nicole | 126.4k | 137.6k | +8.8% | 111% |  |
+| Vesna / Diona / Nicole / Vodyanitsa | 67.3k | 73.1k | +8.7% | 144% → 111% |  |
+| Vesna / Cryo Traveler / Qiqi / Nicole | 85.8k | 93.0k | +8.5% | 144% → 111% |  |
+| Vesna / Odette / Cryo Traveler / Faruzan | 127.1k | 137.8k | +8.4% | 111% |  |
+| Vesna / Cryo Traveler / Qiqi / Vodyanitsa | 118.0k | 127.6k | +8.2% | 144% → 111% |  |
+| Vesna / Odette / Qiqi / Nicole | 126.4k | 136.6k | +8.1% | 144% → 111% |  |
+| Vesna / Odette / Qiqi / Faruzan | 147.6k | 158.7k | +7.5% | 111% |  |
+| Vesna / Qiqi / Sucrose / Vodyanitsa | 108.8k | 116.4k | +7.0% | 122% → 111% |  |
+| Vesna / Odette / Qiqi / Vodyanitsa | 167.0k | 178.4k | +6.8% | 133% → 111% |  |
+| Vesna / Diona / Sucrose / Nicole | 75.8k | 80.8k | +6.7% | 133% → 111% |  |
+| Vesna / Odette / Diona / Sucrose | 119.8k | 127.5k | +6.4% | 122% → 111% |  |
+| Vesna / Diona / Qiqi / Lan Yan | 65.6k | 69.2k | +5.5% | 111% |  |
+| Vesna / Odette / Qiqi / Sucrose | 129.9k | 136.7k | +5.2% | 122% → 133% |  |
+| Vesna / Qiqi / Sucrose / Nicole | 83.9k | 87.1k | +3.7% | 133% → 111% |  |
+| Vesna / Qiqi / Nicole / Vodyanitsa | 102.1k | 105.2k | +3.0% | 144% → 111% |  |
+| Vesna / Diona / Qiqi / Faruzan | 110.2k | 113.4k | +2.9% | 111% | 1 |
+| Vesna / Diona / Qiqi / Vodyanitsa | 111.6k | 114.7k | +2.7% | 133% → 111% |  |
+| Vesna / Cryo Traveler / Qiqi / Sucrose | 87.6k | 89.9k | +2.6% | 122% → 133% |  |
+| Vesna / Columbina / Ineffa / Sucrose | 80.5k | 82.1k | +1.9% | 122% → 111% |  |
+| Vesna / Cryo Traveler / Qiqi / Faruzan | 102.0k | 103.3k | +1.3% | 111% → 122% |  |
+| Vesna / Qiqi / Faruzan / Nicole | 104.1k | 105.2k | +1.1% | 111% |  |
+| Vesna / Odette / Diona / Qiqi | 120.7k | 121.2k | +0.5% | 133% → 111% |  |
+| Vesna / Diona / Qiqi / Nicole | 80.9k | 81.2k | +0.4% | 133% → 111% |  |
+| Vesna / Qiqi / Faruzan / Vodyanitsa | 136.2k | 136.3k | +0.1% | 111% |  |
+| Vesna / Odette / Faruzan / Sucrose | 134.4k | 134.3k | -0.1% | 111% → 133% |  |
+| Vesna / Qiqi / Faruzan / Sucrose | 102.2k | 100.1k | -2.0% | 111% → 122% | 1 |
+| Vesna / Odette / Diona / Faruzan | 154.3k | 150.7k | -2.3% | 111% → 122% | 1 |
+| Vesna / Diona / Faruzan / Vodyanitsa | 137.3k | 133.7k | -2.6% | 111% | 2 |
+| Vesna / Cryo Traveler / Faruzan / Sucrose | 90.0k | 87.6k | -2.6% | 111% → 133% |  |
+| Vesna / Diona / Qiqi / Sucrose | 94.7k | 91.7k | -3.2% | 111% → 122% |  |
+| Vesna / Qiqi / Faruzan / Lan Yan | 84.0k | 79.9k | -4.8% | 111% | 3 |
+| Vesna / Diona / Faruzan / Lan Yan | 83.3k | 79.2k | -5.0% | 111% | 3 |
+| Vesna / Diona / Faruzan / Nicole | 87.3k | 82.8k | -5.2% | 111% → 144% | 3 |
+| Vesna / Diona / Faruzan / Sucrose | 99.0k | 92.8k | -6.3% | 111% → 122% |  |
+| Vesna / Cryo Traveler / Diona / Faruzan | 103.1k | 96.0k | -6.8% | 111% → 122% |  |
 
 The tables above have the scores from before; each team's `team.yaml` has the current one.
 

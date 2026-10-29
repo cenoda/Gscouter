@@ -1,6 +1,6 @@
 # Wriothesley
 
-> Witch's Revelation on the gcsim fork (`docs/fork.md` §7) · Last updated: 2026-10-29
+> Witch's Revelation on the gcsim fork (`docs/fork.md` §4) · Last updated: 2026-10-29
 
 Wriothesley (5★ Cryo, 4.1) is in upstream gcsim. His 6.7 Witch's Revelation, which lets him deal Stellar-Conduct DMG inside a Polestar Field, merged upstream after the fork's base. The fork carries it until the next rebase. His Stellar-Conduct teams are written from a guide and scored in the experimental tier (design §5.4).
 

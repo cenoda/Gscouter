@@ -11,7 +11,7 @@ rotation_version: 1
 gcsim_commit: 2350be9
 sources:
     - https://db.kqm.gg/db/p99nPBddJzNh
-notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS. Cyno plays without his Witch''s Revelation (revelation=0): with it, his skill outside the burst grants 6 s of Pactsworn Pathclearer, in which this pre-6.7 rotation''s charge after a skill or dash is invalid (docs/fork.md §7).'
+notes: 'Harvested from the KQM gcsim database: 1 entries use this team; this one has the lowest constellations and refinements that reproduces its DPS. Cyno plays without his Witch''s Revelation (revelation=0): with it, his skill outside the burst grants 6 s of Pactsworn Pathclearer, in which this pre-6.7 rotation''s charge after a skill or dash is invalid (docs/fork.md §4).'
 params:
     cyno: revelation=0
 reference:

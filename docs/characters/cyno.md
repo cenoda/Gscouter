@@ -1,6 +1,6 @@
 # Cyno
 
-> Witch's Revelation on the gcsim fork (`docs/fork.md` §7) · Last updated: 2026-10-29
+> Witch's Revelation on the gcsim fork (`docs/fork.md` §4) · Last updated: 2026-10-29
 
 Cyno (5★ Electro, 3.1) is in upstream gcsim. His 6.7 Witch's Revelation, which lets him deal Stellar-Conduct DMG inside a Polestar Field, is in an open upstream PR. The fork carries it, and his Stellar-Conduct teams are written from guides and scored in the experimental tier (design §5.4).
 
