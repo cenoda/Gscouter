@@ -1,7 +1,7 @@
 # Gscouter Design Document
 
 > Status: Draft (prototype in progress)
-> Last updated: 2026-10-28 · Game version baseline: 7.1
+> Last updated: 2026-10-29 · Game version baseline: 7.1
 
 ## 1. Overview
 
@@ -262,7 +262,7 @@ validation:              # the last check (cmd/validate -promote, §5.3)
 - The rotation is the source config's action list. Gscouter loops it for the score and runs it once for validation, so the source must not loop forever itself.
   - When looping, the setup at the start of the rotation (`active`, `let`, `fn` and `set_*` statements) runs once, and the remaining statements repeat.
 - Character params the rotation assumes (e.g. Hu Tao `start_hp=1`) are stored in `team.yaml` and added to the player's build.
-- One rotation is used regardless of the user's build.
+- One rotation is used regardless of the user's build. Where that fails (constellations, the source's weapons) and what to change: `docs/cycle.md`.
   - If an action can't be performed due to insufficient ER, rely on gcsim's wait/delay behavior and surface the delay as a warning.
 - Aim for a near-optimal standard rotation for the team. Uneven rotation quality across teams is itself unfairness.
 
@@ -373,7 +373,7 @@ Characters in the game that upstream gcsim lacks, with their state upstream and 
 - **New character lag**: until gcsim supports a character, teams using it are `blocked`.
   - Vesna and Vodyanitsa are still not in upstream gcsim more than a month after release; Gscouter scores them on its fork (§5.4, §6.3).
   - The experimental tier (§5.4) is meant to close this gap, at the cost of less certain numbers for those teams.
-- **Fixed rotation limits**: the optimal rotation can vary with the build (e.g. high ER enables a more aggressive cycle). Initially we ignore this and use one standard rotation.
+- **Fixed rotation limits**: the optimal rotation can vary with the build (e.g. high ER enables a more aggressive cycle). Initially we ignore this and use one standard rotation. Measured (2026-10-29, `docs/cycle.md`): a database entry written for higher constellations scores a median 12.4% more than the library rotation on its own build and 15% less on the library's; 329 rotations wait for a Favonius weapon's cooldown and collapse with any other weapon.
 
 ## 8. Risks
 
