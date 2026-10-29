@@ -1,6 +1,7 @@
 // A worker running the browser build of Gscouter (cmd/wasm) for a result
 // page (the "client" template). The lead calculates the page and asks
-// the page for simulations; helpers run a share of their iterations.
+// the page for simulations; helpers run a share of their iterations. The
+// chart editor (edit.html) runs one worker and calls it directly.
 importScripts("/static/wasm_exec.js" + self.location.search);
 
 var ready, waiting = {}, next = 0;
@@ -28,6 +29,12 @@ self.onmessage = function (e) {
       gscouter.runJob(JSON.stringify(m.job)).then(function (out) {
         postMessage({type: "done", body: out.body, title: out.title});
       }, report);
+      break;
+    case "call":
+      // The chart editor: gscouter.record, preview or encode, which
+      // return a string or {error}.
+      var r = gscouter[m.fn].apply(null, m.args);
+      postMessage(typeof r === "string" ? {type: "call", id: m.id, result: r} : {type: "call", id: m.id, error: r.error});
       break;
     case "runResult":
       var w = waiting[m.id];

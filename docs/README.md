@@ -13,6 +13,7 @@ What each document is for, and the habits that keep them readable. These are con
 | `docs/artifacts.md` | Roadmap nodes Artifacts and Artifact score |
 | `docs/pull.md` | Roadmap node Pull a character |
 | `docs/speed.md` | Roadmap node faster DPS: time to a score in the browser and in validation runs, and what was tried |
+| `docs/cycle-swap.md` | Roadmap node Cycle swap: a rotation editor built like a rhythm-game chart editor (research) |
 | `docs/cycle.md` | Roadmap node Cycle: how the fixed rotation fits builds other than the source's (constellations, weapons), and what to change |
 | `docs/fillers.md` | How the looped score fills a character's waits for energy or cooldowns, and what that changes |
 | `docs/fork.md` | The gcsim fork: how it is kept, regression runs, the characters and weapons on it |

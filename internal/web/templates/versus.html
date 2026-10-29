@@ -16,7 +16,7 @@
 <div><span>{{t "vs.right"}}</span><span class="bar"><i style="width: {{width (ratio .B.Result.DPS .A.Result.DPS)}}%"></i></span><span class="num">{{thousands .B.Result.DPS}}</span></div>
 </div>
 <div class="actions"><button type="button" class="secondary" onclick="copyLink(this)"><svg class="icon"><use href="#i-link"/></svg>{{t "vs.copy"}}</button>
-{{if or (hasFull .A.Chars) (hasFull .B.Chars)}}<label class="muted"><input type="checkbox" data-strip="{{link "/versus" .A.Enemy "a" .A.Stripped "b" .B.Stripped}}"> {{t "art.leave_out"}}</label>{{end}}</div>
+{{if or (hasFull .A.Chars) (hasFull .B.Chars)}}<label class="muted"><input type="checkbox" data-strip="{{link "/versus" .A.Enemy "a" .A.Stripped "b" .B.Stripped "ra" .A.Selection.Chart "rb" .B.Selection.Chart}}"> {{t "art.leave_out"}}</label>{{end}}</div>
 </div>
 {{end}}
 <div class="versus">

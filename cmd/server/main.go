@@ -61,6 +61,7 @@ func main() {
 		} else {
 			defer store.Close()
 			srv.SetLinks(store)
+			srv.SetSends(store)
 			slog.Info("short links", "db", *linksDB)
 		}
 	}

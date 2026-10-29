@@ -16,6 +16,7 @@ import (
 	"syscall/js"
 	"time"
 
+	"github.com/cenoda/gscouter/internal/chart"
 	"github.com/cenoda/gscouter/internal/score"
 	"github.com/cenoda/gscouter/internal/timeline"
 	"github.com/cenoda/gscouter/internal/web"
@@ -25,6 +26,10 @@ func main() {
 	js.Global().Set("gscouter", js.ValueOf(map[string]any{
 		"runSlice": js.FuncOf(runSlice),
 		"runJob":   js.FuncOf(runJob),
+		// The chart editor (internal/web/templates/edit.html).
+		"record":  js.FuncOf(record),
+		"preview": js.FuncOf(preview),
+		"encode":  js.FuncOf(encode),
 	}))
 	select {}
 }
@@ -136,4 +141,78 @@ func await(p js.Value) (js.Value, error) {
 	case err := <-errs:
 		return js.Undefined(), err
 	}
+}
+
+// record(build, rotation, names, moves) writes a rotation as a chart for
+// the members named names (a JSON array, by slot) and returns its text,
+// or {error}. moves, a JSON array by slot or "", moves the chart to the
+// player's slots (chart.Remap), for a rotation of another team.
+func record(_ js.Value, args []js.Value) any {
+	names, err := slots(args[2].String())
+	if err == nil {
+		var c *chart.Chart
+		if c, err = chart.Record(args[0].String(), args[1].String(), names); err == nil {
+			if len(args) > 3 && args[3].String() != "" {
+				var moves [chart.Slots]int
+				if err = json.Unmarshal([]byte(args[3].String()), &moves); err != nil {
+					return map[string]any{"error": err.Error()}
+				}
+				c = c.Remap(moves)
+			}
+			return c.String()
+		}
+	}
+	return map[string]any{"error": err.Error()}
+}
+
+// preview(build, chart, names, defaults) plays a chart, its text, with
+// build and each slot's character params (the chart's, else defaults, a
+// JSON array by slot), and returns the chart.Preview as JSON, or {error}.
+func preview(_ js.Value, args []js.Value) any {
+	out, err := func() (string, error) {
+		c, err := chart.Parse(args[1].String())
+		if err != nil {
+			return "", err
+		}
+		names, err := slots(args[2].String())
+		if err != nil {
+			return "", err
+		}
+		defaults, err := slots(args[3].String())
+		if err != nil {
+			return "", err
+		}
+		p, err := c.Preview(c.WithParams(args[0].String(), names, defaults), names, nil)
+		if err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(p)
+		return string(b), err
+	}()
+	if err != nil {
+		return map[string]any{"error": err.Error()}
+	}
+	return out
+}
+
+// encode(chart) is a chart's text for a link (chart.Encode), or {error}.
+func encode(_ js.Value, args []js.Value) any {
+	c, err := chart.Parse(args[0].String())
+	if err != nil {
+		return map[string]any{"error": err.Error()}
+	}
+	return c.Encode()
+}
+
+func slots(s string) ([chart.Slots]string, error) {
+	var out [chart.Slots]string
+	var list []string
+	if err := json.Unmarshal([]byte(s), &list); err != nil {
+		return out, err
+	}
+	if len(list) != chart.Slots {
+		return out, errors.New("four members expected")
+	}
+	copy(out[:], list)
+	return out, nil
 }

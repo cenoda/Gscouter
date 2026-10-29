@@ -409,6 +409,15 @@ details.rotation pre { background: var(--bg); border-radius: 8px; padding: 12px;
   });
   addEventListener("scroll", hide, true);
 })();
+// sendChart sends the page's link, with its builds and rotation chart, to
+// the developer (docs/cycle-swap.md §7).
+function sendChart(btn) {
+  btn.disabled = true;
+  fetch("/send", {method: "POST", body: new URLSearchParams({u: location.pathname + location.search})}).then(function (r) {
+    btn.textContent = r.ok ? {{t "js.sent"}} : {{t "js.send_failed"}};
+    if (!r.ok) btn.disabled = false;
+  }, function () { btn.textContent = {{t "js.send_failed"}}; btn.disabled = false; });
+}
 // copyLink copies the page's short link (/s/...), or the page's own link
 // when the server has no short links or can't make one.
 // A checked "leave pieces out" box beside the button copies its link
@@ -449,6 +458,7 @@ function copyLink(btn) {
 {{if .Team}}<div class="team-head">{{if .Chars}}{{template "faces" (keys .Chars)}}{{end}}<h2 class="team-title">{{template "members" .Team.Members}} {{teamName .Team}}{{if .Experimental}} <span class="badge">{{t "tier.experimental"}}</span>{{end}}</h2></div>{{end}}
 {{if .Problem}}
 <div class="bad">{{.Problem}}</div>
+{{if .Writable}}<p><a class="button" href="{{link "/edit" nil "a" .Selection.String}}">{{t "score.write"}}</a></p>{{end}}
 {{else if not .Result}}
 <div class="pending"><i></i><span>{{t "team.pending"}} <span class="muted progress"></span></span></div>
 {{else}}
@@ -456,6 +466,7 @@ function copyLink(btn) {
 <p class="muted">±{{thousands .Result.StdErr}} ({{t "team.stderr"}}){{with .Team.Archetype}} · {{.}}{{end}}</p>
 {{with .OneRotation}}<p class="muted">{{t "team.one_rotation" (thousands .DPS)}}</p>{{end}}
 {{with .Filler}}<p class="muted">{{.}}</p>{{end}}
+{{with .ChartNote}}<p class="muted">{{.}}</p>{{end}}
 {{with .AlternativeNote}}<p class="muted">{{.}}{{with $.Alternative}}{{range .Sources}} <a href="{{.}}">{{t "lib.sources"}}</a>{{end}}{{end}}</p>{{end}}
 {{range .Warnings}}<div class="warn">{{.}}</div>{{end}}
 <div class="table-wrap">

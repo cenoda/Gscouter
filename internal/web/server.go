@@ -13,12 +13,14 @@ import (
 	"html/template"
 	"log/slog"
 	"net/http"
+	"net/url"
 	"slices"
 	"strconv"
 	"strings"
 	"sync/atomic"
 	"time"
 
+	"github.com/cenoda/gscouter/internal/chart"
 	"github.com/cenoda/gscouter/internal/config"
 	"github.com/cenoda/gscouter/internal/enka"
 	"github.com/cenoda/gscouter/internal/library"
@@ -70,6 +72,8 @@ type Server struct {
 	client    *clientFiles           // nil: the server calculates every result
 	links     LinkStore              // nil: no short links (see SetLinks)
 	linkLimit *rateLimit
+	sends     SendStore // nil: no sending charts (see SetSends)
+	sendLimit *rateLimit
 
 	site       string                     // the site's URL (see SetSite)
 	byID       map[string]*library.Team   // library teams by ID
@@ -123,6 +127,7 @@ func (s *Server) Handler() http.Handler {
 	}
 	mux.HandleFunc("GET /score", s.handleScore)
 	mux.HandleFunc("GET /versus", s.handleVersus)
+	mux.HandleFunc("GET /edit", s.handleEdit)
 	mux.HandleFunc("POST /lang", s.handleLang)
 	mux.HandleFunc("GET /card/score.png", s.handleScoreCard)
 	mux.HandleFunc("GET /card/versus.png", s.handleVersusCard)
@@ -131,6 +136,7 @@ func (s *Server) Handler() http.Handler {
 		mux.HandleFunc("GET /"+name, handleIcon)
 	}
 	mux.HandleFunc("POST /s", s.handleShorten)
+	mux.HandleFunc("POST /send", s.handleSend)
 	mux.HandleFunc("GET /s/{id}", s.handleShort)
 	mux.HandleFunc("GET /healthz", s.handleHealth)
 	return mux
@@ -147,6 +153,24 @@ type selection struct {
 	// player's current showcase.
 	Builds   []enka.Character
 	Nickname string // with Builds
+	// Chart is a custom rotation written in the editor, as chart.Encode
+	// writes it for a link; "" for the library's rotations.
+	Chart string
+}
+
+// withChart reads sel's chart from the query parameter p, checking it:
+// "r" beside "a" on a result page and the editor, "ra" and "rb" on a
+// versus page.
+func withChart(sel selection, q url.Values, p string) (selection, error) {
+	c := q.Get(p)
+	if c == "" {
+		return sel, nil
+	}
+	if _, err := chart.Decode(c); err != nil {
+		return sel, inputError{key: "problem.chart"}
+	}
+	sel.Chart = c
+	return sel, nil
 }
 
 func (sel selection) String() string {
@@ -249,6 +273,13 @@ type teamResult struct {
 	// AlternativeNote says so.
 	Alternative     *library.Team
 	AlternativeNote string
+	// Writable is set on a team the library doesn't have, which the
+	// player can score with a rotation written in the editor.
+	Writable bool
+	// Library is the library rotations' score of a build scored with a
+	// chart (Selection.Chart), for the comparison; ChartNote says so.
+	Library   *score.Result
+	ChartNote string
 	// ID tells the teams on one page apart, for element ids.
 	ID string
 	// Problem explains why there is no score: unsupported team, blocked
@@ -353,9 +384,14 @@ func (s *Server) prepare(ctx context.Context, l localizer, sel selection, enemy 
 
 	tr.Team = s.lib.Find(sel.Chars)
 	switch {
+	case tr.Team == nil && sel.Chart != "":
+		// A team the library doesn't have, scored with the player's own
+		// rotation (docs/cycle-swap.md §8).
+		tr.Team = customTeam(sel.Chars)
 	case tr.Team == nil:
 		slog.Info("unsupported team", "members", strings.Join(sorted(sel.Chars), ","))
 		tr.Problem = l.T("problem.unsupported")
+		tr.Writable = true
 		return tr
 	case tr.Team.Status == library.StatusBlocked:
 		tr.Problem = l.T("problem.blocked", tr.Team.Notes)
@@ -381,6 +417,9 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 		cons[library.Canonical(c.Key)] = c.Cons
 	}
 	rotations := tr.Team.RotationsFor(cons)
+	if tr.Team.Rotation == "" {
+		rotations = nil // a team outside the library: only the chart
+	}
 	builds := make([]string, len(rotations))
 	runs := make([]steady.Rotation, len(rotations))
 	for i, t := range rotations {
@@ -407,24 +446,57 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 	// The rotation as written runs with the full iterations; most teams
 	// stop there. Fillers and alternatives are only ranked, with fewer,
 	// and the best of them confirmed with the full iterations.
-	best, out, err := steady.Best(runs, func(i int, rotation string, rank bool) (*score.Result, error) {
-		iterations := set.Iterations
-		if rank {
-			iterations = min(iterations, exploreIterations)
+	rank := func(builds []string, alternative func(i int, err error)) func(i int, rotation string, rank bool) (*score.Result, error) {
+		return func(i int, rotation string, rank bool) (*score.Result, error) {
+			iterations := set.Iterations
+			if rank {
+				iterations = min(iterations, exploreIterations)
+			}
+			cfg := config.Assemble(config.Conditions{Iterations: iterations, Duration: set.Duration, Enemy: tr.Enemy}, builds[i], rotation)
+			res, err := sim.Score(ctx, cfg, set.Warmup, iterations)
+			if err != nil && (errors.Is(err, errBusy) || ctx.Err() != nil) {
+				return nil, steady.Fatal(err)
+			}
+			if err != nil && i > 0 {
+				alternative(i, err)
+			}
+			return res, err
 		}
-		cfg := config.Assemble(config.Conditions{Iterations: iterations, Duration: set.Duration, Enemy: tr.Enemy}, builds[i], rotation)
-		res, err := sim.Score(ctx, cfg, set.Warmup, iterations)
-		if err != nil && (errors.Is(err, errBusy) || ctx.Err() != nil) {
-			return nil, steady.Fatal(err)
-		}
-		if err != nil && i > 0 {
+	}
+	var (
+		best                  int
+		out                   *steady.Outcome
+		err                   error
+		build, rotation, once string
+	)
+	if len(runs) > 0 {
+		best, out, err = steady.Best(runs, rank(builds, func(i int, err error) {
 			slog.Warn("alternative rotation failed", "team", tr.Team.ID, "source", rotations[i].Sources, "err", err)
+		}))
+		if err == nil {
+			build, rotation = builds[best], runs[best].Rotation
 		}
-		return res, err
-	})
-	var build, rotation, once string
+	}
+	// A chart is scored as the team's rotations are, and they are scored
+	// too, for the comparison (docs/cycle-swap.md §7).
+	if c, cerr := chart.Decode(tr.Selection.Chart); err == nil && cerr == nil {
+		if out != nil {
+			tr.Library = out.Result
+		}
+		names, defaults := chartSlots(tr.Team, tr.Chars)
+		build = c.WithParams(buildLines(tr.Chars), names, defaults)
+		rotation = c.Gcsl(names)
+		_, out, err = steady.Best([]steady.Rotation{{Rotation: rotation, Members: names[:]}}, rank([]string{build}, nil))
+		if err != nil && !errors.Is(err, errBusy) {
+			tr.Problem = l.T("problem.chart_failed", err.Error())
+			return
+		}
+		best = 0
+	}
+	if err == nil && out == nil {
+		err = errors.New("no rotation to score")
+	}
 	if err == nil {
-		build, rotation = builds[best], runs[best].Rotation
 		once = config.Assemble(config.Conditions{Iterations: set.Iterations, Enemy: tr.Enemy}, build, rotation)
 	}
 	var oneRes *score.Result
@@ -442,6 +514,15 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 	}
 	res := out.Result
 	tr.Filler = fillerNote(l, out)
+	switch {
+	case tr.Library != nil:
+		tr.ChartNote = l.T("score.chart_note", thousands(tr.Library.DPS), signedPercent(res.DPS/tr.Library.DPS-1))
+	case tr.Selection.Chart != "":
+		tr.ChartNote = l.T("score.chart_only")
+	}
+	if c, err := chart.Decode(tr.Selection.Chart); err == nil && c.Pickup {
+		tr.ChartNote += " " + l.T("score.chart_pickup")
+	}
 	if best > 0 {
 		tr.Alternative = rotations[best]
 		tr.AlternativeNote = alternativeNote(l, tr.Team, tr.Alternative)

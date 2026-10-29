@@ -212,7 +212,7 @@ func TestScoreFromPicker(t *testing.T) {
 func TestScoreUnsupportedTeam(t *testing.T) {
 	ts := newTestServer(t)
 	_, body := getKo(t, ts, "/score?a="+url.QueryEscape("800000001:hutao,yelan,xingqiu,amber"))
-	mustContain(t, body, "아직 지원하지 않는 파티")
+	mustContain(t, body, "아직 라이브러리에 없는 파티", "이 파티의 로테이션 짜기")
 }
 
 func TestScoreMissingCharacter(t *testing.T) {

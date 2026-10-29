@@ -142,10 +142,20 @@ func AddParams(build, key, params string) string {
 // once; the rest repeats, so energy shortfalls show up as they would over
 // a long fight. The setup must choose the active character.
 func Loop(rotation string) (string, error) {
+	setup, body, err := Split(rotation)
+	if err != nil {
+		return "", err
+	}
+	return strings.Join(setup, "\n") + "\nwhile 1 {\n" + strings.Join(body, "\n") + "\n}\n", nil
+}
+
+// Split divides a rotation into its setup (the statements Loop runs once)
+// and the statements Loop repeats.
+func Split(rotation string) (setup, body []string, err error) {
 	stmts := statements(rotation)
-	setup, active := 0, false
-	for ; setup < len(stmts); setup++ {
-		word := firstWord(stmts[setup])
+	n, active := 0, false
+	for ; n < len(stmts); n++ {
+		word := firstWord(stmts[n])
 		if word == "active" {
 			active = true
 		} else if word != "let" && word != "fn" && !strings.HasPrefix(word, "set_") {
@@ -153,12 +163,12 @@ func Loop(rotation string) (string, error) {
 		}
 	}
 	if !active {
-		return "", errors.New("rotation must start with an active statement (after any let, fn or set_ statements)")
+		return nil, nil, errors.New("rotation must start with an active statement (after any let, fn or set_ statements)")
 	}
-	if setup == len(stmts) {
-		return "", errors.New("rotation has no actions after its setup")
+	if n == len(stmts) {
+		return nil, nil, errors.New("rotation has no actions after its setup")
 	}
-	return strings.Join(stmts[:setup], "\n") + "\nwhile 1 {\n" + strings.Join(stmts[setup:], "\n") + "\n}\n", nil
+	return stmts[:n], stmts[n:], nil
 }
 
 // statements splits gcsl source into its top-level statements: each ends

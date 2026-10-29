@@ -26,6 +26,7 @@ var funcs = template.FuncMap{
 	"thousands":  thousands,
 	"lastUpdate": lastUpdate,
 	"float":      func(v int) float64 { return float64(v) },
+	"inc":        func(v int) int { return v + 1 },
 	"percent":    func(v float64) string { return fmt.Sprintf("%.1f%%", v*100) },
 	"oneDecimal": func(v float64) string {
 		return fmt.Sprintf("%.1f", v)
@@ -420,11 +421,15 @@ func (s *Server) handleScore(w http.ResponseWriter, r *http.Request) {
 	// Normalize the URL to one that carries the builds, so the result
 	// can be shared and stays the same after the showcase changes.
 	sel = s.withBuilds(ctx, sel, keptBuilds(r))
-	if canonical(w, r, "/score", enemy, "a", sel.String()) {
+	if sel, err = withChart(sel, r.URL.Query(), "r"); err != nil {
+		s.renderProblem(w, l, l.message(err))
+		return
+	}
+	if canonical(w, r, "/score", enemy, "a", sel.String(), "r", sel.Chart) {
 		return
 	}
 	s.usage.result(r)
-	form := newEnemyForm("/score", enemy, "a", sel.String())
+	form := newEnemyForm("/score", enemy, "a", sel.String(), "r", sel.Chart)
 	if s.inBrowser(r) {
 		tr := s.prepare(ctx, l, sel, enemy)
 		tr.ID = "a"
@@ -444,7 +449,9 @@ func canonical(w http.ResponseWriter, r *http.Request, path string, enemy *confi
 	q := r.URL.Query()
 	want := url.Values{}
 	for i := 0; i+1 < len(kv); i += 2 {
-		want.Set(kv[i], kv[i+1])
+		if kv[i+1] != "" {
+			want.Set(kv[i], kv[i+1])
+		}
 	}
 	addEnemy(want, enemy)
 	if v := q.Get("server"); v != "" {
@@ -495,11 +502,18 @@ func (s *Server) handleVersus(w http.ResponseWriter, r *http.Request) {
 	defer cancel()
 	kept := keptBuilds(r)
 	a, b = s.withBuilds(ctx, a, kept), s.withBuilds(ctx, b, kept)
-	if canonical(w, r, "/versus", enemy, "a", a.String(), "b", b.String()) {
+	if a, err = withChart(a, r.URL.Query(), "ra"); err == nil {
+		b, err = withChart(b, r.URL.Query(), "rb")
+	}
+	if err != nil {
+		s.renderProblem(w, l, l.message(err))
+		return
+	}
+	if canonical(w, r, "/versus", enemy, "a", a.String(), "b", b.String(), "ra", a.Chart, "rb", b.Chart) {
 		return
 	}
 	s.usage.result(r)
-	form := newEnemyForm("/versus", enemy, "a", a.String(), "b", b.String())
+	form := newEnemyForm("/versus", enemy, "a", a.String(), "b", b.String(), "ra", a.Chart, "rb", b.Chart)
 	if s.inBrowser(r) {
 		data := newVersus(s.prepare(ctx, l, a, enemy), s.prepare(ctx, l, b, enemy))
 		data.Meta = pendingVersusMeta(l, data, baseURL(r))

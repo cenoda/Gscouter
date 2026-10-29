@@ -147,7 +147,9 @@ func commonResist(e *config.Enemy) int {
 func link(path string, e *config.Enemy, kv ...string) template.URL {
 	v := url.Values{}
 	for i := 0; i+1 < len(kv); i += 2 {
-		v.Set(kv[i], kv[i+1])
+		if kv[i+1] != "" {
+			v.Set(kv[i], kv[i+1])
+		}
 	}
 	addEnemy(v, e)
 	if len(v) == 0 {
@@ -197,7 +199,9 @@ type enemyField struct {
 func newEnemyForm(path string, e *config.Enemy, kv ...string) enemyForm {
 	keep := url.Values{}
 	for i := 0; i+1 < len(kv); i += 2 {
-		keep.Set(kv[i], kv[i+1])
+		if kv[i+1] != "" {
+			keep.Set(kv[i], kv[i+1])
+		}
 	}
 	return enemyForm{Action: path, Keep: keep, Enemy: e, Reset: link(path, nil, kv...)}
 }

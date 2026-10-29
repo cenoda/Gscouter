@@ -188,12 +188,12 @@ const maxFightFrames = 100_000 * 60
 // its duration, when ctx is done or the fight reaches maxFightFrames;
 // the result is then the fight so far, and the error ctx's.
 func simulate(ctx context.Context, file *ast.File, simcfg *info.ActionList, gcsl ast.Node, seed int64) (stats.Result, error) {
-	return simulateWith(ctx, file, simcfg, gcsl, seed, nil)
+	return simulateWith(ctx, file, simcfg, gcsl, seed, nil, nil)
 }
 
 // simulateWith is simulate, calling setup with the fight's core before
-// the fight is set up.
-func simulateWith(ctx context.Context, file *ast.File, simcfg *info.ActionList, gcsl ast.Node, seed int64, setup func(*core.Core)) (stats.Result, error) {
+// the fight is set up, and running the program through wrap when set.
+func simulateWith(ctx context.Context, file *ast.File, simcfg *info.ActionList, gcsl ast.Node, seed int64, setup func(*core.Core), wrap func(*eval.Eval, *core.Core) action.Evaluator) (stats.Result, error) {
 	cfg := simcfg.Copy()
 	c, err := simulation.NewCore(seed, false, cfg)
 	if err != nil {
@@ -206,7 +206,11 @@ func simulateWith(ctx context.Context, file *ast.File, simcfg *info.ActionList, 
 	if err != nil {
 		return stats.Result{}, err
 	}
-	sim, err := simulation.New(cfg, ev, c)
+	var run action.Evaluator = ev
+	if wrap != nil {
+		run = wrap(ev, c)
+	}
+	sim, err := simulation.New(cfg, run, c)
 	if err != nil {
 		return stats.Result{}, err
 	}
@@ -265,7 +269,7 @@ func Trace(cfg string, seed int64) (*stats.Result, [][]Action, error) {
 			}
 			actions[char] = append(actions[char], a)
 		}, "gscouter-trace")
-	})
+	}, nil)
 	if err != nil {
 		return nil, nil, err
 	}

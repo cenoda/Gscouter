@@ -35,3 +35,24 @@ func TestStore(t *testing.T) {
 		t.Fatalf("Get after reopen = %q, %v", got, err)
 	}
 }
+
+func TestSends(t *testing.T) {
+	s, err := Open(filepath.Join(t.TempDir(), "links.db"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer s.Close()
+	ctx := context.Background()
+	for _, u := range []string{"/score?a=1&r=x", "/score?a=2&r=y", "/score?a=1&r=x"} {
+		if err := s.AddSend(ctx, u); err != nil {
+			t.Fatal(err)
+		}
+	}
+	got, err := s.Sends(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(got) != 2 {
+		t.Errorf("Sends() = %v, want the two links once each", got)
+	}
+}

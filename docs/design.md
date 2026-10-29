@@ -18,7 +18,7 @@ A user submits the builds of their party members, and Gscouter computes the team
 
 These set the scope of the MVP. Changing rotations, build recommendations and real content are planned beyond it, in `docs/roadmap.md`.
 
-- Evaluating player control/execution. Rotations are fixed by the system and cannot be changed by users.
+- Evaluating player control/execution. Each team's library rotation is fixed by the system; a player can score their own rotation in the editor (`docs/cycle-swap.md`), which the result names as theirs.
 - Predicting clear times for actual content (Spiral Abyss, Imaginarium Theater, etc.)
 - Build recommendations or artifact optimization
 
@@ -32,7 +32,7 @@ These set the scope of the MVP. Changing rotations, build recommendations and re
 | Custom enemy | A result page can set the enemy's level and per-element resistances, or start from a boss preset (§3.3); marked as not comparable with standard scores | Lets players see a team against a particular boss without giving up the standard score |
 | Fight duration | Infinite cycles of the community rotation (steady state after the opener) | Shows how well a build's Energy Recharge sustains the rotation; the one-pass community number is shown alongside |
 | Rotation | A fixed rotation per team: a community gcsim config when one exists; otherwise one written from a published community guide, marked "experimental" (§5.4) | Removes player control from the equation; community configs are the accepted standard, and a guide is the next best source while the database lacks a team |
-| Teams not in the library | Marked "unsupported" and not computed | Early on, library quality comes first |
+| Teams not in the library | No score of their own; the player can score them with a rotation written in the editor (`docs/cycle-swap.md` §8), which the result names as theirs | Library quality comes first; a player's own rotation is the player's claim, and a sent one can become the team's first library rotation after review |
 | Characters gcsim or the community database lacks | Scored in an "experimental" tier with a badge (§5.4): characters upstream gcsim lacks run on a Gscouter fork of gcsim, and teams the database has no entry for get a rotation written from a community guide | A public site needs every released character; upstream takes months per character, and the database often has no entry for a character that upstream has (Iansan, Illuga, Odette, Alyosha) |
 | Library management | Manual authoring/approval + automated validation | Rotation quality *is* fairness |
 | Simulation engine | [gcsim](https://github.com/genshinsim/gcsim) (MIT license) | Frame-level simulator, community standard, fast to add new characters |
