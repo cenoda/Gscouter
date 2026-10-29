@@ -15,6 +15,7 @@ func init() {
 		"foot.method2": "當能量或冷卻導致角色原地等待時，分數會在「等待」與「以元素戰技、換人或普通攻擊填補空檔」之間取較高者。" +
 			"「單輪循環」是從滿能量開始打一輪的結果，與社群 gcsim 設定所回報的數值為同一基準。",
 		"foot.credits": `模擬 <a href="https://github.com/genshinsim/gcsim">gcsim</a> · 循環 <a href="https://db.kqm.gg">KQM gcsim DB</a> · 角色資料 <a href="https://enka.network">Enka.Network</a>`,
+		"foot.discord": `問題與分數回報：<a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouter 是無廣告、不接受贊助的非商業非官方粉絲專案，與 HoYoverse 無關。` +
 			`原神及相關名稱為 HoYoverse 的商標；角色圖片 © HoYoverse，從 <a href="https://enka.network">Enka.Network</a> 載入。`,
 		"js.copied":      "已複製連結",

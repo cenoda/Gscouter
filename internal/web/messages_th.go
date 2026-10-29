@@ -15,6 +15,7 @@ func init() {
 		"foot.method2": "เมื่อพลังงานหรือคูลดาวน์ทำให้ตัวละครต้องยืนรอ คะแนนจะเลือกค่าที่ดีกว่าระหว่างการรอเฉย ๆ กับการใช้เวลานั้นไปกับทักษะธาตุ การสลับตัว หรือการโจมตีปกติ " +
 			"\"หนึ่งโรเตชัน\" คือการเล่นหนึ่งรอบจากพลังงานเต็ม ซึ่งเป็นตัวเลขเดียวกับที่ config gcsim ของคอมมูนิตี้รายงาน",
 		"foot.credits": `การจำลอง <a href="https://github.com/genshinsim/gcsim">gcsim</a> · โรเตชัน <a href="https://db.kqm.gg">KQM gcsim DB</a> · ข้อมูลตัวละคร <a href="https://enka.network">Enka.Network</a>`,
+		"foot.discord": `คำถามและแจ้งปัญหาคะแนน: <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouter เป็นโปรเจกต์แฟนเมดที่ไม่เป็นทางการและไม่แสวงหากำไร ไม่มีโฆษณาหรือการรับบริจาค และไม่มีส่วนเกี่ยวข้องกับ HoYoverse ` +
 			`Genshin Impact และชื่อที่เกี่ยวข้องเป็นเครื่องหมายการค้าของ HoYoverse ภาพตัวละครเป็นลิขสิทธิ์ © HoYoverse โหลดมาจาก <a href="https://enka.network">Enka.Network</a>`,
 		"js.copied":      "คัดลอกลิงก์แล้ว",

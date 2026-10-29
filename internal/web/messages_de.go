@@ -15,6 +15,7 @@ func init() {
 		"foot.method2": "Wenn ein Charakter wegen Energie oder einer Abklingzeit untätig warten müsste, zählt das Bessere aus Warten und dem Füllen der Zeit mit Elementarfähigkeiten, Wechseln oder Normalen Angriffen. " +
 			"„Eine Rotation“ ist ein einzelner Durchlauf mit voller Energie – der Wert, den gcsim-Konfigurationen der Community angeben.",
 		"foot.credits": `Simulation <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotationen <a href="https://db.kqm.gg">KQM gcsim DB</a> · Charakterdaten <a href="https://enka.network">Enka.Network</a>`,
+		"foot.discord": `Fragen und Score-Meldungen: <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouter ist ein inoffizielles, nicht kommerzielles Fanprojekt ohne Werbung und Spenden und steht in keiner Verbindung zu HoYoverse. ` +
 			`Genshin Impact und zugehörige Namen sind Marken von HoYoverse; Charakterbilder sind © HoYoverse und werden von <a href="https://enka.network">Enka.Network</a> geladen.`,
 		"js.copied":      "Link kopiert",

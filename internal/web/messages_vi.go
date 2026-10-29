@@ -15,6 +15,7 @@ func init() {
 		"foot.method2": "Khi năng lượng hoặc thời gian hồi khiến nhân vật phải đứng chờ, điểm sẽ lấy kết quả tốt hơn giữa việc chờ và việc lấp thời gian đó bằng Kỹ Năng Nguyên Tố, đổi nhân vật hoặc tấn công thường. " +
 			"\"Một vòng xoay\" là một lượt từ lúc đầy năng lượng, tức con số mà các cấu hình gcsim của cộng đồng báo cáo.",
 		"foot.credits": `Mô phỏng <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Vòng xoay <a href="https://db.kqm.gg">KQM gcsim DB</a> · Dữ liệu nhân vật <a href="https://enka.network">Enka.Network</a>`,
+		"foot.discord": `Câu hỏi và báo cáo điểm số: <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouter là dự án fan không chính thức, phi thương mại, không quảng cáo hay nhận quyên góp, và không liên kết với HoYoverse. ` +
 			`Genshin Impact và các tên liên quan là thương hiệu của HoYoverse; hình ảnh nhân vật thuộc © HoYoverse, được tải từ <a href="https://enka.network">Enka.Network</a>.`,
 		"js.copied":      "Đã sao chép liên kết",

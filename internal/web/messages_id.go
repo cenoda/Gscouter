@@ -15,6 +15,7 @@ func init() {
 		"foot.method2": "Jika Energy atau cooldown membuat karakter hanya berdiri menunggu, skor memakai hasil terbaik antara menunggu dan mengisi waktu itu dengan Elemental Skill, ganti karakter, atau Normal Attack. " +
 			"\"Satu rotasi\" adalah satu putaran dari Energy penuh, angka yang dilaporkan konfigurasi gcsim komunitas.",
 		"foot.credits": `Simulasi <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotasi <a href="https://db.kqm.gg">KQM gcsim DB</a> · Data karakter <a href="https://enka.network">Enka.Network</a>`,
+		"foot.discord": `Pertanyaan dan laporan skor: <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouter adalah proyek penggemar tidak resmi dan nonkomersial tanpa iklan maupun donasi, serta tidak berafiliasi dengan HoYoverse. ` +
 			`Genshin Impact dan nama terkait adalah merek dagang HoYoverse; gambar karakter © HoYoverse, dimuat dari <a href="https://enka.network">Enka.Network</a>.`,
 		"js.copied":      "Link disalin",

@@ -15,6 +15,7 @@ func init() {
 		"foot.method2": "Quando l'energia o un tempo di ricarica lascerebbero un personaggio fermo ad aspettare, il punteggio sceglie il meglio tra attendere e riempire il tempo con Abilità elementali, cambi o Attacchi normali. " +
 			"\"Una rotazione\" è un singolo passaggio con energia piena, il valore riportato dalle configurazioni gcsim della community.",
 		"foot.credits": `Simulazione <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotazioni <a href="https://db.kqm.gg">KQM gcsim DB</a> · Dati dei personaggi <a href="https://enka.network">Enka.Network</a>`,
+		"foot.discord": `Domande e segnalazioni sui punteggi: <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouter è un progetto amatoriale non ufficiale e senza scopo di lucro, senza pubblicità né donazioni, e non è affiliato a HoYoverse. ` +
 			`Genshin Impact e i nomi correlati sono marchi di HoYoverse; le immagini dei personaggi sono © HoYoverse e vengono caricate da <a href="https://enka.network">Enka.Network</a>.`,
 		"js.copied":      "Link copiato",

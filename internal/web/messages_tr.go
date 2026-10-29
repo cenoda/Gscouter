@@ -15,6 +15,7 @@ func init() {
 		"foot.method2": "Enerji veya bekleme süresi bir karakteri boşta bekletecekse puan, beklemek ile bu süreyi Element Becerileri, karakter değişimleri veya normal saldırılarla doldurmak arasından iyi olanı alır. " +
 			"\"Tek rotasyon\", dolu enerjiyle yapılan tek bir turdur; topluluğun gcsim yapılandırmalarının bildirdiği sayı budur.",
 		"foot.credits": `Simülasyon <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotasyonlar <a href="https://db.kqm.gg">KQM gcsim DB</a> · Karakter verileri <a href="https://enka.network">Enka.Network</a>`,
+		"foot.discord": `Sorular ve skor bildirimleri: <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouter reklam ve bağış içermeyen, resmî olmayan, ticari amaç gütmeyen bir hayran projesidir ve HoYoverse ile bağlantılı değildir. ` +
 			`Genshin Impact ve ilgili adlar HoYoverse'ün ticari markalarıdır; karakter görselleri © HoYoverse olup <a href="https://enka.network">Enka.Network</a> üzerinden yüklenir.`,
 		"js.copied":      "Bağlantı kopyalandı",
