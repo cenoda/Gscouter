@@ -178,9 +178,13 @@ func TestScorePieces(t *testing.T) {
 <summary>Artifact pieces</summary>`, "Artifact totals", artTotals, "Circlet", "Finale", sub,
 		"Leave artifact pieces out", `data-strip="/score?a=`+url.QueryEscape(teamResult{Selection: sel}.Stripped())+`"`)
 	totalStats(t, body, artTotals)
+	weaponIcon, _ := enka.WeaponIcon(builds[0].Weapon)
+	mustContain(t, body, `<span class="item r5"><img src="`+enka.ArtifactIconURL(builds[0].Pieces[0].Set, enka.Flower)+`"`,
+		`<span class="item r5"><img src="`+weaponIcon+`"`)
 
 	_, body = get(t, ts, "/score?a="+url.QueryEscape(teamResult{Selection: sel}.Stripped()))
-	mustContain(t, body, "DPS", artTotals, "Substats left out", english.statText(builds[0].Pieces[4].Main))
+	mustContain(t, body, "DPS", artTotals, "Substats left out", english.statText(builds[0].Pieces[4].Main),
+		`<span class="item r5"></span>`)
 	totalStats(t, body, artTotals)
 	for _, no := range []string{sub, "Leave artifact pieces out"} {
 		if strings.Contains(body, no) {

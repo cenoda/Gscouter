@@ -87,6 +87,47 @@ func IconURL(key string) string {
 	return ""
 }
 
+// relicIconSuffix is the number that ends an artifact icon's name, by
+// slot (Enka's store data, relics.json).
+var relicIconSuffix = [numSlots]int{Flower: 4, Plume: 2, Sands: 5, Goblet: 1, Circlet: 3}
+
+// ArtifactIconURL returns the URL of an artifact's icon on Enka.Network
+// by gcsim set key and slot, or "" if the set is unknown.
+func ArtifactIconURL(set string, slot Slot) string {
+	if !loadData() || slot >= numSlots {
+		return ""
+	}
+	id, ok := data.setIDs[set]
+	if !ok {
+		return ""
+	}
+	return fmt.Sprintf("https://enka.network/ui/UI_RelicIcon_%d_%d.png", id, relicIconSuffix[slot])
+}
+
+// WeaponIcon returns the URL of a weapon's icon on Enka.Network and its
+// rarity, or "" and 0 if the weapon is unknown (weapons only Gscouter
+// implements are not in gcsim's data). As in the game, the icon changes
+// at the second ascension (level cap 50); gcsim names the later one.
+func WeaponIcon(w Weapon) (url string, rarity int) {
+	if !loadData() {
+		return "", 0
+	}
+	d, ok := data.weaponsByKey[w.Key]
+	if !ok || d.ImageName == "" {
+		return "", 0
+	}
+	name := d.ImageName
+	if w.MaxLevel < 50 {
+		name = strings.TrimSuffix(name, "_Awaken")
+	}
+	return "https://enka.network/ui/" + name + ".png", d.Rarity
+}
+
+func loadData() bool {
+	dataOnce.Do(func() { data, dataErr = loadGameData() })
+	return dataErr == nil
+}
+
 func lookup(key string) (charData, bool) {
 	dataOnce.Do(func() { data, dataErr = loadGameData() })
 	if dataErr != nil {

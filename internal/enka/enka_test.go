@@ -89,3 +89,30 @@ func TestNames(t *testing.T) {
 		}
 	}
 }
+
+func TestIcons(t *testing.T) {
+	for _, c := range []struct{ got, want string }{
+		{ArtifactIconURL("crimsonwitchofflames", Flower), "https://enka.network/ui/UI_RelicIcon_15006_4.png"},
+		{ArtifactIconURL("crimsonwitchofflames", Circlet), "https://enka.network/ui/UI_RelicIcon_15006_3.png"},
+		{ArtifactIconURL("", Sands), ""},
+	} {
+		if c.got != c.want {
+			t.Errorf("got %q, want %q", c.got, c.want)
+		}
+	}
+	for _, c := range []struct {
+		w    Weapon
+		want string
+	}{
+		{Weapon{Key: "staffofhoma", MaxLevel: 90}, "https://enka.network/ui/UI_EquipIcon_Pole_Homa_Awaken.png"},
+		{Weapon{Key: "staffofhoma", MaxLevel: 40}, "https://enka.network/ui/UI_EquipIcon_Pole_Homa.png"},
+		{Weapon{Key: "nothing", MaxLevel: 90}, ""},
+	} {
+		if url, _ := WeaponIcon(c.w); url != c.want {
+			t.Errorf("WeaponIcon(%v) = %q, want %q", c.w, url, c.want)
+		}
+	}
+	if _, rarity := WeaponIcon(Weapon{Key: "staffofhoma", MaxLevel: 90}); rarity != 5 {
+		t.Errorf("staffofhoma rarity %d, want 5", rarity)
+	}
+}

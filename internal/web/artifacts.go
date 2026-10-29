@@ -215,6 +215,13 @@ func (l localizer) verdict(v slotVerdict) string {
 	return slot + " " + l.T("art.unknown")
 }
 
+// icon is an item icon framed in its rarity's color. A piece whose set is
+// unknown or left out has no URL and shows the empty frame.
+type icon struct {
+	URL    string
+	Rarity int
+}
+
 // artifactFuncs are the template functions for artifacts in l's
 // language.
 func artifactFuncs(l localizer) template.FuncMap {
@@ -227,6 +234,11 @@ func artifactFuncs(l localizer) template.FuncMap {
 		"verdict":   l.verdict,
 		"subsText":  l.subsText,
 		"slotName":  func(s enka.Slot) string { return l.T("art.slot." + s.String()) },
+		"pieceIcon": func(p enka.Artifact) icon { return icon{enka.ArtifactIconURL(p.Set, p.Slot), p.Rarity} },
+		"weaponIcon": func(w enka.Weapon) icon {
+			url, rarity := enka.WeaponIcon(w)
+			return icon{url, rarity}
+		},
 		"hasPieces": hasPieces,
 		"hasFull":   hasFullPieces,
 		"full":      func(c enka.Character) bool { return c.PieceDetail == enka.PiecesFull },
