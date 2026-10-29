@@ -249,5 +249,23 @@ func init() {
 		"art.low_best":   "(o melhor; qualquer atributo principal fica a menos de 2% de DPS)",
 		"art.unplayable": "rotação impossível",
 		"art.unknown":    "sem avaliação",
+
+		"about.title":     "Nossos compromissos",
+		"about.desc":      "O que o Gscouter promete aos visitantes e o que guarda.",
+		"about.promise_h": "O que prometemos",
+		"about.p_free":    "Sem anúncios, sem doações, nada pago e sem contas.",
+		"about.p_track":   "Sem scripts de análise ou rastreadores. O único cookie é o idioma que você escolhe. As imagens dos personagens são carregadas do Enka.Network.",
+		"about.p_same":    "Toda equipe é calculada do mesmo jeito, contra o mesmo inimigo e com a mesma rotação, não importa quem consulte.",
+		"about.data_h":    "O que é guardado e onde",
+		"about.d_browser": "No seu navegador: o idioma escolhido, seus UIDs recentes com as builds da vitrine e os cálculos concluídos da aba aberta. Apagar os dados do site no navegador os remove.",
+		"about.d_server":  "No servidor, só na memória: vitrines consultadas enquanto o Enka.Network permitir e pontuações por um dia. Seu endereço IP é usado por um minuto para limitar quantos links curtos cada visitante cria. Quem visita qual página não é registrado: o servidor guarda só totais diários (visualizações de página e quantos UIDs diferentes foram consultados), que não levam a ninguém.",
+		"about.d_links":   "Links curtos: ao copiar o link de um resultado, o endereço dele é guardado para que o link curto continue funcionando. O endereço contém o UID, o apelido e as builds da vitrine pública. Os links curtos são guardados sem data para expirar.",
+		"about.delete":    `Para remover um link curto, envie-o para nós no <a href="https://discord.gg/PkkN9D4M4G">Discord</a>. O link longo contém os mesmos dados em si, então continua funcionando para quem o tiver.`,
+		"about.scores_h":  "Sobre as pontuações",
+		"about.scores":    `As pontuações são simulações do gcsim em condições fixas, não medições do jogo. Podem ter desvios e mudam quando o motor ou as rotações são atualizados: veja as <a href="/updates">atualizações</a>.`,
+		"updates.title":   "Atualizações",
+		"updates.lead":    "Mudanças que um visitante pode notar, das mais recentes às mais antigas. As entradas estão em inglês.",
+		"updates.scores":  "Pontuações alteradas",
+		"foot.updated":    "Atualizado em %s",
 	}
 }

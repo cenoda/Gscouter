@@ -249,5 +249,23 @@ func init() {
 		"art.low_best":   "（最佳——此部位任何主詞條的DPS差距都在2%以內）",
 		"art.unplayable": "無法執行循環",
 		"art.unknown":    "未判定",
+
+		"about.title":     "我們的承諾",
+		"about.desc":      "Gscouter 對訪客的承諾，以及保存的資訊。",
+		"about.promise_h": "承諾",
+		"about.p_free":    "沒有廣告、贊助、付費內容，也沒有帳號。",
+		"about.p_track":   "不使用流量分析腳本或追蹤工具。唯一的 Cookie 是你選擇的語言。角色圖片從 Enka.Network 載入。",
+		"about.p_same":    "無論誰來查詢，所有隊伍都以同一個敵人、同一套輪轉同樣計算。",
+		"about.data_h":    "保存的資訊與位置",
+		"about.d_browser": "瀏覽器中：你選擇的語言、最近的 UID 及其展示櫃配置，以及目前分頁中已完成的計算。在瀏覽器中清除本站資料即可刪除。",
+		"about.d_server":  "伺服器（僅記憶體）：查詢過的展示櫃在 Enka.Network 允許的時間內保存，分數保存一天。IP 位址僅使用一分鐘，用於限制一位訪客產生短網址的數量。不記錄誰造訪了哪個頁面，只保留每日總數（頁面瀏覽次數和被查詢的不同 UID 數），無法從中追溯到任何人。",
+		"about.d_links":   "短網址：複製結果連結時，會保存結果網址，讓短網址持續有效。網址包含公開展示櫃中的 UID、暱稱和配置。短網址不設期限。",
+		"about.delete":    `如需刪除短網址，請在 <a href="https://discord.gg/PkkN9D4M4G">Discord</a> 上把連結傳給我們。長連結本身就包含同樣的資訊，所以持有它的人仍可使用。`,
+		"about.scores_h":  "關於分數",
+		"about.scores":    `分數是固定條件下的 gcsim 模擬，並非遊戲內的實測值。可能有誤差，並會隨引擎或輪轉更新而變化：見<a href="/updates">更新紀錄</a>。`,
+		"updates.title":   "更新紀錄",
+		"updates.lead":    "訪客能注意到的變更，依時間由新到舊。條目為英文。",
+		"updates.scores":  "分數變動",
+		"foot.updated":    "更新於 %s",
 	}
 }
