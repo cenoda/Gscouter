@@ -240,7 +240,8 @@ func init() {
 		"art.score":      "Artifact score",
 		"art.score_lead": "Substats are weighted by what one roll adds to this team's DPS, so that weighing CRIT alone gives CV. A main stat that loses DPS costs points, counted in rolls of the team's most valuable substat.",
 		"art.columns":    "Substats · main stats · total",
-		"art.low":        "little effect (best: %s)",
+		"art.low":        "little effect: every main stat here is within 2%% DPS (best: %s)",
+		"art.low_best":   "(best; every main stat here is within 2% DPS)",
 		"art.unplayable": "rotation cannot be played",
 		"art.unknown":    "not judged",
 	}

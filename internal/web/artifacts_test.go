@@ -264,19 +264,35 @@ func TestArtifactScoreText(t *testing.T) {
 		t.Errorf("points %q", got)
 	}
 	for v, want := range map[slotVerdict]string{
-		{Slot: "sands", Main: "atk%", Verdict: "right"}:               "Sands ✓ ATK%",
-		{Slot: "goblet", Main: "em", Verdict: "wrong", Penalty: 30.1}: "Goblet ✗ Elemental Mastery −30",
-		{Slot: "circlet", Main: "cr", Verdict: "low", Best: "cd"}:     "Circlet CRIT Rate little effect (best: CRIT DMG)",
-		{Slot: "sands", Main: "er", Verdict: "unplayable"}:            "Sands Energy Recharge rotation cannot be played",
-		{Slot: "goblet", Verdict: "unknown"}:                          "Goblet not judged",
-		{Slot: "goblet", Main: "pyro%", Verdict: "wrong", Penalty: 8}: "Goblet ✗ Pyro DMG Bonus −8",
+		{Slot: "sands", Main: "atk%", Verdict: "right"}:                "Sands ✓ ATK%",
+		{Slot: "goblet", Main: "em", Verdict: "wrong", Penalty: 30.1}:  "Goblet ✗ Elemental Mastery −30",
+		{Slot: "circlet", Main: "cr", Verdict: "low", Best: "cd"}:      "Circlet CRIT Rate little effect: every main stat here is within 2% DPS (best: CRIT DMG)",
+		{Slot: "goblet", Main: "cryo%", Verdict: "low", Best: "cryo%"}: "Goblet ✓ Cryo DMG Bonus (best; every main stat here is within 2% DPS)",
+		{Slot: "sands", Main: "er", Verdict: "unplayable"}:             "Sands Energy Recharge rotation cannot be played",
+		{Slot: "goblet", Verdict: "unknown"}:                           "Goblet not judged",
+		{Slot: "goblet", Main: "pyro%", Verdict: "wrong", Penalty: 8}:  "Goblet ✗ Pyro DMG Bonus −8",
 	} {
 		if got := english.verdict(v); got != want {
 			t.Errorf("%+v: %q, want %q", v, got, want)
 		}
 	}
 	ko := localizer{Lang: langKorean}
-	if got := ko.verdict(slotVerdict{Slot: "goblet", Main: "hydro%", Verdict: "low", Best: "hp%"}); got != "성배 물 원소 피해 보너스 영향 작음(최고: HP%)" {
+	if got := ko.verdict(slotVerdict{Slot: "goblet", Main: "hydro%", Verdict: "low", Best: "hp%"}); got != "성배 물 원소 피해 보너스 영향 작음 — 어떤 주옵션이든 DPS 차이 2% 이내 (최고: HP%)" {
 		t.Errorf("Korean: %q", got)
+	}
+	if got := ko.verdict(slotVerdict{Slot: "goblet", Main: "cryo%", Verdict: "low", Best: "cryo%"}); got != "성배 ✓ 얼음 원소 피해 보너스 (최고 — 이 부위는 어떤 주옵션이든 DPS 차이 2% 이내)" {
+		t.Errorf("Korean, best main stat: %q", got)
+	}
+	// No language leaves a stray format verb or %! in either message.
+	for _, lang := range langs {
+		l := localizer{Lang: lang.Code}
+		for _, v := range []slotVerdict{
+			{Slot: "goblet", Main: "hydro%", Verdict: "low", Best: "hp%"},
+			{Slot: "goblet", Main: "hp%", Verdict: "low", Best: "hp%"},
+		} {
+			if got := l.verdict(v); strings.Contains(got, "%!") || strings.Contains(got, "%%") {
+				t.Errorf("%s: %q", lang.Code, got)
+			}
+		}
 	}
 }

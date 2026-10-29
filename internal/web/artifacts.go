@@ -203,6 +203,11 @@ func (l localizer) verdict(v slotVerdict) string {
 	case "wrong":
 		return fmt.Sprintf("%s ✗ %s −%.0f", slot, l.mainName(v.Main), v.Penalty)
 	case "low":
+		// Every main stat of the slot is within 2% of the best; the
+		// best one gets a ✓, with the note that the slot matters little.
+		if v.Main == v.Best {
+			return slot + " ✓ " + l.mainName(v.Main) + " " + l.T("art.low_best")
+		}
 		return slot + " " + l.mainName(v.Main) + " " + l.T("art.low", l.mainName(v.Best))
 	case "unplayable":
 		return slot + " " + l.mainName(v.Main) + " " + l.T("art.unplayable")

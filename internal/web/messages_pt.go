@@ -240,7 +240,8 @@ func init() {
 		"art.score":      "Pontuação de artefatos",
 		"art.score_lead": "Os atributos secundários contam pelo que uma melhoria acrescenta ao DPS desta equipe; contando só o CRIT, é o CV. Um atributo principal que tira DPS custa pontos, contados em melhorias do secundário mais valioso da equipe.",
 		"art.columns":    "Secundários · principais · total",
-		"art.low":        "pouco efeito (melhor: %s)",
+		"art.low":        "pouco efeito: qualquer atributo principal fica a menos de 2%% de DPS (melhor: %s)",
+		"art.low_best":   "(o melhor; qualquer atributo principal fica a menos de 2% de DPS)",
 		"art.unplayable": "rotação impossível",
 		"art.unknown":    "sem avaliação",
 	}

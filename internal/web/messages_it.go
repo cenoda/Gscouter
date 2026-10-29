@@ -240,7 +240,8 @@ func init() {
 		"art.score":      "Punteggio dei manufatti",
 		"art.score_lead": "Le statistiche secondarie contano per quanto un potenziamento aggiunge al DPS di questa squadra; contando solo il CRIT è il CV. Una statistica principale che fa perdere DPS costa punti, contati in potenziamenti della secondaria più preziosa della squadra.",
 		"art.columns":    "Secondarie · principali · totale",
-		"art.low":        "poco effetto (migliore: %s)",
+		"art.low":        "poco effetto: ogni statistica principale resta entro il 2%% di DPS (migliore: %s)",
+		"art.low_best":   "(la migliore; ogni statistica principale resta entro il 2% di DPS)",
 		"art.unplayable": "rotazione impossibile",
 		"art.unknown":    "non valutato",
 	}
