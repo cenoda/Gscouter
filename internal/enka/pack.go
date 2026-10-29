@@ -166,7 +166,8 @@ func Unpack(b []byte) ([]Character, error) {
 		for i, name := range statOrder {
 			if mask&(1<<i) != 0 {
 				v := float64(r.varint()) / statScale
-				if math.Abs(v) > 1e5 {
+				// Stats are artifact totals, which no piece makes negative.
+				if v < 0 || v > 1e5 {
 					r.fail("stat %s out of range", name)
 				}
 				c.Stats[name] = v
