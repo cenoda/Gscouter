@@ -29,12 +29,14 @@ var updates = []update{
 			"An engine fix for Vesna; her teams were checked again.",
 			"New teams: three for Cyno, and Mavuika / Citlali / Prune / Nicole.",
 			"An \"Our promises\" page, this updates page, and a Discord link at the bottom of every page.",
+			"The rotation timeline tells a held or recast skill from a tap (\"Hold E\", \"E (recast)\"), and shows Mavuika's held charged attack as one action.",
 		},
 		Ko: []string{
 			"높은 돌파 수치에 맞춰 쓰인 로테이션이 있으면 그것도 시도해 가장 높은 점수를 씁니다. 차스카 6돌과 시틀라리 6돌부터 적용했습니다.",
 			"엔진의 베스나 구현을 고치고 베스나 팀을 다시 확인했습니다.",
 			"새 팀: 사이노 팀 3개, 마비카 / 시틀라리 / 프루네 / 니콜.",
 			"\"우리의 약속\" 페이지, 이 업데이트 내역, 모든 페이지 아래의 Discord 링크를 추가했습니다.",
+			"로테이션 타임라인에서 홀드 E와 재시전 E를 짧게 누른 E와 구분하고(\"홀드 E\", \"E (재시전)\"), 마비카의 홀드 강공격을 동작 하나로 보여 줍니다.",
 		},
 	},
 	{
