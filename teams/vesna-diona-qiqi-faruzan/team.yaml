@@ -8,19 +8,19 @@ members:
 archetype: Stellar Swirl
 status: draft
 tier: experimental
-rotation_version: 1
+rotation_version: 2
 gcsim_commit: 2350be9
-gcsim_fork: b029c45
+gcsim_fork: 9104976
 sources:
     - https://gamewith.net/genshin-impact/article/show/77723
     - https://keqingmains.com/q/vodyanitsa-quickguide/
     - https://www.icy-veins.com/genshin-impact/vesna-guide-best-builds
-notes: 'Written from published Vesna guides (docs/characters/vesna.md; no KQM Vesna quick guide exists, and no community gcsim config with Vesna can exist while upstream gcsim lacks her). Written in the order of the GameWith Vesna team guide''s Stellar Swirl rotations (Cryo supports, then the other supports, then Vesna''s combo): Diona E (hold) Q > Qiqi E Q > Faruzan E C Q > Vesna combo. GameWith''s Stellar Swirl teams are Vesna / Odette / Cryo Traveler / Vodyanitsa and Vesna / Cryo Traveler / Diona / Sucrose; for the Cryo slots it lists Odette, the Cryo Traveler, Diona and Qiqi, and for the fourth slot Vodyanitsa, Faruzan, Sucrose, Lan Yan and Qiqi. The KQM Vodyanitsa quick guide also has C6 Faruzan replace Odette or the Cryo Traveler. Diona, Qiqi and Faruzan burst when ready. Diona holds her skill (GameWith: tap or hold), which feeds her burst better. Faruzan''s C is her hold-mode aimed shot. Builds as in the other Vesna teams (build.txt). Faruzan holds Heart of the Furnace (its 4pc buff needs its holder to deal Stellar damage). Vesna''s ER is the best of the four tried (looped: 111% 110.2k, 122% 107.2k, 133% 104.2k, 144% 101.1k): 111%. 111.5k one pass, 110.2k looped (kept 99%); Vesna 87%, Diona 0.7%, Qiqi 2%, Faruzan 11%. Known problems: every Vesna frame is estimated, and the published combos fit five Windborne Swords into 8 attacks where the fork''s data gives four (docs/characters/vesna.md).'
+notes: 'Written from published Vesna guides (docs/characters/vesna.md; no KQM Vesna quick guide exists, and no community gcsim config with Vesna can exist while upstream gcsim lacks her). Written in the order of the GameWith Vesna team guide''s Stellar Swirl rotations (Cryo supports, then the other supports, then Vesna''s combo): Diona E (hold) Q > Qiqi E Q > Faruzan E C Q > Vesna combo. GameWith''s Stellar Swirl teams are Vesna / Odette / Cryo Traveler / Vodyanitsa and Vesna / Cryo Traveler / Diona / Sucrose; for the Cryo slots it lists Odette, the Cryo Traveler, Diona and Qiqi, and for the fourth slot Vodyanitsa, Faruzan, Sucrose, Lan Yan and Qiqi. The KQM Vodyanitsa quick guide also has C6 Faruzan replace Odette or the Cryo Traveler. Diona, Qiqi and Faruzan burst when ready. Diona holds her skill (GameWith: tap or hold), which feeds her burst better. Faruzan''s C is her hold-mode aimed shot. Builds as in the other Vesna teams (build.txt). Faruzan holds Heart of the Furnace (its 4pc buff needs its holder to deal Stellar damage). Vesna''s ER is the best of the four tried (looped: 111% 110.2k, 122% 107.2k, 133% 104.2k, 144% 101.1k): 111%. 111.5k one pass, 110.2k looped (kept 99%); Vesna 87%, Diona 0.7%, Qiqi 2%, Faruzan 11%. Known problems: every Vesna frame is estimated (docs/characters/vesna.md). Since 2026-10-29 (fork 9104976, two wind pinions per Charged Attack) Vesna''s combo is shorter and Diona or Faruzan no longer gets her burst back every rotation, so Vesna adds 1 N C pair after her burst: looped 108.8k without, 113.4k with 1, 98.1k with 2, 94.7k with 3, 87.3k with 4.'
 cross_check:
     note: 'No public number for this team. Searched 2026-10-28: GameWith and Icy Veins Vesna team and build guides (team lists, rotations, no DPS); the KQM Vodyanitsa quick guide (rotations, no DPS); Prydwen, Mobalytics, Game8, AllThingsHow and GenshinBuilds Vesna pages (ratings, no DPS for this team); the community gcsim database (no Vesna: upstream gcsim lacks her).'
 validation:
-    date: "2026-10-28"
+    date: "2026-10-29"
     iterations: 100
-    kept: 0.988
-    dps: 110213
+    kept: 1.038
+    dps: 113419
     draft: no reference DPS

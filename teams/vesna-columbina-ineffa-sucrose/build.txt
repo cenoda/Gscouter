@@ -8,6 +8,9 @@
 # rolls), the bottom of Icy Veins' 120-140% for a team with a second
 # Anemo member: 80.5k looped, against 79.9k at 111% with the burst when
 # ready.
+# Rechecked on 2026-10-29 with two wind pinions per Charged Attack (fork
+# 9104976): 111% now scores highest (looped 111% 82.1k, 122% 81.7k, 133%
+# 81.6k, 144% 81.2k), so she has 111%.
 # Columbina from the harvested Flins / Ineffa / Columbina / Durin team
 # (teams/flins-ineffa-columbina-durin), as in the Sandrone team with her:
 # C0, Sacrificial Jade R1, 4pc Tenacity of the Millelith. Even with all
@@ -26,7 +29,7 @@ vesna char lvl=90/90 cons=0 talent=9,9,9;
 vesna add weapon="beyondthechrysalis" refine=1 lvl=90/90;
 vesna add set="viridescentvenerer" count=4;
 vesna add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cd=0.622;
-vesna add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*4 em=19.82*2 cr=0.0331*12 cd=0.0662*8;
+vesna add stats def%=0.062*2 def=19.68*2 hp=253.94*2 hp%=0.0496*2 atk=16.54*2 atk%=0.0496*4 er=0.0551*2 em=19.82*2 cr=0.0331*12 cd=0.0662*10;
 
 columbina char lvl=90/90 cons=0 talent=9,9,9;
 columbina add weapon="sacjade" refine=1 lvl=90/90;

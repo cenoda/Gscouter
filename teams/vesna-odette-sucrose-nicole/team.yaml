@@ -10,16 +10,16 @@ status: draft
 tier: experimental
 rotation_version: 2
 gcsim_commit: 2350be9
-gcsim_fork: b029c45
+gcsim_fork: 9104976
 sources:
     - https://gamewith.net/genshin-impact/article/show/77723
     - https://www.icy-veins.com/genshin-impact/vesna-guide-best-builds
-notes: 'Written from published Vesna guides (docs/characters/vesna.md; no KQM Vesna quick guide exists, and no community gcsim config with Vesna can exist while upstream gcsim lacks her). Written in the order of the GameWith Vesna team guide''s Stellar Swirl rotations (Cryo supports, then the other supports, then Vesna''s combo): Odette E E > Sucrose E > Nicole E > Vesna combo. GameWith''s Stellar Swirl teams are Vesna / Odette / Cryo Traveler / Vodyanitsa and Vesna / Cryo Traveler / Diona / Sucrose; for the Cryo slots it lists Odette, the Cryo Traveler, Diona and Qiqi, and for the fourth slot Vodyanitsa, Faruzan, Sucrose, Lan Yan and Qiqi. No guide puts Nicole in a Stellar Swirl team; GameWith lists her as an ATK% buffer for Vesna''s Anemo driver team, so she takes a support slot here. Nicole does not burst. Sucrose uses only her skill, as in GameWith''s rotations. Builds as in the other Vesna teams (build.txt). Odette holds Heart of the Furnace. Vesna''s ER is the best of the four tried (looped: 111% 108.4k, 122% 105.6k, 133% 102.0k, 144% 108.0k): 111%. 114.6k one pass, 108.4k looped (kept 95%); Vesna 77%, Odette 19%, Sucrose 1%, Nicole 2%. Nicole''s burst was dropped on 2026-10-29: its 1.9 s animation lengthened the cycle so that the end of Vesna''s combo fell outside the supports'' buffs (Odette''s Dance Double lasts 21 s). Looped score with build.txt 108.4k before, 109.4k without it; the numbers above are from before. Known problems: every Vesna frame is estimated, and the published combos fit five Windborne Swords into 8 attacks where the fork''s data gives four (docs/characters/vesna.md).'
+notes: 'Written from published Vesna guides (docs/characters/vesna.md; no KQM Vesna quick guide exists, and no community gcsim config with Vesna can exist while upstream gcsim lacks her). Written in the order of the GameWith Vesna team guide''s Stellar Swirl rotations (Cryo supports, then the other supports, then Vesna''s combo): Odette E E > Sucrose E > Nicole E > Vesna combo. GameWith''s Stellar Swirl teams are Vesna / Odette / Cryo Traveler / Vodyanitsa and Vesna / Cryo Traveler / Diona / Sucrose; for the Cryo slots it lists Odette, the Cryo Traveler, Diona and Qiqi, and for the fourth slot Vodyanitsa, Faruzan, Sucrose, Lan Yan and Qiqi. No guide puts Nicole in a Stellar Swirl team; GameWith lists her as an ATK% buffer for Vesna''s Anemo driver team, so she takes a support slot here. Nicole does not burst. Sucrose uses only her skill, as in GameWith''s rotations. Builds as in the other Vesna teams (build.txt). Odette holds Heart of the Furnace. Vesna''s ER is the best of the four tried (looped: 111% 108.4k, 122% 105.6k, 133% 102.0k, 144% 108.0k): 111%. 114.6k one pass, 108.4k looped (kept 95%); Vesna 77%, Odette 19%, Sucrose 1%, Nicole 2%. Nicole''s burst was dropped on 2026-10-29: its 1.9 s animation lengthened the cycle so that the end of Vesna''s combo fell outside the supports'' buffs (Odette''s Dance Double lasts 21 s). Looped score with build.txt 108.4k before, 109.4k without it; the numbers above are from before. Known problems: every Vesna frame is estimated (docs/characters/vesna.md).'
 cross_check:
     note: 'No public number for this team. Searched 2026-10-28: GameWith and Icy Veins Vesna team and build guides (team lists, rotations, no DPS); the KQM Vodyanitsa quick guide (rotations, no DPS); Prydwen, Mobalytics, Game8, AllThingsHow and GenshinBuilds Vesna pages (ratings, no DPS for this team); the community gcsim database (no Vesna: upstream gcsim lacks her).'
 validation:
     date: "2026-10-29"
     iterations: 100
-    kept: 0.934
-    dps: 109371
+    kept: 0.961
+    dps: 124835
     draft: no reference DPS
