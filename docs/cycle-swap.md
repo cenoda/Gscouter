@@ -96,7 +96,9 @@ _2026-10-29._ Decided with the owner: phone and desktop are both first-class. Fr
 - Each lane's background shows the skill cooldown and the burst's energy filling, from the seeded run, with a mark where each becomes ready. Energy depends on random particles, so this is one run's picture, which the page says.
 - A note sits at the earliest time gcsim lets it act. Dragging it right inserts a wait before it (snapped to 0.1 s, compiled as `wait`); it cannot be dragged left of the earliest time, and the lane shows why (the cooldown or energy bar it ran into).
 - Waits are relative to the note before, so changing an earlier note moves the later ones with it, as ADOFAI's tiles do.
-- Whether the grid needs more than this (absolute "at 12.0 s" notes, a beat-like snap) is not decided.
+- Proposed (2026-10-29): nothing more. No note is pinned to an absolute time. A chart runs on other players' builds (shared links, sends), where Energy Recharge, constellations and frames differ: a note pinned at 12.0 s would wait or misfire on another build, while "after the previous note, plus this wait" plays the same intent on every build. The grid is a ruler in seconds (lines every 0.5 s) for reading cooldowns and waits, and 0.1 s is the snap for waits only.
+- The chart shows the first cycle for editing and the next two as faded previews, since energy shortfalls appear only once the chart repeats.
+- Mockup: https://claude.ai/artifact/VYZmP1tBcoY3zfAe7neuwk (mock timings, no gcsim). Open there: the desktop key for attack (left click is taken by the page; `Z` in the mockup).
 
 ## 7. Saving, comparing, sending
 
