@@ -47,8 +47,10 @@ energy every interval=480,720 amount=1;
 // Assemble joins the conditions, build and rotation into one config.
 // The build must only contain character setup lines (char, add weapon,
 // add set, add stats); the rotation supplies the active character and
-// the action list.
+// the action list. The rotation's reads of weapon mods follow the build
+// (GuardWeaponMods).
 func Assemble(c Conditions, build, rotation string) string {
+	rotation = GuardWeaponMods(build, rotation)
 	var b strings.Builder
 	b.WriteString(c.header())
 	b.WriteString("\n")
@@ -65,8 +67,10 @@ var iterationRe = regexp.MustCompile(`\s*\biteration=\d+`)
 // and rotation, to reproduce the DPS the source reported. conditions are
 // the source's options, target, energy and hurt lines, one statement per
 // line, as cmd/import stores them in source.txt; lines starting with #
-// are comments. The options line's iteration count is replaced.
+// are comments. The options line's iteration count is replaced, and the
+// rotation's reads of weapon mods follow the build (GuardWeaponMods).
 func AssembleSource(conditions string, iterations int, build, rotation string) string {
+	rotation = GuardWeaponMods(build, rotation)
 	var b strings.Builder
 	hasOptions := false
 	for _, line := range strings.Split(conditions, "\n") {
