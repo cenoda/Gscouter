@@ -1,6 +1,6 @@
 # Skirk
 
-> Status: Investigation, no code changed · Last updated: 2026-10-29
+> Status: Investigation; the zero score of §4 fixed, the rest open (§6.1) · Last updated: 2026-10-29
 
 How the library's rotations score a C6 Skirk, after a community report that her constellation "doesn't count". Skirk is in upstream gcsim; this document records measurements, not a fork implementation. Roadmap context: `docs/cycle.md` §8–§9.
 
@@ -69,7 +69,7 @@ The 150 library teams with Skirk, each with its library build and Skirk raised t
 - **131 teams score a C6 Skirk with Ruin never spending stacks.** In their library rotations Skirk bursts only inside Seven-Phase Flash, and 124 of them open with a Ruin the loop skips. Their C6 still counts through Sever (Normal): median 13% of team DPS.
 - In the 16 sub-DPS teams (held skill, Ruin each rotation) C6 counts in full: Sever (Burst) is a median 13.6% of team DPS. Skirk / Furina / Mona / Escoffier goes 96.1k → 200.3k.
 - The 3 Pyro teams make no Cryo reaction, so no rift forms and C6 has nothing to spend. That is the game's rule, not a rotation problem.
-- **Two teams score 0 with a C6 Skirk**: Skirk / Furina / Citlali / Mika and Skirk / Furina / Sigewinne / Citlali, which score 88.4k and 94.3k at C0. Their rotation as written stands still (the opening Ruin, §1) and scores 0. The best filled run ranks at 165k / 177k on 10 iterations. Its 50-iteration confirmation then stops on one seed (12 and 17) with gcsim's "skirk: cannot use skill in seven-phase flash", the filler failure of `docs/fillers.md` §2. `steady.Best` confirms only each rotation's best outcome, so it falls back to the as-written 0. The site uses the same settings, so it gives these builds a score of 0. This is not fixed here (§6).
+- **Two teams score 0 with a C6 Skirk**: Skirk / Furina / Citlali / Mika and Skirk / Furina / Sigewinne / Citlali, which score 88.4k and 94.3k at C0. Their rotation as written stands still (the opening Ruin, §1) and scores 0. The best filled run ranks at 165k / 177k on 10 iterations. Its 50-iteration confirmation then stops on one seed (12 and 17) with gcsim's "skirk: cannot use skill in seven-phase flash", the filler failure of `docs/fillers.md` §2. `steady.Best` confirmed only each rotation's best outcome, so it fell back to the as-written 0, and the site, with the same settings, gave these builds a score of 0. **Fixed** (2026-10-29): when a confirmation fails, `steady.Best` now confirms the rotation's next-best ranked run in its place (`TestBestConfirmsNextRunAfterFailure`). The two builds score 165.9k and 176.9k, which is what `cmd/gscouter` gives when it runs every variant in full. Rerun with the fix, the other 298 builds of these 150 teams (C0 and C6) score the same to the DPS. `cmd/validate` runs every variant in full and was not affected.
 
 **How much DPS is missing.** This was estimated with a temporary variant, in a scratch directory and not committed. Once per loop pass, Skirk uses a held skill, waits 25 frames and casts Ruin if it is ready (`skirk skill[hold=1]; wait(25); if .skirk.burst.ready { skirk burst; }`), then plays that pass's Seven-Phase Flash as written. In the library rotation of the Shenhe team that flash is the opener's, with its Extinction dropped (Ruin's 15 s cooldown). In the other teams it is the `r == 0` flash, whose 0-stack Ruin the variant replaces. The variant was scored alone and compared with the rotation it was made from:
 
@@ -113,8 +113,19 @@ The ways of `docs/cycle.md` §8, for Skirk:
 
 Recommendation:
 
+- ~~**Fix the zero score first.**~~ Done (§4).
 - **Do not build 4.** A stacked Ruin loses on most teams, and where it wins the gain is small.
 - **Do 1**, as `docs/cycle.md` §8 already proposes for every character. It is the only option that reaches all 131 on-field teams, and it states the gap honestly: the score counts C6's damage (1.8×) but plays the C0 rotation.
 - **Keep 2 open.** It needs no work, and C6 entries are what Skirk's C6 needs.
 - **Do 3 only with a guide** that writes a C6-specific Seven-Phase Flash, and start with the Furina / Escoffier archetype, where most Skirk teams are.
-- **Fix the zero score first.** Before any of these, the two teams that score 0 at C6 (§4) need `steady.Best` to try the next-best filled run when a confirmation fails, instead of falling back to the as-written run. A score of 0 is a worse answer than any rotation question here.
+
+### 6.1 Open problems
+
+_2026-10-29._ Recorded, not fixed:
+
+1. **Ruin never spends C6 stacks on the 131 on-field teams** (§4). Their rotations burst only inside Seven-Phase Flash, and 124 of them open with a Ruin that needs Skirk's full starting Serpent's Subtlety, which the loop skips. Not a score loss as measured (§4), but it is what players see when they read the breakdown.
+2. **The score plays the C0 rotation for a C6 Skirk.** Where a C6 rotation exists it adds 8–19% (§3); on the other 148 teams none exists, and the result page does not say so (option 1).
+3. **No more C6-Skirk entries in the database** (§5). The alternatives cannot grow until the community submits some.
+4. **The Citlali alternative loses with C0 teammates** (−0.6% to −3.0%, §3). `steady.Best` keeps the team's own rotation then, so nothing is lost, but Skirk / Furina / Citlali / Escoffier has no rotation written for a C6 Skirk with C0 teammates.
+5. **About 35–40% of absorbed rifts never become a Sever proc** (§3): they expire, are overwritten at 3 stacks, or are popped during the proc's 0.2 s cooldown. Rotations do not plan around the stacks.
+6. **The `r == 0` branch of looped rotations plays a Seven-Phase Flash without Extinction**, because its opening Ruin is skipped and nothing takes its place (§3). It applies to the two alternatives and to the library rotations written the same way.
