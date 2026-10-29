@@ -43,7 +43,7 @@ Recording first, marking the notes that came from an `if` (the wrapping evaluato
 
 ## 4. Fairness and sharing
 
-- A custom rotation's score measures the rotation as much as the build. As with a custom enemy (design §3.3), the page says the score uses a custom rotation and does not compare with standard scores, and the versus page needs a rule (both sides custom, or none).
+- A custom rotation's score measures the rotation as much as the build. It compares with any score; the page names the rotation each side used (§7).
 - The rotation travels in the result link, like builds (design §4.8): a compact encoding of the notes (character slot, action, parameters, note kind), deflated. A 60-note chart is a few hundred bytes; the short link (`/s/<id>`) carries it as it carries builds.
 - Safety: a chart compiles to statements with no unbounded loop except hold notes, each bounded (as `config.WaitLoops` bounds waits), so a shared chart cannot hang a visitor's browser the way some database rotations hung `cmd/validate` (design §5.3).
 - The score with fillers applies as to any rotation, so a chart that overspends energy is filled or passes bursts rather than scoring 0; the editor should say when fillers changed the chart's play.
@@ -98,8 +98,34 @@ _2026-10-29._ Decided with the owner: phone and desktop are both first-class. Fr
 - Waits are relative to the note before, so changing an earlier note moves the later ones with it, as ADOFAI's tiles do.
 - Whether the grid needs more than this (absolute "at 12.0 s" notes, a beat-like snap) is not decided.
 
-## 7. Open questions
+## 7. Saving, comparing, sending
+
+_2026-10-29._ Decided with the owner; not implemented.
+
+- **Saved in the browser.** Charts are kept in `localStorage` per team (the sorted four gcsim keys), like showcase builds (design §4.8), with a name and the date. They are never stored on the server, apart from a chart that is sent (below). The result link carries the chart (§4), so a shared chart opens anywhere, and opening someone else's offers "keep this chart". `localStorage` can come back empty (private windows, cleared data), so the link stays the chart's real home.
+- **Comparable.** A custom rotation's score is a score: versus pages compare it with anything, standard or custom, on either side. The page still names the rotation each side used ("custom: <chart name>"), as it names an alternative today (design §4.5), so a reader can tell a build lead from a rotation lead. This replaces §4's "does not compare".
+- **Send to the developer, one click.** When a chart outscores the team's rotation on the player's build, the result offers "send this rotation". One click sends the result link (builds and chart) and nothing else.
+  - The server never trusts a result (design §4.7, "Trust"). The link is enough: whoever reviews it calculates it again with the same seeds and gets the same numbers.
+  - The server keeps sent links in SQLite next to the short links (`internal/links`), rate-limited like them (20 a minute per address). A team that gets many sends shows up first. A message to the Discord server through its bot (`cenoda/Gscbot`) is an option for being told.
+  - A sent link holds the UID, nickname and builds, as a short link does. The button says so, and `/about` gets a line on it (design §4.5: removed on request through Discord).
+  - **Into the library.** A sent chart becomes an alternative (design §5.2) only after review. It runs through `cmd/validate` like any alternative, with no source DPS, so it is checked as a variant is (`docs/cycle.md` §7.2): kept only when it beats the team's rotation on the build it was sent with. A tool (`cmd/submissions`, say) lists sends by team, scores each against the library rotation on its build and the library build, and writes `alt/<id>/` with the gain in `notes`. This needs a rule change in design §5.4: today a rotation comes only from a community config or a published guide, never "our own idea". A player's chart, with its measured gain on a real build, would be a third kind of source. It answers `docs/cycle.md` §8 (4,375 teams without an alternative) from the players who have the constellations.
+
+## 8. Teams the library doesn't have
+
+_2026-10-29._ Decided with the owner: a team with no library entry can be scored with a custom rotation.
+
+- **Today**: an unmatched team is "unsupported". It is only logged (`slog.Info("unsupported team", ...)`, `internal/web/server.go`), and the front page's picker submits only four characters that form a library team (design §4.5). Both change: the picker accepts any four characters gcsim can simulate (upstream or the fork, design §5.4), and the unsupported page offers the editor.
+- **What the page still needs gcsim to have**: every member implemented, and the build mapped (design §4.2). A character gcsim lacks stays unsupported, with or without a chart.
+- **Where the chart starts.** With no library rotation to record (§3), there are three starting points:
+  - a blank chart;
+  - a library team sharing three members, its run recorded with the fourth member's notes removed, as a template the player edits (not a rotation for the team: `docs/cycle.md` §8 says moving a rotation to another party is writing a new one);
+  - a chart someone shared for those four.
+- **Score**: as for any rotation (looped, fillers). There is no one-pass reference and no validation against a source, so the page says the rotation is the player's. The library's character params (Hu Tao's `start_hp=1`, design §5.2) come with library teams only. A chart sets none, so the editor needs a way to set the few that matter.
+- **Path into the library**: such a chart, sent (§7), is how a team the community database lacks gets its first rotation. It enters as an experimental team (design §5.4) after review, which turns the unsupported log into a queue of actual rotations.
+
+## 9. Open questions
 
 - The time grid (§6).
-- Whether custom charts can be saved per team in the browser (`localStorage`, as showcase builds are) and shared as library alternatives once reviewed.
-- The versus rule for custom rotations (§4).
+- What review a sent chart needs before it is `supported`. A person, as for experimental teams, or the measured gain alone for an alternative to a verified team.
+- Whether a sent chart's gain must hold on more than the sender's build (the library build, other constellations) to be kept. An alternative only competes and can't lower a score (`docs/cycle.md` §8), so the sender's build may be enough.
+- Character params for charts (§8).
