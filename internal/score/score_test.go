@@ -3,11 +3,13 @@ package score
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"math"
 	"os"
 	"reflect"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/cenoda/gscouter/internal/config"
 	"github.com/genshinsim/gcsim/pkg/gcs/ast"
@@ -35,7 +37,7 @@ func totalDamage(t *testing.T, cfg string, seed int64) float64 {
 	if err != nil {
 		t.Fatal(err)
 	}
-	res, err := simulate(file, simcfg, gcsl, seed)
+	res, err := simulate(context.Background(), file, simcfg, gcsl, seed)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -104,6 +106,44 @@ func TestSameSeedIsReproducible(t *testing.T) {
 	}
 	if a.DPS != b.DPS {
 		t.Errorf("same seeds gave %v and %v", a.DPS, b.DPS)
+	}
+}
+
+// idleConfig is a fight without a duration that deals no damage, so
+// neither its action list nor the enemy's HP ever ends it.
+func idleConfig(t *testing.T) string {
+	t.Helper()
+	build, err := os.ReadFile("testdata/build.txt")
+	if err != nil {
+		t.Fatal(err)
+	}
+	return config.Assemble(config.Conditions{Iterations: 1}, string(build), "active escoffier;\nwhile 1 { wait(60); }\n")
+}
+
+// A fight that would never end stops at maxFightFrames.
+func TestFightLengthBounded(t *testing.T) {
+	res, err := Once(idleConfig(t), 1)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if res.Duration != maxFightFrames {
+		t.Errorf("fight ran %d frames, want %d", res.Duration, maxFightFrames)
+	}
+}
+
+// A cancelled score stops the fights it is running, not only the ones
+// it has yet to start.
+func TestRunStopsOnCancel(t *testing.T) {
+	cfg := idleConfig(t)
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Millisecond)
+	defer cancel()
+	start := time.Now()
+	_, err := Run(ctx, cfg, Options{Iterations: 2, Workers: 1})
+	if !errors.Is(err, context.DeadlineExceeded) {
+		t.Errorf("err = %v, want %v", err, context.DeadlineExceeded)
+	}
+	if took := time.Since(start); took > 300*time.Millisecond {
+		t.Errorf("returned after %v", took)
 	}
 }
 

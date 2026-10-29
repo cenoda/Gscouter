@@ -58,6 +58,7 @@ func TestUnpackRejects(t *testing.T) {
 		"refinement 0":    func(c *Character) { c.Weapon.Refine = 0 },
 		"above its cap":   func(c *Character) { c.MaxLevel = 80 },
 		"huge stat":       func(c *Character) { c.Stats["atk"] = 1e7 },
+		"negative stat":   func(c *Character) { c.Stats["cr"] = -0.1 },
 	} {
 		c := good
 		c.Sets = map[string]int{"finaleofthedeepgalleries": 4}

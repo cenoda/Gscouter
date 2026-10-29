@@ -3,6 +3,8 @@ package timeline
 import (
 	"math"
 	"os"
+	"slices"
+	"strings"
 	"testing"
 
 	"github.com/cenoda/gscouter/internal/config"
@@ -23,11 +25,11 @@ func TestBuild(t *testing.T) {
 		t.Fatal(err)
 	}
 	cfg := config.Assemble(config.Conditions{Iterations: 1, Duration: 90}, string(build), looped)
-	res, err := score.Once(cfg, 1)
+	res, actions, err := score.Trace(cfg, 1)
 	if err != nil {
 		t.Fatal(err)
 	}
-	tl := Build(res, 30*60, 60*60)
+	tl := Build(res, actions, 30*60, 60*60)
 	if tl.Start != 30 || tl.End != 60 {
 		t.Fatalf("window %v-%v, want 30-60", tl.Start, tl.End)
 	}
@@ -81,5 +83,47 @@ func TestAbilityName(t *testing.T) {
 		if got := abilityName(in); got != want {
 			t.Errorf("abilityName(%q) = %q, want %q", in, got, want)
 		}
+	}
+}
+
+func TestAddAction(t *testing.T) {
+	a := func(name string, params map[string]int) score.Action {
+		return score.Action{Action: name, Params: params}
+	}
+	// Mavuika's stint on Mavuika / Citlali / Xilonen / Nicole.
+	stint := []score.Action{
+		a("skill", map[string]int{"recast": 1}), a("charge", nil), a("dash", nil), a("attack", nil), a("charge", nil),
+		a("burst", nil),
+		a("charge", nil), a("charge", nil), a("charge", nil), a("charge", map[string]int{"hold": 6}), a("charge", map[string]int{"final": 1}), a("dash", nil),
+		a("charge", nil), a("charge", nil), a("charge", nil), a("charge", map[string]int{"hold": 6}), a("charge", map[string]int{"final": 1}), a("dash", nil),
+		a("attack", nil), a("skill", nil), a("attack", nil),
+	}
+	var got []Action
+	for i, act := range stint {
+		got = addAction(got, "mavuika", act, float64(i))
+	}
+	var forms []string
+	for _, g := range got {
+		forms = append(forms, strings.TrimSuffix(g.Kind+" "+g.Form, " "))
+	}
+	want := []string{
+		"skill recast", "charge", "dash", "attack", "charge", "burst",
+		"charge hold", "dash", "charge hold", "dash",
+		"attack", "skill", "attack",
+	}
+	if !slices.Equal(forms, want) {
+		t.Errorf("got %q, want %q", forms, want)
+	}
+	// A held charged attack starts with its first charge.
+	if got[6].Time != 6 || got[8].Time != 12 {
+		t.Errorf("held charged attacks at %v and %v, want 6 and 12", got[6].Time, got[8].Time)
+	}
+	// Held skills are told apart for everyone, held charges only for
+	// Mavuika.
+	if g := addAction(nil, "nahida", a("skill", map[string]int{"hold": 1}), 0); g[0].Form != "hold" {
+		t.Errorf("held skill: form %q", g[0].Form)
+	}
+	if g := addAction([]Action{{Kind: "charge"}}, "arlecchino", a("charge", map[string]int{"final": 1}), 1); len(g) != 2 || g[1].Form != "" {
+		t.Errorf("another character's charges folded: %v", g)
 	}
 }

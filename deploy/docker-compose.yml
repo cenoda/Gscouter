@@ -10,6 +10,9 @@ services:
       GSCOUTER_SITE: https://${DOMAIN}
       GSCOUTER_INDEXNOW: /data/indexnow.json
       GSCOUTER_USAGE: /data/usage.json
+      # Lets /healthz show the counts to requests with this bearer
+      # token (set in .env; empty keeps them unreadable).
+      GSCOUTER_USAGE_TOKEN: ${GSCOUTER_USAGE_TOKEN:-}
     volumes:
       # Short links (/s/...), the IndexNow state and the usage counts,
       # kept across updates.
