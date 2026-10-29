@@ -6,7 +6,7 @@ members:
     - raiden
     - collei
 archetype: ""
-status: supported
+status: draft
 rotation_version: 1
 gcsim_commit: 2350be9
 sources:
@@ -16,8 +16,9 @@ reference:
     dps: 29663
     computed: "2026-10-01"
 validation:
-    date: "2026-10-28"
+    date: "2026-10-29"
     iterations: 20
-    gap: 0
-    kept: 0.947
-    dps: 28093
+    gap: 0.053
+    kept: 0.997
+    dps: 31146
+    draft: +5.3% from the source's DPS, more than 5%

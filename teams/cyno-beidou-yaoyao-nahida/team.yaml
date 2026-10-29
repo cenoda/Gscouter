@@ -6,7 +6,7 @@ members:
     - yaoyao
     - nahida
 archetype: ""
-status: supported
+status: draft
 rotation_version: 1
 gcsim_commit: 2350be9
 sources:
@@ -16,8 +16,9 @@ reference:
     dps: 34122
     computed: "2026-10-01"
 validation:
-    date: "2026-10-28"
+    date: "2026-10-29"
     iterations: 20
-    gap: 0.003
-    kept: 1.003
-    dps: 34313
+    gap: 0.086
+    kept: 0.997
+    dps: 36944
+    draft: +8.6% from the source's DPS, more than 5%
