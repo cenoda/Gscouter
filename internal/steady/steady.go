@@ -44,6 +44,10 @@ type Outcome struct {
 	// written is true when the rotation's own waits for a burst ran as
 	// written (see Score).
 	written bool
+	// runnersUp are the other runs of the search that ran (brief's
+	// aside), best first.
+	// Best confirms the next of them when a full run of this one fails.
+	runnersUp []*Outcome
 }
 
 // energyFillers are the ways Score tries for each character that waits
@@ -85,6 +89,7 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 		return nil, err
 	}
 	best := &Outcome{Result: res, Looped: looped}
+	ran := []*Outcome{best}
 
 	type candidate struct {
 		energy   map[string]config.Filler
@@ -159,12 +164,20 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 			// that filler is then not an option.
 			continue
 		}
+		out := &Outcome{Result: res, Filled: len(c.energy) > 0 || len(c.skill) > 0, Energy: c.energy, Skill: c.skill, Looped: looped, written: c.written}
+		ran = append(ran, out)
 		if res.DPS > best.Result.DPS {
-			best = &Outcome{Result: res, Filled: len(c.energy) > 0 || len(c.skill) > 0, Energy: c.energy, Skill: c.skill, Looped: looped, written: c.written}
+			best = out
 		}
 		followUp(c.energy, c.skill, c.written, res)
 	}
-	return brief(best, rotation, members, run, seen)
+	best, err = brief(best, rotation, members, run, seen)
+	if err != nil {
+		return nil, err
+	}
+	slices.SortStableFunc(ran, func(a, b *Outcome) int { return cmp.Compare(b.Result.DPS, a.Result.DPS) })
+	best.runnersUp = slices.DeleteFunc(ran, func(o *Outcome) bool { return o.Result == best.Result })
+	return best, nil
 }
 
 // Looped is the rotation as Score first runs it: looped, with its own
@@ -200,9 +213,11 @@ type Rotation struct {
 // true) and may be cheaper. Ranked outcomes are confirmed with a full
 // run from the best down until one beats the full first run, which
 // stands otherwise, as fillers ranked on fewer iterations can come out
-// below it. A rotation that fails to run is left out: an alternative
-// gcsim rejects, or the team's own when a constellation breaks it (a
-// C6 Chasca's aim), as long as another rotation runs.
+// below it. A full run that gcsim rejects is replaced by the next-best
+// ranked run of the same rotation. A rotation that fails to run is left
+// out: an alternative gcsim rejects, or the team's own when a
+// constellation breaks it (a C6 Chasca's aim), as long as another
+// rotation runs.
 func Best(rotations []Rotation, run func(i int, looped string, rank bool) (*score.Result, error)) (int, *Outcome, error) {
 	type scored struct {
 		i    int
@@ -239,7 +254,8 @@ func Best(rotations []Rotation, run func(i int, looped string, rank bool) (*scor
 		all = append(all, scored{0, first, true})
 	}
 	slices.SortStableFunc(all, func(a, b scored) int { return cmp.Compare(b.out.Result.DPS, a.out.Result.DPS) })
-	for _, s := range all {
+	for k := 0; k < len(all); k++ {
+		s := all[k]
 		if s.full {
 			return s.i, s.out, nil
 		}
@@ -247,6 +263,18 @@ func Best(rotations []Rotation, run func(i int, looped string, rank bool) (*scor
 		if err != nil {
 			if isFatal(err) {
 				return 0, nil, err
+			}
+			// A filled run can pass on the ranking iterations and fail
+			// on one of the full run's seeds (a C6 Skirk's skill in
+			// Seven-Phase Flash, docs/characters/skirk.md §4). The
+			// rotation's next run then takes its place, ranked among
+			// those still to confirm.
+			if next := nextRunnerUp(s.out, first); next != nil {
+				at := k + 1
+				for at < len(all) && all[at].out.Result.DPS >= next.Result.DPS {
+					at++
+				}
+				all = slices.Insert(all, at, scored{s.i, next, false})
 			}
 			continue
 		}
@@ -260,6 +288,21 @@ func Best(rotations []Rotation, run func(i int, looped string, rank bool) (*scor
 		return 0, nil, firstErr
 	}
 	return 0, first, nil
+}
+
+// nextRunnerUp returns the best of out's runners-up, carrying the rest,
+// or nil when none is left. The team's own rotation as written (first)
+// is already a candidate of Best, so it is passed over.
+func nextRunnerUp(out, first *Outcome) *Outcome {
+	for i, r := range out.runnersUp {
+		if first != nil && r.Result == first.Result {
+			continue
+		}
+		next := *r
+		next.runnersUp = out.runnersUp[i+1:]
+		return &next
+	}
+	return nil
 }
 
 // brief tries the best run again with FillBrief for the characters whose

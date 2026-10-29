@@ -2,7 +2,7 @@
 
 > Status: In progress (§5.1, §5.2 and §7 implemented) · Last updated: 2026-10-29
 
-Roadmap node Cycle (`docs/roadmap.md`): what the fixed rotation (design §5.2) does with builds other than the one it was written for, and where the score stops being trustworthy because of it. §5.1, §5.2 and §7 are implemented; §6 proposes the rest, and §8 says what teams without an alternative still need.
+Roadmap node Cycle (`docs/roadmap.md`): what the fixed rotation (design §5.2) does with builds other than the one it was written for, and where the score stops being trustworthy because of it. §5.1, §5.2 and §7 are implemented; §6 proposes the rest, §8 says what teams without an alternative still need, and §9 records Skirk's C6.
 
 ## 1. The report
 
@@ -205,3 +205,7 @@ The characters whose higher constellations changed the rotation most in §3, wit
 Not usable: a high-constellation rotation of another team. A rotation names all four members and times its actions on them, so moving it to another party is writing a new rotation, which design §5.4 allows only from a guide.
 
 Since the score keeps the best rotation, an added alternative cannot lower a build's score (beyond the noise of ranking on fewer iterations); what it costs is the time of its runs (§7).
+
+## 9. Skirk C6
+
+_2026-10-29._ A community report says that C6 Skirk "doesn't count". It does: on the 131 library teams where Skirk plays on field, a C6 Skirk scores a median 1.82× her C0, mostly from Havoc: Sever on her N3 and N5. Havoc: Ruin, which spends every Sever stack at 750% ATK, never fires in their looped score, because the rotations burst only inside Seven-Phase Flash or open with a Ruin the loop skips. The two all-C6 alternatives play Ruin the same way. A test variant that casts a stacked Ruin once per loop scored −4.6% to +2.4% (the held skill it needs costs a skill cooldown), so Ruin is not where the score is short. What a C6 rotation adds is better Seven-Phase Flash play: +8% to +19% from the database's C6 alternative on Skirk / Furina / Shenhe / Escoffier. The database has no other C6-Skirk entries, so `cmd/harvest -alternatives` adds none. Two teams (Skirk / Furina / Citlali / Mika, Skirk / Furina / Sigewinne / Citlali) scored 0 with a C6 Skirk: a confirmation run failed and `steady.Best` fell back to the rotation as written. Fixed: `steady.Best` now confirms the rotation's next-best run instead (165.9k and 176.9k). Recommended next: say on the page what the rotation assumes (§8, 1). Measurements, tables, options and the open problems: `docs/characters/skirk.md` (§6.1).

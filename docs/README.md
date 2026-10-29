@@ -26,7 +26,7 @@ What each document is for, and the habits that keep them readable. These are con
 - **Design is for decisions.** `docs/design.md` says what the system does and why, in the present tense. It stays short enough to read in one sitting.
 - **Records go next to their subject.** Measurements, calibration, regression results, batches of teams and the cross-checks behind them are records: they grow with every change and few readers need all of them. They go in the document of their subject (a character, the fork, a roadmap node), and the design keeps the conclusion and a pointer.
 - **One document per roadmap node** once work on it starts, named after the node (`artifacts.md`, `pull.md`).
-- **One document per fork character** in `docs/characters/`, named by the gcsim key. A new character's teams are recorded there, not in the design.
+- **One document per fork character** in `docs/characters/`, named by the gcsim key. A new character's teams are recorded there, not in the design. A character outside the fork gets one there too when its library scoring is investigated (`skirk.md`).
 
 ## When to split
 

@@ -87,6 +87,37 @@ func TestScoreTriesBriefOnBest(t *testing.T) {
 	}
 }
 
+// A filled run that ranks best but fails in its full run gives way to
+// the rotation's next run, not to the rotation as written, which stands
+// still and scores 0 (a C6 Skirk, docs/characters/skirk.md §4).
+func TestBestConfirmsNextRunAfterFailure(t *testing.T) {
+	rotations := []Rotation{{"active a;\na skill, burst;\n", []string{"a"}}}
+	run := func(_ int, looped string, rank bool) (*score.Result, error) {
+		dps, wait := 0.0, 30.0
+		switch {
+		case strings.Contains(looped, "gs_fill1a < 2"):
+			dps, wait = 100, 0
+		case strings.Contains(looped, "if .a.burst.ready"):
+			if !rank {
+				return nil, errors.New("iteration 11 (seed 12): rejected action")
+			}
+			dps, wait = 160, 0
+		case strings.Contains(looped, "while !.a.burst.ready"):
+			dps, wait = 150, 0
+		}
+		return &score.Result{DPS: dps, Characters: []score.Character{
+			{Name: "a", Waits: map[string]float64{"insufficient_energy": wait}},
+		}}, nil
+	}
+	i, out, err := Best(rotations, run)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if i != 0 || out.Result.DPS != 150 || out.Energy["a"] == config.FillSkip {
+		t.Errorf("got rotation %d at %.0f DPS with %v; want 0 at 150 with a filling", i, out.Result.DPS, out.Energy)
+	}
+}
+
 // bestRun scores rotation i at dps[i] when ranked and full[i] in a full
 // run, and counts the full runs.
 func bestRun(dps, full []float64, fullRuns *int) func(int, string, bool) (*score.Result, error) {
