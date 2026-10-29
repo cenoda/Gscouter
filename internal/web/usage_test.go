@@ -62,3 +62,43 @@ func TestUsage(t *testing.T) {
 		t.Errorf("after restart %+v, want 1 page and 1 UID", *d)
 	}
 }
+
+func TestUsageOnHealthz(t *testing.T) {
+	s := &Server{}
+	if err := s.SetUsage(filepath.Join(t.TempDir(), "usage.json")); err != nil {
+		t.Fatal(err)
+	}
+	r := httptest.NewRequest("GET", "/healthz", nil)
+	r.Header.Set("User-Agent", "Mozilla/5.0")
+	s.usage.page(r)
+
+	health := func(auth string) string {
+		t.Helper()
+		req := httptest.NewRequest("GET", "/healthz", nil)
+		if auth != "" {
+			req.Header.Set("Authorization", auth)
+		}
+		w := httptest.NewRecorder()
+		s.handleHealth(w, req)
+		return w.Body.String()
+	}
+	// No token set: nobody reads the counts, not even with an empty one.
+	if got := health("Bearer "); got != "ok" {
+		t.Errorf("no token: %q", got)
+	}
+	s.SetUsageToken("secret")
+	for _, auth := range []string{"", "Bearer wrong", "secret", "Basic secret"} {
+		if got := health(auth); got != "ok" {
+			t.Errorf("Authorization %q: %q", auth, got)
+		}
+	}
+	// Today's counts, before they are saved.
+	var got map[string]usageDay
+	if err := json.Unmarshal([]byte(health("Bearer secret")), &got); err != nil {
+		t.Fatal(err)
+	}
+	today := time.Now().UTC().Format(time.DateOnly)
+	if got[today].Pages != 1 {
+		t.Errorf("counts %v, want 1 page today", got)
+	}
+}

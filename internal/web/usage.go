@@ -3,6 +3,7 @@ package web
 import (
 	"crypto/rand"
 	"crypto/sha256"
+	"crypto/subtle"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -65,6 +66,36 @@ func (s *Server) SetUsage(file string) error {
 		}
 	}()
 	return nil
+}
+
+// SetUsageToken lets a request to /healthz that carries token as a
+// bearer token read the counts, today's included, as JSON. The counts
+// get no address of their own; without the token /healthz answers "ok"
+// as always. An empty token keeps them unreadable.
+func (s *Server) SetUsageToken(token string) { s.usageToken = token }
+
+// usageReader reports whether r carries the usage token.
+func (s *Server) usageReader(r *http.Request) bool {
+	got, ok := strings.CutPrefix(r.Header.Get("Authorization"), "Bearer ")
+	return ok && s.usage != nil && s.usageToken != "" &&
+		subtle.ConstantTimeCompare([]byte(got), []byte(s.usageToken)) == 1
+}
+
+func (s *Server) handleHealth(w http.ResponseWriter, r *http.Request) {
+	if !s.usageReader(r) {
+		w.Write([]byte("ok"))
+		return
+	}
+	s.usage.mu.Lock()
+	raw, err := json.MarshalIndent(s.usage.days, "", "  ")
+	s.usage.mu.Unlock()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Cache-Control", "no-store")
+	w.Write(raw)
 }
 
 // FlushUsage saves the counts not saved yet.
