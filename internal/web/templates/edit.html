@@ -72,6 +72,8 @@
 .ed-pm { display: flex; align-items: center; gap: 8px; padding: 3px 10px 3px 3px; border-radius: 999px; background: var(--accent-soft); color: var(--text); border: 2px solid transparent; font-weight: 500; font-size: .85rem; }
 .ed-pm.on { border-color: var(--accent); background: var(--card); }
 .ed-pm .face { width: 32px; height: 32px; }
+.ed-pm { touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; }
+.ed-pm.dragging, .ed-order li.dragging { opacity: .6; border-style: dashed; border-color: var(--accent); }
 .ed-pm .kb { font-size: 10px; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; }
 .ed-toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--text); color: var(--bg); padding: 8px 14px; border-radius: 6px; font-size: .85rem; max-width: calc(100% - 32px); z-index: 20; }
 .ed-kbd { display: none; }
@@ -122,6 +124,19 @@
 .ed-param input[type=number] { font: inherit; width: 7em; padding: 4px 6px; border: 1px solid var(--line); border-radius: 4px; background: var(--card); color: var(--text); }
 .ed-param .def { font-size: .75rem; color: var(--muted); }
 .ed-sheet .row { display: flex; justify-content: space-between; gap: 8px; }
+.ed-sheet h3 { margin: 0; font-size: .9rem; }
+.ed-sheet .sub { margin: 0; font-size: .8rem; color: var(--muted); }
+.ed-sheet .keys { display: grid; gap: 10px; }
+.ed-binds { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; align-items: center; font-size: .9rem; }
+.ed-binds button { min-width: 6.5em; padding: 5px 10px; font-size: .85rem; font-weight: 600; }
+.ed-binds button.wait { border-color: var(--accent); color: var(--accent); }
+.ed-order { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.ed-order li { display: flex; align-items: center; gap: 10px; padding: 4px 12px 4px 4px; border: 2px solid var(--line); border-radius: 999px; background: var(--accent-soft); touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; font-size: .9rem; }
+.ed-order li .face { width: 30px; height: 30px; }
+.ed-order li .grip { margin-left: auto; color: var(--muted); }
+.ed-order li .kb { font-size: 10px; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; }
+.ed-sheet { max-height: calc(100vh - 32px); overflow-y: auto; }
+@media (hover: none) { .ed-sheet .keys-only { display: none; } }
 @media (max-width: 640px) {
   .ed-sheet-bg { place-items: end center; padding: 0; }
   .ed-sheet { border-radius: 14px 14px 0 0; width: 100%; padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
@@ -157,7 +172,7 @@
 
 <div class="card" style="display:grid; gap:10px; margin:0">
 <div class="ed-chart">
-<div class="ed-labels" id="ed-labels"><div class="ed-ruler"></div>{{range $i, $m := .Members}}<div class="ed-lane"><button type="button" class="ed-face" data-p="{{$i}}" aria-label="{{t "ed.params_title" (name $m.Key)}}">{{template "face" $m.Key}}<span class="gear" aria-hidden="true">⚙</span></button></div>{{end}}</div>
+<div class="ed-labels" id="ed-labels"><div class="ed-ruler"></div>{{range $i, $m := .Members}}<div class="ed-lane" data-lane="{{$i}}"><button type="button" class="ed-face" data-p="{{$i}}" aria-label="{{t "ed.params_title" (name $m.Key)}}">{{template "face" $m.Key}}<span class="gear" aria-hidden="true">⚙</span></button></div>{{end}}</div>
 <div class="ed-scroll" id="ed-scroll"><svg class="ed-svg" id="ed-svg" role="img" aria-label="{{t "ed.title"}}"></svg></div>
 </div>
 <div class="ed-tools" id="ed-tools"></div>
@@ -171,19 +186,20 @@
 <button type="button" class="secondary" id="ed-end">{{t "ed.to_end"}}</button>
 <button type="button" class="secondary" id="ed-wait">{{t "ed.wait"}}</button>
 <button type="button" class="secondary" id="ed-reset">{{t "ed.reset"}}</button>
+<button type="button" class="secondary" id="ed-settings">⚙ {{t "ed.settings"}}</button>
 </div>
 <p class="muted help" style="margin:0; font-size:.85rem">{{t "ed.help"}}<span class="ed-kbd"> {{t "ed.keys"}}</span></p>
 </div>
 <div class="ed-hud">
 <div class="ed-pad" id="ed-pad">
-<button type="button" class="ed-key q" data-a="burst" aria-label="{{t "tl.burst"}}">Q<span class="kb">Q</span></button>
-<button type="button" class="ed-key plunge" data-a="high_plunge">{{t "ed.plunge"}}<span class="kb">X</span></button>
-<button type="button" class="ed-key dash" data-a="dash">{{t "ed.dash"}}<span class="kb">Shift</span></button>
-<button type="button" class="ed-key atk" data-a="attack">{{t "ed.attack"}}<small>{{t "ed.hold_charge"}}</small><span class="kb">Z</span></button>
-<button type="button" class="ed-key jump" data-a="jump">{{t "ed.jump"}}<span class="kb">Space</span></button>
-<button type="button" class="ed-key e" data-a="skill" aria-label="{{t "tl.skill"}}">E<small>{{t "ed.hold_skill"}}</small><span class="kb">E</span></button>
+<button type="button" class="ed-key q" data-a="burst" aria-label="{{t "tl.burst"}}">Q<span class="kb"></span></button>
+<button type="button" class="ed-key plunge" data-a="high_plunge">{{t "ed.plunge"}}<span class="kb"></span></button>
+<button type="button" class="ed-key dash" data-a="dash">{{t "ed.dash"}}<span class="kb"></span></button>
+<button type="button" class="ed-key atk" data-a="attack">{{t "ed.attack"}}<small>{{t "ed.hold_charge"}}</small><span class="kb"></span></button>
+<button type="button" class="ed-key jump" data-a="jump">{{t "ed.jump"}}<span class="kb"></span></button>
+<button type="button" class="ed-key e" data-a="skill" aria-label="{{t "tl.skill"}}">E<small>{{t "ed.hold_skill"}}</small><span class="kb"></span></button>
 </div>
-<div class="ed-party" id="ed-party">{{range $i, $m := .Members}}<button type="button" class="ed-pm" data-sw="{{$i}}">{{template "face" $m.Key}}<span>{{name $m.Key}}</span><span class="kb">{{inc $i}}</span></button>{{end}}</div>
+<div class="ed-party" id="ed-party">{{range $i, $m := .Members}}<button type="button" class="ed-pm" data-sw="{{$i}}">{{template "face" $m.Key}}<span>{{name $m.Key}}</span><span class="kb"></span></button>{{end}}</div>
 </div>
 </div>
 </div>
@@ -198,6 +214,7 @@
   var START = {{.Chart}};
   var TEMPLATE = {{with .Template}}{name: {{teamName .}}, rotation: {{.Rotation}}}{{else}}null{{end}};
   var TEMPLATE_BUILD = {{.TemplateBuild}}, TEMPLATE_NAMES = JSON.stringify({{.TemplateNames}}), MOVES = JSON.stringify({{.Moves}});
+  var ORDER_DEFAULT = {{.Order}};
   var CHARS = [{{range $i, $m := .Members}}{{if $i}}, {{end}}{{name $m.Key}}{{end}}];
   var S = {
     loading: {{t "ed.loading"}}, recording: {{t "ed.recording"}}, select: {{t "ed.select"}},
@@ -211,6 +228,8 @@
     paramsTitle: {{t "ed.params_title"}}, startHP: {{t "ed.start_hp"}}, startEnergy: {{t "ed.start_energy"}}, paramDefault: {{t "ed.param_default"}},
     paramsNote: {{t "ed.params_note"}}, resetParams: {{t "ed.reset_params"}}, close: {{t "ed.close"}},
     savedMsg: {{t "ed.saved_msg"}}, nameFirst: {{t "ed.name_first"}},
+    settings: {{t "ed.settings"}}, keysTitle: {{t "ed.keys_title"}}, keysNote: {{t "ed.keys_note"}}, pressKey: {{t "ed.press_key"}}, resetKeys: {{t "ed.reset_keys"}},
+    swap: {{t "ed.swap"}}, orderTitle: {{t "ed.order_title"}}, orderHelp: {{t "ed.order_help"}}, resetOrder: {{t "ed.reset_order"}},
     reasons: {insufficient_energy: {{t "wait.insufficient_energy"}}, skill_cd: {{t "wait.skill_cd"}}, burst_cd: {{t "wait.burst_cd"}}, insufficient_stamina: {{t "wait.insufficient_stamina"}}},
     actions: {attack: {{t "ed.attack"}}, charge: {{t "ed.charge"}}, skill: {{t "tl.skill"}}, burst: {{t "tl.burst"}}, dash: {{t "ed.dash"}}, jump: {{t "ed.jump"}}, high_plunge: {{t "ed.plunge"}}, low_plunge: {{t "ed.plunge"}}, aim: {{t "ed.aim"}}, walk: {{t "ed.walk"}}}
   };
@@ -342,7 +361,7 @@
 
   // ---- Drawing ----
   function X(t) { return 14 + t * PX; }
-  function mid(s) { return RULER + s * LANE + LANE / 2; }
+  function mid(s) { return RULER + POS[s] * LANE + LANE / 2; }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]; }); }
   function label(n) { return S.actions[n.a] + (n.a === "skill" && hold(n) ? " · " + S.hold : "") + (n.r ? " · " + S.ready : ""); }
   function hold(n) { return n.p.some(function (p) { return p[0] === "hold" && p[1] > 0; }); }
@@ -402,7 +421,7 @@
       s += '<line class="cyc" x1="' + X(t) + '" x2="' + X(t) + '" y1="2" y2="' + H + '"/><text class="cyc-l" x="' + (X(t) + 5) + '" y="' + (RULER - 5) + '">' + (k === 0 ? S.passEdit : S.passPreview.replace("%d", k + 1)) + '</text>';
     });
     for (var c = 0; c < 4; c++) {
-      var y = RULER + c * LANE;
+      var y = RULER + POS[c] * LANE;
       s += '<line class="grid" x1="0" x2="' + W + '" y1="' + y + '" y2="' + y + '"/><line class="track" x1="0" x2="' + W + '" y1="' + mid(c) + '" y2="' + mid(c) + '"/>';
       if (!P) continue;
       var L = P.lanes[c];
@@ -592,13 +611,13 @@
   // The controls: a tap adds a note, a long press its held form.
   document.querySelectorAll("#ed-pad .ed-key").forEach(function (k) {
     var timer = 0, held = false, down = false;
-    k.addEventListener("pointerdown", function (e) { e.preventDefault(); down = true; held = false; k.classList.add("down"); timer = setTimeout(function () { held = true; }, HOLD_MS); });
+    k.addEventListener("pointerdown", function (e) { if (e.button > 0) return; e.preventDefault(); down = true; held = false; k.classList.add("down"); timer = setTimeout(function () { held = true; }, HOLD_MS); });
     function end(e) { if (!down) return; down = false; clearTimeout(timer); k.classList.remove("down"); if (e.type === "pointerup") add(k.dataset.a, held); }
     k.addEventListener("pointerup", end); k.addEventListener("pointerleave", end); k.addEventListener("pointercancel", end);
     k.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); add(k.dataset.a, false); } });
     k.addEventListener("contextmenu", function (e) { e.preventDefault(); });
   });
-  $("ed-party").addEventListener("click", function (e) { var b = e.target.closest("[data-sw]"); if (b) { active = +b.dataset.sw; party(); } });
+  $("ed-party").addEventListener("click", function (e) { var b = e.target.closest("[data-sw]"); if (b && !justDragged) { active = +b.dataset.sw; party(); } });
   $("ed-undo").onclick = undo;
   $("ed-end").onclick = function () { cursor = st.notes.length; sel = null; rangeEnd = null; render(); var sc = $("ed-scroll"); sc.scrollLeft = sc.scrollWidth; };
   $("ed-wait").onclick = function () {
@@ -610,25 +629,185 @@
     call("encode", [write(st)]).then(function (c) { location.href = SCORE + "&r=" + encodeURIComponent(c); }, function (err) { message(S.broken.replace("%s", err.message), true); });
   };
 
-  // The game's PC keys.
-  var keyMap = {e: "skill", q: "burst", z: "attack", shift: "dash", " ": "jump", x: "high_plunge"}, downAt = {};
+  // ---- Keys and the party order, kept in this browser ----
+  // A binding is a physical key (KeyboardEvent.code, either Shift as
+  // "Shift") or a mouse button other than the left one ("Mouse2" is the
+  // right), so neither the layout nor an IME moves it: Korean input
+  // reads E as "ㄷ".
+  var BINDS = ["skill", "burst", "attack", "dash", "jump", "high_plunge", "sw0", "sw1", "sw2", "sw3"];
+  var KEY_DEFAULT = {skill: "KeyE", burst: "KeyQ", attack: "KeyZ", dash: "Shift", jump: "Space", high_plunge: "KeyX", sw0: "Digit1", sw1: "Digit2", sw2: "Digit3", sw3: "Digit4"};
+  var keys = {};
+  try { keys = JSON.parse(localStorage.getItem("gscouter.keys")) || {}; } catch (e) {}
+  BINDS.forEach(function (b) { if (typeof keys[b] !== "string") keys[b] = KEY_DEFAULT[b]; });
+  function token(e) { var c = e.code || ""; return /^(Shift|Control|Alt|Meta)(Left|Right)$/.test(c) ? c.replace(/(Left|Right)$/, "") : c; }
+  function keyName(t) {
+    var m = /^(?:Key|Digit)(.)$/.exec(t || "");
+    if (m) return m[1];
+    if ((m = /^Numpad(.+)$/.exec(t))) return "Num " + m[1];
+    return {"": "–", Mouse1: "MMB", Mouse2: "RMB", Mouse3: "M4", Mouse4: "M5", Control: "Ctrl", Meta: "⌘", ArrowUp: "↑", ArrowDown: "↓", ArrowLeft: "←", ArrowRight: "→",
+      Backquote: "`", Minus: "-", Equal: "=", BracketLeft: "[", BracketRight: "]", Semicolon: ";", Quote: "'", Comma: ",", Period: ".", Slash: "/", Backslash: "\\"}[t] || t;
+  }
+  function boundTo(t) { for (var i = 0; i < BINDS.length; i++) if (keys[BINDS[i]] === t) return BINDS[i]; return null; }
+  function keepKeys() { try { localStorage.setItem("gscouter.keys", JSON.stringify(keys)); } catch (e) {} }
+  function bind(b, t) {
+    // A key already bound to another control trades places with this one.
+    var other = boundTo(t);
+    if (other && other !== b) keys[other] = keys[b];
+    keys[b] = t; keepKeys(); showKeys();
+  }
+  function showKeys() {
+    document.querySelectorAll("#ed-pad [data-a]").forEach(function (k) { k.querySelector(".kb").textContent = keyName(keys[k.dataset.a]); });
+    document.querySelectorAll("#ed-party [data-sw]").forEach(function (b) { b.querySelector(".kb").textContent = keyName(keys["sw" + POS[+b.dataset.sw]]); });
+  }
+
+  // The party in the player's order: the number keys swap to a position,
+  // and the lanes follow it. Chart slots stay as they are.
+  var orderKey = "gscouter.order:" + JSON.parse(NAMES).join(","), ORDER = ORDER_DEFAULT.slice(), POS = [];
+  function isOrder(o) { return Array.isArray(o) && o.length === 4 && [0, 1, 2, 3].every(function (s) { return o.indexOf(s) >= 0; }); }
+  try { var kept0 = JSON.parse(localStorage.getItem(orderKey)); if (isOrder(kept0)) ORDER = kept0; } catch (e) {}
+  if (!isOrder(ORDER)) ORDER = [0, 1, 2, 3];
+  function arrange() {
+    ORDER.forEach(function (s, i) { POS[s] = i; });
+    var labs = $("ed-labels"), pty = $("ed-party");
+    ORDER.forEach(function (s) {
+      labs.appendChild(labs.querySelector('[data-lane="' + s + '"]'));
+      pty.appendChild(pty.querySelector('[data-sw="' + s + '"]'));
+    });
+    showKeys();
+  }
+  function setOrder(o) {
+    ORDER = o;
+    try { localStorage.setItem(orderKey, JSON.stringify(o)); } catch (e) {}
+    arrange(); render();
+  }
+  arrange();
+
+  // Dragging a member up or down moves it in the party.
+  var justDragged = false;
+  function sortable(list, item, done) {
+    var d = null;
+    list.addEventListener("pointerdown", function (e) {
+      var it = e.target.closest(item);
+      if (it && e.button === 0) d = {it: it, y0: e.clientY, id: e.pointerId, moved: false};
+    });
+    list.addEventListener("pointermove", function (e) {
+      if (!d || e.pointerId !== d.id) return;
+      if (!d.moved) {
+        if (Math.abs(e.clientY - d.y0) < 8) return;
+        d.moved = true; d.it.classList.add("dragging");
+        try { d.it.setPointerCapture(e.pointerId); } catch (x) {}
+      }
+      e.preventDefault();
+      var before = null;
+      list.querySelectorAll(item).forEach(function (o) {
+        if (o === d.it || before) return;
+        var r = o.getBoundingClientRect();
+        if (e.clientY < r.top + r.height / 2) before = o;
+      });
+      if (before !== d.it.nextElementSibling) list.insertBefore(d.it, before);
+    });
+    function end(e) {
+      if (!d || e.pointerId !== d.id) return;
+      var moved = d.moved; d.it.classList.remove("dragging"); d = null;
+      if (!moved) return;
+      justDragged = true; setTimeout(function () { justDragged = false; }, 0);
+      done(Array.prototype.map.call(list.querySelectorAll(item), function (o) { return +(o.dataset.sw || o.dataset.s); }));
+    }
+    list.addEventListener("pointerup", end); list.addEventListener("pointercancel", end);
+  }
+  sortable($("ed-party"), "[data-sw]", setOrder);
+
+  // The keys at work. A held key gives the held form, as on the controls.
+  var downAt = {}, capturing = null;
+  function keyDown(t, e) {
+    var b = boundTo(t);
+    if (!b) return;
+    e.preventDefault();
+    if (b.slice(0, 2) === "sw") { active = ORDER[+b[2]]; return party(); }
+    if (!e.repeat && !(t in downAt)) { downAt[t] = Date.now(); press(b, true); }
+  }
+  function keyUp(t) {
+    if (!(t in downAt)) return;
+    var b = boundTo(t), held = Date.now() - downAt[t] > HOLD_MS;
+    delete downAt[t];
+    if (b && b.slice(0, 2) !== "sw") { press(b, false); add(b, held); }
+  }
+  function inField(e) { return e.target.closest && e.target.closest("input, textarea, select"); }
   window.addEventListener("keydown", function (e) {
-    if (e.target.closest && e.target.closest("input, textarea, select")) return;
-    if ($("ed-layer").innerHTML && e.key !== "Escape") return;
-    var k = e.key.toLowerCase();
-    if ((e.ctrlKey || e.metaKey) && k === "z") { e.preventDefault(); return undo(); }
-    if (e.ctrlKey || e.metaKey || e.altKey) return;
-    if (k >= "1" && k <= "4") { active = +k - 1; return party(); }
-    if (k === "delete" || k === "backspace") { e.preventDefault(); return del(); }
-    if (k === "escape") { closeSheet(); sel = null; rangeEnd = null; return render(); }
-    if (keyMap[k] && !e.repeat) { e.preventDefault(); downAt[k] = Date.now(); press(k, true); }
+    if (capturing) {
+      e.preventDefault();
+      var c = token(e);
+      if (c === "Escape") return stopCapture();
+      if (/^(Delete|Backspace|Enter|Tab)$/.test(c) || !c) return;
+      bind(capturing, c); return stopCapture();
+    }
+    if (inField(e)) return;
+    if ($("ed-layer").innerHTML) { if (e.key === "Escape") closeSheet(); return; }
+    var t = token(e);
+    if ((e.ctrlKey || e.metaKey) && t === "KeyZ") { e.preventDefault(); return undo(); }
+    if (!/^(Shift|Control|Alt|Meta)$/.test(t) && (e.ctrlKey || e.metaKey || e.altKey)) return;
+    if (t === "Delete" || t === "Backspace") { e.preventDefault(); return del(); }
+    if (t === "Escape") { sel = null; rangeEnd = null; return render(); }
+    keyDown(t, e);
   });
-  window.addEventListener("keyup", function (e) {
-    var k = e.key.toLowerCase(); if (!(k in downAt)) return;
-    var held = Date.now() - downAt[k] > HOLD_MS; delete downAt[k]; press(k, false);
-    add(keyMap[k], held);
+  window.addEventListener("keyup", function (e) { keyUp(token(e)); });
+  window.addEventListener("blur", function () { Object.keys(downAt).forEach(function (t) { var b = boundTo(t); if (b) press(b, false); }); downAt = {}; });
+  function mouseTok(e) { return e.button > 0 ? "Mouse" + e.button : null; }
+  window.addEventListener("mousedown", function (e) {
+    var t = mouseTok(e);
+    if (capturing) {
+      if (t) { e.preventDefault(); bind(capturing, t); stopCapture(); }
+      else if (!e.target.closest("[data-b]")) stopCapture();
+      return;
+    }
+    if (!t || inField(e) || $("ed-layer").innerHTML || e.target.closest("a")) return;
+    keyDown(t, e);
   });
-  function press(k, on) { var b = document.querySelector('#ed-pad [data-a="' + keyMap[k] + '"]'); if (b) b.classList.toggle("down", on); }
+  window.addEventListener("mouseup", function (e) { var t = mouseTok(e); if (t && t in downAt) { e.preventDefault(); keyUp(t); } });
+  // A bound right or side button neither opens the menu nor goes back.
+  window.addEventListener("contextmenu", function (e) { if ((capturing || boundTo("Mouse2")) && !inField(e) && !e.target.closest("a")) e.preventDefault(); });
+  window.addEventListener("auxclick", function (e) { if (boundTo(mouseTok(e))) e.preventDefault(); });
+  function press(b, on) { var k = document.querySelector('#ed-pad [data-a="' + b + '"]'); if (k) k.classList.toggle("down", on); }
+
+  // ---- Settings: the party order, and the keys on a computer ----
+  function openSettings() {
+    capturing = null;
+    var h = '<div class="ed-sheet-bg" id="ed-sheet-bg"><div class="ed-sheet" role="dialog" aria-modal="true" aria-label="' + esc(S.settings) + '"><h2>' + esc(S.settings) + '</h2>';
+    h += '<h3>' + esc(S.orderTitle) + '</h3><p class="sub">' + esc(S.orderHelp) + '</p><ol class="ed-order" id="ed-order">';
+    ORDER.forEach(function (s) {
+      var face = document.querySelector('#ed-labels [data-p="' + s + '"] img');
+      h += '<li data-s="' + s + '">' + (face ? face.outerHTML : "") + '<span>' + esc(CHARS[s]) + '</span><span class="kb keys-only"></span><span class="grip" aria-hidden="true">⠿</span></li>';
+    });
+    h += '</ol><div class="row"><button type="button" class="secondary" id="ed-o-reset">' + esc(S.resetOrder) + '</button></div>';
+    h += '<div class="keys keys-only"><h3>' + esc(S.keysTitle) + '</h3><p class="sub">' + esc(S.keysNote) + '</p><div class="ed-binds">';
+    BINDS.forEach(function (b) {
+      var name = b.slice(0, 2) === "sw" ? S.swap.replace("%d", +b[2] + 1) : S.actions[b];
+      h += '<span>' + esc(name) + '</span><button type="button" class="secondary" data-b="' + b + '"></button>';
+    });
+    h += '</div><div class="row"><button type="button" class="secondary" id="ed-k-reset">' + esc(S.resetKeys) + '</button></div></div>';
+    h += '<div class="row"><span></span><button type="button" id="ed-s-close">' + esc(S.close) + '</button></div></div></div>';
+    var layer = $("ed-layer");
+    layer.innerHTML = h;
+    sheetKeys();
+    sortable($("ed-order"), "li", function (o) { setOrder(o); sheetKeys(); });
+    layer.querySelectorAll("[data-b]").forEach(function (btn) {
+      btn.onclick = function () {
+        capturing = btn.dataset.b; sheetKeys();
+        btn.textContent = S.pressKey; btn.classList.add("wait");
+      };
+    });
+    $("ed-o-reset").onclick = function () { setOrder(ORDER_DEFAULT.slice()); openSettings(); };
+    $("ed-k-reset").onclick = function () { keys = JSON.parse(JSON.stringify(KEY_DEFAULT)); keepKeys(); showKeys(); sheetKeys(); };
+    $("ed-s-close").onclick = closeSheet;
+    $("ed-sheet-bg").addEventListener("click", function (e) { if (e.target.id === "ed-sheet-bg") closeSheet(); });
+    $("ed-s-close").focus();
+  }
+  function sheetKeys() {
+    document.querySelectorAll("#ed-layer [data-b]").forEach(function (btn) { btn.textContent = keyName(keys[btn.dataset.b]); btn.classList.remove("wait"); });
+    document.querySelectorAll("#ed-order li").forEach(function (li, i) { li.querySelector(".kb").textContent = keyName(keys["sw" + i]); });
+  }
+  function stopCapture() { capturing = null; sheetKeys(); }
+  $("ed-settings").onclick = openSettings;
 
   var toastTimer = 0;
   function toast(msg) {
@@ -703,7 +882,7 @@
     $("ed-sheet-bg").addEventListener("click", function (e) { if (e.target.id === "ed-sheet-bg") closeSheet(); });
     $("ed-p-close").focus();
   }
-  function closeSheet() { $("ed-layer").innerHTML = ""; }
+  function closeSheet() { capturing = null; $("ed-layer").innerHTML = ""; }
   $("ed-labels").addEventListener("click", function (e) { var b = e.target.closest("[data-p]"); if (b && st) openSheet(+b.dataset.p); });
 
   // ---- Charts kept in this browser, by name (§7) ----

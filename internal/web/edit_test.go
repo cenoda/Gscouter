@@ -26,6 +26,9 @@ func TestEditPage(t *testing.T) {
 	// The page has what the browser records the first chart from: the
 	// library rotation in the player's names, the members by slot.
 	mustContain(t, body, "Rotation editor", "zhongli skill[hold=1]", `["hutao","xingqiu","yelan","zhongli"]`)
+	// The party order is as picked, by slot, for the number keys and the
+	// lanes, and the settings change it and the keys.
+	mustContain(t, body, "ORDER_DEFAULT = [0,2,1,3]", `id="ed-settings"`)
 }
 
 func TestScoreWithChart(t *testing.T) {

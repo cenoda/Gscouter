@@ -21,6 +21,10 @@ type editData struct {
 	Team teamResult
 	// Members are the player's characters by chart slot.
 	Members [chart.Slots]enka.Character
+	// Order is the party as the player picked it: the chart slot at each
+	// position, which the number keys and the lanes follow until the
+	// player drags it into another order.
+	Order [chart.Slots]int
 	// Names are their gcsim keys, Defaults the library team's character
 	// params for each, by slot.
 	Names, Defaults [chart.Slots]string
@@ -163,6 +167,7 @@ func (s *Server) handleEdit(w http.ResponseWriter, r *http.Request) {
 	d.Rotation = config.RenameCharacters(tr.Team.Rotation, renames(tr.Team, tr.Chars))
 	d.LibraryPickup = strings.Contains(d.Rotation, "pick_up_crystallize")
 	d.Names, d.Defaults = chartSlots(tr.Team, tr.Chars)
+	d.Order = partyOrder(tr.Chars)
 	if tr.Team.Rotation == "" {
 		if t := s.templateFor(sel.Chars); t != nil {
 			d.Template = t
@@ -179,6 +184,21 @@ func (s *Server) handleEdit(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	s.render(w, l, "edit.html", d)
+}
+
+// partyOrder is the chart slot of each of chars, in their order.
+func partyOrder(chars []enka.Character) [chart.Slots]int {
+	var out [chart.Slots]int
+	slots := slotted(chars)
+	for i := range out {
+		out[i] = i
+	}
+	for i, c := range chars {
+		if i < chart.Slots {
+			out[i] = slices.IndexFunc(slots[:], func(s enka.Character) bool { return s.Key == c.Key })
+		}
+	}
+	return out
 }
 
 // chartSlots are the gcsim keys of a player's characters by chart slot,
