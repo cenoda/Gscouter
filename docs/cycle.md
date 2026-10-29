@@ -110,7 +110,27 @@ _2026-10-29._ Implemented.
 | 80–95% | 295 |
 | 95% or more | 96 |
 
-  Median 86%. What remains is energy: the swapped weapon gives no particles. A lower score there is the rule of design §2 ("managing ER is part of building"). The 12 under 50% get the warning. Two of them wait for a burst or skill in a loop (Alhaitham / Xingqiu / Yelan / Raiden, Tighnari / Collei / Fischl / Zhongli; §5.2); the other ten were not looked into further.
+  Median 86%. What remains is energy: the swapped weapon gives no particles. A lower score there is the rule of design §2 ("managing ER is part of building"). The 12 under 50% get the warning; why each falls is in §5.3.
+
+### 5.3 The 12 teams under 50%
+
+_2026-10-29._ Each team with its library build and with its Favonius weapons swapped (`config.SwapModWeapons`), `cmd/gscouter`, 50 iterations, fillers as on the site. Three causes:
+
+- **Fillers did not reach members written under an alias** (6 teams). The rotation names Chevreuse `chev`, Fischl `amy`, Ayaka `ayaka`, while the filler search is given the team's names (`chevreuse`, `fischl`, `kamisatoayaka`). `config.Fill` found no statement of that member to fill, so the run was the rotation as written, and the member stood still: Chevreuse waited 42 s/min on Fischl / Beidou / Xiangling / Chevreuse. Given the alias instead, two of the three fillers wrote a statement gcsim rejects (`chev ;`, from the skill forms keyed by party name). Fixed by matching names by gcsim key (`docs/fillers.md` §2):
+
+| Team | Kept before | Kept after |
+|---|---|---|
+| Tighnari / Collei / Fischl / Zhongli | 34% | 99% |
+| Klee / Furina / Citlali / Escoffier | 47% | 96% |
+| Mavuika / Xilonen / Bennett / Ayaka | 47% | 95% |
+| Neuvillette / Rosaria / Kazuha / Barbara | 50% | 83% |
+| Fischl / Beidou / Xiangling / Chevreuse | 29% | 82% |
+| Cyno / Chevreuse / Fischl / Xiangling | 29% | 52% |
+
+- **The team's bursts run on the Favonius particles** (5 teams), and the build has no Energy Recharge to replace them. Kaeya, Eula, Freminet and Escoffier with Citlali / Bennett / Xianyun (34–46%): every burst, Xianyun's above all, is paid for by Bennett's Favonius Sword; without it the best filler passes Xianyun's burst, and the plunges lose her buff (Kaeya 72.8k → 27.2k). Gaming / Rosaria / Chevreuse / Sucrose (46%): Rosaria cannot burst every rotation; filling the wait stretches the rotation (15 rotations in the fight instead of 24), and passing the burst costs the Cryo for Gaming's Melts (159 → 96). This is the rule of design §2: such a player needs more Energy Recharge.
+- **A loop that waits for a burst** (§5.2): Alhaitham / Xingqiu / Yelan / Raiden (24%), `while !.xingqiu.burst.ready { xingqiu attack; }`.
+
+Matching aliases also lowered one: Escoffier / Citlali / Bennett / Xianyun with Bennett off Favonius went from 42% to 34%. Its rotation writes `esco skill`; the cooldown filler listed for Escoffier did nothing before and now makes her attack until her skill is ready, which costs Xianyun's plunge window. The search always fills every cooldown wait it finds together with each energy filler, so it does not try the energy fillers without that one (`docs/fillers.md` §3).
 
 ### 5.2 Loops that wait for a burst
 
