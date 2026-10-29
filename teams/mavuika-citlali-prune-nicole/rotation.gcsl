@@ -1,0 +1,26 @@
+# KQM Prune quick guide, Prune / Mavuika / Citlali / Bennett:
+#   Mavuika E > Bennett EQ > Prune EQ > Citlali EQ > Mavuika Q combo
+# (C6 Prune outperforms C6 Sucrose there). Rotation of the harvested
+# Mavuika / Citlali / Sucrose / Nicole team (db.kqm.gg LcJMWMLG89j8),
+# with Prune's EQ in Sucrose's skill slot. Prune bursts when ready:
+# waiting for her burst every loop ends Mavuika's Nightsoul Blessing
+# before her skill recast.
+active mavuika;
+for let i=0; i<4; i=i+1 {
+  mavuika skill, attack;
+  delay(7);
+  nicole skill, attack;
+  prune skill;
+  if .prune.burst.ready {
+    prune burst;
+  }
+  citlali skill, burst, attack;
+  mavuika swap;
+  mavuika skill[recast=1], charge, dash, attack, charge;
+  mavuika burst;
+  delay(24);
+  mavuika charge:3, charge[hold=6], charge[final=1], dash;
+  mavuika charge:3, charge[hold=6], charge[final=1], dash;
+
+  mavuika charge, dash;
+}

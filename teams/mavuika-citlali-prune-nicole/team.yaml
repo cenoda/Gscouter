@@ -1,0 +1,24 @@
+id: mavuika-citlali-prune-nicole
+name: Mavuika / Citlali / Prune / Nicole
+members:
+    - mavuika
+    - citlali
+    - prune
+    - nicole
+archetype: Pyro Melt
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://keqingmains.com/q/prune-quickguide/
+    - https://db.kqm.gg/db/LcJMWMLG89j8
+notes: 'Written from the community guides (design §5.4; the community gcsim database has no entry with Prune and Mavuika). The KQM Prune quick guide lists Prune / Mavuika / Citlali / Bennett (Mavuika E > Bennett EQ > Prune EQ > Citlali EQ > Mavuika Q combo) and says C6 Prune outperforms C6 Sucrose there. Built on the harvested Mavuika / Citlali / Sucrose / Nicole team (db.kqm.gg LcJMWMLG89j8), with Prune in Sucrose''s place: Mavuika, Citlali and Nicole keep that team''s builds and actions, and Prune casts the guide''s EQ in Sucrose''s skill slot. Prune''s build (C6, the lowest constellation of any harvested Prune team; 4pc Viridescent Venerer, ATK%/ATK%/ATK%) is the harvested Varka / Prune / Mona / Furina team''s, with Oathsworn Eye R5, the guide''s best 4-star catalyst, for its Prototype Amber (116.1k one pass against 118.2k). Prune bursts when ready, about every other rotation: waiting for her burst every rotation ends Mavuika''s Nightsoul Blessing before her skill recast and stops the simulation. Against Mavuika / Citlali / Sucrose / Nicole (128.1k looped, with C6 Sucrose on Evenstar) Prune in Sucrose''s place loses about 9%, against the guide''s statement for the Bennett team; Mavuika deals 92% of the damage, so the gap is mostly Sucrose''s EM share and swirl RES shred on Mavuika.'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-29: the KQM Prune quick guide (team with Bennett, no DPS); the community gcsim database (no entry with Prune and Mavuika); GenshinBuilds Mavuika and Citlali team pages (no Prune team); web searches for Mavuika / Citlali / Prune / Nicole in English and Korean (no result).'
+validation:
+    date: "2026-10-29"
+    iterations: 100
+    kept: 0.982
+    dps: 116006
+    draft: no reference DPS
