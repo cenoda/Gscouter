@@ -1,6 +1,6 @@
 # Documents
 
-> Last updated: 2026-10-28
+> Last updated: 2026-10-29
 
 What each document is for, and the habits that keep them readable. These are conventions, not rules: follow them unless a document has a reason not to, and change them here when they stop fitting.
 
@@ -16,6 +16,7 @@ What each document is for, and the habits that keep them readable. These are con
 | `docs/fillers.md` | How the looped score fills a character's waits for energy or cooldowns, and what that changes |
 | `docs/fork.md` | The gcsim fork: how it is kept, regression runs, the characters and weapons on it |
 | `docs/characters/<name>.md` | One character on the fork: its implementation notes (source, frame data, known problems) and its written library teams |
+| `docs/discord.md` | The Discord server: channels, roles, the warning system and Aria's moderator commands (`aria/`) |
 | `docs/characters/first-batches.md` | The first written teams (Nefer, Linnea, Zibai, Iansan), recorded before characters had their own documents |
 
 `README.md` at the root covers running the site and the commands. `deploy/README.md` covers deployment. `.claude/skills/*/SKILL.md` are workflows for agents.

@@ -1,0 +1,28 @@
+name: aria
+
+# Tests for Aria's moderator commands (aria/, docs/discord.md §4). The Worker
+# itself is deployed by Cloudflare from main, not from here.
+on:
+  push:
+    branches: [main]
+    paths: ['aria/**', '.github/workflows/aria.yml']
+  pull_request:
+    paths: ['aria/**', '.github/workflows/aria.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: aria
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm test
+      - run: npx wrangler deploy --dry-run --outdir dist

@@ -1,0 +1,13 @@
+{
+  "name": "aria",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "deploy": "wrangler d1 migrations apply aria --remote && wrangler deploy",
+    "register": "node scripts/register.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "4.149.0"
+  }
+}

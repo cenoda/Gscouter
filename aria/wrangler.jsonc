@@ -1,0 +1,23 @@
+// Cloudflare Worker for Aria's moderator commands (docs/discord.md §4).
+// DISCORD_TOKEN is a secret set in the Cloudflare dashboard, never here.
+{
+  "name": "aria",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-01",
+  "vars": {
+    "APPLICATION_ID": "1565177430690365531",
+    "DISCORD_PUBLIC_KEY": "c478d20499c582305b62bbf1422219218e7499ef8d2d27afec295192edec55ee",
+    "GUILD_ID": "1565172297956851862",
+    "MOD_LOG_CHANNEL_ID": "1565189828562387037"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "aria",
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID",
+      "migrations_dir": "migrations"
+    }
+  ],
+  // Daily expiry of old warnings, 03:17 UTC.
+  "triggers": { "crons": ["17 3 * * *"] }
+}
