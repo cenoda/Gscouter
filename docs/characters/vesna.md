@@ -1,6 +1,6 @@
 # Vesna
 
-> Character on the gcsim fork (`docs/fork.md`) · Last updated: 2026-10-28
+> Character on the gcsim fork (`docs/fork.md`) · Last updated: 2026-10-29
 
 Vesna (5★ Anemo, 7.1). Upstream gcsim: no PR. Scored in the experimental tier (design §5.4); the fork's rules and regression runs are in `docs/fork.md`.
 
@@ -50,7 +50,7 @@ _2026-10-28, fork `b029c45`, all `status: draft`, 100 iterations._
 
 Players field Vesna with Vodyanitsa and any two of Odette, the Cryo Traveler, Diona, Qiqi, Faruzan, Sucrose, Lan Yan and Nicole, or with any three of them, so each combination with at least one Cryo member has a team: 22 with Vodyanitsa and 52 without, 71 of them here and three above (the premium team, the Faruzan team and the F2P team). A team without Cryo has no Stellar Swirl and is left out (a Vesna / Vodyanitsa / Faruzan / Nicole team, added earlier the same day at 28.9k, was removed). The library finds a team by its members in any order. A script wrote them by these rules:
 
-- Rotations follow the order of GameWith's Stellar Swirl rotations: Cryo supports (Odette E E, Cryo Traveler E N1C Q, Diona E (hold) Q, Qiqi E Q), then the others (Faruzan E C Q, Sucrose E, Lan Yan E Q, Nicole E Q, Vodyanitsa E), then Vesna's combo; every burst but Vesna's is cast when ready. Every member is one of GameWith's two Stellar Swirl teams or a substitute it lists for that slot (Cryo: Odette, Cryo Traveler, Diona, Qiqi; fourth slot: Vodyanitsa, Faruzan, Sucrose, Lan Yan, Qiqi); the KQM Vodyanitsa guide also has C6 Faruzan replace Odette or the Cryo Traveler, and its Odette / Faruzan / Vodyanitsa rotation is used as written (Odette Q > Faruzan Q > Odette E when her burst is ready, Faruzan E C Q > Odette 2[E] otherwise). No guide puts Nicole in a Stellar Swirl team; GameWith lists her as an ATK% buffer for Vesna's Anemo driver team, so she takes a support slot. Diona holds her skill (GameWith: tap or hold): it feeds her burst better (with Vodyanitsa and Faruzan, 112.8k tapped against 121.0k held, before Faruzan held Heart of the Furnace).
+- Rotations follow the order of GameWith's Stellar Swirl rotations: Cryo supports (Odette E E, Cryo Traveler E N1C Q, Diona E (hold) Q, Qiqi E Q), then the others (Faruzan E C Q, Sucrose E, Lan Yan E Q, Nicole E Q, Vodyanitsa E), then Vesna's combo; every burst but Vesna's is cast when ready. Since 2026-10-29 Nicole no longer bursts in 19 of the 22 teams with her (§2, Nicole's burst dropped). Every member is one of GameWith's two Stellar Swirl teams or a substitute it lists for that slot (Cryo: Odette, Cryo Traveler, Diona, Qiqi; fourth slot: Vodyanitsa, Faruzan, Sucrose, Lan Yan, Qiqi); the KQM Vodyanitsa guide also has C6 Faruzan replace Odette or the Cryo Traveler, and its Odette / Faruzan / Vodyanitsa rotation is used as written (Odette Q > Faruzan Q > Odette E when her burst is ready, Faruzan E C Q > Odette 2[E] otherwise). No guide puts Nicole in a Stellar Swirl team; GameWith lists her as an ATK% buffer for Vesna's Anemo driver team, so she takes a support slot. Diona holds her skill (GameWith: tap or hold): it feeds her burst better (with Vodyanitsa and Faruzan, 112.8k tapped against 121.0k held, before Faruzan held Heart of the Furnace).
 - Builds are the other Vesna teams': Odette, the Cryo Traveler, Vodyanitsa, C6 Diona, Sucrose; Faruzan the most common harvested C6 build (Favonius Warbow R4), Qiqi the Sandrone teams' (C6, Favonius Sword R3, Scroll; Witch's Revelation on, gcsim's default), Lan Yan the most common harvested one (C6, Sacrificial Fragments R5, Viridescent Venerer), Nicole the most common harvested one (C0, Oathsworn Eye R5, Celestial Gift). Heart of the Furnace's 4pc buff needs its holder to deal Stellar damage, so Odette holds it, else the Cryo Traveler, else the first Anemo support; with only Diona, Qiqi and Nicole beside Vesna nobody does.
 - Vesna's ER is whichever of 111%, 122%, 133% and 144% scores highest per team (each team's notes list all four): 111% in 47 teams, higher in 24, mostly teams with Sucrose or Qiqi.
 - Teams that keep under 80% of their one pass have Diona as their only steady Cryo source: without a Favonius holder beside her she bursts about every other rotation, and Vodyanitsa's Hydro or the Anemo swirls take over (with Vodyanitsa and Nicole, 143 Hydro Swirls against 66 Stellar Swirls in one run).
@@ -138,6 +138,44 @@ Without Vodyanitsa:
 | Diona / Sucrose / Lan Yan | 69.1k | 52.3k | 76% | 111% |
 | Diona / Lan Yan / Nicole | 71.8k | 40.2k | 56% | 111% |
 - Only team directories and this document changed, so no regression run was needed.
+### Nicole's burst dropped (2026-10-29)
+
+_Fork `b029c45`, looped scores with each team's `build.txt`, 100 iterations._
+
+A player's Vesna C2 / Odette C6 / Nicole C6 / Vodyanitsa C2 build (Odette Lv. 95 with Whitelake Frostfeather, Nicole with Angelos Heptades, Vodyanitsa with Hymn of the Maelstrom) scored 588k, and the player measured about 900k in the game.
+
+- **The burst cost the end of the combo.** Nicole's burst takes 1.9 s (113 frames), and Odette's Solo Dance Double lasts 21 s (1262 frames) from her skill at the start of the cycle. With the burst, Vesna's last Lv. 3 Windborne Sword finisher landed 0.08 s after the Dance Double ended and lost Odette's C2 and C6 buffs: 852k → 460k on that hit, with Odette's C4 hit after it also lower. The commenter who found it on arca.live had it right.
+- **The player's build, by rotation:** as written 588k; Odette's burst added (E, Q, E when it is ready) 595k; Nicole's burst dropped 633k; Nicole E > Vodyanitsa E > Odette E E 648k; Vodyanitsa E > Nicole E > Odette E E 656k. Casting Odette last keeps the whole combo inside the Dance Double, but gains only +0.5% to +1.1% with the C0 library build, and departs from GameWith's order (Cryo supports first), so it waits for rotations that depend on constellations (design §5.2).
+- **The rest of the gap is the measure.** In the same sim the best 15 s of the player's build deal 0.89–0.94M DPS (5 seeds), the best 10 s about 1.0M and the best 5 s about 1.4M, against 588k averaged over 150–450 s with the supports' setup included. A number measured over Vesna's combo alone matches 900k.
+- **Hotfix:** Nicole no longer bursts in the 19 teams where that also raises the C0 score, and keeps her burst in the 3 where it lowers it (rotation version 2 in the 19):
+
+| Team | With the burst | Without | Change |
+|---|---|---|---|
+| Vesna / Diona / Lan Yan / Nicole | 40.2k | 46.7k | +16.0% |
+| Vesna / Qiqi / Sucrose / Nicole | 77.3k | 83.9k | +8.5% |
+| Vesna / Diona / Sucrose / Nicole | 69.9k | 75.8k | +8.4% |
+| Vesna / Odette / Qiqi / Nicole | 117.6k | 126.4k | +7.5% |
+| Vesna / Vodyanitsa / Diona / Nicole | 64.0k | 67.3k | +5.1% |
+| Vesna / Odette / Lan Yan / Nicole | 90.3k | 94.5k | +4.6% |
+| Vesna / Diona / Qiqi / Nicole | 77.4k | 80.9k | +4.6% |
+| Vesna / Cryo Traveler / Lan Yan / Nicole | 60.4k | 63.1k | +4.5% |
+| Vesna / Odette / Faruzan / Nicole | 121.1k | 126.4k | +4.4% |
+| Vesna / Vodyanitsa / Odette / Nicole | 145.8k | 151.2k | +3.7% |
+| Vesna / Vodyanitsa / Cryo Traveler / Nicole | 101.1k | 104.7k | +3.5% |
+| Vesna / Cryo Traveler / Diona / Nicole | 73.3k | 75.9k | +3.5% |
+| Vesna / Cryo Traveler / Sucrose / Nicole | 71.8k | 73.6k | +2.5% |
+| Vesna / Odette / Cryo Traveler / Nicole | 114.1k | 116.6k | +2.2% |
+| Vesna / Cryo Traveler / Qiqi / Nicole | 84.1k | 85.8k | +2.0% |
+| Vesna / Qiqi / Faruzan / Nicole | 102.5k | 104.1k | +1.6% |
+| Vesna / Cryo Traveler / Faruzan / Nicole | 83.5k | 84.5k | +1.3% |
+| Vesna / Odette / Sucrose / Nicole | 108.4k | 109.4k | +0.9% |
+| Vesna / Qiqi / Lan Yan / Nicole | 60.0k | 60.2k | +0.3% |
+| Vesna / Diona / Faruzan / Nicole (kept) | 87.3k | 80.3k | -8.0% |
+| Vesna / Odette / Diona / Nicole (kept) | 115.8k | 113.8k | -1.7% |
+| Vesna / Vodyanitsa / Qiqi / Nicole (kept) | 102.1k | 101.3k | -0.8% |
+
+The table above (Stellar Swirl teams by support) still has the scores from before.
+
 ### Before the fork (checked 2026-10-26)
 
 - As of the latest gcsim `main` commit (`2350be9`, 2026-10-23), the Cryo Traveler (`travelercryo`) and Faruzan are implemented. Vesna and Vodyanitsa are not in the character list.

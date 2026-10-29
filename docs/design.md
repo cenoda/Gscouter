@@ -1,7 +1,7 @@
 # Gscouter Design Document
 
 > Status: Draft (prototype in progress)
-> Last updated: 2026-10-28 · Game version baseline: 7.1
+> Last updated: 2026-10-29 · Game version baseline: 7.1
 
 ## 1. Overview
 
@@ -264,6 +264,8 @@ validation:              # the last check (cmd/validate -promote, §5.3)
 - Character params the rotation assumes (e.g. Hu Tao `start_hp=1`) are stored in `team.yaml` and added to the player's build.
 - One rotation is used regardless of the user's build.
   - If an action can't be performed due to insufficient ER, rely on gcsim's wait/delay behavior and surface the delay as a warning.
+  - **Known limitation, urgent (2026-10-29): rotations that depend on constellations.** The best rotation can change with the build's constellations, and one rotation cannot serve both. A Vesna C2 / Odette C6 / Nicole C6 / Vodyanitsa C2 build scored 7–11% low because Nicole's burst pushed the end of Vesna's combo past Odette's Dance Double; dropping the burst helped that build and most C0 builds, so it was dropped in 19 of 22 teams, but the order that suits the C6 build best does little at C0 (`docs/characters/vesna.md` §2, Nicole's burst dropped).
+  - Needed: a team can carry rotation variants keyed by constellations (e.g. a variant for Odette C6 that casts her last), and the score uses the variant that matches the build, or runs the candidates and keeps the best, as the fillers do (`docs/fillers.md`). Each variant needs a source or a measured reason in `notes`, as a rotation does now (§5.4).
 - Aim for a near-optimal standard rotation for the team. Uneven rotation quality across teams is itself unfairness.
 
 ### 5.3 Addition workflow (automated)
@@ -404,6 +406,7 @@ Characters in the game that upstream gcsim lacks, with their state upstream and 
 
 ## 10. Next Steps
 
+0. **Urgent: rotations that depend on constellations** (§5.2). One rotation per team scores high-constellation builds too low when their best cycle differs (a Vesna team 10% low, 2026-10-29).
 1. ~~gcsim execution prototype~~ Done: `cmd/gscouter` scores a build file against a library team (see README).
 2. ~~Enka UID → gcsim config converter~~ Done (`internal/enka`). Artifact substats come from Enka's rounded display values; crit rate differs from Enka's final stats by under 0.1%p.
 3. ~~Website with versus view~~ Done (`cmd/server`, `internal/web`), deployed at https://gscouter.altsky.info (§4.6).

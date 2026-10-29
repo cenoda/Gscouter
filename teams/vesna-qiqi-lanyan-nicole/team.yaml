@@ -8,18 +8,18 @@ members:
 archetype: Stellar Swirl
 status: draft
 tier: experimental
-rotation_version: 1
+rotation_version: 2
 gcsim_commit: 2350be9
 gcsim_fork: b029c45
 sources:
     - https://gamewith.net/genshin-impact/article/show/77723
     - https://www.icy-veins.com/genshin-impact/vesna-guide-best-builds
-notes: 'Written from published Vesna guides (docs/characters/vesna.md; no KQM Vesna quick guide exists, and no community gcsim config with Vesna can exist while upstream gcsim lacks her). Written in the order of the GameWith Vesna team guide''s Stellar Swirl rotations (Cryo supports, then the other supports, then Vesna''s combo): Qiqi E Q > Lan Yan E Q > Nicole E Q > Vesna combo. GameWith''s Stellar Swirl teams are Vesna / Odette / Cryo Traveler / Vodyanitsa and Vesna / Cryo Traveler / Diona / Sucrose; for the Cryo slots it lists Odette, the Cryo Traveler, Diona and Qiqi, and for the fourth slot Vodyanitsa, Faruzan, Sucrose, Lan Yan and Qiqi. No guide puts Nicole in a Stellar Swirl team; GameWith lists her as an ATK% buffer for Vesna''s Anemo driver team, so she takes a support slot here. Qiqi, Lan Yan and Nicole burst when ready. Builds as in the other Vesna teams (build.txt). Lan Yan holds Heart of the Furnace (its 4pc buff needs its holder to deal Stellar damage). Vesna''s ER is the best of the four tried (looped: 111% 60.0k, 122% 58.1k, 133% 56.6k, 144% 55.8k): 111%. 65.7k one pass, 60.0k looped (kept 91%); Vesna 94%, Qiqi 3%, Lan Yan 1%, Nicole 2%. Known problems: every Vesna frame is estimated, and the published combos fit five Windborne Swords into 8 attacks where the fork''s data gives four (docs/characters/vesna.md).'
+notes: 'Written from published Vesna guides (docs/characters/vesna.md; no KQM Vesna quick guide exists, and no community gcsim config with Vesna can exist while upstream gcsim lacks her). Written in the order of the GameWith Vesna team guide''s Stellar Swirl rotations (Cryo supports, then the other supports, then Vesna''s combo): Qiqi E Q > Lan Yan E Q > Nicole E > Vesna combo. GameWith''s Stellar Swirl teams are Vesna / Odette / Cryo Traveler / Vodyanitsa and Vesna / Cryo Traveler / Diona / Sucrose; for the Cryo slots it lists Odette, the Cryo Traveler, Diona and Qiqi, and for the fourth slot Vodyanitsa, Faruzan, Sucrose, Lan Yan and Qiqi. No guide puts Nicole in a Stellar Swirl team; GameWith lists her as an ATK% buffer for Vesna''s Anemo driver team, so she takes a support slot here. Qiqi and Lan Yan burst when ready. Builds as in the other Vesna teams (build.txt). Lan Yan holds Heart of the Furnace (its 4pc buff needs its holder to deal Stellar damage). Vesna''s ER is the best of the four tried (looped: 111% 60.0k, 122% 58.1k, 133% 56.6k, 144% 55.8k): 111%. 65.7k one pass, 60.0k looped (kept 91%); Vesna 94%, Qiqi 3%, Lan Yan 1%, Nicole 2%. Nicole''s burst was dropped on 2026-10-29: its 1.9 s animation lengthened the cycle so that the end of Vesna''s combo fell outside the supports'' buffs. Looped score with build.txt 60.0k before, 60.2k without it; the numbers above are from before. Known problems: every Vesna frame is estimated, and the published combos fit five Windborne Swords into 8 attacks where the fork''s data gives four (docs/characters/vesna.md).'
 cross_check:
     note: 'No public number for this team. Searched 2026-10-28: GameWith and Icy Veins Vesna team and build guides (team lists, rotations, no DPS); the KQM Vodyanitsa quick guide (rotations, no DPS); Prydwen, Mobalytics, Game8, AllThingsHow and GenshinBuilds Vesna pages (ratings, no DPS for this team); the community gcsim database (no Vesna: upstream gcsim lacks her).'
 validation:
-    date: "2026-10-28"
+    date: "2026-10-29"
     iterations: 100
-    kept: 0.912
-    dps: 59966
+    kept: 0.828
+    dps: 60173
     draft: no reference DPS

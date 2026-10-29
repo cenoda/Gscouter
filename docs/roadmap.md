@@ -1,6 +1,6 @@
 # Gscouter Roadmap
 
-> Last updated: 2026-10-28
+> Last updated: 2026-10-29
 
 The design document (`docs/design.md`) describes the MVP: a team DPS score. This roadmap is where the site goes after it, drawn from the owner's mind map.
 
@@ -72,5 +72,7 @@ Status: ✅ done · 🔶 partly done · ❌ not started.
 | 5 | Imaginarium Theater | Spiral Abyss · Stygian Onslaught | ❌ | Character restrictions and many targets |
 
 ## Next
+
+**Urgent (2026-10-29): rotations that depend on constellations** (design §5.2, §10). The DPS node uses one rotation per team, and a build whose constellations call for another cycle scores too low (a Vesna team 10% low). This comes before every other node, since it is the score itself.
 
 Every ring-1 node can start now. faster DPS is paused (its row above), so it no longer has to go first: Tier & Wiki can start alongside Artifacts.
