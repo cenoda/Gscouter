@@ -17,6 +17,7 @@ import (
 	"os"
 	"path/filepath"
 	"slices"
+	"strings"
 	"time"
 
 	"github.com/cenoda/gscouter/internal/config"
@@ -59,6 +60,15 @@ const (
 	// common conditions does not play as written: the rotation depends on
 	// the source's own (several targets, targets that die, more energy).
 	promoteKeptMax = 1.3
+
+	// The score with the weapons whose mods the rotation reads swapped
+	// out (config.SwapModWeapons) keeps less than this of the score.
+	// Under failSwapKept the rotation waits for a weapon's passive that
+	// never comes: such loops kept 1-20% before config.GuardWeaponMods.
+	// Under warnSwapKept it depends on the energy the weapon's particles
+	// give, more than the fillers make up for (docs/cycle.md §5).
+	failSwapKept = 0.2
+	warnSwapKept = 0.5
 )
 
 type Settings struct {
@@ -109,8 +119,11 @@ type Report struct {
 	// ReferenceSkipped says why the one pass was not compared with a
 	// source DPS, for a rotation written from a guide (design §5.4).
 	ReferenceSkipped string
-	Failures         []string
-	Warnings         []string
+	// SwapKept is the score with the weapons whose mods the rotation
+	// reads swapped out, over the score; 0 when it reads no weapon mod.
+	SwapKept float64 `json:",omitempty"`
+	Failures []string
+	Warnings []string
 }
 
 // Line is one line of cmd/validate -json: a report and how the run
@@ -382,6 +395,7 @@ func looped(ctx context.Context, r *Report, build string, s Settings) {
 			}
 		}
 	}
+	swapWeapons(ctx, r, build, s)
 	if last := team.Validation; last != nil && last.DPS > 0 && res.DPS > 0 {
 		if shift := res.DPS/float64(last.DPS) - 1; math.Abs(shift) > warnShift {
 			r.Warnings = append(r.Warnings, fmt.Sprintf("the looped score moved %+.1f%% from %d DPS on %s", shift*100, last.DPS, last.Date))
@@ -399,6 +413,32 @@ func looped(ctx context.Context, r *Report, build string, s Settings) {
 				r.Warnings = append(r.Warnings, fmt.Sprintf("%s waits %.1fs/min (%s)", c.Name, w, reason))
 			}
 		}
+	}
+}
+
+// swapWeapons scores the team as the site does, with the weapons whose
+// mods its rotation reads swapped out, and fails a rotation that
+// collapses without them.
+func swapWeapons(ctx context.Context, r *Report, build string, s Settings) {
+	swapped, chars := config.SwapModWeapons(build, r.Team.Rotation)
+	if len(chars) == 0 || r.Res == nil || r.Res.DPS <= 0 {
+		return
+	}
+	out, err := steady.Score(r.Team.Rotation, r.Team.Members, func(looped string) (*score.Result, error) {
+		cfg := config.Assemble(config.Conditions{Iterations: s.Iterations, Duration: s.Duration}, swapped, looped)
+		return s.cache.Run(ctx, cfg, score.Options{Iterations: s.Iterations, Workers: s.Workers, Warmup: s.Warmup, Seed: 1})
+	})
+	if err != nil {
+		r.Failures = append(r.Failures, "looped simulation with weapons swapped: "+err.Error())
+		return
+	}
+	r.SwapKept = out.Result.DPS / r.Res.DPS
+	msg := fmt.Sprintf("with %s on other weapons the score keeps %.0f%%: the rotation depends on the reference build's weapons", strings.Join(chars, ", "), r.SwapKept*100)
+	switch {
+	case r.SwapKept < failSwapKept:
+		r.Failures = append(r.Failures, msg)
+	case r.SwapKept < warnSwapKept:
+		r.Warnings = append(r.Warnings, msg)
 	}
 }
 
