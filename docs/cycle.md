@@ -1,8 +1,8 @@
 # Cycle
 
-> Status: In progress (§5.1, §7 and §10 implemented) · Last updated: 2026-10-29
+> Status: In progress (§5.1 and §7 implemented) · Last updated: 2026-10-29
 
-Roadmap node Cycle (`docs/roadmap.md`): what the fixed rotation (design §5.2) does with builds other than the one it was written for, and where the score stops being trustworthy because of it. §5.1, §7 and §10 are implemented; §6 proposes the rest, §8 says what teams without an alternative still need, and §10 adds variants of a team's own rotation (Citlali C6 without her burst).
+Roadmap node Cycle (`docs/roadmap.md`): what the fixed rotation (design §5.2) does with builds other than the one it was written for, and where the score stops being trustworthy because of it. §5.1 and §7 are implemented; §6 proposes the rest, and §8 says what teams without an alternative still need.
 
 ## 1. The report
 
@@ -171,6 +171,16 @@ _2026-10-29._ For each of the 191 teams, every build it has (the library's and e
 - Mavuika teams, the alternative's build: Mavuika C6 on Mavuika / Chevreuse / Ororon / Bennett +17.4%, Mavuika / Yelan / Furina / Xilonen (all C6) +15.2%, the reported Mavuika / Citlali / Xilonen / Nicole (all C6) +9.3%, Raiden / Chevreuse / Mavuika / Sara (Raiden and Mavuika C2) +10.8%, Mavuika / Chasca / Citlali / Bennett (Chasca, Mavuika, Citlali C6) +69.3%.
 - **Cost**: on these 191 teams, the iterations simulated for a score grow by a median 1.64 times (mean 2.0–2.3), mostly the alternatives' filler searches at 10 iterations. The other 4,375 teams run as before.
 
+### 7.2 Variants
+
+_2026-10-29._ A variant is an alternative derived from the team's own rotation instead of a database entry, for a constellation the database has no entry for (§8): `variant: {drop: burst, char: <member>}` in its `team.yaml` (`library.Variant`), with the team's rotation minus that member's bursts (`config.DropBursts`) and the team's build with the member's constellation raised.
+
+- `cmd/variant -char <member> -cons <n> teams/...` scores each team's rotation and the variant on that build as the site does (looped, fillers, 200 iterations) and writes `alt/<member>-c<n>-no-burst/` as a draft only when the variant scores at least 1% more (`-min`), with both scores in `notes`. `cmd/validate -promote` then checks it like any alternative, except that it has no source DPS: the reference check is skipped ("variant of the team's rotation"), and the other criteria for supported apply.
+- Unlike a database alternative, the score tries a variant only for builds that reach the constellations its build raises (`library.Team.RotationsFor`): it costs nothing for other builds and cannot win by ranking noise there.
+- `cmd/harvest -alternatives` keeps variants when it replaces a team's alternatives.
+- The result says that the score uses the team's rotation without that member's burst and the constellations it was made for; the library team page lists it.
+- In the library: Citlali C6 without her burst, on 40 teams (`docs/characters/citlali.md`).
+
 ## 8. Teams without alternatives
 
 _2026-10-29._ Alternatives (§7) come only from database entries. Of the 4,566 library teams that are not blocked, **4,375 have none**:
@@ -205,20 +215,3 @@ The characters whose higher constellations changed the rotation most in §3, wit
 Not usable: a high-constellation rotation of another team. A rotation names all four members and times its actions on them, so moving it to another party is writing a new rotation, which design §5.4 allows only from a guide.
 
 Since the score keeps the best rotation, an added alternative cannot lower a build's score (beyond the noise of ranking on fewer iterations); what it costs is the time of its runs (§7).
-
-## 10. Variants: Citlali C6 without her burst
-
-_2026-10-29._ A community report says a C6 Citlali does not use her burst. §4 found that dropping it lowered Mavuika / Citlali / Xilonen / Nicole on every build. Measured over the whole library:
-
-- **Measurement.** For each of the 180 library teams whose rotation has Citlali's burst (221 Citlali teams, 41 without it), the team's rotation and the same rotation without Citlali's bursts, each scored as the site does (looped, fillers, 200 iterations), with the library build and with that build at Citlali C6. Change from dropping the burst:
-
-| Build | Teams | Median | Over +5% | +1% to +5% | Within 1% | Under −1% | Under −10% |
-|---|---|---|---|---|---|---|---|
-| The library's (Citlali mostly C0) | 180 | −14.4% | 0 | 13 | 13 | 154 | 102 |
-| The library's at Citlali C6 | 180 | −3.5% | 22 | 18 | 23 | 117 | 41 |
-
-- So the report holds for some teams only, and the carry does not decide which: of 13 Gaming teams, 6 gain at C6 and the median is −14.9%. Largest gains: Escoffier / Citlali / Bennett / Xianyun +31.7%, Gaming / Citlali / Nicole / Xianyun +26.2%, Mavuika / Citlali / Charlotte / Bennett +24.8%, Diluc / Citlali / Escoffier / Bennett +19.9%. Largest losses: Gaming / Citlali / Chevreuse / Diona −48.8%, Mavuika / Citlali / Chongyun / Bennett −43.9%, the Arlecchino teams about −33%. In gcsim, C6 starts Opal Fire from her skill alone (no 50 Nightsoul points needed), so the burst is not needed for it; what it still brings is its Cryo (Melt, Citlali's RES shred) against its time on field.
-- **Variants.** A variant is an alternative (§7) derived from the team's own rotation instead of a database entry: `variant: {drop: burst, char: citlali}` in its `team.yaml` (`library.Variant`), with the team's rotation minus that member's bursts (`config.DropBursts`) and the team's build with her constellation raised. It has no source DPS: `cmd/validate` skips the reference check ("variant of the team's rotation") and applies the other criteria for supported. `cmd/variant -char citlali -cons 6 teams/...` measures each team as above and writes `alt/citlali-c6-no-burst/` only when the variant scores at least 1% more (`-min`), with both scores in `notes`. `cmd/harvest -alternatives` keeps variants when it replaces a team's alternatives.
-- **Only for the constellations it was made for.** Unlike a database alternative, the score tries a variant only when the build reaches the constellations its build raises (`library.Team.RotationsFor`): a C0–C5 Citlali never runs it, so it costs nothing there and cannot win by ranking noise.
-- **Run of 2026-10-29**: 40 variants written (gains +1.2% to +31.7%, median +5.5%); `cmd/validate -promote` made 39 supported, and Gaming / Citlali / Sucrose / Bennett stays draft (looped score 140% of one pass, over 130%). Mavuika / Citlali / Xilonen / Bennett got none: at Citlali C6 its own rotation stops with a gcsim error on one seed ("cannot recast E while not in nightsoul blessing"); at 100 iterations the variant scored −22%.
-- On the site, a C6 Citlali player of these teams gets the variant when it scores higher; the result says the score uses the team's rotation without her burst, made for C6 Citlali, and the library team page lists it.

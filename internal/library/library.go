@@ -111,7 +111,7 @@ type Team struct {
 	// rotation instead of taken from a community config: what it changes.
 	// It has no source DPS; cmd/variant measured that it scores higher
 	// with its build, and the score tries it only for builds with the
-	// constellations it was made for (RotationsFor, docs/cycle.md §10).
+	// constellations it was made for (RotationsFor, docs/cycle.md §7.2).
 	Variant *Variant `yaml:"variant,omitempty"`
 	// Reference is what the source config scored with its own build. The
 	// validator checks that the library reproduces it.

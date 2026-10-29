@@ -1,5 +1,5 @@
 // Command variant derives alternatives from teams' own rotations
-// (library.Variant, docs/cycle.md §10): for each team given, it takes a
+// (library.Variant, docs/cycle.md §7.2): for each team given, it takes a
 // member's bursts out of the team's rotation, raises that member's
 // constellation in the team's build, and scores both rotations with that
 // build as the site does (looped, with fillers). When the changed
@@ -126,7 +126,7 @@ func derive(dir, name string, v library.Variant, cons int, minGain float64, iter
 	alt.Validation = nil
 	alt.Reference = nil
 	alt.CrossCheck = nil
-	alt.Notes = fmt.Sprintf("The team's rotation without %s's %s, for %s C%d (cmd/variant, docs/cycle.md §10). With the team's build at %s C%d it scores %.0f DPS against %.0f with the team's rotation (%+.1f%%, looped with fillers, %d iterations, %s).",
+	alt.Notes = fmt.Sprintf("The team's rotation without %s's %s, for %s C%d (cmd/variant, docs/cycle.md §7.2). With the team's build at %s C%d it scores %.0f DPS against %.0f with the team's rotation (%+.1f%%, looped with fillers, %d iterations, %s).",
 		v.Char, v.Drop, v.Char, cons, v.Char, cons, dps, own, gain*100, iterations, time.Now().Format(time.DateOnly))
 	meta, err := yaml.Marshal(&alt)
 	if err != nil {
