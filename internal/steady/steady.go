@@ -171,7 +171,9 @@ type Rotation struct {
 // true) and may be cheaper. Ranked outcomes are confirmed with a full
 // run from the best down until one beats the full first run, which
 // stands otherwise, as fillers ranked on fewer iterations can come out
-// below it. A rotation after the first that fails to run is left out.
+// below it. A rotation that fails to run is left out: an alternative
+// gcsim rejects, or the team's own when a constellation breaks it (a
+// C6 Chasca's aim), as long as another rotation runs.
 func Best(rotations []Rotation, run func(i int, looped string, rank bool) (*score.Result, error)) (int, *Outcome, error) {
 	type scored struct {
 		i    int
@@ -180,6 +182,7 @@ func Best(rotations []Rotation, run func(i int, looped string, rank bool) (*scor
 	}
 	var all []scored
 	var first *Outcome
+	var firstErr error
 	for i, r := range rotations {
 		out, err := Score(r.Rotation, r.Members, func(looped string) (*score.Result, error) {
 			full := i == 0 && first == nil
@@ -190,14 +193,20 @@ func Best(rotations []Rotation, run func(i int, looped string, rank bool) (*scor
 			return res, err
 		})
 		if err != nil {
-			if i == 0 || isFatal(err) {
+			if isFatal(err) {
 				return 0, nil, err
+			}
+			if i == 0 {
+				firstErr = err
 			}
 			continue
 		}
-		all = append(all, scored{i, out, out.Result == first.Result})
+		all = append(all, scored{i, out, first != nil && out.Result == first.Result})
 	}
-	if !all[0].full {
+	if len(all) == 0 {
+		return 0, nil, firstErr
+	}
+	if first != nil && !all[0].full {
 		all = append(all, scored{0, first, true})
 	}
 	slices.SortStableFunc(all, func(a, b scored) int { return cmp.Compare(b.out.Result.DPS, a.out.Result.DPS) })
@@ -212,11 +221,14 @@ func Best(rotations []Rotation, run func(i int, looped string, rank bool) (*scor
 			}
 			continue
 		}
-		if res.DPS > first.Result.DPS {
+		if first == nil || res.DPS > first.Result.DPS {
 			out := *s.out
 			out.Result = res
 			return s.i, &out, nil
 		}
+	}
+	if first == nil {
+		return 0, nil, firstErr
 	}
 	return 0, first, nil
 }

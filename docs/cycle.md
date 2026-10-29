@@ -135,6 +135,21 @@ _2026-10-29._ (2) of §6, implemented.
 - **The score** (`steady.Best`, used by the site and `cmd/gscouter`) runs the build with the team's rotation and with each supported alternative, each with its fillers. As before, only the first run of the team's own rotation uses the full iterations and the rest rank with 10; the best ranked run is then confirmed with the full iterations, and if it does not beat the team's own rotation as written, the next is tried, down to that one. An alternative gcsim rejects is left out.
 - The result says when an alternative scored, with the constellations it was written for and its source; the library team page lists the alternatives. `cmd/validate` checks each alternative after its team, so CI covers them.
 - Mavuika: 15 teams have an alternative, mostly from all-C6 entries, among them the reported Mavuika / Citlali / Xilonen / Nicole (§3.1) with its C6 entry `npQhNPRFDqhn`.
+- A rotation that fails to run is left out, the team's own included, as long as another one runs. With a C6 Chasca, the library rotations of most Chasca teams stop with a gcsim error (§8); the team's alternative then scores the build instead of the score failing (Chasca / Citlali / Nicole / Durin with its C6 entry's build: an error before, 1.85M with the alternative).
+
+### 7.1 What it changes
+
+_2026-10-29._ For each of the 191 teams, every build it has (the library's and each alternative's own) was scored as the site does (`steady.Best`: fillers, 10 iterations to rank, 50 to confirm; 450 s fight, the first 150 s excluded), once with the team's rotation alone and once with all its rotations. 394 builds; 3 are left out (two C6 Chasca builds whose team rotation fails, now scored as above, and one Traveler build the measuring tool did not rename), and one whose team rotation scores 0 (Mualani / Chiori / Xiangling / Xilonen with its C6 entry's build: 78.9k with the alternative).
+
+| Build | Builds | Median | Mean | Over +5% | Over +20% | Under −1% | Alternative scored |
+|---|---|---|---|---|---|---|---|
+| The library's | 191 | **+0.0%** | +1.1% | 15 | 2 | 0 | 24 |
+| An alternative's own | 203 | **+13.7%** | +24.8% | 149 | 70 | 0 | 170 |
+
+- No build scores lower: the team's rotation is still run and kept unless an alternative beats it in a full run.
+- The largest gains are where the team's rotation breaks down with the constellations, rather than merely fitting them less well: Clorinde / Mavuika / Ororon / Chevreuse with Clorinde and Mavuika C6, 52k with the library rotation (below its 99k with the library build) and 450k with the alternative; Kazuha / Furina / Nahida / Bennett with Furina C6, +187%; Furina C6 teams generally +100% or more (§3).
+- Mavuika teams, the alternative's build: Mavuika C6 on Mavuika / Chevreuse / Ororon / Bennett +17.4%, Mavuika / Yelan / Furina / Xilonen (all C6) +15.2%, the reported Mavuika / Citlali / Xilonen / Nicole (all C6) +9.3%, Raiden / Chevreuse / Mavuika / Sara (Raiden and Mavuika C2) +10.8%, Mavuika / Chasca / Citlali / Bennett (Chasca, Mavuika, Citlali C6) +69.3%.
+- **Cost**: on these 191 teams, the iterations simulated for a score grow by a median 1.64 times (mean 2.0–2.3), mostly the alternatives' filler searches at 10 iterations. The other 4,375 teams run as before.
 
 ## 8. Teams without alternatives
 
@@ -164,6 +179,8 @@ The characters whose higher constellations changed the rotation most in §3, wit
 1. **Say what the rotation assumes** (§6, (3)). The result names the constellations the rotation was written for and notes when a member of the build is higher: "This rotation was written for C0 Furina; a C6 Furina plays differently, and the score may be low." It does not raise the score, but it stops a low score from passing as the build's worth. Covers every team, and costs one comparison of constellations per member (`library.Team.Constellations`).
 2. **More database entries.** `cmd/harvest -alternatives` picks up any entry the database gains at higher constellations, with no code change. High-constellation configs submitted to the database (db.kqm.gg) for the characters above become alternatives on the next run.
 3. **Alternatives written from a guide** (§6, (4)). For a constellation that changes a role (Furina C6, Neuvillette, Citlali C6, Mavuika C1–C2 riding longer), a rotation written from a published community guide under the rules of design §5.4, stored as an alternative. It needs: alternatives without a source DPS when written (`sources` and a `cross_check` note, as a written team), validation as for a written team, and review by a person before it is `supported`, as for any experimental team. One archetype at a time, from the characters above.
+
+**Rotations that fail at higher constellations.** _2026-10-29._ Found while measuring §7.1: a rotation can stop with a gcsim error at a constellation it was not written for, and the score then fails instead of scoring low. With Chasca at C6 (the library build otherwise unchanged), **128 of the 145 Chasca teams without an alternative fail**: 127 with "bullets must be 6 when c6 instant charge is active" (their rotation aims with fewer bullets, which gcsim rejects once C6 makes the charge instant), 1 with "chasca jump in nightsoul blessing not implemented". A team with an alternative falls back to it (§7). These need either a rewrite of the failing action for the build's constellations, as weapon passives are rewritten (§5.1), or the ways above; other characters were not swept.
 
 Not usable: a high-constellation rotation of another team. A rotation names all four members and times its actions on them, so moving it to another party is writing a new rotation, which design §5.4 allows only from a guide.
 

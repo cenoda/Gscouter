@@ -142,8 +142,8 @@ func TestBestConfirmsWithFullRuns(t *testing.T) {
 	}
 }
 
-// An alternative gcsim rejects is left out; the team's own rotation
-// failing fails the score.
+// A rotation gcsim rejects is left out, the team's own included; the
+// score fails only when none runs.
 func TestBestSkipsFailedAlternative(t *testing.T) {
 	rotations := []Rotation{
 		{"active a;\na skill;\n", []string{"a"}},
@@ -160,7 +160,10 @@ func TestBestSkipsFailedAlternative(t *testing.T) {
 	if i, _, err := Best(rotations, fail(1)); err != nil || i != 0 {
 		t.Errorf("got rotation %d, error %v; want 0 without error", i, err)
 	}
-	if _, _, err := Best(rotations, fail(0)); err == nil {
-		t.Error("want an error when the team's own rotation fails")
+	if i, out, err := Best(rotations, fail(0)); err != nil || i != 1 || out.Result.DPS != 100 {
+		t.Errorf("got rotation %d, error %v; want 1 without error", i, err)
+	}
+	if _, _, err := Best(rotations[:1], fail(0)); err == nil {
+		t.Error("want an error when no rotation runs")
 	}
 }
