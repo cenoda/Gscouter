@@ -1,0 +1,23 @@
+id: cyno-odette-qiqi-nicole
+name: Cyno / Odette / Qiqi / Nicole
+members:
+    - cyno
+    - odette
+    - qiqi
+    - nicole
+archetype: Stellar-Conduct
+status: draft
+tier: experimental
+rotation_version: 1
+gcsim_commit: 2350be9
+sources:
+    - https://gamewith.net/genshin-impact/article/show/38317
+notes: 'Written from GameWith''s Best Teams For Cyno, Stellar-Conduct team (design §5.4; updated 2026-10-28): Odette E (Q) > Qiqi E Q > Nicole E Q > Cyno E Q, then normal attacks with his skill whenever Judication is ready. Odette casts her skill twice, as in the KQM Odette quick guide''s rotations (2[E], placing her Dance Double; with one skill she deals 3% of the damage and the looped score is 59.6k against 67.8k), and skips her optional burst, as that guide advises. Cyno stays on field while Pactsworn Pathclearer lasts. Needs Cyno''s Witch''s Revelation (upstream PR #3250, on the fork; gcsim''s default revelation=1): inside a Polestar Field his Duststalker Bolts become Starsame bolts, 200% ATK plus 600% EM as Stellar-Conduct DMG, and his skill outside the burst grants 6 s of Pactsworn Pathclearer. Cyno: C0, Staff of the Scarlet Sands R1, 4pc Disenchantment in Deep Shadow, EM/EM/CRIT Rate, KQM-standard substats (the GameWith, GenshinBuilds and AllThingsHow guides'' best). Odette and Qiqi (C6) as in the Sandrone teams, Nicole as in the Vesna teams (GameWith suggests Angelos'' Heptades and Noblesse Oblige).'
+cross_check:
+    note: 'No public number for this team. Searched 2026-10-29: the KQM Odette quick guide (teams and rotations, no DPS, no gcsim links); GameWith, GenshinBuilds, AllThingsHow, Gaming ProMax, Icy Veins and Prydwen Cyno pages (mechanics, builds and ratings only); the community gcsim database (6,021 entries: none with Cyno and Odette, Sandrone or the Cryo Traveler); upstream gcsim PR #3250 (no sample config).'
+validation:
+    date: "2026-10-29"
+    iterations: 100
+    kept: 0.861
+    dps: 67303
+    draft: no reference DPS
