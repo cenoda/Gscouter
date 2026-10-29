@@ -39,7 +39,8 @@
 .ed-svg .cyc-l { font-size: 11px; fill: var(--muted); font-weight: 600; }
 .ed-svg .rep { fill: none; stroke: var(--gold); stroke-width: 2; }
 .ed-svg .rep-l { font-size: 11px; font-weight: 700; fill: var(--gold); }
-.ed-svg .ph { stroke: var(--accent); stroke-width: 2; } .ed-svg .ph-cap { fill: var(--accent); }
+.ed-svg .ph { stroke: var(--accent); stroke-width: 2; }
+.ed-svg .link { fill: var(--muted); fill-opacity: .22; } .ed-svg .ph-cap { fill: var(--accent); }
 .ed-tools { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; min-height: 36px; }
 .ed-tools .lbl { font-size: .85rem; color: var(--muted); margin-right: 4px; }
 .ed-chip { padding: 6px 11px; border-radius: 999px; background: var(--accent-soft); color: var(--text); font-size: .85rem; font-weight: 500; border: 1px solid transparent; }
@@ -430,6 +431,14 @@
       var last = plays[plays.length - 1], x1 = X(a.t) - 10, x2 = X(last.t + last.len) + 4;
       s += '<path class="rep" d="M' + x1 + ' ' + (RULER - 12) + ' V' + (RULER - 18) + ' H' + x2 + ' V' + (RULER - 12) + '"/><text class="rep-l" x="' + (x1 + 4) + '" y="' + (H - 6) + '">×' + r.times + '</text>';
     });
+    // When the playhead is away from the selected note (it was the last
+    // note of a repeat, whose plays come first), a gray highlighter band
+    // on its lane joins the two, so the note does not lose its playhead.
+    var ph = playhead(pl), picked = sel !== null && rangeEnd === null ? pl.first[sel] : null;
+    if (picked && Math.abs(X(ph) - X(picked.t)) > 16) {
+      var x1 = Math.min(X(ph), X(picked.t)), x2 = Math.max(X(ph), X(picked.t));
+      s += '<rect class="link" x="' + x1 + '" y="' + (mid(st.notes[sel].s) - LANE * .3) + '" width="' + (x2 - x1) + '" height="' + LANE * .6 + '" rx="' + LANE * .3 + '"/>';
+    }
     var bad = P && P.error ? P.error.note : -1;
     pl.list.forEach(function (e) {
       var n = st.notes[e.p.note];
@@ -441,7 +450,6 @@
       // No preview yet: the notes in order, one per half second.
       st.notes.forEach(function (n, i) { s += noteSVG(n, i, 0.5 + i * 0.5, 0, ""); });
     }
-    var ph = playhead(pl);
     s += '<line class="ph" x1="' + X(ph) + '" x2="' + X(ph) + '" y1="2" y2="' + H + '"/><path class="ph-cap" d="M' + (X(ph) - 6) + ' 2 H' + (X(ph) + 6) + ' L' + X(ph) + ' 10 Z"/>';
     var svg = $("ed-svg");
     svg.setAttribute("width", W); svg.setAttribute("height", H); svg.setAttribute("viewBox", "0 0 " + W + " " + H);
