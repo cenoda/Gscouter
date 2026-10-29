@@ -14,7 +14,7 @@ func TestClassify(t *testing.T) {
 		{"differ once", map[string]int{"x": 1}, map[string]int{"y": 1}, 1, 1, diff},
 		{"repeats on one side", map[string]int{"x": 20}, map[string]int{"y": 20}, 20, 20, regression},
 		{"repeats twice", map[string]int{"x": 18, "y": 2}, map[string]int{"x": 20}, 20, 20, regression},
-		// The Klee / Citlali / Xilonen / Xianyun case (design §5.4).
+		// The Klee / Citlali / Xilonen / Xianyun case (docs/fork.md §2).
 		{"seen once", map[string]int{"x": 19, "y": 1}, map[string]int{"x": 20}, 20, 20, nondeterministic},
 		{"one side run once", map[string]int{"y": 1}, map[string]int{"x": 20}, 1, 20, diff},
 	} {

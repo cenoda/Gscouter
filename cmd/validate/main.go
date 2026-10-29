@@ -30,12 +30,12 @@
 // same gcsim (score.Cache): a rerun simulates only the teams that
 // changed. Seeds are fixed, so a cached result is the one a new run
 // would give; -cache "" turns it off, as when looking for
-// nondeterminism (design §5.4).
+// nondeterminism (docs/fork.md §2).
 //
 // -shard k/n checks every n-th team from the k-th on, so one run can be
 // split across machines or sessions; -json writes each report as one
 // JSON line, in team order, for cmd/compare to compare runs (the
-// regression run, design §5.4) or join shards.
+// regression run, docs/fork.md §2) or join shards.
 package main
 
 import (

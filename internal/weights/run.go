@@ -65,7 +65,7 @@ type Result struct {
 // Team calculates the weights of the team in dir. Every simulation
 // uses seed 1 and the same iterations, so the variants share the
 // reference's luck, and runs the looped rotation the reference scored
-// best with, fillers included (design §9), so that a small change
+// best with, fillers included (design §3.1), so that a small change
 // cannot switch fillers.
 func Team(ctx context.Context, dir string, s Settings) *Result {
 	start := time.Now()

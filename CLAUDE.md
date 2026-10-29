@@ -1,6 +1,6 @@
 # Gscouter
 
-Genshin Impact team DPS calculator. See `docs/design.md` for the design.
+Genshin Impact team DPS calculator. See `docs/design.md` for the design and `docs/README.md` for the documents and how they are kept.
 
 ## Conventions
 
