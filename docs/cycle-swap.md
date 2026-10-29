@@ -50,7 +50,33 @@ Recording first, marking the notes that came from an `if` (the wrapping evaluato
 
 ## 5. Prior art
 
-(§5 is filled from the web research below.)
+_2026-10-29._ A web search plus a reading of the gcsim source. Little turned up for most rhythm editors (Quaver, ArrowVortex, Arcaea, Phigros, DJMAX, Muse Dash): no usable documentation was found.
+
+**Rotation tools**
+- **gcsim.app**: rotations are text only (`ui/packages/editor` is a code editor with diagnostics). Its sample viewer (`ui/packages/components/src/SampleLog/timeline/`) is read-only and close to our timeline. It has one lane per character, events as chips at a frame, status spans, and on-field stints. gcsim's docs list each character's legal actions and parameters as JSON (`ui/packages/docs/src/components/Actions/character.dm.json`, e.g. `{ability:'charge', note:'Need to use attack right before charge.'}`). That list could feed the editor's action palette (§6, parameters).
+- **ClickySim** (Chrome extension on Genshin Optimizer, about 2 users): buttons (Normal, Charged, Skill, Burst, Dash, Jump) append to a sequential list. It runs gcsim WASM and exports a config. This is the only click-to-build gcsim UI found, and no user feedback on it was found.
+- **RuneScape Wiki Rotation Builder** (https://tools.runescape.wiki/rs-rot/rotation_builder_guide): the closest analogue. It uses a bar of fixed ticks:
+  - Clicking an ability puts it in the next free slot, and right-clicking removes it.
+  - Dragging places an ability on a chosen tick.
+  - Its tools are Stall, Null and Insert (Insert shifts later ticks), each on one key.
+  - Cooldown-ready ticks get an icon, and buffs show as bars under the timeline. Clicking a tick shows its damage.
+- **fribbels hsr-optimizer** "Rotation Combo": a grid with the ability sequence as columns and buffs or conditions as rows, and you drag-paint which buff is on for which action. It has no time axis. The pattern fits buff lanes.
+- **FFXIV, WoW**: xivgear and SimC/Raidbots take rotations as code or text. Mitigation planners (LoPo) place skills at absolute times and show recast bars. XIV Rotation Hero has drag-drop and "repeatable steps". No planner that snaps to GCD slots was found.
+
+**Chart editors**
+- **osu!**: the beat-snap divisor, a fixed playhead with the timeline scrolling under it, number keys for tools (select, note, hold), and click-hold to place a hold note and drag its length.
+- **Beat Saber / ChroMapper**: notes are always placed at the playhead. The wheel steps by the snap, and Ctrl+wheel changes the snap.
+- **ADOFAI**: the one *sequential* chart editor. Tiles are typed in order, and each tile's angle sets the time to the next. Time follows from the sequence, as in gcsim (§2), which makes it the structural model.
+- Pain point in osu! forums: there is no way to repeat a pattern across similar sections, so mappers use outside tools. Repeating a block should be built in, and the loop (§2, `for`) already is one.
+
+**What gcsim gives an editor** (source): an action's length is a per-character cancel table indexed by the next action. It is adjusted by state and stretched by hitlag. A not-ready action is not rejected: the loop re-checks it every frame and logs the failure (`swap_cd`, `skill_cd`, `burst_cd`, `insufficient_energy`, `insufficient_stamina`, `dash_cd`). So there are no static note lengths, and energy depends on random particles. The editor must simulate: one seeded run per edit, notes drawn from the action frames, waits from the failures (as `internal/timeline` does now). Cooldown bars can come from gcsim's sample events (`pkg/simulator/sample.go`).
+
+**Conclusion for the design**
+- Notes go in order, ADOFAI-style, and the simulation decides where they land.
+- Placement is the next free slot, RuneScape-style: tap an action, it is appended at the playhead. Insert and delete shift later notes.
+- One key per action. Hold and optional are note modifiers.
+- A block repeats as a first-class operation.
+- A refused note shows as the wait in front of it.
 
 ## 6. Open questions
 
