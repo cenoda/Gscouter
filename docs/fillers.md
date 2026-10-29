@@ -1,6 +1,6 @@
 # Fillers
 
-> Status: Implemented (`internal/steady`, `config.Fill`) · Last updated: 2026-10-28
+> Status: Implemented (`internal/steady`, `config.Fill`) · Last updated: 2026-10-29
 
 What a character does when the looped rotation (design §3.1) makes it stand still, waiting for burst energy or a skill cooldown. The score keeps the best of the rotation as written and the filled runs, so a filler can only raise a score.
 
@@ -17,6 +17,7 @@ What a character does when the looped rotation (design §3.1) makes it stand sti
 - **brief**, tried only on the best run once the search is done: for the characters whose energy that run handles (all of them, then each alone), skills as in **party skills**, at most 2 attacks, then the burst is passed if still not ready. A player swaps out rather than stand on a support until its burst charges: a low-ER Ineffa filling with party skills attacked up to 10 times a cycle on field (Ayato / Columbina / Lauma / Ineffa, all ER substats removed: 28 attacks in 2 minutes), where she is played with two skills to a burst; brief, she attacks 6 times and the team scores 97.7k instead of 94.4k. Tried as a fourth way in the search, it crowded the search's own runs out of the 16-run budget of the time and lowered 58 library teams (Hu Tao / Yelan / Chevreuse / Furina −19%); capping the attacks of every filler instead lowered 357 (Mavuika / Escoffier / Kaeya / Bennett −40%: a main DPS should attack until its burst is ready). Tried after the search it can only raise a score: on the library builds (2026-10-28) 117 teams rose (mean +1.5%, Bennett / Furina / Jean / Mona +45%) and none fell. A near tie still goes to the higher score, so a support can still stand on field when that scores higher by noise (Varesa / Furina / Ineffa / Xilonen, ER removed: Ineffa's 22 attacks win by 0.05%).
 - In every variant a character waiting for its skill's cooldown attacks meanwhile (at most 30 attacks).
 - A filler uses each member's skill as the rotation first writes it: its parameters (hold or tap) and the plunges that follow it (Kazuha, Xianyun). Burst-reset skills such as Kazuha C1 come from gcsim.
+- A member written under one of gcsim's aliases (`chev`, `amy`, `xl`, `esco`) is matched by gcsim key, and its filled statements are written under the team's name for it. Until 2026-10-29 such a member was never filled: the search is given the team's names, `config.Fill` found none of that member's statements, and the run was the rotation as written. 765 library teams (755 supported) write a member that way, most often Fischl as `amy` (146), Escoffier as `esco` (111) and Chevreuse as `chev` (95). The effect on six teams with Favonius weapons swapped out: `docs/cycle.md` §5.3.
 
 ## 3. The search
 
