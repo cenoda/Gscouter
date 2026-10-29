@@ -41,6 +41,9 @@ type Outcome struct {
 	Skill  []string
 	// Looped is the rotation that scored best, as run.
 	Looped string
+	// written is true when the rotation's own waits for a burst ran as
+	// written (see Score).
+	written bool
 }
 
 // energyFillers are the ways Score tries for each character that waits
@@ -66,6 +69,12 @@ const maxBriefRuns = 4
 // are several, each one alone. Follow-ups that handle all of them go
 // first, then those of better runs, and at most maxRuns rotations run in
 // all.
+//
+// The first run bounds the rotation's own loops that attack until a
+// burst is ready (config.WaitLoops), which gcsim does not count as
+// waits; the rest of the wait then shows. The rotation as written is
+// tried next, and its follow-ups keep those loops as written: what
+// scored best before the loops were bounded stays in reach.
 func Score(rotation string, members []string, run func(looped string) (*score.Result, error)) (*Outcome, error) {
 	looped, err := Looped(rotation, members)
 	if err != nil {
@@ -82,9 +91,10 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 		skill    []string
 		single   bool    // handles one of several members
 		priority float64 // DPS of the run it follows up
+		written  bool    // the rotation's waits for a burst run as written
 	}
 	var queue []candidate
-	followUp := func(energy map[string]config.Filler, skill []string, res *score.Result) {
+	followUp := func(energy map[string]config.Filler, skill []string, written bool, res *score.Result) {
 		handled := slices.Sorted(maps.Keys(energy))
 		e, sk := addStarved(res, members, handled, skill)
 		added := e[len(handled):]
@@ -102,34 +112,26 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 			return out
 		}
 		if len(added) == 0 {
-			queue = append(queue, candidate{energy, sk, false, res.DPS})
+			queue = append(queue, candidate{energy, sk, false, res.DPS, written})
 			return
 		}
 		for _, f := range energyFillers {
-			queue = append(queue, candidate{with(f, added...), sk, false, res.DPS})
+			queue = append(queue, candidate{with(f, added...), sk, false, res.DPS, written})
 		}
 		if len(added) > 1 {
 			for _, c := range added {
 				for _, f := range energyFillers {
-					queue = append(queue, candidate{with(f, c), sk, true, res.DPS})
+					queue = append(queue, candidate{with(f, c), sk, true, res.DPS, written})
 				}
 			}
 		}
 	}
-	// Bounding the rotation's own waits for a burst (config.Fill) shows
-	// them to the search, but the rotation as written, which attacks
-	// until the burst is ready, can score best; it is tried first, and
-	// its follow-ups are the search the rotation had before.
-	if loops := config.WaitLoopMembers(rotation, members); len(loops) > 0 {
-		asWritten := map[string]config.Filler{}
-		for _, m := range loops {
-			asWritten[m] = config.FillAsWritten
-		}
-		queue = append(queue, candidate{asWritten, nil, false, math.Inf(1)})
+	seen := map[string]bool{fill(rotation, nil, nil, false, members): true}
+	if !seen[rotation] {
+		queue = append(queue, candidate{priority: math.Inf(1), written: true})
 	}
-	followUp(nil, nil, res)
+	followUp(nil, nil, false, res)
 
-	seen := map[string]bool{config.Fill(rotation, nil, nil, members): true}
 	for len(queue) > 0 && len(seen) < maxRuns {
 		i := 0
 		for j, c := range queue {
@@ -139,7 +141,7 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 		}
 		c := queue[i]
 		queue = slices.Delete(queue, i, i+1)
-		filled := config.Fill(rotation, c.energy, c.skill, members)
+		filled := fill(rotation, c.energy, c.skill, c.written, members)
 		if seen[filled] {
 			continue
 		}
@@ -158,17 +160,26 @@ func Score(rotation string, members []string, run func(looped string) (*score.Re
 			continue
 		}
 		if res.DPS > best.Result.DPS {
-			best = &Outcome{Result: res, Filled: fills(c.energy, c.skill), Energy: c.energy, Skill: c.skill, Looped: looped}
+			best = &Outcome{Result: res, Filled: len(c.energy) > 0 || len(c.skill) > 0, Energy: c.energy, Skill: c.skill, Looped: looped, written: c.written}
 		}
-		followUp(c.energy, c.skill, res)
+		followUp(c.energy, c.skill, c.written, res)
 	}
 	return brief(best, rotation, members, run, seen)
 }
 
 // Looped is the rotation as Score first runs it: looped, with its own
-// waits for a burst bounded so that the search sees them (config.Fill).
+// waits for a burst bounded (config.WaitLoops).
 func Looped(rotation string, members []string) (string, error) {
-	return config.Loop(config.Fill(rotation, nil, nil, members))
+	return config.Loop(fill(rotation, nil, nil, false, members))
+}
+
+// fill fills rotation (config.Fill), with its own waits for a burst
+// bounded or, when written, as written.
+func fill(rotation string, energy map[string]config.Filler, skill []string, written bool, members []string) string {
+	if !written {
+		rotation = config.WaitLoops(rotation, energy, members)
+	}
+	return config.Fill(rotation, energy, skill, members)
 }
 
 // Rotation is one of a team's rotations (library.Team.Rotations) as run
@@ -259,7 +270,7 @@ func Best(rotations []Rotation, run func(i int, looped string, rank bool) (*scor
 // so that it cannot crowd the search's own runs out of maxRuns: tried
 // in the search, it lowered 58 library teams, one by 19%.
 func brief(best *Outcome, rotation string, members []string, run func(string) (*score.Result, error), seen map[string]bool) (*Outcome, error) {
-	if len(best.Energy) == 0 {
+	if !best.Filled || len(best.Energy) == 0 {
 		return best, nil
 	}
 	handled := slices.Sorted(maps.Keys(best.Energy))
@@ -278,7 +289,7 @@ func brief(best *Outcome, rotation string, members []string, run func(string) (*
 		for _, c := range set {
 			energy[c] = config.FillBrief
 		}
-		filled := config.Fill(rotation, energy, from.Skill, members)
+		filled := fill(rotation, energy, from.Skill, from.written, members)
 		if seen[filled] {
 			continue
 		}
@@ -295,21 +306,10 @@ func brief(best *Outcome, rotation string, members []string, run func(string) (*
 			continue
 		}
 		if res.DPS > best.Result.DPS {
-			best = &Outcome{Result: res, Filled: true, Energy: energy, Skill: from.Skill, Looped: looped}
+			best = &Outcome{Result: res, Filled: true, Energy: energy, Skill: from.Skill, Looped: looped, written: from.written}
 		}
 	}
 	return best, nil
-}
-
-// fills says whether energy and skill fill anything: the rotation as
-// written (config.FillAsWritten) is not filled.
-func fills(energy map[string]config.Filler, skill []string) bool {
-	for _, how := range energy {
-		if how != config.FillAsWritten {
-			return true
-		}
-	}
-	return len(skill) > 0
 }
 
 // addStarved returns energy and skill extended with the members that

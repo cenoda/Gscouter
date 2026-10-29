@@ -98,7 +98,7 @@ func TestFillBrief(t *testing.T) {
 	}
 }
 
-func TestFillBoundsWaitLoops(t *testing.T) {
+func TestWaitLoops(t *testing.T) {
 	rot := "active raiden;\nraiden skill;\nwhile !.xingqiu.burst.ready {\n  xingqiu attack;\n}\nxingqiu burst;\nwhile !.yelan.burst.ready { bennett attack; }\nyelan burst;\n"
 	party := []string{"raiden", "xingqiu", "yelan", "bennett"}
 	loop := "while !.xingqiu.burst.ready {\n  xingqiu attack;\n}"
@@ -113,7 +113,7 @@ func TestFillBoundsWaitLoops(t *testing.T) {
 		{map[string]Filler{"xingqiu": FillSkip}, []string{"if .xingqiu.burst.ready { xingqiu burst; }"}, []string{loop, bounded, "xingqiu attack"}},
 		{map[string]Filler{"xingqiu": FillBrief}, []string{"gs_fill1a < 2"}, []string{loop, bounded}},
 	} {
-		got := Fill(rot, c.energy, nil, party)
+		got := Fill(WaitLoops(rot, c.energy, party), c.energy, nil, party)
 		for _, s := range c.has {
 			if !strings.Contains(got, s) {
 				t.Errorf("%v: missing %q in:\n%s", c.energy, s, got)

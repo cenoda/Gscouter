@@ -30,11 +30,6 @@ const (
 	// FillSkip. A player swaps out rather than stand on a support until
 	// its burst charges: Ineffa is played with two skills to a burst.
 	FillBrief
-	// FillAsWritten leaves the character as the rotation writes it: its
-	// own loops that attack until its burst is ready stay unbounded (see
-	// waitLoops), and its bursts get no filler. It is not a filler but
-	// the rotation as written, which the search keeps as a candidate.
-	FillAsWritten
 )
 
 // maxFillAttacks is how many attacks FillBrief makes before passing the
@@ -49,8 +44,6 @@ func (f Filler) String() string {
 		return "skipped bursts"
 	case FillBrief:
 		return "party skills, then skipped bursts"
-	case FillAsWritten:
-		return "as written"
 	}
 	return "own skill"
 }
@@ -61,15 +54,12 @@ func (f Filler) String() string {
 //     burst is ready, or skips the burst when it is not ready, as
 //     energy maps the character (see Filler);
 //   - before each skill of a character in skill, it attacks until the
-//     skill is ready;
-//   - it bounds the rotation's own waits for a burst (see waitLoops),
-//     with or without fillers.
+//     skill is ready.
 //
 // Either filler gives up after a fixed number of actions, and the
 // rotation then waits as before. Names are as the rotation writes them;
 // party lists every member.
 func Fill(rotation string, energy map[string]Filler, skill, party []string) string {
-	rotation = waitLoops(rotation, energy, party)
 	forms := skillForms(rotation, party)
 	var b strings.Builder
 	n := 0
@@ -81,7 +71,6 @@ func Fill(rotation string, energy map[string]Filler, skill, party []string) stri
 				char := rotation[i+m[4] : i+m[5]]
 				items := rotation[i+m[6] : i+m[7]]
 				how, inEnergy := energy[char]
-				inEnergy = inEnergy && how != FillAsWritten
 				if inEnergy || slices.Contains(skill, char) {
 					b.WriteString(lead)
 					b.WriteString(fillStatement(char, items, inEnergy, slices.Contains(skill, char), party, forms, how, &n))
@@ -173,17 +162,17 @@ func energyFiller(char string, party []string, forms map[string]string, how Fill
 // is ready: "while !.<char>.burst.ready { <char> attack; }".
 var waitLoopRe = regexp.MustCompile(`while\s*!\s*\.(\w+)\.burst\.ready\s*\{\s*(\w+)\s+attack\s*;\s*\}`)
 
-// waitLoops rewrites the loops in which a member attacks until its burst
-// is ready. gcsim does not count such a loop as a wait for energy, so a
-// build short of Energy Recharge attacks on a support for as long as its
-// burst takes to charge, and no filler sees it (Alhaitham / Xingqiu /
-// Yelan / Raiden without its Favonius weapons kept 23% of its score).
-// A member without a filler attacks at most maxFillAttacks times, and the
-// rest of its wait is gcsim's, which the filler search sees. With a
-// filler, the loop is as written for FillSelf, which also attacks until
-// the burst is ready, and goes for the others, whose filler before the
-// burst takes its place.
-func waitLoops(rotation string, energy map[string]Filler, party []string) string {
+// WaitLoops rewrites the loops in which a member attacks until its burst
+// is ready, for Fill with energy to fill after. gcsim does not count such
+// a loop as a wait for energy, so a build short of Energy Recharge
+// attacks on a support for as long as its burst takes to charge, and no
+// filler sees it (Alhaitham / Xingqiu / Yelan / Raiden without its
+// Favonius weapons kept 23% of its score). A member energy does not map
+// attacks at most maxFillAttacks times, and the rest of its wait is
+// gcsim's, which the filler search sees. For FillSelf, which also attacks
+// until the burst is ready, the loop stays as written; for the other
+// fillers it goes, and their filler before the burst takes its place.
+func WaitLoops(rotation string, energy map[string]Filler, party []string) string {
 	n := 0
 	return replaceSubmatch(waitLoopRe, rotation, func(m []string) string {
 		char := m[1]
@@ -192,7 +181,7 @@ func waitLoops(rotation string, energy map[string]Filler, party []string) string
 		}
 		how, ok := energy[char]
 		switch {
-		case ok && (how == FillSelf || how == FillAsWritten):
+		case ok && how == FillSelf:
 			return m[0]
 		case ok:
 			return ""
@@ -201,17 +190,6 @@ func waitLoops(rotation string, energy map[string]Filler, party []string) string
 		v := fmt.Sprintf("gs_wait%d", n)
 		return fmt.Sprintf("let %s = 0; while !.%s.burst.ready && %s < %d { %s attack; %s = %s + 1; }", v, char, v, maxFillAttacks, char, v, v)
 	})
-}
-
-// WaitLoopMembers lists the members whose own loops waitLoops bounds.
-func WaitLoopMembers(rotation string, party []string) []string {
-	var out []string
-	for _, m := range waitLoopRe.FindAllStringSubmatch(rotation, -1) {
-		if m[1] == m[2] && slices.Contains(party, m[1]) && !slices.Contains(out, m[1]) {
-			out = append(out, m[1])
-		}
-	}
-	return out
 }
 
 // replaceSubmatch is re.ReplaceAllStringFunc with the submatches.
