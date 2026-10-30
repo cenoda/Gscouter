@@ -26,7 +26,13 @@
 {{with .Enemy}}<div class="warn">{{t "enemy.carried" (enemyText .)}}</div>{{end}}
 {{if .Problem}}<div class="bad">{{.Problem}}</div>{{end}}
 
-{{if .Profile}}<div class="card" id="showcase">{{template "showcase" .}}</div>{{end}}
+{{if .Profile}}<div class="card" id="showcase">{{template "showcase" .}}</div>
+<div class="card" id="good">
+<button type="button" class="secondary" id="good-pick">{{t "index.good_import"}}</button>
+<input type="file" id="good-file" accept=".json,application/json" hidden>
+<p class="muted">{{t "index.good_note"}}</p>
+<div class="muted" id="good-status" hidden></div>
+</div>{{end}}
 
 <div class="card">
 <h3>{{t "index.supported"}}</h3>
@@ -71,9 +77,10 @@
   Object.keys(all).sort(function (a, b) { return all[b].at - all[a].at; }).slice(10).forEach(function (u) { delete all[u]; });
   save();
 
-  var kept = Object.keys(mine.c).filter(function (k) { return !live[k]; })
-    .map(function (k) { return mine.c[k]; }).sort(function (a, b) { return b.t - a.t; });
-  if (kept.length && window.fetch && window.URLSearchParams) {
+  function showKept() {
+    var kept = Object.keys(mine.c).filter(function (k) { return !live[k]; })
+      .map(function (k) { return mine.c[k]; }).sort(function (a, b) { return b.t - a.t; });
+    if (!kept.length || !window.fetch || !window.URLSearchParams) return;
     var body = new URLSearchParams(enemy);
     body.set("uid", current);
     body.set("vs", vs);
@@ -83,7 +90,43 @@
       .then(function (html) { card.innerHTML = html; picker(); })
       .catch(function (e) { if (window.console) console.error("Gscouter: kept characters", e); });
   }
+  showKept();
   picker();
+
+  // A GOOD file's characters join the kept ones (design §4.1): the
+  // server converts the file into builds and keeps nothing of it.
+  var goodPick = document.getElementById("good-pick"), goodFile = document.getElementById("good-file"), goodStatus = document.getElementById("good-status");
+  if (goodPick && window.fetch) {
+    goodPick.addEventListener("click", function () { goodFile.click(); });
+    goodFile.addEventListener("change", function () {
+      var f = goodFile.files[0];
+      if (!f) return;
+      goodStatus.hidden = false;
+      goodStatus.textContent = {{t "index.good_reading"}};
+      fetch("/good", {method: "POST", body: f, headers: {"Content-Type": "application/json"}})
+        .then(function (r) {
+          return r.json().catch(function () { return {error: {{t "index.good_failed"}}}; });
+        })
+        .then(function (res) {
+          goodFile.value = "";
+          goodStatus.textContent = "";
+          if (res.error) {
+            goodStatus.textContent = res.error;
+            return;
+          }
+          var t = Date.now();
+          res.builds.forEach(function (b) { if (!live[b.key]) mine.c[b.key] = {b: b.b, t: t}; });
+          save();
+          (res.notes || []).forEach(function (n) {
+            var p = document.createElement("p");
+            p.textContent = n;
+            goodStatus.appendChild(p);
+          });
+          showKept();
+        })
+        .catch(function () { goodFile.value = ""; goodStatus.textContent = {{t "index.good_failed"}}; });
+    });
+  }
 
   // tokens are the kept builds of the given characters that are no longer
   // in the showcase: the server needs them to calculate their teams.

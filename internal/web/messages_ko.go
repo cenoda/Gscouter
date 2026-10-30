@@ -60,6 +60,14 @@ func init() {
 		"index.kept_on":          "%s 기준 저장됨",
 		"index.kept_note":        "쇼케이스에서 빠진 캐릭터도 마지막으로 불러왔을 때의 상태로 이 브라우저에 저장해 두어, 계속 고를 수 있습니다.",
 		"index.forget":           "저장한 캐릭터 지우기",
+		"index.good_import":      "GOOD 파일에서 가져오기 (Genshin Optimizer, 스캐너)",
+		"index.good_note":        "GOOD 파일의 캐릭터를 무기, 성유물과 함께 이 브라우저에 저장된 이 UID의 캐릭터에 더해, 그 캐릭터들의 파티도 고를 수 있게 합니다. 파일은 서버에서 변환하며, 서버에는 아무것도 남기지 않습니다.",
+		"index.good_reading":     "가져오는 중…",
+		"index.good_done":        "캐릭터 %d명을 가져왔습니다.",
+		"index.good_skipped":     "가져오지 못함: %s (%s)",
+		"index.good_bad":         "GOOD 파일이 아닙니다.",
+		"index.good_failed":      "파일을 가져오지 못했습니다. 잠시 후 다시 시도해 주세요.",
+		"about.d_good":           "GOOD 파일: 가져온 파일은 서버에서 빌드로 바꾸는 데에만 읽고, 빌드는 브라우저로 돌려보내 그 UID의 캐릭터와 함께 브라우저에 저장합니다. 파일의 내용은 아무것도 저장하거나 기록하지 않습니다.",
 
 		"problem.home": "처음으로",
 

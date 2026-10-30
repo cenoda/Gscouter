@@ -296,8 +296,9 @@ type keptBuild struct {
 }
 
 // handleShowcase renders the front page's showcase card again with the
-// characters the browser kept from earlier lookups added, so that teams
-// with characters no longer in the showcase can be picked too. The
+// characters the browser kept from earlier lookups, or imported from a
+// GOOD file (handleGOOD), added, so that teams with characters no longer
+// in the showcase can be picked too. The
 // builds stay in the browser; picks send them along (keptBuilds).
 func (s *Server) handleShowcase(w http.ResponseWriter, r *http.Request) {
 	l := localizerFor(r)
@@ -326,7 +327,9 @@ func (s *Server) handleShowcase(w http.ResponseWriter, r *http.Request) {
 	merged.Characters = slices.Clone(p.Characters)
 	for _, k := range kept {
 		c, err := parseBuildToken(k.Build)
-		if err != nil || slices.ContainsFunc(merged.Characters, func(m enka.Character) bool { return m.Key == c.Key }) {
+		// By canonical name, so that a Traveler from a GOOD file, which
+		// has no gender, does not join the showcase's other one.
+		if err != nil || slices.ContainsFunc(merged.Characters, func(m enka.Character) bool { return library.Canonical(m.Key) == library.Canonical(c.Key) }) {
 			continue
 		}
 		merged.Characters = append(merged.Characters, c)

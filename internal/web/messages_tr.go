@@ -60,6 +60,14 @@ func init() {
 		"index.kept_on":          "%s tarihinde kaydedildi",
 		"index.kept_note":        "Vitrinde artık olmayan karakterler, en son yüklendikleri hâliyle bu tarayıcıda saklanır ve seçilmeye devam edebilir.",
 		"index.forget":           "Kaydedilenleri unut",
+		"index.good_import":      "GOOD dosyasından içe aktar (Genshin Optimizer, tarama araçları)",
+		"index.good_note":        "Bir GOOD dosyasındaki karakterleri silahları ve yadigarlarıyla birlikte bu tarayıcıda bu UID için saklanan karakterlere ekler, böylece takımları seçilebilir. Sunucu dosyayı dönüştürür ve hiçbir şeyini saklamaz.",
+		"index.good_reading":     "İçe aktarılıyor…",
+		"index.good_done":        "%d karakter içe aktarıldı.",
+		"index.good_skipped":     "İçe aktarılmadı: %s (%s)",
+		"index.good_bad":         "Bu bir GOOD dosyası değil.",
+		"index.good_failed":      "Dosya içe aktarılamadı. Daha sonra tekrar dene.",
+		"about.d_good":           "GOOD dosyaları: içe aktarılan dosya sunucuda yalnızca build'lere dönüştürülmek için okunur; build'ler tarayıcına geri gönderilir ve orada UID'nin karakterleriyle saklanır. Dosyadan hiçbir şey saklanmaz veya kaydedilmez.",
 
 		"problem.home": "Ana sayfa",
 

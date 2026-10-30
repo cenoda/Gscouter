@@ -60,6 +60,14 @@ func init() {
 		"index.kept_on":          "Disimpan %s",
 		"index.kept_note":        "Karakter yang sudah tidak ada di etalase tetap disimpan di browser ini seperti saat terakhir dimuat, dan masih bisa dipilih.",
 		"index.forget":           "Lupakan yang disimpan",
+		"index.good_import":      "Impor dari file GOOD (Genshin Optimizer, pemindai)",
+		"index.good_note":        "Menambahkan karakter dari file GOOD, beserta senjata dan artefaknya, ke karakter UID ini yang disimpan di browser, agar timnya bisa dipilih. Server mengonversi file dan tidak menyimpan apa pun darinya.",
+		"index.good_reading":     "Mengimpor…",
+		"index.good_done":        "%d karakter diimpor.",
+		"index.good_skipped":     "Tidak diimpor: %s (%s)",
+		"index.good_bad":         "Ini bukan file GOOD.",
+		"index.good_failed":      "Gagal mengimpor file. Coba lagi nanti.",
+		"about.d_good":           "File GOOD: file yang diimpor dibaca di server hanya untuk diubah menjadi build, yang dikirim kembali ke browser dan disimpan di sana bersama karakter UID tersebut. Tidak ada isi file yang disimpan atau dicatat.",
 
 		"problem.home": "Beranda",
 

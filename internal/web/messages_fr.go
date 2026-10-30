@@ -60,6 +60,14 @@ func init() {
 		"index.kept_on":          "Enregistré le %s",
 		"index.kept_note":        "Les personnages qui ne sont plus dans la vitrine restent enregistrés dans ce navigateur tels qu'ils étaient la dernière fois, et peuvent toujours être choisis.",
 		"index.forget":           "Oublier les personnages enregistrés",
+		"index.good_import":      "Importer depuis un fichier GOOD (Genshin Optimizer, scanners)",
+		"index.good_note":        "Ajoute les personnages d'un fichier GOOD, avec leurs armes et artéfacts, aux personnages enregistrés dans ce navigateur pour cet UID, pour pouvoir choisir leurs équipes. Le serveur convertit le fichier et n'en garde rien.",
+		"index.good_reading":     "Importation…",
+		"index.good_done":        "%d personnages importés.",
+		"index.good_skipped":     "Non importé : %s (%s)",
+		"index.good_bad":         "Ce n'est pas un fichier GOOD.",
+		"index.good_failed":      "Impossible d'importer le fichier. Réessayez plus tard.",
+		"about.d_good":           "Fichiers GOOD : un fichier importé est lu sur le serveur uniquement pour le convertir en builds, qui reviennent à votre navigateur et y sont enregistrés avec les personnages de l'UID. Rien du fichier n'est enregistré ni journalisé.",
 
 		"problem.home": "Accueil",
 

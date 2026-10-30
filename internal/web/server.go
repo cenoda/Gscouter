@@ -114,6 +114,7 @@ func (s *Server) Handler() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /{$}", s.handleIndex)
 	mux.HandleFunc("POST /showcase", s.handleShowcase)
+	mux.HandleFunc("POST /good", s.handleGOOD)
 	mux.HandleFunc("GET /teams", s.handleTeams)
 	mux.HandleFunc("GET /teams/{id}", s.handleLibraryTeam)
 	mux.HandleFunc("GET /characters/{key}", s.handleCharacter)

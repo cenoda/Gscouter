@@ -60,6 +60,14 @@ func init() {
 		"index.kept_on":          "As of %s",
 		"index.kept_note":        "Characters no longer in the showcase are kept in this browser as they were when last seen, and can still be picked.",
 		"index.forget":           "Forget them",
+		"index.good_import":      "Import from a GOOD file (Genshin Optimizer, scanners)",
+		"index.good_note":        "Adds the characters of a GOOD file, with their weapons and artifacts, to the characters kept in this browser for this UID, so that their teams can be picked. The server converts the file and keeps nothing of it.",
+		"index.good_reading":     "Importing…",
+		"index.good_done":        "Imported %d characters.",
+		"index.good_skipped":     "Not imported: %s (%s)",
+		"index.good_bad":         "This is not a GOOD file.",
+		"index.good_failed":      "Could not import the file. Try again later.",
+		"about.d_good":           "GOOD files: an imported file is read on the server only to turn it into builds, which go back to your browser and are kept there with the UID's characters. Nothing of the file is stored or logged.",
 
 		"problem.home": "Home",
 

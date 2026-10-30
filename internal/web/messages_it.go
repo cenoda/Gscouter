@@ -60,6 +60,14 @@ func init() {
 		"index.kept_on":          "Salvato il %s",
 		"index.kept_note":        "I personaggi non più nella vetrina restano salvati in questo browser come erano l'ultima volta e si possono ancora scegliere.",
 		"index.forget":           "Dimentica i salvati",
+		"index.good_import":      "Importa da un file GOOD (Genshin Optimizer, scanner)",
+		"index.good_note":        "Aggiunge i personaggi di un file GOOD, con armi e manufatti, ai personaggi salvati in questo browser per questo UID, così che le loro squadre si possano scegliere. Il server converte il file e non ne conserva nulla.",
+		"index.good_reading":     "Importazione…",
+		"index.good_done":        "%d personaggi importati.",
+		"index.good_skipped":     "Non importato: %s (%s)",
+		"index.good_bad":         "Questo non è un file GOOD.",
+		"index.good_failed":      "Impossibile importare il file. Riprova più tardi.",
+		"about.d_good":           "File GOOD: un file importato viene letto sul server solo per trasformarlo in build, che tornano al tuo browser e vi restano salvate con i personaggi dell'UID. Nulla del file viene conservato o registrato.",
 
 		"problem.home": "Home",
 

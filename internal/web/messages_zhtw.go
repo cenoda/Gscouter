@@ -60,6 +60,14 @@ func init() {
 		"index.kept_on":          "%s 儲存",
 		"index.kept_note":        "已從角色展示櫃移除的角色會依最後一次讀取時的狀態儲存在此瀏覽器中，仍可選擇。",
 		"index.forget":           "清除已儲存的角色",
+		"index.good_import":      "從 GOOD 檔案匯入（Genshin Optimizer、掃描工具）",
+		"index.good_note":        "將 GOOD 檔案中的角色連同武器和聖遺物，加入此瀏覽器為該 UID 儲存的角色中，以便選擇他們的隊伍。檔案在伺服器上轉換，伺服器不保留任何內容。",
+		"index.good_reading":     "正在匯入…",
+		"index.good_done":        "已匯入 %d 名角色。",
+		"index.good_skipped":     "未匯入：%s（%s）",
+		"index.good_bad":         "這不是 GOOD 檔案。",
+		"index.good_failed":      "無法匯入檔案，請稍後再試。",
+		"about.d_good":           "GOOD 檔案：匯入的檔案只在伺服器上讀取，用於轉換為配置；配置傳回瀏覽器，與該 UID 的角色一起儲存在瀏覽器中。檔案的任何內容都不會被儲存或記錄。",
 
 		"problem.home": "返回首頁",
 

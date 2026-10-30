@@ -1,7 +1,7 @@
 # Gscouter Design Document
 
 > Status: Draft (prototype in progress)
-> Last updated: 2026-10-29 · Game version baseline: 7.1
+> Last updated: 2026-10-30 · Game version baseline: 7.1
 
 ## 1. Overview
 
@@ -138,7 +138,11 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
   - Constraint: all 4 party members must be in the showcase with "Show Character Details" enabled. Otherwise, tell the user which characters are missing.
   - Characters that leave the showcase stay pickable from the visitor's browser (§4.8).
 - **GOOD JSON**
-  - The common format of inventory scanners; used for characters outside the showcase.
+  - The common format of inventory scanners (Irminsul, Inventory_Kamera) and Genshin Optimizer's export; used for characters outside the showcase. On a loaded showcase, the front page takes a GOOD file and adds its characters to the ones the browser keeps for that UID (§4.8), so they are pickable, suggested in teams and carried by result links like characters that left the showcase.
+  - A UID is required. Kept builds are stored per UID, and a result link is a selection of one UID with its nickname (§4.8), so an import without one would need a second kind of selection and link. Requiring it reuses that path whole: no new link format, and the showcase's own builds still win over the file's for the characters it has.
+  - The browser posts the file to `POST /good` (`internal/web/good.go`), which converts it in Go (`enka.ParseGOOD`) and answers with each character's packed build and a note per character it skipped. The file is read and dropped: nothing of it is stored or logged.
+  - Conversion: GOOD keys are English names in PascalCase without punctuation (`KaedeharaKazuha`, `StaffOfHoma`, `GladiatorsFinale`), and gcsim keys the same names in lower case, so lower-casing a key gives gcsim's; a test checks this for every character, weapon and set in the data. A character takes the weapon and artifacts whose `location` is its key. The Travelers (`TravelerAnemo`, ...) share equipment under `Traveler` and have no gender; they become Aether (Lumine for a key ending in `F`), and the showcase card folds a kept Traveler into the showcase's Traveler of the same element (§4.4). Talent levels in GOOD are base levels (§4.2). Main stats come from the main stat table by rarity and level and substats are summed as the game shows them, as from Enka; an unactivated substat (`unactivatedSubstats`) does not count. Each build is read back through `enka.Unpack`, so it passes the checks a link does.
+  - A character that gcsim does not have, whose weapon gcsim does not have, that has no weapon, or that fails those checks is skipped and named in the notes; the rest of the file imports. An artifact set gcsim does not have keeps its stats, as from Enka.
 
 ### 4.2 Build normalization
 
@@ -214,7 +218,7 @@ The showcase holds a few characters, and changing it drops the others from Enka'
   - Links are kept in SQLite (`internal/links`, pure Go) on a Docker volume of the VM's 30 GB disk. A row is about 400 bytes, so the disk holds tens of millions and links never expire.
   - The long link stays the result's own, and the short link only points to it: losing the volume breaks short links and nothing else. Without the store (`GSCOUTER_LINKS` unset, or the file can't be opened), the server runs as before and the button copies the long link.
   - Alternatives considered: making the packed format smaller (numeric game IDs instead of gcsim keys, default levels as a flag, per-stat precision). Measured on a Hu Tao team, it would take the link from about 330 to 220–250 characters: the stats, which are most of it, barely compress.
-- **The browser keeps showcase builds**: the front page gives each showcase character's packed build to the browser, which keeps them in `localStorage` for the ten most recently loaded UIDs, with when each was last in the showcase. When a UID is loaded again with kept characters that are no longer in its showcase, the page asks `POST /showcase` to render the showcase card with them added and dated, so their teams are suggested and pickable. Picking such a team sends the kept builds along (`build` parameters), and the redirect above packs them into the result link. Nothing is stored on the server, and a visitor can forget the kept characters.
+- **The browser keeps showcase builds**: the front page gives each showcase character's packed build to the browser, which keeps them in `localStorage` for the ten most recently loaded UIDs, with when each was last in the showcase. When a UID is loaded again with kept characters that are no longer in its showcase, the page asks `POST /showcase` to render the showcase card with them added and dated, so their teams are suggested and pickable. Picking such a team sends the kept builds along (`build` parameters), and the redirect above packs them into the result link. Nothing is stored on the server, and a visitor can forget the kept characters. Characters imported from a GOOD file (§4.1) join the kept ones the same way, dated by the import.
 - **Not a ranking**: since builds come from the visitor, a result says what the given builds score, not what a player owns. Gscouter has no rankings, so this is fine; the score cache is keyed by the gcsim config, so a made-up build only reaches its own results.
 
 ## 5. Team Library

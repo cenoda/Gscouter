@@ -1,0 +1,49 @@
+{
+  "format": "GOOD",
+  "version": 2,
+  "source": "Gscouter test",
+  "characters": [
+    {"key": "HuTao", "level": 90, "constellation": 1, "ascension": 6, "talent": {"auto": 10, "skill": 10, "burst": 9}},
+    {"key": "Xingqiu", "level": 80, "constellation": 6, "ascension": 5, "talent": {"auto": 1, "skill": 9, "burst": 10}},
+    {"key": "Zhongli", "level": 90, "constellation": 0, "ascension": 6, "talent": {"auto": 1, "skill": 8, "burst": 6}},
+    {"key": "Yelan", "level": 90, "constellation": 0, "ascension": 6, "talent": {"auto": 1, "skill": 9, "burst": 9}},
+    {"key": "TravelerAnemo", "level": 70, "constellation": 6, "ascension": 4, "talent": {"auto": 1, "skill": 6, "burst": 6}},
+    {"key": "TravelerGeo", "level": 70, "constellation": 0, "ascension": 4, "talent": {"auto": 1, "skill": 1, "burst": 1}},
+    {"key": "Manekina", "level": 90, "constellation": 0, "ascension": 6, "talent": {"auto": 1, "skill": 1, "burst": 1}},
+    {"key": "Chongyun", "level": 80, "constellation": 6, "ascension": 5, "talent": {"auto": 1, "skill": 8, "burst": 8}},
+    {"key": "Bennett", "level": 80, "constellation": 6, "ascension": 5, "talent": {"auto": 1, "skill": 8, "burst": 8}}
+  ],
+  "weapons": [
+    {"key": "StaffOfHoma", "level": 90, "ascension": 6, "refinement": 1, "location": "HuTao", "lock": true},
+    {"key": "SacrificialSword", "level": 90, "ascension": 6, "refinement": 5, "location": "Xingqiu", "lock": true},
+    {"key": "FavoniusLance", "level": 80, "ascension": 6, "refinement": 3, "location": "Zhongli", "lock": false},
+    {"key": "AquaSimulacra", "level": 90, "ascension": 6, "refinement": 1, "location": "Yelan", "lock": true},
+    {"key": "FreedomSworn", "level": 70, "ascension": 4, "refinement": 1, "location": "Traveler", "lock": false},
+    {"key": "SomeSwordFromTheFuture", "level": 90, "ascension": 6, "refinement": 1, "location": "Chongyun", "lock": false},
+    {"key": "SkywardBlade", "level": 1, "ascension": 0, "refinement": 1, "location": "", "lock": false}
+  ],
+  "artifacts": [
+    {"setKey": "CrimsonWitchOfFlames", "slotKey": "flower", "level": 20, "rarity": 5, "mainStatKey": "hp", "location": "HuTao", "lock": true,
+     "substats": [{"key": "critRate_", "value": 10.5}, {"key": "critDMG_", "value": 21.8}, {"key": "atk_", "value": 5.8}, {"key": "eleMas", "value": 23}]},
+    {"setKey": "CrimsonWitchOfFlames", "slotKey": "plume", "level": 20, "rarity": 5, "mainStatKey": "atk", "location": "HuTao", "lock": true,
+     "substats": [{"key": "critRate_", "value": 7.0}, {"key": "critDMG_", "value": 14.0}, {"key": "hp_", "value": 9.9}, {"key": "enerRech_", "value": 5.2}]},
+    {"setKey": "CrimsonWitchOfFlames", "slotKey": "sands", "level": 20, "rarity": 5, "mainStatKey": "hp_", "location": "HuTao", "lock": true,
+     "substats": [{"key": "critRate_", "value": 6.6}, {"key": "critDMG_", "value": 20.2}, {"key": "atk", "value": 19}, {"key": "def", "value": 23}]},
+    {"setKey": "GladiatorsFinale", "slotKey": "goblet", "level": 20, "rarity": 5, "mainStatKey": "pyro_dmg_", "location": "HuTao", "lock": true,
+     "substats": [{"key": "critRate_", "value": 3.9}, {"key": "critDMG_", "value": 27.2}, {"key": "hp", "value": 299}, {"key": "eleMas", "value": 40}]},
+    {"setKey": "CrimsonWitchOfFlames", "slotKey": "circlet", "level": 20, "rarity": 5, "mainStatKey": "critDMG_", "location": "HuTao", "lock": true,
+     "substats": [{"key": "critRate_", "value": 9.7}, {"key": "hp_", "value": 14.0}, {"key": "eleMas", "value": 42}, {"key": "atk", "value": 33}]},
+    {"setKey": "EmblemOfSeveredFate", "slotKey": "sands", "level": 20, "rarity": 5, "mainStatKey": "enerRech_", "location": "Xingqiu", "lock": true,
+     "substats": [{"key": "critRate_", "value": 7.4}, {"key": "critDMG_", "value": 13.2}, {"key": "atk_", "value": 9.3}, {"key": "hp", "value": 538}]},
+    {"setKey": "EmblemOfSeveredFate", "slotKey": "goblet", "level": 16, "rarity": 5, "mainStatKey": "hydro_dmg_", "location": "Yelan", "lock": true,
+     "substats": [{"key": "critRate_", "value": 7.8}, {"key": "critDMG_", "value": 14.8}, {"key": "hp_", "value": 4.7}],
+     "unactivatedSubstats": [{"key": "atk", "value": 16}]},
+    {"setKey": "SomeSetFromTheFuture", "slotKey": "circlet", "level": 20, "rarity": 5, "mainStatKey": "hp_", "location": "Zhongli", "lock": false,
+     "substats": [{"key": "critRate_", "value": 3.5}, {"key": "critDMG_", "value": 7.8}, {"key": "enerRech_", "value": 11.0}, {"key": "atk", "value": 18}]},
+    {"setKey": "ViridescentVenerer", "slotKey": "flower", "level": 20, "rarity": 5, "mainStatKey": "hp", "location": "Traveler", "lock": false,
+     "substats": [{"key": "critRate_", "value": 3.9}, {"key": "critDMG_", "value": 7.8}, {"key": "enerRech_", "value": 11.7}, {"key": "eleMas", "value": 40}]},
+    {"setKey": "GladiatorsFinale", "slotKey": "flower", "level": 0, "rarity": 5, "mainStatKey": "hp", "location": "", "lock": false,
+     "substats": [{"key": "critRate_", "value": 3.9}]}
+  ],
+  "materials": {"MysticEnhancementOre": 100}
+}

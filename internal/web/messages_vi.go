@@ -60,6 +60,14 @@ func init() {
 		"index.kept_on":          "Đã lưu %s",
 		"index.kept_note":        "Nhân vật không còn trong Trưng Bày vẫn được lưu trong trình duyệt này như lần tải gần nhất và vẫn chọn được.",
 		"index.forget":           "Xóa nhân vật đã lưu",
+		"index.good_import":      "Nhập từ tệp GOOD (Genshin Optimizer, trình quét)",
+		"index.good_note":        "Thêm các nhân vật trong tệp GOOD, cùng vũ khí và Thánh Di Vật, vào các nhân vật của UID này được lưu trong trình duyệt, để có thể chọn đội của họ. Máy chủ chuyển đổi tệp và không giữ lại gì.",
+		"index.good_reading":     "Đang nhập…",
+		"index.good_done":        "Đã nhập %d nhân vật.",
+		"index.good_skipped":     "Không nhập được: %s (%s)",
+		"index.good_bad":         "Đây không phải tệp GOOD.",
+		"index.good_failed":      "Không thể nhập tệp. Hãy thử lại sau.",
+		"about.d_good":           "Tệp GOOD: tệp được nhập chỉ được đọc trên máy chủ để chuyển thành build, rồi gửi về trình duyệt và lưu ở đó cùng các nhân vật của UID. Không có gì từ tệp được lưu hay ghi nhật ký.",
 
 		"problem.home": "Trang chủ",
 

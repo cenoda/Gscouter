@@ -60,6 +60,14 @@ func init() {
 		"index.kept_on":          "Gespeichert am %s",
 		"index.kept_note":        "Charaktere, die nicht mehr in der Präsentation sind, bleiben in diesem Browser so gespeichert, wie sie zuletzt geladen wurden, und können weiter gewählt werden.",
 		"index.forget":           "Gespeicherte vergessen",
+		"index.good_import":      "Aus einer GOOD-Datei importieren (Genshin Optimizer, Scanner)",
+		"index.good_note":        "Fügt die Charaktere einer GOOD-Datei mit ihren Waffen und Artefakten zu den in diesem Browser gespeicherten Charakteren dieser UID hinzu, damit ihre Teams gewählt werden können. Der Server wandelt die Datei um und behält nichts davon.",
+		"index.good_reading":     "Wird importiert …",
+		"index.good_done":        "%d Charaktere importiert.",
+		"index.good_skipped":     "Nicht importiert: %s (%s)",
+		"index.good_bad":         "Das ist keine GOOD-Datei.",
+		"index.good_failed":      "Die Datei konnte nicht importiert werden. Versuche es später erneut.",
+		"about.d_good":           "GOOD-Dateien: Eine importierte Datei wird auf dem Server nur gelesen, um daraus Builds zu machen, die an deinen Browser zurückgehen und dort mit den Charakteren der UID gespeichert werden. Nichts aus der Datei wird gespeichert oder protokolliert.",
 
 		"problem.home": "Startseite",
 
