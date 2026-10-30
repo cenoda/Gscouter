@@ -17,6 +17,7 @@ import (
 	"time"
 
 	"github.com/cenoda/gscouter/internal/chart"
+	"github.com/cenoda/gscouter/internal/config"
 	"github.com/cenoda/gscouter/internal/score"
 	"github.com/cenoda/gscouter/internal/timeline"
 	"github.com/cenoda/gscouter/internal/web"
@@ -168,9 +169,11 @@ func record(_ js.Value, args []js.Value) any {
 	return map[string]any{"error": err.Error()}
 }
 
-// preview(build, chart, names, defaults) plays a chart, its text, with
-// build and each slot's character params (the chart's, else defaults, a
-// JSON array by slot), and returns the chart.Preview as JSON, or {error}.
+// preview(build, chart, names, defaults, enemy) plays a chart, its text,
+// with build and each slot's character params (the chart's, else
+// defaults, a JSON array by slot) against enemy (a config.Enemy as JSON,
+// "null" or absent for the standard one), and returns the chart.Preview
+// as JSON, or {error}.
 func preview(_ js.Value, args []js.Value) any {
 	out, err := func() (string, error) {
 		c, err := chart.Parse(args[1].String())
@@ -185,7 +188,18 @@ func preview(_ js.Value, args []js.Value) any {
 		if err != nil {
 			return "", err
 		}
-		p, err := c.Preview(c.WithParams(args[0].String(), names, defaults), names, nil)
+		var enemy *config.Enemy
+		if len(args) > 4 && args[4].Type() == js.TypeString {
+			if err := json.Unmarshal([]byte(args[4].String()), &enemy); err != nil {
+				return "", err
+			}
+			if enemy != nil {
+				if err := enemy.Validate(); err != nil {
+					return "", err
+				}
+			}
+		}
+		p, err := c.Preview(c.WithParams(args[0].String(), names, defaults), names, enemy)
 		if err != nil {
 			return "", err
 		}
