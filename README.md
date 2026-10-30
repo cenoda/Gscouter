@@ -141,3 +141,7 @@ deploy/             VM setup and auto-update
 ```sh
 go test ./...
 ```
+
+## License
+
+MIT (`LICENSE`). It covers Gscouter's own code and data; gcsim and the other dependencies keep their own licenses, and the game images the site loads from Enka.Network are © HoYoverse.
