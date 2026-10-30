@@ -7,8 +7,8 @@ func init() {
 		"lang.label":  "언어",
 		"lang.auto":   "자동",
 		"lang.apply":  "적용",
-		"site.title":  "Gscouter · 원신(Genshin Impact) 파티 DPS·딜 계산기",
-		"site.desc":   "원신(Genshin Impact) UID로 쇼케이스 캐릭터 4명의 파티 DPS를 같은 적·같은 로테이션 기준으로 계산하고 다른 플레이어와 비교합니다.",
+		"site.title":  "지스카우터(Gscouter) · 원신(Genshin Impact) 파티 DPS·딜 계산기",
+		"site.desc":   "지스카우터(Gscouter)는 원신(Genshin Impact) UID로 쇼케이스 캐릭터 4명의 파티 DPS를 같은 적·같은 로테이션 기준으로 계산하고 다른 플레이어와 비교합니다.",
 		"foot.method": "계산 방식",
 		"foot.method1": "Lv.100 적 1명, 모든 내성 10%, 일정한 간격의 원소 입자 조건에서 커뮤니티 gcsim 로테이션을 끝없이 반복해, " +
 			"시작 에너지가 바닥난 뒤인 150–450초 구간의 평균 DPS를 점수로 씁니다. 원소 충전 효율이 부족하면 점수가 내려갑니다.",
@@ -16,7 +16,7 @@ func init() {
 			"\"로테이션 1회\"는 에너지가 가득한 상태에서 한 번 돌린 값으로, 커뮤니티 gcsim 설정이 보고하는 숫자와 같은 기준입니다.",
 		"foot.credits": `시뮬레이션 <a href="https://github.com/genshinsim/gcsim">gcsim</a> · 로테이션 <a href="https://db.kqm.gg">KQM gcsim DB</a> · 캐릭터 정보 <a href="https://enka.network">Enka.Network</a>`,
 		"foot.discord": `문의와 점수 제보: <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
-		"foot.legal": `Gscouter는 광고·후원 없이 운영하는 비영리 비공식 팬 프로젝트로 HoYoverse와 관련이 없습니다. ` +
+		"foot.legal": `지스카우터(Gscouter)는 광고·후원 없이 운영하는 비영리 비공식 팬 프로젝트로 HoYoverse와 관련이 없습니다. ` +
 			`원신 및 관련 명칭은 HoYoverse의 상표이며, 캐릭터 이미지는 © HoYoverse로 <a href="https://enka.network">Enka.Network</a>에서 불러옵니다.`,
 		"js.copied":      "링크를 복사했습니다",
 		"js.link":        "링크",
