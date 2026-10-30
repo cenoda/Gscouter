@@ -22,6 +22,7 @@
 <p class="muted">{{t "score.compare_lead"}}</p>
 <form class="inline" action="/" method="get">
 <input type="hidden" name="vs" value="{{.Team.Selection.String}}">
+{{with .Team.Selection.Chart}}<input type="hidden" name="vr" value="{{.}}">{{end}}
 {{template "enemy-hidden" .Team.Enemy}}
 <input type="text" name="uid" inputmode="numeric" pattern="[0-9]{9,10}" title="{{t "index.uid_title"}}" placeholder="{{t "score.opponent_uid"}}" required>
 <button type="submit"><svg class="icon"><use href="#i-vs"/></svg>{{t "score.load_opponent"}}</button>
