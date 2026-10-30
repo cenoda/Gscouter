@@ -88,14 +88,10 @@ func (workerSim) Score(_ context.Context, cfg string, warmup float64, iterations
 	return score.Aggregate(its, warmup), nil
 }
 
-func (workerSim) Timeline(_ context.Context, cfg string, from, to float64) (*timeline.Timeline, error) {
+func (workerSim) Timeline(ctx context.Context, cfg string, from, to float64) (*timeline.Timeline, error) {
 	start := time.Now()
 	defer func() { reportTime("timeline", start) }()
-	res, actions, err := score.Trace(cfg, 1)
-	if err != nil {
-		return nil, err
-	}
-	return timeline.Build(res, actions, int(from*60), int(to*60)), nil
+	return timeline.Simulate(ctx, cfg, int(from*60), int(to*60))
 }
 
 // reportTime tells the page how long a stage took since start.

@@ -10,7 +10,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cenoda/gscouter/internal/score"
 	"github.com/cenoda/gscouter/internal/timeline"
 )
 
@@ -44,11 +43,10 @@ func (s *Server) timeline(ctx context.Context, cfg string, from, to float64) (*t
 	}
 	defer func() { <-s.sem }()
 
-	res, actions, err := score.Trace(cfg, 1)
+	t, err := timeline.Simulate(ctx, cfg, int(from*60), int(to*60))
 	if err != nil {
 		return nil, err
 	}
-	t := timeline.Build(res, actions, int(from*60), int(to*60))
 	s.timelines.put(key, t, 24*time.Hour)
 	return t, nil
 }

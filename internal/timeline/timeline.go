@@ -5,6 +5,7 @@ package timeline
 
 import (
 	"cmp"
+	"context"
 	"slices"
 	"strings"
 
@@ -80,6 +81,25 @@ type Run struct {
 
 // hidden actions are not drawn: swaps show as stints, the rest is idle time.
 var hidden = map[string]bool{"swap": true, "wait": true, "delay": true}
+
+// tail is how many frames past the end of its window Simulate plays the
+// fight. Build reads past the window's end: the 0.5 s damage bucket the
+// end falls in, damage that lands after it from attacks made inside it
+// (a damage event has its attack's frame), and the first action after
+// the last swap, to tell who is on field. 30 s covers these for every
+// library team, so the timeline is as of the whole fight.
+const tail = 30 * 60
+
+// Simulate runs cfg once (seed 1) and reduces the frames [from, to) of it,
+// stopping the fight tail frames after to. It stops early, with ctx's
+// error, when ctx is done.
+func Simulate(ctx context.Context, cfg string, from, to int) (*Timeline, error) {
+	res, actions, err := score.Trace(ctx, cfg, 1, to+tail)
+	if err != nil {
+		return nil, err
+	}
+	return Build(res, actions, from, to), nil
+}
 
 // Build reduces res to the frames [from, to), with actions the actions of
 // the same run (score.Trace). to is clamped to the end of the fight.
