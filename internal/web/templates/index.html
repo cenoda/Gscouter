@@ -14,11 +14,17 @@
 {{end}}
 <div class="card">
 <form class="inline" action="/" method="get" id="uid-form">
-<input type="text" name="uid" inputmode="numeric" pattern="[0-9]{9,10}" title="{{t "index.uid_title"}}" placeholder="{{t "index.uid_placeholder"}}" value="{{.UID}}" required autofocus>
+<input type="text" name="uid" inputmode="numeric" pattern="[0-9]{9,10}" title="{{t "index.uid_title"}}" placeholder="{{t "index.uid_placeholder"}}" value="{{.UID}}" required>
 {{if .VS}}<input type="hidden" name="vs" value="{{.VS}}">{{end}}
 {{template "enemy-hidden" .Enemy}}
 <button type="submit">{{t "index.load"}}</button>
 </form>
+<script>
+// Focus the UID input on load, but only with a mouse: on a touch screen a
+// focused input on a page shorter than the screen lets a pull-down leave
+// the page shifted up, header out of reach, until a reload (iPad).
+if (matchMedia("(pointer: fine)").matches) document.querySelector("#uid-form input[name=uid]").focus();
+</script>
 <div class="chips" id="recent" hidden></div>
 <p class="muted">{{t "index.showcase_hint"}}</p>
 </div>
@@ -247,8 +253,8 @@
 // result page starts sooner (design §4.7): the download lands in the
 // HTTP cache, and starting the Go runtime once lets the browser keep the
 // compiled code in its code cache, which the result page's compile then
-// reads. Not on page load alone (the input has autofocus, so not on
-// focus), and not on Save-Data connections.
+// reads. Not on page load alone (the input is focused on load with a
+// mouse, so not on focus), and not on Save-Data connections.
 (function () {
   var v = {{.}}, c = navigator.connection;
   if (!window.WebAssembly || !WebAssembly.compileStreaming || !window.Worker || c && c.saveData) return;
