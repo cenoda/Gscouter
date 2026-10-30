@@ -235,7 +235,7 @@
   };
   var CODES = {N: "attack", C: "charge", E: "skill", Q: "burst", A: "aim", H: "high_plunge", L: "low_plunge", D: "dash", J: "jump", W: "walk"};
   var CODE_OF = {}; for (var k in CODES) CODE_OF[CODES[k]] = k;
-  var PX = 46, RULER = 46, LANE = 64, HOLD_MS = 320;
+  var PX = 46, RULER = 46, LANE = 64, HOLD_MS = 320, MAX_WAIT = 3600; // chart.MaxWait
   var wide = window.matchMedia ? matchMedia("(orientation: landscape) and (max-height: 500px)") : {matches: false};
   function sizes() {
     RULER = wide.matches ? 34 : 46; LANE = wide.matches ? 46 : 64;
@@ -267,7 +267,8 @@
       if (f[0] === "pickup") { pickup = true; return; }
       params[+f[0].slice(1)] = f.slice(1).map(function (kv) { var x = kv.split("="); return [x[0], +x[1]]; });
     });
-    return {notes: notes, repeats: repeats, params: params, pickup: pickup};
+    // A wait after the last note ends every pass (chart.Chart.End).
+    return {notes: notes, repeats: repeats, params: params, pickup: pickup, end: wait};
   }
   function write(st) {
     var toks = [];
@@ -280,6 +281,7 @@
       st.repeats.forEach(function (r) { if (r.to === i) t += "]" + r.times; });
       toks.push(t);
     });
+    if (st.end > 0 && st.notes.length) toks.push("~" + st.end);
     st.params.forEach(function (ps, s) {
       if (ps.length) toks.push("; p" + s + " " + ps.map(function (p) { return p[0] + "=" + p[1]; }).join(" "));
     });
@@ -341,7 +343,7 @@
   }
   // A chart whose every note waits until ready, with no wait, would stand
   // still in gcsim, which refuses it (chart.ErrIdle).
-  function idle() { return st.notes.length > 0 && !st.notes.some(function (n) { return !n.r || n.w > 0; }); }
+  function idle() { return st.notes.length > 0 && !(st.end > 0) && !st.notes.some(function (n) { return !n.r || n.w > 0; }); }
   function runPreview() {
     var mine = ++previewing;
     if (!st.notes.length || idle()) { P = null; render(); return; }
@@ -447,6 +449,12 @@
       s += '<rect class="wait-user" x="' + X(a) + '" y="' + yy + '" width="' + Math.max(2, (b - a) * PX) + '" height="' + LANE * .5 + '" rx="4"' + (e.ghost ? ' opacity=".5"' : "") + '/>';
       if (!e.ghost && (b - a) * PX > 26) s += '<text class="wl" x="' + X((a + b) / 2) + '" y="' + (yy - 3) + '">+' + (b - a).toFixed(1) + 's</text>';
     });
+    // The final wait, on the last note's lane, before each next pass.
+    if (P && st.end > 0 && st.notes.length) P.passes.slice(1).forEach(function (b, k) {
+      var a = b - st.end / 60, yy = mid(st.notes[st.notes.length - 1].s) - LANE * .25;
+      s += '<rect class="wait-user" x="' + X(a) + '" y="' + yy + '" width="' + Math.max(2, (b - a) * PX) + '" height="' + LANE * .5 + '" rx="4"' + (k > 0 ? ' opacity=".5"' : "") + '/>';
+      if (k === 0 && (b - a) * PX > 26) s += '<text class="wl" x="' + X((a + b) / 2) + '" y="' + (yy - 3) + '">+' + (b - a).toFixed(1) + 's</text>';
+    });
     st.repeats.forEach(function (r) {
       var a = pl.first[r.from], plays = pl.list.filter(function (e) { return e.p.pass === 0 && e.p.note === r.to; });
       if (!a || !plays.length) return;
@@ -504,6 +512,7 @@
     if (sel === null || !st.notes[sel]) {
       sel = null;
       h = '<span class="lbl">' + esc(S.select) + '</span><button type="button" class="ed-chip" data-t="end">' + esc(cursor >= st.notes.length ? S.playheadEnd : S.playheadAt.replace("%d", cursor + 1)) + '</button>';
+      if (cursor >= st.notes.length && st.end > 0) h += '<button type="button" class="ed-chip" data-t="noend">' + esc(S.clearWait.replace("%s", (st.end / 60).toFixed(1))) + '</button>';
       el.innerHTML = h;
       return;
     }
@@ -543,6 +552,7 @@
     snapshot();
     var a = Math.min(sel, rangeEnd === null ? sel : rangeEnd), b = Math.max(sel, rangeEnd === null ? sel : rangeEnd), k = b - a + 1;
     st.notes.splice(a, k);
+    if (!st.notes.length) st.end = 0;
     st.repeats = st.repeats.filter(function (r) { return r.to < a || r.from > b; }).map(function (r) { return r.from > b ? {from: r.from - k, to: r.to - k, times: r.times} : r; });
     cursor = a; sel = null; rangeEnd = null; changed();
   }
@@ -557,6 +567,7 @@
     var t = b.dataset.t;
     if (t === "end") { cursor = st.notes.length; return render(); }
     if (t === "range") { rangeMode = !rangeMode; tools(); if (rangeMode) toast(S.pickEnd); return; }
+    if (t === "noend") { snapshot(); st.end = 0; return changed(); }
     var n = st.notes[sel], a = Math.min(sel, rangeEnd === null ? sel : rangeEnd), z = Math.max(sel, rangeEnd === null ? sel : rangeEnd);
     if (t === "del") return del();
     snapshot();
@@ -592,7 +603,7 @@
     if (!drag.moved) { snapshot(); drag.moved = true; }
     var w = Math.round((drag.w0 + dx / PX * 60) / 6) * 6;
     if (w < 0) { w = 0; toast(S.notEarlier.replace("%s", whyNotEarlier(drag.i))); }
-    w = Math.min(w, 600);
+    w = Math.min(w, MAX_WAIT);
     if (w !== st.notes[drag.i].w) { st.notes[drag.i].w = w; sel = drag.i; rangeEnd = null; render(); }
   });
   window.addEventListener("pointerup", function (e) {
@@ -625,8 +636,12 @@
   $("ed-undo").onclick = undo;
   $("ed-end").onclick = function () { cursor = st.notes.length; sel = null; rangeEnd = null; render(); var sc = $("ed-scroll"); sc.scrollLeft = sc.scrollWidth; };
   $("ed-wait").onclick = function () {
-    if (cursor >= st.notes.length) return toast(S.pickNote);
-    snapshot(); st.notes[cursor].w = Math.min(600, st.notes[cursor].w + 30); changed();
+    // At the end, after the last note, the wait ends every pass.
+    if (!st.notes.length) return toast(S.pickNote);
+    snapshot();
+    if (cursor >= st.notes.length) st.end = Math.min(MAX_WAIT, (st.end || 0) + 30);
+    else st.notes[cursor].w = Math.min(MAX_WAIT, st.notes[cursor].w + 30);
+    changed();
   };
   $("ed-reset").onclick = function () { snapshot(); start(""); };
   $("ed-score").onclick = function () {

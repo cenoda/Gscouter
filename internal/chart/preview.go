@@ -100,6 +100,9 @@ func (c *Chart) marked(names [Slots]string) string {
 			fmt.Fprintf(&b, "while 1 {\ndelay(%d);\n", score.Marker)
 			continue
 		case strings.HasPrefix(t, "for ") || t == "}":
+		case strings.HasPrefix(t, "wait(") && note == len(c.Notes):
+			// The final wait has no note of its own: the last note's
+			// time runs on into it.
 		case strings.HasPrefix(t, "wait("):
 			// The note's marker goes before its wait, so the wait counts
 			// as the note's own time.

@@ -10,7 +10,8 @@
 //
 // A note is a slot (0-3) and an action code, optionally gcsim params in
 // parentheses and "?" to play it only when ready. "~N" waits N frames
-// before the next note. "[" ... "]N" plays the notes inside N times.
+// before the next note; after the last note, it waits that long at the
+// end of every pass. "[" ... "]N" plays the notes inside N times.
 // After ";", "pS k=v ..." are the character params of slot S, and
 // "pickup" picks up crystallize shards after every action.
 package chart
@@ -37,7 +38,7 @@ const Slots = 4
 // simulation bounded.
 const (
 	MaxNotes   = 400
-	MaxWait    = 600 // frames, 10 s
+	MaxWait    = 3600 // frames, 60 s: before a note, or at the end
 	MaxTimes   = 20
 	MaxParams  = 4
 	MaxCharKey = 6 // character params per slot
@@ -72,6 +73,9 @@ type Chart struct {
 	// Repeats are blocks of notes played more than once, by index into
 	// Notes, sorted and not overlapping.
 	Repeats []Repeat
+	// End is the frames to wait after the last note, once a pass and
+	// outside any repeat: a rotation that ends in a wait.
+	End int
 	// Params are each slot's gcsim character params (start_hp=1, ...).
 	Params [Slots][]Param
 	// Pickup picks up any crystallize shard on the ground after every
@@ -138,7 +142,7 @@ func (c *Chart) Validate() error {
 	// time on every pass of the loop: gcsim holds an action until it is
 	// ready. An action that takes no time (walk[f=0]) is stopped by the
 	// score instead (score.maxStillActions).
-	if !slices.ContainsFunc(c.Notes, func(n Note) bool { return !n.Ready || n.Wait > 0 }) {
+	if c.End == 0 && !slices.ContainsFunc(c.Notes, func(n Note) bool { return !n.Ready || n.Wait > 0 }) {
 		return ErrIdle
 	}
 	end := -1
@@ -150,6 +154,9 @@ func (c *Chart) Validate() error {
 			return fmt.Errorf("a repeat plays 2 to %d times", MaxTimes)
 		}
 		end = r.To
+	}
+	if c.End < 0 || c.End > MaxWait {
+		return errors.New("final wait out of range")
 	}
 	for _, ps := range c.Params {
 		if err := checkParams(ps, MaxCharKey); err != nil {
@@ -211,6 +218,9 @@ func (c *Chart) String() string {
 			}
 		}
 		toks = append(toks, b.String())
+	}
+	if c.End > 0 {
+		toks = append(toks, fmt.Sprintf("~%d", c.End))
 	}
 	for s, ps := range c.Params {
 		if len(ps) > 0 {
@@ -290,9 +300,8 @@ func Parse(s string) (*Chart, error) {
 	if open >= 0 {
 		return nil, errors.New("unclosed [")
 	}
-	if wait > 0 {
-		return nil, errors.New("a wait must come before a note")
-	}
+	// A wait after the last note is the chart's final wait.
+	c.End = wait
 	for _, part := range strings.Split(params, ";") {
 		f := strings.Fields(part)
 		if len(f) == 0 {
@@ -454,6 +463,9 @@ func (c *Chart) actions(names [Slots]string) string {
 			indent = ""
 		}
 	}
+	if c.End > 0 {
+		fmt.Fprintf(&b, "wait(%d);\n", c.End)
+	}
 	return b.String()
 }
 
@@ -498,6 +510,7 @@ func (c *Chart) Remap(slots [Slots]int) *Chart {
 			out.Params[to] = ps
 		}
 	}
+	out.End = c.End
 	out.Pickup = c.Pickup
 	return out
 }

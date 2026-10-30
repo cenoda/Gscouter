@@ -22,7 +22,8 @@ const windowFrom, windowTo = 30, 60
 // library team's rotation (docs/cycle-swap.md §3). The chart is what the
 // rotation's second pass asks for when looped, played with build: every
 // if and while already decided, as the build's energy and cooldowns
-// decided them, and waits kept. Runs of repeated notes become repeats.
+// decided them, and waits kept, the one that ends the pass too. Runs of
+// repeated notes become repeats.
 // names are the members' gcsim keys by slot, as in build.
 func Record(build, rotation string, names [Slots]string) (*Chart, error) {
 	setup, body, err := config.Split(rotation)
@@ -80,10 +81,20 @@ func Record(build, rotation string, names [Slots]string) (*Chart, error) {
 		if _, known := codeOf[r.Action]; !ok || !known {
 			continue // swaps are implicit; a character outside the team cannot act
 		}
-		notes = append(notes, Note{Slot: s, Action: r.Action, Params: params(r.Params), Wait: min(wait, MaxWait)})
+		if wait > MaxWait {
+			return nil, fmt.Errorf("the rotation waits %d frames, more than a chart can (%d)", wait, MaxWait)
+		}
+		notes = append(notes, Note{Slot: s, Action: r.Action, Params: params(r.Params), Wait: wait})
 		wait = 0
 	}
+	if wait > MaxWait {
+		return nil, fmt.Errorf("the rotation waits %d frames at the end, more than a chart can (%d)", wait, MaxWait)
+	}
 	c := compress(notes)
+	// A pass that ends in a wait waits as long at the end of the chart,
+	// once a pass: wait(126) closing a pass is the time before the
+	// rotation comes back round.
+	c.End = wait
 	// A rotation that picks up crystallize shards gets its chart picking
 	// them up: the script's calls are not actions, so they are not
 	// recorded (docs/cycle-swap.md §11.7).
