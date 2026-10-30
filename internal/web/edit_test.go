@@ -8,7 +8,10 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"os/exec"
+	"path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
 	"testing"
 	"time"
@@ -413,4 +416,64 @@ func mustQuery(t *testing.T, link string) url.Values {
 		t.Fatal(err)
 	}
 	return u.Query()
+}
+
+// Deleting every note keeps an empty chart: the link drops r at once, an
+// encode answered after the deletion does not put it back, and the page
+// loaded again from that address opens the empty draft instead of the
+// chart from the old link or the library rotation recorded again
+// (testdata/edit_draft.js).
+func TestEditDraftEmpty(t *testing.T) {
+	node, err := exec.LookPath("node")
+	if err != nil {
+		t.Skip("node not found")
+	}
+	_, ts := newClientSite(t)
+	linked, err := chart.Parse("0E 1Q")
+	if err != nil {
+		t.Fatal(err)
+	}
+	type load struct {
+		Opened, Chart, URL string
+		InFlight, Records  int
+	}
+	// wait is how long after opening the notes go: from 600 ms the link
+	// has started to catch up (one encode out), before it none has.
+	for _, tc := range []struct {
+		name, r, opened   string
+		wait, records, in int
+	}{
+		{name: "recorded", opened: "0E 1Q 2E", records: 1},
+		{name: "recorded, link catching up", opened: "0E 1Q 2E", wait: 600, records: 1, in: 1},
+		{name: "linked", r: linked.Encode(), opened: linked.String()},
+		{name: "linked, link catching up", r: linked.Encode(), opened: linked.String(), wait: 600, in: 1},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			path := "/edit?a=800000001:hutao,yelan,xingqiu,zhongli"
+			if tc.r != "" {
+				path += "&r=" + tc.r
+			}
+			b, err := exec.Command(node, filepath.Join("testdata", "edit_draft.js"), ts.URL, path, strconv.Itoa(tc.wait)).Output()
+			if err != nil {
+				t.Fatalf("node: %v", err)
+			}
+			var out struct{ Loads []load }
+			if err := json.Unmarshal(b, &out); err != nil || len(out.Loads) != 2 {
+				t.Fatalf("%v: %s", err, b)
+			}
+			first, again := out.Loads[0], out.Loads[1]
+			if first.Opened != tc.opened || first.Records != tc.records {
+				t.Fatalf("opened %q after %d recordings, want %q after %d", first.Opened, first.Records, tc.opened, tc.records)
+			}
+			if first.InFlight != tc.in {
+				t.Errorf("%d encodes out when the notes went, want %d", first.InFlight, tc.in)
+			}
+			if first.Chart != "" || strings.Contains(first.URL, "r=") {
+				t.Errorf("after deleting every note the draft is %q and the link %s", first.Chart, first.URL)
+			}
+			if again.Records != 0 || again.Opened != "" || again.Chart != "" || strings.Contains(again.URL, "r=") {
+				t.Errorf("loaded again, the editor recorded %d times and opened %q (link %s)", again.Records, again.Opened, again.URL)
+			}
+		})
+	}
 }
