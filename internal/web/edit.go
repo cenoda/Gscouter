@@ -161,7 +161,7 @@ func (s *Server) handleEdit(w http.ResponseWriter, r *http.Request) {
 		Members: slotted(tr.Chars),
 		Build:   buildLines(tr.Chars),
 		Chart:   text,
-		Score:   string(link("/score", nil, "a", sel.String())),
+		Score:   string(l.link("/score", nil, "a", sel.String())),
 		Version: s.client.version,
 	}
 	d.Rotation = config.RenameCharacters(tr.Team.Rotation, renames(tr.Team, tr.Chars))

@@ -2,7 +2,7 @@
 <div class="card">
 <h1>{{t "index.supported"}}</h1>
 <form class="inline" action="/teams" method="get">
-<input type="search" name="q" id="team-q" placeholder="{{t "teams.placeholder"}}" value="{{.Query}}" autocomplete="off">
+{{template "lang-hidden"}}<input type="search" name="q" id="team-q" placeholder="{{t "teams.placeholder"}}" value="{{.Query}}" autocomplete="off">
 <button type="submit">{{t "teams.search"}}</button>
 </form>
 <p class="muted" id="team-count">{{if .Query}}{{t "teams.matching" .Query (len .Teams) .Total}}{{else}}{{t "teams.total" .Total}}{{end}}</p>
