@@ -338,6 +338,7 @@ func init() {
 		"ed.ready_hint":         "Skipped when not ready, as gcsim's if .ready. A skipped note stays faded.",
 		"ed.drag_hint":          "Drag the note right to wait before it, in steps of 0.1 s.",
 		"problem.chart":         "This link's rotation chart cannot be read.",
+		"problem.chart_idle":    "Every note of this rotation chart plays only when ready, and none waits, so gcsim would stand still on one frame forever. Add a note that always plays, or a wait.",
 		"problem.editor":        "The rotation editor runs in the browser, which this server does not offer.",
 		"score.edit":            "Edit the rotation",
 		"score.chart_note":      "Scored with a custom rotation (a chart from the editor): %[2]s against the library's rotations, which score %[1]s on this build.",

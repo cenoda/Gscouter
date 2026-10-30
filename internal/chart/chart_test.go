@@ -2,6 +2,7 @@ package chart
 
 import (
 	"context"
+	"errors"
 	"slices"
 	"strings"
 	"testing"
@@ -61,6 +62,22 @@ func TestParseRejects(t *testing.T) {
 	} {
 		if _, err := Parse(s); err == nil {
 			t.Errorf("Parse(%q) accepted", s)
+		}
+	}
+}
+
+// A chart made only of notes played when ready would loop on one frame
+// forever once none is ready; one note that always plays, or a wait,
+// moves it on.
+func TestParseRejectsIdle(t *testing.T) {
+	for _, s := range []string{"0Q?", "0E? 1Q?", "[0E? 1Q?]3", "0E? [2Q?]2 ; pickup"} {
+		if _, err := Parse(s); !errors.Is(err, ErrIdle) {
+			t.Errorf("Parse(%q): %v, want %v", s, err, ErrIdle)
+		}
+	}
+	for _, s := range []string{"0Q? 1N", "0Q? ~30 1E?", "[0E? 1Q?]3 0D"} {
+		if _, err := Parse(s); err != nil {
+			t.Errorf("Parse(%q): %v", s, err)
 		}
 	}
 }

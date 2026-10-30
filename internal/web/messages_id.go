@@ -338,6 +338,7 @@ func init() {
 		"ed.ready_hint":         "Dilewati jika belum siap, seperti if .ready di gcsim. Not yang dilewati tetap pudar.",
 		"ed.drag_hint":          "Seret not ke kanan untuk menunggu sebelumnya, per 0,1 dtk.",
 		"problem.chart":         "Chart rotasi di tautan ini tidak bisa dibaca.",
+		"problem.chart_idle":    "Semua not di chart rotasi ini hanya dimainkan saat siap dan tidak ada yang menunggu, jadi gcsim akan diam di satu frame selamanya. Tambahkan not yang selalu dimainkan, atau tunggu.",
 		"problem.editor":        "Editor rotasi menghitung di browser, dan server ini tidak menyediakannya.",
 		"problem.chart_failed":  "gcsim tidak bisa menjalankan chart rotasi ini: %s",
 		"score.edit":            "Edit rotasi",

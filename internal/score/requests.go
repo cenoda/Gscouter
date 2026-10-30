@@ -65,7 +65,7 @@ func Play(ctx context.Context, cfg string, seed int64, setup func(*core.Core), a
 	if len(simcfg.Errors) > 0 {
 		return nil, fmt.Errorf("invalid config: %w", errors.Join(simcfg.Errors...))
 	}
-	res, err := simulateWith(ctx, file, simcfg, gcsl, seed, maxFightFrames, setup, func(ev *eval.Eval, c *core.Core) action.Evaluator {
+	res, err := simulateWith(ctx, file, simcfg, gcsl, seed, maxFightFrames, setup, func(ev *eval.Eval, c *core.Core) syncEvaluator {
 		return &requester{Eval: ev, record: func(e *action.Eval) bool {
 			ask(c, e)
 			return !IsMarker(e)

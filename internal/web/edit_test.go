@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/cenoda/gscouter/internal/chart"
 )
@@ -51,6 +52,29 @@ func TestScoreWithChart(t *testing.T) {
 	q.Set("r", "not-a-chart")
 	_, body = get(t, ts, "/score?"+q.Encode())
 	mustContain(t, body, "chart cannot be read")
+}
+
+// A link's chart of only notes played when ready, which would loop on
+// one frame forever, is refused at once with why, on the result page
+// and in the editor.
+func TestIdleChartRefused(t *testing.T) {
+	srv := newTestSite(t)
+	idle := (&chart.Chart{Notes: []chart.Note{{Slot: 1, Action: "burst", Ready: true}}}).Encode()
+	for _, page := range []string{"/score", "/edit"} {
+		q := url.Values{"a": {"800000001:hutao,yelan,xingqiu,zhongli"}, "r": {idle}}
+		rec := httptest.NewRecorder()
+		done := make(chan struct{})
+		go func() {
+			srv.Handler().ServeHTTP(rec, httptest.NewRequest("GET", page+"?"+q.Encode(), nil))
+			close(done)
+		}()
+		select {
+		case <-done:
+		case <-time.After(20 * time.Second):
+			t.Fatalf("%s: still running after 20 s", page)
+		}
+		mustContain(t, rec.Body.String(), "plays only when ready")
+	}
 }
 
 // Comparing a result scored with a chart compares that chart: the

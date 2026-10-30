@@ -338,6 +338,7 @@ func init() {
 		"ed.ready_hint":         "Bị bỏ qua khi chưa sẵn sàng, như if .ready của gcsim. Nốt bị bỏ qua sẽ mờ đi.",
 		"ed.drag_hint":          "Kéo nốt sang phải để chờ trước nó, mỗi bước 0,1 giây.",
 		"problem.chart":         "Không đọc được bản nhạc xoay vòng trong liên kết này.",
+		"problem.chart_idle":    "Mọi nốt của bản nhạc xoay vòng này chỉ chơi khi sẵn sàng và không có khoảng chờ nào, nên gcsim sẽ đứng yên ở một khung hình mãi mãi. Hãy thêm một nốt luôn chơi, hoặc một khoảng chờ.",
 		"problem.editor":        "Trình chỉnh xoay vòng tính trong trình duyệt, và máy chủ này không cung cấp điều đó.",
 		"problem.chart_failed":  "gcsim không chạy được bản nhạc xoay vòng này: %s",
 		"score.edit":            "Chỉnh xoay vòng",

@@ -224,7 +224,7 @@
     passEdit: {{t "ed.pass_edit"}}, passPreview: {{t "ed.pass_preview"}}, ghost: {{t "ed.ghost"}},
     failed: {{t "ed.failed"}}, notEarlier: {{t "ed.not_earlier"}}, prevEnd: {{t "ed.prev_end"}}, nothingUndo: {{t "ed.nothing_undo"}},
     pickNote: {{t "ed.pick_note"}}, pickEnd: {{t "ed.pick_end"}}, repeatHint: {{t "ed.repeat_hint"}}, readyHint: {{t "ed.ready_hint"}}, dragHint: {{t "ed.drag_hint"}},
-    broken: {{t "ed.broken"}}, recordFailed: {{t "ed.record_failed"}}, template: {{t "ed.template"}}, blank: {{t "ed.blank"}},
+    broken: {{t "ed.broken"}}, idle: {{t "problem.chart_idle"}}, recordFailed: {{t "ed.record_failed"}}, template: {{t "ed.template"}}, blank: {{t "ed.blank"}},
     paramsTitle: {{t "ed.params_title"}}, startHP: {{t "ed.start_hp"}}, startEnergy: {{t "ed.start_energy"}}, paramDefault: {{t "ed.param_default"}},
     paramsNote: {{t "ed.params_note"}}, resetParams: {{t "ed.reset_params"}}, close: {{t "ed.close"}},
     savedMsg: {{t "ed.saved_msg"}}, nameFirst: {{t "ed.name_first"}},
@@ -339,9 +339,12 @@
     urlTimer = setTimeout(syncURL, 600);
     try { localStorage.setItem(store, write(st)); } catch (e) {}
   }
+  // A chart whose every note waits until ready, with no wait, would stand
+  // still in gcsim, which refuses it (chart.ErrIdle).
+  function idle() { return st.notes.length > 0 && !st.notes.some(function (n) { return !n.r || n.w > 0; }); }
   function runPreview() {
-    if (!st.notes.length) { P = null; render(); return; }
     var mine = ++previewing;
+    if (!st.notes.length || idle()) { P = null; render(); return; }
     call("preview", [BUILD, write(st), NAMES, DEFAULTS]).then(function (json) {
       if (mine !== previewing) return;
       P = JSON.parse(json);
@@ -479,6 +482,7 @@
     party();
     labels();
     if (P && P.error) message(S.failed.replace("%s", P.error.message), true);
+    else if (idle()) message(S.idle, true);
     else if (P && sel === null) message(notice || S.ghost, false);
   }
   function playhead(pl) {

@@ -175,10 +175,19 @@ func withChart(sel selection, q url.Values, p string) (selection, error) {
 		return sel, nil
 	}
 	if _, err := chart.Decode(c); err != nil {
-		return sel, inputError{key: "problem.chart"}
+		return sel, chartError(err)
 	}
 	sel.Chart = c
 	return sel, nil
+}
+
+// chartError is the visitor's problem with a link's chart that
+// chart.Decode refuses with err.
+func chartError(err error) inputError {
+	if errors.Is(err, chart.ErrIdle) {
+		return inputError{key: "problem.chart_idle"}
+	}
+	return inputError{key: "problem.chart"}
 }
 
 func (sel selection) String() string {

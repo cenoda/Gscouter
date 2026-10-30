@@ -129,7 +129,7 @@ func (s *Server) handleEdit(w http.ResponseWriter, r *http.Request) {
 	if c := r.URL.Query().Get("r"); c != "" {
 		ch, err := chart.Decode(c)
 		if err != nil {
-			s.renderProblem(w, l, l.T("problem.chart"))
+			s.renderProblem(w, l, l.message(chartError(err)))
 			return
 		}
 		text = ch.String()

@@ -338,6 +338,7 @@ func init() {
 		"ed.ready_hint":         "Saltata se non è pronta, come l'if .ready di gcsim. Una nota saltata resta sbiadita.",
 		"ed.drag_hint":          "Trascina la nota a destra per attendere prima di essa, a passi di 0,1 s.",
 		"problem.chart":         "Lo spartito di rotazione di questo link non è leggibile.",
+		"problem.chart_idle":    "Ogni nota di questo spartito di rotazione suona solo se pronta e nessuna attende, quindi gcsim resterebbe fermo su un fotogramma per sempre. Aggiungi una nota che suona sempre, o un'attesa.",
 		"problem.editor":        "L'editor di rotazione calcola nel browser, cosa che questo server non offre.",
 		"problem.chart_failed":  "gcsim non è riuscito a suonare questo spartito di rotazione: %s",
 		"score.edit":            "Modifica la rotazione",

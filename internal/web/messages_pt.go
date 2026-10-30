@@ -338,6 +338,7 @@ func init() {
 		"ed.ready_hint":         "Pulada quando não está pronta, como o if .ready do gcsim. Uma nota pulada fica apagada.",
 		"ed.drag_hint":          "Arraste a nota para a direita para esperar antes dela, em passos de 0,1 s.",
 		"problem.chart":         "Não é possível ler a partitura de rotação deste link.",
+		"problem.chart_idle":    "Todas as notas desta partitura de rotação só tocam quando prontas e nenhuma espera, então o gcsim ficaria parado num quadro para sempre. Adicione uma nota que sempre toca, ou uma espera.",
 		"problem.editor":        "O editor de rotação calcula no navegador, e este servidor não oferece isso.",
 		"problem.chart_failed":  "O gcsim não conseguiu tocar esta partitura de rotação: %s",
 		"score.edit":            "Editar a rotação",

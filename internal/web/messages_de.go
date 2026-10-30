@@ -338,6 +338,7 @@ func init() {
 		"ed.ready_hint":         "Wird übersprungen, wenn nicht bereit, wie gcsims if .ready. Eine übersprungene Note bleibt blass.",
 		"ed.drag_hint":          "Ziehe die Note nach rechts, um vor ihr zu warten, in Schritten von 0,1 s.",
 		"problem.chart":         "Die Rotationspartitur dieses Links ist nicht lesbar.",
+		"problem.chart_idle":    "Jede Note dieser Rotationspartitur spielt nur, wenn bereit, und keine wartet, also stünde gcsim für immer auf einem Frame still. Füge eine Note hinzu, die immer spielt, oder eine Wartezeit.",
 		"problem.editor":        "Der Rotationseditor rechnet im Browser, was dieser Server nicht anbietet.",
 		"problem.chart_failed":  "gcsim konnte diese Rotationspartitur nicht spielen: %s",
 		"score.edit":            "Rotation bearbeiten",
