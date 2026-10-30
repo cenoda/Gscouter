@@ -26,7 +26,7 @@
 {{define "library-try"}}<div class="card">
 <h2>{{t "lib.try"}}</h2>
 <form class="inline" action="/" method="get">
-<input type="text" name="uid" inputmode="numeric" pattern="[0-9]{9,10}" title="{{t "index.uid_title"}}" placeholder="{{t "index.uid_placeholder"}}" required>
+{{template "lang-hidden"}}<input type="text" name="uid" inputmode="numeric" pattern="[0-9]{9,10}" title="{{t "index.uid_title"}}" placeholder="{{t "index.uid_placeholder"}}" required>
 <button type="submit">{{t "index.load"}}</button>
 </form>
 <p class="muted">{{t "index.showcase_hint"}}</p>

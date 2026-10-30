@@ -41,6 +41,7 @@ package main
 
 import (
 	"cmp"
+	"context"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -252,7 +253,7 @@ func printReport(r *validate.Report, verbose bool) {
 // actions taken, damage by source and reactions triggered over the whole
 // fight.
 func printDetail(cfg string) {
-	res, err := score.Once(cfg, 1)
+	res, err := score.Once(context.Background(), cfg, 1)
 	if err != nil {
 		fmt.Printf("       detail: %v\n", err)
 		return

@@ -122,7 +122,7 @@ func idleConfig(t *testing.T) string {
 
 // A fight that would never end stops at maxFightFrames.
 func TestFightLengthBounded(t *testing.T) {
-	res, err := Once(idleConfig(t), 1)
+	res, err := Once(context.Background(), idleConfig(t), 1)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -167,6 +167,37 @@ func TestRunStopsStillLoop(t *testing.T) {
 		}
 	case <-time.After(10 * time.Second):
 		t.Fatal("still running after 10 s")
+	}
+}
+
+// A trace stops when its context is done: the server's timelines hold a
+// simulation slot while they run.
+func TestTraceStopsOnCancel(t *testing.T) {
+	cfg := idleConfig(t)
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Millisecond)
+	defer cancel()
+	start := time.Now()
+	_, _, err := Trace(ctx, cfg, 1, 0)
+	if !errors.Is(err, context.DeadlineExceeded) {
+		t.Errorf("err = %v, want %v", err, context.DeadlineExceeded)
+	}
+	if took := time.Since(start); took > 300*time.Millisecond {
+		t.Errorf("returned after %v", took)
+	}
+}
+
+// A trace with a limit ends at the first whole second from it, without
+// an error.
+func TestTraceLimit(t *testing.T) {
+	res, actions, err := Trace(context.Background(), idleConfig(t), 1, 90*60+1)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if res.Duration != 91*60 {
+		t.Errorf("fight ran %d frames, want %d", res.Duration, 91*60)
+	}
+	if len(actions) != 4 {
+		t.Errorf("actions of %d characters, want 4", len(actions))
 	}
 }
 

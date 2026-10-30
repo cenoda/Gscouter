@@ -10,6 +10,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/cenoda/gscouter/internal/config"
 	"github.com/cenoda/gscouter/internal/library"
 )
 
@@ -45,10 +46,13 @@ var langs = []struct{ Code, Name string }{
 }
 
 // localizer writes the site's text in one language. Auto is set when the
-// language came from the browser rather than the visitor's pick.
+// language came from the browser rather than the visitor's pick, URL
+// when it came from the page's URL (langParam), which the page's links
+// and forms then keep.
 type localizer struct {
 	Lang string
 	Auto bool
+	URL  bool
 }
 
 // english is for output that is always in English, like card images.
@@ -97,7 +101,7 @@ func (l localizer) name(prefix, key string) string {
 // (see langParam), else the visitor's.
 func localizerFor(r *http.Request) localizer {
 	if code := urlLang(r); code != "" {
-		return localizer{Lang: code}
+		return localizer{Lang: code, URL: true}
 	}
 	if c, err := r.Cookie(langCookie); err == nil {
 		if _, ok := catalog[c.Value]; ok {
@@ -181,6 +185,19 @@ func backTo(r *http.Request) string {
 	return uri
 }
 
+// urlLang is the language the page's URL names, or "".
+func (l localizer) urlLang() string {
+	if l.URL {
+		return l.Lang
+	}
+	return ""
+}
+
+// link is link, keeping the language the page's URL names.
+func (l localizer) link(path string, e *config.Enemy, kv ...string) template.URL {
+	return link(path, e, append(kv, langParam, l.urlLang())...)
+}
+
 // localeFuncs are the template functions that depend on the language.
 func localeFuncs(l localizer) template.FuncMap {
 	return template.FuncMap{
@@ -190,6 +207,9 @@ func localeFuncs(l localizer) template.FuncMap {
 		"lang":     func() string { return l.Lang },
 		"langAuto": func() bool { return l.Auto },
 		"langs":    func() any { return langs },
+		// hl is the language the page's URL names, for its forms to keep.
+		"hl":       l.urlLang,
+		"link":     l.link,
 		"meta":     func(v any) pageMeta { return metaOf(l, v) },
 		"name":     l.charName,
 		"weapon":   l.weaponName,

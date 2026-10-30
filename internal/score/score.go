@@ -199,7 +199,7 @@ var ErrStuck = errors.New("the rotation plays actions that take no time, such as
 // its duration, when ctx is done or the fight reaches maxFightFrames;
 // the result is then the fight so far, and the error ctx's.
 func simulate(ctx context.Context, file *ast.File, simcfg *info.ActionList, gcsl ast.Node, seed int64) (stats.Result, error) {
-	return simulateWith(ctx, file, simcfg, gcsl, seed, nil, nil)
+	return simulateWith(ctx, file, simcfg, gcsl, seed, maxFightFrames, nil, nil)
 }
 
 // syncEvaluator is a program gcsim runs on the fight's goroutine
@@ -232,9 +232,10 @@ func (g *stillGuard) RunSync(exec func(*action.Eval) bool) error {
 	})
 }
 
-// simulateWith is simulate, calling setup with the fight's core before
-// the fight is set up, and running the program through wrap when set.
-func simulateWith(ctx context.Context, file *ast.File, simcfg *info.ActionList, gcsl ast.Node, seed int64, setup func(*core.Core), wrap func(*eval.Eval, *core.Core) syncEvaluator) (stats.Result, error) {
+// simulateWith is simulate, ending the fight at limit frames instead of
+// maxFightFrames, calling setup with the fight's core before the fight
+// is set up, and running the program through wrap when set.
+func simulateWith(ctx context.Context, file *ast.File, simcfg *info.ActionList, gcsl ast.Node, seed int64, limit int, setup func(*core.Core), wrap func(*eval.Eval, *core.Core) syncEvaluator) (stats.Result, error) {
 	cfg := simcfg.Copy()
 	c, err := simulation.NewCore(seed, false, cfg)
 	if err != nil {
@@ -262,7 +263,7 @@ func simulateWith(ctx context.Context, file *ast.File, simcfg *info.ActionList, 
 	// stuck program has ended, and the fight would run on without it.
 	stopped := false
 	c.Events.Subscribe(event.OnTick, func(...any) {
-		if stopped || c.F%60 != 0 || c.F < maxFightFrames && ctx.Err() == nil && !guard.stuck {
+		if stopped || c.F%60 != 0 || c.F < limit && ctx.Err() == nil && !guard.stuck {
 			return
 		}
 		stopped = true
@@ -280,9 +281,10 @@ func simulateWith(ctx context.Context, file *ast.File, simcfg *info.ActionList, 
 }
 
 // Once runs cfg a single time and returns gcsim's full result, for
-// inspecting what a rotation does.
-func Once(cfg string, seed int64) (*stats.Result, error) {
-	res, _, err := Trace(cfg, seed)
+// inspecting what a rotation does. The fight ends early when ctx is
+// done, with ctx's error.
+func Once(ctx context.Context, cfg string, seed int64) (*stats.Result, error) {
+	res, _, err := Trace(ctx, cfg, seed, 0)
 	return res, err
 }
 
@@ -296,7 +298,10 @@ type Action struct {
 
 // Trace is Once, also returning every action each character took, in
 // party order: gcsim's result has the actions but not their params.
-func Trace(cfg string, seed int64) (*stats.Result, [][]Action, error) {
+// When limit is above 0, the fight ends at the first whole second from
+// frame limit on, as at the end of a duration, for a caller that reads
+// only its start; the result is then the fight so far.
+func Trace(ctx context.Context, cfg string, seed int64, limit int) (*stats.Result, [][]Action, error) {
 	file := ast.NewFile()
 	simcfg, gcsl, err := parser.New(file, cfg).Parse()
 	if err != nil {
@@ -306,7 +311,10 @@ func Trace(cfg string, seed int64) (*stats.Result, [][]Action, error) {
 		return nil, nil, fmt.Errorf("invalid config: %w", errors.Join(simcfg.Errors...))
 	}
 	actions := make([][]Action, len(simcfg.Characters))
-	res, err := simulateWith(context.Background(), file, simcfg, gcsl, seed, func(c *core.Core) {
+	if limit <= 0 || limit > maxFightFrames {
+		limit = maxFightFrames
+	}
+	res, err := simulateWith(ctx, file, simcfg, gcsl, seed, limit, func(c *core.Core) {
 		c.Events.Subscribe(event.OnActionExec, func(args ...any) {
 			char := args[0].(int)
 			a := Action{Frame: c.F, Action: args[1].(action.Action).String()}

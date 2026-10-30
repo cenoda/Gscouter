@@ -106,6 +106,49 @@ func TestLanguagePickDropsURLLanguage(t *testing.T) {
 	}
 }
 
+// A result page keeps the language its URL names when it redirects to
+// its shortest URL, and drops one the site does not have.
+func TestResultKeepsURLLanguage(t *testing.T) {
+	ts := newTestServer(t)
+	client := *ts.Client()
+	client.CheckRedirect = func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }
+	for hl, want := range map[string]bool{"ko": true, "xx": false} {
+		resp, err := client.Get(ts.URL + "/score?uid=800000001&c=hutao&c=yelan&c=xingqiu&c=zhongli&hl=" + hl)
+		if err != nil {
+			t.Fatal(err)
+		}
+		resp.Body.Close()
+		loc := resp.Header.Get("Location")
+		if resp.StatusCode != http.StatusSeeOther || strings.Contains(loc, "hl=ko") != want || strings.Contains(loc, "hl=xx") {
+			t.Errorf("hl=%s: status %d, location %q", hl, resp.StatusCode, loc)
+		}
+	}
+	// The result, in Korean to an English browser, keeps it in its forms
+	// and links.
+	_, body := get(t, ts, "/score?uid=800000001&c=hutao&c=yelan&c=xingqiu&c=zhongli&hl=ko")
+	mustContain(t, body, "호두", `<input type="hidden" name="hl" value="ko">`, "&amp;hl=ko")
+}
+
+// The front page's forms and links keep the language its URL names, so
+// that a visitor who came in on it stays in it.
+func TestFormsKeepURLLanguage(t *testing.T) {
+	ts := newTestServer(t)
+	_, body := get(t, ts, "/?uid=800000001&hl=ko")
+	if n := strings.Count(body, `<input type="hidden" name="hl" value="ko">`); n != 2 {
+		t.Errorf("%d forms keep the language, want 2 (UID and picker)", n)
+	}
+	mustContain(t, body, "&amp;hl=ko", `lang = "ko"`)
+	for _, path := range []string{"/?uid=800000001", "/?uid=800000001&hl=xx"} {
+		if _, body := get(t, ts, path); strings.Contains(body, `name="hl"`) || strings.Contains(body, "&amp;hl=") {
+			t.Errorf("%s keeps a language", path)
+		}
+	}
+	for _, path := range []string{"/teams?hl=ko", "/teams/" + hutaoTeamID + "?hl=ko"} {
+		_, body := get(t, ts, path)
+		mustContain(t, body, `<input type="hidden" name="hl" value="ko">`)
+	}
+}
+
 func TestSitemaps(t *testing.T) {
 	srv := newTestSite(t)
 	srv.SetSite("https://gscouter.example/")
