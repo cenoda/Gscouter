@@ -42,8 +42,11 @@ type editData struct {
 	// LibraryPickup says whether the library rotation picks up
 	// crystallize shards, which its recorded chart then does too.
 	LibraryPickup bool
-	// Score is the result page's link without its chart.
-	Score   string
+	// Score is the result page's link without its chart, against Enemy.
+	Score string
+	// Enemy is the result's enemy, which the preview plays against too;
+	// nil for the standard one.
+	Enemy   *config.Enemy
 	Version string
 	// For a team the library doesn't have, a library team sharing three
 	// members is the first chart's template: its build, rotation and
@@ -140,6 +143,11 @@ func (s *Server) handleEdit(w http.ResponseWriter, r *http.Request) {
 		}
 		text = ch.String()
 	}
+	enemy, err := enemyFromQuery(r.URL.Query())
+	if err != nil {
+		s.renderProblem(w, l, l.message(err))
+		return
+	}
 	ctx, cancel := context.WithTimeout(r.Context(), 30*time.Second)
 	defer cancel()
 	sel = s.withBuilds(ctx, sel, keptBuilds(r))
@@ -147,14 +155,14 @@ func (s *Server) handleEdit(w http.ResponseWriter, r *http.Request) {
 	if c := r.URL.Query().Get("r"); c != "" {
 		kv = append(kv, "r", c)
 	}
-	if canonical(w, r, "/edit", nil, kv...) {
+	if canonical(w, r, "/edit", enemy, kv...) {
 		return
 	}
 	if s.client == nil {
 		s.renderProblem(w, l, l.T("problem.editor"))
 		return
 	}
-	tr := s.prepare(ctx, l, sel, nil)
+	tr := s.prepare(ctx, l, sel, enemy)
 	if tr.Writable {
 		tr.Problem, tr.Team = "", customTeam(sel.Chars)
 	}
@@ -167,7 +175,8 @@ func (s *Server) handleEdit(w http.ResponseWriter, r *http.Request) {
 		Members: slotted(tr.Chars),
 		Build:   buildLines(tr.Chars),
 		Chart:   text,
-		Score:   string(l.link("/score", nil, "a", sel.String())),
+		Score:   string(l.link("/score", enemy, "a", sel.String())),
+		Enemy:   enemy,
 		Version: s.client.version,
 	}
 	d.Rotation = config.RenameCharacters(tr.Team.Rotation, renames(tr.Team, tr.Chars))

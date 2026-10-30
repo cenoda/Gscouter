@@ -211,6 +211,7 @@
 (function () {
   var V = {{.Version}}, BUILD = {{.Build}}, RECORD_BUILD = {{.RecordBuild}}, ROTATION = {{.Rotation}}, SCORE = {{.Score}};
   var NAMES = JSON.stringify({{.Names}}), DEFAULTS = JSON.stringify({{.Defaults}});
+  var ENEMY = {{.Enemy}};
   var START = {{.Chart}};
   var TEMPLATE = {{with .Template}}{name: {{teamName .}}, rotation: {{.Rotation}}}{{else}}null{{end}};
   var TEMPLATE_BUILD = {{.TemplateBuild}}, TEMPLATE_NAMES = JSON.stringify({{.TemplateNames}}), MOVES = JSON.stringify({{.Moves}});
@@ -347,7 +348,7 @@
   function runPreview() {
     var mine = ++previewing;
     if (!st.notes.length || idle()) { P = null; render(); return; }
-    call("preview", [BUILD, write(st), NAMES, DEFAULTS]).then(function (json) {
+    call("preview", [BUILD, write(st), NAMES, DEFAULTS, JSON.stringify(ENEMY)]).then(function (json) {
       if (mine !== previewing) return;
       P = JSON.parse(json);
       render();
