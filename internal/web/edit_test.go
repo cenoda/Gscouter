@@ -2,7 +2,9 @@ package web
 
 import (
 	"context"
+	"html"
 	"net/http"
+	"net/http/httptest"
 	"net/url"
 	"strings"
 	"testing"
@@ -165,4 +167,38 @@ func TestPickupExplained(t *testing.T) {
 	c, _ := chart.Parse("3E(hold=1) 2E 1E 0E [0N 0C 0D]6 ; pickup")
 	_, body = get(t, ts2, "/score?"+url.Values{"a": {"800000001:hutao,yelan,xingqiu,zhongli"}, "r": {c.Encode()}}.Encode())
 	mustContain(t, body, "picks up crystallize shards after every action")
+}
+
+// The link preview image is drawn with the result's chart, whether the
+// server or the browser calculates the result.
+func TestPreviewImageKeepsChart(t *testing.T) {
+	ca, _ := chart.Parse("3E(hold=1) 2E 2Q? 1Q? 1E 0E [0N 0C 0D]6 0Q?")
+	cb, _ := chart.Parse("3E(hold=1) 2E 1E 0E [0N 0C 0D]6 0Q?")
+	const team = "800000001:hutao,yelan,xingqiu,zhongli"
+	_, client := newClientSite(t)
+	for name, ts := range map[string]*httptest.Server{"server": newTestServer(t), "browser": client} {
+		for _, c := range []struct {
+			page, card string
+			want       url.Values
+		}{
+			{"/score?" + url.Values{"a": {team}, "r": {ca.Encode()}}.Encode(), "/card/score.png", url.Values{"r": {ca.Encode()}}},
+			{"/versus?" + url.Values{"a": {team}, "b": {team}, "ra": {ca.Encode()}, "rb": {cb.Encode()}}.Encode(), "/card/versus.png", url.Values{"ra": {ca.Encode()}, "rb": {cb.Encode()}}},
+		} {
+			_, body := get(t, ts, c.page)
+			i := strings.Index(body, `og:image" content="`)
+			if i < 0 {
+				t.Fatalf("%s %s: no og:image", name, c.page)
+			}
+			img := body[i+len(`og:image" content="`):]
+			u, err := url.Parse(html.UnescapeString(img[:strings.Index(img, `"`)]))
+			if err != nil || u.Path != c.card {
+				t.Fatalf("%s %s: og:image %q", name, c.page, img[:strings.Index(img, `"`)])
+			}
+			for k := range c.want {
+				if got := u.Query().Get(k); got != c.want.Get(k) {
+					t.Errorf("%s %s: og:image %s = %q, want %q", name, c.page, k, got, c.want.Get(k))
+				}
+			}
+		}
+	}
 }

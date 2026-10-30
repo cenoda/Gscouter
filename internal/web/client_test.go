@@ -124,7 +124,7 @@ func TestStaticBuild(t *testing.T) {
 
 // The front page warms the browser build up for the result page, at the
 // URL the result page loads it from, once the visitor interacts with the
-// UID input (not on focus: it has autofocus), or right away on a loaded
+// UID input (not on focus: it is focused on load), or right away on a loaded
 // showcase; without a browser build it does not.
 func TestIndexPrefetchesClient(t *testing.T) {
 	srv, ts := newClientSite(t)

@@ -29,6 +29,7 @@ var updates = []update{
 			"A loaded showcase names the characters that would unlock the most teams if you put them in it, and counts down to when a changed showcase can be loaded again.",
 			"Builds saved on Enka.Network can be picked: when a UID is public on an Enka account, its characters outside the showcase come with their saved builds, and a character with several builds can be picked with any of them.",
 			"Comparing a result scored with your own rotation compares that rotation; it used to compare the library's.",
+			"The link preview of a result scored with your own rotation shows that score, not the library's.",
 		},
 		Ko: []string{
 			"Gscouter의 소스 코드를 GNU AGPL로 공개하고, 모든 페이지 아래에 링크했습니다.",
@@ -36,6 +37,7 @@ var updates = []update{
 			"불러온 쇼케이스에 어떤 캐릭터를 넣으면 계산할 수 있는 파티가 가장 많이 늘어나는지 보여 주고, 쇼케이스를 바꾼 뒤 다시 불러올 수 있을 때까지 남은 시간을 셉니다.",
 			"Enka.Network에 저장한 빌드도 고를 수 있습니다. Enka 계정에 UID가 공개되어 있으면 쇼케이스에 없는 캐릭터도 저장된 빌드로 나오고, 빌드가 여러 개인 캐릭터는 그중 하나를 골라 계산할 수 있습니다.",
 			"직접 짠 로테이션으로 계산한 결과를 비교하면 그 로테이션으로 비교합니다. 전에는 라이브러리 로테이션으로 비교했습니다.",
+			"직접 짠 로테이션으로 계산한 결과의 링크 미리보기가 라이브러리 로테이션 점수가 아니라 그 점수를 보여 줍니다.",
 		},
 	},
 	{
