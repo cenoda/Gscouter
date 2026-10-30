@@ -343,7 +343,9 @@
     clearTimeout(previewTimer);
     previewTimer = setTimeout(runPreview, 120);
     clearTimeout(urlTimer);
-    urlTimer = setTimeout(syncURL, 600);
+    // An empty chart leaves the link at once, so a reload cannot bring
+    // the deleted notes back from it.
+    if (st.notes.length) urlTimer = setTimeout(syncURL, 600); else syncURL();
     try { localStorage.setItem(store, write(st)); } catch (e) {}
   }
   // A chart whose every note waits until ready, with no wait, would stand
@@ -361,12 +363,25 @@
       P = null; render(); message(S.broken.replace("%s", err.message), true);
     });
   }
+  // The link follows the chart (r). An empty chart has no r: the draft
+  // kept in this browser holds it.
   function syncURL() {
-    if (!st.notes.length) return;
-    call("encode", [write(st)]).then(function (c) {
-      var q = new URLSearchParams(location.search); q.set("r", c);
-      try { window.history.replaceState(null, "", location.pathname + "?" + q.toString()); } catch (e) {}
+    if (!st.notes.length) {
+      var q = new URLSearchParams(location.search);
+      if (q.has("r")) { q.delete("r"); replaceQuery(q); }
+      return;
+    }
+    var text = write(st);
+    call("encode", [text]).then(function (c) {
+      // The chart changed while it was encoded: this r is out of date,
+      // and could bring back notes since deleted.
+      if (text !== write(st)) return;
+      var q = new URLSearchParams(location.search); q.set("r", c); replaceQuery(q);
     }, function () {});
+  }
+  function replaceQuery(q) {
+    var s = q.toString();
+    try { window.history.replaceState(null, "", location.pathname + (s ? "?" + s : "")); } catch (e) {}
   }
 
   // ---- Drawing ----
@@ -997,9 +1012,13 @@
   });
   if (!window.WebAssembly || !window.Worker) { message(S.broken.replace("%s", "WebAssembly"), true); return; }
   boot();
+  // A kept draft, even an empty one (every note deleted), comes before
+  // recording the library rotation again; null is no draft.
   var kept = null;
   try { kept = localStorage.getItem(store); } catch (e) {}
-  ready.then(function () { start(START || kept || ""); }, function (err) { message(S.broken.replace("%s", err.message), true); });
+  ready.then(function () {
+    if (START) start(START); else if (kept !== null) load(kept); else start("");
+  }, function (err) { message(S.broken.replace("%s", err.message), true); });
 })();
 </script>
 {{template "foot"}}
