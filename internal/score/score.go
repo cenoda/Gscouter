@@ -59,7 +59,8 @@ type Result struct {
 	Window float64 // length of the scoring window in seconds
 	// Drift is (second-half DPS - first-half DPS) / first-half DPS over the
 	// scoring window. A team that has reached a steady state has a drift
-	// near 0.
+	// near 0. A window under a second has no two halves to compare and
+	// counts as no drift.
 	Drift      float64
 	Iterations int
 	Characters []Character
@@ -404,6 +405,12 @@ var screenStats = map[string]bool{
 }
 
 // summarize reduces one run to the damage dealt from startBucket onwards.
+//
+// Every number it returns is finite, as browser workers send iterations
+// as JSON, which has no NaN. A fight that ended by the start of the
+// window, which a one-pass rotation can, has no window: it scores 0. A
+// window too short to split into two halves at a bucket boundary, under
+// a second, gives both halves the window's DPS, so it shows no drift.
 func summarize(res *stats.Result, startBucket int) Iteration {
 	startFrame := startBucket * bucketFrames
 	window := float64(res.Duration-startFrame) / 60
@@ -415,6 +422,13 @@ func summarize(res *stats.Result, startBucket int) Iteration {
 		Waits:   make([]map[string]float64, len(res.Characters)),
 		Frames:  res.Duration,
 		Names:   make([]string, len(res.Characters)),
+	}
+	if window <= 0 {
+		for c := range res.Characters {
+			it.Names[c] = res.Characters[c].Name
+			it.Waits[c] = map[string]float64{}
+		}
+		return it
 	}
 
 	// cumulative[i] is the team damage dealt in buckets 0..i.
@@ -431,8 +445,15 @@ func summarize(res *stats.Result, startBucket int) Iteration {
 		}
 	}
 	it.DPS = (it.FirstHalf + it.SecondHalf) / window
-	it.FirstHalf /= float64(midFrame-startFrame) / 60
-	it.SecondHalf /= float64(res.Duration-midFrame) / 60
+	// midFrame < res.Duration whenever the window has length, so the
+	// second half always does; the first is empty when midBucket is
+	// startBucket.
+	if midFrame > startFrame {
+		it.FirstHalf /= float64(midFrame-startFrame) / 60
+		it.SecondHalf /= float64(res.Duration-midFrame) / 60
+	} else {
+		it.FirstHalf, it.SecondHalf = it.DPS, it.DPS
+	}
 
 	// charCumulative returns a character's damage dealt in buckets 0..i.
 	charCumulative := func(c, i int) float64 {
@@ -488,7 +509,8 @@ func Aggregate(its []Iteration, warmup float64) *Result {
 	r.DPS = mean
 	r.StdDev = math.Sqrt(variance)
 	r.StdErr = r.StdDev / math.Sqrt(n)
-	r.Window = (frames - float64(startBucket*bucketFrames)) / 60
+	// Iterations whose fight ended by the start of the window have none.
+	r.Window = max(frames-float64(startBucket*bucketFrames), 0) / 60
 	if firstHalf > 0 {
 		r.Drift = (secondHalf - firstHalf) / firstHalf
 	}
@@ -498,6 +520,9 @@ func Aggregate(its []Iteration, warmup float64) *Result {
 		ch := Character{Name: name, Waits: map[string]float64{}}
 		for _, it := range its {
 			ch.DPS += it.CharDPS[c]
+			if minutes <= 0 {
+				continue // no window, so no waits in it
+			}
 			for reason, w := range it.Waits[c] {
 				ch.Waits[reason] += w / (n * minutes)
 			}
