@@ -495,8 +495,16 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 		}
 	}
 	// A chart is scored as the team's rotations are, and they are scored
-	// too, for the comparison (docs/cycle-swap.md §7).
-	if c, cerr := chart.Decode(tr.Selection.Chart); err == nil && cerr == nil {
+	// too, for the comparison (docs/cycle-swap.md §7). The comparison is
+	// optional: when the library's rotations fail on this build, the
+	// chart is still scored, with no library score beside it. A busy
+	// site, a cancelled request or a passed deadline still stops here.
+	c, cerr := chart.Decode(tr.Selection.Chart)
+	if tr.Selection.Chart != "" && cerr == nil && err != nil && !errors.Is(err, errBusy) && ctx.Err() == nil {
+		slog.Warn("library rotations failed beside a chart", "team", tr.Team.ID, "uid", tr.Selection.UID, "err", err)
+		out, err = nil, nil
+	}
+	if tr.Selection.Chart != "" && cerr == nil && err == nil {
 		if out != nil {
 			tr.Library = out.Result
 		}

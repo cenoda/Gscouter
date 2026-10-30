@@ -23,7 +23,7 @@ func TestFillPartyAndSkill(t *testing.T) {
 	rot := "active arlecchino;\nbennett burst; arlecchino skill[hold=1], attack:5;\n"
 	got := Fill(rot, map[string]Filler{"bennett": FillParty}, []string{"arlecchino"}, []string{"arlecchino", "bennett", "furina"})
 	for _, s := range []string{
-		"if .bennett.skill.ready { bennett skill; } else if .arlecchino.skill.ready { arlecchino skill; } else if .furina.skill.ready { furina skill; } else { bennett attack; }",
+		"if .bennett.skill.ready { bennett skill; } else if .arlecchino.skill.ready { arlecchino skill[hold=1]; } else if .furina.skill.ready { furina skill; } else { bennett attack; }",
 		"while !.arlecchino.skill.ready && gs_fill2 < 30 { arlecchino attack;",
 		"arlecchino skill[hold=1], attack:5;",
 	} {
@@ -148,5 +148,50 @@ func TestWaitLoops(t *testing.T) {
 		if _, _, err := parser.New(ast.NewFile(), got).Parse(); err != nil {
 			t.Errorf("%v: filled rotation does not parse: %v\n%s", c.energy, err, got)
 		}
+	}
+}
+
+// An action with several parameters keeps its brackets whole: a comma
+// inside them separates parameters, not actions.
+func TestFillMultiParamSkill(t *testing.T) {
+	rot := "active klee;\nklee attack;\nklee skill[bounce=3, mine=8];\nklee burst;\n"
+	got := Fill(rot, map[string]Filler{"klee": FillSelf}, nil, []string{"klee"})
+	if s := "if .klee.skill.ready { klee skill[bounce=3, mine=8]; }"; !strings.Contains(got, s) {
+		t.Errorf("missing %q in:\n%s", s, got)
+	}
+	if _, _, err := parser.New(ast.NewFile(), "klee char lvl=90/90 cons=0 talent=9,9,9;\n"+got).Parse(); err != nil {
+		t.Errorf("filled rotation does not parse: %v\n%s", err, got)
+	}
+}
+
+func TestFillPartyMultiParamSkill(t *testing.T) {
+	rot := "active klee;\nklee skill[bounce=3, mine=8], attack;\nbennett burst;\n"
+	got := Fill(rot, map[string]Filler{"bennett": FillParty}, nil, []string{"bennett", "klee"})
+	if s := "else if .klee.skill.ready { klee skill[bounce=3, mine=8]; }"; !strings.Contains(got, s) {
+		t.Errorf("missing %q in:\n%s", s, got)
+	}
+	if _, _, err := parser.New(ast.NewFile(), "klee char lvl=90/90 cons=0 talent=9,9,9;\n"+got).Parse(); err != nil {
+		t.Errorf("filled rotation does not parse: %v\n%s", err, got)
+	}
+}
+
+func TestFillSkipMultiParamBurst(t *testing.T) {
+	rot := "active xiangling;\nxiangling burst[a=1, b=2], skill;\n"
+	got := Fill(rot, map[string]Filler{"xiangling": FillSkip}, nil, []string{"xiangling"})
+	if s := "if .xiangling.burst.ready { xiangling burst[a=1, b=2]; } else { wait(1); } xiangling skill;"; !strings.Contains(got, s) {
+		t.Errorf("missing %q in:\n%s", s, got)
+	}
+	if _, _, err := parser.New(ast.NewFile(), "xiangling char lvl=90/90 cons=0 talent=9,9,9;\n"+got).Parse(); err != nil {
+		t.Errorf("filled rotation does not parse: %v\n%s", err, got)
+	}
+}
+
+// Statements written on one line are all seen when the rotation's skill
+// forms are taken.
+func TestFillSameLineStatements(t *testing.T) {
+	rot := "active zhongli; zhongli skill[hold=1]; zhongli burst;\n"
+	got := Fill(rot, map[string]Filler{"zhongli": FillSelf}, nil, []string{"zhongli"})
+	if s := "if .zhongli.skill.ready { zhongli skill[hold=1]; }"; !strings.Contains(got, s) {
+		t.Errorf("missing %q in:\n%s", s, got)
 	}
 }
