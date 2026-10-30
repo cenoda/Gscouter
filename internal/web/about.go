@@ -30,6 +30,9 @@ var updates = []update{
 			"Builds saved on Enka.Network can be picked: when a UID is public on an Enka account, its characters outside the showcase come with their saved builds, and a character with several builds can be picked with any of them.",
 			"Comparing a result scored with your own rotation compares that rotation; it used to compare the library's.",
 			"The link preview of a result scored with your own rotation shows that score, not the library's.",
+			"Your own rotation is scored even when the library's rotation for the team fails on your build.",
+			"The rotation editor's first chart is recorded with the library team's character settings, and keeps a wait that ends the rotation.",
+			"Calculating in the browser no longer falls back to the server when one candidate rotation fails.",
 		},
 		Ko: []string{
 			"Gscouter의 소스 코드를 GNU AGPL로 공개하고, 모든 페이지 아래에 링크했습니다.",
@@ -38,6 +41,9 @@ var updates = []update{
 			"Enka.Network에 저장한 빌드도 고를 수 있습니다. Enka 계정에 UID가 공개되어 있으면 쇼케이스에 없는 캐릭터도 저장된 빌드로 나오고, 빌드가 여러 개인 캐릭터는 그중 하나를 골라 계산할 수 있습니다.",
 			"직접 짠 로테이션으로 계산한 결과를 비교하면 그 로테이션으로 비교합니다. 전에는 라이브러리 로테이션으로 비교했습니다.",
 			"직접 짠 로테이션으로 계산한 결과의 링크 미리보기가 라이브러리 로테이션 점수가 아니라 그 점수를 보여 줍니다.",
+			"라이브러리 로테이션이 내 빌드에서 실패해도 직접 짠 로테이션은 계산합니다.",
+			"로테이션 편집기의 첫 차트를 라이브러리 파티의 캐릭터 설정으로 녹화하고, 로테이션 끝의 대기도 남깁니다.",
+			"브라우저 계산에서 후보 로테이션 하나가 실패해도 서버 계산으로 넘어가지 않습니다.",
 		},
 	},
 	{

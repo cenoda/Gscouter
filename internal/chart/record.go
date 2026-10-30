@@ -22,7 +22,8 @@ const windowFrom, windowTo = 30, 60
 // library team's rotation (docs/cycle-swap.md §3). The chart is what the
 // rotation's second pass asks for when looped, played with build: every
 // if and while already decided, as the build's energy and cooldowns
-// decided them, and waits kept, the one that ends the pass too. Runs of repeated notes become repeats.
+// decided them, and waits kept, the one that ends the pass too. Runs of
+// repeated notes become repeats.
 // names are the members' gcsim keys by slot, as in build.
 func Record(build, rotation string, names [Slots]string) (*Chart, error) {
 	setup, body, err := config.Split(rotation)
