@@ -52,8 +52,7 @@ func TestParseRejects(t *testing.T) {
 		"0N]2",
 		"[0N]",
 		"[0N]1",
-		"0N ~30",
-		"0N ~601 1N",
+		"0N ~3601 1N",
 		"0N ; p4 a=1",
 		"0N ; p0 a=1 ; p0 b=2",
 		"0E(x=1);0N",
@@ -281,5 +280,92 @@ func TestRecordPickup(t *testing.T) {
 	p, err := c.Preview(team.Build, names, nil)
 	if err != nil || p.Error != nil {
 		t.Fatalf("preview: %v %+v", err, p.Error)
+	}
+}
+
+// A pass that ends in a wait keeps it: recorded, written, read back and
+// compiled, once per pass and not once per repeat.
+func TestRecordFinalWait(t *testing.T) {
+	team, err := library.LoadFS(teams.FS, "hutao-xingqiu-zhongli-yelan")
+	if err != nil {
+		t.Fatal(err)
+	}
+	names := [Slots]string{"hutao", "xingqiu", "yelan", "zhongli"}
+	build := config.AddParams(team.Build, "hutao", team.Params["hutao"])
+	for _, tc := range []struct{ rotation, chart, gcsl string }{
+		{"active hutao;\nhutao attack;\nwait(300);\n", "0N ~300", "active hutao;\nhutao attack;\nwait(300);\n"},
+		{"active hutao;\nhutao attack;\ndelay(120);\n", "0N ~120", "active hutao;\nhutao attack;\nwait(120);\n"},
+		// Longer than a wait used to be allowed (10 s), at the end and
+		// before a note.
+		{"active hutao;\nhutao attack;\nwait(1339);\nhutao skill;\nwait(700);\nwait(20);\n", "0N ~1339 0E ~720", "active hutao;\nhutao attack;\nwait(1339);\nhutao skill;\nwait(720);\n"},
+		// A repeat keeps the pass's final wait out of it.
+		{"active hutao;\nhutao attack;\nhutao attack;\nhutao attack;\nwait(30);\n", "[0N]3 ~30", "active hutao;\nfor let r0 = 0; r0 < 3; r0 = r0 + 1 {\n  hutao attack;\n}\nwait(30);\n"},
+	} {
+		c, err := Record(build, tc.rotation, names)
+		if err != nil {
+			t.Fatalf("Record(%q): %v", tc.rotation, err)
+		}
+		if got := c.String(); got != tc.chart {
+			t.Errorf("Record(%q) = %q, want %q", tc.rotation, got, tc.chart)
+		}
+		d, err := Decode(c.Encode())
+		if err != nil {
+			t.Fatalf("Decode(%q): %v", tc.chart, err)
+		}
+		if got := d.Gcsl(names); got != tc.gcsl {
+			t.Errorf("Gcsl() of %q =\n%s\nwant\n%s", tc.chart, got, tc.gcsl)
+		}
+	}
+	if _, err := Record(build, "active hutao;\nhutao attack;\nwait(4000);\n", names); err == nil {
+		t.Error("a wait over the limit was recorded")
+	}
+}
+
+// A final wait passes time on its own, so a chart of only notes played
+// when ready that ends in one is not idle; it moves with Remap.
+func TestFinalWait(t *testing.T) {
+	for _, s := range []string{"0Q? ~30", "0E ~3600", "[0N 0C]2 ~60 ; pickup", "0E ~30 1N ~12"} {
+		c, err := Parse(s)
+		if err != nil {
+			t.Fatalf("Parse(%q): %v", s, err)
+		}
+		if got := c.String(); got != s {
+			t.Errorf("String() = %q, want %q", got, s)
+		}
+	}
+	for _, s := range []string{"~30", "0N ~3601", "[0N ~30]2", "0N [~30"} {
+		if _, err := Parse(s); err == nil {
+			t.Errorf("Parse(%q) accepted", s)
+		}
+	}
+	c, _ := Parse("0E 1N ~45")
+	if got := c.Remap([Slots]int{1, 0, 2, 3}).String(); got != "1E 0N ~45" {
+		t.Errorf("Remap() = %q", got)
+	}
+}
+
+// The preview plays a final wait without a note of its own: each pass
+// starts at least that long after the last note was asked.
+func TestPreviewFinalWait(t *testing.T) {
+	team, err := library.LoadFS(teams.FS, "hutao-xingqiu-zhongli-yelan")
+	if err != nil {
+		t.Fatal(err)
+	}
+	names := [Slots]string{"hutao", "xingqiu", "yelan", "zhongli"}
+	c, err := Parse("0N ~300")
+	if err != nil {
+		t.Fatal(err)
+	}
+	p, err := c.Preview(c.WithParams(team.Build, names, [Slots]string{"start_hp=1"}), names, nil)
+	if err != nil || p.Error != nil {
+		t.Fatalf("preview: %v %+v", err, p.Error)
+	}
+	if len(p.Passes) < 2 || p.Passes[1]-p.Notes[0].Asked < 5 {
+		t.Errorf("passes %v, notes %+v", p.Passes, p.Notes)
+	}
+	for _, n := range p.Notes {
+		if n.Note != 0 {
+			t.Errorf("a note %d that the chart lacks", n.Note)
+		}
 	}
 }
