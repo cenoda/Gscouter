@@ -553,7 +553,9 @@ function copyLink(btn) {
 // Calculates this page's teams in the browser (internal/web/client.go):
 // a lead worker runs the page's calculation and asks for simulations,
 // whose iterations are shared out among helper workers. Browsers that
-// cannot, or a calculation that fails here, get the server's page.
+// cannot, or a calculation that fails here, get the server's page; a
+// candidate the engine rejects fails only its simulation, which the
+// lead's search gets back as an error, as it does on the server.
 (function () {
   var job = {{.Job}}, v = {{.Version}}, fallback = {{.Fallback}};
   var progress = {{t "js.progress"}};
@@ -649,15 +651,25 @@ function copyLink(btn) {
         }
         if (m.type === "error") return fail(m.error);
         var run = runs[m.run];
-        run.parts[m.index] = m.result.slice(1, -1);
-        run.finished += m.count;
-        show(run);
-        if (--run.left === 0) {
+        if (!run) {
+          // A slice of a simulation that already failed.
+        } else if (m.error !== undefined) {
+          // The engine rejected the candidate: fail its simulation alone,
+          // drop its other slices and keep nothing.
           delete runs[m.run];
-          var result = "[" + run.parts.filter(Boolean).join(",") + "]";
-          keep(run.key, result);
-          measure("run", run.start, {iterations: run.iterations, warmup: run.warmup});
-          lead.postMessage({type: "runResult", id: run.id, result: result});
+          queue = queue.filter(function (c) { return c.run !== m.run; });
+          lead.postMessage({type: "runResult", id: run.id, error: m.error});
+        } else {
+          run.parts[m.index] = m.result.slice(1, -1);
+          run.finished += m.count;
+          show(run);
+          if (--run.left === 0) {
+            delete runs[m.run];
+            var result = "[" + run.parts.filter(Boolean).join(",") + "]";
+            keep(run.key, result);
+            measure("run", run.start, {iterations: run.iterations, warmup: run.warmup});
+            lead.postMessage({type: "runResult", id: run.id, result: result});
+          }
         }
         idle.push(h);
         pump();
