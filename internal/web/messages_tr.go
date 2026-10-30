@@ -60,6 +60,11 @@ func init() {
 		"index.kept_on":          "%s tarihinde kaydedildi",
 		"index.kept_note":        "Vitrinde artık olmayan karakterler, en son yüklendikleri hâliyle bu tarayıcıda saklanır ve seçilmeye devam edebilir.",
 		"index.forget":           "Kaydedilenleri unut",
+		"index.saved":            "Enka'da kayıtlı",
+		"index.saved_unnamed":    "Adsız build",
+		"index.build_live":       "Vitrin",
+		"index.build_choice":     "Build",
+		"index.saved_note":       "Bu oyuncu Enka.Network'te build kaydetmiş: vitrinde olmayan karakterler bunlarla seçilebilir, birden çok build'i olan bir karakter adının altında seçilen build ile seçilir.",
 
 		"problem.home": "Ana sayfa",
 
@@ -264,6 +269,7 @@ func init() {
 		"about.data_h":          "Ne saklanır, nerede",
 		"about.d_browser":       "Tarayıcında: seçtiğin dil, vitrin build'leriyle birlikte son UID'lerin ve açık sekmede biten hesaplamalar. Tarayıcıda sitenin verilerini silmek bunları kaldırır.",
 		"about.d_server":        "Sunucuda, yalnızca bellekte: bakılan vitrinler Enka.Network'ün izin verdiği süre boyunca, puanlar bir gün saklanır. IP adresin, bir ziyaretçinin oluşturduğu kısa bağlantı sayısını sınırlamak için bir dakika kullanılır. Kimin hangi sayfayı ziyaret ettiği kaydedilmez: sunucu yalnızca günlük toplamları (sayfa görüntülemeleri ve bakılan farklı UID sayısı) tutar ve bunlardan kimseye ulaşılamaz.",
+		"about.d_saved":         "Kayıtlı build'ler: bir UID bir Enka.Network hesabında herkese açıksa, oyuncunun orada kaydettiği build'ler de herkese açıktır. Sunucu bunları vitrinle birlikte alır ve bellekte 10 dakika tutar. Bunlardan biriyle seçilen bir sonuç, vitrindeki bir build gibi build'i bağlantısında taşır.",
 		"about.d_links":         "Kısa bağlantılar: bir sonucun bağlantısını kopyaladığında, kısa bağlantının çalışmaya devam etmesi için sonucun adresi saklanır. Adres, herkese açık vitrindeki UID'yi, takma adı ve build'leri içerir. Kısa bağlantılar süresiz saklanır.",
 		"about.delete":          `Bir kısa bağlantının kaldırılmasını istersen bize <a href="https://discord.gg/PkkN9D4M4G">Discord</a> üzerinden gönder. Uzun bağlantı aynı verileri kendi içinde taşır, bu yüzden ona sahip olan herkes için çalışmaya devam eder.`,
 		"about.scores_h":        "Puanlar hakkında",

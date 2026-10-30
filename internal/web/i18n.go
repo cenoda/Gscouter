@@ -79,6 +79,8 @@ var glossed = map[string]bool{
 	"enemy.same_note": true, "enemy.carried": true, "enemy.preset": true,
 	"enemy.custom": true, "enemy.preset_note": true,
 	"err.enemy": true, "err.boss": true,
+	"index.saved": true, "index.saved_unnamed": true, "index.build_live": true,
+	"index.build_choice": true, "index.saved_note": true,
 }
 
 // name returns the message for prefix+key, or key when there is none:

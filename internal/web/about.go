@@ -23,8 +23,14 @@ type update struct {
 var updates = []update{
 	{
 		Date: "2026-10-30",
-		En:   []string{"The source code of Gscouter is open under the GNU AGPL, linked at the bottom of every page."},
-		Ko:   []string{"Gscouter의 소스 코드를 GNU AGPL로 공개하고, 모든 페이지 아래에 링크했습니다."},
+		En: []string{
+			"The source code of Gscouter is open under the GNU AGPL, linked at the bottom of every page.",
+			"Builds saved on Enka.Network can be picked: when a UID is public on an Enka account, its characters outside the showcase come with their saved builds, and a character with several builds can be picked with any of them.",
+		},
+		Ko: []string{
+			"Gscouter의 소스 코드를 GNU AGPL로 공개하고, 모든 페이지 아래에 링크했습니다.",
+			"Enka.Network에 저장한 빌드도 고를 수 있습니다. Enka 계정에 UID가 공개되어 있으면 쇼케이스에 없는 캐릭터도 저장된 빌드로 나오고, 빌드가 여러 개인 캐릭터는 그중 하나를 골라 계산할 수 있습니다.",
+		},
 	},
 	{
 		Date:   "2026-10-29",

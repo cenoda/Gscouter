@@ -60,6 +60,11 @@ func init() {
 		"index.kept_on":          "Salvo em %s",
 		"index.kept_note":        "Personagens que saíram da vitrine ficam salvos neste navegador como estavam da última vez e ainda podem ser escolhidos.",
 		"index.forget":           "Esquecer salvos",
+		"index.saved":            "Salva no Enka",
+		"index.saved_unnamed":    "Build sem nome",
+		"index.build_live":       "Vitrine",
+		"index.build_choice":     "Build",
+		"index.saved_note":       "Este jogador salvou builds no Enka.Network: personagens fora da vitrine podem ser escolhidos com elas, e um personagem com várias builds é escolhido com a selecionada abaixo do nome dele.",
 
 		"problem.home": "Início",
 
@@ -264,6 +269,7 @@ func init() {
 		"about.data_h":          "O que é guardado e onde",
 		"about.d_browser":       "No seu navegador: o idioma escolhido, seus UIDs recentes com as builds da vitrine e os cálculos concluídos da aba aberta. Apagar os dados do site no navegador os remove.",
 		"about.d_server":        "No servidor, só na memória: vitrines consultadas enquanto o Enka.Network permitir e pontuações por um dia. Seu endereço IP é usado por um minuto para limitar quantos links curtos cada visitante cria. Quem visita qual página não é registrado: o servidor guarda só totais diários (visualizações de página e quantos UIDs diferentes foram consultados), que não levam a ninguém.",
+		"about.d_saved":         "Builds salvas: quando um UID é público numa conta do Enka.Network, as builds que o jogador salvou lá também são. O servidor as busca junto com a vitrine e as guarda na memória por 10 minutos. Um resultado escolhido com uma delas leva a build no link, como uma build da vitrine.",
 		"about.d_links":         "Links curtos: ao copiar o link de um resultado, o endereço dele é guardado para que o link curto continue funcionando. O endereço contém o UID, o apelido e as builds da vitrine pública. Os links curtos são guardados sem data para expirar.",
 		"about.delete":          `Para remover um link curto, envie-o para nós no <a href="https://discord.gg/PkkN9D4M4G">Discord</a>. O link longo contém os mesmos dados em si, então continua funcionando para quem o tiver.`,
 		"about.scores_h":        "Sobre as pontuações",

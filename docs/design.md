@@ -1,7 +1,7 @@
 # Gscouter Design Document
 
 > Status: Draft (prototype in progress)
-> Last updated: 2026-10-29 · Game version baseline: 7.1
+> Last updated: 2026-10-30 · Game version baseline: 7.1
 
 ## 1. Overview
 
@@ -137,6 +137,7 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
   - Terms of use: set a unique User-Agent, respect rate limits, keep a response cache (TTL).
   - Constraint: all 4 party members must be in the showcase with "Show Character Details" enabled. Otherwise, tell the user which characters are missing.
   - Characters that leave the showcase stay pickable from the visitor's browser (§4.8).
+  - **Saved builds**: when the player has an Enka.Network account that verified the UID and made it public, the UID response names it (`owner`: username and hash), and the builds the player saved there are public at `/api/profile/<username>/hoyos/<hash>/builds/`. Each saved build's `avatar_data` is a showcase `avatarInfoList` entry as it was when saved, so the same converter reads it. Builds marked `live` are the showcase as Enka last refreshed it, not snapshots, and are left out. Gscouter has no login: it reads only these public answers (§4.8).
 - **GOOD JSON**
   - The common format of inventory scanners; used for characters outside the showcase.
 
@@ -182,7 +183,7 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
 
 ### 4.6 Deployment
 
-- **One Go binary** (`cmd/server`) serves the site, calls Enka, runs gcsim in-process, and caches Enka responses (for Enka's TTL) and scores (24 h) in memory. On disk it keeps only short links (§4.8), the IndexNow state and daily usage counts. The team library is embedded in the binary. Result pages are calculated in visitors' browsers (§4.7); the server still calculates link-preview cards and pages for browsers that cannot.
+- **One Go binary** (`cmd/server`) serves the site, calls Enka, runs gcsim in-process, and caches Enka responses (for Enka's TTL; saved builds, §4.8, for 10 minutes) and scores (24 h) in memory. On disk it keeps only short links (§4.8), the IndexNow state and daily usage counts. The team library is embedded in the binary. Result pages are calculated in visitors' browsers (§4.7); the server still calculates link-preview cards and pages for browsers that cannot.
 - **Usage counts**: to know roughly how many people use the site, the server counts, per UTC day, front page views, result page views and distinct UIDs looked up, leaving out requests whose User-Agent looks like a crawler or link preview (`internal/web/usage.go`). Only the counts are kept, in `/data/usage.json`, and logged when a day ends. UIDs are told apart by a hash keyed with a value drawn each day and held in memory; the key and hashes are dropped at the end of the day, so nothing in the counts leads back to a player. No address, cookie or analytics script is used. The owner reads them on the VM, or from `/healthz` with a bearer token (`GSCOUTER_USAGE_TOKEN`); without it `/healthz` answers `ok`, so the counts have no URL of their own. The day's UIDs do not survive a restart, so a UID looked up on both sides of an update counts twice.
 - **Concurrency**: one simulation at a time, up to 8 waiting; beyond that the request gets a "busy" message. Peak memory per simulation is about 35 MB.
 - **Hosting**: a single Azure B2ats v2 VM (2 vCPU, 1 GB) with Docker. Caddy terminates HTTPS for the owner's domain. Expected cost is roughly KRW 15–20k per month.
@@ -215,6 +216,7 @@ The showcase holds a few characters, and changing it drops the others from Enka'
   - The long link stays the result's own, and the short link only points to it: losing the volume breaks short links and nothing else. Without the store (`GSCOUTER_LINKS` unset, or the file can't be opened), the server runs as before and the button copies the long link.
   - Alternatives considered: making the packed format smaller (numeric game IDs instead of gcsim keys, default levels as a flag, per-stat precision). Measured on a Hu Tao team, it would take the link from about 330 to 220–250 characters: the stats, which are most of it, barely compress.
 - **The browser keeps showcase builds**: the front page gives each showcase character's packed build to the browser, which keeps them in `localStorage` for the ten most recently loaded UIDs, with when each was last in the showcase. When a UID is loaded again with kept characters that are no longer in its showcase, the page asks `POST /showcase` to render the showcase card with them added and dated, so their teams are suggested and pickable. Picking such a team sends the kept builds along (`build` parameters), and the redirect above packs them into the result link. Nothing is stored on the server, and a visitor can forget the kept characters.
+- **Builds saved on Enka.Network** (§4.1): when the loaded UID has a public Enka account, the front page asks `POST /showcase` for the card again, and the server adds the player's saved builds to it. A character outside the showcase (and not kept by the browser) comes with its first saved build in the player's order on Enka (`order`, lowest first), the most recently saved first among builds of equal order: players rarely order them, and their latest build is usually the one they play. The card marks it "Saved on Enka" with the build's name, and a character with several builds (the showcase's or a kept one among them, which come first) gets a menu of them under its name. Showcase and kept builds win unless the player picks a saved one in that menu. A pick sends the chosen build as a `build` parameter like a kept one, and a sent build wins over the showcase's, so the result link carries the build the player chose, in the same format. The server fetches saved builds only for that request, never for the page itself, and keeps them in memory for 10 minutes (Enka gives them no TTL; a failure is not tried again for a minute). When Enka fails, the card stays as it was. They are not kept in the browser: they are on Enka whenever the UID is loaded again.
 - **Not a ranking**: since builds come from the visitor, a result says what the given builds score, not what a player owns. Gscouter has no rankings, so this is fine; the score cache is keyed by the gcsim config, so a made-up build only reaches its own results.
 
 ## 5. Team Library

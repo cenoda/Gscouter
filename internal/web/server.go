@@ -56,6 +56,12 @@ type ProfileSource interface {
 	Profile(ctx context.Context, uid string) (*enka.Profile, error)
 }
 
+// SavedBuildSource returns the builds a player saved on Enka.Network. A
+// ProfileSource that is one lets the front page offer them (design §4.8).
+type SavedBuildSource interface {
+	SavedBuilds(ctx context.Context, owner enka.Owner) ([]enka.SavedBuild, error)
+}
+
 var errBusy = errors.New("server busy")
 
 type Server struct {

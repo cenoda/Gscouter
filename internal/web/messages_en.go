@@ -60,6 +60,11 @@ func init() {
 		"index.kept_on":          "As of %s",
 		"index.kept_note":        "Characters no longer in the showcase are kept in this browser as they were when last seen, and can still be picked.",
 		"index.forget":           "Forget them",
+		"index.saved":            "Saved on Enka",
+		"index.saved_unnamed":    "Unnamed build",
+		"index.build_live":       "Showcase",
+		"index.build_choice":     "Build",
+		"index.saved_note":       "This player saved builds on Enka.Network: characters outside the showcase can be picked with them, and a character with several builds can be picked with the one chosen under its name.",
 
 		"problem.home": "Home",
 
@@ -264,6 +269,7 @@ func init() {
 		"about.data_h":          "What is kept, and where",
 		"about.d_browser":       "In your browser: the language you picked, your recent UIDs with their showcase builds, and finished calculations for the open tab. Clearing the site's data in your browser removes them.",
 		"about.d_server":        "On the server, in memory only: looked-up showcases for as long as Enka.Network allows, and scores for a day. Your IP address is used for a minute to limit how many short links one visitor makes. Who visits which page is not recorded: the server keeps only daily totals (page views and how many different UIDs were looked up), and nothing in them leads back to anyone.",
+		"about.d_saved":         "Saved builds: when a UID is public on an Enka.Network account, the builds its player saved there are public too. The server fetches them with the showcase and keeps them in memory for 10 minutes. A result picked with one carries it in its link, like a showcase build.",
 		"about.d_links":         "Short links: copying a result's link stores the result's address so that the short link keeps working. The address holds the UID, nickname and builds from the public showcase. Short links are kept with no end date.",
 		"about.delete":          `To have a short link removed, send it to us on <a href="https://discord.gg/PkkN9D4M4G">Discord</a>. The long link holds the same data in itself, so it keeps working for anyone who has it.`,
 		"about.scores_h":        "About the scores",

@@ -60,6 +60,11 @@ func init() {
 		"index.kept_on":          "Đã lưu %s",
 		"index.kept_note":        "Nhân vật không còn trong Trưng Bày vẫn được lưu trong trình duyệt này như lần tải gần nhất và vẫn chọn được.",
 		"index.forget":           "Xóa nhân vật đã lưu",
+		"index.saved":            "Đã lưu trên Enka",
+		"index.saved_unnamed":    "Build chưa đặt tên",
+		"index.build_live":       "Trưng Bày",
+		"index.build_choice":     "Build",
+		"index.saved_note":       "Người chơi này đã lưu build trên Enka.Network: nhân vật ngoài Trưng Bày có thể chọn với các build đó, và nhân vật có nhiều build được chọn với build đã chọn dưới tên.",
 
 		"problem.home": "Trang chủ",
 
@@ -264,6 +269,7 @@ func init() {
 		"about.data_h":          "Những gì được lưu và lưu ở đâu",
 		"about.d_browser":       "Trong trình duyệt của bạn: ngôn ngữ đã chọn, các UID gần đây cùng build trong tủ trưng bày, và các phép tính đã xong của thẻ đang mở. Xóa dữ liệu của trang trong trình duyệt sẽ xóa chúng.",
 		"about.d_server":        "Trên máy chủ, chỉ trong bộ nhớ: tủ trưng bày đã tra cứu được giữ trong thời gian Enka.Network cho phép, điểm được giữ một ngày. Địa chỉ IP của bạn chỉ được dùng trong một phút để giới hạn số liên kết ngắn mỗi người tạo. Ai xem trang nào không được ghi lại: máy chủ chỉ giữ tổng số theo ngày (lượt xem trang và số UID khác nhau được tra cứu), không thể lần ra bất kỳ ai từ đó.",
+		"about.d_saved":         "Build đã lưu: khi UID được công khai trên một tài khoản Enka.Network, các build người chơi lưu ở đó cũng công khai. Máy chủ lấy chúng cùng tủ trưng bày và giữ trong bộ nhớ 10 phút. Kết quả chọn với một build như vậy mang build trong liên kết, giống build từ tủ trưng bày.",
 		"about.d_links":         "Liên kết ngắn: khi sao chép liên kết kết quả, địa chỉ của kết quả được lưu để liên kết ngắn tiếp tục hoạt động. Địa chỉ này chứa UID, biệt danh và build từ tủ trưng bày công khai. Liên kết ngắn được lưu không thời hạn.",
 		"about.delete":          `Để xóa một liên kết ngắn, hãy gửi nó cho chúng tôi trên <a href="https://discord.gg/PkkN9D4M4G">Discord</a>. Liên kết dài tự chứa cùng dữ liệu nên vẫn hoạt động với bất kỳ ai có nó.`,
 		"about.scores_h":        "Về điểm số",
