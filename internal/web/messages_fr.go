@@ -60,6 +60,11 @@ func init() {
 		"index.kept_on":          "Enregistré le %s",
 		"index.kept_note":        "Les personnages qui ne sont plus dans la vitrine restent enregistrés dans ce navigateur tels qu'ils étaient la dernière fois, et peuvent toujours être choisis.",
 		"index.forget":           "Oublier les personnages enregistrés",
+		"index.refresh_q":        "Vitrine modifiée ?",
+		"index.refresh_in":       "Recharger dans %s",
+		"index.refresh":          "Recharger la vitrine",
+		"index.unlock_heading":   "À mettre en vitrine ensuite",
+		"index.unlock_lead":      "Équipes de la bibliothèque que chaque personnage compléterait avec les personnages que vous avez déjà :",
 
 		"problem.home": "Accueil",
 

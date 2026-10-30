@@ -60,6 +60,11 @@ func init() {
 		"index.kept_on":          "%s 기준 저장됨",
 		"index.kept_note":        "쇼케이스에서 빠진 캐릭터도 마지막으로 불러왔을 때의 상태로 이 브라우저에 저장해 두어, 계속 고를 수 있습니다.",
 		"index.forget":           "저장한 캐릭터 지우기",
+		"index.refresh_q":        "쇼케이스를 바꾸셨나요?",
+		"index.refresh_in":       "%s 후 다시 불러올 수 있습니다",
+		"index.refresh":          "쇼케이스 다시 불러오기",
+		"index.unlock_heading":   "다음에 쇼케이스에 넣을 캐릭터",
+		"index.unlock_lead":      "지금 있는 캐릭터와 함께 완성되는 라이브러리 파티 수:",
 
 		"problem.home": "처음으로",
 

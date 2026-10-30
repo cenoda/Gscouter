@@ -60,6 +60,11 @@ func init() {
 		"index.kept_on":          "Disimpan %s",
 		"index.kept_note":        "Karakter yang sudah tidak ada di etalase tetap disimpan di browser ini seperti saat terakhir dimuat, dan masih bisa dipilih.",
 		"index.forget":           "Lupakan yang disimpan",
+		"index.refresh_q":        "Showcase sudah diubah?",
+		"index.refresh_in":       "Muat ulang dalam %s",
+		"index.refresh":          "Muat ulang showcase",
+		"index.unlock_heading":   "Masukkan ke showcase berikutnya",
+		"index.unlock_lead":      "Tim pustaka yang akan dilengkapi tiap karakter bersama karakter yang sudah ada:",
 
 		"problem.home": "Beranda",
 

@@ -60,6 +60,11 @@ func init() {
 		"index.kept_on":          "%s tarihinde kaydedildi",
 		"index.kept_note":        "Vitrinde artık olmayan karakterler, en son yüklendikleri hâliyle bu tarayıcıda saklanır ve seçilmeye devam edebilir.",
 		"index.forget":           "Kaydedilenleri unut",
+		"index.refresh_q":        "Galeriyi değiştirdin mi?",
+		"index.refresh_in":       "%s sonra yeniden yükle",
+		"index.refresh":          "Galeriyi yeniden yükle",
+		"index.unlock_heading":   "Galeriye sıradaki",
+		"index.unlock_lead":      "Her karakterin mevcut karakterlerinle tamamlayacağı kütüphane takımları:",
 
 		"problem.home": "Ana sayfa",
 

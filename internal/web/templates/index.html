@@ -94,7 +94,31 @@
     }).filter(Boolean);
   }
 
+  // Counts down to when loading the UID again gets the showcase anew
+  // (design §4.1), then offers to.
+  var timer;
+  function refresh() {
+    clearInterval(timer);
+    var box = document.getElementById("refresh");
+    if (!box) return;
+    var end = Date.now() + Number(box.getAttribute("data-wait")) * 1000, wait = {{t "index.refresh_in"}};
+    var text = document.getElementById("refresh-in"), now = document.getElementById("refresh-now");
+    now.addEventListener("click", function () { location.reload(); });
+    function tick() {
+      var s = Math.max(0, Math.ceil((end - Date.now()) / 1000));
+      text.textContent = wait.replace("%s", Math.floor(s / 60) + ":" + ("0" + s % 60).slice(-2));
+      if (s > 0) return;
+      clearInterval(timer);
+      text.hidden = true;
+      now.hidden = false;
+    }
+    box.hidden = false;
+    tick();
+    if (now.hidden) timer = setInterval(tick, 1000);
+  }
+
   function picker() {
+    refresh();
     card.querySelectorAll(".suggest a").forEach(function (a) {
       a.addEventListener("click", function () {
         var u = new URL(a.href);
@@ -191,6 +215,7 @@
 
 {{define "showcase"}}{{with .Profile}}
 <h2>{{.Nickname}} <span class="muted">UID {{.UID}}</span></h2>
+{{if ge $.Refresh 0}}<p class="muted refresh" id="refresh" data-wait="{{$.Refresh}}" hidden>{{t "index.refresh_q"}} <span id="refresh-in"></span><button type="button" class="link" id="refresh-now" hidden>{{t "index.refresh"}}</button></p>{{end}}
 {{if $.Suggested}}
 <h3>{{t "index.suggested"}} <span class="muted">{{t "index.suggested_count" (len $.Suggested)}}</span></h3>
 <ul class="suggest">
@@ -200,6 +225,13 @@
 </ul>
 {{else}}
 <p class="muted">{{t "index.no_suggested"}} <a href="/teams">{{t "index.find"}}</a></p>
+{{end}}
+{{with $.Unlocks}}
+<h3>{{t "index.unlock_heading"}}</h3>
+<p class="muted">{{t "index.unlock_lead"}}</p>
+<ul class="unlock">
+{{range .}}<li><a href="/characters/{{.Key}}">{{template "face" .Key}}<span>{{name .Key}}</span><b>+{{.Teams}}</b></a></li>
+{{end}}</ul>
 {{end}}
 <h3>{{t "index.pick"}}</h3>
 <form action="{{if $.VS}}/versus{{else}}/score{{end}}" method="get" id="picker" data-buildable="{{json $.Buildable}}">

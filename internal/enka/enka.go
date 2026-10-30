@@ -11,6 +11,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"time"
 )
 
 // Character is one showcase character in gcsim terms.
@@ -54,6 +55,10 @@ type Profile struct {
 	Characters []Character
 	Skipped    []Skipped
 	TTL        int // seconds Enka asks clients to cache the response
+	// Expires is when the cache that fetched the profile lets it go, so
+	// that a lookup after it fetches the showcase anew; zero when no cache
+	// set it.
+	Expires time.Time
 }
 
 var (

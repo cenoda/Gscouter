@@ -60,6 +60,11 @@ func init() {
 		"index.kept_on":          "%s 保存",
 		"index.kept_note":        "已从角色展柜移除的角色会按最后一次读取时的状态保存在此浏览器中，仍可选择。",
 		"index.forget":           "清除已保存的角色",
+		"index.refresh_q":        "更改了角色展柜？",
+		"index.refresh_in":       "%s 后可重新读取",
+		"index.refresh":          "重新读取展柜",
+		"index.unlock_heading":   "接下来放进展柜的角色",
+		"index.unlock_lead":      "与现有角色一起可组成的队伍库队伍数：",
 
 		"problem.home": "返回首页",
 

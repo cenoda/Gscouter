@@ -60,6 +60,11 @@ func init() {
 		"index.kept_on":          "%s 儲存",
 		"index.kept_note":        "已從角色展示櫃移除的角色會依最後一次讀取時的狀態儲存在此瀏覽器中，仍可選擇。",
 		"index.forget":           "清除已儲存的角色",
+		"index.refresh_q":        "更改了角色展示櫃？",
+		"index.refresh_in":       "%s 後可重新載入",
+		"index.refresh":          "重新載入展示櫃",
+		"index.unlock_heading":   "接下來放進展示櫃的角色",
+		"index.unlock_lead":      "與現有角色一起可組成的隊伍庫隊伍數：",
 
 		"problem.home": "返回首頁",
 

@@ -60,6 +60,11 @@ func init() {
 		"index.kept_on":          "Salvo em %s",
 		"index.kept_note":        "Personagens que saíram da vitrine ficam salvos neste navegador como estavam da última vez e ainda podem ser escolhidos.",
 		"index.forget":           "Esquecer salvos",
+		"index.refresh_q":        "Mudou a Exibição?",
+		"index.refresh_in":       "Recarregar em %s",
+		"index.refresh":          "Recarregar a Exibição",
+		"index.unlock_heading":   "Coloque na Exibição a seguir",
+		"index.unlock_lead":      "Equipes da biblioteca que cada personagem completaria com os personagens que você já tem:",
 
 		"problem.home": "Início",
 

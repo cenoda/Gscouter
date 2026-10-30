@@ -23,8 +23,14 @@ type update struct {
 var updates = []update{
 	{
 		Date: "2026-10-30",
-		En:   []string{"The source code of Gscouter is open under the GNU AGPL, linked at the bottom of every page."},
-		Ko:   []string{"Gscouter의 소스 코드를 GNU AGPL로 공개하고, 모든 페이지 아래에 링크했습니다."},
+		En: []string{
+			"The source code of Gscouter is open under the GNU AGPL, linked at the bottom of every page.",
+			"A loaded showcase names the characters that would unlock the most teams if you put them in it, and counts down to when a changed showcase can be loaded again.",
+		},
+		Ko: []string{
+			"Gscouter의 소스 코드를 GNU AGPL로 공개하고, 모든 페이지 아래에 링크했습니다.",
+			"불러온 쇼케이스에 어떤 캐릭터를 넣으면 계산할 수 있는 파티가 가장 많이 늘어나는지 보여 주고, 쇼케이스를 바꾼 뒤 다시 불러올 수 있을 때까지 남은 시간을 셉니다.",
+		},
 	},
 	{
 		Date:   "2026-10-29",

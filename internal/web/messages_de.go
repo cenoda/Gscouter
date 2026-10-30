@@ -60,6 +60,11 @@ func init() {
 		"index.kept_on":          "Gespeichert am %s",
 		"index.kept_note":        "Charaktere, die nicht mehr in der Präsentation sind, bleiben in diesem Browser so gespeichert, wie sie zuletzt geladen wurden, und können weiter gewählt werden.",
 		"index.forget":           "Gespeicherte vergessen",
+		"index.refresh_q":        "Präsentation geändert?",
+		"index.refresh_in":       "Neu laden in %s",
+		"index.refresh":          "Präsentation neu laden",
+		"index.unlock_heading":   "Als Nächstes ausstellen",
+		"index.unlock_lead":      "Teams der Bibliothek, die jeder Charakter mit deinen vorhandenen Charakteren vervollständigt:",
 
 		"problem.home": "Startseite",
 

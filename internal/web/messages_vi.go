@@ -60,6 +60,11 @@ func init() {
 		"index.kept_on":          "Đã lưu %s",
 		"index.kept_note":        "Nhân vật không còn trong Trưng Bày vẫn được lưu trong trình duyệt này như lần tải gần nhất và vẫn chọn được.",
 		"index.forget":           "Xóa nhân vật đã lưu",
+		"index.refresh_q":        "Đã đổi Trưng Bày?",
+		"index.refresh_in":       "Tải lại sau %s",
+		"index.refresh":          "Tải lại Trưng Bày",
+		"index.unlock_heading":   "Nên đưa vào Trưng Bày tiếp theo",
+		"index.unlock_lead":      "Số đội hình trong thư viện mà mỗi nhân vật sẽ hoàn thành cùng các nhân vật bạn đã có:",
 
 		"problem.home": "Trang chủ",
 

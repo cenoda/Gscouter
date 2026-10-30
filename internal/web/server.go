@@ -78,6 +78,7 @@ type Server struct {
 	site       string                     // the site's URL (see SetSite)
 	byID       map[string]*library.Team   // library teams by ID
 	byChar     map[string][]*library.Team // by canonical member, best score first
+	members    [][]string                 // canonical members of lib.Teams, by index (match)
 	indexNow   *indexNow                  // nil: no IndexNow (see SetIndexNow)
 	usage      *usage                     // nil: no usage counts (see SetUsage)
 	usageToken string                     // reads the counts at /healthz (see SetUsageToken)
@@ -99,6 +100,7 @@ func New(lib *library.Library, profiles ProfileSource, settings Settings) (*Serv
 	return &Server{
 		byID:      byID,
 		byChar:    byChar,
+		members:   canonicalMembers(lib.Teams),
 		lib:       lib,
 		profiles:  profiles,
 		settings:  settings,

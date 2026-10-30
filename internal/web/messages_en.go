@@ -60,6 +60,11 @@ func init() {
 		"index.kept_on":          "As of %s",
 		"index.kept_note":        "Characters no longer in the showcase are kept in this browser as they were when last seen, and can still be picked.",
 		"index.forget":           "Forget them",
+		"index.refresh_q":        "Changed your showcase?",
+		"index.refresh_in":       "Reload in %s",
+		"index.refresh":          "Reload showcase",
+		"index.unlock_heading":   "Add to your showcase next",
+		"index.unlock_lead":      "Library teams each character would complete with the characters you already have:",
 
 		"problem.home": "Home",
 

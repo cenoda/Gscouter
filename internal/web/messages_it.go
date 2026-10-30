@@ -60,6 +60,11 @@ func init() {
 		"index.kept_on":          "Salvato il %s",
 		"index.kept_note":        "I personaggi non più nella vetrina restano salvati in questo browser come erano l'ultima volta e si possono ancora scegliere.",
 		"index.forget":           "Dimentica i salvati",
+		"index.refresh_q":        "Hai cambiato la vetrina?",
+		"index.refresh_in":       "Ricarica tra %s",
+		"index.refresh":          "Ricarica la vetrina",
+		"index.unlock_heading":   "Da mettere in vetrina",
+		"index.unlock_lead":      "Squadre della libreria che ogni personaggio completerebbe con i personaggi che hai già:",
 
 		"problem.home": "Home",
 

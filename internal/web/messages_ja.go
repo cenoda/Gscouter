@@ -60,6 +60,11 @@ func init() {
 		"index.kept_on":          "%s 時点で保存",
 		"index.kept_note":        "キャラクター展示から外したキャラクターも、最後に読み込んだときの状態でこのブラウザに保存され、引き続き選べます。",
 		"index.forget":           "保存したキャラクターを消去",
+		"index.refresh_q":        "ラインナップを変更しましたか？",
+		"index.refresh_in":       "%s 後に再読み込みできます",
+		"index.refresh":          "ラインナップを再読み込み",
+		"index.unlock_heading":   "次にラインナップに入れるキャラクター",
+		"index.unlock_lead":      "今のキャラクターと組み合わせて完成するライブラリの編成数：",
 
 		"problem.home": "トップへ",
 

@@ -60,6 +60,11 @@ func init() {
 		"index.kept_on":          "Guardado el %s",
 		"index.kept_note":        "Los personajes que ya no están en la vitrina se guardan en este navegador tal como estaban la última vez y se pueden seguir eligiendo.",
 		"index.forget":           "Olvidar guardados",
+		"index.refresh_q":        "¿Cambiaste la exhibición?",
+		"index.refresh_in":       "Recargar en %s",
+		"index.refresh":          "Recargar la exhibición",
+		"index.unlock_heading":   "Qué poner en la exhibición",
+		"index.unlock_lead":      "Equipos de la biblioteca que cada personaje completaría con los personajes que ya tienes:",
 
 		"problem.home": "Inicio",
 
