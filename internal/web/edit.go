@@ -28,8 +28,12 @@ type editData struct {
 	// Names are their gcsim keys, Defaults the library team's character
 	// params for each, by slot.
 	Names, Defaults [chart.Slots]string
-	// Build is the players' character lines, without params.
-	Build string
+	// Build is the players' character lines, without params, which the
+	// chart's params and Defaults are added to for each preview.
+	// RecordBuild is Build with Defaults added (withDefaults), which the
+	// browser records Rotation with, as the chart's preview and score
+	// play the team.
+	Build, RecordBuild string
 	// Rotation is the library rotation as the player's names write it,
 	// which the browser records into the first chart.
 	Rotation string
@@ -44,7 +48,9 @@ type editData struct {
 	// For a team the library doesn't have, a library team sharing three
 	// members is the first chart's template: its build, rotation and
 	// members by slot, and Moves, the player's slot for each of them (-1
-	// for the one the player doesn't have). Template is nil otherwise.
+	// for the one the player doesn't have). TemplateBuild has the
+	// template team's params, as RecordBuild has. Template is nil
+	// otherwise.
 	Template      *library.Team
 	TemplateBuild string
 	TemplateNames [chart.Slots]string
@@ -167,23 +173,30 @@ func (s *Server) handleEdit(w http.ResponseWriter, r *http.Request) {
 	d.Rotation = config.RenameCharacters(tr.Team.Rotation, renames(tr.Team, tr.Chars))
 	d.LibraryPickup = strings.Contains(d.Rotation, "pick_up_crystallize")
 	d.Names, d.Defaults = chartSlots(tr.Team, tr.Chars)
+	d.RecordBuild = withDefaults(d.Build, d.Names, d.Defaults)
 	d.Order = partyOrder(tr.Chars)
 	if tr.Team.Rotation == "" {
 		if t := s.templateFor(sel.Chars); t != nil {
 			d.Template = t
-			d.TemplateBuild = t.Build
-			for m, p := range t.Params {
-				d.TemplateBuild = config.AddParams(d.TemplateBuild, m, p)
-			}
 			members := slices.Clone(t.Members)
 			slices.SortFunc(members, func(a, b string) int { return strings.Compare(library.Canonical(a), library.Canonical(b)) })
+			var defaults [chart.Slots]string
 			for i, m := range members {
 				d.TemplateNames[i] = m
+				defaults[i] = t.Params[m]
 				d.Moves[i] = slices.IndexFunc(d.Names[:], func(n string) bool { return library.Canonical(n) == library.Canonical(m) })
 			}
+			d.TemplateBuild = withDefaults(t.Build, d.TemplateNames, defaults)
 		}
 	}
 	s.render(w, l, "edit.html", d)
+}
+
+// withDefaults is build with each slot's character params (defaults, as
+// chartSlots gives them) added, as Chart.WithParams adds them for a chart
+// that sets none: the build a recorded chart's preview and score play.
+func withDefaults(build string, names, defaults [chart.Slots]string) string {
+	return new(chart.Chart).WithParams(build, names, defaults)
 }
 
 // partyOrder is the chart slot of each of chars, in their order.

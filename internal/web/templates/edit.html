@@ -209,7 +209,7 @@
 // The chart editor (docs/cycle-swap.md): a chart is notes in order, and
 // gcsim, in a worker, plays it to place them (chart.Preview).
 (function () {
-  var V = {{.Version}}, BUILD = {{.Build}}, ROTATION = {{.Rotation}}, SCORE = {{.Score}};
+  var V = {{.Version}}, BUILD = {{.Build}}, RECORD_BUILD = {{.RecordBuild}}, ROTATION = {{.Rotation}}, SCORE = {{.Score}};
   var NAMES = JSON.stringify({{.Names}}), DEFAULTS = JSON.stringify({{.Defaults}});
   var START = {{.Chart}};
   var TEMPLATE = {{with .Template}}{name: {{teamName .}}, rotation: {{.Rotation}}}{{else}}null{{end}};
@@ -966,7 +966,7 @@
       }, function () { notice = S.blank; load(""); message(S.blank, false); });
     }
     message(S.recording, false);
-    call("record", [BUILD, ROTATION, NAMES]).then(load, function (err) {
+    call("record", [RECORD_BUILD, ROTATION, NAMES]).then(load, function (err) {
       message(S.recordFailed.replace("%s", err.message), true);
       load("");
     });

@@ -2,15 +2,20 @@ package web
 
 import (
 	"context"
+	"encoding/json"
 	"html"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"regexp"
 	"strings"
 	"testing"
 	"time"
 
 	"github.com/cenoda/gscouter/internal/chart"
+	"github.com/cenoda/gscouter/internal/config"
+	"github.com/cenoda/gscouter/internal/library"
+	"github.com/cenoda/gscouter/teams"
 )
 
 // The editor needs the browser build; without it, it says so.
@@ -52,6 +57,35 @@ func TestScoreWithChart(t *testing.T) {
 	q.Set("r", "not-a-chart")
 	_, body = get(t, ts, "/score?"+q.Encode())
 	mustContain(t, body, "chart cannot be read")
+}
+
+// A chart scores even when the library's rotations for the team all
+// fail: the comparison with them is only left out (docs/cycle-swap.md §7).
+func TestChartScoresWithoutLibrary(t *testing.T) {
+	srv := newTestSiteWith(t, func(lib *library.Library) {
+		team := lib.Find([]string{"hutao", "yelan", "xingqiu", "zhongli"})
+		team.Rotation = "active hutao;\nhutao audit_invalid_action;\n"
+		team.Alternatives = nil
+	})
+	ts := newTestServerFor(t, srv)
+	c, err := chart.Parse("0N")
+	if err != nil {
+		t.Fatal(err)
+	}
+	q := url.Values{"a": {"800000001:hutao,yelan,xingqiu,zhongli"}, "r": {c.Encode()}}
+	code, body := get(t, ts, "/score?"+q.Encode())
+	if code != http.StatusOK {
+		t.Fatalf("status %d", code)
+	}
+	if strings.Contains(body, "The calculation failed.") {
+		t.Fatal("the chart did not score")
+	}
+	mustContain(t, body, "Scored with your own rotation", "hutao attack;")
+
+	// Without a chart, the failing rotation still fails the team.
+	q.Del("r")
+	_, body = get(t, ts, "/score?"+q.Encode())
+	mustContain(t, body, "The calculation failed.")
 }
 
 // A link's chart of only notes played when ready, which would loop on
@@ -224,5 +258,54 @@ func TestPreviewImageKeepsChart(t *testing.T) {
 				}
 			}
 		}
+	}
+}
+
+// pageString is the JavaScript string the editor page assigns to name.
+func pageString(t *testing.T, body, name string) string {
+	t.Helper()
+	m := regexp.MustCompile(`\b` + name + ` = ("(?:[^"\\]|\\.)*")`).FindStringSubmatch(body)
+	if m == nil {
+		t.Fatalf("page has no %s", name)
+	}
+	var s string
+	if err := json.Unmarshal([]byte(m[1]), &s); err != nil {
+		t.Fatalf("%s: %v", name, err)
+	}
+	return s
+}
+
+// The editor's first chart is the library rotation recorded with the
+// library's character params, as the chart's preview and score play it:
+// Skirk / Furina / Citlali / Escoffier start without energy, and their
+// rotation decides some notes on energy.
+func TestEditRecordsWithParams(t *testing.T) {
+	_, ts := newClientSite(t)
+	_, body := get(t, ts, "/edit?a=800000006:skirk,furina,citlali,escoffier")
+	lib, err := library.LoadLibrary(teams.FS)
+	if err != nil {
+		t.Fatal(err)
+	}
+	team := lib.Find([]string{"skirk", "furina", "citlali", "escoffier"})
+	if team == nil || len(team.Params) == 0 {
+		t.Fatal("library team with params not found")
+	}
+	var names [chart.Slots]string
+	var build strings.Builder
+	for i, c := range slotted(skirkTeam()) {
+		names[i] = c.Key
+		build.WriteString(config.AddParams(c.Config(), c.Key, team.Params[c.Key]))
+		build.WriteString("\n")
+	}
+	want, err := chart.Record(build.String(), team.Rotation, names)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got, err := chart.Record(pageString(t, body, "RECORD_BUILD"), pageString(t, body, "ROTATION"), names)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got.String() != want.String() {
+		t.Errorf("editor records\n%s\nwant\n%s", got, want)
 	}
 }

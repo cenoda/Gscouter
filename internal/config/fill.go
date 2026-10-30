@@ -108,7 +108,7 @@ func fillStatement(char, items string, energy, skill bool, party []string, forms
 			run = nil
 		}
 	}
-	for _, item := range strings.Split(items, ",") {
+	for _, item := range splitActions(items) {
 		item = strings.TrimSpace(item)
 		action := strings.FieldsFunc(item, func(r rune) bool { return r == '[' || r == ':' })
 		if len(action) == 0 {
@@ -225,12 +225,20 @@ var (
 // whose skill the rotation never uses gets a plain "skill".
 func skillForms(rotation string, party []string) map[string]string {
 	forms := map[string]string{}
-	for _, m := range anyActionRe.FindAllStringSubmatch(rotation, -1) {
-		char := member(m[1], party)
+	// Each search starts at the semicolon that ends the statement before,
+	// so that a statement on the same line as another is seen.
+	for i := 0; i < len(rotation); {
+		loc := anyActionRe.FindStringSubmatchIndex(rotation[i:])
+		if loc == nil {
+			break
+		}
+		name, list := rotation[i+loc[2]:i+loc[3]], rotation[i+loc[4]:i+loc[5]]
+		i += loc[1] - 1
+		char := member(name, party)
 		if !slices.Contains(party, char) || forms[char] != "" {
 			continue
 		}
-		items := strings.Split(m[2], ",")
+		items := splitActions(list)
 		for i, item := range items {
 			item = strings.TrimSpace(item)
 			if item != "skill" && !strings.HasPrefix(item, "skill[") {
@@ -254,6 +262,28 @@ func skillForms(rotation string, party []string) map[string]string {
 		}
 	}
 	return forms
+}
+
+// splitActions splits an action list at its commas, but not at those
+// inside brackets, which separate an action's parameters:
+// "skill[bounce=3, mine=8], attack" is two actions.
+func splitActions(items string) []string {
+	var out []string
+	depth, last := 0, 0
+	for i, c := range items {
+		switch c {
+		case '[':
+			depth++
+		case ']':
+			depth--
+		case ',':
+			if depth == 0 {
+				out = append(out, items[last:i])
+				last = i + 1
+			}
+		}
+	}
+	return append(out, items[last:])
 }
 
 // member returns the party member a rotation's name stands for, matched

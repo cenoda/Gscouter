@@ -66,6 +66,17 @@ func newTestServerFor(t *testing.T, srv *Server) *httptest.Server {
 	return ts
 }
 
+// skirkTeam is the members of the library team
+// skirk-furina-citlali-escoffier, whose params set starting energy.
+func skirkTeam() []enka.Character {
+	return []enka.Character{
+		char("skirk", "azurelight", "finaleofthedeepgalleries", map[string]float64{"hp": 4780, "atk": 311, "atk%": 0.76, "cryo%": 0.466, "cr": 0.58, "cd": 0.79}),
+		char("furina", "favoniussword", "goldentroupe", map[string]float64{"hp": 4780, "atk": 311, "hp%": 0.56, "er": 0.74, "cr": 0.64, "cd": 0.79}),
+		char("citlali", "thrillingtalesofdragonslayers", "scrolloftheheroofcindercity", map[string]float64{"hp": 4780, "atk": 311, "em": 600, "er": 0.11}),
+		char("escoffier", "deathmatch", "noblesseoblige", map[string]float64{"hp": 4780, "atk": 311, "atk%": 0.35, "er": 0.74, "cryo%": 0.466, "cr": 0.23, "cd": 1.28}),
+	}
+}
+
 // newTestSite is the site with two players, scoring with few iterations.
 func newTestSite(t *testing.T) *Server {
 	t.Helper()
@@ -95,6 +106,7 @@ func newTestSiteWith(t *testing.T, edit func(*library.Library)) *Server {
 		"800000003": {UID: "800000003", Nickname: "Moved", Characters: hutaoTeam()[:3]},
 		"800000004": {UID: "800000004", Nickname: "Hymn", Characters: hymn},
 		"800000005": {UID: "800000005", Nickname: "Lohen", Characters: lohenTeam()},
+		"800000006": {UID: "800000006", Nickname: "Skirk", Characters: skirkTeam()},
 	}
 	srv, err := New(lib, profiles, Settings{Iterations: 4, Warmup: 30, Duration: 90, MaxConcurrent: 1, MaxQueue: 4})
 	if err != nil {

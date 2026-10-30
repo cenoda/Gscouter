@@ -3,10 +3,13 @@ package web
 import (
 	"compress/gzip"
 	"context"
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"os"
+	"os/exec"
 	"path/filepath"
+	"reflect"
 	"strings"
 	"testing"
 )
@@ -140,5 +143,61 @@ func TestIndexPrefetchesClient(t *testing.T) {
 	plain := newTestServer(t)
 	if _, body := get(t, plain, "/"); strings.Contains(body, "gscouterPrefetched") {
 		t.Error("prefetching without a browser build")
+	}
+}
+
+// A candidate the engine rejects fails its simulation alone: the page's
+// script, with the real worker script, hands the error to the lead's
+// search, which goes on to score the next candidate in the browser and
+// keeps only the finished simulation (testdata/worker_protocol.js).
+func TestWorkerProtocol(t *testing.T) {
+	node, err := exec.LookPath("node")
+	if err != nil {
+		t.Skip("node not found")
+	}
+	_, ts := newClientSite(t)
+	_, body := get(t, ts, "/score?a=800000001:hutao,yelan,xingqiu,zhongli")
+	i := strings.Index(body, "var job = ")
+	if i < 0 {
+		t.Fatal("no client script")
+	}
+	i = strings.LastIndex(body[:i], "<script>") + len("<script>")
+	end := strings.Index(body[i:], "</script>")
+	if end < 0 {
+		t.Fatal("client script not closed")
+	}
+	page := filepath.Join(t.TempDir(), "page.js")
+	if err := os.WriteFile(page, []byte(body[i:i+end]), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	b, err := exec.Command(node, filepath.Join("testdata", "worker_protocol.js"), filepath.Join("static", "worker.js"), page).Output()
+	if err != nil {
+		t.Fatalf("node: %v", err)
+	}
+	type lead struct {
+		Cfg                  string
+		Iterations, Distinct int
+		Error                string
+	}
+	var out struct {
+		Fallback, Body *string
+		Lead           []lead
+		Saved, Errors  []string
+	}
+	if err := json.Unmarshal(b, &out); err != nil {
+		t.Fatalf("%v: %s", err, b)
+	}
+	if out.Fallback != nil || len(out.Errors) > 0 {
+		t.Errorf("fell back to the server (%q)", out.Errors)
+	}
+	want := []lead{{Cfg: "rejected", Error: "candidate rotation rejected"}, {Cfg: "accepted", Iterations: 10, Distinct: 10}}
+	if !reflect.DeepEqual(out.Lead, want) {
+		t.Errorf("the lead saw %+v, want %+v", out.Lead, want)
+	}
+	if out.Body == nil || *out.Body != "scored" {
+		t.Error("the page was not rendered")
+	}
+	if !reflect.DeepEqual(out.Saved, []string{"accepted"}) {
+		t.Errorf("kept %q, want only the finished simulation", out.Saved)
 	}
 }

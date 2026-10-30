@@ -70,7 +70,9 @@ func runJob(_ js.Value, args []js.Value) any {
 }
 
 // workerSim shares each score's iterations out among the page's helper
-// workers (self.gscouterRun), and runs timelines itself.
+// workers (self.gscouterRun), and runs timelines itself. A candidate the
+// engine rejects comes back as Score's error, as it does natively, for
+// the search (steady.Score, steady.Best) to go on with the next one.
 type workerSim struct{}
 
 func (workerSim) Score(_ context.Context, cfg string, warmup float64, iterations int) (*score.Result, error) {
@@ -125,7 +127,12 @@ func await(p js.Value) (js.Value, error) {
 	values, errs := make(chan js.Value, 1), make(chan error, 1)
 	then := js.FuncOf(func(_ js.Value, args []js.Value) any { values <- args[0]; return nil })
 	catch := js.FuncOf(func(_ js.Value, args []js.Value) any {
-		errs <- errors.New(args[0].Call("toString").String())
+		// An Error's message, as the native search would have it.
+		if msg := args[0].Get("message"); msg.Type() == js.TypeString {
+			errs <- errors.New(msg.String())
+		} else {
+			errs <- errors.New(args[0].Call("toString").String())
+		}
 		return nil
 	})
 	defer then.Release()
