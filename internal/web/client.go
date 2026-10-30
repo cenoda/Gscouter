@@ -140,7 +140,7 @@ func pendingScoreMeta(l localizer, tr teamResult, base string) pageMeta {
 	return pageMeta{
 		Title:       l.T("meta.result_title", tr.owner()),
 		Description: l.teamName(tr.Team),
-		Image:       base + string(link("/card/score.png", tr.Enemy, "a", tr.Selection.String())),
+		Image:       base + string(link("/card/score.png", tr.Enemy, "a", tr.Selection.String(), "r", tr.Selection.Chart)),
 	}
 }
 
@@ -148,7 +148,7 @@ func pendingVersusMeta(l localizer, d versusData, base string) pageMeta {
 	m := pageMeta{Title: fmt.Sprintf("%s vs %s · Gscouter", d.A.owner(), d.B.owner())}
 	if d.A.Problem == "" && d.B.Problem == "" {
 		m.Description = l.teamName(d.A.Team) + " vs " + l.teamName(d.B.Team)
-		m.Image = base + string(link("/card/versus.png", d.A.Enemy, "a", d.A.Selection.String(), "b", d.B.Selection.String()))
+		m.Image = base + string(link("/card/versus.png", d.A.Enemy, "a", d.A.Selection.String(), "b", d.B.Selection.String(), "ra", d.A.Selection.Chart, "rb", d.B.Selection.Chart))
 	}
 	return m
 }

@@ -218,6 +218,7 @@ type suggestion struct {
 type indexData struct {
 	UID       string
 	VS        string // packed first selection when picking the opponent
+	VR        string // the first selection's chart, with VS; "" for the library's rotations
 	Profile   *enka.Profile
 	Problem   string
 	Suggested []suggestion
@@ -267,6 +268,10 @@ func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	data.Enemy = enemy
+	if data.VR, err = opponentChart(q, data.VS); err != nil {
+		s.renderProblem(w, l, l.message(err))
+		return
+	}
 	s.usage.page(r)
 	data.Meta = pageMeta{Title: l.T("site.title"), Description: l.T("site.desc")}
 	if data.UID == "" && data.VS == "" && enemy == nil {
@@ -287,6 +292,17 @@ func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 	s.render(w, l, "index.html", data)
 }
 
+// opponentChart reads the chart of the first selection vs, when picking
+// an opponent, from the parameter "vr", checking it as withChart does.
+// The comparison scores it as "ra". Without vs it is "".
+func opponentChart(q url.Values, vs string) (string, error) {
+	if vs == "" {
+		return "", nil
+	}
+	sel, err := withChart(selection{}, q, "vr")
+	return sel.Chart, err
+}
+
 // showcase fills in the front page's showcase card for p, in l's language.
 func (s *Server) showcase(l localizer, data *indexData, p *enka.Profile) {
 	data.Profile = p
@@ -301,7 +317,7 @@ func (s *Server) showcase(l localizer, data *indexData, p *enka.Profile) {
 	}
 	for i, sg := range data.Suggested {
 		if data.VS != "" {
-			data.Suggested[i].Href = l.link("/versus", data.Enemy, "a", data.VS, "b", sg.Selection.String())
+			data.Suggested[i].Href = l.link("/versus", data.Enemy, "a", data.VS, "ra", data.VR, "b", sg.Selection.String())
 		} else {
 			data.Suggested[i].Href = l.link("/score", data.Enemy, "a", sg.Selection.String())
 		}
@@ -345,6 +361,10 @@ func (s *Server) handleShowcase(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	data.Enemy = enemy
+	if data.VR, err = opponentChart(r.PostForm, data.VS); err != nil {
+		http.Error(w, l.message(err), http.StatusBadRequest)
+		return
+	}
 	ctx, cancel := context.WithTimeout(r.Context(), 20*time.Second)
 	defer cancel()
 	p, err := s.profiles.Profile(ctx, data.UID)

@@ -1,6 +1,6 @@
 # Cycle swap
 
-> Status: In progress (§11) · Last updated: 2026-10-29
+> Status: In progress (§11) · Last updated: 2026-10-30
 
 Roadmap node Cycle swap (`docs/roadmap.md`): a player writes or changes a team's rotation and sees the new score. The owner's premise: nobody will type gcsim script, so the editor is built like a **rhythm-game chart editor**: one lane per character, actions as notes on a time axis. This document records what the code and the library allow, what other tools do, and the open decisions.
 
@@ -176,7 +176,7 @@ _2026-10-29._ Done (`/edit`, `internal/web/edit.go`, `templates/edit.html`, `cha
 
 _2026-10-29._ Done.
 
-- A result page with `r` (a versus page with `ra` and `rb`) scores that side's chart. The picker form already uses `c`, hence `r`. The chart is part of the selection (`selection.Chart`), so link previews, short links (`shortTarget` keeps a valid chart), the enemy form and the link without artifacts keep it.
+- A result page with `r` (a versus page with `ra` and `rb`) scores that side's chart. The picker form already uses `c`, hence `r`. The chart is part of the selection (`selection.Chart`), so link previews, short links (`shortTarget` keeps a valid chart), the enemy form and the link without artifacts keep it. Comparing keeps it too: the result page's compare form sends it beside `vs` as `vr`, which the front page checks and carries through the opponent's showcase to the versus page as `ra`.
 - `compute` scores the team's rotations as before, then the chart with the same pipeline (looped, fillers, `steady.Best` with the chart as its only rotation, with the team's character params unless the chart sets its own). The page shows the chart's score, with a note giving the library rotations' score on the same build and the chart's difference. A browser that opened the library score first has those simulations kept, so only the chart's are new.
 - A chart gcsim cannot play gives a problem in place of the score, with gcsim's error.
 
