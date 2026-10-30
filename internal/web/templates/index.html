@@ -16,6 +16,7 @@
 <form class="inline" action="/" method="get" id="uid-form">
 <input type="text" name="uid" inputmode="numeric" pattern="[0-9]{9,10}" title="{{t "index.uid_title"}}" placeholder="{{t "index.uid_placeholder"}}" value="{{.UID}}" required>
 {{if .VS}}<input type="hidden" name="vs" value="{{.VS}}">{{end}}
+{{with .VR}}<input type="hidden" name="vr" value="{{.}}">{{end}}
 {{template "enemy-hidden" .Enemy}}
 <button type="submit">{{t "index.load"}}</button>
 </form>
@@ -54,10 +55,10 @@ if (matchMedia("(pointer: fine)").matches) document.querySelector("#uid-form inp
     list = [current].concat(list.filter(function (u) { return u !== current; })).slice(0, 5);
     try { localStorage.setItem(key, JSON.stringify(list)); } catch (e) {}
   }
-  var box = document.getElementById("recent"), vs = {{.VS}}, enemy = {{enemyQuery .Enemy}};
+  var box = document.getElementById("recent"), vs = {{.VS}}, vr = {{.VR}}, enemy = {{enemyQuery .Enemy}};
   list.filter(function (u) { return u !== current; }).forEach(function (u) {
     var a = document.createElement("a");
-    a.href = "/?uid=" + encodeURIComponent(u) + (vs ? "&vs=" + encodeURIComponent(vs) : "") + (enemy ? "&" + enemy : "");
+    a.href = "/?uid=" + encodeURIComponent(u) + (vs ? "&vs=" + encodeURIComponent(vs) : "") + (vr ? "&vr=" + encodeURIComponent(vr) : "") + (enemy ? "&" + enemy : "");
     a.textContent = u;
     box.appendChild(a);
     box.hidden = false;
@@ -97,6 +98,7 @@ if (matchMedia("(pointer: fine)").matches) document.querySelector("#uid-form inp
     var body = new URLSearchParams(enemy);
     body.set("uid", current);
     body.set("vs", vs);
+    if (vr) body.set("vr", vr);
     body.set("kept", JSON.stringify(kept));
     fetch("/showcase" + hl, {method: "POST", body: body})
       .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); })
@@ -304,6 +306,7 @@ if (matchMedia("(pointer: fine)").matches) document.querySelector("#uid-form inp
 <form action="{{if $.VS}}/versus{{else}}/score{{end}}" method="get" id="picker" data-buildable="{{json $.Buildable}}">
 <input type="hidden" name="uid" value="{{.UID}}">
 {{if $.VS}}<input type="hidden" name="a" value="{{$.VS}}">{{end}}
+{{with $.VR}}<input type="hidden" name="ra" value="{{.}}">{{end}}
 {{template "enemy-hidden" $.Enemy}}
 <div class="chars">
 {{range .Characters}}{{$kept := index $.Kept .Key}}{{$saved := index $.Saved .Key}}{{$choices := index $.Choices .Key}}
