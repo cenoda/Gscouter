@@ -22,6 +22,11 @@ type update struct {
 // footer shows the newest date.
 var updates = []update{
 	{
+		Date: "2026-10-30",
+		En:   []string{"The source code of Gscouter is open under the GNU AGPL, linked at the bottom of every page."},
+		Ko:   []string{"Gscouter의 소스 코드를 GNU AGPL로 공개하고, 모든 페이지 아래에 링크했습니다."},
+	},
+	{
 		Date:   "2026-10-29",
 		Scores: true,
 		En: []string{
