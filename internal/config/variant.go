@@ -15,7 +15,7 @@ func DropBursts(rotation, char string) string {
 		if start {
 			if m := actionRe.FindStringSubmatchIndex(rotation[i:]); m != nil && rotation[i+m[4]:i+m[5]] == char {
 				var keep []string
-				for _, item := range strings.Split(rotation[i+m[6]:i+m[7]], ",") {
+				for _, item := range splitActions(rotation[i+m[6] : i+m[7]]) {
 					item = strings.TrimSpace(item)
 					action := strings.FieldsFunc(item, func(r rune) bool { return r == '[' || r == ':' })
 					if len(action) > 0 && action[0] != "burst" {

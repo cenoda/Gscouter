@@ -14,6 +14,7 @@ import (
 	"github.com/cenoda/gscouter/internal/config"
 	"github.com/genshinsim/gcsim/pkg/gcs/ast"
 	"github.com/genshinsim/gcsim/pkg/gcs/parser"
+	"github.com/genshinsim/gcsim/pkg/stats"
 )
 
 func testConfig(t *testing.T, duration float64) string {
@@ -302,5 +303,86 @@ func TestDetailStats(t *testing.T) {
 	// Emblem of Severed Fate 2 and Favonius Warbow's substat.
 	if got, want := ds[1].Stats["er"], 1+0.618+0.2+0.613; !near(got, want, 1e-3) {
 		t.Errorf("Yelan er = %v, want %v", got, want)
+	}
+}
+
+// finite reports whether every number in it is finite: JSON, which the
+// browser's workers send iterations in, has no NaN or infinity.
+func finite(it Iteration) bool {
+	nums := append([]float64{it.DPS, it.FirstHalf, it.SecondHalf}, it.CharDPS...)
+	for _, w := range it.Waits {
+		for _, v := range w {
+			nums = append(nums, v)
+		}
+	}
+	for _, v := range nums {
+		if math.IsNaN(v) || math.IsInf(v, 0) {
+			return false
+		}
+	}
+	return true
+}
+
+// A one-pass chart shorter than a second, too short to split into two
+// halves, or that ends before any time passes, scores the same natively
+// and sent as JSON from a browser worker.
+func TestShortOnePass(t *testing.T) {
+	build, err := os.ReadFile("testdata/build.txt")
+	if err != nil {
+		t.Fatal(err)
+	}
+	for rotation, scores := range map[string]bool{"active skirk;\nskirk attack;\n": true, "active skirk;\n": false} {
+		cfg := config.Assemble(config.Conditions{Iterations: 1}, string(build), rotation)
+		opts := Options{Iterations: 2, Seed: 1, Workers: 1}
+		its, err := RunIterations(context.Background(), cfg, opts)
+		if err != nil {
+			t.Fatal(err)
+		}
+		for _, it := range its {
+			if !finite(it) {
+				t.Errorf("%q: iteration %+v is not finite", rotation, it)
+			}
+		}
+		b, err := json.Marshal(its)
+		if err != nil {
+			t.Fatalf("%q: %v", rotation, err)
+		}
+		var back []Iteration
+		if err := json.Unmarshal(b, &back); err != nil {
+			t.Fatal(err)
+		}
+		want := Aggregate(its, opts.Warmup)
+		got := Aggregate(back, opts.Warmup)
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("%q: from JSON %+v\nwant %+v", rotation, got, want)
+		}
+		for _, v := range []float64{want.DPS, want.StdDev, want.StdErr, want.Window, want.Drift} {
+			if math.IsNaN(v) || math.IsInf(v, 0) {
+				t.Errorf("%q: result %+v is not finite", rotation, want)
+			}
+		}
+		if scores && (want.DPS <= 0 || want.Drift != 0) {
+			t.Errorf("%q: DPS %v, drift %v; want a positive DPS and no drift", rotation, want.DPS, want.Drift)
+		}
+	}
+}
+
+// Iterations whose fight ended before the warmup, which a one-pass
+// rotation can, have no scoring window: they score 0 and stay finite.
+func TestNoWindow(t *testing.T) {
+	res := &stats.Result{Duration: 40, DamageBuckets: []float64{100, 50}, Characters: []stats.CharacterResult{{
+		Name:                    "skirk",
+		DamageCumulativeContrib: []float64{1, 1},
+		FailedActions:           []stats.ActionFailInterval{{Start: 10, End: 40, Reason: "skill_cd"}},
+	}}}
+	it := summarize(res, 2) // the window starts at frame 60
+	if !finite(it) || it.DPS != 0 || it.CharDPS[0] != 0 || len(it.Waits[0]) != 0 {
+		t.Errorf("summarize = %+v, want a finite iteration with no score", it)
+	}
+	r := Aggregate([]Iteration{it}, 1)
+	for _, v := range []float64{r.DPS, r.Window, r.Drift, r.Characters[0].DPS, r.Characters[0].Share} {
+		if math.IsNaN(v) || math.IsInf(v, 0) || v != 0 {
+			t.Errorf("Aggregate = %+v, want 0s", r)
+		}
 	}
 }

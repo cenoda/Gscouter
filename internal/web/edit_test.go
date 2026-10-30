@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"html"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -308,4 +309,108 @@ func TestEditRecordsWithParams(t *testing.T) {
 	if got.String() != want.String() {
 		t.Errorf("editor records\n%s\nwant\n%s", got, want)
 	}
+}
+
+// Editing a result keeps its enemy: the result's editor link, the
+// editor's URL, the preview and the link back to the score all carry it.
+func TestEditKeepsEnemy(t *testing.T) {
+	ts := newTestServer(t)
+	_, cts := newClientSite(t)
+	noFollow := *cts.Client()
+	noFollow.CheckRedirect = func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }
+	c, err := chart.Parse("3E(hold=1) 2E 2Q? 1Q? 1E 0E [0N 0C 0D]6 0Q?")
+	if err != nil {
+		t.Fatal(err)
+	}
+	r := c.Encode()
+	packed := "800000001~" + packBuilds("Strong", hutaoTeam())
+	editLink := regexp.MustCompile(`href="(/edit\?[^"]*)"`)
+	scoreVar := regexp.MustCompile(`SCORE = ("[^"]*")`)
+	enemyVar := regexp.MustCompile(`ENEMY = ([^;]*);`)
+	for _, tc := range []struct {
+		name  string
+		enemy url.Values
+		note  string
+		want  config.Enemy
+	}{
+		{"level", url.Values{"lvl": {"90"}}, "Lv. 90", config.Enemy{Level: 90, Resist: config.StandardEnemy.Resist}},
+		{"resistance", url.Values{"geo": {"70"}}, "Geo RES 70%", config.Enemy{Level: 100, Resist: [8]int{10, 10, 10, 10, 10, 10, 70, 10}}},
+		{"boss", url.Values{"boss": {"lasignora"}, "lvl": {"95"}}, "La Signora · Lv. 95", config.Enemy{Level: 95, Resist: [8]int{70, 10, 10, 10, 10, 10, 10, 10}, Boss: "lasignora"}},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			q := url.Values{"a": {packed}, "r": {r}}
+			for k, v := range tc.enemy {
+				q[k] = v
+			}
+			_, body := get(t, ts, "/score?"+q.Encode())
+			m := editLink.FindStringSubmatch(body)
+			if m == nil {
+				t.Fatal("no editor link")
+			}
+			edit := html.UnescapeString(m[1])
+			eq := mustQuery(t, edit)
+			for k, v := range tc.enemy {
+				if eq.Get(k) != v[0] {
+					t.Errorf("editor link %q: %s = %q, want %q", edit, k, eq.Get(k), v[0])
+				}
+			}
+
+			// The editor's URL keeps the enemy as it is.
+			resp, err := noFollow.Get(cts.URL + edit)
+			if err != nil {
+				t.Fatal(err)
+			}
+			b := new(strings.Builder)
+			_, _ = io.Copy(b, resp.Body)
+			resp.Body.Close()
+			if resp.StatusCode != http.StatusOK {
+				t.Fatalf("editor: status %d, location %q", resp.StatusCode, resp.Header.Get("Location"))
+			}
+			page := b.String()
+
+			// The preview plays against it.
+			m = enemyVar.FindStringSubmatch(page)
+			if m == nil {
+				t.Fatal("no ENEMY in the editor")
+			}
+			var got config.Enemy
+			if err := json.Unmarshal([]byte(m[1]), &got); err != nil {
+				t.Fatalf("ENEMY = %s: %v", m[1], err)
+			}
+			if got != tc.want {
+				t.Errorf("ENEMY = %+v, want %+v", got, tc.want)
+			}
+
+			// The score the editor sends back to is against it too.
+			m = scoreVar.FindStringSubmatch(page)
+			if m == nil {
+				t.Fatal("no SCORE in the editor")
+			}
+			var score string
+			if err := json.Unmarshal([]byte(m[1]), &score); err != nil {
+				t.Fatal(err)
+			}
+			_, body = get(t, ts, score+"&r="+url.QueryEscape(r))
+			mustContain(t, body, "Calculated against a custom enemy", tc.note, "Scored with a custom rotation")
+		})
+	}
+
+	// The standard enemy has no ENEMY to play against.
+	_, page := get(t, cts, "/edit?a="+url.QueryEscape(packed))
+	if !regexp.MustCompile(`ENEMY = \s*null\s*;`).MatchString(page) {
+		t.Error("the standard enemy is not ENEMY = null")
+	}
+	// A bad enemy is refused.
+	if code, _ := get(t, cts, "/edit?a="+url.QueryEscape(packed)+"&lvl=500"); code != http.StatusBadRequest {
+		t.Errorf("bad enemy: status %d", code)
+	}
+}
+
+func mustQuery(t *testing.T, link string) url.Values {
+	t.Helper()
+	u, err := url.Parse(link)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return u.Query()
 }
