@@ -112,7 +112,7 @@ func TestRecord(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if _, err := score.Once(config.Assemble(config.Conditions{Iterations: 1}, build, d.Gcsl(names)), 1); err != nil {
+	if _, err := score.Once(context.Background(), config.Assemble(config.Conditions{Iterations: 1}, build, d.Gcsl(names)), 1); err != nil {
 		t.Errorf("recorded chart does not run: %v", err)
 	}
 }

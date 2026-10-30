@@ -1,8 +1,11 @@
 package timeline
 
 import (
+	"context"
+	"errors"
 	"math"
 	"os"
+	"reflect"
 	"slices"
 	"strings"
 	"testing"
@@ -11,7 +14,9 @@ import (
 	"github.com/cenoda/gscouter/internal/score"
 )
 
-func TestBuild(t *testing.T) {
+// testConfig is the score package's test team, looped for 90 s.
+func testConfig(t *testing.T) string {
+	t.Helper()
 	build, err := os.ReadFile("../score/testdata/build.txt")
 	if err != nil {
 		t.Fatal(err)
@@ -24,8 +29,11 @@ func TestBuild(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	cfg := config.Assemble(config.Conditions{Iterations: 1, Duration: 90}, string(build), looped)
-	res, actions, err := score.Trace(cfg, 1)
+	return config.Assemble(config.Conditions{Iterations: 1, Duration: 90}, string(build), looped)
+}
+
+func TestBuild(t *testing.T) {
+	res, actions, err := score.Trace(context.Background(), testConfig(t), 1, 0)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -69,6 +77,31 @@ func TestBuild(t *testing.T) {
 	}
 	for _, c := range tl.Characters {
 		t.Logf("%s %.0f waits=%v sources=%v", c.Name, c.Damage, c.Waits, c.Sources)
+	}
+}
+
+// Simulate stops the fight after the window, and gives the timeline of
+// the whole fight.
+func TestSimulate(t *testing.T) {
+	cfg := testConfig(t)
+	res, actions, err := score.Trace(context.Background(), cfg, 1, 0)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, w := range [][2]int{{0, 20 * 60}, {10 * 60, 40 * 60}, {30*60 + 7, 55*60 + 13}} {
+		got, err := Simulate(context.Background(), cfg, w[0], w[1])
+		if err != nil {
+			t.Fatal(err)
+		}
+		if want := Build(res, actions, w[0], w[1]); !reflect.DeepEqual(got, want) {
+			t.Errorf("window %v: timeline differs from the whole fight's", w)
+		}
+	}
+
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+	if _, err := Simulate(ctx, cfg, 0, 20*60); !errors.Is(err, context.Canceled) {
+		t.Errorf("cancelled: err = %v, want %v", err, context.Canceled)
 	}
 }
 

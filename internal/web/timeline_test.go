@@ -1,11 +1,40 @@
 package web
 
 import (
+	"context"
+	"errors"
+	"os"
 	"slices"
 	"testing"
+	"time"
 
+	"github.com/cenoda/gscouter/internal/config"
 	"github.com/cenoda/gscouter/internal/timeline"
 )
+
+// A timeline stops when its request is done and frees the simulation
+// slot: the default settings have only one.
+func TestTimelineStopsOnCancel(t *testing.T) {
+	srv := newTestSite(t)
+	build, err := os.ReadFile("../score/testdata/build.txt")
+	if err != nil {
+		t.Fatal(err)
+	}
+	// A fight that never ends, in a window too long to bound it.
+	cfg := config.Assemble(config.Conditions{Iterations: 1}, string(build), "active escoffier;\nwhile 1 { wait(60); }\n")
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Millisecond)
+	defer cancel()
+	start := time.Now()
+	if _, err := srv.timeline(ctx, cfg, 0, 1e6); !errors.Is(err, context.DeadlineExceeded) {
+		t.Errorf("err = %v, want %v", err, context.DeadlineExceeded)
+	}
+	if took := time.Since(start); took > 300*time.Millisecond {
+		t.Errorf("returned after %v", took)
+	}
+	if n := len(srv.sem); n != 0 {
+		t.Errorf("%d simulation slots still held", n)
+	}
+}
 
 func TestActionChips(t *testing.T) {
 	r := func(kind string, n int) timeline.Run { return timeline.Run{Kind: kind, Count: n} }
