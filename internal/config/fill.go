@@ -110,12 +110,12 @@ func fillStatement(char, items string, energy, skill bool, party []string, forms
 	}
 	for _, item := range splitActions(items) {
 		item = strings.TrimSpace(item)
-		action := strings.FieldsFunc(item, func(r rune) bool { return r == '[' || r == ':' })
-		if len(action) == 0 {
+		name := parseAction(item).name
+		if name == "" {
 			continue
 		}
 		switch {
-		case energy && action[0] == "burst" && (how == FillSkip || how == FillBrief):
+		case energy && name == "burst" && (how == FillSkip || how == FillBrief):
 			flush()
 			if how == FillBrief {
 				*n++
@@ -126,11 +126,11 @@ func fillStatement(char, items string, energy, skill bool, party []string, forms
 			// takes no time.
 			out = append(out, fmt.Sprintf("if .%s.burst.ready { %s %s; } else { wait(1); }", char, char, item))
 			continue
-		case energy && action[0] == "burst":
+		case energy && name == "burst":
 			flush()
 			*n++
 			out = append(out, energyFiller(char, party, forms, how, fmt.Sprintf("gs_fill%d", *n)))
-		case skill && action[0] == "skill":
+		case skill && name == "skill":
 			flush()
 			*n++
 			v := fmt.Sprintf("gs_fill%d", *n)
@@ -222,7 +222,12 @@ var (
 // skillForms returns, per member, its skill as the rotation first uses
 // it: with its parameters (a hold, for example) and the plunges that
 // follow it, as Kazuha's and Xianyun's skills are written. A member
-// whose skill the rotation never uses gets a plain "skill".
+// whose skill the rotation never uses gets a plain "skill". The skill is
+// read as gcsim reads it (parseAction) and written without spaces, so
+// "skill [counter=1]" gives "skill[counter=1]". A repeated skill with
+// parameters keeps its count ("skill[hold=1]:2"); a plain one repeated
+// ("skill:2") is passed over, as it always was, so that the forms of the
+// library's teams stay as they are.
 func skillForms(rotation string, party []string) map[string]string {
 	forms := map[string]string{}
 	// Each search starts at the semicolon that ends the statement before,
@@ -240,11 +245,11 @@ func skillForms(rotation string, party []string) map[string]string {
 		}
 		items := splitActions(list)
 		for i, item := range items {
-			item = strings.TrimSpace(item)
-			if item != "skill" && !strings.HasPrefix(item, "skill[") {
+			a := parseAction(item)
+			if a.name != "skill" || (a.params == "" && a.repeat != "") {
 				continue
 			}
-			form := []string{item}
+			form := []string{a.String()}
 			for _, next := range items[i+1:] {
 				next = strings.TrimSpace(next)
 				if !plungeRe.MatchString(next) {
@@ -284,6 +289,53 @@ func splitActions(items string) []string {
 		}
 	}
 	return append(out, items[last:])
+}
+
+// action is one action of an action statement, as gcsim's parser reads
+// it: a name, then optionally parameters in brackets, then optionally a
+// colon and a repeat count. gcsim's lexer skips the spaces between these,
+// so "skill [counter=1] : 2" is "skill[counter=1]:2".
+type action struct {
+	name   string // "skill"
+	params string // "[counter=1]", or empty
+	repeat string // "2", or empty
+}
+
+// parseAction reads an action of an action list (an item of
+// splitActions). Fill, skillForms and DropBursts all name actions by
+// it. An item that does not start with a name gets an empty name; text
+// after the parameters that is not a repeat count is kept in repeat.
+func parseAction(item string) action {
+	item = strings.TrimSpace(item)
+	end := strings.IndexFunc(item, func(r rune) bool {
+		return !(r == '_' || r >= 'a' && r <= 'z' || r >= 'A' && r <= 'Z' || r >= '0' && r <= '9')
+	})
+	if end < 0 {
+		end = len(item)
+	}
+	a := action{name: item[:end]}
+	rest := strings.TrimSpace(item[end:])
+	if strings.HasPrefix(rest, "[") {
+		close := strings.IndexByte(rest, ']')
+		if close < 0 {
+			close = len(rest) - 1
+		}
+		a.params, rest = rest[:close+1], strings.TrimSpace(rest[close+1:])
+	}
+	if r, ok := strings.CutPrefix(rest, ":"); ok {
+		a.repeat = strings.TrimSpace(r)
+	} else {
+		a.repeat = rest
+	}
+	return a
+}
+
+// String writes the action without spaces: "skill[counter=1]:2".
+func (a action) String() string {
+	if a.repeat == "" {
+		return a.name + a.params
+	}
+	return a.name + a.params + ":" + a.repeat
 }
 
 // member returns the party member a rotation's name stands for, matched

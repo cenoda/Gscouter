@@ -19,10 +19,19 @@ func TestDropBursts(t *testing.T) {
 		// A comma inside brackets separates parameters, not actions.
 		{"citlali skill[a=1, b=2], burst[hits=10, mine_delay=250], attack[c=3, d=4];", "citlali skill[a=1, b=2], attack[c=3, d=4];"},
 		{"citlali burst[hits=10, mine_delay=250];\nmavuika skill;", "\nmavuika skill;"},
+		// gcsim allows spaces before parameters and repeat counts.
+		{"active citlali; citlali burst [counter=1];", "active citlali; "},
+		{"citlali skill [hold=1], burst [counter=1], attack :2;", "citlali skill [hold=1], attack :2;"},
+		{"citlali burst :2, skill;", "citlali skill;"},
 	} {
 		if got := DropBursts(c.in, "citlali"); got != c.want {
 			t.Errorf("DropBursts(%q) = %q, want %q", c.in, got, c.want)
 		}
+	}
+	// The finding's case: a burst written with a space before its
+	// parameters goes as one written without.
+	if got, want := DropBursts("active beidou; beidou burst [counter=1];", "beidou"), "active beidou; "; got != want {
+		t.Errorf("DropBursts kept a spaced burst: %q, want %q", got, want)
 	}
 	// The committed Kirara statement (teams/klee-aloy-kirara-kaedeharakazuha).
 	in := "kirara skill[short_hold=1], burst[hits=10, mine_delay=250];"
