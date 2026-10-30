@@ -33,6 +33,7 @@ type Job struct {
 	Page     string // "score" or "versus"
 	Lang     string
 	Auto     bool
+	URL      bool
 	Settings Settings
 	Teams    []teamResult
 }
@@ -70,7 +71,7 @@ func (s *Server) inBrowser(r *http.Request) bool {
 func (s *Server) job(l localizer, page string, teams ...teamResult) *Job {
 	for _, tr := range teams {
 		if tr.Problem == "" {
-			return &Job{Page: page, Lang: l.Lang, Auto: l.Auto, Settings: s.settings, Teams: teams}
+			return &Job{Page: page, Lang: l.Lang, Auto: l.Auto, URL: l.URL, Settings: s.settings, Teams: teams}
 		}
 	}
 	return nil
@@ -97,7 +98,7 @@ func (s *Server) clientData(r *http.Request, job *Job) *clientData {
 // RunJob calculates job with sim and renders the page body it is waiting
 // for. It returns the body and the page title.
 func RunJob(ctx context.Context, job Job, sim Simulator) (body, title string, err error) {
-	l := localizer{Lang: job.Lang, Auto: job.Auto}
+	l := localizer{Lang: job.Lang, Auto: job.Auto, URL: job.URL}
 	if catalog[l.Lang] == nil {
 		l = english
 	}

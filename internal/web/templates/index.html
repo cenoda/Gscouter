@@ -18,7 +18,7 @@
 {{if .VS}}<input type="hidden" name="vs" value="{{.VS}}">{{end}}
 {{with .VR}}<input type="hidden" name="vr" value="{{.}}">{{end}}
 {{template "enemy-hidden" .Enemy}}
-<button type="submit">{{t "index.load"}}</button>
+{{template "lang-hidden"}}<button type="submit">{{t "index.load"}}</button>
 </form>
 <script>
 // Focus the UID input on load, but only with a mouse: on a touch screen a
@@ -55,10 +55,10 @@ if (matchMedia("(pointer: fine)").matches) document.querySelector("#uid-form inp
     list = [current].concat(list.filter(function (u) { return u !== current; })).slice(0, 5);
     try { localStorage.setItem(key, JSON.stringify(list)); } catch (e) {}
   }
-  var box = document.getElementById("recent"), vs = {{.VS}}, vr = {{.VR}}, enemy = {{enemyQuery .Enemy}};
+  var box = document.getElementById("recent"), vs = {{.VS}}, vr = {{.VR}}, enemy = {{enemyQuery .Enemy}}, lang = {{hl}};
   list.filter(function (u) { return u !== current; }).forEach(function (u) {
     var a = document.createElement("a");
-    a.href = "/?uid=" + encodeURIComponent(u) + (vs ? "&vs=" + encodeURIComponent(vs) : "") + (vr ? "&vr=" + encodeURIComponent(vr) : "") + (enemy ? "&" + enemy : "");
+    a.href = "/?uid=" + encodeURIComponent(u) + (vs ? "&vs=" + encodeURIComponent(vs) : "") + (vr ? "&vr=" + encodeURIComponent(vr) : "") + (enemy ? "&" + enemy : "") + (lang ? "&hl=" + lang : "");
     a.textContent = u;
     box.appendChild(a);
     box.hidden = false;
@@ -308,7 +308,7 @@ if (matchMedia("(pointer: fine)").matches) document.querySelector("#uid-form inp
 {{if $.VS}}<input type="hidden" name="a" value="{{$.VS}}">{{end}}
 {{with $.VR}}<input type="hidden" name="ra" value="{{.}}">{{end}}
 {{template "enemy-hidden" $.Enemy}}
-<div class="chars">
+{{template "lang-hidden"}}<div class="chars">
 {{range .Characters}}{{$kept := index $.Kept .Key}}{{$saved := index $.Saved .Key}}{{$choices := index $.Choices .Key}}
 <label>{{if or $kept $saved}}<input type="checkbox" name="c" value="{{.Key}}" data-kept="{{build .}}">{{else}}<input type="checkbox" name="c" value="{{.Key}}" data-build="{{build .}}">{{end}}{{template "face" .Key}}<span><span class="name">{{template "el" (element .Key)}}{{name .Key}}</span><span class="muted line">{{template "build-line" .}}</span>{{with $kept}}<span class="kept">{{t "index.kept_on" .}}</span>{{end}}{{if $saved}}<span class="kept">{{t "index.saved"}}</span>{{end}}{{if $choices}}<select class="build-choice" aria-label="{{t "index.build_choice"}}">{{range $choices}}<option value="{{.Token}}" data-line="{{template "build-line" .Char}}">{{.Label}}</option>{{end}}</select>{{else if $saved}}<span class="muted">{{$saved}}</span>{{end}}</span></label>
 {{end}}
