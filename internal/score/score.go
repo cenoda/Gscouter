@@ -184,6 +184,17 @@ feed:
 // for a draft whose loop never ends.
 const maxFightFrames = 100_000 * 60
 
+// maxStillActions is how many actions a fight plays on one frame before
+// it is stopped as stuck. gcsim plays an action on the frame the last
+// one lets it, so a loop of actions that take no time, such as
+// walk[f=0], runs forever on one frame, where the stop on frames below
+// never comes. A rotation plays at most a swap and an action, and a few
+// waits or delays of 0, on one frame.
+const maxStillActions = 10_000
+
+// ErrStuck is a fight stopped at maxStillActions.
+var ErrStuck = errors.New("the rotation plays actions that take no time, such as walk[f=0], without end")
+
 // simulate runs one iteration. It ends the fight early, as at the end of
 // its duration, when ctx is done or the fight reaches maxFightFrames;
 // the result is then the fight so far, and the error ctx's.
@@ -191,9 +202,39 @@ func simulate(ctx context.Context, file *ast.File, simcfg *info.ActionList, gcsl
 	return simulateWith(ctx, file, simcfg, gcsl, seed, nil, nil)
 }
 
+// syncEvaluator is a program gcsim runs on the fight's goroutine
+// (eval.Eval.RunSync), as eval.Eval and requester are.
+type syncEvaluator interface {
+	action.Evaluator
+	RunSync(exec func(*action.Eval) bool) error
+}
+
+// stillGuard stops the program once it has played maxStillActions
+// actions on one frame.
+type stillGuard struct {
+	syncEvaluator
+	c            *core.Core
+	frame, count int
+	stuck        bool
+}
+
+func (g *stillGuard) RunSync(exec func(*action.Eval) bool) error {
+	return g.syncEvaluator.RunSync(func(e *action.Eval) bool {
+		if g.c.F != g.frame {
+			g.frame, g.count = g.c.F, 0
+		}
+		g.count++
+		if g.count > maxStillActions {
+			g.stuck = true
+			return false
+		}
+		return exec(e)
+	})
+}
+
 // simulateWith is simulate, calling setup with the fight's core before
 // the fight is set up, and running the program through wrap when set.
-func simulateWith(ctx context.Context, file *ast.File, simcfg *info.ActionList, gcsl ast.Node, seed int64, setup func(*core.Core), wrap func(*eval.Eval, *core.Core) action.Evaluator) (stats.Result, error) {
+func simulateWith(ctx context.Context, file *ast.File, simcfg *info.ActionList, gcsl ast.Node, seed int64, setup func(*core.Core), wrap func(*eval.Eval, *core.Core) syncEvaluator) (stats.Result, error) {
 	cfg := simcfg.Copy()
 	c, err := simulation.NewCore(seed, false, cfg)
 	if err != nil {
@@ -206,20 +247,22 @@ func simulateWith(ctx context.Context, file *ast.File, simcfg *info.ActionList, 
 	if err != nil {
 		return stats.Result{}, err
 	}
-	var run action.Evaluator = ev
+	var run syncEvaluator = ev
 	if wrap != nil {
 		run = wrap(ev, c)
 	}
-	sim, err := simulation.New(cfg, run, c)
+	guard := &stillGuard{syncEvaluator: run, c: c, frame: -1}
+	sim, err := simulation.New(cfg, guard, c)
 	if err != nil {
 		return stats.Result{}, err
 	}
 	// gcsim has no way to stop a fight from outside, so this ends it as a
 	// fight with a duration ends: its stop check, run after OnTick, ends
-	// the fight on the frame of the duration, outside damage mode.
+	// the fight on the frame of the duration, outside damage mode. A
+	// stuck program has ended, and the fight would run on without it.
 	stopped := false
 	c.Events.Subscribe(event.OnTick, func(...any) {
-		if stopped || c.F%60 != 0 || c.F < maxFightFrames && ctx.Err() == nil {
+		if stopped || c.F%60 != 0 || c.F < maxFightFrames && ctx.Err() == nil && !guard.stuck {
 			return
 		}
 		stopped = true
@@ -227,6 +270,9 @@ func simulateWith(ctx context.Context, file *ast.File, simcfg *info.ActionList, 
 		cfg.Settings.Duration = (float64(c.F) + 0.5) / 60
 	}, "gscouter-stop")
 	res, err := sim.Run()
+	if err == nil && guard.stuck {
+		err = ErrStuck
+	}
 	if err == nil {
 		err = ctx.Err()
 	}

@@ -338,6 +338,7 @@ func init() {
 		"ed.ready_hint":         "Hazır değilse atlanır, gcsim'in if .ready'si gibi. Atlanan nota soluk kalır.",
 		"ed.drag_hint":          "Önünde beklemek için notayı sağa sürükleyin, 0,1 sn adımlarla.",
 		"problem.chart":         "Bu bağlantının rotasyon nota dizisi okunamıyor.",
+		"problem.chart_idle":    "Bu rotasyon nota dizisinin tüm notaları yalnızca hazırken çalınıyor ve hiçbiri beklemiyor; gcsim tek bir karede sonsuza dek durur. Her zaman çalınan bir nota ya da bir bekleme ekleyin.",
 		"problem.editor":        "Rotasyon düzenleyici tarayıcıda hesaplar; bu sunucu bunu sunmuyor.",
 		"problem.chart_failed":  "gcsim bu rotasyon nota dizisini çalıştıramadı: %s",
 		"score.edit":            "Rotasyonu düzenle",

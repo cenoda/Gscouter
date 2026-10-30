@@ -338,6 +338,7 @@ func init() {
 		"ed.ready_hint":         "Ignorée si elle n'est pas prête, comme le if .ready de gcsim. Une note ignorée reste estompée.",
 		"ed.drag_hint":          "Faites glisser la note vers la droite pour attendre avant elle, par pas de 0,1 s.",
 		"problem.chart":         "La partition de rotation de ce lien est illisible.",
+		"problem.chart_idle":    "Chaque note de cette partition de rotation ne joue que si elle est prête, et aucune n'attend : gcsim resterait figé sur une image pour toujours. Ajoutez une note toujours jouée, ou une attente.",
 		"problem.editor":        "L'éditeur de rotation calcule dans le navigateur, ce que ce serveur ne propose pas.",
 		"problem.chart_failed":  "gcsim n'a pas pu jouer cette partition de rotation : %s",
 		"score.edit":            "Modifier la rotation",

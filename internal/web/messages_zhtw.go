@@ -338,6 +338,7 @@ func init() {
 		"ed.ready_hint":         "未就緒時跳過（gcsim 的 if .ready）。跳過的音符會變淡保留。",
 		"ed.drag_hint":          "把音符向右拖曳，會以 0.1 秒為單位在它前面加入等待。",
 		"problem.chart":         "無法讀取此連結中的輪轉譜面。",
+		"problem.chart_idle":    "此輪轉譜面的所有音符都僅在就緒時釋放，且沒有等待，gcsim 會永遠停在同一幀。請加入一個總會釋放的音符或一段等待。",
 		"problem.editor":        "輪轉編輯器在瀏覽器中計算，此伺服器未提供該功能。",
 		"problem.chart_failed":  "gcsim 無法執行此輪轉譜面：%s",
 		"score.edit":            "編輯輪轉",

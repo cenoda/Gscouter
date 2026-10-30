@@ -104,6 +104,11 @@ type Repeat struct {
 
 var keyRe = regexp.MustCompile(`^[a-z][a-z0-9_%]{0,31}$`)
 
+// ErrIdle is a chart that may never move time on: every note plays only
+// when ready, and none waits. Looped, gcsim checks the notes over and
+// over on one frame once none is ready, and the fight never ends.
+var ErrIdle = errors.New("chart has no note that always plays and no wait")
+
 // Validate checks the limits and that the notes are well formed.
 func (c *Chart) Validate() error {
 	if len(c.Notes) == 0 {
@@ -128,6 +133,13 @@ func (c *Chart) Validate() error {
 		if err := checkParams(n.Params, MaxParams); err != nil {
 			return fmt.Errorf("note %d: %w", i+1, err)
 		}
+	}
+	// A wait, or an action gcsim is asked for whatever its state, passes
+	// time on every pass of the loop: gcsim holds an action until it is
+	// ready. An action that takes no time (walk[f=0]) is stopped by the
+	// score instead (score.maxStillActions).
+	if !slices.ContainsFunc(c.Notes, func(n Note) bool { return !n.Ready || n.Wait > 0 }) {
+		return ErrIdle
 	}
 	end := -1
 	for _, r := range c.Repeats {

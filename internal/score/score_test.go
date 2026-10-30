@@ -147,6 +147,29 @@ func TestRunStopsOnCancel(t *testing.T) {
 	}
 }
 
+// A loop of actions that take no time never passes a frame, where a
+// cancel is seen, so the fight stops it itself.
+func TestRunStopsStillLoop(t *testing.T) {
+	build, err := os.ReadFile("testdata/build.txt")
+	if err != nil {
+		t.Fatal(err)
+	}
+	cfg := config.Assemble(config.Conditions{Iterations: 1}, string(build), "active escoffier;\nwhile 1 { escoffier walk[f=0]; }\n")
+	done := make(chan error, 1)
+	go func() {
+		_, err := Run(context.Background(), cfg, Options{Iterations: 1, Workers: 1})
+		done <- err
+	}()
+	select {
+	case err := <-done:
+		if !errors.Is(err, ErrStuck) {
+			t.Errorf("err = %v, want %v", err, ErrStuck)
+		}
+	case <-time.After(10 * time.Second):
+		t.Fatal("still running after 10 s")
+	}
+}
+
 // Iterations run in slices elsewhere, sent as JSON and merged, must give
 // exactly the score of one run: browsers split a score across workers.
 func TestSlicesMergeToRun(t *testing.T) {
