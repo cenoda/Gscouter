@@ -224,6 +224,13 @@ type indexData struct {
 	// Buildable lists the suggestions' characters, sorted and joined by
 	// commas, so the picker can tell when four picks are not a team.
 	Buildable []string
+	// Unlocks are the characters that would complete the most library
+	// teams with the showcase's, best first; not when picking an
+	// opponent, whose showcase is someone else's.
+	Unlocks []unlock
+	// Refresh is the seconds until loading the UID again gets its
+	// showcase anew from Enka, or -1 when unknown.
+	Refresh int
 	// Kept dates the characters the browser kept from earlier lookups
 	// that are no longer in the showcase, by key.
 	Kept      map[string]string
@@ -277,7 +284,15 @@ func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 // showcase fills in the front page's showcase card for p.
 func (s *Server) showcase(data *indexData, p *enka.Profile) {
 	data.Profile = p
-	data.Suggested = s.suggest(p)
+	var unlocks []unlock
+	data.Suggested, unlocks = match(s.lib.Teams, s.members, p)
+	if data.VS == "" {
+		data.Unlocks = unlocks
+	}
+	data.Refresh = -1
+	if !p.Expires.IsZero() {
+		data.Refresh = max(0, int(math.Ceil(time.Until(p.Expires).Seconds())))
+	}
 	for i, sg := range data.Suggested {
 		if data.VS != "" {
 			data.Suggested[i].Href = link("/versus", data.Enemy, "a", data.VS, "b", sg.Selection.String())
@@ -339,24 +354,82 @@ func (s *Server) handleShowcase(w http.ResponseWriter, r *http.Request) {
 	s.render(w, l, "showcase", data)
 }
 
-// suggest lists the library teams that can be built from a showcase.
-func (s *Server) suggest(p *enka.Profile) []suggestion {
+// unlock is a character missing from a showcase, by canonical key, with
+// the number of library teams it would complete, and of those it would
+// leave one member short.
+type unlock struct {
+	Key         string
+	Teams, Near int
+}
+
+// maxUnlocks is how many unlocks the front page shows.
+const maxUnlocks = 5
+
+// match lists the library teams that can be built from a showcase, and
+// the characters that would complete the most teams one member short of
+// it: up to maxUnlocks, by teams completed, then by teams they would
+// bring one member short (what adding another would complete), then by
+// key. One pass over the library does both; members are the teams'
+// canonical members (canonicalMembers), worked out once.
+func match(teams []*library.Team, members [][]string, p *enka.Profile) ([]suggestion, []unlock) {
 	have := map[string]string{} // canonical name -> showcase key
 	for _, c := range p.Characters {
 		have[library.Canonical(c.Key)] = c.Key
 	}
 	var out []suggestion
-	for _, t := range s.lib.Teams {
-		var chars []string
-		for _, m := range t.Members {
-			key, ok := have[library.Canonical(m)]
-			if !ok {
+	counts := map[string]*unlock{}
+	count := func(key string) *unlock {
+		u := counts[key]
+		if u == nil {
+			u = &unlock{Key: key}
+			counts[key] = u
+		}
+		return u
+	}
+	for i, t := range teams {
+		if len(members[i]) != 4 {
+			continue
+		}
+		// On the stack: most teams are two or more short.
+		chars, missing := make([]string, 0, 4), make([]string, 0, 3)
+		for _, c := range members[i] {
+			if key, ok := have[c]; ok {
+				chars = append(chars, key)
+			} else if missing = append(missing, c); len(missing) > 2 {
 				break
 			}
-			chars = append(chars, key)
 		}
-		if len(chars) == 4 {
-			out = append(out, suggestion{Team: t, Selection: selection{UID: p.UID, Chars: chars}})
+		switch len(missing) {
+		case 0:
+			out = append(out, suggestion{Team: t, Selection: selection{UID: p.UID, Chars: slices.Clone(chars)}})
+		case 1:
+			count(missing[0]).Teams++
+		case 2:
+			count(missing[0]).Near++
+			count(missing[1]).Near++
+		}
+	}
+	var unlocks []unlock
+	for _, u := range counts {
+		if u.Teams > 0 {
+			unlocks = append(unlocks, *u)
+		}
+	}
+	slices.SortFunc(unlocks, func(a, b unlock) int {
+		return cmp.Or(cmp.Compare(b.Teams, a.Teams), cmp.Compare(b.Near, a.Near), strings.Compare(a.Key, b.Key))
+	})
+	if len(unlocks) > maxUnlocks {
+		unlocks = unlocks[:maxUnlocks]
+	}
+	return out, unlocks
+}
+
+// canonicalMembers lists each team's members by canonical name.
+func canonicalMembers(teams []*library.Team) [][]string {
+	out := make([][]string, len(teams))
+	for i, t := range teams {
+		for _, m := range t.Members {
+			out[i] = append(out[i], library.Canonical(m))
 		}
 	}
 	return out
@@ -642,7 +715,12 @@ func (e *EnkaSource) Profile(ctx context.Context, uid string) (*enka.Profile, er
 	if p.UID == "" {
 		p.UID = uid
 	}
+	// The front page counts down to Expires, after which loading the UID
+	// again fetches it anew (design §4.1). Enka's ttl is the time until it
+	// refreshes the showcase itself, so the cache never serves a showcase
+	// older than Enka's; it keeps one at least a minute.
 	ttl := max(time.Duration(p.TTL)*time.Second, time.Minute)
+	p.Expires = time.Now().Add(ttl)
 	e.cache.put(uid, p, ttl)
 	return p, nil
 }

@@ -68,6 +68,11 @@ func init() {
 		"index.good_bad":         "Das ist keine GOOD-Datei.",
 		"index.good_failed":      "Die Datei konnte nicht importiert werden. Versuche es später erneut.",
 		"about.d_good":           "GOOD-Dateien: Eine importierte Datei wird auf dem Server nur gelesen, um daraus Builds zu machen, die an deinen Browser zurückgehen und dort mit den Charakteren der UID gespeichert werden. Nichts aus der Datei wird gespeichert oder protokolliert.",
+		"index.refresh_q":        "Präsentation geändert?",
+		"index.refresh_in":       "Neu laden in %s",
+		"index.refresh":          "Präsentation neu laden",
+		"index.unlock_heading":   "Als Nächstes ausstellen",
+		"index.unlock_lead":      "Teams der Bibliothek, die jeder Charakter mit deinen vorhandenen Charakteren vervollständigt:",
 
 		"problem.home": "Startseite",
 

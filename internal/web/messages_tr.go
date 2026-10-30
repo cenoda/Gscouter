@@ -68,6 +68,11 @@ func init() {
 		"index.good_bad":         "Bu bir GOOD dosyası değil.",
 		"index.good_failed":      "Dosya içe aktarılamadı. Daha sonra tekrar dene.",
 		"about.d_good":           "GOOD dosyaları: içe aktarılan dosya sunucuda yalnızca build'lere dönüştürülmek için okunur; build'ler tarayıcına geri gönderilir ve orada UID'nin karakterleriyle saklanır. Dosyadan hiçbir şey saklanmaz veya kaydedilmez.",
+		"index.refresh_q":        "Galeriyi değiştirdin mi?",
+		"index.refresh_in":       "%s sonra yeniden yükle",
+		"index.refresh":          "Galeriyi yeniden yükle",
+		"index.unlock_heading":   "Galeriye sıradaki",
+		"index.unlock_lead":      "Her karakterin mevcut karakterlerinle tamamlayacağı kütüphane takımları:",
 
 		"problem.home": "Ana sayfa",
 

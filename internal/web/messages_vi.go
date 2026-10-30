@@ -68,6 +68,11 @@ func init() {
 		"index.good_bad":         "Đây không phải tệp GOOD.",
 		"index.good_failed":      "Không thể nhập tệp. Hãy thử lại sau.",
 		"about.d_good":           "Tệp GOOD: tệp được nhập chỉ được đọc trên máy chủ để chuyển thành build, rồi gửi về trình duyệt và lưu ở đó cùng các nhân vật của UID. Không có gì từ tệp được lưu hay ghi nhật ký.",
+		"index.refresh_q":        "Đã đổi Trưng Bày?",
+		"index.refresh_in":       "Tải lại sau %s",
+		"index.refresh":          "Tải lại Trưng Bày",
+		"index.unlock_heading":   "Nên đưa vào Trưng Bày tiếp theo",
+		"index.unlock_lead":      "Số đội hình trong thư viện mà mỗi nhân vật sẽ hoàn thành cùng các nhân vật bạn đã có:",
 
 		"problem.home": "Trang chủ",
 

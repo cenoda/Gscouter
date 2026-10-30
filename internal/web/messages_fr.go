@@ -68,6 +68,11 @@ func init() {
 		"index.good_bad":         "Ce n'est pas un fichier GOOD.",
 		"index.good_failed":      "Impossible d'importer le fichier. Réessayez plus tard.",
 		"about.d_good":           "Fichiers GOOD : un fichier importé est lu sur le serveur uniquement pour le convertir en builds, qui reviennent à votre navigateur et y sont enregistrés avec les personnages de l'UID. Rien du fichier n'est enregistré ni journalisé.",
+		"index.refresh_q":        "Vitrine modifiée ?",
+		"index.refresh_in":       "Recharger dans %s",
+		"index.refresh":          "Recharger la vitrine",
+		"index.unlock_heading":   "À mettre en vitrine ensuite",
+		"index.unlock_lead":      "Équipes de la bibliothèque que chaque personnage compléterait avec les personnages que vous avez déjà :",
 
 		"problem.home": "Accueil",
 

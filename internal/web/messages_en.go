@@ -68,6 +68,11 @@ func init() {
 		"index.good_bad":         "This is not a GOOD file.",
 		"index.good_failed":      "Could not import the file. Try again later.",
 		"about.d_good":           "GOOD files: an imported file is read on the server only to turn it into builds, which go back to your browser and are kept there with the UID's characters. Nothing of the file is stored or logged.",
+		"index.refresh_q":        "Changed your showcase?",
+		"index.refresh_in":       "Reload in %s",
+		"index.refresh":          "Reload showcase",
+		"index.unlock_heading":   "Add to your showcase next",
+		"index.unlock_lead":      "Library teams each character would complete with the characters you already have:",
 
 		"problem.home": "Home",
 

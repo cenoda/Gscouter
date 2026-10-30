@@ -68,6 +68,11 @@ func init() {
 		"index.good_bad":         "这不是 GOOD 文件。",
 		"index.good_failed":      "无法导入文件，请稍后再试。",
 		"about.d_good":           "GOOD 文件：导入的文件只在服务器上读取，用于转换为配装；配装返回浏览器，与该 UID 的角色一起保存在浏览器中。文件的任何内容都不会被保存或记录。",
+		"index.refresh_q":        "更改了角色展柜？",
+		"index.refresh_in":       "%s 后可重新读取",
+		"index.refresh":          "重新读取展柜",
+		"index.unlock_heading":   "接下来放进展柜的角色",
+		"index.unlock_lead":      "与现有角色一起可组成的队伍库队伍数：",
 
 		"problem.home": "返回首页",
 

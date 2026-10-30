@@ -68,6 +68,11 @@ func init() {
 		"index.good_bad":         "這不是 GOOD 檔案。",
 		"index.good_failed":      "無法匯入檔案，請稍後再試。",
 		"about.d_good":           "GOOD 檔案：匯入的檔案只在伺服器上讀取，用於轉換為配置；配置傳回瀏覽器，與該 UID 的角色一起儲存在瀏覽器中。檔案的任何內容都不會被儲存或記錄。",
+		"index.refresh_q":        "更改了角色展示櫃？",
+		"index.refresh_in":       "%s 後可重新載入",
+		"index.refresh":          "重新載入展示櫃",
+		"index.unlock_heading":   "接下來放進展示櫃的角色",
+		"index.unlock_lead":      "與現有角色一起可組成的隊伍庫隊伍數：",
 
 		"problem.home": "返回首頁",
 

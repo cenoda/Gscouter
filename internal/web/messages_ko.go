@@ -68,6 +68,11 @@ func init() {
 		"index.good_bad":         "GOOD 파일이 아닙니다.",
 		"index.good_failed":      "파일을 가져오지 못했습니다. 잠시 후 다시 시도해 주세요.",
 		"about.d_good":           "GOOD 파일: 가져온 파일은 서버에서 빌드로 바꾸는 데에만 읽고, 빌드는 브라우저로 돌려보내 그 UID의 캐릭터와 함께 브라우저에 저장합니다. 파일의 내용은 아무것도 저장하거나 기록하지 않습니다.",
+		"index.refresh_q":        "쇼케이스를 바꾸셨나요?",
+		"index.refresh_in":       "%s 후 다시 불러올 수 있습니다",
+		"index.refresh":          "쇼케이스 다시 불러오기",
+		"index.unlock_heading":   "다음에 쇼케이스에 넣을 캐릭터",
+		"index.unlock_lead":      "지금 있는 캐릭터와 함께 완성되는 라이브러리 파티 수:",
 
 		"problem.home": "처음으로",
 

@@ -125,6 +125,13 @@ button.secondary, .button.secondary { background: transparent; color: var(--text
 .suggest { list-style: none; padding: 0 4px 0 0; margin: 8px 0; max-height: 300px; overflow-y: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 6px; }
 .suggest a { display: flex; gap: 8px; align-items: center; padding: 8px 10px; border: 1px solid var(--line); border-radius: 4px; text-decoration: none; color: inherit; }
 .suggest a:hover { border-color: var(--gold); background: var(--gold-soft); }
+.unlock { list-style: none; padding: 0; margin: 8px 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.unlock a { display: flex; gap: 6px; align-items: center; padding: 3px 10px 3px 3px; border: 1px solid var(--line); border-radius: 20px; text-decoration: none; color: inherit; font-size: .9rem; }
+.unlock a:hover { border-color: var(--gold); background: var(--gold-soft); }
+.unlock .face { width: 28px; height: 28px; }
+.unlock b { color: var(--gold); font-variant-numeric: tabular-nums; }
+.refresh { font-variant-numeric: tabular-nums; }
+.refresh [hidden] { display: none; }
 .picker-bar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; position: sticky; bottom: 0; background: var(--card); padding: 8px 0; }
 .picker-bar .count { font-variant-numeric: tabular-nums; }
 .chars { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; margin: 12px 0; }

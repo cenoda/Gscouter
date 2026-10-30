@@ -68,6 +68,11 @@ func init() {
 		"index.good_bad":         "Ini bukan file GOOD.",
 		"index.good_failed":      "Gagal mengimpor file. Coba lagi nanti.",
 		"about.d_good":           "File GOOD: file yang diimpor dibaca di server hanya untuk diubah menjadi build, yang dikirim kembali ke browser dan disimpan di sana bersama karakter UID tersebut. Tidak ada isi file yang disimpan atau dicatat.",
+		"index.refresh_q":        "Showcase sudah diubah?",
+		"index.refresh_in":       "Muat ulang dalam %s",
+		"index.refresh":          "Muat ulang showcase",
+		"index.unlock_heading":   "Masukkan ke showcase berikutnya",
+		"index.unlock_lead":      "Tim pustaka yang akan dilengkapi tiap karakter bersama karakter yang sudah ada:",
 
 		"problem.home": "Beranda",
 

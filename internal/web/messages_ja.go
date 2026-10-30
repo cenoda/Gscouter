@@ -68,6 +68,11 @@ func init() {
 		"index.good_bad":         "GOODファイルではありません。",
 		"index.good_failed":      "ファイルを読み込めませんでした。しばらくしてからもう一度お試しください。",
 		"about.d_good":           "GOODファイル：読み込んだファイルはサーバーでビルドに変換するためだけに読み、ビルドはブラウザに返して、そのUIDのキャラクターと一緒にブラウザに保存します。ファイルの内容は何も保存・記録しません。",
+		"index.refresh_q":        "ラインナップを変更しましたか？",
+		"index.refresh_in":       "%s 後に再読み込みできます",
+		"index.refresh":          "ラインナップを再読み込み",
+		"index.unlock_heading":   "次にラインナップに入れるキャラクター",
+		"index.unlock_lead":      "今のキャラクターと組み合わせて完成するライブラリの編成数：",
 
 		"problem.home": "トップへ",
 
