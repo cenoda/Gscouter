@@ -144,4 +144,4 @@ go test ./...
 
 ## License
 
-MIT (`LICENSE`). It covers Gscouter's own code and data; gcsim and the other dependencies keep their own licenses, and the game images the site loads from Enka.Network are © HoYoverse.
+GNU AGPL v3 or later (`LICENSE`), as gcsim is. Anyone who runs a modified Gscouter as a website must offer its visitors the modified source; the site links this repository from every page. The license covers Gscouter's own code and data; the other dependencies keep their own licenses, and the game images the site loads from Enka.Network are © HoYoverse.
