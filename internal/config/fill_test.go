@@ -1,6 +1,8 @@
 package config
 
 import (
+	"maps"
+	"os"
 	"strings"
 	"testing"
 
@@ -193,5 +195,77 @@ func TestFillSameLineStatements(t *testing.T) {
 	got := Fill(rot, map[string]Filler{"zhongli": FillSelf}, nil, []string{"zhongli"})
 	if s := "if .zhongli.skill.ready { zhongli skill[hold=1]; }"; !strings.Contains(got, s) {
 		t.Errorf("missing %q in:\n%s", s, got)
+	}
+}
+
+// gcsim's lexer skips spaces between an action's name, its parameters
+// and its repeat count, so each spelling reads as the compact one.
+func TestParseAction(t *testing.T) {
+	for _, c := range []struct {
+		in   string
+		want action
+	}{
+		{"skill", action{name: "skill"}},
+		{" skill[counter=1] ", action{name: "skill", params: "[counter=1]"}},
+		{"skill [counter=1]", action{name: "skill", params: "[counter=1]"}},
+		{"skill[hold=1]:2", action{name: "skill", params: "[hold=1]", repeat: "2"}},
+		{"skill [hold=1] : 2", action{name: "skill", params: "[hold=1]", repeat: "2"}},
+		{"attack :4", action{name: "attack", repeat: "4"}},
+		{"burst [a=1, b=2]", action{name: "burst", params: "[a=1, b=2]"}},
+		{"high_plunge[collision=1]", action{name: "high_plunge", params: "[collision=1]"}},
+	} {
+		if got := parseAction(c.in); got != c.want {
+			t.Errorf("parseAction(%q) = %+v, want %+v", c.in, got, c.want)
+		}
+	}
+}
+
+// The committed Beidou team writes "beidou skill [counter=1]": its skill
+// form is the one written without the space, parameter and all.
+func TestSkillFormsSpaceBeforeParams(t *testing.T) {
+	rot, err := os.ReadFile("../../teams/aratakiitto-bennett-fischl-beidou/rotation.gcsl")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(rot), "beidou skill [counter=1]") {
+		t.Fatal("the team no longer writes Beidou's skill with a space")
+	}
+	party := []string{"itto", "bennett", "fischl", "beidou"}
+	spaced := skillForms(string(rot), party)
+	compact := skillForms(strings.ReplaceAll(string(rot), "skill [", "skill["), party)
+	if !maps.Equal(spaced, compact) {
+		t.Errorf("forms differ by spelling:\n%v\n%v", spaced, compact)
+	}
+	if got := spaced["beidou"]; got != "skill[counter=1]" {
+		t.Errorf("Beidou's form = %q, want skill[counter=1]", got)
+	}
+	for _, c := range []struct{ rot, want string }{
+		{"beidou skill [hold=1] :2;", "skill[hold=1]:2"},
+		{"beidou skill[hold=1]:2;", "skill[hold=1]:2"},
+	} {
+		if got := skillForms(c.rot, []string{"beidou"})["beidou"]; got != c.want {
+			t.Errorf("skillForms(%q) = %q, want %q", c.rot, got, c.want)
+		}
+	}
+}
+
+// A space before an action's parameters fills the same as no space: the
+// burst and skill fillers are put in and the action is kept as written.
+func TestFillSpaceBeforeParams(t *testing.T) {
+	party := []string{"itto", "bennett", "fischl", "beidou"}
+	spaced := "active beidou;\nbeidou attack, skill [counter=1], burst [x=1];\nbennett skill;\n"
+	compact := "active beidou;\nbeidou attack, skill[counter=1], burst[x=1];\nbennett skill;\n"
+	unspace := strings.NewReplacer("skill [", "skill[", "burst [", "burst[")
+	for _, how := range []Filler{FillSelf, FillParty, FillSkip, FillBrief} {
+		energy := map[string]Filler{"beidou": how}
+		skill := []string{"beidou"}
+		got := Fill(spaced, energy, skill, party)
+		want := Fill(compact, energy, skill, party)
+		if !strings.Contains(got, "while !.beidou.skill.ready") || unspace.Replace(got) != want {
+			t.Errorf("%v: the spelling changes the fill:\n%s\nwant (spaced as written):\n%s", how, got, want)
+		}
+		if _, _, err := parser.New(ast.NewFile(), "beidou char lvl=90/90 cons=0 talent=9,9,9;\n"+got).Parse(); err != nil {
+			t.Errorf("%v: filled rotation does not parse: %v\n%s", how, err, got)
+		}
 	}
 }
