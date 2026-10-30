@@ -14,6 +14,12 @@ type response struct {
 		Nickname string `json:"nickname"`
 	} `json:"playerInfo"`
 	AvatarInfoList []avatar `json:"avatarInfoList"`
+	// Owner is there when the player has an Enka.Network account that
+	// verified the UID and made it public.
+	Owner *struct {
+		Username string `json:"username"`
+		Hash     string `json:"hash"`
+	} `json:"owner"`
 }
 
 type avatar struct {

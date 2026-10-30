@@ -224,9 +224,22 @@ type indexData struct {
 	// Buildable lists the suggestions' characters, sorted and joined by
 	// commas, so the picker can tell when four picks are not a team.
 	Buildable []string
+	// Unlocks are the characters that would complete the most library
+	// teams with the showcase's, best first; not when picking an
+	// opponent, whose showcase is someone else's.
+	Unlocks []unlock
+	// Refresh is the seconds until loading the UID again gets its
+	// showcase anew from Enka, or -1 when unknown.
+	Refresh int
 	// Kept dates the characters the browser kept from earlier lookups
 	// that are no longer in the showcase, by key.
-	Kept      map[string]string
+	Kept map[string]string
+	// Saved names the builds shown of characters added from the builds
+	// the player saved on Enka.Network, by key.
+	Saved map[string]string
+	// Choices are the builds a character can be picked with, by key,
+	// when there are several: the one the card shows, then saved builds.
+	Choices   map[string][]buildChoice
 	TeamCount int
 	// Enemy is the custom enemy carried over from a result page, nil for
 	// the standard one.
@@ -277,7 +290,15 @@ func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 // showcase fills in the front page's showcase card for p.
 func (s *Server) showcase(data *indexData, p *enka.Profile) {
 	data.Profile = p
-	data.Suggested = s.suggest(p)
+	var unlocks []unlock
+	data.Suggested, unlocks = match(s.lib.Teams, s.members, p)
+	if data.VS == "" {
+		data.Unlocks = unlocks
+	}
+	data.Refresh = -1
+	if !p.Expires.IsZero() {
+		data.Refresh = max(0, int(math.Ceil(time.Until(p.Expires).Seconds())))
+	}
 	for i, sg := range data.Suggested {
 		if data.VS != "" {
 			data.Suggested[i].Href = link("/versus", data.Enemy, "a", data.VS, "b", sg.Selection.String())
@@ -295,10 +316,20 @@ type keptBuild struct {
 	Seen  int64  `json:"t"`
 }
 
+// buildChoice is one of the builds a character can be picked with. Token
+// is its buildToken, "" for the build the card shows.
+type buildChoice struct {
+	Label string
+	Token string
+	Char  enka.Character
+}
+
 // handleShowcase renders the front page's showcase card again with the
-// characters the browser kept from earlier lookups added, so that teams
-// with characters no longer in the showcase can be picked too. The
-// builds stay in the browser; picks send them along (keptBuilds).
+// characters the browser kept from earlier lookups, or imported from a
+// GOOD file (handleGOOD), added, and the builds the player saved on
+// Enka.Network (addSaved), so that teams with characters no longer in the
+// showcase can be picked too. The builds stay in the browser; picks send
+// them along (keptBuilds).
 func (s *Server) handleShowcase(w http.ResponseWriter, r *http.Request) {
 	l := localizerFor(r)
 	r.Body = http.MaxBytesReader(w, r.Body, 1<<20)
@@ -326,34 +357,140 @@ func (s *Server) handleShowcase(w http.ResponseWriter, r *http.Request) {
 	merged.Characters = slices.Clone(p.Characters)
 	for _, k := range kept {
 		c, err := parseBuildToken(k.Build)
-		if err != nil || slices.ContainsFunc(merged.Characters, func(m enka.Character) bool { return m.Key == c.Key }) {
+		// By canonical name, so that a Traveler from a GOOD file, which
+		// has no gender, does not join the showcase's other one.
+		if err != nil || slices.ContainsFunc(merged.Characters, func(m enka.Character) bool { return library.Canonical(m.Key) == library.Canonical(c.Key) }) {
 			continue
 		}
 		merged.Characters = append(merged.Characters, c)
 		data.Kept[c.Key] = time.UnixMilli(k.Seen).UTC().Format(time.DateOnly)
 	}
+	s.addSaved(ctx, l, &data, &merged)
 	s.showcase(&data, &merged)
 	s.render(w, l, "showcase", data)
 }
 
-// suggest lists the library teams that can be built from a showcase.
-func (s *Server) suggest(p *enka.Profile) []suggestion {
+// addSaved adds the builds the owner of p saved on Enka.Network (design
+// §4.8). A character not in p comes with its first saved build in the
+// player's order on Enka (enka.ParseBuilds); the showcase, and builds
+// kept from it, stay first. A character with several builds can be
+// picked with any of them. Without an owner, or when Enka fails, p stays
+// as it is: saved builds never stop the showcase.
+func (s *Server) addSaved(ctx context.Context, l localizer, data *indexData, p *enka.Profile) {
+	src, ok := s.profiles.(SavedBuildSource)
+	if !ok || p.Owner == nil {
+		return
+	}
+	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
+	defer cancel()
+	saved, err := src.SavedBuilds(ctx, *p.Owner)
+	if err != nil {
+		slog.Warn("enka saved builds", "uid", p.UID, "err", err)
+		return
+	}
+	data.Saved, data.Choices = map[string]string{}, map[string][]buildChoice{}
+	for _, b := range saved {
+		key := b.Character.Key
+		label := cmp.Or(b.Name, l.T("index.saved_unnamed"))
+		i := slices.IndexFunc(p.Characters, func(c enka.Character) bool { return c.Key == key })
+		switch {
+		case i < 0:
+			p.Characters = append(p.Characters, b.Character)
+			data.Saved[key] = label
+			data.Choices[key] = []buildChoice{{Label: label, Char: b.Character}}
+			continue
+		case data.Choices[key] == nil:
+			first := l.T("index.build_live")
+			if date, ok := data.Kept[key]; ok {
+				first = l.T("index.kept_on", date)
+			}
+			data.Choices[key] = []buildChoice{{Label: first, Char: p.Characters[i]}}
+		}
+		data.Choices[key] = append(data.Choices[key], buildChoice{Label: label, Token: buildToken(b.Character), Char: b.Character})
+	}
+	for key, c := range data.Choices {
+		if len(c) < 2 {
+			delete(data.Choices, key)
+		}
+	}
+}
+
+// unlock is a character missing from a showcase, by canonical key, with
+// the number of library teams it would complete, and of those it would
+// leave one member short.
+type unlock struct {
+	Key         string
+	Teams, Near int
+}
+
+// maxUnlocks is how many unlocks the front page shows.
+const maxUnlocks = 5
+
+// match lists the library teams that can be built from a showcase, and
+// the characters that would complete the most teams one member short of
+// it: up to maxUnlocks, by teams completed, then by teams they would
+// bring one member short (what adding another would complete), then by
+// key. One pass over the library does both; members are the teams'
+// canonical members (canonicalMembers), worked out once.
+func match(teams []*library.Team, members [][]string, p *enka.Profile) ([]suggestion, []unlock) {
 	have := map[string]string{} // canonical name -> showcase key
 	for _, c := range p.Characters {
 		have[library.Canonical(c.Key)] = c.Key
 	}
 	var out []suggestion
-	for _, t := range s.lib.Teams {
-		var chars []string
-		for _, m := range t.Members {
-			key, ok := have[library.Canonical(m)]
-			if !ok {
+	counts := map[string]*unlock{}
+	count := func(key string) *unlock {
+		u := counts[key]
+		if u == nil {
+			u = &unlock{Key: key}
+			counts[key] = u
+		}
+		return u
+	}
+	for i, t := range teams {
+		if len(members[i]) != 4 {
+			continue
+		}
+		// On the stack: most teams are two or more short.
+		chars, missing := make([]string, 0, 4), make([]string, 0, 3)
+		for _, c := range members[i] {
+			if key, ok := have[c]; ok {
+				chars = append(chars, key)
+			} else if missing = append(missing, c); len(missing) > 2 {
 				break
 			}
-			chars = append(chars, key)
 		}
-		if len(chars) == 4 {
-			out = append(out, suggestion{Team: t, Selection: selection{UID: p.UID, Chars: chars}})
+		switch len(missing) {
+		case 0:
+			out = append(out, suggestion{Team: t, Selection: selection{UID: p.UID, Chars: slices.Clone(chars)}})
+		case 1:
+			count(missing[0]).Teams++
+		case 2:
+			count(missing[0]).Near++
+			count(missing[1]).Near++
+		}
+	}
+	var unlocks []unlock
+	for _, u := range counts {
+		if u.Teams > 0 {
+			unlocks = append(unlocks, *u)
+		}
+	}
+	slices.SortFunc(unlocks, func(a, b unlock) int {
+		return cmp.Or(cmp.Compare(b.Teams, a.Teams), cmp.Compare(b.Near, a.Near), strings.Compare(a.Key, b.Key))
+	})
+	if len(unlocks) > maxUnlocks {
+		unlocks = unlocks[:maxUnlocks]
+	}
+	return out, unlocks
+}
+
+// canonicalMembers lists each team's members by canonical name.
+func canonicalMembers(teams []*library.Team) [][]string {
+	out := make([][]string, len(teams))
+	for i, t := range teams {
+		for _, m := range t.Members {
+			out[i] = append(out[i], library.Canonical(m))
 		}
 	}
 	return out
@@ -528,10 +665,11 @@ func (s *Server) handleVersus(w http.ResponseWriter, r *http.Request) {
 	s.render(w, l, "versus.html", data)
 }
 
-// withBuilds is sel carrying its characters' builds: from the player's
-// showcase, or from kept, builds the browser kept of characters that have
-// left it (see handleShowcase). It is sel as it is when it already
-// carries them or they can't all be found.
+// withBuilds is sel carrying its characters' builds: from kept, the
+// builds the browser sends of characters that have left the showcase or
+// that the player picked with a build saved on Enka (see handleShowcase),
+// else from the showcase. It is sel as it is when it already carries them
+// or they can't all be found.
 func (s *Server) withBuilds(ctx context.Context, sel selection, kept []enka.Character) selection {
 	if sel.Builds != nil {
 		return sel
@@ -543,10 +681,10 @@ func (s *Server) withBuilds(ctx context.Context, sel selection, kept []enka.Char
 	var builds []enka.Character
 	for _, want := range sel.Chars {
 		byKey := func(c enka.Character) bool { return c.Key == want }
-		if i := slices.IndexFunc(p.Characters, byKey); i >= 0 {
-			builds = append(builds, p.Characters[i])
-		} else if i := slices.IndexFunc(kept, byKey); i >= 0 {
+		if i := slices.IndexFunc(kept, byKey); i >= 0 {
 			builds = append(builds, kept[i])
+		} else if i := slices.IndexFunc(p.Characters, byKey); i >= 0 {
+			builds = append(builds, p.Characters[i])
 		} else {
 			return sel
 		}
@@ -614,14 +752,19 @@ func (s *Server) render(w http.ResponseWriter, l localizer, name string, data an
 }
 
 // EnkaSource fetches profiles from Enka.Network and caches them for the
-// time Enka asks for.
+// time Enka asks for, and the builds their owners saved (SavedBuilds).
 type EnkaSource struct {
 	client *enka.Client
 	cache  *cache[string, *enka.Profile]
+	saved  *cache[enka.Owner, savedResult]
 }
 
 func NewEnkaSource(client *enka.Client) *EnkaSource {
-	return &EnkaSource{client: client, cache: newCache[string, *enka.Profile](500)}
+	return &EnkaSource{
+		client: client,
+		cache:  newCache[string, *enka.Profile](500),
+		saved:  newCache[enka.Owner, savedResult](500),
+	}
 }
 
 func (e *EnkaSource) Profile(ctx context.Context, uid string) (*enka.Profile, error) {
@@ -639,7 +782,44 @@ func (e *EnkaSource) Profile(ctx context.Context, uid string) (*enka.Profile, er
 	if p.UID == "" {
 		p.UID = uid
 	}
+	// The front page counts down to Expires, after which loading the UID
+	// again fetches it anew (design §4.1). Enka's ttl is the time until it
+	// refreshes the showcase itself, so the cache never serves a showcase
+	// older than Enka's; it keeps one at least a minute.
 	ttl := max(time.Duration(p.TTL)*time.Second, time.Minute)
+	p.Expires = time.Now().Add(ttl)
 	e.cache.put(uid, p, ttl)
 	return p, nil
+}
+
+type savedResult struct {
+	builds []enka.SavedBuild
+	err    error
+}
+
+// Saved builds change when their player saves one, rarely, and Enka gives
+// them no TTL: they are kept for savedTTL, and a failed fetch is not
+// tried again for savedRetry, so that a showcase loaded again does not
+// ask Enka again.
+const (
+	savedTTL   = 10 * time.Minute
+	savedRetry = time.Minute
+)
+
+// SavedBuilds returns the builds owner saved on Enka.Network.
+func (e *EnkaSource) SavedBuilds(ctx context.Context, owner enka.Owner) ([]enka.SavedBuild, error) {
+	if r, ok := e.saved.get(owner); ok {
+		return r.builds, r.err
+	}
+	raw, err := e.client.FetchBuilds(ctx, owner)
+	var builds []enka.SavedBuild
+	if err == nil {
+		builds, err = enka.ParseBuilds(raw)
+	}
+	if err != nil {
+		e.saved.put(owner, savedResult{err: err}, savedRetry)
+		return nil, err
+	}
+	e.saved.put(owner, savedResult{builds: builds}, savedTTL)
+	return builds, nil
 }

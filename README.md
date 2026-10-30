@@ -2,7 +2,7 @@
 
 Genshin Impact team DPS calculator: settles "whose team is better built?" by scoring every team under the same conditions with a fixed rotation. See [docs/design.md](docs/design.md) for the design and [docs/README.md](docs/README.md) for the other documents.
 
-Status: prototype. The website looks up a UID on Enka.Network, lets you pick four showcase characters (or one of the library teams the showcase can build), and scores or compares teams. Results and comparisons have shareable links; `/teams` lists the library and finds teams by character. Character face icons are HoYoverse's, loaded from Enka.Network (`enka.network/ui/<icon>.png`, the icon name from gcsim's character data); element icons are drawn for the site. Gscouter is a non-commercial fan project with no ads or donations, which HoYoverse's fan content guidance allows.
+Status: prototype. The website looks up a UID on Enka.Network, lets you pick four showcase characters (or one of the library teams the showcase can build; characters can also be imported from a GOOD file, as Genshin Optimizer and inventory scanners write), and scores or compares teams. Results and comparisons have shareable links; `/teams` lists the library and finds teams by character. Character face icons are HoYoverse's, loaded from Enka.Network (`enka.network/ui/<icon>.png`, the icon name from gcsim's character data); element icons are drawn for the site. Gscouter is a non-commercial fan project with no ads or donations, which HoYoverse's fan content guidance allows.
 
 ## Requirements
 

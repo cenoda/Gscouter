@@ -56,6 +56,12 @@ type ProfileSource interface {
 	Profile(ctx context.Context, uid string) (*enka.Profile, error)
 }
 
+// SavedBuildSource returns the builds a player saved on Enka.Network. A
+// ProfileSource that is one lets the front page offer them (design §4.8).
+type SavedBuildSource interface {
+	SavedBuilds(ctx context.Context, owner enka.Owner) ([]enka.SavedBuild, error)
+}
+
 var errBusy = errors.New("server busy")
 
 type Server struct {
@@ -78,6 +84,7 @@ type Server struct {
 	site       string                     // the site's URL (see SetSite)
 	byID       map[string]*library.Team   // library teams by ID
 	byChar     map[string][]*library.Team // by canonical member, best score first
+	members    [][]string                 // canonical members of lib.Teams, by index (match)
 	indexNow   *indexNow                  // nil: no IndexNow (see SetIndexNow)
 	usage      *usage                     // nil: no usage counts (see SetUsage)
 	usageToken string                     // reads the counts at /healthz (see SetUsageToken)
@@ -99,6 +106,7 @@ func New(lib *library.Library, profiles ProfileSource, settings Settings) (*Serv
 	return &Server{
 		byID:      byID,
 		byChar:    byChar,
+		members:   canonicalMembers(lib.Teams),
 		lib:       lib,
 		profiles:  profiles,
 		settings:  settings,
@@ -114,6 +122,7 @@ func (s *Server) Handler() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /{$}", s.handleIndex)
 	mux.HandleFunc("POST /showcase", s.handleShowcase)
+	mux.HandleFunc("POST /good", s.handleGOOD)
 	mux.HandleFunc("GET /teams", s.handleTeams)
 	mux.HandleFunc("GET /teams/{id}", s.handleLibraryTeam)
 	mux.HandleFunc("GET /characters/{key}", s.handleCharacter)

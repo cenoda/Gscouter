@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"regexp"
 	"time"
 )
@@ -37,11 +38,29 @@ func (c *Client) Fetch(ctx context.Context, uid string) ([]byte, error) {
 	if !uidPattern.MatchString(uid) {
 		return nil, ErrInvalidUID
 	}
+	return c.get(ctx, "/api/uid/"+uid+"/")
+}
+
+// ownerPattern bounds an Enka account's username and a game account's
+// hash, which go into a URL path.
+var ownerPattern = regexp.MustCompile(`^[A-Za-z0-9_.-]{1,64}$`)
+
+// FetchBuilds returns the raw response listing the builds an Enka
+// account saved for one of its game accounts:
+// /api/profile/<username>/hoyos/<hash>/builds/.
+func (c *Client) FetchBuilds(ctx context.Context, owner Owner) ([]byte, error) {
+	if !ownerPattern.MatchString(owner.Username) || !ownerPattern.MatchString(owner.Hash) {
+		return nil, ErrNotFound
+	}
+	return c.get(ctx, "/api/profile/"+url.PathEscape(owner.Username)+"/hoyos/"+url.PathEscape(owner.Hash)+"/builds/")
+}
+
+func (c *Client) get(ctx context.Context, path string) ([]byte, error) {
 	base := c.BaseURL
 	if base == "" {
 		base = "https://enka.network"
 	}
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, base+"/api/uid/"+uid+"/", nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, base+path, nil)
 	if err != nil {
 		return nil, err
 	}

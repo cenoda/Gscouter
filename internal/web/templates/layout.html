@@ -125,6 +125,13 @@ button.secondary, .button.secondary { background: transparent; color: var(--text
 .suggest { list-style: none; padding: 0 4px 0 0; margin: 8px 0; max-height: 300px; overflow-y: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 6px; }
 .suggest a { display: flex; gap: 8px; align-items: center; padding: 8px 10px; border: 1px solid var(--line); border-radius: 4px; text-decoration: none; color: inherit; }
 .suggest a:hover { border-color: var(--gold); background: var(--gold-soft); }
+.unlock { list-style: none; padding: 0; margin: 8px 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.unlock a { display: flex; gap: 6px; align-items: center; padding: 3px 10px 3px 3px; border: 1px solid var(--line); border-radius: 20px; text-decoration: none; color: inherit; font-size: .9rem; }
+.unlock a:hover { border-color: var(--gold); background: var(--gold-soft); }
+.unlock .face { width: 28px; height: 28px; }
+.unlock b { color: var(--gold); font-variant-numeric: tabular-nums; }
+.refresh { font-variant-numeric: tabular-nums; }
+.refresh [hidden] { display: none; }
 .picker-bar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; position: sticky; bottom: 0; background: var(--card); padding: 8px 0; }
 .picker-bar .count { font-variant-numeric: tabular-nums; }
 .chars { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; margin: 12px 0; }
@@ -137,6 +144,7 @@ button.secondary, .button.secondary { background: transparent; color: var(--text
 .chars label > span { min-width: 0; overflow-wrap: anywhere; }
 .chars .name { display: flex; gap: 6px; align-items: center; font-weight: 600; }
 .chars .kept { display: block; font-size: .8rem; color: var(--warn); }
+.chars select { display: block; max-width: 100%; margin-top: 4px; padding: 2px 4px; font: inherit; font-size: .8rem; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); color: var(--text); }
 button.link { padding: 0; background: none; box-shadow: none; color: var(--accent); font-size: inherit; font-weight: inherit; text-decoration: underline; }
 .score { font-size: 2.6rem; font-weight: 800; letter-spacing: -.02em; line-height: 1.15; font-variant-numeric: tabular-nums; }
 .score .muted { font-size: 1rem; font-weight: 600; letter-spacing: .06em; color: var(--gold); }
