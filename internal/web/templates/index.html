@@ -59,6 +59,10 @@
 
   var card = document.getElementById("showcase");
   if (!card) return;
+  // The page's language when its URL picks one (?hl=), for the requests
+  // that render parts of it again.
+  var hl = window.URLSearchParams ? new URLSearchParams(location.search).get("hl") : "";
+  hl = hl ? "?hl=" + encodeURIComponent(hl) : "";
 
   // Showcase builds, kept only in this browser so that characters stay
   // pickable after they leave the showcase: {uid: {at, c: {key: {b, t}}}}
@@ -88,7 +92,7 @@
     body.set("uid", current);
     body.set("vs", vs);
     body.set("kept", JSON.stringify(kept));
-    fetch("/showcase", {method: "POST", body: body})
+    fetch("/showcase" + hl, {method: "POST", body: body})
       .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); })
       .then(function (html) { card.innerHTML = html; picker(); })
       .catch(function (e) { if (window.console) console.error("Gscouter: kept characters", e); });
@@ -106,7 +110,7 @@
       if (!f) return;
       goodStatus.hidden = false;
       goodStatus.textContent = {{t "index.good_reading"}};
-      fetch("/good", {method: "POST", body: f, headers: {"Content-Type": "application/json"}})
+      fetch("/good" + hl, {method: "POST", body: f, headers: {"Content-Type": "application/json"}})
         .then(function (r) {
           return r.json().catch(function () { return {error: {{t "index.good_failed"}}}; });
         })
