@@ -2,7 +2,9 @@ package web
 
 import (
 	"context"
+	"html"
 	"net/http"
+	"net/http/httptest"
 	"net/url"
 	"strings"
 	"testing"
@@ -49,6 +51,44 @@ func TestScoreWithChart(t *testing.T) {
 	q.Set("r", "not-a-chart")
 	_, body = get(t, ts, "/score?"+q.Encode())
 	mustContain(t, body, "chart cannot be read")
+}
+
+// Comparing a result scored with a chart compares that chart: the
+// compare form, the opponent's page and its links to the versus page
+// carry it, as "vr" and then "ra".
+func TestVersusKeepsChart(t *testing.T) {
+	ts := newTestServer(t)
+	c, err := chart.Parse("3E(hold=1) 2E 2Q? 1Q? 1E 0E [0N 0C 0D]6 0Q?")
+	if err != nil {
+		t.Fatal(err)
+	}
+	r := c.Encode()
+	_, body := get(t, ts, "/score?"+url.Values{"a": {"800000001:hutao,yelan,xingqiu,zhongli"}, "r": {r}}.Encode())
+	mustContain(t, body, `<input type="hidden" name="vs" value="800000001~`, `<input type="hidden" name="vr" value="`+r+`">`)
+
+	sel := "800000001:hutao,yelan,xingqiu,zhongli"
+	q := url.Values{"uid": {"800000002"}, "vs": {sel}, "vr": {r}}
+	_, body = get(t, ts, "/?"+q.Encode())
+	mustContain(t, body,
+		// Loading another UID, and the picker.
+		`<input type="hidden" name="vr" value="`+r+`">`, `<input type="hidden" name="ra" value="`+r+`">`,
+		// The suggestions.
+		`href="/versus?a=800000001%3Ahutao%2Cyelan%2Cxingqiu%2Czhongli&amp;b=800000002%3Ahutao%2Cxingqiu%2Czhongli%2Cyelan&amp;ra=`+r+`"`)
+	// The showcase card rendered again with kept builds keeps it too.
+	_, body = post(t, ts, "/showcase", url.Values{"uid": {"800000002"}, "vs": {sel}, "vr": {r}, "kept": {"[]"}})
+	mustContain(t, body, `<input type="hidden" name="ra" value="`+r+`">`, "&amp;ra="+r+`"`)
+
+	// The versus page scores the chart on that side.
+	_, body = get(t, ts, "/versus?"+url.Values{"a": {sel}, "ra": {r}, "b": {"800000002:hutao,xingqiu,zhongli,yelan"}}.Encode())
+	mustContain(t, body, "Scored with a custom rotation")
+
+	q.Set("vr", "not-a-chart")
+	if code, body := get(t, ts, "/?"+q.Encode()); code != http.StatusBadRequest || !strings.Contains(body, "chart cannot be read") {
+		t.Errorf("bad chart: status %d", code)
+	}
+	if code, _ := post(t, ts, "/showcase", url.Values{"uid": {"800000002"}, "vs": {sel}, "vr": {"bad"}, "kept": {"[]"}}); code != http.StatusBadRequest {
+		t.Errorf("bad chart in the showcase: status %d", code)
+	}
 }
 
 func TestShortTargetKeepsChart(t *testing.T) {
@@ -127,4 +167,38 @@ func TestPickupExplained(t *testing.T) {
 	c, _ := chart.Parse("3E(hold=1) 2E 1E 0E [0N 0C 0D]6 ; pickup")
 	_, body = get(t, ts2, "/score?"+url.Values{"a": {"800000001:hutao,yelan,xingqiu,zhongli"}, "r": {c.Encode()}}.Encode())
 	mustContain(t, body, "picks up crystallize shards after every action")
+}
+
+// The link preview image is drawn with the result's chart, whether the
+// server or the browser calculates the result.
+func TestPreviewImageKeepsChart(t *testing.T) {
+	ca, _ := chart.Parse("3E(hold=1) 2E 2Q? 1Q? 1E 0E [0N 0C 0D]6 0Q?")
+	cb, _ := chart.Parse("3E(hold=1) 2E 1E 0E [0N 0C 0D]6 0Q?")
+	const team = "800000001:hutao,yelan,xingqiu,zhongli"
+	_, client := newClientSite(t)
+	for name, ts := range map[string]*httptest.Server{"server": newTestServer(t), "browser": client} {
+		for _, c := range []struct {
+			page, card string
+			want       url.Values
+		}{
+			{"/score?" + url.Values{"a": {team}, "r": {ca.Encode()}}.Encode(), "/card/score.png", url.Values{"r": {ca.Encode()}}},
+			{"/versus?" + url.Values{"a": {team}, "b": {team}, "ra": {ca.Encode()}, "rb": {cb.Encode()}}.Encode(), "/card/versus.png", url.Values{"ra": {ca.Encode()}, "rb": {cb.Encode()}}},
+		} {
+			_, body := get(t, ts, c.page)
+			i := strings.Index(body, `og:image" content="`)
+			if i < 0 {
+				t.Fatalf("%s %s: no og:image", name, c.page)
+			}
+			img := body[i+len(`og:image" content="`):]
+			u, err := url.Parse(html.UnescapeString(img[:strings.Index(img, `"`)]))
+			if err != nil || u.Path != c.card {
+				t.Fatalf("%s %s: og:image %q", name, c.page, img[:strings.Index(img, `"`)])
+			}
+			for k := range c.want {
+				if got := u.Query().Get(k); got != c.want.Get(k) {
+					t.Errorf("%s %s: og:image %s = %q, want %q", name, c.page, k, got, c.want.Get(k))
+				}
+			}
+		}
+	}
 }

@@ -327,6 +327,9 @@ details.rotation pre { background: var(--bg); border-radius: 8px; padding: 12px;
 {{define "enemy-hidden"}}{{range $k, $v := enemyValues .}}<input type="hidden" name="{{$k}}" value="{{index $v 0}}">
 {{end}}{{end}}
 
+{{define "lang-hidden"}}{{with hl}}<input type="hidden" name="hl" value="{{.}}">
+{{end}}{{end}}
+
 {{define "enemy-note"}}{{with .}}{{if .Standard}}<div class="card muted">{{t "enemy.same_note" (enemyText .)}}</div>
 {{else}}<div class="warn">{{t "enemy.custom_note" (enemyText .)}}</div>
 {{end}}{{end}}{{end}}

@@ -33,6 +33,7 @@ type Job struct {
 	Page     string // "score" or "versus"
 	Lang     string
 	Auto     bool
+	URL      bool
 	Settings Settings
 	Teams    []teamResult
 }
@@ -70,7 +71,7 @@ func (s *Server) inBrowser(r *http.Request) bool {
 func (s *Server) job(l localizer, page string, teams ...teamResult) *Job {
 	for _, tr := range teams {
 		if tr.Problem == "" {
-			return &Job{Page: page, Lang: l.Lang, Auto: l.Auto, Settings: s.settings, Teams: teams}
+			return &Job{Page: page, Lang: l.Lang, Auto: l.Auto, URL: l.URL, Settings: s.settings, Teams: teams}
 		}
 	}
 	return nil
@@ -97,7 +98,7 @@ func (s *Server) clientData(r *http.Request, job *Job) *clientData {
 // RunJob calculates job with sim and renders the page body it is waiting
 // for. It returns the body and the page title.
 func RunJob(ctx context.Context, job Job, sim Simulator) (body, title string, err error) {
-	l := localizer{Lang: job.Lang, Auto: job.Auto}
+	l := localizer{Lang: job.Lang, Auto: job.Auto, URL: job.URL}
 	if catalog[l.Lang] == nil {
 		l = english
 	}
@@ -139,7 +140,7 @@ func pendingScoreMeta(l localizer, tr teamResult, base string) pageMeta {
 	return pageMeta{
 		Title:       l.T("meta.result_title", tr.owner()),
 		Description: l.teamName(tr.Team),
-		Image:       base + string(link("/card/score.png", tr.Enemy, "a", tr.Selection.String())),
+		Image:       base + string(link("/card/score.png", tr.Enemy, "a", tr.Selection.String(), "r", tr.Selection.Chart)),
 	}
 }
 
@@ -147,7 +148,7 @@ func pendingVersusMeta(l localizer, d versusData, base string) pageMeta {
 	m := pageMeta{Title: fmt.Sprintf("%s vs %s · Gscouter", d.A.owner(), d.B.owner())}
 	if d.A.Problem == "" && d.B.Problem == "" {
 		m.Description = l.teamName(d.A.Team) + " vs " + l.teamName(d.B.Team)
-		m.Image = base + string(link("/card/versus.png", d.A.Enemy, "a", d.A.Selection.String(), "b", d.B.Selection.String()))
+		m.Image = base + string(link("/card/versus.png", d.A.Enemy, "a", d.A.Selection.String(), "b", d.B.Selection.String(), "ra", d.A.Selection.Chart, "rb", d.B.Selection.Chart))
 	}
 	return m
 }

@@ -93,8 +93,7 @@ type Server struct {
 func New(lib *library.Library, profiles ProfileSource, settings Settings) (*Server, error) {
 	tmpls := map[localizer]*template.Template{}
 	for code := range catalog {
-		for _, auto := range []bool{false, true} {
-			l := localizer{Lang: code, Auto: auto}
+		for _, l := range []localizer{{Lang: code}, {Lang: code, Auto: true}, {Lang: code, URL: true}} {
 			tmpl, err := parseTemplates(l)
 			if err != nil {
 				return nil, err

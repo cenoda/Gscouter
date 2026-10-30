@@ -185,7 +185,7 @@ func (l localizer) enemyText(e *config.Enemy) string {
 // enemyForm is the form that sets up a result page's enemy.
 type enemyForm struct {
 	Action string     // the page's path
-	Keep   url.Values // the page's teams, kept as hidden fields
+	Keep   url.Values // the page's teams and language, kept as hidden fields
 	Enemy  *config.Enemy
 	Reset  template.URL // the page with the standard enemy
 }
@@ -196,7 +196,8 @@ type enemyField struct {
 	Value         int
 }
 
-func newEnemyForm(path string, e *config.Enemy, kv ...string) enemyForm {
+func newEnemyForm(l localizer, path string, e *config.Enemy, kv ...string) enemyForm {
+	kv = append(kv, langParam, l.urlLang())
 	keep := url.Values{}
 	for i := 0; i+1 < len(kv); i += 2 {
 		if kv[i+1] != "" {

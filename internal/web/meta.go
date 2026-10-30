@@ -86,7 +86,7 @@ func scoreMeta(l localizer, tr teamResult, base string) pageMeta {
 	m := pageMeta{
 		Title:       l.T("meta.score_title", tr.owner(), thousands(tr.Result.DPS)),
 		Description: tr.summary(l),
-		Image:       base + string(link("/card/score.png", tr.Enemy, "a", tr.Selection.String())),
+		Image:       base + string(link("/card/score.png", tr.Enemy, "a", tr.Selection.String(), "r", tr.Selection.Chart)),
 	}
 	if tr.OneRotation != nil {
 		m.Description += l.T("meta.one_rotation", thousands(tr.OneRotation.DPS))
@@ -114,7 +114,7 @@ func versusMeta(l localizer, d versusData, base string) pageMeta {
 		Description: fmt.Sprintf("%s %s DPS (%s) vs %s %s DPS (%s)",
 			d.A.owner(), thousands(d.A.Result.DPS), d.A.summary(l),
 			d.B.owner(), thousands(d.B.Result.DPS), d.B.summary(l)),
-		Image: base + string(link("/card/versus.png", d.A.Enemy, "a", d.A.Selection.String(), "b", d.B.Selection.String())),
+		Image: base + string(link("/card/versus.png", d.A.Enemy, "a", d.A.Selection.String(), "b", d.B.Selection.String(), "ra", d.A.Selection.Chart, "rb", d.B.Selection.Chart)),
 	}
 	if d.A.Enemy != nil {
 		m.Description += " | " + l.enemyText(d.A.Enemy)
