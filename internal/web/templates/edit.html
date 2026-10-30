@@ -247,17 +247,19 @@
 
   // ---- The text form (internal/chart): parse and write ----
   function parse(text) {
-    var halves = text.split(";"), notes = [], repeats = [], params = [[], [], [], []], open = -1, wait = 0, pickup = false;
+    var halves = text.split(";"), notes = [], repeats = [], params = [[], [], [], []], open = -1, wait = 0, delay = 0, pickup = false;
     halves[0].split(/\s+/).filter(Boolean).forEach(function (tok) {
       if (tok[0] === "[") { open = notes.length; tok = tok.slice(1); if (!tok) return; }
       if (tok[0] === "~") { wait += +tok.slice(1); return; }
+      // "+N" delays the next note (gcsl's delay, Note.Delay), unlike a wait.
+      if (tok[0] === "+") { delay += +tok.slice(1); return; }
       var close = null, i = tok.indexOf("]");
       if (i >= 0) { close = +tok.slice(i + 1); tok = tok.slice(0, i); }
       if (tok) {
         var m = /^(\d)([A-Z])(?:\(([^)]*)\))?(\?)?$/.exec(tok);
         if (!m) throw new Error("bad note " + tok);
-        notes.push({s: +m[1], a: CODES[m[2]], p: m[3] ? m[3].split(",").map(function (kv) { var x = kv.split("="); return [x[0], +x[1]]; }) : [], r: !!m[4], w: wait});
-        wait = 0;
+        notes.push({s: +m[1], a: CODES[m[2]], p: m[3] ? m[3].split(",").map(function (kv) { var x = kv.split("="); return [x[0], +x[1]]; }) : [], r: !!m[4], w: wait, d: delay});
+        wait = 0; delay = 0;
       }
       if (close !== null) { repeats.push({from: open, to: notes.length - 1, times: close}); open = -1; }
     });
@@ -267,14 +269,15 @@
       if (f[0] === "pickup") { pickup = true; return; }
       params[+f[0].slice(1)] = f.slice(1).map(function (kv) { var x = kv.split("="); return [x[0], +x[1]]; });
     });
-    // A wait after the last note ends every pass (chart.Chart.End).
-    return {notes: notes, repeats: repeats, params: params, pickup: pickup, end: wait};
+    // A wait or delay after the last note ends every pass (chart.Chart.End, EndDelay).
+    return {notes: notes, repeats: repeats, params: params, pickup: pickup, end: wait, endDelay: delay};
   }
   function write(st) {
     var toks = [];
     st.notes.forEach(function (n, i) {
       var open = st.repeats.some(function (r) { return r.from === i; });
       if (n.w > 0) { toks.push((open ? "[" : "") + "~" + n.w); open = false; }
+      if (n.d > 0) { toks.push((open ? "[" : "") + "+" + n.d); open = false; }
       var t = (open ? "[" : "") + n.s + CODE_OF[n.a];
       if (n.p.length) t += "(" + n.p.map(function (p) { return p[0] + "=" + p[1]; }).join(",") + ")";
       if (n.r) t += "?";
@@ -282,6 +285,7 @@
       toks.push(t);
     });
     if (st.end > 0 && st.notes.length) toks.push("~" + st.end);
+    if (st.endDelay > 0 && st.notes.length) toks.push("+" + st.endDelay);
     st.params.forEach(function (ps, s) {
       if (ps.length) toks.push("; p" + s + " " + ps.map(function (p) { return p[0] + "=" + p[1]; }).join(" "));
     });
@@ -449,6 +453,21 @@
       s += '<rect class="wait-user" x="' + X(a) + '" y="' + yy + '" width="' + Math.max(2, (b - a) * PX) + '" height="' + LANE * .5 + '" rx="4"' + (e.ghost ? ' opacity=".5"' : "") + '/>';
       if (!e.ghost && (b - a) * PX > 26) s += '<text class="wl" x="' + X((a + b) / 2) + '" y="' + (yy - 3) + '">+' + (b - a).toFixed(1) + 's</text>';
     });
+    // Delays the chart asks for, right before their notes run: gcsim
+    // plays them once the note could run (hitlag can stretch them). The
+    // final delay comes before each next pass's first note.
+    var passSeen = {};
+    pl.list.forEach(function (e) {
+      var n = st.notes[e.p.note], first = e.p.pass > 0 && !passSeen[e.p.pass];
+      passSeen[e.p.pass] = true;
+      if (!n || e.p.start < 0) return;
+      var d = (n.d || 0) + (first ? st.endDelay || 0 : 0);
+      if (!d) return;
+      var b = e.p.start, a = Math.max(e.p.asked + (n.w || 0) / 60, b - d / 60), yy = mid(n.s) - LANE * .25;
+      if (b <= a) return;
+      s += '<rect class="wait-user" x="' + X(a) + '" y="' + yy + '" width="' + Math.max(2, (b - a) * PX) + '" height="' + LANE * .5 + '" rx="4"' + (e.ghost ? ' opacity=".5"' : "") + '/>';
+      if (!e.ghost && (b - a) * PX > 26) s += '<text class="wl" x="' + X((a + b) / 2) + '" y="' + (yy - 3) + '">+' + (b - a).toFixed(1) + 's</text>';
+    });
     // The final wait, on the last note's lane, before each next pass.
     if (P && st.end > 0 && st.notes.length) P.passes.slice(1).forEach(function (b, k) {
       var a = b - st.end / 60, yy = mid(st.notes[st.notes.length - 1].s) - LANE * .25;
@@ -512,7 +531,7 @@
     if (sel === null || !st.notes[sel]) {
       sel = null;
       h = '<span class="lbl">' + esc(S.select) + '</span><button type="button" class="ed-chip" data-t="end">' + esc(cursor >= st.notes.length ? S.playheadEnd : S.playheadAt.replace("%d", cursor + 1)) + '</button>';
-      if (cursor >= st.notes.length && st.end > 0) h += '<button type="button" class="ed-chip" data-t="noend">' + esc(S.clearWait.replace("%s", (st.end / 60).toFixed(1))) + '</button>';
+      if (cursor >= st.notes.length && (st.end > 0 || st.endDelay > 0)) h += '<button type="button" class="ed-chip" data-t="noend">' + esc(S.clearWait.replace("%s", (((st.end || 0) + (st.endDelay || 0)) / 60).toFixed(1))) + '</button>';
       el.innerHTML = h;
       return;
     }
@@ -523,7 +542,7 @@
     if (!ranged) {
       if (n.a === "skill") h += '<span class="ed-seg"><button type="button" data-t="tap" class="' + (hold(n) ? "" : "on") + '">' + esc(S.tap) + '</button><button type="button" data-t="hold" class="' + (hold(n) ? "on" : "") + '">' + esc(S.hold) + '</button></span>';
       if (n.a === "skill" || n.a === "burst") h += '<button type="button" class="ed-chip' + (n.r ? " on" : "") + '" data-t="ready">' + esc(S.ready) + '</button>';
-      if (n.w > 0) h += '<button type="button" class="ed-chip" data-t="nowait">' + esc(S.clearWait.replace("%s", (n.w / 60).toFixed(1))) + '</button>';
+      if (n.w > 0 || n.d > 0) h += '<button type="button" class="ed-chip" data-t="nowait">' + esc(S.clearWait.replace("%s", ((n.w + (n.d || 0)) / 60).toFixed(1))) + '</button>';
       h += '<button type="button" class="ed-chip" data-t="before">' + esc(S.before) + '</button>';
     }
     h += '<button type="button" class="ed-chip' + (rangeMode ? " on" : "") + '" data-t="range">' + esc(S.range) + '</button>';
@@ -536,7 +555,7 @@
   // ---- Editing ----
   function add(a, held) {
     if (!st) return;
-    var n = {s: active, a: a, p: [], r: false, w: 0};
+    var n = {s: active, a: a, p: [], r: false, w: 0, d: 0};
     if (a === "attack" && held) n.a = "charge";
     if (a === "skill" && held) n.p = [["hold", 1]];
     snapshot();
@@ -552,7 +571,7 @@
     snapshot();
     var a = Math.min(sel, rangeEnd === null ? sel : rangeEnd), b = Math.max(sel, rangeEnd === null ? sel : rangeEnd), k = b - a + 1;
     st.notes.splice(a, k);
-    if (!st.notes.length) st.end = 0;
+    if (!st.notes.length) { st.end = 0; st.endDelay = 0; }
     st.repeats = st.repeats.filter(function (r) { return r.to < a || r.from > b; }).map(function (r) { return r.from > b ? {from: r.from - k, to: r.to - k, times: r.times} : r; });
     cursor = a; sel = null; rangeEnd = null; changed();
   }
@@ -567,14 +586,14 @@
     var t = b.dataset.t;
     if (t === "end") { cursor = st.notes.length; return render(); }
     if (t === "range") { rangeMode = !rangeMode; tools(); if (rangeMode) toast(S.pickEnd); return; }
-    if (t === "noend") { snapshot(); st.end = 0; return changed(); }
+    if (t === "noend") { snapshot(); st.end = 0; st.endDelay = 0; return changed(); }
     var n = st.notes[sel], a = Math.min(sel, rangeEnd === null ? sel : rangeEnd), z = Math.max(sel, rangeEnd === null ? sel : rangeEnd);
     if (t === "del") return del();
     snapshot();
     if (t === "tap") n.p = n.p.filter(function (p) { return p[0] !== "hold"; });
     if (t === "hold") { n.p = n.p.filter(function (p) { return p[0] !== "hold"; }); n.p.push(["hold", 1]); }
     if (t === "ready") n.r = !n.r;
-    if (t === "nowait") n.w = 0;
+    if (t === "nowait") { n.w = 0; n.d = 0; }
     if (t === "before") { cursor = sel; sel = null; }
     if (t === "rep+" || t === "rep-") {
       var r = st.repeats.filter(function (r) { return r.from === a && r.to === z; })[0];

@@ -90,6 +90,13 @@ func (c *Chart) marked(names [Slots]string) string {
 	var b strings.Builder
 	b.WriteString(c.setup())
 	note := 0
+	marked := false // the marker of note is written
+	mark := func() {
+		if !marked {
+			fmt.Fprintf(&b, "delay(%d);\n", score.Marker+1+note)
+			marked = true
+		}
+	}
 	for _, line := range strings.SplitAfter(src, "\n") {
 		t := strings.TrimSpace(line)
 		switch {
@@ -100,20 +107,17 @@ func (c *Chart) marked(names [Slots]string) string {
 			fmt.Fprintf(&b, "while 1 {\ndelay(%d);\n", score.Marker)
 			continue
 		case strings.HasPrefix(t, "for ") || t == "}":
-		case strings.HasPrefix(t, "wait(") && note == len(c.Notes):
-			// The final wait has no note of its own: the last note's
-			// time runs on into it.
-		case strings.HasPrefix(t, "wait("):
-			// The note's marker goes before its wait, so the wait counts
-			// as the note's own time.
-			fmt.Fprintf(&b, "delay(%d);\n", score.Marker+1+note)
-			b.WriteString(line)
-			continue
+		case isPause(t) && note == len(c.Notes):
+			// The final wait and delay have no note of their own: the
+			// last note's time runs on into them.
+		case isPause(t):
+			// The note's marker goes before its wait and delay, so they
+			// count as the note's own time.
+			mark()
 		default:
-			if note == 0 || !strings.HasPrefix(lastLine(b.String()), "wait(") {
-				fmt.Fprintf(&b, "delay(%d);\n", score.Marker+1+note)
-			}
+			mark()
 			note++
+			marked = false
 		}
 		b.WriteString(line)
 	}
@@ -121,9 +125,9 @@ func (c *Chart) marked(names [Slots]string) string {
 	return b.String()
 }
 
-func lastLine(s string) string {
-	s = strings.TrimRight(s, "\n")
-	return strings.TrimSpace(s[strings.LastIndexByte(s, '\n')+1:])
+// isPause is a compiled line that waits or delays the next note.
+func isPause(line string) bool {
+	return strings.HasPrefix(line, "wait(") || strings.HasPrefix(line, "delay(")
 }
 
 // Preview plays the chart with build (setup lines with the params

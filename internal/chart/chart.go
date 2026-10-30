@@ -6,12 +6,13 @@
 //
 // The text form is a list of tokens separated by spaces:
 //
-//	2E(hold=1) 3E 3Q? ~30 0N [0N 0C 0D]3 ; p0 start_hp=1
+//	2E(hold=1) 3E 3Q? ~30 0N +12 [0N 0C 0D]3 ; p0 start_hp=1
 //
 // A note is a slot (0-3) and an action code, optionally gcsim params in
 // parentheses and "?" to play it only when ready. "~N" waits N frames
-// before the next note; after the last note, it waits that long at the
-// end of every pass. "[" ... "]N" plays the notes inside N times.
+// before the next note (gcsl's wait) and "+N" delays it N frames (gcsl's
+// delay); after the last note, they wait or delay that long at the end
+// of every pass. "[" ... "]N" plays the notes inside N times.
 // After ";", "pS k=v ..." are the character params of slot S, and
 // "pickup" picks up crystallize shards after every action.
 package chart
@@ -76,6 +77,9 @@ type Chart struct {
 	// End is the frames to wait after the last note, once a pass and
 	// outside any repeat: a rotation that ends in a wait.
 	End int
+	// EndDelay is the frames to delay the next pass's first action, once
+	// a pass, after End: a rotation that ends in a delay.
+	EndDelay int
 	// Params are each slot's gcsim character params (start_hp=1, ...).
 	Params [Slots][]Param
 	// Pickup picks up any crystallize shard on the ground after every
@@ -92,8 +96,16 @@ type Note struct {
 	// Ready plays a skill or burst only when it is ready, and skips it
 	// otherwise (gcsl's if .x.burst.ready).
 	Ready bool
-	// Wait is the frames to wait before the note.
+	// Wait is the frames to wait before the note: gcsl's wait, which
+	// passes time at once, over what the action before still has to
+	// play.
 	Wait int
+	// Delay is the frames to delay the note, after Wait: gcsl's delay,
+	// which gcsim plays once the note's action (or the swap to it) could
+	// run, and which stands still while the member on field is in
+	// hitlag. A delay does not pass time on its own: it waits for an
+	// action to delay.
+	Delay int
 }
 
 type Param struct {
@@ -134,13 +146,17 @@ func (c *Chart) Validate() error {
 		if n.Wait < 0 || n.Wait > MaxWait {
 			return fmt.Errorf("note %d: wait out of range", i+1)
 		}
+		if n.Delay < 0 || n.Delay > MaxWait {
+			return fmt.Errorf("note %d: delay out of range", i+1)
+		}
 		if err := checkParams(n.Params, MaxParams); err != nil {
 			return fmt.Errorf("note %d: %w", i+1, err)
 		}
 	}
 	// A wait, or an action gcsim is asked for whatever its state, passes
 	// time on every pass of the loop: gcsim holds an action until it is
-	// ready. An action that takes no time (walk[f=0]) is stopped by the
+	// ready. A delay does not: gcsim adds it up until an action plays.
+	// An action that takes no time (walk[f=0]) is stopped by the
 	// score instead (score.maxStillActions).
 	if c.End == 0 && !slices.ContainsFunc(c.Notes, func(n Note) bool { return !n.Ready || n.Wait > 0 }) {
 		return ErrIdle
@@ -157,6 +173,9 @@ func (c *Chart) Validate() error {
 	}
 	if c.End < 0 || c.End > MaxWait {
 		return errors.New("final wait out of range")
+	}
+	if c.EndDelay < 0 || c.EndDelay > MaxWait {
+		return errors.New("final delay out of range")
 	}
 	for _, ps := range c.Params {
 		if err := checkParams(ps, MaxCharKey); err != nil {
@@ -191,12 +210,15 @@ func (c *Chart) String() string {
 	var toks []string
 	for i, n := range c.Notes {
 		open := slices.ContainsFunc(c.Repeats, func(r Repeat) bool { return r.From == i })
-		if n.Wait > 0 {
-			toks = append(toks, fmt.Sprintf("~%d", n.Wait))
+		for _, w := range []string{waitToken(n.Wait), delayToken(n.Delay)} {
+			if w == "" {
+				continue
+			}
 			if open {
-				toks[len(toks)-1] = "[" + toks[len(toks)-1]
+				w = "[" + w
 				open = false
 			}
+			toks = append(toks, w)
 		}
 		var b strings.Builder
 		if open {
@@ -219,8 +241,10 @@ func (c *Chart) String() string {
 		}
 		toks = append(toks, b.String())
 	}
-	if c.End > 0 {
-		toks = append(toks, fmt.Sprintf("~%d", c.End))
+	for _, w := range []string{waitToken(c.End), delayToken(c.EndDelay)} {
+		if w != "" {
+			toks = append(toks, w)
+		}
 	}
 	for s, ps := range c.Params {
 		if len(ps) > 0 {
@@ -234,6 +258,22 @@ func (c *Chart) String() string {
 		toks = append(toks, "; pickup")
 	}
 	return strings.Join(toks, " ")
+}
+
+// waitToken and delayToken are a wait and a delay in the text form, ""
+// for none.
+func waitToken(f int) string {
+	if f == 0 {
+		return ""
+	}
+	return fmt.Sprintf("~%d", f)
+}
+
+func delayToken(f int) string {
+	if f == 0 {
+		return ""
+	}
+	return fmt.Sprintf("+%d", f)
 }
 
 func writeParams(b *strings.Builder, ps []Param, sep string) {
@@ -253,7 +293,7 @@ func Parse(s string) (*Chart, error) {
 	notes, params, _ := strings.Cut(s, ";")
 	c := &Chart{}
 	open := -1
-	wait := 0
+	wait, delay := 0, 0
 	for _, tok := range strings.Fields(notes) {
 		if strings.HasPrefix(tok, "[") {
 			if open >= 0 {
@@ -273,6 +313,14 @@ func Parse(s string) (*Chart, error) {
 			wait += v
 			continue
 		}
+		if strings.HasPrefix(tok, "+") {
+			v, err := strconv.Atoi(tok[1:])
+			if err != nil || !isDigits(tok[1:]) {
+				return nil, fmt.Errorf("bad delay %q", tok)
+			}
+			delay += v
+			continue
+		}
 		closing, closed := "", false
 		if i := strings.IndexByte(tok, ']'); i >= 0 {
 			tok, closing, closed = tok[:i], tok[i+1:], true
@@ -282,7 +330,7 @@ func Parse(s string) (*Chart, error) {
 			if err != nil {
 				return nil, err
 			}
-			n.Wait, wait = wait, 0
+			n.Wait, n.Delay, wait, delay = wait, delay, 0, 0
 			c.Notes = append(c.Notes, n)
 		}
 		if closed {
@@ -300,8 +348,8 @@ func Parse(s string) (*Chart, error) {
 	if open >= 0 {
 		return nil, errors.New("unclosed [")
 	}
-	// A wait after the last note is the chart's final wait.
-	c.End = wait
+	// A wait or delay after the last note is the chart's final one.
+	c.End, c.EndDelay = wait, delay
 	for _, part := range strings.Split(params, ";") {
 		f := strings.Fields(part)
 		if len(f) == 0 {
@@ -331,6 +379,10 @@ func Parse(s string) (*Chart, error) {
 		return nil, err
 	}
 	return c, nil
+}
+
+func isDigits(s string) bool {
+	return s != "" && strings.Trim(s, "0123456789") == ""
 }
 
 func parseNote(tok string) (Note, error) {
@@ -445,6 +497,9 @@ func (c *Chart) actions(names [Slots]string) string {
 		if n.Wait > 0 {
 			fmt.Fprintf(&b, "%swait(%d);\n", indent, n.Wait)
 		}
+		if n.Delay > 0 {
+			fmt.Fprintf(&b, "%sdelay(%d);\n", indent, n.Delay)
+		}
 		name := names[n.Slot]
 		stmt := name + " " + n.Action
 		if len(n.Params) > 0 {
@@ -465,6 +520,11 @@ func (c *Chart) actions(names [Slots]string) string {
 	}
 	if c.End > 0 {
 		fmt.Fprintf(&b, "wait(%d);\n", c.End)
+	}
+	// The final delay is the next pass's first action's, as a delay
+	// ending a library rotation's pass is.
+	if c.EndDelay > 0 {
+		fmt.Fprintf(&b, "delay(%d);\n", c.EndDelay)
 	}
 	return b.String()
 }
@@ -510,7 +570,7 @@ func (c *Chart) Remap(slots [Slots]int) *Chart {
 			out.Params[to] = ps
 		}
 	}
-	out.End = c.End
+	out.End, out.EndDelay = c.End, c.EndDelay
 	out.Pickup = c.Pickup
 	return out
 }
