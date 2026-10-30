@@ -17,6 +17,15 @@ import (
 
 const hutaoTeamID = "hutao-xingqiu-zhongli-yelan"
 
+// Koreans search the site by its Korean name, which a search engine
+// links to the site only when the page shows it, not just its JSON-LD.
+func TestKoreanName(t *testing.T) {
+	ts := newTestServer(t)
+	_, body := get(t, ts, "/?hl=ko")
+	mustContain(t, body, "<title>지스카우터(Gscouter) · ", `<meta name="description" content="지스카우터(Gscouter)는 `,
+		"지스카우터(Gscouter)는 광고")
+}
+
 func TestLibraryTeamPage(t *testing.T) {
 	ts := newTestServer(t)
 	code, body := get(t, ts, "/teams/"+hutaoTeamID+"?hl=ko")
