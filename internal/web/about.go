@@ -36,6 +36,9 @@ var updates = []update{
 			"A very short rotation of your own can be calculated in the browser; it used to fail there.",
 			"The rotation editor keeps a custom enemy, from the result to the editor and back.",
 			"The rotation editor records a rotation's delays as delays, not waits, so its timing stays the same.",
+			"A rotation that writes a space before an action's settings, such as \"skill [counter=1]\", is filled out the same as one without the space; one team's score changed slightly.",
+			"Deleting every note in the rotation editor stays deleted after reloading the page.",
+			"The rotation editor's undo can take back a reset and the first note of a blank chart.",
 		},
 		Ko: []string{
 			"Gscouter의 소스 코드를 GNU AGPL로 공개하고, 모든 페이지 아래에 링크했습니다.",
@@ -50,6 +53,9 @@ var updates = []update{
 			"아주 짧은 직접 짠 로테이션도 브라우저에서 계산됩니다. 전에는 브라우저에서 실패했습니다.",
 			"로테이션 편집기가 결과에서 편집기로 갔다가 돌아올 때까지 직접 설정한 적을 유지합니다.",
 			"로테이션 편집기가 로테이션의 delay를 wait로 바꾸지 않고 그대로 녹화해, 동작 타이밍이 바뀌지 않습니다.",
+			"동작 설정 앞에 공백을 쓴 로테이션(예: \"skill [counter=1]\")도 공백이 없는 것과 똑같이 채웁니다. 한 파티의 점수가 조금 바뀌었습니다.",
+			"로테이션 편집기에서 노트를 모두 지우면 페이지를 새로 고쳐도 지워진 채로 남습니다.",
+			"로테이션 편집기의 되돌리기로 초기화와 빈 차트의 첫 노트를 되돌릴 수 있습니다.",
 		},
 	},
 	{
