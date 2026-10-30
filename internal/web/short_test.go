@@ -9,6 +9,8 @@ import (
 	"sync"
 	"testing"
 	"time"
+
+	"github.com/cenoda/gscouter/internal/chart"
 )
 
 // memLinks is a LinkStore in memory.
@@ -148,9 +150,12 @@ func TestShortLinkWarmsCard(t *testing.T) {
 	srv := newTestSite(t)
 	srv.SetLinks(&memLinks{m: map[string]string{}})
 	ts := newTestServerFor(t, srv)
+	c, _ := chart.Parse("3E(hold=1) 2E 1E 0E [0N 0C 0D]6 0Q?")
 	for _, long := range []string{
 		"/score?" + url.Values{"a": {"800000001~" + packBuilds("Strong", hutaoTeam())}, "lvl": {"90"}}.Encode(),
 		"/versus?" + url.Values{"a": {"800000001~" + packBuilds("Strong", hutaoTeam())}, "b": {"800000002~" + packBuilds("Weak", hutaoTeam())}}.Encode(),
+		"/score?" + url.Values{"a": {"800000001~" + packBuilds("Strong", hutaoTeam())}, "r": {c.Encode()}}.Encode(),
+		"/versus?" + url.Values{"a": {"800000001~" + packBuilds("Strong", hutaoTeam())}, "b": {"800000002~" + packBuilds("Weak", hutaoTeam())}, "rb": {c.Encode()}}.Encode(),
 	} {
 		// The card the page names for link previews.
 		_, body := get(t, ts, long)
