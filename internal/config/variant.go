@@ -17,8 +17,7 @@ func DropBursts(rotation, char string) string {
 				var keep []string
 				for _, item := range splitActions(rotation[i+m[6] : i+m[7]]) {
 					item = strings.TrimSpace(item)
-					action := strings.FieldsFunc(item, func(r rune) bool { return r == '[' || r == ':' })
-					if len(action) > 0 && action[0] != "burst" {
+					if name := parseAction(item).name; name != "" && name != "burst" {
 						keep = append(keep, item)
 					}
 				}

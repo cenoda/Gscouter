@@ -6,7 +6,7 @@
 // rotation scores at least -min higher, it is written as the team's
 // alternative alt/<char>-c<cons>-no-<drop>/ with status draft, for
 // cmd/validate -promote to check; otherwise an earlier one of that name
-// is removed.
+// is removed. A team that cannot be measured keeps its earlier one.
 //
 // Usage:
 //
@@ -15,8 +15,10 @@ package main
 
 import (
 	"context"
+	"errors"
 	"flag"
 	"fmt"
+	"io/fs"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -64,12 +66,12 @@ func main() {
 }
 
 // derive measures the variant of the team in dir and writes or removes
-// it, returning its gain over the team's rotation.
+// it, returning its gain over the team's rotation. An earlier variant of
+// that name is left as it is until the measurement succeeds: it is
+// removed only when the gain falls short of minGain, and replaced only
+// once the new one is written in full (replaceDir).
 func derive(dir, name string, v library.Variant, cons int, minGain float64, iterations int) (float64, error) {
 	out := filepath.Join(dir, library.AltDir, name)
-	if err := os.RemoveAll(out); err != nil {
-		return 0, err
-	}
 	team, err := library.Load(dir)
 	if err != nil {
 		return 0, err
@@ -90,32 +92,17 @@ func derive(dir, name string, v library.Variant, cons int, minGain float64, iter
 	}
 	build := consRe.ReplaceAllString(team.Build, fmt.Sprintf("${1}%d", cons))
 
-	scoreWith := func(rotation string) (float64, error) {
-		b := build
-		for m, p := range team.Params {
-			b = config.AddParams(b, m, p)
-		}
-		res, err := steady.Score(rotation, team.Members, func(looped string) (*score.Result, error) {
-			set := web.DefaultSettings
-			cfg := config.Assemble(config.Conditions{Iterations: iterations, Duration: set.Duration}, b, looped)
-			return score.Run(context.Background(), cfg, score.Options{Iterations: iterations, Warmup: set.Warmup, Seed: 1})
-		})
-		if err != nil {
-			return 0, err
-		}
-		return res.Result.DPS, nil
-	}
-	own, err := scoreWith(team.Rotation)
+	own, err := measure(team, build, team.Rotation, iterations)
 	if err != nil {
 		return 0, fmt.Errorf("the team's rotation: %w", err)
 	}
-	dps, err := scoreWith(rotation)
+	dps, err := measure(team, build, rotation, iterations)
 	if err != nil {
 		return 0, fmt.Errorf("the variant: %w", err)
 	}
 	gain := dps/own - 1
 	if gain < minGain {
-		return gain, nil
+		return gain, os.RemoveAll(out)
 	}
 
 	alt := *team
@@ -132,20 +119,79 @@ func derive(dir, name string, v library.Variant, cons int, minGain float64, iter
 	if err != nil {
 		return 0, err
 	}
-	if err := os.MkdirAll(out, 0o755); err != nil {
-		return 0, err
-	}
 	files := map[string]string{
 		"team.yaml":     string(meta),
 		"rotation.gcsl": rotation,
 		"build.txt":     fmt.Sprintf("# The team's build with %s at C%d, the build the variant was measured and is validated with.\n\n", v.Char, cons) + stripComments(build),
 	}
-	for name, content := range files {
-		if err := os.WriteFile(filepath.Join(out, name), []byte(content), 0o644); err != nil {
-			return 0, err
-		}
+	if err := replaceDir(out, files); err != nil {
+		return 0, err
 	}
 	return gain, nil
+}
+
+// measure scores rotation on build for the team as the site does: looped,
+// with fillers. It is a variable so that tests can stand in for the
+// simulation.
+var measure = simulate
+
+func simulate(team *library.Team, build, rotation string, iterations int) (float64, error) {
+	for m, p := range team.Params {
+		build = config.AddParams(build, m, p)
+	}
+	res, err := steady.Score(rotation, team.Members, func(looped string) (*score.Result, error) {
+		set := web.DefaultSettings
+		cfg := config.Assemble(config.Conditions{Iterations: iterations, Duration: set.Duration}, build, looped)
+		return score.Run(context.Background(), cfg, score.Options{Iterations: iterations, Warmup: set.Warmup, Seed: 1})
+	})
+	if err != nil {
+		return 0, err
+	}
+	return res.Result.DPS, nil
+}
+
+// replaceDir makes dir hold exactly files. It writes them into a staging
+// directory beside dir and swaps it in only once every write succeeded,
+// so a failure leaves dir as it was.
+func replaceDir(dir string, files map[string]string) error {
+	parent := filepath.Dir(dir)
+	if err := os.MkdirAll(parent, 0o755); err != nil {
+		return err
+	}
+	stage, err := os.MkdirTemp(parent, "."+filepath.Base(dir)+"-")
+	if err != nil {
+		return err
+	}
+	defer os.RemoveAll(stage) // a no-op once it is swapped in
+	if err := os.Chmod(stage, 0o755); err != nil {
+		return err
+	}
+	for name, content := range files {
+		if err := os.WriteFile(filepath.Join(stage, name), []byte(content), 0o644); err != nil {
+			return err
+		}
+	}
+	old := ""
+	if _, err := os.Lstat(dir); err == nil {
+		old = stage + "-old"
+		if err := os.Rename(dir, old); err != nil {
+			return err
+		}
+	} else if !errors.Is(err, fs.ErrNotExist) {
+		return err
+	}
+	if err := os.Rename(stage, dir); err != nil {
+		if old != "" {
+			if rerr := os.Rename(old, dir); rerr != nil {
+				return fmt.Errorf("%w (the earlier %s is left in %s: %v)", err, filepath.Base(dir), old, rerr)
+			}
+		}
+		return err
+	}
+	if old != "" {
+		return os.RemoveAll(old)
+	}
+	return nil
 }
 
 // stripComments drops the build's leading comment lines.
