@@ -22,7 +22,8 @@ const windowFrom, windowTo = 30, 60
 // library team's rotation (docs/cycle-swap.md §3). The chart is what the
 // rotation's second pass asks for when looped, played with build: every
 // if and while already decided, as the build's energy and cooldowns
-// decided them, and waits kept, the one that ends the pass too. Runs of
+// decided them, and waits and delays kept, each as it was, those that end
+// the pass too. Runs of
 // repeated notes become repeats.
 // names are the members' gcsim keys by slot, as in build.
 func Record(build, rotation string, names [Slots]string) (*Chart, error) {
@@ -70,11 +71,17 @@ func Record(build, rotation string, names [Slots]string) (*Chart, error) {
 		slot[library.Canonical(n)] = i
 	}
 	var notes []Note
-	wait := 0
+	// Waits and delays add up separately: gcsim plays a wait at once and
+	// a delay before the next action, so they commute with each other but
+	// do not merge.
+	wait, delay := 0, 0
 	for _, r := range played {
 		switch r.Action {
-		case "wait", "delay":
+		case "wait":
 			wait += r.Params["f"]
+			continue
+		case "delay":
+			delay += r.Params["f"]
 			continue
 		}
 		s, ok := slot[library.Canonical(r.Char)]
@@ -84,17 +91,24 @@ func Record(build, rotation string, names [Slots]string) (*Chart, error) {
 		if wait > MaxWait {
 			return nil, fmt.Errorf("the rotation waits %d frames, more than a chart can (%d)", wait, MaxWait)
 		}
-		notes = append(notes, Note{Slot: s, Action: r.Action, Params: params(r.Params), Wait: wait})
-		wait = 0
+		if delay > MaxWait {
+			return nil, fmt.Errorf("the rotation delays %d frames, more than a chart can (%d)", delay, MaxWait)
+		}
+		notes = append(notes, Note{Slot: s, Action: r.Action, Params: params(r.Params), Wait: wait, Delay: delay})
+		wait, delay = 0, 0
 	}
 	if wait > MaxWait {
 		return nil, fmt.Errorf("the rotation waits %d frames at the end, more than a chart can (%d)", wait, MaxWait)
 	}
+	if delay > MaxWait {
+		return nil, fmt.Errorf("the rotation delays %d frames at the end, more than a chart can (%d)", delay, MaxWait)
+	}
 	c := compress(notes)
 	// A pass that ends in a wait waits as long at the end of the chart,
 	// once a pass: wait(126) closing a pass is the time before the
-	// rotation comes back round.
-	c.End = wait
+	// rotation comes back round. A delay closing it delays the next
+	// pass's first action, as the chart's final delay does.
+	c.End, c.EndDelay = wait, delay
 	// A rotation that picks up crystallize shards gets its chart picking
 	// them up: the script's calls are not actions, so they are not
 	// recorded (docs/cycle-swap.md §11.7).
@@ -151,6 +165,6 @@ func compress(notes []Note) *Chart {
 
 func sameBlock(a, b []Note) bool {
 	return slices.EqualFunc(a, b, func(x, y Note) bool {
-		return x.Slot == y.Slot && x.Action == y.Action && x.Ready == y.Ready && x.Wait == y.Wait && slices.Equal(x.Params, y.Params)
+		return x.Slot == y.Slot && x.Action == y.Action && x.Ready == y.Ready && x.Wait == y.Wait && x.Delay == y.Delay && slices.Equal(x.Params, y.Params)
 	})
 }

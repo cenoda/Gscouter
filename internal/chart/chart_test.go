@@ -3,6 +3,7 @@ package chart
 import (
 	"context"
 	"errors"
+	"fmt"
 	"slices"
 	"strings"
 	"testing"
@@ -20,6 +21,9 @@ func TestRoundTrip(t *testing.T) {
 		"0E ~30 1N [~12 1C 1D]2 2Q ; p0 start_hp=1 ; p3 start_energy=40 breakthrough=1",
 		"[0N]2 [1N 1N]3",
 		"0E 1N ; p2 start_energy=0 ; pickup",
+		"0E +300 0E",
+		"0E ~30 +20 1N [+12 1C 1D]2 [~6 +9 2N]2 2Q ~6 +9",
+		"0Q? 1N +3600",
 	} {
 		c, err := Parse(s)
 		if err != nil {
@@ -53,6 +57,13 @@ func TestParseRejects(t *testing.T) {
 		"[0N]",
 		"[0N]1",
 		"0N ~3601 1N",
+		"0N +3601 1N",
+		"0N +-5 1N",
+		"0N ++5 1N",
+		"0N + 1N",
+		"0N +5x",
+		"0N +3601",
+		"+30",
 		"0N ; p4 a=1",
 		"0N ; p0 a=1 ; p0 b=2",
 		"0E(x=1);0N",
@@ -69,7 +80,9 @@ func TestParseRejects(t *testing.T) {
 // forever once none is ready; one note that always plays, or a wait,
 // moves it on.
 func TestParseRejectsIdle(t *testing.T) {
-	for _, s := range []string{"0Q?", "0E? 1Q?", "[0E? 1Q?]3", "0E? [2Q?]2 ; pickup"} {
+	// A delay passes no time on its own: gcsim adds it up until an action
+	// plays.
+	for _, s := range []string{"0Q?", "0E? 1Q?", "[0E? 1Q?]3", "0E? [2Q?]2 ; pickup", "0Q? +30", "+30 0E? 1Q? +60"} {
 		if _, err := Parse(s); !errors.Is(err, ErrIdle) {
 			t.Errorf("Parse(%q): %v, want %v", s, err, ErrIdle)
 		}
@@ -102,6 +115,33 @@ xingqiu skill;
 	}
 	if p := c.CharParams(0); p != "start_hp=1" {
 		t.Errorf("CharParams(0) = %q", p)
+	}
+}
+
+func TestGcslDelay(t *testing.T) {
+	c, err := Parse("0N ~20 +30 0C [+5 1E]2 0E? ~6 +9")
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := c.Gcsl([Slots]string{"hutao", "xingqiu", "zhongli", "yelan"})
+	want := `active hutao;
+hutao attack;
+wait(20);
+delay(30);
+hutao charge;
+for let r0 = 0; r0 < 2; r0 = r0 + 1 {
+  delay(5);
+  xingqiu skill;
+}
+if .hutao.skill.ready { hutao skill; }
+wait(6);
+delay(9);
+`
+	if got != want {
+		t.Errorf("Gcsl() =\n%s\nwant\n%s", got, want)
+	}
+	if got := c.Remap([Slots]int{1, 0, 2, 3}).String(); got != "1N ~20 +30 1C [+5 0E]2 1E? ~6 +9" {
+		t.Errorf("Remap() = %q", got)
 	}
 }
 
@@ -294,7 +334,9 @@ func TestRecordFinalWait(t *testing.T) {
 	build := config.AddParams(team.Build, "hutao", team.Params["hutao"])
 	for _, tc := range []struct{ rotation, chart, gcsl string }{
 		{"active hutao;\nhutao attack;\nwait(300);\n", "0N ~300", "active hutao;\nhutao attack;\nwait(300);\n"},
-		{"active hutao;\nhutao attack;\ndelay(120);\n", "0N ~120", "active hutao;\nhutao attack;\nwait(120);\n"},
+		// A delay stays a delay: it is not a wait (TestRecordDelay).
+		{"active hutao;\nhutao attack;\ndelay(120);\n", "0N +120", "active hutao;\nhutao attack;\ndelay(120);\n"},
+		{"active hutao;\nhutao attack;\ndelay(20);\nwait(30);\ndelay(5);\n", "0N ~30 +25", "active hutao;\nhutao attack;\nwait(30);\ndelay(25);\n"},
 		// Longer than a wait used to be allowed (10 s), at the end and
 		// before a note.
 		{"active hutao;\nhutao attack;\nwait(1339);\nhutao skill;\nwait(700);\nwait(20);\n", "0N ~1339 0E ~720", "active hutao;\nhutao attack;\nwait(1339);\nhutao skill;\nwait(720);\n"},
@@ -318,6 +360,9 @@ func TestRecordFinalWait(t *testing.T) {
 	}
 	if _, err := Record(build, "active hutao;\nhutao attack;\nwait(4000);\n", names); err == nil {
 		t.Error("a wait over the limit was recorded")
+	}
+	if _, err := Record(build, "active hutao;\nhutao attack;\ndelay(4000);\n", names); err == nil {
+		t.Error("a delay over the limit was recorded")
 	}
 }
 
@@ -366,6 +411,121 @@ func TestPreviewFinalWait(t *testing.T) {
 	for _, n := range p.Notes {
 		if n.Note != 0 {
 			t.Errorf("a note %d that the chart lacks", n.Note)
+		}
+	}
+}
+
+// actionFrames is every action each member took in the first 45 s of
+// rotation looped, seed 1, as "frame action" by party index.
+func actionFrames(t *testing.T, build, rotation string) []string {
+	t.Helper()
+	l, err := config.Loop(rotation)
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, acts, err := score.Trace(context.Background(), config.Assemble(config.Conditions{Iterations: 1, Duration: 45}, build, l), 1, 45*60)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var out []string
+	for i, as := range acts {
+		for _, a := range as {
+			out = append(out, fmt.Sprintf("%d: %d %s", i, a.Frame, a.Action))
+		}
+	}
+	return out
+}
+
+// A recorded rotation plays as the rotation does, action for action:
+// a delay is not a wait. A wait passes time at once, over the animation
+// and cooldown of what came before; a delay starts once the next action
+// could run, before its swap if it has one, and stands still in hitlag.
+func TestRecordDelay(t *testing.T) {
+	hutao := [Slots]string{"hutao", "xingqiu", "yelan", "zhongli"}
+	rosaria := [Slots]string{"bennett", "diluc", "kaedeharakazuha", "rosaria"}
+	for _, tc := range []struct {
+		team            string
+		names           [Slots]string
+		rotation, chart string
+	}{
+		// Before an action its cooldown holds back: Hu Tao's second
+		// skill comes 300 frames after its cooldown, not into it.
+		{"hutao-xingqiu-zhongli-yelan", hutao, "active hutao;\nhutao skill;\ndelay(300);\nhutao skill;\n", "0E +300 0E"},
+		// Waits alone.
+		{"hutao-xingqiu-zhongli-yelan", hutao, "active hutao;\nhutao attack;\nwait(40);\nhutao skill;\nhutao attack;\nwait(25);\nhutao charge;\n", "0N ~40 0E 0N ~25 0C"},
+		// Before an implicit swap, and with a wait.
+		{"hutao-xingqiu-zhongli-yelan", hutao, "active hutao;\nhutao attack;\ndelay(60);\nxingqiu skill;\nwait(20);\ndelay(30);\nhutao attack;\n", "0N +60 1E ~20 +30 0N"},
+		// Rosaria's attacks land hits, and their hitlag, in the delay
+		// after them, which lengthens it.
+		{"diluc-bennett-rosaria-kaedeharakazuha", rosaria, "active rosaria;\nrosaria attack;\ndelay(30);\nrosaria attack;\ndelay(10);\n", "3N +30 3N +10"},
+		// At the end of the pass.
+		{"hutao-xingqiu-zhongli-yelan", hutao, "active hutao;\nhutao attack;\ndelay(120);\n", "0N +120"},
+	} {
+		team, err := library.LoadFS(teams.FS, tc.team)
+		if err != nil {
+			t.Fatal(err)
+		}
+		build := team.Build
+		for _, n := range tc.names {
+			if p := team.Params[n]; p != "" {
+				build = config.AddParams(build, n, p)
+			}
+		}
+		c, err := Record(build, tc.rotation, tc.names)
+		if err != nil {
+			t.Fatalf("Record(%q): %v", tc.rotation, err)
+		}
+		if got := c.String(); got != tc.chart {
+			t.Errorf("Record(%q) = %q, want %q", tc.rotation, got, tc.chart)
+		}
+		d, err := Decode(c.Encode())
+		if err != nil {
+			t.Fatalf("Decode(%q): %v", c, err)
+		}
+		want, got := actionFrames(t, build, tc.rotation), actionFrames(t, build, d.Gcsl(tc.names))
+		if !slices.Equal(got, want) {
+			t.Errorf("%q recorded as %q plays\n%v\nwant\n%v", tc.rotation, c, got, want)
+		}
+	}
+}
+
+// The preview plays delays as the chart compiles them: Hu Tao's second
+// skill 300 frames after its cooldown, and a final delay before each
+// next pass's first note, marked as that note's own time.
+func TestPreviewDelay(t *testing.T) {
+	team, err := library.LoadFS(teams.FS, "hutao-xingqiu-zhongli-yelan")
+	if err != nil {
+		t.Fatal(err)
+	}
+	names := [Slots]string{"hutao", "xingqiu", "yelan", "zhongli"}
+	build := config.AddParams(team.Build, "hutao", team.Params["hutao"])
+	for _, chart := range []string{"0E +300 0E", "0N +120"} {
+		c, err := Parse(chart)
+		if err != nil {
+			t.Fatal(err)
+		}
+		p, err := c.Preview(build, names, nil)
+		if err != nil || p.Error != nil {
+			t.Fatalf("preview %q: %v %+v", chart, err, p.Error)
+		}
+		want := actionFrames(t, build, c.Gcsl(names))
+		var got []string
+		for _, n := range p.Notes {
+			if n.Start >= 0 && n.Start < n.Asked {
+				t.Errorf("%q: note %d ran at %v before it was asked at %v", chart, n.Note, n.Start, n.Asked)
+			}
+			if n.Start >= 0 && n.Start < 45 {
+				got = append(got, fmt.Sprintf("0: %.0f %s", n.Start*60, c.Notes[n.Note].Action))
+			}
+		}
+		if len(got) > 3 {
+			got = got[:3]
+		}
+		if len(want) > 3 {
+			want = want[:3]
+		}
+		if !slices.Equal(got, want) {
+			t.Errorf("%q: preview notes %v, want %v", chart, got, want)
 		}
 	}
 }
