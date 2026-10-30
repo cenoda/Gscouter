@@ -331,11 +331,20 @@
   var $ = function (id) { return document.getElementById(id); };
   // notice is what the chart started from, shown until the first edit.
   var notice = "";
-  function snapshot() { notice = ""; undoStack.push(write(st)); if (undoStack.length > 100) undoStack.shift(); }
+  // The empty string is a chart (a blank one), so the history is empty
+  // only when it has no entries. An entry the same as the one before it
+  // would be an undo that changes nothing, so it is not kept.
+  function remember() {
+    var t = write(st);
+    if (undoStack.length && undoStack[undoStack.length - 1] === t) return;
+    undoStack.push(t); if (undoStack.length > 100) undoStack.shift();
+  }
+  function snapshot() { notice = ""; remember(); }
   function undo() {
-    var h = undoStack.pop();
-    if (!h) return toast(S.nothingUndo);
-    st = parse(h); cursor = Math.min(cursor, st.notes.length); sel = null; rangeEnd = null; changed();
+    if (!undoStack.length) return toast(S.nothingUndo);
+    // Undoing while a reset is still recording takes the reset back.
+    loads++;
+    st = parse(undoStack.pop()); cursor = Math.min(cursor, st.notes.length); sel = null; rangeEnd = null; changed();
   }
   var previewTimer = 0, urlTimer = 0, previewing = 0;
   function changed() {
@@ -501,6 +510,7 @@
       st.notes.forEach(function (n, i) { s += noteSVG(n, i, 0.5 + i * 0.5, 0, ""); });
     }
     s += '<line class="ph" x1="' + X(ph) + '" x2="' + X(ph) + '" y1="2" y2="' + H + '"/><path class="ph-cap" d="M' + (X(ph) - 6) + ' 2 H' + (X(ph) + 6) + ' L' + X(ph) + ' 10 Z"/>';
+    $("ed-pickup").checked = st.pickup;
     var svg = $("ed-svg");
     svg.setAttribute("width", W); svg.setAttribute("height", H); svg.setAttribute("viewBox", "0 0 " + W + " " + H);
     svg.innerHTML = s;
@@ -663,7 +673,7 @@
     else st.notes[cursor].w = Math.min(MAX_WAIT, st.notes[cursor].w + 30);
     changed();
   };
-  $("ed-reset").onclick = function () { snapshot(); start(""); };
+  $("ed-reset").onclick = function () { if (st) snapshot(); start("", true); };
   $("ed-score").onclick = function () {
     call("encode", [write(st)]).then(function (c) { location.href = SCORE + "&r=" + encodeURIComponent(c); }, function (err) { message(S.broken.replace("%s", err.message), true); });
   };
@@ -940,9 +950,7 @@
     if (!c) return;
     $("ed-name").value = c.n;
     if (st) snapshot();
-    var keep = undoStack;
-    load(c.t);
-    undoStack = keep;
+    load(c.t, true);
   };
   $("ed-save").onclick = function () {
     var name = $("ed-name").value.trim();
@@ -964,31 +972,45 @@
 
   // ---- Start: the chart from the link, else the one kept in this
   // browser, else the library rotation recorded with the player's build.
-  function load(text) {
-    st = parse(text); undoStack = []; cursor = st.notes.length; sel = null; rangeEnd = null;
+  // load replaces the chart: the first one clears the history, and an
+  // edit (undoable) keeps it, with the chart it replaces on top. Each load
+  // supersedes a recording still under way, which start checks with loads.
+  var loads = 0;
+  function load(text, undoable) {
+    loads++;
+    if (!undoable) undoStack = [];
+    else if (st) remember();
+    st = parse(text); cursor = st.notes.length; sel = null; rangeEnd = null;
     // A team the library doesn't have picks shards up unless its chart
     // came with a choice: nothing to compare with makes it unfair.
     if (!ROTATION && !text) st.pickup = true;
-    $("ed-pickup").checked = st.pickup;
     active = st.notes.length ? st.notes[st.notes.length - 1].s : 0;
     changed();
   }
-  function start(text) {
-    if (text) return load(text);
+  // start loads the first chart, or, undoable, a reset's. A recording
+  // that another load (or an undo) overtook while it ran is dropped.
+  function start(text, undoable) {
+    if (text) return load(text, undoable);
+    var mine = ++loads;
+    function current() { return mine === loads; }
     if (!ROTATION) {
       // A team the library doesn't have: a library team's rotation
       // without the member this team lacks, else an empty chart.
-      if (!TEMPLATE) { notice = S.blank; load(""); return message(S.blank, false); }
+      if (!TEMPLATE) { notice = S.blank; load("", undoable); return message(S.blank, false); }
       message(S.recording, false);
       return call("record", [TEMPLATE_BUILD, TEMPLATE.rotation, TEMPLATE_NAMES, MOVES]).then(function (t) {
+        if (!current()) return;
         notice = S.template.replace("%s", TEMPLATE.name);
-        load(t.indexOf("; pickup") < 0 ? t + " ; pickup" : t);
-      }, function () { notice = S.blank; load(""); message(S.blank, false); });
+        load(t.indexOf("; pickup") < 0 ? t + " ; pickup" : t, undoable);
+      }, function () { if (!current()) return; notice = S.blank; load("", undoable); message(S.blank, false); });
     }
     message(S.recording, false);
-    call("record", [RECORD_BUILD, ROTATION, NAMES]).then(load, function (err) {
+    call("record", [RECORD_BUILD, ROTATION, NAMES]).then(function (t) {
+      if (current()) load(t, undoable);
+    }, function (err) {
+      if (!current()) return;
       message(S.recordFailed.replace("%s", err.message), true);
-      load("");
+      load("", undoable);
     });
   }
   $("ed-pickup").addEventListener("change", function () {
