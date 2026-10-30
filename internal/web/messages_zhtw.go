@@ -73,6 +73,11 @@ func init() {
 		"index.refresh":          "重新載入展示櫃",
 		"index.unlock_heading":   "接下來放進展示櫃的角色",
 		"index.unlock_lead":      "與現有角色一起可組成的隊伍庫隊伍數：",
+		"index.saved":            "已儲存於 Enka",
+		"index.saved_unnamed":    "未命名配置",
+		"index.build_live":       "角色展示櫃",
+		"index.build_choice":     "配置",
+		"index.saved_note":       "這位玩家在 Enka.Network 儲存了配置：不在角色展示櫃中的角色也可以用這些配置選擇，有多套配置的角色可以在名字下方選擇其中一套。",
 
 		"problem.home": "返回首頁",
 
@@ -277,6 +282,7 @@ func init() {
 		"about.data_h":          "保存的資訊與位置",
 		"about.d_browser":       "瀏覽器中：你選擇的語言、最近的 UID 及其展示櫃配置，以及目前分頁中已完成的計算。在瀏覽器中清除本站資料即可刪除。",
 		"about.d_server":        "伺服器（僅記憶體）：查詢過的展示櫃在 Enka.Network 允許的時間內保存，分數保存一天。IP 位址僅使用一分鐘，用於限制一位訪客產生短網址的數量。不記錄誰造訪了哪個頁面，只保留每日總數（頁面瀏覽次數和被查詢的不同 UID 數），無法從中追溯到任何人。",
+		"about.d_saved":         "儲存的配置：如果 UID 在 Enka.Network 帳號上公開，該玩家在 Enka 儲存的配置也是公開的。伺服器會與展示櫃一起取得這些配置，並在記憶體中保存 10 分鐘。用這些配置選擇的結果，會像展示櫃配置一樣把配置寫入網址。",
 		"about.d_links":         "短網址：複製結果連結時，會保存結果網址，讓短網址持續有效。網址包含公開展示櫃中的 UID、暱稱和配置。短網址不設期限。",
 		"about.delete":          `如需刪除短網址，請在 <a href="https://discord.gg/PkkN9D4M4G">Discord</a> 上把連結傳給我們。長連結本身就包含同樣的資訊，所以持有它的人仍可使用。`,
 		"about.scores_h":        "關於分數",

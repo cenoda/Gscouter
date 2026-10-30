@@ -73,6 +73,11 @@ func init() {
 		"index.refresh":          "Präsentation neu laden",
 		"index.unlock_heading":   "Als Nächstes ausstellen",
 		"index.unlock_lead":      "Teams der Bibliothek, die jeder Charakter mit deinen vorhandenen Charakteren vervollständigt:",
+		"index.saved":            "Auf Enka gespeichert",
+		"index.saved_unnamed":    "Build ohne Namen",
+		"index.build_live":       "Präsentation",
+		"index.build_choice":     "Build",
+		"index.saved_note":       "Dieser Spieler hat Builds auf Enka.Network gespeichert: Charaktere außerhalb der Präsentation können damit gewählt werden, und bei einem Charakter mit mehreren Builds wird der unter seinem Namen gewählte genommen.",
 
 		"problem.home": "Startseite",
 
@@ -277,6 +282,7 @@ func init() {
 		"about.data_h":          "Was gespeichert wird und wo",
 		"about.d_browser":       "In deinem Browser: die gewählte Sprache, deine letzten UIDs mit den Builds ihres Schaukastens und fertige Berechnungen des offenen Tabs. Wenn du die Daten der Seite im Browser löschst, sind sie weg.",
 		"about.d_server":        "Auf dem Server, nur im Arbeitsspeicher: abgerufene Schaukästen, solange Enka.Network es erlaubt, und Ergebnisse für einen Tag. Deine IP-Adresse wird eine Minute lang genutzt, um zu begrenzen, wie viele Kurzlinks ein Besucher erstellt. Wer welche Seite besucht, wird nicht festgehalten: Der Server behält nur Tagessummen (Seitenaufrufe und wie viele verschiedene UIDs abgerufen wurden), die auf niemanden zurückführen.",
+		"about.d_saved":         "Gespeicherte Builds: Ist eine UID über ein Enka.Network-Konto öffentlich, sind auch die Builds öffentlich, die ihr Spieler dort gespeichert hat. Der Server ruft sie mit dem Schaukasten ab und behält sie 10 Minuten im Arbeitsspeicher. Ein damit gewähltes Ergebnis trägt den Build in seinem Link, wie einen Build aus dem Schaukasten.",
 		"about.d_links":         "Kurzlinks: Wenn du den Link eines Ergebnisses kopierst, wird dessen Adresse gespeichert, damit der Kurzlink weiter funktioniert. Die Adresse enthält UID, Spitznamen und Builds aus dem öffentlichen Schaukasten. Kurzlinks werden ohne Ablaufdatum gespeichert.",
 		"about.delete":          `Um einen Kurzlink entfernen zu lassen, schick ihn uns auf <a href="https://discord.gg/PkkN9D4M4G">Discord</a>. Der lange Link enthält dieselben Daten selbst und funktioniert daher für alle weiter, die ihn haben.`,
 		"about.scores_h":        "Zu den Ergebnissen",

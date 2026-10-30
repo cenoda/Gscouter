@@ -73,6 +73,11 @@ func init() {
 		"index.refresh":          "Ricarica la vetrina",
 		"index.unlock_heading":   "Da mettere in vetrina",
 		"index.unlock_lead":      "Squadre della libreria che ogni personaggio completerebbe con i personaggi che hai già:",
+		"index.saved":            "Salvata su Enka",
+		"index.saved_unnamed":    "Build senza nome",
+		"index.build_live":       "Vetrina",
+		"index.build_choice":     "Build",
+		"index.saved_note":       "Questo giocatore ha salvato build su Enka.Network: i personaggi fuori dalla vetrina si possono scegliere con queste, e un personaggio con più build si sceglie con quella selezionata sotto il suo nome.",
 
 		"problem.home": "Home",
 
@@ -277,6 +282,7 @@ func init() {
 		"about.data_h":          "Cosa viene conservato, e dove",
 		"about.d_browser":       "Nel tuo browser: la lingua scelta, i tuoi UID recenti con le build della vetrina e i calcoli completati della scheda aperta. Cancellare i dati del sito nel browser li rimuove.",
 		"about.d_server":        "Sul server, solo in memoria: le vetrine consultate finché Enka.Network lo consente e i punteggi per un giorno. Il tuo indirizzo IP viene usato per un minuto per limitare quanti link brevi crea ogni visitatore. Chi visita quale pagina non viene registrato: il server conserva solo totali giornalieri (visualizzazioni di pagina e quanti UID diversi sono stati consultati), che non riconducono a nessuno.",
+		"about.d_saved":         "Build salvate: se un UID è pubblico su un account Enka.Network, sono pubbliche anche le build che il suo giocatore vi ha salvato. Il server le recupera insieme alla vetrina e le tiene in memoria per 10 minuti. Un risultato scelto con una di esse la porta nel suo link, come una build della vetrina.",
 		"about.d_links":         "Link brevi: copiando il link di un risultato se ne salva l'indirizzo, così il link breve continua a funzionare. L'indirizzo contiene UID, nickname e build della vetrina pubblica. I link brevi sono conservati senza scadenza.",
 		"about.delete":          `Per far rimuovere un link breve, inviacelo su <a href="https://discord.gg/PkkN9D4M4G">Discord</a>. Il link lungo contiene in sé gli stessi dati, quindi continua a funzionare per chi lo possiede.`,
 		"about.scores_h":        "Sui punteggi",

@@ -26,7 +26,7 @@
 {{with .Enemy}}<div class="warn">{{t "enemy.carried" (enemyText .)}}</div>{{end}}
 {{if .Problem}}<div class="bad">{{.Problem}}</div>{{end}}
 
-{{if .Profile}}<div class="card" id="showcase">{{template "showcase" .}}</div>
+{{if .Profile}}<div class="card" id="showcase"{{if .Profile.Owner}} data-saved{{end}}>{{template "showcase" .}}</div>
 <div class="card" id="good">
 <button type="button" class="secondary" id="good-pick">{{t "index.good_import"}}</button>
 <input type="file" id="good-file" accept=".json,application/json" hidden>
@@ -77,10 +77,13 @@
   Object.keys(all).sort(function (a, b) { return all[b].at - all[a].at; }).slice(10).forEach(function (u) { delete all[u]; });
   save();
 
+  // The card is rendered again with the kept characters, and with the
+  // builds the player saved on Enka.Network when they have a public
+  // account there (data-saved; design §4.8).
   function showKept() {
     var kept = Object.keys(mine.c).filter(function (k) { return !live[k]; })
       .map(function (k) { return mine.c[k]; }).sort(function (a, b) { return b.t - a.t; });
-    if (!kept.length || !window.fetch || !window.URLSearchParams) return;
+    if (!(kept.length || card.hasAttribute("data-saved")) || !window.fetch || !window.URLSearchParams) return;
     var body = new URLSearchParams(enemy);
     body.set("uid", current);
     body.set("vs", vs);
@@ -128,12 +131,14 @@
     });
   }
 
-  // tokens are the kept builds of the given characters that are no longer
-  // in the showcase: the server needs them to calculate their teams.
+  // tokens are the builds the server needs to calculate the given
+  // characters' teams: the one picked from a character's saved builds
+  // (data-use), else the kept or saved build of a character that is not
+  // in the showcase.
   function tokens(keys) {
     return keys.map(function (k) {
-      var b = card.querySelector("input[data-kept][value='" + k + "']");
-      return b ? b.getAttribute("data-kept") : "";
+      var b = card.querySelector("input[name=c][value='" + k + "']");
+      return b ? b.getAttribute("data-use") || b.getAttribute("data-kept") || "" : "";
     }).filter(Boolean);
   }
 
@@ -169,6 +174,15 @@
         var sel = u.searchParams.get(vs ? "b" : "a") || "";
         tokens(sel.slice(sel.indexOf(":") + 1).split(",")).forEach(function (t) { u.searchParams.append("build", t); });
         a.href = u.href;
+      });
+    });
+    // A character with several builds is picked with the chosen one.
+    card.querySelectorAll("select.build-choice").forEach(function (sel) {
+      var label = sel.closest("label"), box = label.querySelector("input[name=c]"), line = label.querySelector(".line");
+      sel.addEventListener("change", function () {
+        var o = sel.options[sel.selectedIndex];
+        if (sel.value) box.setAttribute("data-use", sel.value); else box.removeAttribute("data-use");
+        line.textContent = o.getAttribute("data-line");
       });
     });
     var forget = document.getElementById("forget-kept");
@@ -282,8 +296,8 @@
 {{if $.VS}}<input type="hidden" name="a" value="{{$.VS}}">{{end}}
 {{template "enemy-hidden" $.Enemy}}
 <div class="chars">
-{{range .Characters}}{{$kept := index $.Kept .Key}}
-<label>{{if $kept}}<input type="checkbox" name="c" value="{{.Key}}" data-kept="{{build .}}">{{else}}<input type="checkbox" name="c" value="{{.Key}}" data-build="{{build .}}">{{end}}{{template "face" .Key}}<span><span class="name">{{template "el" (element .Key)}}{{name .Key}}</span><span class="muted">Lv.{{.Level}} C{{.Cons}} · {{weapon .Weapon.Key}} R{{.Weapon.Refine}}</span>{{with $kept}}<span class="kept">{{t "index.kept_on" .}}</span>{{end}}</span></label>
+{{range .Characters}}{{$kept := index $.Kept .Key}}{{$saved := index $.Saved .Key}}{{$choices := index $.Choices .Key}}
+<label>{{if or $kept $saved}}<input type="checkbox" name="c" value="{{.Key}}" data-kept="{{build .}}">{{else}}<input type="checkbox" name="c" value="{{.Key}}" data-build="{{build .}}">{{end}}{{template "face" .Key}}<span><span class="name">{{template "el" (element .Key)}}{{name .Key}}</span><span class="muted line">{{template "build-line" .}}</span>{{with $kept}}<span class="kept">{{t "index.kept_on" .}}</span>{{end}}{{if $saved}}<span class="kept">{{t "index.saved"}}</span>{{end}}{{if $choices}}<select class="build-choice" aria-label="{{t "index.build_choice"}}">{{range $choices}}<option value="{{.Token}}" data-line="{{template "build-line" .Char}}">{{.Label}}</option>{{end}}</select>{{else if $saved}}<span class="muted">{{$saved}}</span>{{end}}</span></label>
 {{end}}
 </div>
 <div class="picker-bar">
@@ -295,5 +309,8 @@
 <div class="muted" id="pick-custom" hidden>{{t "index.pick_custom"}}</div>
 </form>
 {{if $.Kept}}<p class="muted">{{t "index.kept_note"}} <button type="button" class="link" id="forget-kept">{{t "index.forget"}}</button></p>{{end}}
+{{if or $.Saved $.Choices}}<p class="muted">{{t "index.saved_note"}}</p>{{end}}
 {{range .Skipped}}<p class="muted">{{t "index.skipped" .AvatarID .Reason}}</p>{{end}}
 {{end}}{{end}}
+
+{{define "build-line"}}Lv.{{.Level}} C{{.Cons}} · {{weapon .Weapon.Key}} R{{.Weapon.Refine}}{{end}}

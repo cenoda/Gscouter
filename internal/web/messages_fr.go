@@ -73,6 +73,11 @@ func init() {
 		"index.refresh":          "Recharger la vitrine",
 		"index.unlock_heading":   "À mettre en vitrine ensuite",
 		"index.unlock_lead":      "Équipes de la bibliothèque que chaque personnage compléterait avec les personnages que vous avez déjà :",
+		"index.saved":            "Enregistré sur Enka",
+		"index.saved_unnamed":    "Build sans nom",
+		"index.build_live":       "Vitrine",
+		"index.build_choice":     "Build",
+		"index.saved_note":       "Ce joueur a enregistré des builds sur Enka.Network : les personnages hors de la vitrine peuvent être choisis avec eux, et un personnage qui a plusieurs builds est choisi avec celui sélectionné sous son nom.",
 
 		"problem.home": "Accueil",
 
@@ -277,6 +282,7 @@ func init() {
 		"about.data_h":          "Ce qui est conservé, et où",
 		"about.d_browser":       "Dans votre navigateur : la langue choisie, vos UID récents avec les builds de leur vitrine, et les calculs terminés de l'onglet ouvert. Effacer les données du site dans votre navigateur les supprime.",
 		"about.d_server":        "Sur le serveur, en mémoire seulement : les vitrines consultées tant qu'Enka.Network le permet, et les scores pendant un jour. Votre adresse IP sert pendant une minute à limiter le nombre de liens courts qu'un visiteur crée. Qui visite quelle page n'est pas enregistré : le serveur ne garde que des totaux quotidiens (pages vues et nombre d'UID différents consultés), qui ne permettent de remonter à personne.",
+		"about.d_saved":         "Builds enregistrés : quand un UID est public sur un compte Enka.Network, les builds que son joueur y a enregistrés le sont aussi. Le serveur les récupère avec la vitrine et les garde en mémoire 10 minutes. Un résultat choisi avec l'un d'eux le porte dans son lien, comme un build de la vitrine.",
 		"about.d_links":         "Liens courts : copier le lien d'un résultat enregistre son adresse pour que le lien court continue de fonctionner. L'adresse contient l'UID, le pseudo et les builds de la vitrine publique. Les liens courts sont conservés sans date de fin.",
 		"about.delete":          `Pour faire supprimer un lien court, envoyez-le-nous sur <a href="https://discord.gg/PkkN9D4M4G">Discord</a>. Le lien long contient lui-même les mêmes données et continue donc de fonctionner pour qui le possède.`,
 		"about.scores_h":        "À propos des scores",

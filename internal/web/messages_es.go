@@ -73,6 +73,11 @@ func init() {
 		"index.refresh":          "Recargar la exhibición",
 		"index.unlock_heading":   "Qué poner en la exhibición",
 		"index.unlock_lead":      "Equipos de la biblioteca que cada personaje completaría con los personajes que ya tienes:",
+		"index.saved":            "Guardado en Enka",
+		"index.saved_unnamed":    "Build sin nombre",
+		"index.build_live":       "Vitrina",
+		"index.build_choice":     "Build",
+		"index.saved_note":       "Este jugador guardó builds en Enka.Network: los personajes fuera de la vitrina se pueden elegir con ellos, y un personaje con varios builds se elige con el que se seleccione bajo su nombre.",
 
 		"problem.home": "Inicio",
 
@@ -277,6 +282,7 @@ func init() {
 		"about.data_h":          "Qué se guarda y dónde",
 		"about.d_browser":       "En tu navegador: el idioma elegido, tus UID recientes con los builds de su escaparate y los cálculos terminados de la pestaña abierta. Borrar los datos del sitio en tu navegador los elimina.",
 		"about.d_server":        "En el servidor, solo en memoria: los escaparates consultados mientras Enka.Network lo permita y las puntuaciones durante un día. Tu dirección IP se usa durante un minuto para limitar cuántos enlaces cortos crea cada visitante. No se registra quién visita qué página: el servidor solo guarda totales diarios (visitas a páginas y cuántos UID distintos se consultaron), y nada en ellos lleva a nadie.",
+		"about.d_saved":         "Builds guardados: si un UID es público en una cuenta de Enka.Network, los builds que su jugador guardó allí también lo son. El servidor los consulta junto con el escaparate y los guarda en memoria durante 10 minutos. Un resultado elegido con uno lleva el build en su enlace, como un build del escaparate.",
 		"about.d_links":         "Enlaces cortos: al copiar el enlace de un resultado se guarda su dirección para que el enlace corto siga funcionando. La dirección contiene el UID, el apodo y los builds del escaparate público. Los enlaces cortos se guardan sin fecha de caducidad.",
 		"about.delete":          `Para que eliminemos un enlace corto, envíanoslo por <a href="https://discord.gg/PkkN9D4M4G">Discord</a>. El enlace largo contiene los mismos datos en sí mismo, así que sigue funcionando para quien lo tenga.`,
 		"about.scores_h":        "Sobre las puntuaciones",

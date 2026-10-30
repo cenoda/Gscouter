@@ -59,6 +59,16 @@ type Profile struct {
 	// that a lookup after it fetches the showcase anew; zero when no cache
 	// set it.
 	Expires time.Time
+	// Owner is the player's public Enka.Network account, nil without
+	// one. Its saved builds are public too (FetchBuilds).
+	Owner *Owner
+}
+
+// Owner names a game account on an Enka.Network account: the account's
+// username and the game account's hash.
+type Owner struct {
+	Username string
+	Hash     string
 }
 
 var (
@@ -158,6 +168,9 @@ func Parse(raw []byte) (*Profile, error) {
 		return nil, fmt.Errorf("decode enka response: %w", err)
 	}
 	p := &Profile{UID: resp.UID, Nickname: resp.PlayerInfo.Nickname, TTL: resp.TTL}
+	if o := resp.Owner; o != nil && o.Username != "" && o.Hash != "" {
+		p.Owner = &Owner{Username: o.Username, Hash: o.Hash}
+	}
 	for _, a := range resp.AvatarInfoList {
 		c, err := data.convert(a)
 		if err != nil {

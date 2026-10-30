@@ -27,11 +27,13 @@ var updates = []update{
 			"The source code of Gscouter is open under the GNU AGPL, linked at the bottom of every page.",
 			"A loaded UID can import characters from a GOOD file (Genshin Optimizer, inventory scanners), so that characters outside the showcase can be picked too.",
 			"A loaded showcase names the characters that would unlock the most teams if you put them in it, and counts down to when a changed showcase can be loaded again.",
+			"Builds saved on Enka.Network can be picked: when a UID is public on an Enka account, its characters outside the showcase come with their saved builds, and a character with several builds can be picked with any of them.",
 		},
 		Ko: []string{
 			"Gscouter의 소스 코드를 GNU AGPL로 공개하고, 모든 페이지 아래에 링크했습니다.",
 			"UID를 불러온 뒤 GOOD 파일(Genshin Optimizer, 인벤토리 스캐너)에서 캐릭터를 가져와, 쇼케이스 밖의 캐릭터도 고를 수 있습니다.",
 			"불러온 쇼케이스에 어떤 캐릭터를 넣으면 계산할 수 있는 파티가 가장 많이 늘어나는지 보여 주고, 쇼케이스를 바꾼 뒤 다시 불러올 수 있을 때까지 남은 시간을 셉니다.",
+			"Enka.Network에 저장한 빌드도 고를 수 있습니다. Enka 계정에 UID가 공개되어 있으면 쇼케이스에 없는 캐릭터도 저장된 빌드로 나오고, 빌드가 여러 개인 캐릭터는 그중 하나를 골라 계산할 수 있습니다.",
 		},
 	},
 	{
