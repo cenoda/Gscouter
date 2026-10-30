@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/cenoda/gscouter/internal/chart"
+	"github.com/cenoda/gscouter/internal/library"
 )
 
 // The editor needs the browser build; without it, it says so.
@@ -52,6 +53,35 @@ func TestScoreWithChart(t *testing.T) {
 	q.Set("r", "not-a-chart")
 	_, body = get(t, ts, "/score?"+q.Encode())
 	mustContain(t, body, "chart cannot be read")
+}
+
+// A chart scores even when the library's rotations for the team all
+// fail: the comparison with them is only left out (docs/cycle-swap.md §7).
+func TestChartScoresWithoutLibrary(t *testing.T) {
+	srv := newTestSiteWith(t, func(lib *library.Library) {
+		team := lib.Find([]string{"hutao", "yelan", "xingqiu", "zhongli"})
+		team.Rotation = "active hutao;\nhutao audit_invalid_action;\n"
+		team.Alternatives = nil
+	})
+	ts := newTestServerFor(t, srv)
+	c, err := chart.Parse("0N")
+	if err != nil {
+		t.Fatal(err)
+	}
+	q := url.Values{"a": {"800000001:hutao,yelan,xingqiu,zhongli"}, "r": {c.Encode()}}
+	code, body := get(t, ts, "/score?"+q.Encode())
+	if code != http.StatusOK {
+		t.Fatalf("status %d", code)
+	}
+	if strings.Contains(body, "The calculation failed.") {
+		t.Fatal("the chart did not score")
+	}
+	mustContain(t, body, "Scored with your own rotation", "hutao attack;")
+
+	// Without a chart, the failing rotation still fails the team.
+	q.Del("r")
+	_, body = get(t, ts, "/score?"+q.Encode())
+	mustContain(t, body, "The calculation failed.")
 }
 
 // A link's chart of only notes played when ready, which would loop on
