@@ -33,6 +33,9 @@ var updates = []update{
 			"Your own rotation is scored even when the library's rotation for the team fails on your build.",
 			"The rotation editor's first chart is recorded with the library team's character settings, and keeps a wait that ends the rotation.",
 			"Calculating in the browser no longer falls back to the server when one candidate rotation fails.",
+			"A very short rotation of your own can be calculated in the browser; it used to fail there.",
+			"The rotation editor keeps a custom enemy, from the result to the editor and back.",
+			"The rotation editor records a rotation's delays as delays, not waits, so its timing stays the same.",
 		},
 		Ko: []string{
 			"Gscouter의 소스 코드를 GNU AGPL로 공개하고, 모든 페이지 아래에 링크했습니다.",
@@ -44,6 +47,9 @@ var updates = []update{
 			"라이브러리 로테이션이 내 빌드에서 실패해도 직접 짠 로테이션은 계산합니다.",
 			"로테이션 편집기의 첫 차트를 라이브러리 파티의 캐릭터 설정으로 녹화하고, 로테이션 끝의 대기도 남깁니다.",
 			"브라우저 계산에서 후보 로테이션 하나가 실패해도 서버 계산으로 넘어가지 않습니다.",
+			"아주 짧은 직접 짠 로테이션도 브라우저에서 계산됩니다. 전에는 브라우저에서 실패했습니다.",
+			"로테이션 편집기가 결과에서 편집기로 갔다가 돌아올 때까지 직접 설정한 적을 유지합니다.",
+			"로테이션 편집기가 로테이션의 delay를 wait로 바꾸지 않고 그대로 녹화해, 동작 타이밍이 바뀌지 않습니다.",
 		},
 	},
 	{
