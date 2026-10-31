@@ -23,6 +23,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"slices"
+	"strconv"
 	"strings"
 	"time"
 
@@ -37,7 +38,7 @@ import (
 
 func main() {
 	var (
-		char       = flag.String("char", "", "member whose action is taken out, as gcsim names it")
+		char       = flag.String("char", "", "member whose action is taken out, under any of gcsim's names for it")
 		cons       = flag.Int("cons", 6, "the member's constellation the variant is for")
 		drop       = flag.String("drop", "burst", "the action taken out: "+strings.Join(library.VariantDrops, ", "))
 		minGain    = flag.Float64("min", 0.01, "least gain over the team's rotation to write the variant")
@@ -48,61 +49,67 @@ func main() {
 		flag.Usage()
 		os.Exit(2)
 	}
-	name := fmt.Sprintf("%s-c%d-no-%s", *char, *cons, *drop)
 	written := 0
 	for _, dir := range flag.Args() {
-		gain, err := derive(dir, name, library.Variant{Drop: *drop, Char: *char}, *cons, *minGain, *iterations)
+		name, gain, err := derive(dir, library.Variant{Drop: *drop, Char: *char}, *cons, *minGain, *iterations)
 		switch {
 		case err != nil:
 			fmt.Printf("%-50s error: %v\n", filepath.Base(dir), err)
 		case gain >= *minGain:
 			written++
-			fmt.Printf("%-50s %+6.1f%%  written\n", filepath.Base(dir), gain*100)
+			fmt.Printf("%-50s %+6.1f%%  written (%s)\n", filepath.Base(dir), gain*100, name)
 		default:
 			fmt.Printf("%-50s %+6.1f%%\n", filepath.Base(dir), gain*100)
 		}
 	}
-	fmt.Printf("\nwrote %d variants (%s) for %d teams\n", written, name, flag.NArg())
+	fmt.Printf("\nwrote %d variants (%s C%d without %s) for %d teams\n", written, *char, *cons, *drop, flag.NArg())
 }
 
 // derive measures the variant of the team in dir and writes or removes
-// it, returning its gain over the team's rotation. An earlier variant of
+// it, returning its name and its gain over the team's rotation. v.Char
+// may be any of gcsim's names for the member ("amy" for "fischl"): the
+// member, the rotation's statements and the build's character are all
+// matched by gcsim key, and the variant is written under the team's name
+// for the member (library loading checks Variant.Char against the
+// team's members), as alt/<member>-c<cons>-no-<drop>. An earlier variant of
 // that name is left as it is until the measurement succeeds: it is
 // removed only when the gain falls short of minGain, and replaced only
 // once the new one is written in full (replaceDir).
-func derive(dir, name string, v library.Variant, cons int, minGain float64, iterations int) (float64, error) {
-	out := filepath.Join(dir, library.AltDir, name)
+func derive(dir string, v library.Variant, cons int, minGain float64, iterations int) (name string, gain float64, err error) {
 	team, err := library.Load(dir)
 	if err != nil {
-		return 0, err
+		return "", 0, err
 	}
 	if team.Status == library.StatusBlocked {
-		return 0, fmt.Errorf("blocked")
+		return "", 0, fmt.Errorf("blocked")
 	}
-	if !slices.Contains(team.Members, v.Char) {
-		return 0, fmt.Errorf("no member %s", v.Char)
+	i := slices.IndexFunc(team.Members, func(m string) bool { return library.Canonical(m) == library.Canonical(v.Char) })
+	if i < 0 {
+		return "", 0, fmt.Errorf("no member %s", v.Char)
 	}
+	v.Char = team.Members[i]
+	name = fmt.Sprintf("%s-c%d-no-%s", v.Char, cons, v.Drop)
+	out := filepath.Join(dir, library.AltDir, name)
 	rotation := config.DropBursts(team.Rotation, v.Char)
 	if rotation == team.Rotation {
-		return 0, fmt.Errorf("the rotation has no %s of %s", v.Drop, v.Char)
+		return name, 0, fmt.Errorf("the rotation has no %s of %s", v.Drop, v.Char)
 	}
-	consRe := regexp.MustCompile(`(?m)^(\s*` + regexp.QuoteMeta(v.Char) + `\s+char\b[^;]*\bcons\s*=\s*)\d+`)
-	if !consRe.MatchString(team.Build) {
-		return 0, fmt.Errorf("the build has no constellation for %s", v.Char)
+	build, ok := raiseCons(team.Build, v.Char, cons)
+	if !ok {
+		return name, 0, fmt.Errorf("the build has no constellation for %s", v.Char)
 	}
-	build := consRe.ReplaceAllString(team.Build, fmt.Sprintf("${1}%d", cons))
 
 	own, err := measure(team, build, team.Rotation, iterations)
 	if err != nil {
-		return 0, fmt.Errorf("the team's rotation: %w", err)
+		return name, 0, fmt.Errorf("the team's rotation: %w", err)
 	}
 	dps, err := measure(team, build, rotation, iterations)
 	if err != nil {
-		return 0, fmt.Errorf("the variant: %w", err)
+		return name, 0, fmt.Errorf("the variant: %w", err)
 	}
-	gain := dps/own - 1
+	gain = dps/own - 1
 	if gain < minGain {
-		return gain, os.RemoveAll(out)
+		return name, gain, os.RemoveAll(out)
 	}
 
 	alt := *team
@@ -117,7 +124,7 @@ func derive(dir, name string, v library.Variant, cons int, minGain float64, iter
 		v.Char, v.Drop, v.Char, cons, v.Char, cons, dps, own, gain*100, iterations, time.Now().Format(time.DateOnly))
 	meta, err := yaml.Marshal(&alt)
 	if err != nil {
-		return 0, err
+		return name, 0, err
 	}
 	files := map[string]string{
 		"team.yaml":     string(meta),
@@ -125,9 +132,29 @@ func derive(dir, name string, v library.Variant, cons int, minGain float64, iter
 		"build.txt":     fmt.Sprintf("# The team's build with %s at C%d, the build the variant was measured and is validated with.\n\n", v.Char, cons) + stripComments(build),
 	}
 	if err := replaceDir(out, files); err != nil {
-		return 0, err
+		return name, 0, err
 	}
-	return gain, nil
+	return name, gain, nil
+}
+
+// consRe matches a character line of a build up to its constellation's
+// number: "fischl char lvl=90/90 cons=" of "... cons=6 talent=9,9,9;".
+var consRe = regexp.MustCompile(`(?m)^(\s*)(\w+)(\s+char\b[^;]*\bcons\s*=\s*)\d+`)
+
+// raiseCons sets the constellation of char in build to cons, matching
+// the build's character lines by gcsim key, and reports whether the
+// build has one for char.
+func raiseCons(build, char string, cons int) (string, bool) {
+	found := false
+	out := consRe.ReplaceAllStringFunc(build, func(line string) string {
+		m := consRe.FindStringSubmatch(line)
+		if library.Canonical(m[2]) != library.Canonical(char) {
+			return line
+		}
+		found = true
+		return m[1] + m[2] + m[3] + strconv.Itoa(cons)
+	})
+	return out, found
 }
 
 // measure scores rotation on build for the team as the site does: looped,

@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -54,7 +55,7 @@ func existing(t *testing.T, dir string) map[string]string {
 		}
 		return 1100, nil
 	})
-	if _, err := derive(dir, variantName, hutaoVariant, 6, 0.01, 1); err != nil {
+	if _, _, err := derive(dir, hutaoVariant, 6, 0.01, 1); err != nil {
 		t.Fatal(err)
 	}
 	measure = simulate
@@ -123,7 +124,7 @@ func TestDeriveKeepsVariantOnInputError(t *testing.T) {
 				return 0, nil
 			})
 			tc.spoil(t, dir)
-			if _, err := derive(dir, variantName, tc.v, 6, 0.01, 1); err == nil {
+			if _, _, err := derive(dir, tc.v, 6, 0.01, 1); err == nil {
 				t.Fatal("no error")
 			}
 			kept(t, dir, want)
@@ -147,7 +148,7 @@ func TestDeriveKeepsVariantOnParseError(t *testing.T) {
 	if err := os.WriteFile(filepath.Join(dir, "rotation.gcsl"), []byte(rotation), 0o644); err != nil {
 		t.Fatal(err)
 	}
-	_, err = derive(dir, variantName, hutaoVariant, 6, 0.01, 1)
+	_, _, err = derive(dir, hutaoVariant, 6, 0.01, 1)
 	if err == nil || !strings.Contains(err.Error(), "the team's rotation") {
 		t.Fatalf("error %v, want gcsim's on the team's rotation", err)
 	}
@@ -170,7 +171,7 @@ func TestDeriveKeepsVariantOnSimulationFailure(t *testing.T) {
 				}
 				return 1000, nil
 			})
-			if _, err := derive(dir, variantName, hutaoVariant, 6, 0.01, 1); err == nil || !strings.Contains(err.Error(), side) {
+			if _, _, err := derive(dir, hutaoVariant, 6, 0.01, 1); err == nil || !strings.Contains(err.Error(), side) {
 				t.Fatalf("error %v, want one about the %s", err, side)
 			}
 			kept(t, dir, want)
@@ -182,7 +183,7 @@ func TestDeriveRemovesVariantOnLowGain(t *testing.T) {
 	dir := teamDir(t)
 	existing(t, dir)
 	stub(t, func(string) (float64, error) { return 1000, nil })
-	gain, err := derive(dir, variantName, hutaoVariant, 6, 0.01, 1)
+	_, gain, err := derive(dir, hutaoVariant, 6, 0.01, 1)
 	if err != nil || gain != 0 {
 		t.Fatalf("gain %v, error %v; want 0, nil", gain, err)
 	}
@@ -204,7 +205,7 @@ func TestDeriveReplacesVariant(t *testing.T) {
 		}
 		return 1234, nil
 	})
-	gain, err := derive(dir, variantName, hutaoVariant, 6, 0.01, 1)
+	_, gain, err := derive(dir, hutaoVariant, 6, 0.01, 1)
 	if err != nil || gain < 0.2 {
 		t.Fatalf("gain %v, error %v", gain, err)
 	}
@@ -237,5 +238,74 @@ func TestReplaceDirKeepsDirOnWriteFailure(t *testing.T) {
 	}
 	if entries, _ := os.ReadDir(filepath.Dir(dir)); len(entries) != 1 {
 		t.Errorf("staging left behind: %d entries", len(entries))
+	}
+}
+
+// The committed team writes Fischl as "amy" and Alhaitham as "haitham"
+// in its rotation, and as fischl and alhaitham in its metadata and
+// build. Either name gives the same variant, written under the team's.
+func TestDeriveAliases(t *testing.T) {
+	src := "../../teams/alhaitham-bennett-fischl-dori"
+	for _, c := range []struct {
+		char, member, gone string
+		cons               int
+	}{
+		{"fischl", "fischl", "amy attack, burst;", 6},
+		{"amy", "fischl", "amy attack, burst;", 6},
+		{"alhaitham", "alhaitham", "haitham burst;", 2},
+		{"haitham", "alhaitham", "haitham burst;", 2},
+	} {
+		t.Run(c.char, func(t *testing.T) {
+			dir := t.TempDir()
+			for _, name := range []string{"team.yaml", "build.txt", "rotation.gcsl"} {
+				raw, err := os.ReadFile(filepath.Join(src, name))
+				if err != nil {
+					t.Fatal(err)
+				}
+				if err := os.WriteFile(filepath.Join(dir, name), raw, 0o644); err != nil {
+					t.Fatal(err)
+				}
+			}
+			team, err := library.Load(dir)
+			if err != nil {
+				t.Fatal(err)
+			}
+			stub(t, func(rotation string) (float64, error) {
+				if rotation == team.Rotation {
+					return 1000, nil
+				}
+				return 1100, nil
+			})
+			name, _, err := derive(dir, library.Variant{Char: c.char, Drop: "burst"}, c.cons, 0.01, 1)
+			if err != nil {
+				t.Fatal(err)
+			}
+			want := fmt.Sprintf("%s-c%d-no-burst", c.member, c.cons)
+			if name != want {
+				t.Errorf("written as %s, want %s", name, want)
+			}
+			files := read(t, filepath.Join(dir, library.AltDir, want))
+			if strings.Contains(files["rotation.gcsl"], c.gone) {
+				t.Errorf("the burst is still there:\n%s", files["rotation.gcsl"])
+			}
+			if line := fmt.Sprintf("%s char lvl=90/90 cons=%d ", c.member, c.cons); !strings.Contains(files["build.txt"], line) {
+				t.Errorf("the build has no %q:\n%s", line, files["build.txt"])
+			}
+			got, err := library.Load(dir)
+			if err != nil || len(got.Alternatives) != 1 || got.Alternatives[0].Variant.Char != c.member {
+				t.Errorf("the team does not load with its variant for %s: %v", c.member, err)
+			}
+		})
+	}
+}
+
+func TestRaiseConsByKey(t *testing.T) {
+	build := "fischl char lvl=90/90 cons=0 talent=9,9,9;\nbeidou char lvl=90/90 cons=0 talent=9,9,9;\n"
+	got, ok := raiseCons(build, "amy", 6)
+	if want := "fischl char lvl=90/90 cons=6 talent=9,9,9;\nbeidou char lvl=90/90 cons=0 talent=9,9,9;\n"; !ok || got != want {
+		t.Errorf("raiseCons = %q, %v; want %q", got, ok, want)
+	}
+	if _, ok := raiseCons(build, "xiangling", 6); ok {
+		t.Error("raised a constellation the build does not have")
 	}
 }

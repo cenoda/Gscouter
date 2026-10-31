@@ -213,6 +213,8 @@ func TestParseAction(t *testing.T) {
 		{"attack :4", action{name: "attack", repeat: "4"}},
 		{"burst [a=1, b=2]", action{name: "burst", params: "[a=1, b=2]"}},
 		{"high_plunge[collision=1]", action{name: "high_plunge", params: "[collision=1]"}},
+		{"high_plunge[collision=rand()>0.5]", action{name: "high_plunge", params: "[collision=rand()>0.5]"}},
+		{"skill[x=a[1]]:2", action{name: "skill", params: "[x=a[1]]", repeat: "2"}},
 	} {
 		if got := parseAction(c.in); got != c.want {
 			t.Errorf("parseAction(%q) = %+v, want %+v", c.in, got, c.want)
@@ -266,6 +268,58 @@ func TestFillSpaceBeforeParams(t *testing.T) {
 		}
 		if _, _, err := parser.New(ast.NewFile(), "beidou char lvl=90/90 cons=0 talent=9,9,9;\n"+got).Parse(); err != nil {
 			t.Errorf("%v: filled rotation does not parse: %v\n%s", how, err, got)
+		}
+	}
+}
+
+// Parameters may hold any expression, parenthesized terms and calls
+// included. Such a statement is read like one with a plain parameter:
+// its skill form, its fill and its dropped burst are those of the plain
+// spelling with the parameter's text kept as written. A statement with
+// parentheses outside brackets (a call, a condition) is still no action.
+func TestParenthesizedParams(t *testing.T) {
+	const plain = "[counter=1]"
+	party := []string{"itto", "bennett", "fischl", "beidou"}
+	rot := func(p string) string {
+		return "fn rand_counter() { return 1; }\nfn f(a, b) { return a + b; }\nactive beidou;\n" +
+			"beidou attack, skill" + p + ", burst;\nbennett skill;\nbeidou burst" + p + ", attack;\n"
+	}
+	for _, p := range []string{"[counter=(1)]", "[counter=rand_counter()]", "[counter=f(1,2)]", "[counter=f(1, (2)), x=2]"} {
+		as := func(s string) string { return strings.ReplaceAll(s, plain, p) }
+		if got := skillForms(rot(p), party)["beidou"]; got != "skill"+p {
+			t.Errorf("%s: Beidou's form = %q, want %q", p, got, "skill"+p)
+		}
+		for _, how := range []Filler{FillSelf, FillParty, FillSkip, FillBrief} {
+			energy := map[string]Filler{"beidou": how}
+			skill := []string{"beidou"}
+			got, want := Fill(rot(p), energy, skill, party), as(Fill(rot(plain), energy, skill, party))
+			if got != want || !strings.Contains(got, "while !.beidou.burst.ready") && how != FillSkip {
+				t.Errorf("%s, %v: got\n%s\nwant\n%s", p, how, got, want)
+			}
+			if how == FillSkip && !strings.Contains(got, "if .beidou.burst.ready { beidou burst; } else { wait(1); }") {
+				t.Errorf("%s: the burst is not passed when not ready:\n%s", p, got)
+			}
+			if _, _, err := parser.New(ast.NewFile(), "beidou char lvl=90/90 cons=0 talent=9,9,9;\n"+got).Parse(); err != nil {
+				t.Errorf("%s, %v: filled rotation does not parse: %v\n%s", p, how, err, got)
+			}
+		}
+		got, want := DropBursts(rot(p), "beidou"), as(DropBursts(rot(plain), "beidou"))
+		if got != want || strings.Contains(got, "burst"+p) || strings.Contains(got, ", burst;") {
+			t.Errorf("%s: DropBursts got\n%s\nwant\n%s", p, got, want)
+		}
+	}
+	// The committed statement (teams/cyno-chevreuse-beidou-thoma).
+	in := "active beidou;\n  beidou skill[counter=rand_counter()], burst;\n"
+	if got, want := DropBursts(in, "beidou"), "active beidou;\n  beidou skill[counter=rand_counter()];\n"; got != want {
+		t.Errorf("DropBursts(%q) = %q, want %q", in, got, want)
+	}
+	if got, want := Fill(in, map[string]Filler{"beidou": FillSkip}, nil, party),
+		"active beidou;\n  beidou skill[counter=rand_counter()]; if .beidou.burst.ready { beidou burst; } else { wait(1); }\n"; got != want {
+		t.Errorf("Fill(%q) = %q, want %q", in, got, want)
+	}
+	for _, s := range []string{"let x = f(1);", "wait(1);", "beidou skill(1);", "beidou skill, f(1);", "if f(1) { beidou burst; }", "x = [f(1)];", "beidou skill[x=1;"} {
+		if st, ok := scanStatement(s); ok && (st.name == "beidou" || st.name == "x") {
+			t.Errorf("scanStatement(%q) read an action statement: %+v", s, st)
 		}
 	}
 }

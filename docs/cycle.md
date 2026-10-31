@@ -1,6 +1,6 @@
 # Cycle
 
-> Status: In progress (§5.1, §5.2 and §7 implemented) · Last updated: 2026-10-29
+> Status: In progress (§5.1, §5.2 and §7 implemented) · Last updated: 2026-10-31
 
 Roadmap node Cycle (`docs/roadmap.md`): what the fixed rotation (design §5.2) does with builds other than the one it was written for, and where the score stops being trustworthy because of it. §5.1, §5.2 and §7 are implemented; §6 proposes the rest, §8 says what teams without an alternative still need, §9 records Skirk's C6, and §10 explains the normal attacks in Mavuika's rotation and how the page names her actions.
 
@@ -178,6 +178,7 @@ _2026-10-29._ For each of the 191 teams, every build it has (the library's and e
 _2026-10-29._ A variant is an alternative derived from the team's own rotation instead of a database entry, for a constellation the database has no entry for (§8): `variant: {drop: burst, char: <member>}` in its `team.yaml` (`library.Variant`), with the team's rotation minus that member's bursts (`config.DropBursts`) and the team's build with the member's constellation raised.
 
 - `cmd/variant -char <member> -cons <n> teams/...` scores each team's rotation and the variant on that build as the site does (looped, fillers, 200 iterations) and writes `alt/<member>-c<n>-no-burst/` as a draft only when the variant scores at least 1% more (`-min`), with both scores in `notes`. A variant written earlier is removed only when that measurement succeeds and falls short; a team it cannot load or score (an error in its files, its rotation or the simulation) keeps it, and a replacement is written in full beside it before it is swapped in (2026-10-30). `cmd/validate -promote` then checks it like any alternative, except that it has no source DPS: the reference check is skipped ("variant of the team's rotation"), and the other criteria for supported apply.
+- `-char` takes any of gcsim's names for the member (`fischl` or `amy`). The team's member, the rotation's statements and the build's character line are all matched by gcsim key, and the variant is written under the team's name for the member (`alt/fischl-c6-no-burst/`, `variant.char: fischl`), which library loading checks against the members. Until 2026-10-31 each was matched as text, so a team whose rotation writes the member under another name than its metadata could not get a variant: `amy burst;` on Alhaitham / Bennett / Fischl / Dori gave "the rotation has no burst of fischl", and `-char amy` gave "no member amy" (648 supported team/member pairs). `config.DropBursts` takes out the bursts of every name the rotation uses for the member.
 - Unlike a database alternative, the score tries a variant only for builds that reach the constellations its build raises (`library.Team.RotationsFor`): it costs nothing for other builds and cannot win by ranking noise there.
 - `cmd/harvest -alternatives` keeps variants when it replaces a team's alternatives.
 - The result says that the score uses the team's rotation without that member's burst and the constellations it was made for; the library team page lists it.
