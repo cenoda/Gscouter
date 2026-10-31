@@ -1,34 +1,61 @@
 {{template "head" .Meta}}
 <div class="card">
 <h1>{{t "index.supported"}}</h1>
-<form class="inline" action="/teams" method="get">
+<form class="inline" action="/teams" method="get" data-home="{{link "/teams" nil}}">
 {{template "lang-hidden"}}<input type="search" name="q" id="team-q" placeholder="{{t "teams.placeholder"}}" value="{{.Query}}" autocomplete="off">
 <button type="submit">{{t "teams.search"}}</button>
 </form>
-<p class="muted" id="team-count">{{if .Query}}{{t "teams.matching" .Query (len .Teams) .Total}}{{else}}{{t "teams.total" .Total}}{{end}}</p>
+<p class="muted" id="team-count">{{if .Query}}{{t "teams.matching" .Query (len .Teams) .Total}}{{else}}{{t "teams.browse" .Total}}{{end}}</p>
 <p class="muted">{{t "teams.hint"}}</p>
-<ul class="teams" id="team-list">
-{{range .Teams}}<li data-m="{{members .}}"><a href="/teams/{{.ID}}{{$.Lang}}">{{teamName .}}</a>{{if eq .Tier "experimental"}} <span class="badge">{{t "tier.experimental"}}</span>{{end}}{{if eq .Status "supported"}} <span class="muted">· {{t "teams.supported"}}</span>{{else if eq .Status "blocked"}} <span class="muted">· {{t "teams.blocked"}}</span>{{end}}</li>{{end}}
+<ul class="roster" id="team-chars"{{if .Query}} hidden{{end}}>
+{{range .Chars}}<li><a href="{{link "/teams" nil "q" (name .)}}" data-name="{{name .}}">{{template "face" .}}{{name .}}</a></li>{{end}}
+</ul>
+<ul class="parties" id="team-list"{{if not .Query}} hidden{{end}}>
+{{range .Teams}}<li data-m="{{members .}}"><a href="/teams/{{.ID}}{{$.Lang}}">{{teamName .}}</a>{{if eq .Tier "experimental"}} <span class="badge">{{t "tier.experimental"}}</span>{{end}}{{if eq .Status "blocked"}} <span class="badge">{{t "teams.blocked"}}</span>{{end}}</li>{{end}}
 </ul>
 </div>
-{{if not .Query}}<div class="card">
-<h2>{{t "teams.chars"}}</h2>
-<div class="chips">{{range .Chars}}<a href="/characters/{{.}}{{$.Lang}}">{{name .}}</a>{{end}}</div>
-</div>{{end}}
 <script>
 (function () {
-  // Filters the list as you type; the form does the same on the server.
+  // The full list is on the page when it was opened with no search, and
+  // the box filters it. A search the server already narrowed cannot be
+  // widened here, so a different search is sent to the server, and
+  // clearing the box returns to the character list.
   var q = document.getElementById("team-q"), items = document.querySelectorAll("#team-list li");
-  var count = document.getElementById("team-count"), total = {{.Total}};
-  var found = {{t "teams.found"}}, all = {{t "teams.total"}};
-  q.addEventListener("input", function () {
-    var words = q.value.toLowerCase().split(/\s+/).filter(Boolean), n = 0;
+  var list = document.getElementById("team-list"), chars = document.getElementById("team-chars");
+  var count = document.getElementById("team-count"), total = {{.Total}}, home = q.form.dataset.home;
+  var found = {{t "teams.found"}}, browse = {{t "teams.browse"}}, loaded = {{.Query}};
+  function wordsOf(s) { return s.toLowerCase().split(/\s+/).filter(Boolean); }
+  var loadedWords = wordsOf(loaded), timer;
+  function paint() {
+    var words = wordsOf(q.value), n = 0;
     items.forEach(function (li) {
-      var m = li.dataset.m, show = words.every(function (w) { return m.indexOf(w) >= 0; });
+      var show = words.length && words.every(function (w) { return li.dataset.m.indexOf(w) >= 0; });
       li.hidden = !show;
       if (show) n++;
     });
-    count.textContent = words.length ? found.replace("%d", n).replace("%d", total) : all.replace("%d", total);
+    list.hidden = words.length === 0;
+    chars.hidden = words.length !== 0;
+    count.textContent = words.length ? found.replace("%d", n).replace("%d", total) : browse.replace("%d", total);
+    chars.querySelectorAll("a").forEach(function (a) {
+      a.classList.toggle("on", q.value.trim().toLowerCase() === a.dataset.name.toLowerCase());
+    });
+  }
+  q.addEventListener("input", function () {
+    var words = wordsOf(q.value);
+    if (loadedWords.length && !loadedWords.every(function (w) { return words.indexOf(w) >= 0; })) {
+      clearTimeout(timer);
+      timer = setTimeout(function () { wordsOf(q.value).length ? q.form.submit() : (location.href = home); }, 400);
+      return;
+    }
+    clearTimeout(timer);
+    paint();
+  });
+  chars.addEventListener("click", function (e) {
+    var a = e.target.closest("a");
+    if (!a || loadedWords.length) return;
+    e.preventDefault();
+    q.value = q.value.trim().toLowerCase() === a.dataset.name.toLowerCase() ? "" : a.dataset.name;
+    paint();
   });
 })();
 </script>

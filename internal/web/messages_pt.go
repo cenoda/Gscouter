@@ -107,6 +107,7 @@ func init() {
 		"teams.search":      "Buscar",
 		"teams.matching":    "%[2]d equipes com \"%[1]s\" (de %[3]d)",
 		"teams.total":       "%d equipes",
+		"teams.browse":      "%d equipes. Escolha um personagem ou digite um nome.",
 		"teams.found":       "%d equipes encontradas (de %d)",
 		"teams.hint":        "Busque pelo nome no jogo ou pela chave do gcsim. Separe vários personagens com espaços para mostrar só as equipes que têm todos eles.",
 		"teams.supported":   "suportada",

@@ -183,8 +183,16 @@ td .who { display: flex; gap: 6px; align-items: center; font-weight: 600; }
 .verdict .compare .bar { height: 10px; margin: 0; border-radius: 5px; }
 .win { color: var(--good); }
 ul { padding-left: 20px; margin: 8px 0; }
-ul.teams { columns: 2 300px; }
-ul.teams li { break-inside: avoid; }
+/* Party lookup: characters to pick, then one party per row. */
+.roster { list-style: none; padding: 0; margin: 12px 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.roster[hidden], .parties[hidden], .parties li[hidden] { display: none; }
+.roster a { display: flex; gap: 6px; align-items: center; padding: 3px 10px 3px 3px; border: 1px solid var(--line); border-radius: 20px; text-decoration: none; color: inherit; font-size: .9rem; }
+.roster a:hover, .roster a.on { border-color: var(--gold); background: var(--gold-soft); }
+.roster .face { width: 28px; height: 28px; }
+.parties { list-style: none; margin: 4px 0 0; padding: 0; }
+.parties li { display: flex; flex-wrap: nowrap; gap: 8px; align-items: baseline; border-top: 1px solid var(--line); padding: 9px 2px; }
+.parties a { flex: 1; min-width: 0; }
+.parties .badge { flex: none; }
 details summary { cursor: pointer; }
 .enemy-preset { display: flex; flex-direction: column; gap: 4px; font-size: .9rem; margin-top: 12px; max-width: 360px; }
 .enemy-preset select { padding: 8px 10px; font: inherit; font-size: 1rem; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--text); }

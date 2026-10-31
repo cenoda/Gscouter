@@ -185,9 +185,18 @@ func TestTeamsFilter(t *testing.T) {
 	if code != http.StatusOK {
 		t.Fatalf("status %d", code)
 	}
-	mustContain(t, body, "Hu Tao / Xingqiu / Zhongli / Yelan")
-	if strings.Contains(body, "Skirk") {
+	mustContain(t, body, "Hu Tao / Xingqiu / Zhongli / Yelan", `id="team-chars" hidden`)
+	// Character chips stay in the page, so a name alone is not a listed team.
+	if strings.Contains(body, ">Skirk /") || strings.Contains(body, "/ Skirk") {
 		t.Error("team without the character listed")
+	}
+	if strings.Contains(body, "· supported") {
+		t.Error("supported mark on a matching team")
+	}
+	_, plain := get(t, ts, "/teams")
+	mustContain(t, plain, `id="team-list" hidden`, `id="team-chars"`, `href="/teams?q=Hu&#43;Tao"`, "Pick a character or type a name.")
+	if strings.Contains(plain, `id="team-chars" hidden`) {
+		t.Error("characters hidden when the list is unsearched")
 	}
 	// In-game names find teams too, in the page's language and English.
 	for _, q := range []string{"hu tao", "호두 야란", "胡桃"} {

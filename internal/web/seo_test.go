@@ -75,8 +75,10 @@ func TestCharacterPage(t *testing.T) {
 func TestIndexedPagesLinked(t *testing.T) {
 	ts := newTestServer(t)
 	_, body := get(t, ts, "/teams")
-	mustContain(t, body, `href="/teams/`+hutaoTeamID+`"`, `href="/characters/hutao"`,
+	mustContain(t, body, `href="/teams/`+hutaoTeamID+`"`,
 		`<link rel="canonical" href="`+ts.URL+`/teams">`)
+	_, body = get(t, ts, "/teams/"+hutaoTeamID)
+	mustContain(t, body, `href="/characters/hutao"`)
 	_, body = get(t, ts, "/")
 	mustContain(t, body, `<link rel="canonical" href="`+ts.URL+`/">`, `hreflang="ko" href="`+ts.URL+`/?hl=ko"`,
 		`<meta name="naver-site-verification" content="3866d7ef7178f49e9721694edb65ff77858c1700">`)

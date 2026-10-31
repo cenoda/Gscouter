@@ -107,6 +107,7 @@ func init() {
 		"teams.search":      "Ara",
 		"teams.matching":    "\"%s\" içeren %d takım (toplam %d)",
 		"teams.total":       "%d takım",
+		"teams.browse":      "%d takım. Bir karakter seçin veya bir ad yazın.",
 		"teams.found":       "%d takım bulundu (toplam %d)",
 		"teams.hint":        "Oyundaki adla veya gcsim anahtarıyla ara. Yalnızca hepsini içeren takımları göstermek için birden fazla karakteri boşlukla ayır.",
 		"teams.supported":   "destekleniyor",

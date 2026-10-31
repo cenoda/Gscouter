@@ -107,6 +107,7 @@ func init() {
 		"teams.search":      "検索",
 		"teams.matching":    "「%s」を含む編成 %d件 (全%d件)",
 		"teams.total":       "全%d件",
+		"teams.browse":      "全%d件。キャラクターを選ぶか、名前を入力してください。",
 		"teams.found":       "%d件見つかりました (全%d件)",
 		"teams.hint":        "ゲーム内の名前かgcsimのキー名で検索します。複数のキャラクターをスペースで区切ると、全員を含む編成だけを表示します。",
 		"teams.supported":   "対応",

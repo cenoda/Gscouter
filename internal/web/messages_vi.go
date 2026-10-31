@@ -107,6 +107,7 @@ func init() {
 		"teams.search":      "Tìm",
 		"teams.matching":    "%[2]d đội hình có \"%[1]s\" (trên tổng %[3]d)",
 		"teams.total":       "%d đội hình",
+		"teams.browse":      "%d đội hình. Chọn nhân vật hoặc nhập tên.",
 		"teams.found":       "Tìm thấy %d đội hình (trên tổng %d)",
 		"teams.hint":        "Tìm theo tên trong game hoặc khóa gcsim. Nhập nhiều nhân vật cách nhau bằng dấu cách để chỉ hiện các đội hình có tất cả họ.",
 		"teams.supported":   "được hỗ trợ",

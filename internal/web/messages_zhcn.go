@@ -107,6 +107,7 @@ func init() {
 		"teams.search":      "搜索",
 		"teams.matching":    "包含“%s”的队伍 %d 支（共 %d 支）",
 		"teams.total":       "共 %d 支",
+		"teams.browse":      "共 %d 支。选择角色或输入名字。",
 		"teams.found":       "找到 %d 支队伍（共 %d 支）",
 		"teams.hint":        "按游戏内名称或 gcsim 键名搜索。用空格分隔多个角色，只显示包含全部角色的队伍。",
 		"teams.supported":   "支持",

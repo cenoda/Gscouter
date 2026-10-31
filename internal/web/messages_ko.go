@@ -107,6 +107,7 @@ func init() {
 		"teams.search":      "찾기",
 		"teams.matching":    "\"%s\"이(가) 들어간 파티 %d개 (전체 %d개)",
 		"teams.total":       "전체 %d개",
+		"teams.browse":      "전체 %d개. 캐릭터를 고르거나 이름을 입력하세요.",
 		"teams.found":       "찾은 파티 %d개 (전체 %d개)",
 		"teams.hint":        "게임 속 이름이나 gcsim 키로 찾습니다. 여러 캐릭터를 띄어 쓰면 모두 들어간 파티만 보여 줍니다.",
 		"teams.supported":   "지원",

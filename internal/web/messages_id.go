@@ -107,6 +107,7 @@ func init() {
 		"teams.search":      "Cari",
 		"teams.matching":    "Tim dengan \"%s\": %d (dari %d)",
 		"teams.total":       "%d tim",
+		"teams.browse":      "%d tim. Pilih karakter atau ketik nama.",
 		"teams.found":       "%d tim ditemukan (dari %d)",
 		"teams.hint":        "Cari dengan nama dalam game atau kunci gcsim. Pisahkan beberapa karakter dengan spasi untuk menampilkan hanya tim yang berisi semuanya.",
 		"teams.supported":   "didukung",
