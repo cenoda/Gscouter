@@ -61,3 +61,35 @@ func TestDropBurstsTeamParses(t *testing.T) {
 		t.Errorf("the variant does not parse: %v", err)
 	}
 }
+
+// A member may be named under any of gcsim's names, in the rotation and
+// in the request: statements are matched by gcsim key and kept under the
+// rotation's name.
+func TestDropBurstsAliases(t *testing.T) {
+	in := "active fischl;\nfischl skill, burst;\namy burst, attack;\nif .amy.burst.ready { amy attack, burst; }\nbeidou burst;\n"
+	want := "active fischl;\nfischl skill;\namy attack;\nif .amy.burst.ready { amy attack; }\nbeidou burst;\n"
+	for _, char := range []string{"fischl", "amy", "Fischl"} {
+		if got := DropBursts(in, char); got != want {
+			t.Errorf("DropBursts(%q) = %q, want %q", char, got, want)
+		}
+	}
+	// The committed example: the rotation writes Fischl as "amy" and
+	// Alhaitham as "haitham", the team as fischl and alhaitham.
+	raw, err := os.ReadFile("../../teams/alhaitham-bennett-fischl-dori/rotation.gcsl")
+	if err != nil {
+		t.Fatal(err)
+	}
+	rot := string(raw)
+	for _, c := range []struct {
+		names      [2]string
+		gone, kept string
+	}{
+		{[2]string{"fischl", "amy"}, "amy attack, burst;", "amy attack;"},
+		{[2]string{"alhaitham", "haitham"}, "haitham burst;", "alhaitham attack:4"},
+	} {
+		canonical, alias := DropBursts(rot, c.names[0]), DropBursts(rot, c.names[1])
+		if canonical == rot || canonical != alias || strings.Contains(canonical, c.gone) || !strings.Contains(canonical, c.kept) {
+			t.Errorf("%v: bursts not taken out alike:\n%s\n---\n%s", c.names, canonical, alias)
+		}
+	}
+}

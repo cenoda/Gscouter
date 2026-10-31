@@ -69,15 +69,13 @@ func Fill(rotation string, energy map[string]Filler, skill, party []string) stri
 	start := true // at the start of a statement
 	for i := 0; i < len(rotation); {
 		if start {
-			if m := actionRe.FindStringSubmatchIndex(rotation[i:]); m != nil {
-				lead := rotation[i+m[2] : i+m[3]]
-				char := member(rotation[i+m[4]:i+m[5]], party)
-				items := rotation[i+m[6] : i+m[7]]
+			if st, ok := scanStatement(rotation[i:]); ok {
+				char := member(st.name, party)
 				how, inEnergy := energy[char]
 				if inEnergy || slices.Contains(skill, char) {
-					b.WriteString(lead)
-					b.WriteString(fillStatement(char, items, inEnergy, slices.Contains(skill, char), party, forms, how, &n))
-					i += m[1]
+					b.WriteString(st.lead)
+					b.WriteString(fillStatement(char, st.items, inEnergy, slices.Contains(skill, char), party, forms, how, &n))
+					i += st.end
 					continue
 				}
 			}
@@ -96,9 +94,79 @@ func Fill(rotation string, energy map[string]Filler, skill, party []string) stri
 	return b.String()
 }
 
-// actionRe matches an action statement at the start of the text:
+// statement is an action statement read by scanStatement:
 // "<char> <action>, <action>...;".
-var actionRe = regexp.MustCompile(`^(\s*)(\w+)\s+([^;{}()=\s][^;{}()]*);`)
+type statement struct {
+	lead  string // the whitespace before the name
+	name  string // the character, as the rotation writes it
+	items string // the action list, between the name and the semicolon
+	end   int    // the offset just past the semicolon
+}
+
+// scanStatement reads an action statement at the start of s: optional
+// whitespace, a name, whitespace, then an action list ended by a
+// semicolon. The list does not start with "=" (an assignment) and holds
+// no ";", "{" or "}" (a block), and no parenthesis outside brackets (a
+// call, a condition), so that let, if, while and calls are not read as
+// actions. Inside an action's parameter brackets any expression may
+// stand, calls and parenthesized terms included, as gcsim reads
+// "skill[counter=rand_counter()]". Until 2026-10-31 a regular expression
+// that refused parentheses anywhere passed such a statement over, and
+// Fill, skillForms and DropBursts did not see it (docs/fillers.md §2).
+func scanStatement(s string) (statement, bool) {
+	i := 0
+	for i < len(s) && isSpace(s[i]) {
+		i++
+	}
+	lead := i
+	for i < len(s) && isWord(s[i]) {
+		i++
+	}
+	name := i
+	if name == lead {
+		return statement{}, false
+	}
+	for i < len(s) && isSpace(s[i]) {
+		i++
+	}
+	if i == name || i == len(s) || strings.IndexByte(";{}()=", s[i]) >= 0 {
+		return statement{}, false
+	}
+	items := i
+	depth := 0 // of brackets
+	for ; i < len(s); i++ {
+		switch s[i] {
+		case '[':
+			depth++
+		case ']':
+			if depth > 0 {
+				depth--
+			}
+		case '(', ')':
+			if depth == 0 {
+				return statement{}, false
+			}
+		case '{', '}':
+			return statement{}, false
+		case ';':
+			if depth > 0 {
+				return statement{}, false
+			}
+			return statement{lead: s[:lead], name: s[lead:name], items: s[items:i], end: i + 1}, true
+		}
+	}
+	return statement{}, false
+}
+
+// isSpace and isWord are the classes \s and \w of Go's regular
+// expressions, which the scanner replaced.
+func isSpace(c byte) bool {
+	return c == ' ' || c == '\t' || c == '\n' || c == '\f' || c == '\r'
+}
+
+func isWord(c byte) bool {
+	return c == '_' || c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c >= '0' && c <= '9'
+}
 
 func fillStatement(char, items string, energy, skill bool, party []string, forms map[string]string, how Filler, n *int) string {
 	var out, run []string
@@ -214,10 +282,26 @@ func replaceSubmatch(re *regexp.Regexp, s string, f func([]string) string) strin
 	return b.String()
 }
 
-var (
-	anyActionRe = regexp.MustCompile(`(?m)(?:^|[;{}])\s*(\w+)\s+([^;{}()=\s][^;{}()]*);`)
-	plungeRe    = regexp.MustCompile(`^(high|low)_plunge\b`)
-)
+var plungeRe = regexp.MustCompile(`^(high|low)_plunge\b`)
+
+// nextStatement finds the first action statement of s (scanStatement)
+// that starts at the start of s or of a line, or just after a ";", "{"
+// or "}", and returns it with its offset in s.
+func nextStatement(s string) (statement, int, bool) {
+	for p := 0; p < len(s); p++ {
+		if p == 0 || s[p-1] == '\n' {
+			if st, ok := scanStatement(s[p:]); ok {
+				return st, p, true
+			}
+		}
+		if strings.IndexByte(";{}", s[p]) >= 0 {
+			if st, ok := scanStatement(s[p+1:]); ok {
+				return st, p + 1, true
+			}
+		}
+	}
+	return statement{}, 0, false
+}
 
 // skillForms returns, per member, its skill as the rotation first uses
 // it: with its parameters (a hold, for example) and the plunges that
@@ -233,13 +317,13 @@ func skillForms(rotation string, party []string) map[string]string {
 	// Each search starts at the semicolon that ends the statement before,
 	// so that a statement on the same line as another is seen.
 	for i := 0; i < len(rotation); {
-		loc := anyActionRe.FindStringSubmatchIndex(rotation[i:])
-		if loc == nil {
+		st, at, ok := nextStatement(rotation[i:])
+		if !ok {
 			break
 		}
-		name, list := rotation[i+loc[2]:i+loc[3]], rotation[i+loc[4]:i+loc[5]]
-		i += loc[1] - 1
-		char := member(name, party)
+		list := st.items
+		i += at + st.end - 1
+		char := member(st.name, party)
 		if !slices.Contains(party, char) || forms[char] != "" {
 			continue
 		}
@@ -316,7 +400,7 @@ func parseAction(item string) action {
 	a := action{name: item[:end]}
 	rest := strings.TrimSpace(item[end:])
 	if strings.HasPrefix(rest, "[") {
-		close := strings.IndexByte(rest, ']')
+		close := closingBracket(rest)
 		if close < 0 {
 			close = len(rest) - 1
 		}
@@ -328,6 +412,24 @@ func parseAction(item string) action {
 		a.repeat = rest
 	}
 	return a
+}
+
+// closingBracket returns the index of the bracket that closes the one s
+// starts with, or -1: "[x=a[1]]" closes at its last byte.
+func closingBracket(s string) int {
+	depth := 0
+	for i := 0; i < len(s); i++ {
+		switch s[i] {
+		case '[':
+			depth++
+		case ']':
+			depth--
+			if depth == 0 {
+				return i
+			}
+		}
+	}
+	return -1
 }
 
 // String writes the action without spaces: "skill[counter=1]:2".
