@@ -1,5 +1,7 @@
 # Gscouter `main` 감사 보고
 
+> **Status:** items 1–9 are fixed on this branch, and the `TestRepro_` tests now pass as regression tests. Where the fixes differ from the suggestions below: item 6 ends an unterminated setup statement at the next line that does not continue it, rather than returning an error; item 4 stops the flush loop through `FlushUsage` instead of a context. The notes under "테스트가 약하거나 비어 있는 곳" (`batch.Isolated`, `validate.probe`, `X-Forwarded-For`, `fetchImage`) are not addressed.
+
 감사 대상은 `main` (`3338fe71`)이다. 프로덕션 코드는 바꾸지 않았다. `TestRepro_`로 시작하는 테스트는 아래 결함을 재현하며, 현재 코드에서는 실패하는 것이 맞다.
 
 ## 요약
