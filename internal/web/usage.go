@@ -35,6 +35,10 @@ type usage struct {
 	uids  map[[16]byte]bool
 	dirty bool
 	now   func() time.Time
+
+	stop     chan struct{} // closed to end the periodic flush
+	done     chan struct{} // closed once the periodic flush has ended
+	stopOnce sync.Once
 }
 
 type usageDay struct {
@@ -43,10 +47,17 @@ type usageDay struct {
 	UIDs    int `json:"uids"`    // distinct UIDs looked up
 }
 
-// SetUsage turns usage counts on, kept in file. Call it before Handler,
-// and FlushUsage before exiting.
+// SetUsage turns usage counts on, kept in file and saved every ten
+// minutes. Call it before Handler, and FlushUsage before exiting. Calling
+// it again replaces the earlier counts and ends their periodic saving.
 func (s *Server) SetUsage(file string) error {
-	u := &usage{file: file, days: map[string]*usageDay{}, now: time.Now}
+	u := &usage{
+		file: file,
+		days: map[string]*usageDay{},
+		now:  time.Now,
+		stop: make(chan struct{}),
+		done: make(chan struct{}),
+	}
 	raw, err := os.ReadFile(file)
 	switch {
 	case errors.Is(err, fs.ErrNotExist):
@@ -57,11 +68,20 @@ func (s *Server) SetUsage(file string) error {
 			return fmt.Errorf("%s: %w", file, err)
 		}
 	}
+	s.usage.halt()
 	s.usage = u
 	go func() {
-		for range time.Tick(10 * time.Minute) {
-			if err := u.flush(); err != nil {
-				slog.Error("usage", "file", file, "err", err)
+		defer close(u.done)
+		t := time.NewTicker(10 * time.Minute)
+		defer t.Stop()
+		for {
+			select {
+			case <-u.stop:
+				return
+			case <-t.C:
+				if err := u.flush(); err != nil {
+					slog.Error("usage", "file", file, "err", err)
+				}
 			}
 		}
 	}()
@@ -98,12 +118,25 @@ func (s *Server) handleHealth(w http.ResponseWriter, r *http.Request) {
 	w.Write(raw)
 }
 
-// FlushUsage saves the counts not saved yet.
+// FlushUsage ends the periodic saving and saves the counts not saved
+// yet. Call it when the server shuts down; counts made after it are kept
+// in memory only until FlushUsage is called again.
 func (s *Server) FlushUsage() error {
 	if s.usage == nil {
 		return nil
 	}
+	s.usage.halt()
 	return s.usage.flush()
+}
+
+// halt ends u's periodic flush and waits for it to return. It is safe
+// to call more than once, and on a nil u.
+func (u *usage) halt() {
+	if u == nil || u.stop == nil {
+		return
+	}
+	u.stopOnce.Do(func() { close(u.stop) })
+	<-u.done
 }
 
 // page counts a front page view, result a score or versus page view.
@@ -140,7 +173,10 @@ func (u *usage) day() *usageDay {
 			slog.Info("usage", "day", u.today, "pages", d.Pages, "results", d.Results, "uids", d.UIDs)
 		}
 		u.today = today
-		rand.Read(u.key[:])
+		if _, err := rand.Read(u.key[:]); err != nil {
+			// The earlier key (all zero on the first day) stays in use.
+			slog.Error("usage: new day key", "day", today, "err", err)
+		}
 		u.uids = map[[16]byte]bool{}
 	}
 	d := u.days[today]

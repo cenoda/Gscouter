@@ -1,5 +1,5 @@
-// Repro tests for AUDIT.md. They fail while the defects described there
-// are present. They are not a fix.
+// Regression tests for AUDIT.md items 1-4. Each test's comment describes
+// the defect it reproduced; the test now guards the fix.
 package web
 
 import (
@@ -26,9 +26,12 @@ func TestRepro_SavedBuildsDoesNotCacheContextCancel(t *testing.T) {
 	var once sync.Once
 	var n atomic.Int32
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		n.Add(1)
-		once.Do(func() { close(entered) })
-		<-release
+		// Only the first request hangs, until the test ends; the
+		// lookup after the cancel must get an answer of its own.
+		if n.Add(1) == 1 {
+			once.Do(func() { close(entered) })
+			<-release
+		}
 		w.Write([]byte(`{}`))
 	}))
 	defer srv.Close()

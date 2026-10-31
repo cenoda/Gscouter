@@ -4,6 +4,7 @@ import (
 	"cmp"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"html/template"
 	"log/slog"
@@ -776,10 +777,13 @@ func (s *Server) render(w http.ResponseWriter, l localizer, name string, data an
 
 // EnkaSource fetches profiles from Enka.Network and caches them for the
 // time Enka asks for, and the builds their owners saved (SavedBuilds).
+// Lookups of one key that overlap share one request to Enka.
 type EnkaSource struct {
-	client *enka.Client
-	cache  *cache[string, *enka.Profile]
-	saved  *cache[enka.Owner, savedResult]
+	client  *enka.Client
+	cache   *cache[string, *enka.Profile]
+	saved   *cache[enka.Owner, savedResult]
+	fetches flight[string, *enka.Profile]
+	savedIn flight[enka.Owner, []enka.SavedBuild]
 }
 
 func NewEnkaSource(client *enka.Client) *EnkaSource {
@@ -794,25 +798,28 @@ func (e *EnkaSource) Profile(ctx context.Context, uid string) (*enka.Profile, er
 	if p, ok := e.cache.get(uid); ok {
 		return p, nil
 	}
-	raw, err := e.client.Fetch(ctx, uid)
-	if err != nil {
-		return nil, err
-	}
-	p, err := enka.Parse(raw)
-	if err != nil {
-		return nil, err
-	}
-	if p.UID == "" {
-		p.UID = uid
-	}
-	// The front page counts down to Expires, after which loading the UID
-	// again fetches it anew (design §4.1). Enka's ttl is the time until it
-	// refreshes the showcase itself, so the cache never serves a showcase
-	// older than Enka's; it keeps one at least a minute.
-	ttl := max(time.Duration(p.TTL)*time.Second, time.Minute)
-	p.Expires = time.Now().Add(ttl)
-	e.cache.put(uid, p, ttl)
-	return p, nil
+	return e.fetches.do(ctx, uid, func(ctx context.Context) (*enka.Profile, error) {
+		raw, err := e.client.Fetch(ctx, uid)
+		if err != nil {
+			return nil, err
+		}
+		p, err := enka.Parse(raw)
+		if err != nil {
+			return nil, err
+		}
+		if p.UID == "" {
+			p.UID = uid
+		}
+		// The front page counts down to Expires, after which loading the
+		// UID again fetches it anew (design §4.1). Enka's ttl is the time
+		// until it refreshes the showcase itself, so the cache never
+		// serves a showcase older than Enka's; it keeps one at least a
+		// minute.
+		ttl := max(time.Duration(p.TTL)*time.Second, time.Minute)
+		p.Expires = time.Now().Add(ttl)
+		e.cache.put(uid, p, ttl)
+		return p, nil
+	})
 }
 
 type savedResult struct {
@@ -834,15 +841,97 @@ func (e *EnkaSource) SavedBuilds(ctx context.Context, owner enka.Owner) ([]enka.
 	if r, ok := e.saved.get(owner); ok {
 		return r.builds, r.err
 	}
-	raw, err := e.client.FetchBuilds(ctx, owner)
-	var builds []enka.SavedBuild
-	if err == nil {
-		builds, err = enka.ParseBuilds(raw)
+	return e.savedIn.do(ctx, owner, func(ctx context.Context) ([]enka.SavedBuild, error) {
+		raw, err := e.client.FetchBuilds(ctx, owner)
+		var builds []enka.SavedBuild
+		if err == nil {
+			builds, err = enka.ParseBuilds(raw)
+		}
+		if err != nil {
+			// A fetch cut short by its context says nothing about the
+			// owner's builds, so the next lookup asks Enka again. The
+			// enka client keeps a transport error as text only, so ctx
+			// is checked as well as err.
+			if ctx.Err() == nil && !errors.Is(err, context.Canceled) && !errors.Is(err, context.DeadlineExceeded) {
+				e.saved.put(owner, savedResult{err: err}, savedRetry)
+			}
+			return nil, err
+		}
+		e.saved.put(owner, savedResult{builds: builds}, savedTTL)
+		return builds, nil
+	})
+}
+
+// fetchTimeout bounds a request to Enka shared by overlapping lookups,
+// which runs apart from the context of the lookup that started it.
+const fetchTimeout = 30 * time.Second
+
+// flight runs one fetch per key at a time: a lookup of a key whose fetch
+// is under way waits for that fetch instead of starting another. The
+// fetch does not end when the lookup that started it is cancelled, only
+// when every lookup waiting for it has gone, so one visitor leaving does
+// not fail the others. The zero value is ready to use.
+type flight[K comparable, V any] struct {
+	mu    sync.Mutex
+	calls map[K]*flightCall[V]
+}
+
+type flightCall[V any] struct {
+	done    chan struct{} // closed once val and err are set
+	cancel  context.CancelFunc
+	waiters int // lookups waiting, guarded by flight.mu
+	val     V
+	err     error
+}
+
+// do returns the result of fetch for key, joining a fetch under way. It
+// returns ctx's error early if ctx ends first.
+func (f *flight[K, V]) do(ctx context.Context, key K, fetch func(context.Context) (V, error)) (V, error) {
+	f.mu.Lock()
+	c := f.calls[key]
+	if c == nil {
+		fctx, cancel := context.WithTimeout(context.WithoutCancel(ctx), fetchTimeout)
+		c = &flightCall[V]{done: make(chan struct{}), cancel: cancel}
+		if f.calls == nil {
+			f.calls = map[K]*flightCall[V]{}
+		}
+		f.calls[key] = c
+		go func() {
+			c.val, c.err = fetch(fctx)
+			cancel()
+			f.forget(key, c)
+			close(c.done)
+		}()
 	}
-	if err != nil {
-		e.saved.put(owner, savedResult{err: err}, savedRetry)
-		return nil, err
+	c.waiters++
+	f.mu.Unlock()
+
+	select {
+	case <-c.done:
+		return c.val, c.err
+	case <-ctx.Done():
+		f.mu.Lock()
+		c.waiters--
+		last := c.waiters == 0
+		if last && f.calls[key] == c {
+			// Nobody waits for the fetch any more: let the next lookup
+			// start a fresh one.
+			delete(f.calls, key)
+		}
+		f.mu.Unlock()
+		if last {
+			c.cancel()
+		}
+		var zero V
+		return zero, ctx.Err()
 	}
-	e.saved.put(owner, savedResult{builds: builds}, savedTTL)
-	return builds, nil
+}
+
+// forget removes c as key's fetch under way, if it still is.
+func (f *flight[K, V]) forget(key K, c *flightCall[V]) {
+	f.mu.Lock()
+	if f.calls[key] == c {
+		delete(f.calls, key)
+	}
+	f.mu.Unlock()
 }

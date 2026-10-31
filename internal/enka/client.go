@@ -67,7 +67,7 @@ func (c *Client) get(ctx context.Context, path string) ([]byte, error) {
 	req.Header.Set("User-Agent", userAgent)
 	resp, err := c.HTTP.Do(req)
 	if err != nil {
-		return nil, fmt.Errorf("%w: %v", ErrUnavailable, err)
+		return nil, fmt.Errorf("%w: %w", ErrUnavailable, err)
 	}
 	defer resp.Body.Close()
 

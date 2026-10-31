@@ -4,6 +4,7 @@ package main
 import (
 	"cmp"
 	"context"
+	"errors"
 	"flag"
 	"log/slog"
 	"net/http"
@@ -53,13 +54,16 @@ func main() {
 		slog.Info("browsers calculate results", "dir", *static)
 	}
 
+	// closeStore closes the short link store, if open. It is called
+	// rather than deferred, so that it also runs before os.Exit.
+	closeStore := func() error { return nil }
 	if on(*linksDB) {
 		// Without the store the site still works: copying a result
 		// link copies the long link.
 		if store, err := links.Open(*linksDB); err != nil {
 			slog.Error("short links off", "db", *linksDB, "err", err)
 		} else {
-			defer store.Close()
+			closeStore = store.Close
 			srv.SetLinks(store)
 			srv.SetSends(store)
 			slog.Info("short links", "db", *linksDB)
@@ -104,12 +108,24 @@ func main() {
 	}()
 
 	slog.Info("listening", "addr", *addr, "teams", len(lib.Teams))
-	if err := httpSrv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-		slog.Error("serve", "err", err)
-		os.Exit(1)
+	serveErr := httpSrv.ListenAndServe()
+	if errors.Is(serveErr, http.ErrServerClosed) {
+		serveErr = nil
 	}
+	if serveErr != nil {
+		slog.Error("serve", "err", serveErr)
+	}
+	// os.Exit skips deferred calls, so the counts and the store are
+	// saved and closed here on either path.
 	if err := srv.FlushUsage(); err != nil {
 		slog.Error("usage", "err", err)
+	}
+	if err := closeStore(); err != nil {
+		slog.Error("short links", "err", err)
+	}
+	if serveErr != nil {
+		stop()
+		os.Exit(1)
 	}
 }
 

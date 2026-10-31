@@ -72,8 +72,10 @@ func enemyFromQuery(q url.Values) (*config.Enemy, error) {
 		e.Boss, e.Resist = b.Key, b.Resist
 	}
 	if q.Has("res") {
-		var all int
-		if !read("res", &all) {
+		// Unlike the other parameters, a present res replaces every
+		// element's resistance, so an empty one is not "no parameter".
+		all, err := strconv.Atoi(strings.TrimSpace(q.Get("res")))
+		if err != nil {
 			return nil, bad
 		}
 		for i := range e.Resist {
