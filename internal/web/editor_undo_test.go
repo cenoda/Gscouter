@@ -11,8 +11,10 @@ import (
 
 // The editor's undo: a reset can be taken back, even after its
 // recording finishes, fails or is overtaken by another reset; undoing a
-// blank chart's first note gives the blank chart back; and the pickup
-// switch shows the chart undo gives back (testdata/editor_undo.js).
+// blank chart's first note gives the blank chart back; the pickup
+// switch shows the chart undo gives back; an edit made while a reset
+// records outlives the reset's late answer, recorded or failed; and the
+// saved-chart list's placeholder loads nothing (testdata/editor_undo.js).
 func TestEditorUndo(t *testing.T) {
 	node, err := exec.LookPath("node")
 	if err != nil {

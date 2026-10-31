@@ -339,7 +339,10 @@
     if (undoStack.length && undoStack[undoStack.length - 1] === t) return;
     undoStack.push(t); if (undoStack.length > 100) undoStack.shift();
   }
-  function snapshot() { notice = ""; remember(); }
+  // An edit begins with snapshot, and supersedes a reset still
+  // recording: its late answer, recorded or failed, would replace the
+  // newer chart (and the draft kept from it).
+  function snapshot() { notice = ""; loads++; remember(); }
   function undo() {
     if (!undoStack.length) return toast(S.nothingUndo);
     // Undoing while a reset is still recording takes the reset back.
@@ -960,7 +963,8 @@
     $("ed-unsave").hidden = sel.value === "";
   }
   $("ed-saved").onchange = function () {
-    var c = savedList()[+this.value];
+    // The placeholder ("") is no chart: +"" would be 0, the first one.
+    var list = savedList(), c = /^\d+$/.test(this.value) ? list[+this.value] : undefined;
     $("ed-unsave").hidden = !c;
     if (!c) return;
     $("ed-name").value = c.n;
@@ -978,8 +982,9 @@
     toast(S.savedMsg.replace("%s", name));
   };
   $("ed-unsave").onclick = function () {
-    var i = +$("ed-saved").value, list = savedList();
-    list.splice(i, 1);
+    var v = $("ed-saved").value, list = savedList();
+    if (!/^\d+$/.test(v) || +v >= list.length) return;
+    list.splice(+v, 1);
     try { localStorage.setItem(savedKey, JSON.stringify(list)); } catch (e) {}
     fillSaved();
   };
@@ -1003,7 +1008,8 @@
     changed();
   }
   // start loads the first chart, or, undoable, a reset's. A recording
-  // that another load (or an undo) overtook while it ran is dropped.
+  // that another load, an undo or an edit overtook while it ran is
+  // dropped.
   function start(text, undoable) {
     if (text) return load(text, undoable);
     var mine = ++loads;
