@@ -411,9 +411,8 @@ func noStaging(t *testing.T, root string) {
 	}
 }
 
-// harvestForced runs harvest with -force on the root, the database
-// being the given entries, read from a local cache.
-func harvestForced(t *testing.T, root string, cs ...candidate) {
+// cacheOf writes a database cache holding the given entries.
+func cacheOf(t *testing.T, cs ...candidate) string {
 	t.Helper()
 	var entries []kqm.Entry
 	for _, c := range cs {
@@ -427,7 +426,14 @@ func harvestForced(t *testing.T, root string, cs ...candidate) {
 	if err := os.WriteFile(cache, raw, 0o644); err != nil {
 		t.Fatal(err)
 	}
-	o := options{root: root, n: 64, minEntries: 1, choose: 5, iterations: 1, jobs: 1, cache: cache, force: true}
+	return cache
+}
+
+// harvestForced runs harvest with -force on the root, the database
+// being the given entries, read from a local cache.
+func harvestForced(t *testing.T, root string, cs ...candidate) {
+	t.Helper()
+	o := options{root: root, n: 64, minEntries: 1, choose: 5, iterations: 1, jobs: 1, cache: cacheOf(t, cs...), force: true}
 	if err := run(o); err != nil {
 		t.Fatal(err)
 	}
@@ -587,4 +593,120 @@ func TestForceKeepsAlternativesItCannotMeasure(t *testing.T) {
 	if err != nil || !strings.Contains(string(raw), "hutao attack;") {
 		t.Errorf("the team was not replaced (%v)", err)
 	}
+}
+
+// reordered moves Zhongli's declaration to the front of the team's
+// config, so that the entry's ID, built in declaration order, is
+// zhongli-hutao-xingqiu-yelan, and gives it another rotation.
+func reordered(t *testing.T, dir string) string {
+	t.Helper()
+	var zhongli string
+	var rest []string
+	for _, line := range strings.Split(configOf(t, dir), "\n") {
+		if strings.HasPrefix(line, "zhongli char ") {
+			zhongli = line
+			continue
+		}
+		rest = append(rest, line)
+	}
+	if zhongli == "" {
+		t.Fatal("no zhongli char line")
+	}
+	return zhongli + "\n" + strings.Join(rest, "\n") + "hutao attack;\n"
+}
+
+// The audit's reproduction: with -force, an entry for the same members
+// declared in another order replaces the team. The team keeps its ID, so
+// the alternative carried over still names it, and the library loads
+// with the alternative intact.
+func TestForceKeepsIDForReorderedMembers(t *testing.T) {
+	root, dir := libraryRoot(t)
+	want := read(t, filepath.Join(dir, library.AltDir, earlyAlt))
+	cfg := reordered(t, dir)
+	if order := strings.Join(share.SplitConfig(cfg).Members, "-"); order != "zhongli-hutao-xingqiu-yelan" {
+		t.Fatalf("the entry declares %s", order)
+	}
+	early := earlyEntry(t, dir)
+	passing(t)
+	pass := check
+	check = func(dir string, s validate.Settings) *validate.Report {
+		// The alternative's entry cannot be measured again, so the
+		// alternative carried over is kept as it was.
+		if strings.Contains(dir, earlyAlt) {
+			return &validate.Report{Dir: dir, Failures: []string{"simulation failed: boom"}}
+		}
+		return pass(dir, s)
+	}
+	harvestForced(t, root, entry("Reordered001", cfg, 68025, baseCons), early)
+	noStaging(t, root)
+	if _, err := os.Stat(filepath.Join(root, "zhongli-hutao-xingqiu-yelan")); !errors.Is(err, fs.ErrNotExist) {
+		t.Errorf("a directory in the entry's order was written (%v)", err)
+	}
+	lib, err := library.LoadLibrary(os.DirFS(root))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(lib.Teams) != 1 {
+		t.Fatalf("the library holds %d teams", len(lib.Teams))
+	}
+	team := lib.Teams[0]
+	if team.ID != "hutao-xingqiu-zhongli-yelan" || team.Name != "Hutao / Xingqiu / Zhongli / Yelan" || team.Sources[0] != "https://db.kqm.gg/db/Reordered001" {
+		t.Errorf("the team: id %s, name %s, sources %v", team.ID, team.Name, team.Sources)
+	}
+	if len(team.Alternatives) != 1 || team.Alternatives[0].Sources[0] != early.entry.Link() {
+		t.Errorf("the team loads with %d alternatives", len(team.Alternatives))
+	}
+	unchanged(t, dir, want)
+}
+
+// breakAlt makes the team's alternative name another team.
+func breakAlt(t *testing.T, dir string) {
+	t.Helper()
+	meta := filepath.Join(dir, library.AltDir, earlyAlt, "team.yaml")
+	raw, err := os.ReadFile(meta)
+	if err != nil {
+		t.Fatal(err)
+	}
+	broken := strings.Replace(string(raw), "id: hutao-xingqiu-zhongli-yelan", "id: another-team", 1)
+	if broken == string(raw) {
+		t.Fatal("the alternative's id line was not found")
+	}
+	if err := os.WriteFile(meta, []byte(broken), 0o644); err != nil {
+		t.Fatal(err)
+	}
+}
+
+// A staged team that does not load with its alternatives is not swapped
+// in: the old team stays as it was.
+func TestReplaceTeamRefusesTreeThatDoesNotLoad(t *testing.T) {
+	root, dir := libraryRoot(t)
+	team, err := library.Load(dir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	breakAlt(t, dir)
+	want := tree(t, dir)
+	sp := share.SplitConfig(configOf(t, dir) + "hutao attack;\n")
+	if _, err := replaceTeam(root, dir, true, sp, team); err == nil || !strings.Contains(err.Error(), "does not load") {
+		t.Fatalf("error %v", err)
+	}
+	same(t, dir, want)
+	noStaging(t, root)
+}
+
+// Run returns an error when an alternatives refresh fails; the earlier
+// alternative stays as it was.
+func TestRunReportsAlternativesFailure(t *testing.T) {
+	root, dir := libraryRoot(t)
+	want := read(t, filepath.Join(dir, library.AltDir, earlyAlt))
+	cache := cacheOf(t, entry(baseID, configOf(t, dir), 68025, baseCons), earlyEntry(t, dir), newEntry(t, dir))
+	passing(t)
+	prev := writeAlt
+	writeAlt = func(share.Split, string, *library.Team) error { return errors.New("disk full") }
+	t.Cleanup(func() { writeAlt = prev })
+	o := options{root: root, n: 64, minEntries: 1, choose: 5, iterations: 1, jobs: 1, cache: cache, alternatives: true}
+	if err := run(o); err == nil || !strings.Contains(err.Error(), "disk full") {
+		t.Errorf("run returns %v", err)
+	}
+	unchanged(t, dir, want)
 }
