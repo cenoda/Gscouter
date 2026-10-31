@@ -72,6 +72,12 @@ func enemyFromQuery(q url.Values) (*config.Enemy, error) {
 		e.Boss, e.Resist = b.Key, b.Resist
 	}
 	if q.Has("res") {
+		// An empty res is not "leave the standard resistances": read treats
+		// an empty value as absent, and the zero all would then be copied
+		// onto every element. Reject it, as a non-numeric res is rejected.
+		if strings.TrimSpace(q.Get("res")) == "" {
+			return nil, bad
+		}
 		var all int
 		if !read("res", &all) {
 			return nil, bad

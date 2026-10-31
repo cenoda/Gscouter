@@ -36,7 +36,7 @@ func TestEnemyQuery(t *testing.T) {
 			t.Errorf("%q: got %q, want %q", query, got, want)
 		}
 	}
-	for _, query := range []string{"lvl=0", "lvl=x", "res=2000", "pyro=-101", "geo=1.5", "boss=nobody"} {
+	for _, query := range []string{"lvl=0", "lvl=x", "res=", "res=%20", "res=2000", "pyro=-101", "geo=1.5", "boss=nobody"} {
 		q, _ := url.ParseQuery(query)
 		if _, err := enemyFromQuery(q); err == nil {
 			t.Errorf("%q: no error", query)
