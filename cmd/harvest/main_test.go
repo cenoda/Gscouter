@@ -1,9 +1,12 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
+	"io/fs"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 	"testing"
 
@@ -339,5 +342,249 @@ func TestReplaceAltsKeepsDirOnFailure(t *testing.T) {
 	}
 	if _, err := os.Stat(root); !errors.Is(err, os.ErrNotExist) {
 		t.Errorf("an empty set leaves alt/ (%v)", err)
+	}
+}
+
+// libraryRoot copies the committed Hu Tao team, with its alternative,
+// into a temporary library root, and returns the root and the team.
+func libraryRoot(t *testing.T) (string, string) {
+	t.Helper()
+	root := t.TempDir()
+	dir := filepath.Join(root, "hutao-xingqiu-zhongli-yelan")
+	if err := copyDir(teamSrc, dir); err != nil {
+		t.Fatal(err)
+	}
+	return root, dir
+}
+
+// tree reads every file under dir by its path there.
+func tree(t *testing.T, dir string) map[string]string {
+	t.Helper()
+	files := map[string]string{}
+	err := filepath.WalkDir(dir, func(path string, d fs.DirEntry, err error) error {
+		if err != nil || d.IsDir() {
+			return err
+		}
+		raw, err := os.ReadFile(path)
+		if err != nil {
+			return err
+		}
+		rel, _ := filepath.Rel(dir, path)
+		files[rel] = string(raw)
+		return nil
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	return files
+}
+
+// same checks that dir holds exactly the files want, byte for byte.
+func same(t *testing.T, dir string, want map[string]string) {
+	t.Helper()
+	got := tree(t, dir)
+	for name, content := range want {
+		if c, ok := got[name]; !ok {
+			t.Errorf("%s is gone", name)
+		} else if c != content {
+			t.Errorf("%s changed", name)
+		}
+	}
+	for name := range got {
+		if _, ok := want[name]; !ok {
+			t.Errorf("%s was added", name)
+		}
+	}
+}
+
+// noStaging checks that no staging directory was left in the root.
+func noStaging(t *testing.T, root string) {
+	t.Helper()
+	entries, err := os.ReadDir(root)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, e := range entries {
+		if strings.HasPrefix(e.Name(), ".") {
+			t.Errorf("staging left behind: %s", e.Name())
+		}
+	}
+}
+
+// harvestForced runs harvest with -force on the root, the database
+// being the given entries, read from a local cache.
+func harvestForced(t *testing.T, root string, cs ...candidate) {
+	t.Helper()
+	var entries []kqm.Entry
+	for _, c := range cs {
+		entries = append(entries, *c.entry)
+	}
+	raw, err := json.Marshal(entries)
+	if err != nil {
+		t.Fatal(err)
+	}
+	cache := filepath.Join(t.TempDir(), "kqm.json")
+	if err := os.WriteFile(cache, raw, 0o644); err != nil {
+		t.Fatal(err)
+	}
+	o := options{root: root, n: 64, minEntries: 1, choose: 5, iterations: 1, jobs: 1, cache: cache, force: true}
+	if err := run(o); err != nil {
+		t.Fatal(err)
+	}
+}
+
+var (
+	baseCons  = map[string]int{"hutao": 1, "xingqiu": 6}
+	teamKeyHT = teamKey([]string{"hutao", "xingqiu", "zhongli", "yelan"})
+)
+
+// newRoot is an entry at the team's constellations with another
+// rotation.
+func newRoot(t *testing.T, dir string) candidate {
+	return entry("NewRoot00001", configOf(t, dir)+"hutao attack;\n", 68025, baseCons)
+}
+
+// The audit's reproduction: with -force, the only entry for the team
+// does not parse, with the real checks. The team stays as it was, its
+// alternatives too.
+func TestForceKeepsTeamOnParseError(t *testing.T) {
+	root, dir := libraryRoot(t)
+	want := tree(t, dir)
+	cfg := configOf(t, dir) + "hutao audit_invalid_action;\n"
+	harvestForced(t, root, entry("BadEntry0001", cfg, 68025, baseCons))
+	same(t, dir, want)
+	noStaging(t, root)
+	failed, err := readFailed(root)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if r := failed[teamKeyHT]; !strings.Contains(r, "audit_invalid_action") {
+		t.Errorf("harvest-failed.txt gives %q", r)
+	}
+}
+
+// A team listed as failed before is skipped before anything is
+// measured or changed.
+func TestForceSkipsFailedBeforeChanging(t *testing.T) {
+	root, dir := libraryRoot(t)
+	want := tree(t, dir)
+	if err := os.WriteFile(filepath.Join(root, failedFile), []byte(teamKeyHT+"\tearlier failure\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	checks := 0
+	prev := check
+	check = func(dir string, _ validate.Settings) *validate.Report {
+		checks++
+		return &validate.Report{Dir: dir, Failures: []string{"must not run"}}
+	}
+	t.Cleanup(func() { check = prev })
+	harvestForced(t, root, entry(baseID, configOf(t, dir), 68025, baseCons))
+	if checks != 0 {
+		t.Errorf("%d checks ran", checks)
+	}
+	same(t, dir, want)
+}
+
+// A failure to write the new team leaves the old one as it was.
+func TestForceKeepsTeamOnWriteFailure(t *testing.T) {
+	root, dir := libraryRoot(t)
+	want := tree(t, dir)
+	passing(t)
+	prev := writeTeam
+	writeTeam = func(sp share.Split, to string, team *library.Team) error {
+		if err := sp.WriteDir(to, team); err != nil {
+			return err
+		}
+		return errors.New("disk full")
+	}
+	t.Cleanup(func() { writeTeam = prev })
+	harvestForced(t, root, newRoot(t, dir))
+	same(t, dir, want)
+	noStaging(t, root)
+}
+
+// A failure to move the staged team in moves the old one back.
+func TestReplaceTeamRollsBack(t *testing.T) {
+	root, dir := libraryRoot(t)
+	want := tree(t, dir)
+	team, err := library.Load(dir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	sp := share.SplitConfig(configOf(t, dir) + "hutao attack;\n")
+	prev := rename
+	rename = func(from, to string) error {
+		// Moving the staged directory in fails; moving the old one
+		// back does not.
+		if filepath.Base(to) == team.ID && !strings.Contains(from, "-old") {
+			return errors.New("rename failed")
+		}
+		return os.Rename(from, to)
+	}
+	t.Cleanup(func() { rename = prev })
+	if _, err := replaceTeam(root, dir, true, sp, team); err == nil || !strings.Contains(err.Error(), "rename failed") {
+		t.Fatalf("error %v", err)
+	}
+	same(t, dir, want)
+	noStaging(t, root)
+}
+
+// A passing entry replaces the team: its files are the new entry's, the
+// files the old team had besides are gone, and its alternative is
+// harvested again from the database.
+func TestForceReplaces(t *testing.T) {
+	root, dir := libraryRoot(t)
+	for _, f := range []string{"obsolete.txt", filepath.Join(library.AltDir, earlyAlt, "obsolete.txt")} {
+		if err := os.WriteFile(filepath.Join(dir, f), []byte("old"), 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+	early := earlyEntry(t, dir)
+	passing(t)
+	harvestForced(t, root, newRoot(t, dir), early)
+	noStaging(t, root)
+	got := tree(t, dir)
+	var names []string
+	for name := range got {
+		names = append(names, filepath.ToSlash(name))
+	}
+	slices.Sort(names)
+	alt := "alt/" + earlyAlt + "/"
+	wantNames := []string{alt + "build.txt", alt + "rotation.gcsl", alt + "source.txt", alt + "team.yaml", "build.txt", "rotation.gcsl", "source.txt", "team.yaml"}
+	if !slices.Equal(names, wantNames) {
+		t.Errorf("the team holds %v, want %v", names, wantNames)
+	}
+	if !strings.Contains(got["rotation.gcsl"], "hutao attack;") {
+		t.Errorf("the rotation is not the new entry's")
+	}
+	team, err := library.Load(dir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if team.Sources[0] != "https://db.kqm.gg/db/NewRoot00001" || team.Status != library.StatusSupported {
+		t.Errorf("the team: sources %v, status %s", team.Sources, team.Status)
+	}
+}
+
+// When the replaced team's alternatives cannot be measured again, those
+// carried over stay as they were.
+func TestForceKeepsAlternativesItCannotMeasure(t *testing.T) {
+	root, dir := libraryRoot(t)
+	want := read(t, filepath.Join(dir, library.AltDir, earlyAlt))
+	early := earlyEntry(t, dir)
+	passing(t)
+	pass := check
+	check = func(dir string, s validate.Settings) *validate.Report {
+		if strings.Contains(dir, earlyAlt) {
+			return &validate.Report{Dir: dir, Failures: []string{"simulation failed: boom"}}
+		}
+		return pass(dir, s)
+	}
+	harvestForced(t, root, newRoot(t, dir), early)
+	noStaging(t, root)
+	unchanged(t, dir, want)
+	raw, err := os.ReadFile(filepath.Join(dir, "rotation.gcsl"))
+	if err != nil || !strings.Contains(string(raw), "hutao attack;") {
+		t.Errorf("the team was not replaced (%v)", err)
 	}
 }
