@@ -364,6 +364,7 @@ func init() {
 		"ed.params_title":       "%s 설정",
 		"ed.start_hp":           "시작 HP",
 		"ed.start_energy":       "시작 에너지",
+		"ed.fighting_spirit":    "시작 투지",
 		"ed.param_default":      "기본값: %s",
 		"ed.params_note":        "시작 상태는 점수에서 빠지는 처음 150초 이후에는 영향이 작습니다. 바꾼 값은 차트와 함께 다닙니다.",
 		"ed.reset_params":       "기본값으로",

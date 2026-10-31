@@ -364,6 +364,7 @@ func init() {
 		"ed.params_title":       "%s ayarları",
 		"ed.start_hp":           "Başlangıç HP",
 		"ed.start_energy":       "Başlangıç enerjisi",
+		"ed.fighting_spirit":    "Başlangıç savaş ruhu",
 		"ed.param_default":      "Varsayılan: %s",
 		"ed.params_note":        "Başlangıç durumları, puanın dışarıda bıraktığı ilk 150 sn'den sonra pek etkili değildir. Değiştirilen değerler nota dizisiyle birlikte gider.",
 		"ed.reset_params":       "Varsayılanlara dön",

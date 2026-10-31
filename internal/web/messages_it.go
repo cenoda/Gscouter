@@ -364,6 +364,7 @@ func init() {
 		"ed.params_title":       "Impostazioni di %s",
 		"ed.start_hp":           "PS iniziali",
 		"ed.start_energy":       "Energia iniziale",
+		"ed.fighting_spirit":    "Spirito combattivo iniziale",
 		"ed.param_default":      "Predefinito: %s",
 		"ed.params_note":        "Gli stati iniziali contano poco dopo i primi 150 s, che il punteggio esclude. I valori cambiati viaggiano con lo spartito.",
 		"ed.reset_params":       "Torna ai predefiniti",

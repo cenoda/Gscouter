@@ -28,6 +28,9 @@ type editData struct {
 	// Names are their gcsim keys, Defaults the library team's character
 	// params for each, by slot.
 	Names, Defaults [chart.Slots]string
+	// Resources are what start_energy sets for each, and its range
+	// (chart.StartResource), which the params sheet's control follows.
+	Resources [chart.Slots]chart.Resource
 	// Build is the players' character lines, without params, which the
 	// chart's params and Defaults are added to for each preview.
 	// RecordBuild is Build with Defaults added (withDefaults), which the
@@ -182,6 +185,9 @@ func (s *Server) handleEdit(w http.ResponseWriter, r *http.Request) {
 	d.Rotation = config.RenameCharacters(tr.Team.Rotation, renames(tr.Team, tr.Chars))
 	d.LibraryPickup = strings.Contains(d.Rotation, "pick_up_crystallize")
 	d.Names, d.Defaults = chartSlots(tr.Team, tr.Chars)
+	for i, n := range d.Names {
+		d.Resources[i] = chart.StartResource(n)
+	}
 	d.RecordBuild = withDefaults(d.Build, d.Names, d.Defaults)
 	d.Order = partyOrder(tr.Chars)
 	if tr.Team.Rotation == "" {

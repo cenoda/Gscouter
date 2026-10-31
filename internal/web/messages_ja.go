@@ -364,6 +364,7 @@ func init() {
 		"ed.params_title":       "%sの設定",
 		"ed.start_hp":           "開始HP",
 		"ed.start_energy":       "開始エネルギー",
+		"ed.fighting_spirit":    "開始時の闘志",
 		"ed.param_default":      "既定値: %s",
 		"ed.params_note":        "開始状態は、スコアから除く最初の150秒以降はほとんど影響しません。変えた値はチャートと一緒に保存されます。",
 		"ed.reset_params":       "既定値に戻す",

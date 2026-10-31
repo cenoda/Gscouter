@@ -364,6 +364,7 @@ func init() {
 		"ed.params_title":       "Pengaturan %s",
 		"ed.start_hp":           "HP awal",
 		"ed.start_energy":       "Energi awal",
+		"ed.fighting_spirit":    "Semangat Juang awal",
 		"ed.param_default":      "Bawaan: %s",
 		"ed.params_note":        "Keadaan awal hampir tidak berpengaruh setelah 150 dtk pertama yang tidak dihitung skor. Nilai yang diubah ikut bersama chart.",
 		"ed.reset_params":       "Kembali ke bawaan",
