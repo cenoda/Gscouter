@@ -144,6 +144,7 @@ func init() {
 		"err.link":      "This short link does not exist.",
 		"err.count":     "Pick exactly four characters (%d picked).",
 		"err.chars":     "The character selection is invalid.",
+		"err.traveler":  "A team can have only one Traveler: the Traveler of each element is the same character.",
 
 		"problem.missing": "%s is not in the showcase. Update the showcase and try again.",
 		"problem.blocked": "The simulation engine does not support this team's characters yet. (%s)",

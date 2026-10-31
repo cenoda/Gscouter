@@ -1,6 +1,6 @@
 # Cycle swap
 
-> Status: In progress (§11) · Last updated: 2026-10-30
+> Status: In progress (§11) · Last updated: 2026-10-31
 
 Roadmap node Cycle swap (`docs/roadmap.md`): a player writes or changes a team's rotation and sees the new score. The owner's premise: nobody will type gcsim script, so the editor is built like a **rhythm-game chart editor**: one lane per character, actions as notes on a time axis. This document records what the code and the library allow, what other tools do, and the open decisions.
 
@@ -186,7 +186,8 @@ _2026-10-29._ Done.
 _2026-10-29._ Done.
 
 - **Saved charts**: a row under the editor's title keeps named charts per team in `localStorage` (`gscouter.charts:` and the members by slot; up to 20, newest first) and loads or deletes them. The chart being edited is also kept as a draft (§11.2). A phone held sideways hides the row.
-- **Params sheet**: each lane's portrait opens its character's settings: starting HP and starting energy for everyone, Yelan's `breakthrough`, Skirk's `start_serpents_subtlety`, the Traveler's story buffs, and any param the library team sets. A dot marks a portrait whose params the chart sets. `Chart.WithParams` merges them over the team's own (the chart's value wins per key), so changing one param keeps the others, such as Hu Tao's `start_hp=1`.
+- **Params sheet**: each lane's portrait opens its character's settings: starting HP and starting energy for everyone, Yelan's `breakthrough`, the Traveler's story buffs, and any param the library team sets. A dot marks a portrait whose params the chart sets. `Chart.WithParams` merges them over the team's own (the chart's value wins per key), so changing one param keeps the others, such as Hu Tao's `start_hp=1`.
+- **Skirk's starting resource** (2026-10-31): gcsim reads her starting Serpent's Subtlety from the deprecated `start_serpents_subtlety` and then from `start_energy` over it, and starts her at 100 with neither. The sheet has one control for it, starting energy. The editor folds a legacy value into `start_energy` (in the library team's params and in a loaded chart, `start_energy` winning when both are set) and writes `start_energy` alone, so a move of the slider always reaches the fight. `Chart.WithParams` folds both sides the same way (`chart.FoldResource`) before merging, so an older link with only the legacy key plays as before.
 
 ### 11.5 Sending a chart
 

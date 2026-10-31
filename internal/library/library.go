@@ -466,6 +466,21 @@ func Canonical(name string) string {
 	return s
 }
 
+// Identity returns the name of the character a team can hold only one
+// of: Canonical, except that every Traveler, of any element and either
+// gender, is the one "traveler". A player has one Traveler, whose
+// elements share its equipment, so two of them cannot be in one party.
+// Library matching and rotations keep the element (Canonical).
+func Identity(name string) string {
+	key := Canonical(name)
+	for _, prefix := range []string{"traveler", "aether", "lumine"} {
+		if strings.HasPrefix(key, prefix) {
+			return "traveler"
+		}
+	}
+	return key
+}
+
 // Matches reports whether chars is exactly the team's 4-character set,
 // in any order and under any alias.
 func (t *Team) Matches(chars []string) bool {

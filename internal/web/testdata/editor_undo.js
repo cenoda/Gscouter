@@ -5,12 +5,18 @@
 // read through the score button, which encodes the chart as it stands.
 // It prints {"errors": [...]}, empty when every check holds.
 //
-//	node editor_undo.js page.js
+// A second page, a team with Skirk and her slot, runs the scenarios of
+// her params sheet (page: "skirk"), which open the sheet and move its
+// sliders; a scenario's defaults replace the team's params the page has.
+//
+//	node editor_undo.js page.js [skirk.js slot]
 "use strict";
 const fs = require("fs");
 const vm = require("vm");
 
 const pageSrc = fs.readFileSync(process.argv[2], "utf8");
+const skirkSrc = process.argv[3] ? fs.readFileSync(process.argv[3], "utf8") : null;
+const S = process.argv[4];
 const errors = [];
 const flush = () => new Promise((r) => setImmediate(r));
 
@@ -86,8 +92,30 @@ function run(scenario) {
   };
   page.document.body.appendChild = (t) => { toast = t; };
   page.window = page;
+  // The params sheet: its inputs are read back from the HTML openSheet
+  // writes, by param key.
+  const inputs = {};
+  $("ed-layer").querySelectorAll = function (q) {
+    if (q !== "input") return [];
+    for (const k of Object.keys(inputs)) delete inputs[k];
+    const re = /<input type="(\w+)" id="([^"]*)" data-k="([^"]*)"([^>]*)>/g;
+    let m;
+    while ((m = re.exec(this.innerHTML))) {
+      const inp = element(m[2]), v = /value="([^"]*)"/.exec(m[4]);
+      Object.assign(inp, {type: m[1], value: v ? v[1] : "", checked: / checked/.test(m[4]), closest: () => ({querySelector: () => null})});
+      inp.dataset.k = m[3];
+      inputs[m[3]] = inp;
+    }
+    return Object.values(inputs);
+  };
+  let src = scenario.page === "skirk" ? skirkSrc : pageSrc;
+  if (scenario.defaults) {
+    const re = /DEFAULTS = JSON\.stringify\(\[[^\]]*\]\)/;
+    if (!re.test(src)) throw new Error("no DEFAULTS in the page");
+    src = src.replace(re, "DEFAULTS = JSON.stringify(" + JSON.stringify(scenario.defaults) + ")");
+  }
   vm.createContext(page);
-  vm.runInContext(pageSrc, page, {filename: "page.js"});
+  vm.runInContext(src, page, {filename: "page.js"});
 
   const key = (code, extra) => {
     const e = Object.assign({code, key: "", target: element("t"), preventDefault() {}}, extra);
@@ -113,6 +141,12 @@ function run(scenario) {
     pickup(on) { $("ed-pickup").checked = on; $("ed-pickup").dispatch("change", {}); },
     pickupShown: () => $("ed-pickup").checked,
     choose(v) { $("ed-saved").value = v; $("ed-saved").onchange.call($("ed-saved")); },
+    // openSheet opens slot s's params sheet and gives its inputs by key.
+    openSheet(s) {
+      $("ed-labels").dispatch("click", {target: {closest: () => ({dataset: {p: String(s)}})}});
+      return Object.assign({}, inputs);
+    },
+    slide(inp, v) { inp.value = String(v); inp.dispatch("input", {}); inp.dispatch("change", {}); },
     draft() { for (const [k, v] of store) if (k.startsWith("gscouter.chart:")) return v; return null; },
     async expectDraft(what, want) {
       await t.settle();
@@ -270,8 +304,65 @@ const scenarios = [
   }},
 ];
 
+// Skirk's sheet has one control for her starting Serpent's Subtlety,
+// start_energy, which shows what gcsim starts her at: the chart's
+// start_energy, else its legacy start_serpents_subtlety, else the team's
+// (legacy or not), else 100. Moving it writes start_energy alone.
+const legacy = "start_serpents_subtlety";
+function skirkSheet(t, what, want) {
+  const inputs = t.openSheet(S);
+  t.check(`${what}: a legacy control is shown`, !(legacy in inputs));
+  const e = inputs.start_energy;
+  t.check(`${what}: no start_energy slider`, e && e.type === "range");
+  if (e) t.check(`${what}: start_energy shows ${e.value}, want ${want}`, e.value === String(want));
+  return inputs;
+}
+const blank = ["", "", "", ""];
+const withDefault = (d) => blank.map((x, i) => (String(i) === S ? d : x));
+scenarios.push(
+  {name: "skirk: neither key", page: "skirk", defaults: blank, async run(t) {
+    await t.settle();
+    t.records.shift().resolve(`${S}E`);
+    await t.settle();
+    skirkSheet(t, "no params", 100);
+  }},
+  {name: "skirk: the library's legacy key", page: "skirk", defaults: withDefault(`${legacy}=0`), async run(t) {
+    await t.settle();
+    t.records.shift().resolve(`${S}E`);
+    await t.settle();
+    const inputs = skirkSheet(t, "the legacy default", 0);
+    t.slide(inputs.start_energy, 60);
+    await t.expect("after the slider", `${S}E ; p${S} start_energy=60`);
+  }},
+  {name: "skirk: the chart's start_energy over the legacy default", page: "skirk", defaults: withDefault(`${legacy}=0`), async run(t) {
+    await t.settle();
+    t.records.shift().resolve(`${S}E ; p${S} start_energy=40`);
+    await t.settle();
+    skirkSheet(t, "the chart's start_energy", 40);
+  }},
+  {name: "skirk: an older link with the legacy key", page: "skirk", saved: [{n: "old", t: `${S}E ; p${S} ${legacy}=20`, d: "2026-01-01"}], async run(t) {
+    await t.settle();
+    t.records.shift().resolve(`${S}E`);
+    await t.settle();
+    t.choose("0");
+    await t.expect("the legacy key folded", `${S}E ; p${S} start_energy=20`);
+    skirkSheet(t, "the chart's legacy key", 20);
+  }},
+  {name: "skirk: editing after both keys", page: "skirk", saved: [{n: "both", t: `${S}E ; p${S} start_energy=20 ${legacy}=100 start_hp%=50`, d: "2026-01-01"}], async run(t) {
+    await t.settle();
+    t.records.shift().resolve(`${S}E`);
+    await t.settle();
+    t.choose("0");
+    await t.expect("start_energy kept, the legacy key dropped", `${S}E ; p${S} start_energy=20 start_hp%=50`);
+    const inputs = skirkSheet(t, "both keys", 20);
+    t.slide(inputs.start_energy, 70);
+    await t.expect("after the slider", `${S}E ; p${S} start_hp%=50 start_energy=70`);
+  }},
+);
+
 (async () => {
   for (const s of scenarios) {
+    if (s.page === "skirk" && !skirkSrc) continue;
     try { await run(s); } catch (e) { errors.push(`${s.name}: ${e.stack}`); }
   }
   console.log(JSON.stringify({errors}));

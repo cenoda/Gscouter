@@ -144,6 +144,7 @@ func init() {
 		"err.link":      "Liên kết rút gọn này không tồn tại.",
 		"err.count":     "Hãy chọn đúng 4 nhân vật (đã chọn %d).",
 		"err.chars":     "Lựa chọn nhân vật không hợp lệ.",
+		"err.traveler":  "Một đội chỉ có thể có một Nhà Lữ Hành: Nhà Lữ Hành ở mọi nguyên tố đều là cùng một nhân vật.",
 
 		"problem.missing": "%s không có trong phần trưng bày. Hãy cập nhật phần trưng bày rồi thử lại.",
 		"problem.blocked": "Engine mô phỏng chưa hỗ trợ nhân vật của đội hình này. (%s)",

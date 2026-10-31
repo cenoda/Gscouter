@@ -144,6 +144,7 @@ func init() {
 		"err.link":      "Bu kısa bağlantı mevcut değil.",
 		"err.count":     "Tam olarak dört karakter seç (%d seçildi).",
 		"err.chars":     "Karakter seçimi geçersiz.",
+		"err.traveler":  "Bir takımda yalnızca bir Gezgin olabilir: her elementin Gezgini aynı karakterdir.",
 
 		"problem.missing": "%s galeride yok. Galeriyi güncelleyip tekrar dene.",
 		"problem.blocked": "Simülasyon motoru bu takımın karakterlerini henüz desteklemiyor. (%s)",

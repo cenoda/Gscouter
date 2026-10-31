@@ -347,7 +347,7 @@
     if (!undoStack.length) return toast(S.nothingUndo);
     // Undoing while a reset is still recording takes the reset back.
     loads++;
-    st = parse(undoStack.pop()); cursor = Math.min(cursor, st.notes.length); sel = null; rangeEnd = null; changed();
+    st = foldResource(parse(undoStack.pop())); cursor = Math.min(cursor, st.notes.length); sel = null; rangeEnd = null; changed();
   }
   var previewTimer = 0, urlTimer = 0, previewing = 0;
   function changed() {
@@ -890,13 +890,34 @@
     d.split(",").forEach(function (kv) { var x = kv.split("="); if (x.length === 2) out[x[0].trim()] = +x[1]; });
     return out;
   });
+  // Skirk's starting Serpent's Subtlety has two keys in gcsim for the one
+  // resource: the deprecated start_serpents_subtlety, which start_energy
+  // overrides. The editor shows and writes start_energy alone, the legacy
+  // value folded into it as gcsim reads them (chart.FoldResource), so a
+  // slider move always reaches the fight.
+  var LEGACY = "start_serpents_subtlety";
+  DEFS.forEach(function (d, s) {
+    if (KEYS[s] !== "skirk" || !(LEGACY in d)) return;
+    if (!("start_energy" in d)) d.start_energy = d[LEGACY];
+    delete d[LEGACY];
+  });
+  function foldResource(st) {
+    st.params.forEach(function (ps, s) {
+      var i = -1;
+      ps.forEach(function (p, j) { if (p[0] === LEGACY) i = j; });
+      if (KEYS[s] !== "skirk" || i < 0) return;
+      var legacy = ps[i][1];
+      ps.splice(i, 1);
+      if (!ps.some(function (p) { return p[0] === "start_energy"; })) ps.splice(i, 0, ["start_energy", legacy]);
+    });
+    return st;
+  }
   function paramsFor(s) {
     var key = KEYS[s], list = [
       {k: "start_hp%", label: S.startHP, min: 1, max: 100, unit: "%", base: 100},
       {k: "start_energy", label: S.startEnergy, min: 0, max: 100, unit: "", base: 100}
     ];
     if (key === "yelan") list.push({k: "breakthrough", bool: true, base: 1});
-    if (key === "skirk") list.push({k: "start_serpents_subtlety", min: 0, max: 100, unit: "", base: 0});
     if (/^(aether|lumine|traveler)/.test(key)) list.push({k: "base_atk_buff", bool: true, base: 1}, {k: "skirk_story_buff", bool: true, base: 0});
     Object.keys(DEFS[s]).forEach(function (k) {
       if (!list.some(function (p) { return p.k === k; })) list.push({k: k, number: true, base: 0});
@@ -1000,7 +1021,7 @@
     loads++;
     if (!undoable) undoStack = [];
     else if (st) remember();
-    st = parse(text); cursor = st.notes.length; sel = null; rangeEnd = null;
+    st = foldResource(parse(text)); cursor = st.notes.length; sel = null; rangeEnd = null;
     // A team the library doesn't have picks shards up unless its chart
     // came with a choice: nothing to compare with makes it unfair.
     if (!ROTATION && !text) st.pickup = true;

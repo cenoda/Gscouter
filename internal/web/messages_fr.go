@@ -144,6 +144,7 @@ func init() {
 		"err.link":      "Ce lien court n'existe pas.",
 		"err.count":     "Choisissez exactement quatre personnages (%d choisis).",
 		"err.chars":     "La sélection de personnages est invalide.",
+		"err.traveler":  "Une équipe ne peut avoir qu'un seul Voyageur : le Voyageur de chaque élément est le même personnage.",
 
 		"problem.missing": "%s n'est pas dans la vitrine. Mettez la vitrine à jour et réessayez.",
 		"problem.blocked": "Le moteur de simulation ne prend pas encore en charge les personnages de cette équipe. (%s)",

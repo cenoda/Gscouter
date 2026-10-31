@@ -21,6 +21,12 @@
 // Teams that fail every entry are recorded in <root>/harvest-failed.txt
 // and skipped by the next run unless -retry-failed is set.
 //
+// With -force, a team already in the library is replaced, but only once
+// an entry for it passes: the new team's files, with the earlier
+// alternatives, are staged in full beside it and swapped in only then.
+// A team whose entries all fail, or that is skipped as failed before,
+// stays as it was.
+//
 // Each team harvested also gets its alternatives (library.AltDir): for
 // every set of constellations above those of the team's entry that the
 // database has, the entry chosen the same way among those written for
@@ -119,9 +125,15 @@ type candidate struct {
 type group struct {
 	key        string // sorted canonical member names
 	candidates []candidate
-	// replaces is the directory of the team's written rotation, removed
-	// when an entry passes.
+	// replaces is the directory of the team already in the library that
+	// an entry replaces: a written rotation, or any team with -force. It
+	// stays as it is until an entry passes and the new team's files are
+	// staged in full (replaceTeam).
 	replaces string
+	// keepAlts carries the replaced team's alternatives (library.AltDir)
+	// over to the new team, for the alternatives' refresh to replace
+	// only those it measures again. A written rotation's are dropped.
+	keepAlts bool
 }
 
 func run(o options) error {
@@ -193,27 +205,29 @@ func run(o options) error {
 			}
 			continue
 		}
-		if ex, ok := existing[g.key]; ok {
-			// A written rotation gives way to the database's entry, but
-			// only once one passes: harvest removes it then.
-			if ex.team.Written() {
-				g.replaces = ex.dir
-			} else if !o.force {
-				if err := backfillSource(ex.dir, byID); err != nil {
-					return err
-				}
-				held++
-				continue
-			} else if err := os.RemoveAll(ex.dir); err != nil {
+		// Every skip is decided here, before anything is changed: a team
+		// in the library is replaced only by harvest, once an entry for
+		// it passes and the new files are staged.
+		ex, inLibrary := existing[g.key]
+		if inLibrary && !ex.team.Written() && !o.force {
+			if err := backfillSource(ex.dir, byID); err != nil {
 				return err
 			}
+			held++
+			continue
 		}
 		if _, ok := failed[g.key]; ok && !o.retryFailed {
-			if g.replaces != "" {
-				held++
+			if inLibrary {
+				held++ // it stays as it is
 			}
 			skippedFailed++
 			continue
+		}
+		if inLibrary {
+			// A written rotation gives way to the database's entry, and
+			// with -force any team does, but only once one passes.
+			g.replaces = ex.dir
+			g.keepAlts = !ex.team.Written()
 		}
 		todo = append(todo, g)
 	}
@@ -254,7 +268,7 @@ func run(o options) error {
 					alts = append(alts, altJob{dir, g})
 				} else {
 					if g.replaces != "" {
-						held++ // the written rotation stays
+						held++ // the team in the library stays
 					}
 					failed[g.key] = reason
 				}
@@ -350,17 +364,11 @@ func harvest(root string, g *group, tries, choose int, s validate.Settings) (str
 		}
 	}
 	if best != nil {
-		if g.replaces != "" {
-			// The entry's directory may be named in another member order.
-			if err := os.RemoveAll(g.replaces); err != nil {
-				return "", err.Error(), "error: " + err.Error() + "\n"
-			}
-		}
 		best.team.Validation = best.r.Validation(s.Iterations)
 		if best.team.Validation.Draft == "" {
 			best.team.Status = library.StatusSupported
 		}
-		dir, err := best.split.Write(root, best.team, true)
+		dir, err := replaceTeam(root, g.replaces, g.keepAlts, best.split, best.team)
 		if err != nil {
 			return "", err.Error(), "error: " + err.Error() + "\n"
 		}
@@ -412,6 +420,81 @@ var check = func(dir string, s validate.Settings) *validate.Report {
 		r = validate.CheckIsolated(dir, s)
 	}
 	return r
+}
+
+// writeTeam writes a team's own files into its staged directory. It is
+// a variable so that tests can make the write fail.
+var writeTeam = func(sp share.Split, dir string, t *library.Team) error { return sp.WriteDir(dir, t) }
+
+// rename moves a directory. It is a variable so that tests can make the
+// swap fail.
+var rename = os.Rename
+
+// replaceTeam writes the team into root in place of the directory old
+// ("" for none), which the entry may name in another member order. It
+// fills the new directory in full in a staging directory under root
+// first: the team's files and, with keepAlts, old's alternatives
+// (library.AltDir) as they are. Only then are old, and any directory
+// with the new team's name, moved aside and the staged one moved in; if
+// a move fails, what was moved aside is moved back. A failure at any
+// step leaves the library as it was.
+func replaceTeam(root, old string, keepAlts bool, sp share.Split, t *library.Team) (string, error) {
+	dir := filepath.Join(root, t.ID)
+	stage, err := os.MkdirTemp(root, "."+t.ID+"-")
+	if err != nil {
+		return "", err
+	}
+	defer os.RemoveAll(stage) // a no-op once it is moved in
+	if err := os.Chmod(stage, 0o755); err != nil {
+		return "", err
+	}
+	if err := writeTeam(sp, stage, t); err != nil {
+		return "", err
+	}
+	if keepAlts && old != "" {
+		alt := filepath.Join(old, library.AltDir)
+		if _, err := os.Lstat(alt); err == nil {
+			if err := copyDir(alt, filepath.Join(stage, library.AltDir)); err != nil {
+				return "", err
+			}
+		} else if !errors.Is(err, fs.ErrNotExist) {
+			return "", err
+		}
+	}
+	type move struct{ from, to string }
+	var aside []move
+	restore := func(cause error) error {
+		for i := len(aside) - 1; i >= 0; i-- {
+			if err := rename(aside[i].to, aside[i].from); err != nil {
+				return fmt.Errorf("%w (%s is left in %s: %v)", cause, aside[i].from, aside[i].to, err)
+			}
+		}
+		return cause
+	}
+	for i, d := range []string{old, dir} {
+		if d == "" || (i == 1 && filepath.Clean(d) == filepath.Clean(old)) {
+			continue
+		}
+		if _, err := os.Lstat(d); errors.Is(err, fs.ErrNotExist) {
+			continue
+		} else if err != nil {
+			return "", restore(err)
+		}
+		to := fmt.Sprintf("%s-old%d", stage, i)
+		if err := rename(d, to); err != nil {
+			return "", restore(err)
+		}
+		aside = append(aside, move{d, to})
+	}
+	if err := rename(stage, dir); err != nil {
+		return "", restore(err)
+	}
+	for _, m := range aside {
+		if err := os.RemoveAll(m.to); err != nil {
+			return "", err
+		}
+	}
+	return dir, nil
 }
 
 // writeAlt writes an alternative's files into the staged alternatives.
@@ -825,7 +908,9 @@ func existingTeams(root string) (map[string]existingTeam, error) {
 		return nil, err
 	}
 	for _, d := range dirs {
-		if !d.IsDir() {
+		// A name starting with a dot is a staging directory
+		// (replaceTeam) a crash left behind.
+		if !d.IsDir() || strings.HasPrefix(d.Name(), ".") {
 			continue
 		}
 		dir := filepath.Join(root, d.Name())
@@ -866,7 +951,8 @@ func writeFailed(root string, failed map[string]string) error {
 	var b strings.Builder
 	b.WriteString("# Teams cmd/harvest could not import: no database entry reproduced its DPS,\n")
 	b.WriteString("# or the imported team failed the full validation (cmd/validate) and was removed.\n")
-	b.WriteString("# A rotation written from a guide for the team stays in the library.\n")
+	b.WriteString("# A team already in the library (a rotation written from a guide, or a\n")
+	b.WriteString("# team -force could not replace) stays there as it was.\n")
 	b.WriteString("# The next harvest skips them unless run with -retry-failed.\n")
 	for _, key := range slices.Sorted(maps.Keys(failed)) {
 		fmt.Fprintf(&b, "%s\t%s\n", key, failed[key])
