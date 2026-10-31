@@ -18,10 +18,12 @@ func init() {
 		"foot.discord": `質問とスコアの報告: <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouterは広告や寄付のない非営利・非公式のファンプロジェクトであり、HoYoverseとは関係ありません。` +
 			`原神および関連する名称はHoYoverseの商標です。キャラクター画像は© HoYoverseで、<a href="https://enka.network">Enka.Network</a>から読み込んでいます。`,
-		"js.copied":      "リンクをコピーしました",
-		"js.link":        "リンク",
-		"js.progress":    "シミュレーション %d · %d%%",
-		"js.calculating": "計算中です… 最大1分ほどかかることがあります。",
+		"js.copied":            "リンクをコピーしました",
+		"js.link":              "リンク",
+		"js.image_copied":      "画像をコピーしました",
+		"js.image_copy_failed": "画像をコピーできませんでした",
+		"js.progress":          "シミュレーション %d · %d%%",
+		"js.calculating":       "計算中です… 最大1分ほどかかることがあります。",
 
 		"team.stderr": "標準誤差",
 
@@ -81,7 +83,19 @@ func init() {
 
 		"problem.home": "トップへ",
 
-		"score.copy":            "結果リンクをコピー",
+		"share.button":          "シェア",
+		"share.title":           "シェア",
+		"share.close":           "閉じる",
+		"share.image":           "画像",
+		"share.spec":            "ビルドの詳細を表示",
+		"share.spec_note":       "レベル・凸数・武器・天賦・ステータスです。オフにすると、画像にはDPSと各キャラの割合だけが残ります。",
+		"share.save":            "画像を保存",
+		"share.send_image":      "画像を送る",
+		"share.copy_image":      "画像をコピー",
+		"share.link":            "リンク",
+		"share.copy_link":       "リンクをコピー",
+		"share.more":            "ほかのアプリで共有",
+		"share.custom":          "カスタムローテーション",
 		"score.repick":          "別のキャラクターを選ぶ",
 		"score.compare_heading": "他の編成と比較する",
 		"score.compare_lead":    "相手のUIDを読み込んで編成を選ぶと、同じ条件で両方を並べて計算します。自分の別の編成と比較するには、自分のUIDを入力してください。",
@@ -118,7 +132,6 @@ func init() {
 		"vs.right_higher": "右の編成が%s高い",
 		"vs.left":         "左",
 		"vs.right":        "右",
-		"vs.copy":         "比較リンクをコピー",
 		"vs.left_team":    "左の編成",
 		"vs.right_team":   "右の編成",
 

@@ -18,10 +18,12 @@ func init() {
 		"foot.discord": `Câu hỏi và báo cáo điểm số: <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouter là dự án fan không chính thức, phi thương mại, không quảng cáo hay nhận quyên góp, và không liên kết với HoYoverse. ` +
 			`Genshin Impact và các tên liên quan là thương hiệu của HoYoverse; hình ảnh nhân vật thuộc © HoYoverse, được tải từ <a href="https://enka.network">Enka.Network</a>.`,
-		"js.copied":      "Đã sao chép liên kết",
-		"js.link":        "Liên kết",
-		"js.progress":    "mô phỏng %d · %d%%",
-		"js.calculating": "Đang tính… Có thể mất đến một phút.",
+		"js.copied":            "Đã sao chép liên kết",
+		"js.link":              "Liên kết",
+		"js.image_copied":      "Đã sao chép hình",
+		"js.image_copy_failed": "Không thể sao chép hình",
+		"js.progress":          "mô phỏng %d · %d%%",
+		"js.calculating":       "Đang tính… Có thể mất đến một phút.",
 
 		"team.stderr": "sai số chuẩn",
 
@@ -81,7 +83,19 @@ func init() {
 
 		"problem.home": "Trang chủ",
 
-		"score.copy":            "Sao chép liên kết kết quả",
+		"share.button":          "Chia sẻ",
+		"share.title":           "Chia sẻ",
+		"share.close":           "Đóng",
+		"share.image":           "Hình ảnh",
+		"share.spec":            "Hiện chi tiết build",
+		"share.spec_note":       "Cấp, cung mệnh, vũ khí, thiên phú và chỉ số. Khi tắt, hình chỉ còn DPS và tỉ lệ của từng nhân vật.",
+		"share.save":            "Lưu hình",
+		"share.send_image":      "Gửi hình",
+		"share.copy_image":      "Sao chép hình",
+		"share.link":            "Liên kết",
+		"share.copy_link":       "Sao chép liên kết",
+		"share.more":            "Ứng dụng khác",
+		"share.custom":          "Vòng xoay tự viết",
 		"score.repick":          "Chọn nhân vật khác",
 		"score.compare_heading": "So sánh với đội hình khác",
 		"score.compare_lead":    "Tải UID của đối thủ và chọn một đội hình để tính cả hai song song trong cùng điều kiện. Để so sánh với một đội hình khác của chính bạn, hãy nhập UID của bạn.",
@@ -118,7 +132,6 @@ func init() {
 		"vs.right_higher": "Đội bên phải cao hơn %s",
 		"vs.left":         "Trái",
 		"vs.right":        "Phải",
-		"vs.copy":         "Sao chép liên kết so sánh",
 		"vs.left_team":    "Đội bên trái",
 		"vs.right_team":   "Đội bên phải",
 

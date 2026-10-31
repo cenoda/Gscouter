@@ -18,10 +18,12 @@ func init() {
 		"foot.discord": `Pertanyaan dan laporan skor: <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouter adalah proyek penggemar tidak resmi dan nonkomersial tanpa iklan maupun donasi, serta tidak berafiliasi dengan HoYoverse. ` +
 			`Genshin Impact dan nama terkait adalah merek dagang HoYoverse; gambar karakter © HoYoverse, dimuat dari <a href="https://enka.network">Enka.Network</a>.`,
-		"js.copied":      "Link disalin",
-		"js.link":        "Link",
-		"js.progress":    "simulasi %d · %d%%",
-		"js.calculating": "Menghitung… Ini bisa memakan waktu hingga satu menit.",
+		"js.copied":            "Link disalin",
+		"js.link":              "Link",
+		"js.image_copied":      "Gambar disalin",
+		"js.image_copy_failed": "Gambar tidak dapat disalin",
+		"js.progress":          "simulasi %d · %d%%",
+		"js.calculating":       "Menghitung… Ini bisa memakan waktu hingga satu menit.",
 
 		"team.stderr": "galat baku",
 
@@ -81,7 +83,19 @@ func init() {
 
 		"problem.home": "Beranda",
 
-		"score.copy":            "Salin link hasil",
+		"share.button":          "Bagikan",
+		"share.title":           "Bagikan",
+		"share.close":           "Tutup",
+		"share.image":           "Gambar",
+		"share.spec":            "Tampilkan detail build",
+		"share.spec_note":       "Level, konstelasi, senjata, talenta, dan stat. Jika dimatikan, gambar hanya menampilkan DPS dan porsi tiap karakter.",
+		"share.save":            "Simpan gambar",
+		"share.send_image":      "Kirim gambar",
+		"share.copy_image":      "Salin gambar",
+		"share.link":            "Link",
+		"share.copy_link":       "Salin link",
+		"share.more":            "Aplikasi lain",
+		"share.custom":          "Rotasi sendiri",
 		"score.repick":          "Pilih karakter lain",
 		"score.compare_heading": "Bandingkan dengan tim lain",
 		"score.compare_lead":    "Muat UID lawan dan pilih tim untuk menghitung keduanya secara berdampingan dalam kondisi yang sama. Untuk membandingkan dengan timmu yang lain, masukkan UID-mu sendiri.",
@@ -118,7 +132,6 @@ func init() {
 		"vs.right_higher": "Tim kanan %s lebih tinggi",
 		"vs.left":         "Kiri",
 		"vs.right":        "Kanan",
-		"vs.copy":         "Salin link perbandingan",
 		"vs.left_team":    "Tim kiri",
 		"vs.right_team":   "Tim kanan",
 

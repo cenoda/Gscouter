@@ -18,10 +18,12 @@ func init() {
 		"foot.discord": `Domande e segnalazioni sui punteggi: <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouter è un progetto amatoriale non ufficiale e senza scopo di lucro, senza pubblicità né donazioni, e non è affiliato a HoYoverse. ` +
 			`Genshin Impact e i nomi correlati sono marchi di HoYoverse; le immagini dei personaggi sono © HoYoverse e vengono caricate da <a href="https://enka.network">Enka.Network</a>.`,
-		"js.copied":      "Link copiato",
-		"js.link":        "Link",
-		"js.progress":    "simulazione %d · %d%%",
-		"js.calculating": "Calcolo in corso… Può richiedere fino a un minuto.",
+		"js.copied":            "Link copiato",
+		"js.link":              "Link",
+		"js.image_copied":      "Immagine copiata",
+		"js.image_copy_failed": "Impossibile copiare l'immagine",
+		"js.progress":          "simulazione %d · %d%%",
+		"js.calculating":       "Calcolo in corso… Può richiedere fino a un minuto.",
 
 		"team.stderr": "errore standard",
 
@@ -81,7 +83,19 @@ func init() {
 
 		"problem.home": "Home",
 
-		"score.copy":            "Copia link del risultato",
+		"share.button":          "Condividi",
+		"share.title":           "Condividi",
+		"share.close":           "Chiudi",
+		"share.image":           "Immagine",
+		"share.spec":            "Mostra i dettagli della build",
+		"share.spec_note":       "Livello, costellazione, arma, talenti e statistiche. Se disattivato, l'immagine mostra solo i DPS e la quota di ogni personaggio.",
+		"share.save":            "Salva immagine",
+		"share.send_image":      "Invia immagine",
+		"share.copy_image":      "Copia immagine",
+		"share.link":            "Link",
+		"share.copy_link":       "Copia link",
+		"share.more":            "Altre app",
+		"share.custom":          "Rotazione personalizzata",
 		"score.repick":          "Scegli altri personaggi",
 		"score.compare_heading": "Confronta con un'altra squadra",
 		"score.compare_lead":    "Carica l'UID di un avversario e scegli una squadra per calcolarle entrambe affiancate, nelle stesse condizioni. Per confrontare con un'altra delle tue squadre, inserisci il tuo UID.",
@@ -118,7 +132,6 @@ func init() {
 		"vs.right_higher": "La squadra a destra è avanti del %s",
 		"vs.left":         "Sinistra",
 		"vs.right":        "Destra",
-		"vs.copy":         "Copia link del confronto",
 		"vs.left_team":    "Squadra a sinistra",
 		"vs.right_team":   "Squadra a destra",
 

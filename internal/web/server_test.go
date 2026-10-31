@@ -261,7 +261,7 @@ func TestVersus(t *testing.T) {
 	_, body = getKo(t, ts, "/versus?"+v.Encode())
 	mustContain(t, body, "비슷합니다")
 	_, body = get(t, ts, "/versus?"+v.Encode())
-	mustContain(t, body, "About even", "Copy comparison link")
+	mustContain(t, body, "About even", `onclick="openShare(this)"`, `<dialog class="share">`, "Copy link")
 }
 
 func TestVersusDiff(t *testing.T) {

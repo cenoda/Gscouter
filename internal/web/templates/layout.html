@@ -272,6 +272,18 @@ details.rotation pre { background: var(--bg); border-radius: 8px; padding: 12px;
 .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--text); color: var(--card);
   padding: 8px 14px; border-radius: 8px; font-size: .9rem; opacity: 0; transition: opacity .2s; pointer-events: none; }
 .toast.show { opacity: 1; }
+dialog.share { width: min(560px, calc(100% - 32px)); max-height: calc(100% - 32px); padding: 16px 18px; border: 1px solid var(--line);
+  border-radius: 10px; background: var(--card); color: var(--text); }
+dialog.share::backdrop { background: rgba(0,0,0,.45); }
+dialog.share section { border-top: 1px solid var(--line); margin-top: 12px; padding-top: 12px; }
+dialog.share [hidden] { display: none; }
+dialog.share label { display: flex; gap: 6px; align-items: center; margin-top: 8px; }
+.share-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.share-head h2 { margin: 0; }
+.share-head button { padding: 4px 12px; }
+.share-preview { display: block; max-width: 100%; max-height: min(55vh, 600px); margin: 0 auto; min-height: 120px; border-radius: 6px; border: 1px solid var(--line); background: #15161d; }
+.share-url { display: flex; gap: 8px; margin-top: 10px; }
+.share-url input[type=text] { font-size: .9rem; }
 .busy { position: fixed; inset: 0; z-index: 20; display: none; place-items: center; background: rgba(0,0,0,.35); }
 .busy.show { display: grid; }
 .busy div { background: var(--card); color: var(--text); border-radius: 6px; padding: 18px 22px; display: flex; gap: 12px; align-items: center; max-width: calc(100% - 32px); }
@@ -295,6 +307,7 @@ details.rotation pre { background: var(--bg); border-radius: 8px; padding: 12px;
 <symbol id="el-geo" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 20 12l-8 10-8-10zm0 4.2L7.4 12l4.6 5.8 4.6-5.8z"/></symbol>
 <symbol id="i-link" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
 <symbol id="i-vs" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 7h13l-3-3M20 17H7l3 3"/></symbol>
+<symbol id="i-share" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"/></g></symbol>
 <symbol id="i-back" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 5l-7 7 7 7"/></symbol>
 </defs>
 </svg>
@@ -444,25 +457,18 @@ function sendChart(btn) {
     if (!r.ok) btn.disabled = false;
   }, function () { btn.textContent = {{t "js.send_failed"}}; btn.disabled = false; });
 }
-// copyLink copies the page's short link (/s/...), or the page's own link
-// when the server has no short links or can't make one.
-// A checked "leave pieces out" box beside the button copies its link
-// instead, which carries the builds without their pieces.
-function copyLink(btn) {
-  var strip = btn.parentNode.querySelector("input[data-strip]");
-  var page = strip && strip.checked ? new URL(strip.getAttribute("data-strip"), location.href) : location;
-  var url = fetch("/s", {
+// shortLink is a promise of page's short link (/s/...), or of its own
+// link when the server has no short links or can't make one.
+function shortLink(page) {
+  return fetch("/s", {
     method: "POST",
     body: new URLSearchParams({u: page.pathname + page.search})
   }).then(function (r) {
     return r.ok ? r.text() : page.href;
   }, function () { return page.href; });
-  var done = function () {
-    var t = document.getElementById("toast");
-    t.textContent = {{t "js.copied"}};
-    t.classList.add("show");
-    setTimeout(function () { t.classList.remove("show"); }, 1500);
-  };
+}
+// copyLink copies the link url promises, then calls done.
+function copyLink(url, done) {
   var ask = function () { url.then(function (u) { prompt({{t "js.link"}}, u); }); };
   if (navigator.clipboard && navigator.clipboard.write && window.ClipboardItem) {
     // Safari copies only during the click, so hand it the link to come.
@@ -473,6 +479,229 @@ function copyLink(btn) {
   } else {
     ask();
   }
+}
+function toast(text) {
+  var t = document.getElementById("toast");
+  t.textContent = text;
+  t.classList.add("show");
+  setTimeout(function () { t.classList.remove("show"); }, 1500);
+}
+// flash shows text on btn for a moment, where a toast would be hidden
+// behind the share sheet.
+function flash(btn, text) {
+  if (!btn.dataset.label) btn.dataset.label = btn.innerHTML;
+  btn.textContent = text;
+  clearTimeout(btn.flashing);
+  btn.flashing = setTimeout(function () { btn.innerHTML = btn.dataset.label; }, 1500);
+}
+// openShare opens the share sheet beside btn: the page's link to copy or
+// post, and on a result page the result as an image to save or send.
+// A checked "leave pieces out" box shares its link instead, which
+// carries the builds without their pieces.
+function openShare(btn) {
+  var sheet = btn.parentNode.querySelector("dialog.share");
+  if (!sheet.showModal) {
+    copyLink(shortLink(location), function () { toast({{t "js.copied"}}); });
+    return;
+  }
+  if (!sheet.ready) {
+    sheet.ready = true;
+    shareLink(sheet);
+    var data = sheet.querySelector(".share-data");
+    if (data) shareImage(sheet, JSON.parse(data.textContent));
+  }
+  sheet.showModal();
+}
+function shareLink(sheet) {
+  var strip = sheet.querySelector("input[data-strip]"), field = sheet.querySelector(".share-url-text");
+  var native = sheet.querySelector(".share-native"), url, current;
+  var nets = {
+    x: function (u, t) { return "https://x.com/intent/tweet?" + new URLSearchParams({text: t, url: u}); },
+    facebook: function (u) { return "https://www.facebook.com/sharer/sharer.php?" + new URLSearchParams({u: u}); },
+    reddit: function (u, t) { return "https://www.reddit.com/submit?" + new URLSearchParams({url: u, title: t}); },
+    line: function (u) { return "https://social-plugins.line.me/lineit/share?" + new URLSearchParams({url: u}); }
+  };
+  function show(u) {
+    current = field.value = u;
+    sheet.querySelectorAll("a[data-net]").forEach(function (a) { a.href = nets[a.dataset.net](u, document.title); });
+  }
+  function load() {
+    var page = strip && strip.checked ? new URL(strip.dataset.strip, location.href) : new URL(location.href);
+    show(page.href);
+    var mine = url = shortLink(page);
+    mine.then(function (u) { if (url === mine) show(u); });
+  }
+  load();
+  if (strip) strip.addEventListener("change", load);
+  field.onfocus = function () { field.select(); };
+  sheet.querySelector(".share-copy").addEventListener("click", function () {
+    var btn = this;
+    copyLink(url, function () { flash(btn, {{t "js.copied"}}); });
+  });
+  if (navigator.share) {
+    native.hidden = false;
+    native.addEventListener("click", function () {
+      navigator.share({title: document.title, url: current}).catch(function () {});
+    });
+  }
+}
+// shareImage draws the result in data on the sheet's preview, with the
+// builds' details while its box is checked, and wires the image's buttons.
+function shareImage(sheet, data) {
+  var preview = sheet.querySelector(".share-preview"), spec = sheet.querySelector(".share-spec");
+  var save = sheet.querySelector(".share-save"), send = sheet.querySelector(".share-files"), copy = sheet.querySelector(".share-copy-image");
+  var name = "gscouter-" + data.uid + ".png", blob = null, drawn = 0;
+  var faces = Promise.all(data.chars.map(function (c) {
+    return new Promise(function (done) {
+      if (!c.face) return done(null);
+      var img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = function () { done(img); };
+      img.onerror = function () { done(null); };
+      setTimeout(function () { done(null); }, 5000);
+      img.src = c.face;
+    });
+  }));
+  function render() {
+    var n = ++drawn;
+    save.disabled = send.disabled = copy.disabled = true;
+    faces.then(function (imgs) {
+      var canvas = resultCanvas(data, imgs, spec.checked);
+      canvas.toBlob(function (b) {
+        if (n !== drawn || !b) return;
+        blob = b;
+        if (preview.src) URL.revokeObjectURL(preview.src);
+        preview.src = URL.createObjectURL(b);
+        save.disabled = send.disabled = copy.disabled = false;
+      }, "image/png");
+    });
+  }
+  render();
+  spec.addEventListener("change", render);
+  save.addEventListener("click", function () {
+    var a = document.createElement("a");
+    a.href = preview.src;
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  });
+  var probe = window.File && new File([""], name, {type: "image/png"});
+  if (probe && navigator.canShare && navigator.canShare({files: [probe]})) {
+    send.hidden = false;
+    send.addEventListener("click", function () {
+      navigator.share({files: [new File([blob], name, {type: "image/png"})], title: document.title}).catch(function () {});
+    });
+  }
+  if (navigator.clipboard && navigator.clipboard.write && window.ClipboardItem) {
+    copy.hidden = false;
+    copy.addEventListener("click", function () {
+      var btn = this;
+      navigator.clipboard.write([new ClipboardItem({"image/png": blob})]).then(function () {
+        flash(btn, {{t "js.image_copied"}});
+      }, function () { flash(btn, {{t "js.image_copy_failed"}}); });
+    });
+  }
+}
+// resultCanvas draws a result card 1080 pixels wide, in the site's dark
+// colors: the team's DPS, then each character's DPS and share, with
+// level, constellation, weapon, talents and stats when spec is set.
+function resultCanvas(data, faces, spec) {
+  var W = 1080, P = 56, font = getComputedStyle(document.body).fontFamily;
+  var col = {bg: "#15161d", card: "#1e2029", text: "#ece5d8", muted: "#a39d90", line: "#30323d", gold: "#d3bc8e"};
+  var elements = {pyro: "#f27f5c", hydro: "#5eaee8", anemo: "#55cfae", electro: "#b88af0", dendro: "#86c75a", cryo: "#7fd3e6", geo: "#e0b452"};
+  var canvas = document.createElement("canvas"), g = canvas.getContext("2d");
+  function set(size, bold, color) { g.font = (bold ? "700 " : "400 ") + size + "px " + font; g.fillStyle = color; }
+  // lines splits text at its " · " separators, then anywhere, to fit w.
+  function lines(text, w) {
+    var out = [], line = "";
+    text.split(" · ").forEach(function (part) {
+      var next = line ? line + " · " + part : part;
+      if (g.measureText(next).width <= w) { line = next; return; }
+      if (line) out.push(line);
+      line = "";
+      Array.from(part).forEach(function (ch) {
+        if (line && g.measureText(line + ch).width > w) { out.push(line); line = ""; }
+        line += ch;
+      });
+    });
+    if (line) out.push(line);
+    return out;
+  }
+  // draw lays the card out, painting only when paint is set, and returns
+  // its height.
+  function draw(paint) {
+    var y = P;
+    function text(s, x, size, bold, color, align) {
+      set(size, bold, color);
+      g.textAlign = align || "left";
+      if (paint) g.fillText(s, x, y);
+    }
+    function para(s, x, w, size, bold, color, gap) {
+      set(size, bold, color);
+      lines(s, w).forEach(function (l, i) { if (i) y += gap; text(l, x, size, bold, color); });
+    }
+    if (paint) {
+      g.fillStyle = col.bg;
+      g.fillRect(0, 0, W, canvas.height);
+    }
+    g.textBaseline = "alphabetic";
+    y += 30;
+    text("GSCOUTER", P, 30, true, col.gold);
+    text(location.host, W - P, 24, false, col.muted, "right");
+    y += 56;
+    text(data.nickname ? data.nickname + " · UID " + data.uid : "UID " + data.uid, P, 28, false, col.muted);
+    y += 54;
+    para(data.team, P, W - 2 * P, 38, true, col.text, 48);
+    y += 130;
+    text(data.dps, P - 4, 128, true, col.text);
+    set(128, true, col.text);
+    var dw = g.measureText(data.dps).width;
+    text("DPS", P + dw + 16, 48, true, col.muted);
+    y += 48;
+    text(data.stderr, P, 26, false, col.muted);
+    data.notes.forEach(function (note) { y += 38; para(note, P, W - 2 * P, 24, false, col.muted, 32); });
+    y += 36;
+    if (paint) { g.fillStyle = col.line; g.fillRect(P, y, W - 2 * P, 2); }
+    var D = 104, tx = P + D + 28;
+    data.chars.forEach(function (c, i) {
+      var top = y + 28, ring = elements[c.element] || col.gold;
+      if (paint) {
+        var cx = P + D / 2, cy = top + D / 2;
+        g.beginPath(); g.arc(cx, cy, D / 2, 0, 2 * Math.PI); g.fillStyle = ring; g.fill();
+        g.beginPath(); g.arc(cx, cy, D / 2 - 5, 0, 2 * Math.PI); g.fillStyle = col.card; g.fill();
+        if (faces[i]) {
+          g.save(); g.beginPath(); g.arc(cx, cy, D / 2 - 5, 0, 2 * Math.PI); g.clip();
+          g.drawImage(faces[i], cx - D / 2 + 5, cy - D / 2 + 5, D - 10, D - 10);
+          g.restore();
+        }
+      }
+      y = top + 38;
+      text(c.name, tx, 34, true, col.text);
+      text(c.dps, W - P, 34, true, col.text, "right");
+      y += 40;
+      var bw = W - P - tx - 120;
+      if (paint) {
+        g.fillStyle = col.line; g.fillRect(tx, y - 16, bw, 12);
+        g.fillStyle = ring; g.fillRect(tx, y - 16, Math.max(2, bw * Math.min(1, c.share)), 12);
+      }
+      text(c.percent, W - P, 26, true, col.muted, "right");
+      if (spec) {
+        y += 40;
+        para(c.build, tx, W - P - tx, 24, false, col.muted, 32);
+        if (c.totals) { y += 34; para(c.totals, tx, W - P - tx, 22, false, col.muted, 30); }
+      }
+      y = Math.max(y, top + D) + 28;
+      if (paint && i < data.chars.length - 1) { g.fillStyle = col.line; g.fillRect(tx, y, W - P - tx, 1); }
+    });
+    return y + P - 28;
+  }
+  canvas.width = W;
+  canvas.height = 10;
+  var h = draw(false);
+  canvas.height = h;
+  draw(true);
+  return canvas;
 }
 </script>
 </body>
@@ -545,6 +774,48 @@ function copyLink(btn) {
 </table>
 </div>{{end}}
 </details>
+{{end}}
+
+{{define "share-head"}}<div class="share-head"><h2>{{t "share.title"}}</h2><form method="dialog"><button class="secondary" aria-label="{{t "share.close"}}">✕</button></form></div>{{end}}
+
+{{/* share-image is a result as an image to save or send, drawn in the
+browser from share-data (shareImage), with the builds or without. */}}
+{{define "share-image"}}
+<section>
+<h3>{{t "share.image"}}</h3>
+<img class="share-preview" alt="{{t "share.image"}}">
+<label class="muted"><input type="checkbox" class="share-spec" checked> {{t "share.spec"}}</label>
+<p class="muted">{{t "share.spec_note"}}</p>
+<div class="actions">
+<button type="button" class="share-save" disabled>{{t "share.save"}}</button>
+<button type="button" class="secondary share-files" hidden>{{t "share.send_image"}}</button>
+<button type="button" class="secondary share-copy-image" hidden>{{t "share.copy_image"}}</button>
+</div>
+<script type="application/json" class="share-data">{"nickname": {{.Nickname}}, "uid": {{.Selection.UID}}, "team": {{teamName .Team}},
+"dps": {{thousands .Result.DPS}}, "stderr": {{printf "±%s (%s)" (thousands .Result.StdErr) (t "team.stderr")}},
+"notes": [{{enemyText .Enemy}}{{if .Selection.Chart}}, {{t "share.custom"}}{{end}}],
+"chars": [{{range $i, $c := .Result.Characters}}{{if $i}}, {{end}}{{$e := index $.Chars $i}}{"name": {{name $c.Name}}, "face": {{face $c.Name}}, "element": {{element $c.Name}},
+  "dps": {{thousands $c.DPS}}, "share": {{$c.Share}}, "percent": {{percent $c.Share}},
+  "build": {{printf "Lv.%d C%d · %s R%d · %s %s" $e.Level $e.Cons (weapon $e.Weapon.Key) $e.Weapon.Refine (t "team.talents") ($.TalentsOf $i)}},
+  "totals": {{totals $e ($.StatsOf $i)}}}{{end}}]}</script>
+</section>
+{{end}}
+
+{{/* share-link is the page's link, to copy or post; strip is the link
+without the artifact pieces, "" when there are none to leave out. */}}
+{{define "share-link"}}
+<section>
+<h3>{{t "share.link"}}</h3>
+{{with .}}<label class="muted"><input type="checkbox" data-strip="{{.}}"> {{t "art.leave_out"}}</label>{{end}}
+<div class="share-url"><input type="text" readonly class="share-url-text" aria-label="{{t "js.link"}}"><button type="button" class="secondary share-copy"><svg class="icon"><use href="#i-link"/></svg>{{t "share.copy_link"}}</button></div>
+<div class="actions">
+<button type="button" class="secondary share-native" hidden>{{t "share.more"}}</button>
+<a class="button secondary" data-net="x" target="_blank" rel="noopener">X</a>
+<a class="button secondary" data-net="facebook" target="_blank" rel="noopener">Facebook</a>
+<a class="button secondary" data-net="reddit" target="_blank" rel="noopener">Reddit</a>
+<a class="button secondary" data-net="line" target="_blank" rel="noopener">LINE</a>
+</div>
+</section>
 {{end}}
 
 {{define "client"}}
