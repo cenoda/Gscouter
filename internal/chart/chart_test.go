@@ -271,6 +271,33 @@ func TestWithParams(t *testing.T) {
 	}
 }
 
+// Skirk's legacy start_serpents_subtlety is folded into start_energy on
+// each side before merging, so the chart's value wins whichever key
+// either uses; another character's legacy key is left as it is.
+func TestWithParamsSkirkResource(t *testing.T) {
+	build := "skirk char lvl=90/90 cons=0 talent=9,9,9;\nfurina char lvl=90/90 cons=0 talent=9,9,9;\n"
+	names := [Slots]string{"skirk", "furina"}
+	for _, tc := range []struct{ chart, defaults, want string }{
+		{"0E", "start_serpents_subtlety=0", "[start_energy=0]"},
+		{"0E ; p0 start_energy=40", "start_serpents_subtlety=0", "[start_energy=40]"},
+		{"0E ; p0 start_serpents_subtlety=30", "start_hp=1, start_energy=60", "[start_hp=1, start_energy=30]"},
+		{"0E ; p0 start_energy=20 start_serpents_subtlety=100", "start_serpents_subtlety=0", "[start_energy=20]"},
+	} {
+		c, err := Parse(tc.chart)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := c.WithParams(build, names, [Slots]string{tc.defaults})
+		if want := "skirk char lvl=90/90 cons=0 talent=9,9,9 +params=" + tc.want + ";"; !strings.Contains(got, want) {
+			t.Errorf("WithParams(%q, %q) =\n%s\nwant a line %q", tc.chart, tc.defaults, got, want)
+		}
+	}
+	c, _ := Parse("1E ; p1 start_serpents_subtlety=5")
+	if got := c.WithParams(build, names, [Slots]string{}); !strings.Contains(got, "furina char lvl=90/90 cons=0 talent=9,9,9 +params=[start_serpents_subtlety=5];") {
+		t.Errorf("WithParams() folded Furina's params:\n%s", got)
+	}
+}
+
 func TestRemap(t *testing.T) {
 	c, err := Parse("0E 1Q [2N 1N]3 [2C]2 3E ; p1 start_hp=1 ; p2 start_energy=0")
 	if err != nil {

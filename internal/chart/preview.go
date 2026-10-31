@@ -65,22 +65,56 @@ type NoteError struct {
 
 // WithParams adds to build each slot's character params: defaults (the
 // library team's, as "k=v, k=v"), with the chart's own in their place.
+// Skirk's starting Serpent's Subtlety has two keys in gcsim for the one
+// resource; each side's are folded into start_energy first
+// (FoldResource), so a chart's value replaces the team's whichever key
+// either uses.
 func (c *Chart) WithParams(build string, names, defaults [Slots]string) string {
 	for s, name := range names {
-		var ps []Param
+		var def []Param
 		for _, kv := range strings.Split(defaults[s], ",") {
 			k, v, ok := strings.Cut(strings.TrimSpace(kv), "=")
 			n, err := strconv.Atoi(strings.TrimSpace(v))
-			if ok && err == nil && !slices.ContainsFunc(c.Params[s], func(p Param) bool { return p.Key == strings.TrimSpace(k) }) {
-				ps = append(ps, Param{strings.TrimSpace(k), n})
+			if ok && err == nil {
+				def = append(def, Param{strings.TrimSpace(k), n})
 			}
 		}
-		ps = append(ps, c.Params[s]...)
+		own := c.Params[s]
+		if library.Canonical(name) == "skirk" {
+			def, own = FoldResource(def), FoldResource(own)
+		}
+		var ps []Param
+		for _, p := range def {
+			if !slices.ContainsFunc(own, func(q Param) bool { return q.Key == p.Key }) {
+				ps = append(ps, p)
+			}
+		}
+		ps = append(ps, own...)
 		var b strings.Builder
 		writeParams(&b, ps, ", ")
 		build = config.AddParams(build, name, b.String())
 	}
 	return build
+}
+
+// LegacyResource is Skirk's deprecated param for her starting Serpent's
+// Subtlety. gcsim (internal/characters/skirk) reads it first and
+// start_energy over it, and starts her at 100 with neither.
+const LegacyResource = "start_serpents_subtlety"
+
+// FoldResource is Skirk's params ps with LegacyResource folded into
+// start_energy as gcsim reads them: start_energy when ps sets it, else
+// the legacy value. The other params keep their order.
+func FoldResource(ps []Param) []Param {
+	i := slices.IndexFunc(ps, func(p Param) bool { return p.Key == LegacyResource })
+	if i < 0 {
+		return ps
+	}
+	out := slices.Delete(slices.Clone(ps), i, i+1)
+	if !slices.ContainsFunc(out, func(p Param) bool { return p.Key == "start_energy" }) {
+		out = slices.Insert(out, i, Param{"start_energy", ps[i].Value})
+	}
+	return out
 }
 
 // marked is the chart looped, with a marker starting each pass and one
