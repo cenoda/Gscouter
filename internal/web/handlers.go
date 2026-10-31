@@ -780,39 +780,95 @@ type EnkaSource struct {
 	client *enka.Client
 	cache  *cache[string, *enka.Profile]
 	saved  *cache[enka.Owner, savedResult]
+
+	mu       sync.Mutex
+	profiles map[string]*flight[*enka.Profile]
+	builds   map[enka.Owner]*flight[savedResult]
 }
 
 func NewEnkaSource(client *enka.Client) *EnkaSource {
 	return &EnkaSource{
-		client: client,
-		cache:  newCache[string, *enka.Profile](500),
-		saved:  newCache[enka.Owner, savedResult](500),
+		client:   client,
+		cache:    newCache[string, *enka.Profile](500),
+		saved:    newCache[enka.Owner, savedResult](500),
+		profiles: map[string]*flight[*enka.Profile]{},
+		builds:   map[enka.Owner]*flight[savedResult]{},
 	}
+}
+
+// flight is one Enka call shared by the lookups that arrive while it runs.
+type flight[T any] struct {
+	done   chan struct{}
+	val    T
+	err    error
+	ctxErr error
+}
+
+// share runs fn once per key until it finishes. A lookup that arrives
+// during that call waits for it instead of calling Enka again. A lookup
+// whose own context ends while it waits returns that error and leaves the
+// shared call running. If the shared call failed because its caller gave
+// up, a lookup that is still live runs its own call: that failure belongs
+// to the caller that gave up, not to the next one.
+func share[K comparable, T any](ctx context.Context, mu *sync.Mutex, inflight map[K]*flight[T], key K, fn func(context.Context) (T, error)) (T, error) {
+	mu.Lock()
+	if f, ok := inflight[key]; ok {
+		mu.Unlock()
+		select {
+		case <-ctx.Done():
+			var zero T
+			return zero, ctx.Err()
+		case <-f.done:
+			if f.ctxErr != nil && ctx.Err() == nil {
+				return share(ctx, mu, inflight, key, fn)
+			}
+			return f.val, f.err
+		}
+	}
+	f := &flight[T]{done: make(chan struct{})}
+	inflight[key] = f
+	mu.Unlock()
+
+	f.val, f.err = fn(ctx)
+	f.ctxErr = ctx.Err()
+	// Drop the flight before waking waiters. A waiter whose own call is
+	// still live retries when this one was given up, and must not find the
+	// finished flight and retry it forever.
+	mu.Lock()
+	delete(inflight, key)
+	mu.Unlock()
+	close(f.done)
+	return f.val, f.err
 }
 
 func (e *EnkaSource) Profile(ctx context.Context, uid string) (*enka.Profile, error) {
 	if p, ok := e.cache.get(uid); ok {
 		return p, nil
 	}
-	raw, err := e.client.Fetch(ctx, uid)
-	if err != nil {
-		return nil, err
-	}
-	p, err := enka.Parse(raw)
-	if err != nil {
-		return nil, err
-	}
-	if p.UID == "" {
-		p.UID = uid
-	}
-	// The front page counts down to Expires, after which loading the UID
-	// again fetches it anew (design §4.1). Enka's ttl is the time until it
-	// refreshes the showcase itself, so the cache never serves a showcase
-	// older than Enka's; it keeps one at least a minute.
-	ttl := max(time.Duration(p.TTL)*time.Second, time.Minute)
-	p.Expires = time.Now().Add(ttl)
-	e.cache.put(uid, p, ttl)
-	return p, nil
+	return share(ctx, &e.mu, e.profiles, uid, func(ctx context.Context) (*enka.Profile, error) {
+		if p, ok := e.cache.get(uid); ok {
+			return p, nil
+		}
+		raw, err := e.client.Fetch(ctx, uid)
+		if err != nil {
+			return nil, err
+		}
+		p, err := enka.Parse(raw)
+		if err != nil {
+			return nil, err
+		}
+		if p.UID == "" {
+			p.UID = uid
+		}
+		// The front page counts down to Expires, after which loading the UID
+		// again fetches it anew (design §4.1). Enka's ttl is the time until it
+		// refreshes the showcase itself, so the cache never serves a showcase
+		// older than Enka's; it keeps one at least a minute.
+		ttl := max(time.Duration(p.TTL)*time.Second, time.Minute)
+		p.Expires = time.Now().Add(ttl)
+		e.cache.put(uid, p, ttl)
+		return p, nil
+	})
 }
 
 type savedResult struct {
@@ -821,9 +877,10 @@ type savedResult struct {
 }
 
 // Saved builds change when their player saves one, rarely, and Enka gives
-// them no TTL: they are kept for savedTTL, and a failed fetch is not
-// tried again for savedRetry, so that a showcase loaded again does not
-// ask Enka again.
+// them no TTL: they are kept for savedTTL, and a fetch Enka itself rejected
+// is not tried again for savedRetry, so that a showcase loaded again does
+// not ask Enka again. A caller that gave up is not such a rejection: its
+// error is not kept, or the next visitor would be told Enka failed.
 const (
 	savedTTL   = 10 * time.Minute
 	savedRetry = time.Minute
@@ -834,15 +891,27 @@ func (e *EnkaSource) SavedBuilds(ctx context.Context, owner enka.Owner) ([]enka.
 	if r, ok := e.saved.get(owner); ok {
 		return r.builds, r.err
 	}
-	raw, err := e.client.FetchBuilds(ctx, owner)
-	var builds []enka.SavedBuild
-	if err == nil {
-		builds, err = enka.ParseBuilds(raw)
-	}
+	r, err := share(ctx, &e.mu, e.builds, owner, func(ctx context.Context) (savedResult, error) {
+		if r, ok := e.saved.get(owner); ok {
+			return r, nil
+		}
+		raw, err := e.client.FetchBuilds(ctx, owner)
+		var builds []enka.SavedBuild
+		if err == nil {
+			builds, err = enka.ParseBuilds(raw)
+		}
+		if err != nil {
+			if ctx.Err() == nil {
+				e.saved.put(owner, savedResult{err: err}, savedRetry)
+			}
+			return savedResult{}, err
+		}
+		r := savedResult{builds: builds}
+		e.saved.put(owner, r, savedTTL)
+		return r, nil
+	})
 	if err != nil {
-		e.saved.put(owner, savedResult{err: err}, savedRetry)
 		return nil, err
 	}
-	e.saved.put(owner, savedResult{builds: builds}, savedTTL)
-	return builds, nil
+	return r.builds, r.err
 }

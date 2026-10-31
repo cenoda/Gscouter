@@ -7,7 +7,10 @@ import (
 	"net/http/httptest"
 	"net/url"
 	"strings"
+	"sync"
+	"sync/atomic"
 	"testing"
+	"time"
 
 	"github.com/cenoda/gscouter/internal/enka"
 	"github.com/cenoda/gscouter/internal/library"
@@ -155,5 +158,70 @@ func TestSavedBuildsCached(t *testing.T) {
 	}
 	if n != 2 {
 		t.Errorf("%d requests to Enka, want 2", n)
+	}
+}
+
+func TestSavedBuildsCancelNotCached(t *testing.T) {
+	entered := make(chan struct{})
+	release := make(chan struct{})
+	var once sync.Once
+	var n atomic.Int32
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		n.Add(1)
+		once.Do(func() { close(entered) })
+		<-release
+		w.Write([]byte(`{}`))
+	}))
+	defer srv.Close()
+
+	e := NewEnkaSource(&enka.Client{HTTP: srv.Client(), BaseURL: srv.URL})
+	owner := enka.Owner{Username: "player", Hash: "h4sh"}
+	ctx, cancel := context.WithCancel(context.Background())
+	go func() {
+		<-entered
+		cancel()
+	}()
+	if _, err := e.SavedBuilds(ctx, owner); err == nil {
+		t.Fatal("cancelled fetch returned no error")
+	}
+	close(release)
+	if _, err := e.SavedBuilds(context.Background(), owner); err != nil {
+		t.Fatalf("fresh context still failed: %v (Enka calls: %d)", err, n.Load())
+	}
+	if got := n.Load(); got < 2 {
+		t.Fatalf("Enka was called %d times; a cancelled fetch was reused", got)
+	}
+}
+
+func TestEnkaProfileSingleflight(t *testing.T) {
+	var n atomic.Int32
+	both := make(chan struct{})
+	release := make(chan struct{})
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if n.Add(1) == 2 {
+			close(both)
+		}
+		<-release
+		w.Write([]byte(`{"uid":"800000001","playerInfo":{"nickname":"A"}}`))
+	}))
+	defer srv.Close()
+
+	e := NewEnkaSource(&enka.Client{HTTP: srv.Client(), BaseURL: srv.URL})
+	var wg sync.WaitGroup
+	wg.Add(2)
+	for range 2 {
+		go func() {
+			defer wg.Done()
+			_, _ = e.Profile(context.Background(), "800000001")
+		}()
+	}
+	select {
+	case <-both:
+		close(release)
+		wg.Wait()
+		t.Fatalf("one UID reached Enka %d times before either lookup returned", n.Load())
+	case <-time.After(time.Second):
+		close(release)
+		wg.Wait()
 	}
 }
