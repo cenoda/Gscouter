@@ -131,6 +131,7 @@ func init() {
 		"err.link":      "Dieser Kurzlink existiert nicht.",
 		"err.count":     "Wähle genau vier Charaktere (%d ausgewählt).",
 		"err.chars":     "Die Charakterauswahl ist ungültig.",
+		"err.traveler":  "Ein Team kann nur einen Reisenden haben: Der Reisende jedes Elements ist dieselbe Figur.",
 
 		"problem.missing": "%s ist nicht in der Präsentation. Aktualisiere die Präsentation und versuche es erneut.",
 		"problem.blocked": "Die Simulations-Engine unterstützt die Charaktere dieses Teams noch nicht. (%s)",

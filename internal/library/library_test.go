@@ -47,6 +47,24 @@ func TestMatchesIgnoresOrder(t *testing.T) {
 	}
 }
 
+// Every Traveler is one roster identity, while Canonical keeps the
+// element apart.
+func TestIdentity(t *testing.T) {
+	for _, name := range []string{"aetheranemo", "aethergeo", "lumineanemo", "luminecryo", "travelercryo", "TravelerDendro"} {
+		if got := Identity(name); got != "traveler" {
+			t.Errorf("Identity(%q) = %q, want traveler", name, got)
+		}
+	}
+	for name, want := range map[string]string{"kazuha": "kaedeharakazuha", "hutao": "hutao", "Xingqiu": "xingqiu"} {
+		if got := Identity(name); got != want {
+			t.Errorf("Identity(%q) = %q, want %q", name, got, want)
+		}
+	}
+	if Canonical("aetheranemo") == Canonical("aethergeo") {
+		t.Error("Canonical folded two Traveler elements")
+	}
+}
+
 func TestMatchesAliasesAndTraveler(t *testing.T) {
 	team := &Team{Members: []string{"travelercryo", "kazuha", "furina", "raiden"}}
 	if !team.Matches([]string{"aethercryo", "kaedeharakazuha", "furina", "raidenshogun"}) {

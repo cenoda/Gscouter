@@ -131,6 +131,7 @@ func init() {
 		"err.link":      "Tautan pendek ini tidak ada.",
 		"err.count":     "Pilih tepat empat karakter (%d dipilih).",
 		"err.chars":     "Pilihan karakter tidak valid.",
+		"err.traveler":  "Satu tim hanya bisa punya satu Pengembara: Pengembara setiap elemen adalah karakter yang sama.",
 
 		"problem.missing": "%s tidak ada di showcase. Perbarui showcase lalu coba lagi.",
 		"problem.blocked": "Engine simulasi belum mendukung karakter di tim ini. (%s)",
