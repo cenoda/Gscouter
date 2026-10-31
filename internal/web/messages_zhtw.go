@@ -364,6 +364,7 @@ func init() {
 		"ed.params_title":       "%s 的設定",
 		"ed.start_hp":           "初始生命值",
 		"ed.start_energy":       "初始能量",
+		"ed.fighting_spirit":    "初始戰意",
 		"ed.param_default":      "預設：%s",
 		"ed.params_note":        "初始狀態在計分排除的前 150 秒之後影響很小。修改的值會隨譜面一起儲存。",
 		"ed.reset_params":       "恢復預設",

@@ -364,6 +364,7 @@ func init() {
 		"ed.params_title":       "Einstellungen: %s",
 		"ed.start_hp":           "Start-LP",
 		"ed.start_energy":       "Startenergie",
+		"ed.fighting_spirit":    "Start-Kampfgeist",
 		"ed.param_default":      "Standard: %s",
 		"ed.params_note":        "Startzustände zählen nach den ersten 150 s, die die Wertung auslässt, kaum. Geänderte Werte gehören zur Partitur.",
 		"ed.reset_params":       "Auf Standard zurücksetzen",

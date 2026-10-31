@@ -77,6 +77,18 @@ func skirkTeam() []enka.Character {
 	}
 }
 
+// mavuikaTeam is the members of the library team
+// mavuika-citlali-xilonen-bennett: Mavuika's start_energy is her
+// Fighting Spirit, up to 200.
+func mavuikaTeam() []enka.Character {
+	return []enka.Character{
+		char("mavuika", "athousandblazingsuns", "obsidiancodex", map[string]float64{"hp": 4780, "atk": 311, "atk%": 0.466, "pyro%": 0.466, "cr": 0.7, "cd": 1.4}),
+		char("citlali", "thrillingtalesofdragonslayers", "scrolloftheheroofcindercity", map[string]float64{"hp": 4780, "atk": 311, "em": 600, "er": 0.11}),
+		char("xilonen", "favoniussword", "scrolloftheheroofcindercity", map[string]float64{"hp": 4780, "atk": 311, "def%": 1.2, "er": 0.5}),
+		char("bennett", "favoniussword", "noblesseoblige", map[string]float64{"hp": 4780, "atk": 311, "hp%": 0.9, "er": 0.6}),
+	}
+}
+
 // newTestSite is the site with two players, scoring with few iterations.
 func newTestSite(t *testing.T) *Server {
 	t.Helper()
@@ -107,6 +119,7 @@ func newTestSiteWith(t *testing.T, edit func(*library.Library)) *Server {
 		"800000004": {UID: "800000004", Nickname: "Hymn", Characters: hymn},
 		"800000005": {UID: "800000005", Nickname: "Lohen", Characters: lohenTeam()},
 		"800000006": {UID: "800000006", Nickname: "Skirk", Characters: skirkTeam()},
+		"800000007": {UID: "800000007", Nickname: "Mavuika", Characters: mavuikaTeam()},
 	}
 	srv, err := New(lib, profiles, Settings{Iterations: 4, Warmup: 30, Duration: 90, MaxConcurrent: 1, MaxQueue: 4})
 	if err != nil {

@@ -21,7 +21,11 @@ import (
 // records outlives the reset's late answer, recorded or failed; and the
 // saved-chart list's placeholder loads nothing; and Skirk's params sheet
 // has one starting-resource control, start_energy, with the legacy
-// start_serpents_subtlety folded into it (testdata/editor_undo.js).
+// start_serpents_subtlety folded into it; the starting HP has one
+// control, start_hp%, which shows a team's start_hp as the share of max
+// HP it is and writes start_hp% alone; and starting energy runs to the
+// burst's cost, Mavuika's Fighting Spirit to 200
+// (testdata/editor_undo.js).
 func TestEditorUndo(t *testing.T) {
 	node, err := exec.LookPath("node")
 	if err != nil {
@@ -32,7 +36,10 @@ func TestEditorUndo(t *testing.T) {
 	skirk := editorScript(t, ts, "/edit?a=800000006:skirk,furina,citlali,escoffier")
 	slots := slotted(skirkTeam())
 	slot := slices.IndexFunc(slots[:], func(c enka.Character) bool { return c.Key == "skirk" })
-	b, err := exec.Command(node, filepath.Join("testdata", "editor_undo.js"), page, skirk, strconv.Itoa(slot)).Output()
+	mavuika := editorScript(t, ts, "/edit?a=800000007:mavuika,citlali,xilonen,bennett")
+	mslots := slotted(mavuikaTeam())
+	m := slices.IndexFunc(mslots[:], func(c enka.Character) bool { return c.Key == "mavuika" })
+	b, err := exec.Command(node, filepath.Join("testdata", "editor_undo.js"), page, skirk, strconv.Itoa(slot), mavuika, strconv.Itoa(m)).Output()
 	if err != nil {
 		t.Fatalf("node: %v", err)
 	}

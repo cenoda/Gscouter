@@ -364,6 +364,7 @@ func init() {
 		"ed.params_title":       "%s's settings",
 		"ed.start_hp":           "Starting HP",
 		"ed.start_energy":       "Starting energy",
+		"ed.fighting_spirit":    "Starting Fighting Spirit",
 		"ed.param_default":      "Default: %s",
 		"ed.params_note":        "Starting states matter little after the first 150 s, which the score leaves out. Changed values travel with the chart.",
 		"ed.reset_params":       "Back to the defaults",

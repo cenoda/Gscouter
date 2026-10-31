@@ -364,6 +364,7 @@ func init() {
 		"ed.params_title":       "Ajustes de %s",
 		"ed.start_hp":           "Vida inicial",
 		"ed.start_energy":       "Energia inicial",
+		"ed.fighting_spirit":    "Espírito de luta inicial",
 		"ed.param_default":      "Padrão: %s",
 		"ed.params_note":        "Estados iniciais pesam pouco depois dos primeiros 150 s, que a pontuação deixa de fora. Valores alterados vão junto com a partitura.",
 		"ed.reset_params":       "Voltar ao padrão",

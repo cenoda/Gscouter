@@ -364,6 +364,7 @@ func init() {
 		"ed.params_title":       "Réglages de %s",
 		"ed.start_hp":           "PV de départ",
 		"ed.start_energy":       "Énergie de départ",
+		"ed.fighting_spirit":    "Esprit combatif de départ",
 		"ed.param_default":      "Par défaut : %s",
 		"ed.params_note":        "Les états de départ comptent peu après les 150 premières secondes, que le score exclut. Les valeurs modifiées suivent la partition.",
 		"ed.reset_params":       "Revenir aux valeurs par défaut",

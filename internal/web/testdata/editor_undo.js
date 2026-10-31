@@ -5,11 +5,14 @@
 // read through the score button, which encodes the chart as it stands.
 // It prints {"errors": [...]}, empty when every check holds.
 //
-// A second page, a team with Skirk and her slot, runs the scenarios of
-// her params sheet (page: "skirk"), which open the sheet and move its
-// sliders; a scenario's defaults replace the team's params the page has.
+// More pages, each a team with Skirk or Mavuika and that character's
+// slot, run the scenarios of their params sheet (page: "skirk" or
+// "mavuika"), which open the sheet and move its sliders; a scenario's
+// defaults replace the team's params the page has. A scenario with a
+// preview has the engine answer previews with it, and runs the page's
+// timers when it asks (t.timers()).
 //
-//	node editor_undo.js page.js [skirk.js slot]
+//	node editor_undo.js page.js [skirk.js slot [mavuika.js slot]]
 "use strict";
 const fs = require("fs");
 const vm = require("vm");
@@ -17,6 +20,8 @@ const vm = require("vm");
 const pageSrc = fs.readFileSync(process.argv[2], "utf8");
 const skirkSrc = process.argv[3] ? fs.readFileSync(process.argv[3], "utf8") : null;
 const S = process.argv[4];
+const mavuikaSrc = process.argv[5] ? fs.readFileSync(process.argv[5], "utf8") : null;
+const M = process.argv[6];
 const errors = [];
 const flush = () => new Promise((r) => setImmediate(r));
 
@@ -38,7 +43,7 @@ function element(id) {
 function run(scenario) {
   const els = {}, win = element("window");
   const $ = (id) => els[id] || (els[id] = element(id));
-  const records = [], encoded = [], toasts = [];
+  const records = [], encoded = [], toasts = [], timers = [];
   // localStorage, which a scenario may fill before the page runs: saved
   // charts go under the editor's saved-charts key (gscouter.charts:...),
   // and the draft is read back from gscouter.chart:....
@@ -49,7 +54,7 @@ function run(scenario) {
   // the chart it is given, so the score button shows the chart.
   const engine = {
     record: () => new Promise((resolve, reject) => records.push({resolve, reject})),
-    preview: () => Promise.reject(new Error("no preview here")),
+    preview: () => scenario.preview ? Promise.resolve(JSON.stringify(scenario.preview)) : Promise.reject(new Error("no preview here")),
     encode: (text) => { encoded.push(text); return Promise.resolve(text); },
   };
   class Worker {
@@ -66,7 +71,7 @@ function run(scenario) {
     WebAssembly: {compileStreaming: () => Promise.resolve({})},
     fetch: () => Promise.resolve({}),
     matchMedia: () => ({matches: false}),
-    setTimeout: () => 0, clearTimeout() {},
+    setTimeout: (f) => { if (scenario.preview) timers.push(f); return 0; }, clearTimeout() {},
     localStorage: {
       getItem: (k) => {
         if (saved && !store.has(k) && k.startsWith("gscouter.charts:")) store.set(k, JSON.stringify(saved));
@@ -101,14 +106,14 @@ function run(scenario) {
     const re = /<input type="(\w+)" id="([^"]*)" data-k="([^"]*)"([^>]*)>/g;
     let m;
     while ((m = re.exec(this.innerHTML))) {
-      const inp = element(m[2]), v = /value="([^"]*)"/.exec(m[4]);
-      Object.assign(inp, {type: m[1], value: v ? v[1] : "", checked: / checked/.test(m[4]), closest: () => ({querySelector: () => null})});
+      const inp = element(m[2]), v = /value="([^"]*)"/.exec(m[4]), max = / max="([^"]*)"/.exec(m[4]);
+      Object.assign(inp, {type: m[1], value: v ? v[1] : "", max: max ? max[1] : "", checked: / checked/.test(m[4]), closest: () => ({querySelector: () => null})});
       inp.dataset.k = m[3];
       inputs[m[3]] = inp;
     }
     return Object.values(inputs);
   };
-  let src = scenario.page === "skirk" ? skirkSrc : pageSrc;
+  let src = scenario.page === "skirk" ? skirkSrc : scenario.page === "mavuika" ? mavuikaSrc : pageSrc;
   if (scenario.defaults) {
     const re = /DEFAULTS = JSON\.stringify\(\[[^\]]*\]\)/;
     if (!re.test(src)) throw new Error("no DEFAULTS in the page");
@@ -125,6 +130,10 @@ function run(scenario) {
   const t = {
     records, toasts,
     async settle() { for (let i = 0; i < 10; i++) await flush(); },
+    // timers runs the page's timers set so far: the preview among them.
+    async timers() { timers.splice(0).forEach((f) => f()); await t.settle(); },
+    // sheet is the params sheet's HTML, as openSheet left it.
+    sheet: () => $("ed-layer").innerHTML,
     async chart() {
       $("ed-score").onclick();
       await t.settle();
@@ -360,9 +369,112 @@ scenarios.push(
   }},
 );
 
+// The starting HP has one control, start_hp% (chart.HPKeys), on the
+// first page, whose slot 0 is Hu Tao: it shows the HP a team's start_hp
+// gives, as a share of max HP once a preview has told it max HP, and a
+// move of it writes start_hp% alone. Starting energy runs to Hu Tao's
+// burst cost, 60.
+const lanes = (hp) => [0, 1, 2, 3].map((s) => ({hp: s === 0 ? hp : [0, 0]}));
+const preview = (hp) => ({notes: [], passes: [0], end: 10, dps: 1, lanes: lanes(hp)});
+const hutao = ["start_hp=10000", "", "", ""];
+function hpSheet(t, what, want, text) {
+  const inputs = t.openSheet(0);
+  t.check(`${what}: a start_hp field is shown`, !("start_hp" in inputs));
+  const hp = inputs["start_hp%"];
+  t.check(`${what}: no start_hp% slider`, hp && hp.type === "range");
+  if (hp) t.check(`${what}: start_hp% shows ${hp.value}, want ${want}`, hp.value === String(want));
+  if (text) t.check(`${what}: the sheet does not say ${JSON.stringify(text)}`, t.sheet().includes(text));
+  return inputs;
+}
+scenarios.push(
+  {name: "hp: no HP keys", defaults: ["", "", "", ""], async run(t) {
+    await t.settle();
+    t.records.shift().resolve("0E");
+    await t.settle();
+    hpSheet(t, "no params", 100, "<b>100%</b>");
+  }},
+  {name: "hp: the team's start_hp before a preview", defaults: hutao, async run(t) {
+    await t.settle();
+    t.records.shift().resolve("0E");
+    await t.settle();
+    hpSheet(t, "no max HP yet", 100, "<b>10000 HP</b>");
+  }},
+  {name: "hp: the team's start_hp as a share", defaults: hutao, preview: preview([10000, 36662.23]), async run(t) {
+    await t.settle();
+    t.records.shift().resolve("0E");
+    await t.settle();
+    await t.timers();
+    const inputs = hpSheet(t, "the team's start_hp", 27, "<b>27% (10000 HP)</b>");
+    t.check("the default line does not give the team's start_hp", t.sheet().includes("Default: 27% (10000 HP)"));
+    t.slide(inputs["start_hp%"], 50);
+    await t.expect("after the slider", "0E ; p0 start_hp%=50");
+    hpSheet(t, "after the slider", 50, "<b>50%</b>");
+  }},
+  {name: "hp: an older link with both keys", defaults: hutao, preview: preview([19331.12, 36662.23]), saved: [{n: "both", t: "0E ; p0 start_hp%=50 start_hp=1000", d: "2026-01-01"}], async run(t) {
+    await t.settle();
+    t.records.shift().resolve("0E");
+    await t.settle();
+    t.choose("0");
+    await t.timers();
+    await t.expect("the link as it was", "0E ; p0 start_hp%=50 start_hp=1000");
+    const inputs = hpSheet(t, "both keys", 53, "<b>53% (50% + 1000 HP)</b>");
+    t.slide(inputs["start_hp%"], 40);
+    await t.expect("after the slider, start_hp dropped", "0E ; p0 start_hp%=40");
+  }},
+  {name: "hp: an older link with start_hp", defaults: hutao, preview: preview([5000, 36662.23]), saved: [{n: "abs", t: "0E ; p0 start_hp=5000", d: "2026-01-01"}], async run(t) {
+    await t.settle();
+    t.records.shift().resolve("0E");
+    await t.settle();
+    t.choose("0");
+    await t.timers();
+    await t.expect("the link as it was", "0E ; p0 start_hp=5000");
+    hpSheet(t, "the link's start_hp", 14, "<b>14% (5000 HP)</b>");
+  }},
+  {name: "energy: up to the burst's cost", defaults: ["start_energy=80", "", "", ""], async run(t) {
+    await t.settle();
+    t.records.shift().resolve("0E");
+    await t.settle();
+    const e = t.openSheet(0).start_energy;
+    t.check("no start_energy slider", e && e.type === "range");
+    if (!e) return;
+    t.check(`start_energy runs to ${e.max}, want 60`, e.max === "60");
+    t.check(`start_energy shows ${e.value}, want 60, what gcsim cuts 80 to`, e.value === "60");
+    await t.expect("the team's value kept", "0E");
+    const blank = t.openSheet(1).start_energy;
+    t.check(`Xingqiu's start_energy runs to ${blank && blank.max}, want 80`, blank && blank.max === "80" && blank.value === "80");
+  }},
+);
+
+// Mavuika's start_energy is her Fighting Spirit: 0 to 200, 200 with no
+// key (chart.StartResource).
+scenarios.push(
+  {name: "mavuika: no key", page: "mavuika", defaults: blank, async run(t) {
+    await t.settle();
+    t.records.shift().resolve(`${M}E`);
+    await t.settle();
+    const e = t.openSheet(M).start_energy;
+    t.check("no start_energy slider", e && e.type === "range");
+    if (!e) return;
+    t.check(`start_energy runs to ${e.max}, want 200`, e.max === "200");
+    t.check(`start_energy shows ${e.value}, want 200`, e.value === "200");
+    t.check("the control is not named Fighting Spirit", t.sheet().includes("Starting Fighting Spirit"));
+    t.slide(e, 150);
+    await t.expect("after the slider", `${M}E ; p${M} start_energy=150`);
+  }},
+  {name: "mavuika: a link at 200", page: "mavuika", saved: [{n: "full", t: `${M}E ; p${M} start_energy=200`, d: "2026-01-01"}], async run(t) {
+    await t.settle();
+    t.records.shift().resolve(`${M}E`);
+    await t.settle();
+    t.choose("0");
+    await t.expect("the link as it was", `${M}E ; p${M} start_energy=200`);
+    const e = t.openSheet(M).start_energy;
+    t.check(`start_energy shows ${e && e.value}, want 200`, e && e.value === "200");
+  }},
+);
+
 (async () => {
   for (const s of scenarios) {
-    if (s.page === "skirk" && !skirkSrc) continue;
+    if ((s.page === "skirk" && !skirkSrc) || (s.page === "mavuika" && !mavuikaSrc)) continue;
     try { await run(s); } catch (e) { errors.push(`${s.name}: ${e.stack}`); }
   }
   console.log(JSON.stringify({errors}));

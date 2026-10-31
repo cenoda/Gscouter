@@ -56,6 +56,10 @@ type Lane struct {
 	Waits    []timeline.Wait `json:"waits"`
 	Cooldown []timeline.Span `json:"cooldown"` // the skill's
 	Energy   [][2]float64    `json:"energy"`   // [time, energy / burst cost]
+	// HP is the character's [HP, max HP] as the fight starts, which the
+	// params sheet shows the starting HP by when the params set it in
+	// HP rather than as a share of max HP.
+	HP [2]float64 `json:"hp"`
 }
 
 type NoteError struct {
@@ -64,7 +68,9 @@ type NoteError struct {
 }
 
 // WithParams adds to build each slot's character params: defaults (the
-// library team's, as "k=v, k=v"), with the chart's own in their place.
+// library team's, as "k=v, k=v"), with the chart's own in their place
+// (mergeParams): a key the chart sets replaces the team's, and a chart
+// that sets either of the starting-HP keys (HPKeys) replaces both.
 // Skirk's starting Serpent's Subtlety has two keys in gcsim for the one
 // resource; each side's are folded into start_energy first
 // (FoldResource), so a chart's value replaces the team's whichever key
@@ -83,15 +89,8 @@ func (c *Chart) WithParams(build string, names, defaults [Slots]string) string {
 		if library.Canonical(name) == "skirk" {
 			def, own = FoldResource(def), FoldResource(own)
 		}
-		var ps []Param
-		for _, p := range def {
-			if !slices.ContainsFunc(own, func(q Param) bool { return q.Key == p.Key }) {
-				ps = append(ps, p)
-			}
-		}
-		ps = append(ps, own...)
 		var b strings.Builder
-		writeParams(&b, ps, ", ")
+		writeParams(&b, mergeParams(def, own), ", ")
 		build = config.AddParams(build, name, b.String())
 	}
 	return build
@@ -218,7 +217,14 @@ func (c *Chart) Preview(build string, names [Slots]string, enemy *config.Enemy) 
 			}
 		}, "gscouter-preview-energy")
 	}
+	started := false
 	res, err := score.Play(ctx, cfg, 1, setup, func(core *core.Core, e *action.Eval) {
+		if !started {
+			started = true
+			for i, ch := range core.Player.Chars() {
+				lane(core, i).HP = [2]float64{ch.CurrentHP(), ch.MaxHP()}
+			}
+		}
 		if !score.IsMarker(e) {
 			return
 		}

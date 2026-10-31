@@ -364,6 +364,7 @@ func init() {
 		"ed.params_title":       "Thiết lập của %s",
 		"ed.start_hp":           "HP ban đầu",
 		"ed.start_energy":       "Năng lượng ban đầu",
+		"ed.fighting_spirit":    "Chiến Ý ban đầu",
 		"ed.param_default":      "Mặc định: %s",
 		"ed.params_note":        "Trạng thái ban đầu ít ảnh hưởng sau 150 giây đầu mà điểm số bỏ qua. Giá trị đã đổi đi cùng bản nhạc.",
 		"ed.reset_params":       "Về mặc định",
