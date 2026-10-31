@@ -22,6 +22,17 @@ type update struct {
 // footer shows the newest date.
 var updates = []update{
 	{
+		Date: "2026-10-31",
+		En: []string{
+			"A note added in the rotation editor while it starts over from the library rotation is no longer replaced when the recording finishes or fails.",
+			"Choosing \"Saved charts\" itself in the rotation editor's list no longer loads the first saved chart.",
+		},
+		Ko: []string{
+			"로테이션 편집기가 라이브러리 로테이션으로 다시 시작하는 동안 추가한 노트가, 녹화가 끝나거나 실패해도 덮어써지지 않습니다.",
+			"로테이션 편집기의 목록에서 \"저장한 차트\" 자체를 골라도 첫 번째 저장한 차트를 불러오지 않습니다.",
+		},
+	},
+	{
 		Date: "2026-10-30",
 		En: []string{
 			"The source code of Gscouter is open under the GNU AGPL, linked at the bottom of every page.",
