@@ -235,12 +235,18 @@ func newSelection(uid string, chars []string) (selection, error) {
 	if len(chars) != 4 {
 		return selection{}, inputError{"err.count", []any{len(chars)}}
 	}
+	// One character each, by roster identity: the Traveler's elements
+	// are one character (library.Identity).
 	seen := map[string]bool{}
 	for _, c := range chars {
-		if c == "" || seen[c] {
+		id := library.Identity(c)
+		switch {
+		case c == "" || seen[id] && id != "traveler":
 			return selection{}, inputError{key: "err.chars"}
+		case seen[id]:
+			return selection{}, inputError{key: "err.traveler"}
 		}
-		seen[c] = true
+		seen[id] = true
 	}
 	return selection{UID: uid, Chars: chars}, nil
 }

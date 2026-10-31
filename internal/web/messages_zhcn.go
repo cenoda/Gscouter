@@ -131,6 +131,7 @@ func init() {
 		"err.link":      "此短链接不存在。",
 		"err.count":     "请恰好选择四名角色（已选 %d 名）。",
 		"err.chars":     "角色选择无效。",
+		"err.traveler":  "一支队伍只能有一位旅行者：各元素的旅行者是同一个角色。",
 
 		"problem.missing": "%s不在展柜中。请更新展柜后重试。",
 		"problem.blocked": "模拟引擎暂不支持该队伍的角色。（%s）",

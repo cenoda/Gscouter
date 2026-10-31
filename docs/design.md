@@ -162,6 +162,7 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
   - Changing even one support changes the rotation.
   - Variants are registered as separate library entries.
 - The Traveler is distinguished by element (`travelercryo` ≠ `traveleranemo`).
+- A party holds one Traveler: every element and both genders are one character on the roster (`library.Identity`), as they share equipment. A selection or link with two is refused (`err.traveler`), and the picker says so and offers neither a score nor the rotation editor. The picked Traveler keeps its element for matching and the simulation.
 - On a failed match, mark the team "unsupported" and record the combination in the request tally (§5.3).
 
 ### 4.4 Config assembly and execution

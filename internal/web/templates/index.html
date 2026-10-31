@@ -210,21 +210,25 @@ if (matchMedia("(pointer: fine)").matches) document.querySelector("#uid-form inp
     var boxes = form.querySelectorAll("input[name=c]");
     var submit = document.getElementById("pick-submit"), count = document.getElementById("pick-count");
     var picked = {{t "index.picked"}}, unsupported = document.getElementById("pick-unsupported"), custom = document.getElementById("pick-custom");
-    var action = form.getAttribute("action");
+    var traveler = document.getElementById("pick-traveler"), action = form.getAttribute("action");
     // Every library team the showcase can build is suggested above, so four
     // picks that are not one of them cannot be calculated.
     var buildable = JSON.parse(form.getAttribute("data-buildable")) || [];
     function update() {
       var checked = form.querySelectorAll("input[name=c]:checked"), n = checked.length;
       var keys = Array.prototype.map.call(checked, function (b) { return b.value; }).sort().join(",");
-      var ok = n === 4 && buildable.indexOf(keys) >= 0;
+      // The Traveler's elements are one character (library.Identity), so
+      // a party holds only one of them; the server refuses two.
+      var twins = Array.prototype.filter.call(checked, function (b) { return /^(aether|lumine|traveler)/.test(b.value); }).length > 1;
+      var ok = n === 4 && !twins && buildable.indexOf(keys) >= 0;
       // Four that are not a library team go to the rotation editor
       // (docs/cycle-swap.md §8); a comparison needs a library team.
-      var write = n === 4 && !ok && !vs;
+      var write = n === 4 && !ok && !twins && !vs;
       boxes.forEach(function (b) { b.disabled = !b.checked && n >= 4; });
       submit.disabled = !ok && !write;
       form.setAttribute("action", write ? "/edit" : action);
-      unsupported.hidden = n !== 4 || ok || write;
+      traveler.hidden = !twins;
+      unsupported.hidden = n !== 4 || ok || write || twins;
       custom.hidden = !write;
       count.textContent = picked.replace("%d", n);
     }
@@ -318,6 +322,7 @@ if (matchMedia("(pointer: fine)").matches) document.querySelector("#uid-form inp
 <button type="button" class="secondary" id="pick-clear">{{t "index.clear"}}</button>
 <span class="muted count" id="pick-count">{{t "index.picked" 0}}</span>
 </div>
+<div class="warn" id="pick-traveler" hidden>{{t "err.traveler"}}</div>
 <div class="warn" id="pick-unsupported" hidden>{{t "index.pick_unsupported"}}</div>
 <div class="muted" id="pick-custom" hidden>{{t "index.pick_custom"}}</div>
 </form>
