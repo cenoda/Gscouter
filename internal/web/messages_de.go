@@ -18,10 +18,12 @@ func init() {
 		"foot.discord": `Fragen und Score-Meldungen: <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouter ist ein inoffizielles, nicht kommerzielles Fanprojekt ohne Werbung und Spenden und steht in keiner Verbindung zu HoYoverse. ` +
 			`Genshin Impact und zugehörige Namen sind Marken von HoYoverse; Charakterbilder sind © HoYoverse und werden von <a href="https://enka.network">Enka.Network</a> geladen.`,
-		"js.copied":      "Link kopiert",
-		"js.link":        "Link",
-		"js.progress":    "Simulation %d · %d %%",
-		"js.calculating": "Wird berechnet … Das kann bis zu einer Minute dauern.",
+		"js.copied":            "Link kopiert",
+		"js.link":              "Link",
+		"js.image_copied":      "Bild kopiert",
+		"js.image_copy_failed": "Bild konnte nicht kopiert werden",
+		"js.progress":          "Simulation %d · %d %%",
+		"js.calculating":       "Wird berechnet … Das kann bis zu einer Minute dauern.",
 
 		"team.stderr": "Standardfehler",
 
@@ -81,7 +83,19 @@ func init() {
 
 		"problem.home": "Startseite",
 
-		"score.copy":            "Ergebnislink kopieren",
+		"share.button":          "Teilen",
+		"share.title":           "Teilen",
+		"share.close":           "Schließen",
+		"share.image":           "Bild",
+		"share.spec":            "Build-Details zeigen",
+		"share.spec_note":       "Stufe, Konstellation, Waffe, Talente und Werte. Ausgeschaltet zeigt das Bild nur die DPS und den Anteil jeder Figur.",
+		"share.save":            "Bild speichern",
+		"share.send_image":      "Bild senden",
+		"share.copy_image":      "Bild kopieren",
+		"share.link":            "Link",
+		"share.copy_link":       "Link kopieren",
+		"share.more":            "Weitere Apps",
+		"share.custom":          "Eigene Rotation",
 		"score.repick":          "Andere Charaktere wählen",
 		"score.compare_heading": "Mit einem anderen Team vergleichen",
 		"score.compare_lead":    "Lade die UID eines Gegners und wähle ein Team, um beide unter gleichen Bedingungen nebeneinander zu berechnen. Um mit einem anderen deiner eigenen Teams zu vergleichen, gib deine eigene UID ein.",
@@ -118,7 +132,6 @@ func init() {
 		"vs.right_higher": "Das rechte Team liegt %s vorn",
 		"vs.left":         "Links",
 		"vs.right":        "Rechts",
-		"vs.copy":         "Vergleichslink kopieren",
 		"vs.left_team":    "Linkes Team",
 		"vs.right_team":   "Rechtes Team",
 

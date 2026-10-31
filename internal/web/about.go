@@ -26,10 +26,12 @@ var updates = []update{
 		En: []string{
 			"A note added in the rotation editor while it starts over from the library rotation is no longer replaced when the recording finishes or fails.",
 			"Choosing \"Saved charts\" itself in the rotation editor's list no longer loads the first saved chart.",
+			"Results and comparisons have a Share button: copy the link, post it to X, Facebook, Reddit or LINE, or send it through your phone's share menu. A result can also be saved, copied or sent as an image, with or without each character's build details.",
 		},
 		Ko: []string{
 			"로테이션 편집기가 라이브러리 로테이션으로 다시 시작하는 동안 추가한 노트가, 녹화가 끝나거나 실패해도 덮어써지지 않습니다.",
 			"로테이션 편집기의 목록에서 \"저장한 차트\" 자체를 골라도 첫 번째 저장한 차트를 불러오지 않습니다.",
+			"결과와 비교 페이지에 공유하기 버튼이 생겼습니다. 링크를 복사하거나 X·Facebook·Reddit·LINE에 올리거나 휴대폰 공유 메뉴로 보낼 수 있습니다. 결과는 이미지로 저장·복사·전송할 수도 있고, 캐릭터별 세부 스펙을 넣을지 뺄지 고를 수 있습니다.",
 		},
 	},
 	{

@@ -18,10 +18,12 @@ func init() {
 		"foot.discord": `Sorular ve skor bildirimleri: <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouter reklam ve bağış içermeyen, resmî olmayan, ticari amaç gütmeyen bir hayran projesidir ve HoYoverse ile bağlantılı değildir. ` +
 			`Genshin Impact ve ilgili adlar HoYoverse'ün ticari markalarıdır; karakter görselleri © HoYoverse olup <a href="https://enka.network">Enka.Network</a> üzerinden yüklenir.`,
-		"js.copied":      "Bağlantı kopyalandı",
-		"js.link":        "Bağlantı",
-		"js.progress":    "simülasyon %d · %%%d",
-		"js.calculating": "Hesaplanıyor… Bu bir dakikaya kadar sürebilir.",
+		"js.copied":            "Bağlantı kopyalandı",
+		"js.link":              "Bağlantı",
+		"js.image_copied":      "Görsel kopyalandı",
+		"js.image_copy_failed": "Görsel kopyalanamadı",
+		"js.progress":          "simülasyon %d · %%%d",
+		"js.calculating":       "Hesaplanıyor… Bu bir dakikaya kadar sürebilir.",
 
 		"team.stderr": "standart hata",
 
@@ -81,7 +83,19 @@ func init() {
 
 		"problem.home": "Ana sayfa",
 
-		"score.copy":            "Sonuç bağlantısını kopyala",
+		"share.button":          "Paylaş",
+		"share.title":           "Paylaş",
+		"share.close":           "Kapat",
+		"share.image":           "Görsel",
+		"share.spec":            "Build ayrıntılarını göster",
+		"share.spec_note":       "Seviye, takımyıldız, silah, yetenekler ve istatistikler. Kapalıyken görselde yalnızca DPS ve her karakterin payı kalır.",
+		"share.save":            "Görseli kaydet",
+		"share.send_image":      "Görseli gönder",
+		"share.copy_image":      "Görseli kopyala",
+		"share.link":            "Bağlantı",
+		"share.copy_link":       "Bağlantıyı kopyala",
+		"share.more":            "Diğer uygulamalar",
+		"share.custom":          "Kendi rotasyonun",
 		"score.repick":          "Başka karakterler seç",
 		"score.compare_heading": "Başka bir takımla karşılaştır",
 		"score.compare_lead":    "Bir rakibin UID'sini yükle ve bir takım seç; ikisi aynı koşullarda yan yana hesaplansın. Kendi başka bir takımınla karşılaştırmak için kendi UID'ni gir.",
@@ -118,7 +132,6 @@ func init() {
 		"vs.right_higher": "Sağdaki takım %s daha yüksek",
 		"vs.left":         "Sol",
 		"vs.right":        "Sağ",
-		"vs.copy":         "Karşılaştırma bağlantısını kopyala",
 		"vs.left_team":    "Soldaki takım",
 		"vs.right_team":   "Sağdaki takım",
 

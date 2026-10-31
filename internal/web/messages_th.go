@@ -18,10 +18,12 @@ func init() {
 		"foot.discord": `คำถามและแจ้งปัญหาคะแนน: <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouter เป็นโปรเจกต์แฟนเมดที่ไม่เป็นทางการและไม่แสวงหากำไร ไม่มีโฆษณาหรือการรับบริจาค และไม่มีส่วนเกี่ยวข้องกับ HoYoverse ` +
 			`Genshin Impact และชื่อที่เกี่ยวข้องเป็นเครื่องหมายการค้าของ HoYoverse ภาพตัวละครเป็นลิขสิทธิ์ © HoYoverse โหลดมาจาก <a href="https://enka.network">Enka.Network</a>`,
-		"js.copied":      "คัดลอกลิงก์แล้ว",
-		"js.link":        "ลิงก์",
-		"js.progress":    "การจำลอง %d · %d%%",
-		"js.calculating": "กำลังคำนวณ… อาจใช้เวลาถึงหนึ่งนาที",
+		"js.copied":            "คัดลอกลิงก์แล้ว",
+		"js.link":              "ลิงก์",
+		"js.image_copied":      "คัดลอกรูปแล้ว",
+		"js.image_copy_failed": "คัดลอกรูปไม่สำเร็จ",
+		"js.progress":          "การจำลอง %d · %d%%",
+		"js.calculating":       "กำลังคำนวณ… อาจใช้เวลาถึงหนึ่งนาที",
 
 		"team.stderr": "ค่าคลาดเคลื่อนมาตรฐาน",
 
@@ -81,7 +83,19 @@ func init() {
 
 		"problem.home": "หน้าแรก",
 
-		"score.copy":            "คัดลอกลิงก์ผลลัพธ์",
+		"share.button":          "แชร์",
+		"share.title":           "แชร์",
+		"share.close":           "ปิด",
+		"share.image":           "รูปภาพ",
+		"share.spec":            "แสดงรายละเอียดบิลด์",
+		"share.spec_note":       "เลเวล กลุ่มดาว อาวุธ ทาเลนต์ และสเตตัส ถ้าปิด รูปจะแสดงแค่ DPS และสัดส่วนของแต่ละตัวละคร",
+		"share.save":            "บันทึกรูป",
+		"share.send_image":      "ส่งรูป",
+		"share.copy_image":      "คัดลอกรูป",
+		"share.link":            "ลิงก์",
+		"share.copy_link":       "คัดลอกลิงก์",
+		"share.more":            "แอปอื่น",
+		"share.custom":          "โรเตชันที่เขียนเอง",
 		"score.repick":          "เลือกตัวละครอื่น",
 		"score.compare_heading": "เปรียบเทียบกับทีมอื่น",
 		"score.compare_lead":    "โหลด UID ของคู่เทียบแล้วเลือกทีม เพื่อคำนวณทั้งสองทีมเทียบกันภายใต้เงื่อนไขเดียวกัน หากต้องการเทียบกับทีมอื่นของตัวเอง ให้ใส่ UID ของตัวเอง",
@@ -118,7 +132,6 @@ func init() {
 		"vs.right_higher": "ทีมขวาสูงกว่า %s",
 		"vs.left":         "ซ้าย",
 		"vs.right":        "ขวา",
-		"vs.copy":         "คัดลอกลิงก์เปรียบเทียบ",
 		"vs.left_team":    "ทีมซ้าย",
 		"vs.right_team":   "ทีมขวา",
 

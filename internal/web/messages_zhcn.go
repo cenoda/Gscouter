@@ -18,10 +18,12 @@ func init() {
 		"foot.discord": `问题与分数反馈：<a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouter 是无广告、不接受捐赠的非商业非官方粉丝项目，与 HoYoverse 无关。` +
 			`原神及相关名称为 HoYoverse 的商标；角色图片 © HoYoverse，从 <a href="https://enka.network">Enka.Network</a> 加载。`,
-		"js.copied":      "已复制链接",
-		"js.link":        "链接",
-		"js.progress":    "模拟 %d · %d%%",
-		"js.calculating": "正在计算… 最多可能需要一分钟。",
+		"js.copied":            "已复制链接",
+		"js.link":              "链接",
+		"js.image_copied":      "已复制图片",
+		"js.image_copy_failed": "无法复制图片",
+		"js.progress":          "模拟 %d · %d%%",
+		"js.calculating":       "正在计算… 最多可能需要一分钟。",
 
 		"team.stderr": "标准误差",
 
@@ -81,7 +83,19 @@ func init() {
 
 		"problem.home": "返回首页",
 
-		"score.copy":            "复制结果链接",
+		"share.button":          "分享",
+		"share.title":           "分享",
+		"share.close":           "关闭",
+		"share.image":           "图片",
+		"share.spec":            "显示配置详情",
+		"share.spec_note":       "等级、命之座、武器、天赋和属性。关闭后，图片只显示DPS和各角色占比。",
+		"share.save":            "保存图片",
+		"share.send_image":      "发送图片",
+		"share.copy_image":      "复制图片",
+		"share.link":            "链接",
+		"share.copy_link":       "复制链接",
+		"share.more":            "通过其他应用分享",
+		"share.custom":          "自定义循环",
 		"score.repick":          "选择其他角色",
 		"score.compare_heading": "与其他队伍比较",
 		"score.compare_lead":    "读取对手的 UID 并选择队伍，即可在相同条件下并排计算两支队伍。若要与自己的其他队伍比较，请输入自己的 UID。",
@@ -118,7 +132,6 @@ func init() {
 		"vs.right_higher": "右侧队伍高出 %s",
 		"vs.left":         "左侧",
 		"vs.right":        "右侧",
-		"vs.copy":         "复制比较链接",
 		"vs.left_team":    "左侧队伍",
 		"vs.right_team":   "右侧队伍",
 

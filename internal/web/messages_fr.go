@@ -18,10 +18,12 @@ func init() {
 		"foot.discord": `Questions et signalements de scores : <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouter est un projet de fan non officiel et non commercial, sans publicité ni dons, et n'est pas affilié à HoYoverse. ` +
 			`Genshin Impact et les noms associés sont des marques de HoYoverse ; les images des personnages sont © HoYoverse et chargées depuis <a href="https://enka.network">Enka.Network</a>.`,
-		"js.copied":      "Lien copié",
-		"js.link":        "Lien",
-		"js.progress":    "simulation %d · %d %%",
-		"js.calculating": "Calcul en cours… Cela peut prendre jusqu'à une minute.",
+		"js.copied":            "Lien copié",
+		"js.link":              "Lien",
+		"js.image_copied":      "Image copiée",
+		"js.image_copy_failed": "Impossible de copier l'image",
+		"js.progress":          "simulation %d · %d %%",
+		"js.calculating":       "Calcul en cours… Cela peut prendre jusqu'à une minute.",
 
 		"team.stderr": "erreur type",
 
@@ -81,7 +83,19 @@ func init() {
 
 		"problem.home": "Accueil",
 
-		"score.copy":            "Copier le lien du résultat",
+		"share.button":          "Partager",
+		"share.title":           "Partager",
+		"share.close":           "Fermer",
+		"share.image":           "Image",
+		"share.spec":            "Afficher les détails du build",
+		"share.spec_note":       "Niveau, constellation, arme, aptitudes et statistiques. Désactivée, l'image ne montre que les DPS et la part de chaque personnage.",
+		"share.save":            "Enregistrer l'image",
+		"share.send_image":      "Envoyer l'image",
+		"share.copy_image":      "Copier l'image",
+		"share.link":            "Lien",
+		"share.copy_link":       "Copier le lien",
+		"share.more":            "Autres applis",
+		"share.custom":          "Rotation personnalisée",
 		"score.repick":          "Choisir d'autres personnages",
 		"score.compare_heading": "Comparer avec une autre équipe",
 		"score.compare_lead":    "Chargez l'UID d'un adversaire et choisissez une équipe pour calculer les deux côte à côte, dans les mêmes conditions. Pour comparer avec une autre de vos équipes, saisissez votre propre UID.",
@@ -118,7 +132,6 @@ func init() {
 		"vs.right_higher": "L'équipe de droite a un score supérieur de %s",
 		"vs.left":         "Gauche",
 		"vs.right":        "Droite",
-		"vs.copy":         "Copier le lien de comparaison",
 		"vs.left_team":    "Équipe de gauche",
 		"vs.right_team":   "Équipe de droite",
 

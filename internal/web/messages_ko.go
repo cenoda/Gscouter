@@ -18,10 +18,12 @@ func init() {
 		"foot.discord": `문의와 점수 제보: <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `지스카우터(Gscouter)는 광고·후원 없이 운영하는 비영리 비공식 팬 프로젝트로 HoYoverse와 관련이 없습니다. ` +
 			`원신 및 관련 명칭은 HoYoverse의 상표이며, 캐릭터 이미지는 © HoYoverse로 <a href="https://enka.network">Enka.Network</a>에서 불러옵니다.`,
-		"js.copied":      "링크를 복사했습니다",
-		"js.link":        "링크",
-		"js.progress":    "시뮬레이션 %d · %d%%",
-		"js.calculating": "계산 중입니다… 최대 1분 정도 걸릴 수 있습니다.",
+		"js.copied":            "링크를 복사했습니다",
+		"js.link":              "링크",
+		"js.image_copied":      "이미지를 복사했습니다",
+		"js.image_copy_failed": "이미지를 복사하지 못했습니다",
+		"js.progress":          "시뮬레이션 %d · %d%%",
+		"js.calculating":       "계산 중입니다… 최대 1분 정도 걸릴 수 있습니다.",
 
 		"team.stderr": "표준오차",
 
@@ -81,7 +83,19 @@ func init() {
 
 		"problem.home": "처음으로",
 
-		"score.copy":            "결과 링크 복사",
+		"share.button":          "공유하기",
+		"share.title":           "공유하기",
+		"share.close":           "닫기",
+		"share.image":           "이미지",
+		"share.spec":            "세부 스펙 표시",
+		"share.spec_note":       "레벨·별자리·무기·특성·스탯입니다. 끄면 이미지에는 DPS와 캐릭터별 비중만 남습니다.",
+		"share.save":            "이미지 저장",
+		"share.send_image":      "이미지 보내기",
+		"share.copy_image":      "이미지 복사",
+		"share.link":            "링크",
+		"share.copy_link":       "링크 복사",
+		"share.more":            "다른 앱으로 공유",
+		"share.custom":          "커스텀 로테이션",
 		"score.repick":          "다른 캐릭터 고르기",
 		"score.compare_heading": "다른 파티와 비교하기",
 		"score.compare_lead":    "상대 UID를 불러와 파티를 고르면 두 파티를 같은 조건에서 나란히 계산합니다. 내 다른 파티와 비교하려면 내 UID를 넣으세요.",
@@ -118,7 +132,6 @@ func init() {
 		"vs.right_higher": "오른쪽 파티가 %s 높습니다",
 		"vs.left":         "왼쪽",
 		"vs.right":        "오른쪽",
-		"vs.copy":         "비교 링크 복사",
 		"vs.left_team":    "왼쪽 파티",
 		"vs.right_team":   "오른쪽 파티",
 

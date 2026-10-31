@@ -18,10 +18,12 @@ func init() {
 		"foot.discord": `Questions and score reports: <a href="https://discord.gg/PkkN9D4M4G">Discord</a>`,
 		"foot.legal": `Gscouter is an unofficial, non-commercial fan project with no ads or donations, and is not affiliated with HoYoverse. ` +
 			`Genshin Impact and related names are trademarks of HoYoverse; character images are © HoYoverse, loaded from <a href="https://enka.network">Enka.Network</a>.`,
-		"js.copied":      "Link copied",
-		"js.link":        "Link",
-		"js.progress":    "simulation %d · %d%%",
-		"js.calculating": "Calculating… This can take up to a minute.",
+		"js.copied":            "Link copied",
+		"js.link":              "Link",
+		"js.image_copied":      "Image copied",
+		"js.image_copy_failed": "Could not copy the image",
+		"js.progress":          "simulation %d · %d%%",
+		"js.calculating":       "Calculating… This can take up to a minute.",
 
 		"team.stderr": "standard error",
 
@@ -81,7 +83,19 @@ func init() {
 
 		"problem.home": "Home",
 
-		"score.copy":            "Copy result link",
+		"share.button":          "Share",
+		"share.title":           "Share",
+		"share.close":           "Close",
+		"share.image":           "Image",
+		"share.spec":            "Show build details",
+		"share.spec_note":       "Level, constellation, weapon, talents and stats. Turned off, the image shows only the DPS and each character's share.",
+		"share.save":            "Save image",
+		"share.send_image":      "Send image",
+		"share.copy_image":      "Copy image",
+		"share.link":            "Link",
+		"share.copy_link":       "Copy link",
+		"share.more":            "More apps",
+		"share.custom":          "Custom rotation",
 		"score.repick":          "Pick other characters",
 		"score.compare_heading": "Compare with another team",
 		"score.compare_lead":    "Load an opponent's UID and pick a team to calculate both side by side under the same conditions. To compare with another of your own teams, enter your own UID.",
@@ -118,7 +132,6 @@ func init() {
 		"vs.right_higher": "The right team is %s higher",
 		"vs.left":         "Left",
 		"vs.right":        "Right",
-		"vs.copy":         "Copy comparison link",
 		"vs.left_team":    "Left team",
 		"vs.right_team":   "Right team",
 
