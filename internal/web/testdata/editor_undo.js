@@ -33,6 +33,11 @@ function run(scenario) {
   const els = {}, win = element("window");
   const $ = (id) => els[id] || (els[id] = element(id));
   const records = [], encoded = [], toasts = [];
+  // localStorage, which a scenario may fill before the page runs: saved
+  // charts go under the editor's saved-charts key (gscouter.charts:...),
+  // and the draft is read back from gscouter.chart:....
+  const store = new Map();
+  const saved = scenario.saved;
   let toast = null;
   // The engine: a recording waits for the harness; encode hands back
   // the chart it is given, so the score button shows the chart.
@@ -56,7 +61,14 @@ function run(scenario) {
     fetch: () => Promise.resolve({}),
     matchMedia: () => ({matches: false}),
     setTimeout: () => 0, clearTimeout() {},
-    localStorage: {getItem: () => null, setItem() {}, removeItem() {}},
+    localStorage: {
+      getItem: (k) => {
+        if (saved && !store.has(k) && k.startsWith("gscouter.charts:")) store.set(k, JSON.stringify(saved));
+        return store.has(k) ? store.get(k) : null;
+      },
+      setItem: (k, v) => { store.set(k, String(v)); },
+      removeItem: (k) => { store.delete(k); },
+    },
     location: {search: "", pathname: "/edit", href: ""},
     history: {replaceState() {}},
     addEventListener: win.addEventListener,
@@ -100,6 +112,13 @@ function run(scenario) {
     reset() { $("ed-reset").onclick(); },
     pickup(on) { $("ed-pickup").checked = on; $("ed-pickup").dispatch("change", {}); },
     pickupShown: () => $("ed-pickup").checked,
+    choose(v) { $("ed-saved").value = v; $("ed-saved").onchange.call($("ed-saved")); },
+    draft() { for (const [k, v] of store) if (k.startsWith("gscouter.chart:")) return v; return null; },
+    async expectDraft(what, want) {
+      await t.settle();
+      const got = t.draft();
+      if (got !== want) errors.push(`${scenario.name}: ${what}: draft ${JSON.stringify(got)}, want ${JSON.stringify(want)}`);
+    },
   };
   return scenario.run(t);
 }
@@ -189,6 +208,65 @@ const scenarios = [
     await t.expect("the reset taken back", "1E 1N");
     t.undo();
     await t.expect("then the edit", "1E");
+  }},
+  // A reset still recording when a note is added: the edit is newer,
+  // so the reset's late answer, recorded or failed, is dropped.
+  {name: "edit during a reset", async run(t) {
+    await t.settle();
+    t.records.shift().resolve("1E");
+    await t.settle();
+    t.reset();
+    await t.settle();
+    t.attack();
+    await t.expect("the edit", "1E 1N");
+    t.records.shift().resolve("2Q");
+    await t.settle();
+    await t.expect("after the late reset", "1E 1N");
+    await t.expectDraft("the draft after the late reset", "1E 1N");
+    t.undo();
+    await t.expect("undoing the edit", "1E");
+  }},
+  {name: "edit during a failed reset", async run(t) {
+    await t.settle();
+    t.records.shift().resolve("1E");
+    await t.settle();
+    t.reset();
+    await t.settle();
+    t.attack();
+    await t.expect("the edit", "1E 1N");
+    t.records.shift().reject(new Error("no recording"));
+    await t.settle();
+    await t.expect("after the late failure", "1E 1N");
+    await t.expectDraft("the draft after the late failure", "1E 1N");
+  }},
+  {name: "reset without an edit", async run(t) {
+    await t.settle();
+    t.records.shift().resolve("1E");
+    await t.settle();
+    t.reset();
+    await t.settle();
+    t.records.shift().resolve("2Q");
+    await t.settle();
+    await t.expect("after the reset", "2Q");
+    await t.expectDraft("the draft after the reset", "2Q");
+  }},
+  // The saved-chart list's placeholder (value "") is no chart; it does
+  // not load the first saved one.
+  {name: "saved-chart placeholder", saved: [{n: "first", t: "0N 1E", d: "2026-01-01"}], async run(t) {
+    await t.settle();
+    t.records.shift().resolve("2Q 3E");
+    await t.settle();
+    t.choose("");
+    await t.expect("choosing the placeholder", "2Q 3E");
+    await t.expectDraft("the draft after the placeholder", "2Q 3E");
+    t.choose("0");
+    await t.expect("choosing the saved chart", "0N 1E");
+    t.choose("");
+    await t.expect("back to the placeholder", "0N 1E");
+    t.choose("7");
+    await t.expect("an index past the list", "0N 1E");
+    t.undo();
+    await t.expect("undoing the saved chart", "2Q 3E");
   }},
 ];
 
