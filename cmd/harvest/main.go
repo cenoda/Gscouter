@@ -28,7 +28,10 @@
 // criteria for supported. The score tries them besides the team's own
 // rotation and keeps the best (design §5.2). -alternatives only
 // harvests them again, for the teams already in the library, and adds
-// no team.
+// no team. An earlier alternative is replaced or removed only once its
+// constellations' entries were measured; when none of them passes the
+// checks (gcsim cannot parse them, the simulation fails or times out) it
+// is kept, and the log names it.
 //
 // An experimental team whose rotation was written from a guide
 // (library.Team.Written) is replaced, without -force, once the database
@@ -268,19 +271,23 @@ func run(o options) error {
 
 	altStart := time.Now()
 	slices.SortFunc(alts, func(a, b altJob) int { return cmp.Compare(a.dir, b.dir) })
-	written, withAlts := 0, 0
+	written, withAlts, kept := 0, 0, 0
 	for _, ch := range batch.Parallel(len(alts), o.jobs, func(i int) altResult {
 		return alternatives(alts[i].dir, alts[i].g, byID, o.choose, settings)
 	}) {
 		r := <-ch
 		fmt.Print(r.log)
 		written += r.written
+		kept += r.kept
 		if r.written > 0 {
 			withAlts++
 		}
 	}
 	if len(alts) > 0 {
 		fmt.Printf("\nwrote %d alternatives for %d of %d teams in %v.\n", written, withAlts, len(alts), time.Since(altStart).Round(time.Second))
+		if kept > 0 {
+			fmt.Printf("kept %d earlier alternatives as they were: their entries could not be measured again or written (see the lines above).\n", kept)
+		}
 	}
 	return nil
 }
@@ -330,10 +337,7 @@ func harvest(root string, g *group, tries, choose int, s validate.Settings) (str
 			failures = append(failures, e.ID+": "+err.Error())
 			continue
 		}
-		r := validate.CheckReferenceIsolated(dir, s)
-		if len(r.Failures) == 0 {
-			r = validate.CheckIsolated(dir, s)
-		}
+		r := check(dir, s)
 		if len(r.Failures) > 0 {
 			failures = append(failures, e.ID+": "+strings.Join(r.Failures, "; "))
 			continue
@@ -393,26 +397,42 @@ type altJob struct {
 
 type altResult struct {
 	written int
-	log     string
+	// kept counts the earlier alternatives left as they were because
+	// their constellations' entries could not be measured again.
+	kept int
+	log  string
 }
 
-// removeHarvested removes the team's alternatives that came from the
-// database, keeping its variants (library.Variant, cmd/variant).
-func removeHarvested(altRoot string) error {
-	entries, err := os.ReadDir(altRoot)
-	if err != nil && !os.IsNotExist(err) {
-		return err
+// check runs the reference check and then the full one on the team in
+// dir, each in a child process. It is a variable so that tests can stand
+// in for the simulation.
+var check = func(dir string, s validate.Settings) *validate.Report {
+	r := validate.CheckReferenceIsolated(dir, s)
+	if len(r.Failures) == 0 {
+		r = validate.CheckIsolated(dir, s)
 	}
-	for _, e := range entries {
-		dir := filepath.Join(altRoot, e.Name())
-		if alt, err := library.Load(dir); err == nil && alt.Variant != nil {
-			continue
-		}
-		if err := os.RemoveAll(dir); err != nil {
-			return err
-		}
+	return r
+}
+
+// writeAlt writes an alternative's files into the staged alternatives.
+// It is a variable so that tests can make the write fail.
+var writeAlt = func(sp share.Split, dir string, t *library.Team) error { return sp.WriteDir(dir, t) }
+
+// earlierAlt is an alternative the team has from an earlier harvest.
+type earlierAlt struct {
+	name    string // its directory under alt/
+	profile string // the constellations of its entry now, "" if the database no longer has it as one
+}
+
+// profileOf names the constellations of an entry, as alternatives
+// groups entries.
+func profileOf(e *kqm.Entry) string {
+	cons := entryCons(e)
+	var profile []string
+	for _, k := range slices.Sorted(maps.Keys(cons)) {
+		profile = append(profile, fmt.Sprintf("%s C%d", k, cons[k]))
 	}
-	return nil
+	return strings.Join(profile, ", ")
 }
 
 // alternatives replaces the team's alternatives (library.AltDir) with
@@ -421,27 +441,79 @@ func removeHarvested(altRoot string) error {
 // by their constellations. Each group's entries are tried as harvest
 // tries a team's, at most choose passing, and the one that keeps most
 // of its one pass is written, if its rotation is not one the team has
-// already and it meets the criteria for supported. A team whose own
-// entry is not in the database gets none.
+// already and it meets the criteria for supported.
+//
+// An earlier alternative is removed only on a decision: its group's
+// entries were measured and another won, or every group was measured
+// and it is obsolete (none is kept for its constellations: the same
+// rotation as the team's, not supported, experimental; or the database
+// no longer has its entry among the team's higher constellations). When
+// none of some group's entries passes the checks (gcsim cannot parse
+// them, the simulation fails or times out), every earlier alternative
+// no pick replaces is kept as it is, and so is every alternative of a
+// team whose own entry is not in the database. The log names those kept
+// and those removed.
+// The new set is written in full beside alt/ and swapped in only then,
+// so a write failure leaves the earlier set as it was. Variants
+// (library.Variant, cmd/variant) are always kept.
 func alternatives(dir string, g *group, byID map[string]candidate, choose int, s validate.Settings) altResult {
-	fail := func(err error) altResult {
-		return altResult{log: fmt.Sprintf("alt  %-46s error: %v\n", filepath.Base(dir), err)}
-	}
 	team, err := library.Load(dir)
 	if err != nil {
-		return fail(err)
+		return altResult{log: fmt.Sprintf("alt  %-46s error: %v; its alternatives are left as they were\n", filepath.Base(dir), err)}
 	}
 	altRoot := filepath.Join(dir, library.AltDir)
-	if err := removeHarvested(altRoot); err != nil {
-		return fail(err)
+	var variants []string
+	var earlier []earlierAlt
+	sources := map[string]string{} // the earlier alternatives' entries by name
+	dirs, err := os.ReadDir(altRoot)
+	if err != nil && !errors.Is(err, fs.ErrNotExist) {
+		return altResult{log: fmt.Sprintf("alt  %-46s error: %v; its alternatives are left as they were\n", team.ID, err)}
+	}
+	for _, d := range dirs {
+		if !d.IsDir() {
+			continue
+		}
+		alt, err := library.Load(filepath.Join(altRoot, d.Name()))
+		if err != nil {
+			return altResult{log: fmt.Sprintf("alt  %-46s error: %v; its alternatives are left as they were\n", team.ID, err)}
+		}
+		if alt.Variant != nil {
+			variants = append(variants, d.Name())
+			continue
+		}
+		earlier = append(earlier, earlierAlt{name: d.Name()})
+		sources[d.Name()] = d.Name()
+		if len(alt.Sources) > 0 {
+			sources[d.Name()], _ = strings.CutPrefix(alt.Sources[0], "https://db.kqm.gg/db/")
+		}
+	}
+	earlierNames := func() string {
+		var names []string
+		for _, e := range earlier {
+			names = append(names, e.name)
+		}
+		return strings.Join(names, ", ")
+	}
+	fail := func(err error) altResult {
+		msg := fmt.Sprintf("alt  %-46s error: %v", team.ID, err)
+		if len(earlier) > 0 {
+			msg += "; kept " + earlierNames()
+		}
+		return altResult{kept: len(earlier), log: msg + "\n"}
+	}
+	keepAll := func(why string) altResult {
+		if len(earlier) == 0 {
+			return altResult{}
+		}
+		return altResult{kept: len(earlier), log: fmt.Sprintf("alt  %-46s %s; kept %s\n", team.ID, why, earlierNames())}
 	}
 	if len(team.Sources) == 0 {
-		return altResult{}
+		return keepAll("no source entry")
 	}
 	id, _ := strings.CutPrefix(team.Sources[0], "https://db.kqm.gg/db/")
 	base, ok := byID[id]
 	if !ok {
-		return altResult{}
+		return keepAll("its entry " + id + " is not in the database")
 	}
 	baseCons := entryCons(base.entry)
 	groups := map[string][]candidate{}
@@ -450,22 +522,33 @@ func alternatives(dir string, g *group, byID map[string]candidate, choose int, s
 		if c.entry.ID == id || !slices.ContainsFunc(slices.Collect(maps.Keys(cons)), func(k string) bool { return cons[k] > baseCons[k] }) {
 			continue
 		}
-		var profile []string
-		for _, k := range slices.Sorted(maps.Keys(cons)) {
-			profile = append(profile, fmt.Sprintf("%s C%d", k, cons[k]))
-		}
-		key := strings.Join(profile, ", ")
+		key := profileOf(c.entry)
 		groups[key] = append(groups[key], c)
 	}
-	if len(groups) == 0 {
-		return altResult{}
+	for i, e := range earlier {
+		eid := sources[e.name]
+		if c, ok := byID[eid]; ok {
+			if p := profileOf(c.entry); slices.ContainsFunc(groups[p], func(x candidate) bool { return x.entry.ID == eid }) {
+				earlier[i].profile = p
+			}
+		}
 	}
+
 	tmp, err := os.MkdirTemp("", "harvest-alt-")
 	if err != nil {
 		return fail(err)
 	}
 	defer os.RemoveAll(tmp)
 
+	type staged struct {
+		split share.Split
+		team  *library.Team
+		entry *kqm.Entry
+	}
+	var picks []staged
+	// undecided are the groups none of whose entries could be measured.
+	undecided := map[string]bool{}
+	picked := map[string]bool{} // the groups with a pick
 	rotations := map[string]bool{normalize(team.Rotation): true}
 	var out altResult
 	var b strings.Builder
@@ -500,10 +583,7 @@ func alternatives(dir string, g *group, byID map[string]candidate, choose int, s
 			if err := c.split.WriteDir(tdir, alt); err != nil {
 				return fail(err)
 			}
-			r := validate.CheckReferenceIsolated(tdir, s)
-			if len(r.Failures) == 0 {
-				r = validate.CheckIsolated(tdir, s)
-			}
+			r := check(tdir, s)
 			if len(r.Failures) > 0 {
 				failures = append(failures, c.entry.ID+": "+strings.Join(r.Failures, "; "))
 				continue
@@ -518,6 +598,7 @@ func alternatives(dir string, g *group, byID map[string]candidate, choose int, s
 			fmt.Fprintf(&b, "alt  %-46s %s: same rotation as the team's\n", team.ID, profile)
 			continue
 		case best == nil:
+			undecided[profile] = true
 			fmt.Fprintf(&b, "alt  %-46s %s: none of %d entries passed\n", team.ID, profile, len(cs))
 			for _, f := range failures {
 				fmt.Fprintf(&b, "       %s\n", f)
@@ -536,17 +617,130 @@ func alternatives(dir string, g *group, byID map[string]candidate, choose int, s
 			continue
 		}
 		best.team.Status = library.StatusSupported
-		if err := best.split.WriteDir(filepath.Join(altRoot, best.entry.ID), best.team); err != nil {
-			return fail(err)
-		}
+		picks = append(picks, staged{best.split, best.team, best.entry})
+		picked[profile] = true
 		rotations[normalize(best.split.Rotation)] = true
-		out.written++
 		r := best.r
 		fmt.Fprintf(&b, "alt  %-46s %s: %s looped %8.0f  one rotation %8.0f  kept %3.0f%% (%d of %d entries passed)\n",
 			team.ID, profile, best.entry.ID, r.Res.DPS, r.Once.DPS, r.Kept()*100, passed, len(cs))
 	}
+
+	// The next set: the variants, the picks, and the earlier
+	// alternatives no pick replaces when some group could not be
+	// measured. An earlier one whose group has a pick lost to it; the
+	// others are obsolete (none kept for their constellations, or their
+	// entry gone from the database), but only once every group was
+	// measured: one that was not may be where an earlier one belongs.
+	var kept, lost, obsolete []string
+	for _, e := range earlier {
+		switch {
+		case slices.ContainsFunc(picks, func(p staged) bool { return p.entry.ID == e.name }):
+			// written again
+		case e.profile != "" && picked[e.profile]:
+			lost = append(lost, e.name)
+		case len(undecided) > 0:
+			kept = append(kept, e.name)
+		default:
+			obsolete = append(obsolete, e.name)
+		}
+	}
+	if len(picks) > 0 || len(lost) > 0 || len(obsolete) > 0 {
+		files := map[string]func(string) error{}
+		for _, name := range append(slices.Clone(variants), kept...) {
+			files[name] = func(to string) error { return copyDir(filepath.Join(altRoot, name), to) }
+		}
+		for _, p := range picks {
+			files[p.entry.ID] = func(to string) error { return writeAlt(p.split, to, p.team) }
+		}
+		if err := replaceAlts(altRoot, files); err != nil {
+			fmt.Fprintf(&b, "alt  %-46s error: %v; its alternatives are left as they were (%s)\n", team.ID, err, earlierNames())
+			return altResult{kept: len(earlier), log: b.String()}
+		}
+		out.written = len(picks)
+	}
+	out.kept = len(kept)
+	if len(kept) > 0 {
+		fmt.Fprintf(&b, "alt  %-46s kept %s: not every group of entries could be measured\n", team.ID, strings.Join(kept, ", "))
+	}
+	if len(lost) > 0 {
+		fmt.Fprintf(&b, "alt  %-46s removed %s: another entry at its constellations was picked\n", team.ID, strings.Join(lost, ", "))
+	}
+	if len(obsolete) > 0 {
+		fmt.Fprintf(&b, "alt  %-46s removed %s: none is kept for its constellations, or the database no longer has its entry\n", team.ID, strings.Join(obsolete, ", "))
+	}
 	out.log = b.String()
 	return out
+}
+
+// replaceAlts makes altRoot hold exactly the directories files names,
+// each filled by its function. It fills them in a staging directory
+// beside altRoot and swaps it in only once every one succeeded, so a
+// failure leaves altRoot as it was. An empty set removes altRoot.
+func replaceAlts(altRoot string, files map[string]func(dir string) error) error {
+	parent := filepath.Dir(altRoot)
+	stage, err := os.MkdirTemp(parent, "."+filepath.Base(altRoot)+"-")
+	if err != nil {
+		return err
+	}
+	defer os.RemoveAll(stage) // a no-op once it is swapped in
+	if err := os.Chmod(stage, 0o755); err != nil {
+		return err
+	}
+	for _, name := range slices.Sorted(maps.Keys(files)) {
+		if err := files[name](filepath.Join(stage, name)); err != nil {
+			return fmt.Errorf("%s: %w", name, err)
+		}
+	}
+	old := ""
+	if _, err := os.Lstat(altRoot); err == nil {
+		old = stage + "-old"
+		if err := os.Rename(altRoot, old); err != nil {
+			return err
+		}
+	} else if !errors.Is(err, fs.ErrNotExist) {
+		return err
+	}
+	if len(files) > 0 {
+		if err := os.Rename(stage, altRoot); err != nil {
+			if old != "" {
+				if rerr := os.Rename(old, altRoot); rerr != nil {
+					return fmt.Errorf("%w (the earlier alternatives are left in %s: %v)", err, old, rerr)
+				}
+			}
+			return err
+		}
+	}
+	if old != "" {
+		return os.RemoveAll(old)
+	}
+	return nil
+}
+
+// copyDir copies the files of the directory from into a new directory to.
+func copyDir(from, to string) error {
+	entries, err := os.ReadDir(from)
+	if err != nil {
+		return err
+	}
+	if err := os.MkdirAll(to, 0o755); err != nil {
+		return err
+	}
+	for _, e := range entries {
+		if e.IsDir() {
+			if err := copyDir(filepath.Join(from, e.Name()), filepath.Join(to, e.Name())); err != nil {
+				return err
+			}
+			continue
+		}
+		raw, err := os.ReadFile(filepath.Join(from, e.Name()))
+		if err != nil {
+			return err
+		}
+		if err := os.WriteFile(filepath.Join(to, e.Name()), raw, 0o644); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // entryCons returns an entry's constellations by canonical name.
