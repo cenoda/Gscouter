@@ -1,5 +1,4 @@
-// Repro tests for AUDIT.md. They fail while the defects described there
-// are present. They are not a fix.
+// Regression tests for the defect described in AUDIT.md (item 5).
 package chart
 
 import (
@@ -8,9 +7,9 @@ import (
 	"testing"
 )
 
-// TestRepro_WaitSumCannotWrapIntoRange shows that adding wait tokens
-// uses unchecked int addition. Two MaxInt waits wrap to a small
-// positive value, which Validate then accepts.
+// TestRepro_WaitSumCannotWrapIntoRange checks that adding wait tokens
+// does not wrap around int: two MaxInt waits must not wrap to a small
+// positive value that Validate would accept.
 func TestRepro_WaitSumCannotWrapIntoRange(t *testing.T) {
 	huge := strconv.FormatInt(math.MaxInt, 10)
 	c, err := Parse("~" + huge + " ~" + huge + " ~100 0N")

@@ -105,3 +105,32 @@ func TestTeamTier(t *testing.T) {
 		t.Errorf("Hymn build: tier %q, fork %q", team.Tier, team.GcsimFork)
 	}
 }
+
+func TestSplitConfigUnterminated(t *testing.T) {
+	cfg := "options iteration=100\n  duration=90;\n" +
+		"nahida char lvl=90/90\n  cons=6 talent=9,9,9 +params=[start_hp=1];\n" +
+		"nahida add weapon=\"akuoumaru\" refine=1 lvl=90/90\n" +
+		"nahida add set=\"gildeddreams\" count=4;\n" +
+		"active nahida;\nnahida skill;\n" +
+		"xiangling char lvl=90/90 cons=6 talent=9,9,9"
+	sp := SplitConfig(cfg)
+	want := "nahida char lvl=90/90 cons=6 talent=9,9,9;\n" +
+		"nahida add weapon=\"akuoumaru\" refine=1 lvl=90/90;\n" +
+		"nahida add set=\"gildeddreams\" count=4;\n\n" +
+		"xiangling char lvl=90/90 cons=6 talent=9,9,9;\n"
+	if sp.Build != want {
+		t.Errorf("build:\n%s\nwant:\n%s", sp.Build, want)
+	}
+	if !slices.Equal(sp.Dropped, []string{"options iteration=100 duration=90;"}) {
+		t.Errorf("dropped %q", sp.Dropped)
+	}
+	if sp.Params["nahida"] != "start_hp=1" {
+		t.Errorf("params %q", sp.Params)
+	}
+	if sp.Rotation != "active nahida;\nnahida skill;\n" {
+		t.Errorf("rotation %q", sp.Rotation)
+	}
+	if !slices.Equal(sp.Members, []string{"nahida", "xiangling"}) {
+		t.Errorf("members %v", sp.Members)
+	}
+}

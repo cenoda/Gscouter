@@ -11,9 +11,26 @@ import (
 	"net/http"
 	"regexp"
 	"strings"
+	"time"
 )
 
 const site = "https://gcsim.app"
+
+// client bounds every request on its own, so a server that accepts a
+// connection and never answers cannot hang a caller whose context has no
+// deadline. noRedirect is the same, for reading where a database link
+// redirects to.
+var (
+	client     = &http.Client{Timeout: 30 * time.Second}
+	noRedirect = &http.Client{
+		Timeout:       30 * time.Second,
+		CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse },
+	}
+)
+
+// maxBody is the most a shared result may weigh. A share holds the config
+// and its statistics, well under this.
+const maxBody = 10 << 20
 
 // Result is the part of a shared gcsim result an import needs.
 type Result struct {
@@ -69,8 +86,7 @@ func resolve(ctx context.Context, link string) (string, error) {
 		if err != nil {
 			return "", err
 		}
-		client := &http.Client{CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }}
-		resp, err := client.Do(req)
+		resp, err := noRedirect.Do(req)
 		if err != nil {
 			return "", err
 		}
@@ -91,7 +107,7 @@ func get(ctx context.Context, url string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -99,7 +115,14 @@ func get(ctx context.Context, url string) ([]byte, error) {
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("GET %s: %s", url, resp.Status)
 	}
-	return io.ReadAll(resp.Body)
+	body, err := io.ReadAll(io.LimitReader(resp.Body, maxBody+1))
+	if err != nil {
+		return nil, err
+	}
+	if len(body) > maxBody {
+		return nil, fmt.Errorf("GET %s: response larger than %d bytes", url, maxBody)
+	}
+	return body, nil
 }
 
 // Split is a config separated into the parts the library stores.
@@ -119,7 +142,10 @@ var (
 
 // SplitConfig separates a gcsim config into build, params and rotation.
 // Setup statements start a line and end at the next semicolon; everything
-// else is the rotation, kept as written.
+// else is the rotation, kept as written. A setup statement may go on over
+// lines that carry more of its key=value options; a line that starts any
+// other way, or the end of the config, ends a statement whose semicolon
+// is missing, so it cannot swallow the statement after it.
 func SplitConfig(cfg string) Split {
 	sp := Split{Params: map[string]string{}}
 	var build, rot strings.Builder
@@ -160,6 +186,9 @@ func SplitConfig(cfg string) Split {
 		if i := strings.Index(line, "//"); i >= 0 {
 			line = line[:i]
 		}
+		if (inSetup || inHeader) && !continues(line) {
+			finish()
+		}
 		for line != "" {
 			if !inSetup && !inHeader {
 				trimmed := strings.TrimSpace(line)
@@ -185,9 +214,20 @@ func SplitConfig(cfg string) Split {
 			line = after
 		}
 	}
+	if inSetup || inHeader {
+		finish()
+	}
 	sp.Build = build.String()
 	sp.Rotation = strings.TrimSpace(collapseBlank(rot.String())) + "\n"
 	return sp
+}
+
+// continues reports whether line, inside an unterminated setup statement,
+// goes on with that statement: it is blank, or it starts with an option
+// (key=value) or a +option (+params=[...]).
+func continues(line string) bool {
+	f := strings.Fields(line)
+	return len(f) == 0 || strings.Contains(f[0], "=") || strings.HasPrefix(f[0], "+") || strings.HasPrefix(f[0], ";")
 }
 
 var blankRe = regexp.MustCompile(`\n\s*\n(\s*\n)+`)

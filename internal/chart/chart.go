@@ -307,8 +307,13 @@ func Parse(s string) (*Chart, error) {
 		}
 		if strings.HasPrefix(tok, "~") {
 			v, err := strconv.Atoi(tok[1:])
-			if err != nil {
+			if err != nil || !isDigits(tok[1:]) {
 				return nil, fmt.Errorf("bad wait %q", tok)
+			}
+			// Checked before adding, so a sum of huge waits cannot wrap
+			// around int into the allowed range.
+			if v > MaxWait-wait {
+				return nil, errors.New("wait out of range")
 			}
 			wait += v
 			continue
@@ -317,6 +322,9 @@ func Parse(s string) (*Chart, error) {
 			v, err := strconv.Atoi(tok[1:])
 			if err != nil || !isDigits(tok[1:]) {
 				return nil, fmt.Errorf("bad delay %q", tok)
+			}
+			if v > MaxWait-delay {
+				return nil, errors.New("delay out of range")
 			}
 			delay += v
 			continue

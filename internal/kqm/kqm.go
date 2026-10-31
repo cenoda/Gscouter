@@ -21,6 +21,18 @@ import (
 
 const site = "https://db.kqm.gg"
 
+// api is where the database's API is, a variable so tests can serve it.
+var api = site + "/api/db"
+
+// client bounds every request on its own, so a server that accepts a
+// connection and never answers cannot hang a caller whose context has no
+// deadline.
+var client = &http.Client{Timeout: 30 * time.Second}
+
+// maxPage is the most a page of the database may weigh: a page of
+// pageSize full configs is well under a megabyte.
+const maxPage = 10 << 20
+
 // Database tags (gcsim's model.DBTag).
 const (
 	TagGcsim        = 1 // accepted by the gcsim team
@@ -145,17 +157,41 @@ func decode(raw []json.RawMessage) ([]Entry, error) {
 	return entries, nil
 }
 
-// fetchAll downloads every entry as the database's JSON.
+// fetchAll downloads every entry as the database's JSON. An entry that
+// shows up again on a later page, as one can when the database changes
+// while it is read, is kept once. A full page that brings no entry not
+// seen before is an error: the server is not paging (it ignores skip),
+// and asking for the next page would go on forever.
 func fetchAll(ctx context.Context) ([]json.RawMessage, error) {
 	var all []json.RawMessage
+	seen := map[string]bool{}
 	for skip := 0; ; skip += pageSize {
 		page, err := fetch(ctx, skip)
 		if err != nil {
 			return nil, err
 		}
-		all = append(all, page...)
+		fresh := 0
+		for _, r := range page {
+			var e struct {
+				ID string `json:"_id"`
+			}
+			if err := json.Unmarshal(r, &e); err != nil {
+				return nil, fmt.Errorf("decode database entry at %d: %w", skip, err)
+			}
+			if e.ID != "" {
+				if seen[e.ID] {
+					continue
+				}
+				seen[e.ID] = true
+				fresh++
+			}
+			all = append(all, r)
+		}
 		if len(page) < pageSize {
 			return all, nil
+		}
+		if fresh == 0 {
+			return nil, fmt.Errorf("database page at %d has no new entries: the server is not paging", skip)
 		}
 	}
 }
@@ -165,19 +201,22 @@ func fetch(ctx context.Context, skip int) ([]json.RawMessage, error) {
 	if err != nil {
 		return nil, err
 	}
-	u := site + "/api/db?q=" + url.QueryEscape(string(q))
+	u := api + "?q=" + url.QueryEscape(string(q))
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, u, nil)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	body, err := io.ReadAll(resp.Body)
+	body, err := io.ReadAll(io.LimitReader(resp.Body, maxPage+1))
 	if err != nil {
 		return nil, err
+	}
+	if len(body) > maxPage {
+		return nil, fmt.Errorf("GET %s: page larger than %d bytes", u, maxPage)
 	}
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("GET %s: %s", u, resp.Status)

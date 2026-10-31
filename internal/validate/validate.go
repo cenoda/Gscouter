@@ -156,10 +156,11 @@ func (r *Report) Gap() (gap float64, ok bool) {
 }
 
 // Validation is the record of this check for team.yaml, run with the
-// given iterations today.
+// given iterations today. The date is in UTC, as the database's update dates
+// are, so it does not depend on the machine's time zone.
 func (r *Report) Validation(iterations int) *library.Validation {
 	v := &library.Validation{
-		Date:       time.Now().Format(time.DateOnly),
+		Date:       time.Now().UTC().Format(time.DateOnly),
 		Iterations: iterations,
 		Kept:       round(r.Kept(), 3),
 		Draft:      r.Unpromotable(),

@@ -1,13 +1,12 @@
-// Repro tests for AUDIT.md. They fail while the defects described there
-// are present. They are not a fix.
+// Regression tests for the defect described in AUDIT.md (item 6).
 package share
 
 import "strings"
 import "testing"
 
-// TestRepro_SplitConfigDoesNotSwallowNextStatement shows that a setup
-// line without a semicolon is concatenated with the next statement.
-// The active line, which the rotation needs, disappears into the build.
+// TestRepro_SplitConfigDoesNotSwallowNextStatement checks that a setup
+// line without a semicolon is not concatenated with the next statement,
+// so the active line, which the rotation needs, stays in the rotation.
 func TestRepro_SplitConfigDoesNotSwallowNextStatement(t *testing.T) {
 	cfg := "nahida char lvl=90/90 cons=6 talent=1,1,1\nactive nahida;\nnahida skill;\n"
 	sp := SplitConfig(cfg)
