@@ -23,9 +23,12 @@
 //
 // With -force, a team already in the library is replaced, but only once
 // an entry for it passes: the new team's files, with the earlier
-// alternatives, are staged in full beside it and swapped in only then.
-// A team whose entries all fail, or that is skipped as failed before,
-// stays as it was.
+// alternatives, are staged in full beside it, loaded as the library
+// loads them, and swapped in only then. The new team keeps the ID and
+// name of the one it replaces, whatever order its entry declares the
+// members in, so its directory, its links and its alternatives' parent
+// ID stay as they were. A team whose entries all fail, or that is
+// skipped as failed before, stays as it was.
 //
 // Each team harvested also gets its alternatives (library.AltDir): for
 // every set of constellations above those of the team's entry that the
@@ -42,6 +45,10 @@
 // An experimental team whose rotation was written from a guide
 // (library.Team.Written) is replaced, without -force, once the database
 // has an entry for it that passes; until then it is kept as it is.
+//
+// Run fails, after finishing every team, when a team it wrote or whose
+// alternatives it refreshed does not load (library.Load), or when an
+// alternatives refresh could not read or write the team.
 //
 // Usage:
 //
@@ -130,6 +137,8 @@ type group struct {
 	// stays as it is until an entry passes and the new team's files are
 	// staged in full (replaceTeam).
 	replaces string
+	// was is the team in replaces. The new team takes its ID and name.
+	was *library.Team
 	// keepAlts carries the replaced team's alternatives (library.AltDir)
 	// over to the new team, for the alternatives' refresh to replace
 	// only those it measures again. A written rotation's are dropped.
@@ -227,6 +236,7 @@ func run(o options) error {
 			// A written rotation gives way to the database's entry, and
 			// with -force any team does, but only once one passes.
 			g.replaces = ex.dir
+			g.was = ex.team
 			g.keepAlts = !ex.team.Written()
 		}
 		todo = append(todo, g)
@@ -286,7 +296,8 @@ func run(o options) error {
 	altStart := time.Now()
 	slices.SortFunc(alts, func(a, b altJob) int { return cmp.Compare(a.dir, b.dir) })
 	written, withAlts, kept := 0, 0, 0
-	for _, ch := range batch.Parallel(len(alts), o.jobs, func(i int) altResult {
+	var errs []error
+	for i, ch := range batch.Parallel(len(alts), o.jobs, func(i int) altResult {
 		return alternatives(alts[i].dir, alts[i].g, byID, o.choose, settings)
 	}) {
 		r := <-ch
@@ -296,12 +307,34 @@ func run(o options) error {
 		if r.written > 0 {
 			withAlts++
 		}
+		if r.err != nil {
+			errs = append(errs, fmt.Errorf("alternatives of %s: %w", filepath.Base(alts[i].dir), r.err))
+		}
 	}
 	if len(alts) > 0 {
 		fmt.Printf("\nwrote %d alternatives for %d of %d teams in %v.\n", written, withAlts, len(alts), time.Since(altStart).Round(time.Second))
 		if kept > 0 {
 			fmt.Printf("kept %d earlier alternatives as they were: their entries could not be measured again or written (see the lines above).\n", kept)
 		}
+	}
+	// Every team written or refreshed must load as the library loads it.
+	for _, a := range alts {
+		if err := loadTeam(a.dir); err != nil {
+			errs = append(errs, err)
+		}
+	}
+	return errors.Join(errs...)
+}
+
+// loadTeam loads the team in dir, with its alternatives, as the library
+// does, and checks that its ID names its directory.
+func loadTeam(dir string) error {
+	t, err := library.Load(dir)
+	if err != nil {
+		return fmt.Errorf("%s: %w", dir, err)
+	}
+	if t.ID != filepath.Base(dir) {
+		return fmt.Errorf("%s: team %q is in directory %q", dir, t.ID, filepath.Base(dir))
 	}
 	return nil
 }
@@ -368,6 +401,13 @@ func harvest(root string, g *group, tries, choose int, s validate.Settings) (str
 		if best.team.Validation.Draft == "" {
 			best.team.Status = library.StatusSupported
 		}
+		if g.was != nil {
+			// The same members in another declaration order are the same
+			// team: it keeps its directory and links, and the
+			// alternatives carried over keep naming it (library.Load
+			// rejects an alternative for another ID).
+			best.team.ID, best.team.Name = g.was.ID, g.was.Name
+		}
 		dir, err := replaceTeam(root, g.replaces, g.keepAlts, best.split, best.team)
 		if err != nil {
 			return "", err.Error(), "error: " + err.Error() + "\n"
@@ -409,6 +449,9 @@ type altResult struct {
 	// their constellations' entries could not be measured again.
 	kept int
 	log  string
+	// err is set when the team or its alternatives could not be read
+	// or written; run reports it.
+	err error
 }
 
 // check runs the reference check and then the full one on the team in
@@ -431,13 +474,13 @@ var writeTeam = func(sp share.Split, dir string, t *library.Team) error { return
 var rename = os.Rename
 
 // replaceTeam writes the team into root in place of the directory old
-// ("" for none), which the entry may name in another member order. It
-// fills the new directory in full in a staging directory under root
-// first: the team's files and, with keepAlts, old's alternatives
-// (library.AltDir) as they are. Only then are old, and any directory
-// with the new team's name, moved aside and the staged one moved in; if
-// a move fails, what was moved aside is moved back. A failure at any
-// step leaves the library as it was.
+// ("" for none). It fills the new directory in full in a staging
+// directory under root first: the team's files and, with keepAlts, old's
+// alternatives (library.AltDir) as they are. The staged team must then
+// load with its alternatives as the library loads it. Only then are old,
+// and any directory with the new team's name, moved aside and the staged
+// one moved in; if a move fails, what was moved aside is moved back. A
+// failure at any step leaves the library as it was.
 func replaceTeam(root, old string, keepAlts bool, sp share.Split, t *library.Team) (string, error) {
 	dir := filepath.Join(root, t.ID)
 	stage, err := os.MkdirTemp(root, "."+t.ID+"-")
@@ -460,6 +503,11 @@ func replaceTeam(root, old string, keepAlts bool, sp share.Split, t *library.Tea
 		} else if !errors.Is(err, fs.ErrNotExist) {
 			return "", err
 		}
+	}
+	if staged, err := library.Load(stage); err != nil {
+		return "", fmt.Errorf("the staged team %s does not load: %w", t.ID, err)
+	} else if staged.ID != t.ID {
+		return "", fmt.Errorf("the staged team is %q, want %q", staged.ID, t.ID)
 	}
 	type move struct{ from, to string }
 	var aside []move
@@ -542,7 +590,7 @@ func profileOf(e *kqm.Entry) string {
 func alternatives(dir string, g *group, byID map[string]candidate, choose int, s validate.Settings) altResult {
 	team, err := library.Load(dir)
 	if err != nil {
-		return altResult{log: fmt.Sprintf("alt  %-46s error: %v; its alternatives are left as they were\n", filepath.Base(dir), err)}
+		return altResult{err: err, log: fmt.Sprintf("alt  %-46s error: %v; its alternatives are left as they were\n", filepath.Base(dir), err)}
 	}
 	altRoot := filepath.Join(dir, library.AltDir)
 	var variants []string
@@ -550,7 +598,7 @@ func alternatives(dir string, g *group, byID map[string]candidate, choose int, s
 	sources := map[string]string{} // the earlier alternatives' entries by name
 	dirs, err := os.ReadDir(altRoot)
 	if err != nil && !errors.Is(err, fs.ErrNotExist) {
-		return altResult{log: fmt.Sprintf("alt  %-46s error: %v; its alternatives are left as they were\n", team.ID, err)}
+		return altResult{err: err, log: fmt.Sprintf("alt  %-46s error: %v; its alternatives are left as they were\n", team.ID, err)}
 	}
 	for _, d := range dirs {
 		if !d.IsDir() {
@@ -558,7 +606,7 @@ func alternatives(dir string, g *group, byID map[string]candidate, choose int, s
 		}
 		alt, err := library.Load(filepath.Join(altRoot, d.Name()))
 		if err != nil {
-			return altResult{log: fmt.Sprintf("alt  %-46s error: %v; its alternatives are left as they were\n", team.ID, err)}
+			return altResult{err: err, log: fmt.Sprintf("alt  %-46s error: %v; its alternatives are left as they were\n", team.ID, err)}
 		}
 		if alt.Variant != nil {
 			variants = append(variants, d.Name())
@@ -582,7 +630,7 @@ func alternatives(dir string, g *group, byID map[string]candidate, choose int, s
 		if len(earlier) > 0 {
 			msg += "; kept " + earlierNames()
 		}
-		return altResult{kept: len(earlier), log: msg + "\n"}
+		return altResult{kept: len(earlier), err: err, log: msg + "\n"}
 	}
 	keepAll := func(why string) altResult {
 		if len(earlier) == 0 {
@@ -737,7 +785,7 @@ func alternatives(dir string, g *group, byID map[string]candidate, choose int, s
 		}
 		if err := replaceAlts(altRoot, files); err != nil {
 			fmt.Fprintf(&b, "alt  %-46s error: %v; its alternatives are left as they were (%s)\n", team.ID, err, earlierNames())
-			return altResult{kept: len(earlier), log: b.String()}
+			return altResult{kept: len(earlier), err: err, log: b.String()}
 		}
 		out.written = len(picks)
 	}
