@@ -30,6 +30,7 @@ var updates = []update{
 			"A suggested party opened in a new tab or copied as a link keeps the builds of characters you added outside the showcase.",
 			"Links in the header, the footer and the front page keep the page language.",
 			"A GOOD file with talent levels above 10 (levels with the constellation bonus) skips those characters with a reason, instead of failing when the score is calculated.",
+			"The language picker in the header no longer switches the page as soon as an arrow key moves through the list. With the keyboard, press Enter or the Apply button that appears; a pick with the mouse or a finger switches right away as before.",
 		},
 		Ko: []string{
 			"공유하기 창에서 링크가 맨 위로 올라오고 링크 복사가 주 버튼이 되었으며, 창이 한 화면에 들어옵니다. 성유물 체크박스는 “성유물 부위 정보 포함”(기본 켜짐)으로 바뀌었고, 끄면 무엇이 빠지는지 설명이 붙었습니다. 창 바깥을 누르면 닫힙니다.",
@@ -38,6 +39,7 @@ var updates = []update{
 			"추천 파티를 새 탭으로 열거나 링크로 복사해도 쇼케이스 밖에서 추가한 캐릭터의 빌드가 유지됩니다.",
 			"헤더, 푸터, 첫 화면의 링크가 페이지 언어를 유지합니다.",
 			"특성 레벨이 10을 넘는(별자리 보너스가 더해진) GOOD 파일은 점수 계산 중에 실패하지 않고, 그 캐릭터를 이유와 함께 건너뜁니다.",
+			"헤더의 언어 선택 목록에서 방향키로 움직이기만 해도 페이지 언어가 바뀌던 문제를 고쳤습니다. 키보드로는 Enter를 누르거나 나타나는 적용 버튼을 누르면 바뀌고, 마우스나 손가락으로 고르면 전처럼 바로 바뀝니다.",
 		},
 	},
 	{
