@@ -11,15 +11,15 @@ func TestAboutAndUpdates(t *testing.T) {
 
 	// Every page's footer links both, the updates by their newest date.
 	_, body := get(t, ts, "/")
-	mustContain(t, body, `<a href="/about">Our promises</a>`, `<a href="/updates">Updated `+updates[0].Date+`</a>`)
+	mustContain(t, body, `<a href="/about">Privacy and data</a>`, `<a href="/updates">Updated `+updates[0].Date+`</a>`)
 
 	code, body := get(t, ts, "/about")
 	if code != http.StatusOK {
 		t.Fatalf("about: status %d", code)
 	}
-	mustContain(t, body, "<h1>Our promises</h1>", `<link rel="canonical" href="`)
+	mustContain(t, body, "<h1>Privacy and data</h1>", "<h2>Principles</h2>", `github.com/cenoda/Gscouter">GitHub</a>, and your browser`, `<link rel="canonical" href="`)
 	_, body = getKo(t, ts, "/about")
-	mustContain(t, body, "<h1>우리의 약속</h1>")
+	mustContain(t, body, "<h1>개인정보와 데이터</h1>", "<h2>원칙</h2>")
 
 	// Entries are in English, or Korean for Korean.
 	code, body = get(t, ts, "/updates")

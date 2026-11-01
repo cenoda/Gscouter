@@ -24,6 +24,7 @@ var updates = []update{
 	{
 		Date: "2026-11-01",
 		En: []string{
+			"The page linked as “Privacy and data” in the footer (formerly “Our promises”) states its principles plainly and adds how to check them yourself: the site’s source code on GitHub, and your browser’s developer tools. The server’s error logs no longer hold the UID of a failed lookup.",
 			"The share sheet puts the link first, with Copy link as its main button, and fits on one screen. Its artifact box now reads “Include artifact pieces” (on by default) and says what turning it off leaves out. A tap outside the sheet closes it.",
 			"In the rotation editor, holding the attack key on a bow character (Chasca, Ganyu and others) adds an aimed shot; it used to add a charged attack, which gcsim rejects for bows.",
 			"Artifact pieces are kept for builds whose flat substats (HP, ATK, DEF, Elemental Mastery) rolled at the top value every time. Their whole set of pieces was dropped before, because the game rounds those numbers up.",
@@ -34,6 +35,7 @@ var updates = []update{
 			"The language picker in the header no longer switches the page as soon as an arrow key moves through the list. With the keyboard, press Enter or the Apply button that appears; a pick with the mouse or a finger switches right away as before.",
 		},
 		Ko: []string{
+			"푸터의 “개인정보와 데이터” 페이지(이전 “우리의 약속”)가 원칙을 담백하게 적고, 직접 확인하는 방법을 더했습니다: GitHub의 소스 코드와 브라우저의 개발자 도구. 서버 오류 로그에 실패한 조회의 UID가 더 이상 남지 않습니다.",
 			"공유하기 창에서 링크가 맨 위로 올라오고 링크 복사가 주 버튼이 되었으며, 창이 한 화면에 들어옵니다. 성유물 체크박스는 “성유물 부위 정보 포함”(기본 켜짐)으로 바뀌었고, 끄면 무엇이 빠지는지 설명이 붙었습니다. 창 바깥을 누르면 닫힙니다.",
 			"로테이션 편집기에서 활 캐릭터(차스카, 감우 등)의 평타 키를 길게 누르면 조준 사격이 들어갑니다. 전에는 강공격이 들어가 gcsim이 거부했습니다.",
 			"고정 수치 부옵션(HP, 공격력, 방어력, 원소 마스터리)이 매번 최고 수치로 오른 빌드도 성유물 부위 정보가 유지됩니다. 게임이 이 수치를 반올림해 보여주는 탓에 전에는 그 캐릭터의 부위 정보가 통째로 빠졌습니다.",

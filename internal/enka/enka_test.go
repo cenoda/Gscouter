@@ -63,6 +63,18 @@ func TestFetchStatusCodes(t *testing.T) {
 	}
 }
 
+// A failed request's error is logged, so it must not carry the UID that
+// its URL holds.
+func TestFetchErrorLeavesOutUID(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {}))
+	srv.Close()
+	c := &Client{HTTP: srv.Client(), BaseURL: srv.URL}
+	_, err := c.Fetch(context.Background(), "800000000")
+	if !errors.Is(err, ErrUnavailable) || strings.Contains(err.Error(), "800000000") {
+		t.Errorf("err = %v, want ErrUnavailable without the UID", err)
+	}
+}
+
 func TestFetchRejectsInvalidUID(t *testing.T) {
 	c := &Client{BaseURL: "http://unused.invalid"}
 	for _, uid := range []string{"", "12345", "abcdefghi", "012345678"} {

@@ -507,7 +507,7 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 	// site, a cancelled request or a passed deadline still stops here.
 	c, cerr := chart.Decode(tr.Selection.Chart)
 	if tr.Selection.Chart != "" && cerr == nil && err != nil && !errors.Is(err, errBusy) && ctx.Err() == nil {
-		slog.Warn("library rotations failed beside a chart", "team", tr.Team.ID, "uid", tr.Selection.UID, "err", err)
+		slog.Warn("library rotations failed beside a chart", "team", tr.Team.ID, "err", err)
 		out, err = nil, nil
 	}
 	if tr.Selection.Chart != "" && cerr == nil && err == nil {
@@ -538,7 +538,7 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 		if errors.Is(err, errBusy) {
 			tr.Problem = l.T("problem.busy")
 		} else {
-			slog.Error("score failed", "team", tr.Team.ID, "uid", tr.Selection.UID, "err", err)
+			slog.Error("score failed", "team", tr.Team.ID, "err", err)
 			tr.Problem = l.T("problem.failed")
 		}
 		return
@@ -617,7 +617,7 @@ func (s *Server) score(ctx context.Context, cfg string, warmup float64, iteratio
 func cycleViews(ctx context.Context, l localizer, sim Simulator, set Settings, tr teamResult, once, looped string, filled bool) []*timelineView {
 	cycle, err := sim.Timeline(ctx, once, 0, maxCycle)
 	if err != nil {
-		slog.Warn("timeline failed", "team", tr.Team.ID, "uid", tr.Selection.UID, "err", err)
+		slog.Warn("timeline failed", "team", tr.Team.ID, "err", err)
 		return nil
 	}
 	note := l.T("tl.note_cycle")
@@ -630,7 +630,7 @@ func cycleViews(ctx context.Context, l localizer, sim Simulator, set Settings, t
 	to := from + min(max(cycle.End, minSteady), maxSteady)
 	steady, err := sim.Timeline(ctx, looped, from, to)
 	if err != nil {
-		slog.Warn("timeline failed", "team", tr.Team.ID, "uid", tr.Selection.UID, "err", err)
+		slog.Warn("timeline failed", "team", tr.Team.ID, "err", err)
 		return views
 	}
 	note = l.T("tl.note_steady", from, to-from)

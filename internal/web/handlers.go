@@ -412,7 +412,7 @@ func (s *Server) addSaved(ctx context.Context, l localizer, data *indexData, p *
 	defer cancel()
 	saved, err := src.SavedBuilds(ctx, *p.Owner)
 	if err != nil {
-		slog.Warn("enka saved builds", "uid", p.UID, "err", err)
+		slog.Warn("enka saved builds", "err", err)
 		return
 	}
 	data.Saved, data.Choices = map[string]string{}, map[string][]buildChoice{}

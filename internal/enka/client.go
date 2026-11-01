@@ -67,6 +67,12 @@ func (c *Client) get(ctx context.Context, path string) ([]byte, error) {
 	req.Header.Set("User-Agent", userAgent)
 	resp, err := c.HTTP.Do(req)
 	if err != nil {
+		// The request's URL holds the UID or the Enka account, and the
+		// error is logged, so leave the URL out of it.
+		var ue *url.Error
+		if errors.As(err, &ue) {
+			err = ue.Err
+		}
 		return nil, fmt.Errorf("%w: %v", ErrUnavailable, err)
 	}
 	defer resp.Body.Close()

@@ -1,3 +1,12 @@
+# Caddy writes no access log unless asked to. Its error log records the
+# request (the visitor's address, and the URL, which can hold a UID), so
+# it is left out; certificate and startup messages are still logged.
+{
+	log default {
+		exclude http.log.error
+	}
+}
+
 # Caddy obtains and renews the HTTPS certificate for DOMAIN automatically.
 {$DOMAIN} {
 	encode gzip
