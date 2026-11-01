@@ -146,8 +146,8 @@ func init() {
 
 		"vs.tie":          "Prácticamente iguales",
 		"vs.tie_detail":   "(diferencia de %s, menos del 2%%)",
-		"vs.left_higher":  "El equipo de la izquierda es un %s superior",
-		"vs.right_higher": "El equipo de la derecha es un %s superior",
+		"vs.left_higher":  "Al equipo de la izquierda se le calcula un DPS un %s mayor",
+		"vs.right_higher": "Al equipo de la derecha se le calcula un DPS un %s mayor",
 		"vs.left":         "Izquierda",
 		"vs.right":        "Derecha",
 		"vs.left_team":    "Equipo de la izquierda",
@@ -156,7 +156,7 @@ func init() {
 		"meta.result_title": "Resultado de Gscouter · %s",
 		"meta.score_title":  "Equipo de %s: %s DPS · Gscouter",
 		"meta.one_rotation": " | una rotación: %s DPS",
-		"meta.team_higher":  "El equipo de %s es un %.1f%% superior",
+		"meta.team_higher":  "Al equipo de %s se le calcula un DPS un %.1f%% mayor",
 
 		"err.selection": "Selección no válida: %q",
 		"err.link":      "Este enlace corto no existe.",
@@ -182,7 +182,7 @@ func init() {
 		"tier.experimental":        "Experimental",
 		"warn.energy":              "%s espera %.1f s por minuto a tener energía. Más Recarga de Energía sube la puntuación.",
 		"warn.unknown_sets":        "%s: el motor de simulación aún no admite %d conjuntos de artefactos, así que sus bonificaciones de conjunto no se tienen en cuenta.",
-		"issue.arlecchino":         "Problema conocido: el daño de Arlecchino se calcula demasiado bajo y se está investigando la causa. Sumar alrededor de un 20% a este resultado se acerca al valor real.",
+		"issue.arlecchino":         "Problema conocido: el daño de Arlecchino se calcula por debajo del real y se está investigando la causa. Los equipos con ella pueden puntuar menos de lo que deberían.",
 
 		"filler.wrap":          "En la rotación en bucle, %s.",
 		"filler.sep":           "; ",

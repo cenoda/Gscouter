@@ -146,8 +146,8 @@ func init() {
 
 		"vs.tie":          "Hampir sama",
 		"vs.tie_detail":   "(selisih %s, di bawah 2%%)",
-		"vs.left_higher":  "Tim kiri %s lebih tinggi",
-		"vs.right_higher": "Tim kanan %s lebih tinggi",
+		"vs.left_higher":  "DPS tim kiri terhitung %s lebih tinggi",
+		"vs.right_higher": "DPS tim kanan terhitung %s lebih tinggi",
 		"vs.left":         "Kiri",
 		"vs.right":        "Kanan",
 		"vs.left_team":    "Tim kiri",
@@ -156,7 +156,7 @@ func init() {
 		"meta.result_title": "Hasil Gscouter · %s",
 		"meta.score_title":  "Tim %s: %s DPS · Gscouter",
 		"meta.one_rotation": " | satu rotasi %s DPS",
-		"meta.team_higher":  "Tim %s %.1f%% lebih tinggi",
+		"meta.team_higher":  "DPS tim %s terhitung %.1f%% lebih tinggi",
 
 		"err.selection": "Pilihan tidak valid: %q",
 		"err.link":      "Tautan pendek ini tidak ada.",
@@ -182,7 +182,7 @@ func init() {
 		"tier.experimental":        "Eksperimental",
 		"warn.energy":              "%s menunggu Energy %.1f detik per menit. Energy Recharge yang lebih tinggi akan menaikkan skor.",
 		"warn.unknown_sets":        "%s: %d set Artefak belum didukung engine simulasi, jadi bonus set-nya tidak dihitung.",
-		"issue.arlecchino":         "Masalah yang diketahui: DMG Arlecchino terhitung terlalu rendah dan penyebabnya sedang diselidiki. Menambahkan sekitar 20% ke hasil ini akan mendekati angka sebenarnya.",
+		"issue.arlecchino":         "Masalah yang diketahui: DMG Arlecchino terhitung lebih rendah dari dalam game dan penyebabnya sedang diselidiki. Tim dengan Arlecchino bisa mendapat skor lebih rendah dari seharusnya.",
 
 		"filler.wrap":          "Dalam rotasi berulang, %s.",
 		"filler.sep":           "; ",

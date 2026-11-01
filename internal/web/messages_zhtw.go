@@ -146,8 +146,8 @@ func init() {
 
 		"vs.tie":          "不相上下",
 		"vs.tie_detail":   "（相差 %s，不到 2%%）",
-		"vs.left_higher":  "左側隊伍高出 %s",
-		"vs.right_higher": "右側隊伍高出 %s",
+		"vs.left_higher":  "左側隊伍的 DPS 計算結果高出 %s",
+		"vs.right_higher": "右側隊伍的 DPS 計算結果高出 %s",
 		"vs.left":         "左側",
 		"vs.right":        "右側",
 		"vs.left_team":    "左側隊伍",
@@ -156,7 +156,7 @@ func init() {
 		"meta.result_title": "Gscouter 結果 · %s",
 		"meta.score_title":  "%s的隊伍：%s DPS · Gscouter",
 		"meta.one_rotation": " | 單輪循環 %s DPS",
-		"meta.team_higher":  "%s的隊伍高出 %.1f%%",
+		"meta.team_higher":  "%s的隊伍 DPS 計算結果高出 %.1f%%",
 
 		"err.selection": "無效的選擇：%q",
 		"err.link":      "此短網址不存在。",
@@ -182,7 +182,7 @@ func init() {
 		"tier.experimental":        "實驗性",
 		"warn.energy":              "%s每分鐘有 %.1f 秒在等待元素能量。提高元素充能效率可提升分數。",
 		"warn.unknown_sets":        "%s：有 %d 個聖遺物套裝尚未受模擬引擎支援，其套裝效果未計入。",
-		"issue.arlecchino":         "已知問題：阿蕾奇諾的傷害計算偏低，原因正在調查中。在此結果上增加約 20% 即接近實際數值。",
+		"issue.arlecchino":         "已知問題：阿蕾奇諾的傷害計算低於遊戲內數值，原因正在調查中。含有她的隊伍分數可能偏低。",
 
 		"filler.wrap":          "在循環戰鬥中，%s。",
 		"filler.sep":           "；",

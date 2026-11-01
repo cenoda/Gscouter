@@ -146,8 +146,8 @@ func init() {
 
 		"vs.tie":          "Neredeyse eşit",
 		"vs.tie_detail":   "(fark %s, %%2'nin altında)",
-		"vs.left_higher":  "Soldaki takım %s daha yüksek",
-		"vs.right_higher": "Sağdaki takım %s daha yüksek",
+		"vs.left_higher":  "Soldaki takımın DPS'i %s daha yüksek hesaplanıyor",
+		"vs.right_higher": "Sağdaki takımın DPS'i %s daha yüksek hesaplanıyor",
 		"vs.left":         "Sol",
 		"vs.right":        "Sağ",
 		"vs.left_team":    "Soldaki takım",
@@ -156,7 +156,7 @@ func init() {
 		"meta.result_title": "Gscouter sonucu · %s",
 		"meta.score_title":  "%s oyuncusunun takımı: %s DPS · Gscouter",
 		"meta.one_rotation": " | tek rotasyon %s DPS",
-		"meta.team_higher":  "%s oyuncusunun takımı %%%.1f daha yüksek",
+		"meta.team_higher":  "%s oyuncusunun takımının DPS'i %%%.1f daha yüksek hesaplanıyor",
 
 		"err.selection": "Geçersiz seçim: %q",
 		"err.link":      "Bu kısa bağlantı mevcut değil.",
@@ -182,7 +182,7 @@ func init() {
 		"tier.experimental":        "Deneysel",
 		"warn.energy":              "%s, enerji için dakikada %.1f sn bekliyor. Daha fazla Enerji Yüklemesi puanı yükseltir.",
 		"warn.unknown_sets":        "%s: %d yadigar seti henüz simülasyon motoru tarafından desteklenmediği için set bonusları hesaba katılmadı.",
-		"issue.arlecchino":         "Bilinen sorun: Arlecchino'nun hasarı olduğundan düşük hesaplanıyor ve nedeni araştırılıyor. Bu sonuca yaklaşık %20 eklemek gerçek değere yaklaşır.",
+		"issue.arlecchino":         "Bilinen sorun: Arlecchino'nun hasarı oyundakinden düşük hesaplanıyor ve nedeni araştırılıyor. Onun bulunduğu takımlar olması gerekenden düşük puan alabilir.",
 
 		"filler.wrap":          "Döngüsel rotasyonda %s.",
 		"filler.sep":           "; ",

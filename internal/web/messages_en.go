@@ -146,8 +146,8 @@ func init() {
 
 		"vs.tie":          "About even",
 		"vs.tie_detail":   "(difference %s, under 2%%)",
-		"vs.left_higher":  "The left team is %s higher",
-		"vs.right_higher": "The right team is %s higher",
+		"vs.left_higher":  "The left team's DPS is calculated %s higher",
+		"vs.right_higher": "The right team's DPS is calculated %s higher",
 		"vs.left":         "Left",
 		"vs.right":        "Right",
 		"vs.left_team":    "Left team",
@@ -156,7 +156,7 @@ func init() {
 		"meta.result_title": "Gscouter result · %s",
 		"meta.score_title":  "%s's team: %s DPS · Gscouter",
 		"meta.one_rotation": " | one rotation %s DPS",
-		"meta.team_higher":  "%s's team is %.1f%% higher",
+		"meta.team_higher":  "%s's team: DPS calculated %.1f%% higher",
 
 		"err.selection": "Invalid selection: %q",
 		"err.link":      "This short link does not exist.",
@@ -182,7 +182,7 @@ func init() {
 		"tier.experimental":        "Experimental",
 		"warn.energy":              "%s waits %.1f s per minute for energy. More Energy Recharge raises the score.",
 		"warn.unknown_sets":        "%s: %d artifact sets are not supported by the simulation engine yet, so their set bonuses are left out.",
-		"issue.arlecchino":         "Known issue: Arlecchino's damage is calculated too low and the cause is under investigation. Adding about 20% to this result comes close to the real number.",
+		"issue.arlecchino":         "Known issue: Arlecchino's damage is calculated lower than in the game, and the cause is under investigation. Teams with her may score lower than they should.",
 
 		"filler.wrap":          "In the looped rotation, %s.",
 		"filler.sep":           "; ",

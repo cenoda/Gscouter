@@ -146,8 +146,8 @@ func init() {
 
 		"vs.tie":          "비슷합니다",
 		"vs.tie_detail":   "(차이 %s, 2%% 미만)",
-		"vs.left_higher":  "왼쪽 파티가 %s 높습니다",
-		"vs.right_higher": "오른쪽 파티가 %s 높습니다",
+		"vs.left_higher":  "왼쪽 파티의 DPS가 %s 높게 계산됩니다",
+		"vs.right_higher": "오른쪽 파티의 DPS가 %s 높게 계산됩니다",
 		"vs.left":         "왼쪽",
 		"vs.right":        "오른쪽",
 		"vs.left_team":    "왼쪽 파티",
@@ -156,7 +156,7 @@ func init() {
 		"meta.result_title": "Gscouter 결과 · %s",
 		"meta.score_title":  "%s의 파티 %s DPS · Gscouter",
 		"meta.one_rotation": " | 로테이션 1회 %s DPS",
-		"meta.team_higher":  "%s 파티가 %.1f%% 높습니다",
+		"meta.team_higher":  "%s 파티의 DPS가 %.1f%% 높게 계산됩니다",
 
 		"err.selection": "잘못된 선택: %q",
 		"err.link":      "존재하지 않는 짧은 링크입니다.",
@@ -182,7 +182,7 @@ func init() {
 		"tier.experimental":        "실험적",
 		"warn.energy":              "%s: 원소 에너지가 부족해 분당 %.1f초를 기다립니다. 원소 충전 효율을 올리면 점수가 오릅니다.",
 		"warn.unknown_sets":        "%s: 계산 엔진이 아직 지원하지 않는 성유물 세트가 %d개 있어, 그 세트 효과는 빠졌습니다.",
-		"issue.arlecchino":         "알려진 문제: 아를레키노의 피해가 실제보다 낮게 계산되는 버그가 있어 원인을 조사 중입니다. 현재 결과에 약 20%를 더하면 실제와 비슷합니다.",
+		"issue.arlecchino":         "알려진 문제: 아를레키노의 피해가 실제보다 낮게 계산되고 있어 원인을 조사 중입니다. 아를레키노가 있는 파티는 점수가 실제보다 낮게 나올 수 있습니다.",
 
 		"filler.wrap":          "반복 로테이션에서 %s.",
 		"filler.sep":           ". ",

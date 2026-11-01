@@ -9,8 +9,8 @@
 {{if .Scored}}
 <div class="card verdict">
 {{if .Tie}}{{t "vs.tie"}} <span class="muted">{{t "vs.tie_detail" (percent .Diff)}}</span>
-{{else if gt .Diff 0.0}}<span class="win">{{t "vs.left_higher" (percent .Diff)}}</span>
-{{else}}<span class="win">{{t "vs.right_higher" (percent (neg .Diff))}}</span>{{end}}
+{{else if gt .Diff 0.0}}<span>{{t "vs.left_higher" (percent .Diff)}}</span>
+{{else}}<span>{{t "vs.right_higher" (percent (neg .Diff))}}</span>{{end}}
 <div class="compare">
 <div><span>{{t "vs.left"}}</span><span class="bar"><i style="width: {{width (ratio .A.Result.DPS .B.Result.DPS)}}%"></i></span><span class="num">{{thousands .A.Result.DPS}}</span></div>
 <div><span>{{t "vs.right"}}</span><span class="bar"><i style="width: {{width (ratio .B.Result.DPS .A.Result.DPS)}}%"></i></span><span class="num">{{thousands .B.Result.DPS}}</span></div>

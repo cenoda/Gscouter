@@ -146,8 +146,8 @@ func init() {
 
 		"vs.tie":          "ほぼ互角",
 		"vs.tie_detail":   "(差 %s、2%%未満)",
-		"vs.left_higher":  "左の編成が%s高い",
-		"vs.right_higher": "右の編成が%s高い",
+		"vs.left_higher":  "左の編成のDPSが%s高く計算されます",
+		"vs.right_higher": "右の編成のDPSが%s高く計算されます",
 		"vs.left":         "左",
 		"vs.right":        "右",
 		"vs.left_team":    "左の編成",
@@ -156,7 +156,7 @@ func init() {
 		"meta.result_title": "Gscouter 結果 · %s",
 		"meta.score_title":  "%sの編成: %s DPS · Gscouter",
 		"meta.one_rotation": " | ローテーション1回 %s DPS",
-		"meta.team_higher":  "%sの編成が%.1f%%高い",
+		"meta.team_higher":  "%sの編成のDPSが%.1f%%高く計算されます",
 
 		"err.selection": "不正な選択: %q",
 		"err.link":      "この短縮リンクは存在しません。",
@@ -182,7 +182,7 @@ func init() {
 		"tier.experimental":        "実験的",
 		"warn.energy":              "%sは元素エネルギーを1分あたり%.1f秒待っています。元素チャージ効率を上げるとスコアが上がります。",
 		"warn.unknown_sets":        "%s: シミュレーションエンジンが未対応の聖遺物セットが%d個あるため、そのセット効果は計算に含まれていません。",
-		"issue.arlecchino":         "既知の問題: アルレッキーノのダメージが実際より低く計算されており、原因を調査中です。この結果に約20%を足すと実際の数値に近くなります。",
+		"issue.arlecchino":         "既知の問題: アルレッキーノのダメージが実際より低く計算されており、原因を調査中です。アルレッキーノを含む編成はスコアが実際より低くなることがあります。",
 
 		"filler.wrap":          "ループするローテーションでは、%s。",
 		"filler.sep":           "。",

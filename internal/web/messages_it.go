@@ -146,8 +146,8 @@ func init() {
 
 		"vs.tie":          "Più o meno pari",
 		"vs.tie_detail":   "(differenza %s, sotto il 2%%)",
-		"vs.left_higher":  "La squadra a sinistra è avanti del %s",
-		"vs.right_higher": "La squadra a destra è avanti del %s",
+		"vs.left_higher":  "Il DPS calcolato della squadra a sinistra è più alto del %s",
+		"vs.right_higher": "Il DPS calcolato della squadra a destra è più alto del %s",
 		"vs.left":         "Sinistra",
 		"vs.right":        "Destra",
 		"vs.left_team":    "Squadra a sinistra",
@@ -156,7 +156,7 @@ func init() {
 		"meta.result_title": "Risultato Gscouter · %s",
 		"meta.score_title":  "Squadra di %s: %s DPS · Gscouter",
 		"meta.one_rotation": " | una rotazione %s DPS",
-		"meta.team_higher":  "La squadra di %s è avanti del %.1f%%",
+		"meta.team_higher":  "Il DPS calcolato della squadra di %s è più alto del %.1f%%",
 
 		"err.selection": "Selezione non valida: %q",
 		"err.link":      "Questo link breve non esiste.",
@@ -182,7 +182,7 @@ func init() {
 		"tier.experimental":        "Sperimentale",
 		"warn.energy":              "%s attende l'energia per %.1f s al minuto. Più Ricarica di energia alza il punteggio.",
 		"warn.unknown_sets":        "%s: %d set di manufatti non sono ancora supportati dal motore di simulazione, quindi i loro bonus set sono esclusi.",
-		"issue.arlecchino":         "Problema noto: i danni di Arlecchino risultano troppo bassi e la causa è in fase di analisi. Aggiungendo circa il 20% a questo risultato ci si avvicina al valore reale.",
+		"issue.arlecchino":         "Problema noto: i danni di Arlecchino risultano più bassi che nel gioco e la causa è in fase di analisi. Le squadre con lei possono ottenere un punteggio più basso del dovuto.",
 
 		"filler.wrap":          "Nella rotazione ciclica, %s.",
 		"filler.sep":           "; ",

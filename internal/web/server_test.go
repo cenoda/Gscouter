@@ -276,8 +276,8 @@ func TestVersus(t *testing.T) {
 	if code != http.StatusOK {
 		t.Fatalf("status %d", code)
 	}
-	mustContain(t, body, "왼쪽 파티가", "높습니다", "Strong", "Weak", `href="#el-pyro"`,
-		`<meta property="og:title" content="Strong vs Weak: Strong 파티가 `)
+	mustContain(t, body, "왼쪽 파티의 DPS가", "높게 계산됩니다", "Strong", "Weak", `href="#el-pyro"`,
+		`<meta property="og:title" content="Strong vs Weak: Strong 파티의 DPS가 `)
 
 	v.Set("b", v.Get("a"))
 	_, body = getKo(t, ts, "/versus?"+v.Encode())
@@ -309,7 +309,7 @@ func TestWarningsDraft(t *testing.T) {
 
 func TestWarningsKnownIssues(t *testing.T) {
 	got := strings.Join(warnings(localizer{Lang: langKorean}, &library.Team{Members: []string{"arlecchino", "bennett"}}, nil, &score.Result{}), "\n")
-	if !strings.Contains(got, "아를레키노") || !strings.Contains(got, "20%") {
+	if !strings.Contains(got, "아를레키노") || !strings.Contains(got, "낮게 계산") {
 		t.Errorf("no Arlecchino note in %q", got)
 	}
 	if got := warnings(english, &library.Team{Members: []string{"hutao"}}, nil, &score.Result{}); len(got) != 0 {

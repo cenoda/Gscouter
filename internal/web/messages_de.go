@@ -146,8 +146,8 @@ func init() {
 
 		"vs.tie":          "Etwa gleich",
 		"vs.tie_detail":   "(Unterschied %s, unter 2 %%)",
-		"vs.left_higher":  "Das linke Team liegt %s vorn",
-		"vs.right_higher": "Das rechte Team liegt %s vorn",
+		"vs.left_higher":  "Für das linke Team wird eine um %s höhere DPS berechnet",
+		"vs.right_higher": "Für das rechte Team wird eine um %s höhere DPS berechnet",
 		"vs.left":         "Links",
 		"vs.right":        "Rechts",
 		"vs.left_team":    "Linkes Team",
@@ -156,7 +156,7 @@ func init() {
 		"meta.result_title": "Gscouter-Ergebnis · %s",
 		"meta.score_title":  "Team von %s: %s DPS · Gscouter",
 		"meta.one_rotation": " | eine Rotation %s DPS",
-		"meta.team_higher":  "Das Team von %s liegt %.1f %% vorn",
+		"meta.team_higher":  "Für das Team von %s wird eine um %.1f %% höhere DPS berechnet",
 
 		"err.selection": "Ungültige Auswahl: %q",
 		"err.link":      "Dieser Kurzlink existiert nicht.",
@@ -182,7 +182,7 @@ func init() {
 		"tier.experimental":        "Experimentell",
 		"warn.energy":              "%s wartet pro Minute %.1f s auf Energie. Mehr Aufladerate erhöht den Wert.",
 		"warn.unknown_sets":        "%s: %d Artefaktsets werden von der Simulations-Engine noch nicht unterstützt, daher fehlen ihre Seteffekte.",
-		"issue.arlecchino":         "Bekanntes Problem: Arlecchinos Schaden wird zu niedrig berechnet, die Ursache wird untersucht. Etwa 20 % auf dieses Ergebnis aufgeschlagen kommt dem echten Wert nahe.",
+		"issue.arlecchino":         "Bekanntes Problem: Arlecchinos Schaden wird niedriger berechnet als im Spiel, die Ursache wird untersucht. Teams mit ihr können zu niedrig bewertet werden.",
 
 		"filler.wrap":          "In der Endlosrotation: %s.",
 		"filler.sep":           "; ",

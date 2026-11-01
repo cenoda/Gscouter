@@ -146,8 +146,8 @@ func init() {
 
 		"vs.tie":          "Gần như ngang nhau",
 		"vs.tie_detail":   "(chênh lệch %s, dưới 2%%)",
-		"vs.left_higher":  "Đội bên trái cao hơn %s",
-		"vs.right_higher": "Đội bên phải cao hơn %s",
+		"vs.left_higher":  "DPS của đội bên trái được tính cao hơn %s",
+		"vs.right_higher": "DPS của đội bên phải được tính cao hơn %s",
 		"vs.left":         "Trái",
 		"vs.right":        "Phải",
 		"vs.left_team":    "Đội bên trái",
@@ -156,7 +156,7 @@ func init() {
 		"meta.result_title": "Kết quả Gscouter · %s",
 		"meta.score_title":  "Đội của %s: %s DPS · Gscouter",
 		"meta.one_rotation": " | một vòng xoay %s DPS",
-		"meta.team_higher":  "Đội của %s cao hơn %.1f%%",
+		"meta.team_higher":  "DPS của đội %s được tính cao hơn %.1f%%",
 
 		"err.selection": "Lựa chọn không hợp lệ: %q",
 		"err.link":      "Liên kết rút gọn này không tồn tại.",
@@ -182,7 +182,7 @@ func init() {
 		"tier.experimental":        "Thử nghiệm",
 		"warn.energy":              "%s phải chờ năng lượng %.1f giây mỗi phút. Tăng Hiệu Quả Nạp Nguyên Tố sẽ nâng điểm.",
 		"warn.unknown_sets":        "%s: %d bộ Thánh Di Vật chưa được engine mô phỏng hỗ trợ nên hiệu quả bộ của chúng bị bỏ qua.",
-		"issue.arlecchino":         "Lỗi đã biết: sát thương của Arlecchino đang bị tính thấp hơn thực tế và nguyên nhân đang được điều tra. Cộng thêm khoảng 20% vào kết quả này sẽ gần với con số thực.",
+		"issue.arlecchino":         "Lỗi đã biết: sát thương của Arlecchino đang bị tính thấp hơn trong game và nguyên nhân đang được điều tra. Đội có Arlecchino có thể bị chấm điểm thấp hơn thực tế.",
 
 		"filler.wrap":          "Trong vòng xoay lặp lại, %s.",
 		"filler.sep":           "; ",

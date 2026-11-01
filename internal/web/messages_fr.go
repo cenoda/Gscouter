@@ -146,8 +146,8 @@ func init() {
 
 		"vs.tie":          "À peu près égal",
 		"vs.tie_detail":   "(écart de %s, moins de 2 %%)",
-		"vs.left_higher":  "L'équipe de gauche a un score supérieur de %s",
-		"vs.right_higher": "L'équipe de droite a un score supérieur de %s",
+		"vs.left_higher":  "Le DPS calculé de l'équipe de gauche est supérieur de %s",
+		"vs.right_higher": "Le DPS calculé de l'équipe de droite est supérieur de %s",
 		"vs.left":         "Gauche",
 		"vs.right":        "Droite",
 		"vs.left_team":    "Équipe de gauche",
@@ -156,7 +156,7 @@ func init() {
 		"meta.result_title": "Résultat Gscouter · %s",
 		"meta.score_title":  "Équipe de %s : %s DPS · Gscouter",
 		"meta.one_rotation": " | une rotation %s DPS",
-		"meta.team_higher":  "L'équipe de %s a un score supérieur de %.1f %%",
+		"meta.team_higher":  "Le DPS calculé de l'équipe de %s est supérieur de %.1f %%",
 
 		"err.selection": "Sélection invalide : %q",
 		"err.link":      "Ce lien court n'existe pas.",
@@ -182,7 +182,7 @@ func init() {
 		"tier.experimental":        "Expérimental",
 		"warn.energy":              "%s attend %.1f s par minute de l'énergie. Plus de Recharge d'énergie augmente le score.",
 		"warn.unknown_sets":        "%s : %d sets d'artéfacts ne sont pas encore pris en charge par le moteur de simulation, leurs bonus de set ne sont donc pas comptés.",
-		"issue.arlecchino":         "Problème connu : les dégâts d'Arlecchino sont calculés trop bas et la cause est en cours d'analyse. Ajouter environ 20 % à ce résultat donne une valeur proche de la réalité.",
+		"issue.arlecchino":         "Problème connu : les dégâts d'Arlecchino sont calculés plus bas que dans le jeu et la cause est en cours d'analyse. Les équipes avec elle peuvent obtenir un score trop bas.",
 
 		"filler.wrap":          "Dans la rotation en boucle, %s.",
 		"filler.sep":           " ; ",
