@@ -36,6 +36,15 @@ jobs:
           key: lfs-${{ hashFiles('.lfs-objects') }}
       - name: git lfs pull
         run: |
+          # Say which objects the cache held, so the log shows whether
+          # this run downloaded anything.
+          while read -r oid; do
+            if [ -f ".git/lfs/objects/${oid:0:2}/${oid:2:2}/$oid" ]; then
+              echo "LFS object $oid: from cache"
+            else
+              echo "LFS object $oid: downloading"
+            fi
+          done < .lfs-objects
           git lfs pull
           if head -c 100 teams/weights.json | grep -q '^version https://git-lfs'; then
             echo "teams/weights.json is still an LFS pointer"
