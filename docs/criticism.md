@@ -87,7 +87,7 @@ Even when raw DPS calculation formulas are mathematically sound, the *environmen
 
 ### 6.2 Permanent Short Links & Manual Deletion Friction
 - Short links are stored permanently in SQLite (`/data/links.db`).
-- The only way for a player to remove an unwanted link containing their UID and nickname is to manually join the project's Discord server and request deletion (`internal/web/messages_ko.go` `about.delete`). Requiring Discord engagement to delete personal data is a significant community pain point.
+- A player removes an unwanted link containing their UID and nickname by asking through the private message form at the bottom of every page (`internal/web/messages_*.go` `about.delete`); a short link is not removed automatically.
 
 ### 6.3 Handcrafted Build URL Manipulation
 - Packed build strings can be crafted manually with arbitrary weapons, constellations, and substats.

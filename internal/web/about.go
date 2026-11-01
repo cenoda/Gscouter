@@ -33,6 +33,7 @@ var updates = []update{
 			"A GOOD file with talent levels above 10 (levels with the constellation bonus) skips those characters with a reason, instead of failing when the score is calculated.",
 			"When a GOOD file's character is not imported, the reason is in the page's language and names the character once, by its in-game name: “Not imported: Hu Tao (no weapon equipped)”.",
 			"The language picker in the header no longer switches the page as soon as an arrow key moves through the list. With the keyboard, press Enter or the Apply button that appears; a pick with the mouse or a finger switches right away as before.",
+			"Questions, score reports and short link removals now go through “Message the developer” at the bottom of every page: only the developer reads them, and the page you are on is sent along.",
 		},
 		Ko: []string{
 			"푸터의 “개인정보와 데이터” 페이지(이전 “우리의 약속”)가 원칙을 담백하게 적고, 직접 확인하는 방법을 더했습니다: GitHub의 소스 코드와 브라우저의 개발자 도구. 서버 오류 로그에 실패한 조회의 UID가 더 이상 남지 않습니다.",
@@ -44,6 +45,7 @@ var updates = []update{
 			"특성 레벨이 10을 넘는(별자리 보너스가 더해진) GOOD 파일은 점수 계산 중에 실패하지 않고, 그 캐릭터를 이유와 함께 건너뜁니다.",
 			"GOOD 파일의 캐릭터를 가져오지 못했을 때 그 이유가 페이지 언어로 나오고, 캐릭터는 게임 속 이름으로 한 번만 나옵니다. 예: “가져오지 못함: 호두 (장착한 무기 없음)”.",
 			"헤더의 언어 선택 목록에서 방향키로 움직이기만 해도 페이지 언어가 바뀌던 문제를 고쳤습니다. 키보드로는 Enter를 누르거나 나타나는 적용 버튼을 누르면 바뀌고, 마우스나 손가락으로 고르면 전처럼 바로 바뀝니다.",
+			"질문, 점수 제보, 짧은 링크 삭제 요청은 이제 모든 페이지 아래의 “개발자에게 메시지 보내기”로 보냅니다. 개발자만 읽고, 보고 있던 페이지 주소가 함께 전송됩니다.",
 		},
 	},
 	{
@@ -105,7 +107,7 @@ var updates = []update{
 			"Teams try rotations written for higher constellations and keep the best, starting with Chasca C6 and Citlali C6.",
 			"An engine fix for Vesna; her teams were checked again.",
 			"New teams: three for Cyno, and Mavuika / Citlali / Prune / Nicole.",
-			"An \"Our promises\" page, this updates page, and a Discord link at the bottom of every page.",
+			"An \"Our promises\" page and this updates page.",
 			"The rotation timeline tells a held or recast skill from a tap (\"Hold E\", \"E (recast)\"), and shows Mavuika's held charged attack as one action.",
 			"A rotation editor: change a team's rotation as notes on its members' lanes, with the game's keys, and score it against the library's. A rotation that scores higher can be sent to the developer, teams outside the library can be scored with a rotation you write, and a switch picks up crystallize shards automatically.",
 			"In the rotation editor, a gray band joins a selected note to the playhead when the two are apart.",
@@ -116,7 +118,7 @@ var updates = []update{
 			"높은 돌파 수치에 맞춰 쓰인 로테이션이 있으면 그것도 시도해 가장 높은 점수를 씁니다. 차스카 6돌과 시틀라리 6돌부터 적용했습니다.",
 			"엔진의 베스나 구현을 고치고 베스나 팀을 다시 확인했습니다.",
 			"새 팀: 사이노 팀 3개, 마비카 / 시틀라리 / 프루네 / 니콜.",
-			"\"우리의 약속\" 페이지, 이 업데이트 내역, 모든 페이지 아래의 Discord 링크를 추가했습니다.",
+			"\"우리의 약속\" 페이지와 이 업데이트 내역을 추가했습니다.",
 			"로테이션 타임라인에서 홀드 E와 재시전 E를 짧게 누른 E와 구분하고(\"홀드 E\", \"E (재시전)\"), 마비카의 홀드 강공격을 동작 하나로 보여 줍니다.",
 			"로테이션 에디터: 파티의 로테이션을 캐릭터별 레인 위 노트로 게임 키 그대로 고치고, 라이브러리 로테이션과 비교해 점수를 계산합니다. 더 높게 나온 로테이션은 개발자에게 보낼 수 있고, 라이브러리에 없는 파티도 직접 짠 로테이션으로 계산할 수 있으며, 결정화 조각을 자동으로 줍는 스위치가 있습니다.",
 			"로테이션 에디터에서 선택한 노트와 플레이헤드가 떨어져 있으면 회색 띠로 이어 보여 줍니다.",

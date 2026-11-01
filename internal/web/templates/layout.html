@@ -204,6 +204,7 @@ details summary { cursor: pointer; }
 .enemy-fields input { width: 100%; padding: 8px 10px; font-size: 1rem; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--text); }
 footer { margin-top: 24px; border-top: 1px solid var(--line); padding-top: 12px; }
 footer p { margin: 6px 0; }
+.contact textarea { display: block; width: 100%; box-sizing: border-box; padding: 8px 10px; font: inherit; font-size: 1rem; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--text); resize: vertical; }
 h2.section { margin: 24px 0 8px; }
 .cycle-head { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 4px; }
 .cycle-head h2 { margin: 0; }
@@ -436,7 +437,12 @@ dialog.share label { display: flex; gap: 6px; align-items: center; margin-top: 1
 <p>{{t "foot.method2"}}</p>
 </details>
 <p class="muted">{{th "foot.credits"}}</p>
-<p class="muted">{{th "foot.discord"}}</p>
+<details class="muted contact">
+<summary>{{t "foot.contact"}}</summary>
+<p>{{t "foot.contact_note"}}</p>
+<textarea id="contact-text" rows="4" maxlength="4000" placeholder="{{t "foot.contact_ph"}}"></textarea>
+<p><button type="button" class="secondary" onclick="sendMessage(this)">{{t "foot.contact_send"}}</button></p>
+</details>
 <p class="muted">{{th "foot.legal"}}</p>
 <p class="muted"><a href="{{link "/about" nil}}">{{t "about.title"}}</a> · <a href="{{link "/updates" nil}}">{{t "foot.updated" lastUpdate}}</a> · <a href="https://github.com/cenoda/Gscouter">GitHub</a></p>
 </footer>
@@ -493,6 +499,20 @@ function sendChart(btn) {
   fetch("/send", {method: "POST", body: new URLSearchParams({u: location.pathname + location.search})}).then(function (r) {
     btn.textContent = r.ok ? {{t "js.sent"}} : {{t "js.send_failed"}};
     if (!r.ok) btn.disabled = false;
+  }, function () { btn.textContent = {{t "js.send_failed"}}; btn.disabled = false; });
+}
+// sendMessage sends the footer's message, with the page it was written
+// on, to the developer only.
+function sendMessage(btn) {
+  var box = document.getElementById("contact-text"), text = box.value.trim();
+  if (!text) { box.focus(); return; }
+  var label = btn.textContent;
+  btn.disabled = true;
+  // Writing another message makes the button send again.
+  box.addEventListener("input", function () { btn.textContent = label; btn.disabled = false; }, {once: true});
+  fetch("/message", {method: "POST", body: new URLSearchParams({text: text, page: location.pathname + location.search})}).then(function (r) {
+    btn.textContent = r.ok ? {{t "js.sent"}} : {{t "js.send_failed"}};
+    if (r.ok) box.value = ""; else btn.disabled = false;
   }, function () { btn.textContent = {{t "js.send_failed"}}; btn.disabled = false; });
 }
 // shortLink is a promise of page's short link (/s/...), or of its own

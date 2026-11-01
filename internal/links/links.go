@@ -31,7 +31,13 @@ func Open(path string) (*Store, error) {
 	CREATE TABLE IF NOT EXISTS sends (
 		target  TEXT PRIMARY KEY,
 		created INTEGER NOT NULL DEFAULT (unixepoch())
-	) WITHOUT ROWID`)
+	) WITHOUT ROWID;
+	CREATE TABLE IF NOT EXISTS messages (
+		id      INTEGER PRIMARY KEY,
+		text    TEXT NOT NULL,
+		page    TEXT NOT NULL DEFAULT '',
+		created INTEGER NOT NULL DEFAULT (unixepoch())
+	)`)
 	if err != nil {
 		db.Close()
 		return nil, fmt.Errorf("open %s: %w", path, err)
@@ -91,6 +97,41 @@ func (s *Store) Sends(ctx context.Context) ([]Send, error) {
 			return nil, err
 		}
 		out = append(out, Send{t, time.Unix(c, 0).UTC()})
+	}
+	return out, rows.Err()
+}
+
+// AddMessage keeps a message a visitor wrote to the developer, and the
+// site page it was written on ("" for none).
+func (s *Store) AddMessage(ctx context.Context, text, page string) error {
+	_, err := s.db.ExecContext(ctx, `INSERT INTO messages (text, page) VALUES (?, ?)`, text, page)
+	return err
+}
+
+// Message is a message a visitor wrote, the page it was written on, and
+// when.
+type Message struct {
+	Text    string
+	Page    string
+	Created time.Time
+}
+
+// Messages are the messages kept, newest first.
+func (s *Store) Messages(ctx context.Context) ([]Message, error) {
+	rows, err := s.db.QueryContext(ctx, `SELECT text, page, created FROM messages ORDER BY id DESC`)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var out []Message
+	for rows.Next() {
+		var m Message
+		var c int64
+		if err := rows.Scan(&m.Text, &m.Page, &c); err != nil {
+			return nil, err
+		}
+		m.Created = time.Unix(c, 0).UTC()
+		out = append(out, m)
 	}
 	return out, rows.Err()
 }
