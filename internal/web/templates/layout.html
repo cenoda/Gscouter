@@ -735,7 +735,7 @@ function resultCanvas(data, faces, spec) {
 <div class="pending"><i></i><span>{{t "team.pending"}} <span class="muted progress"></span></span></div>
 {{else}}
 <div class="score">{{thousands .Result.DPS}} <span class="muted">DPS</span></div>
-<p class="muted">±{{thousands .Result.StdErr}} ({{t "team.stderr"}}){{with .Team.Archetype}} · {{.}}{{end}}</p>
+<p class="muted">±{{thousands .Result.StdErr}} ({{t "team.stderr"}}){{with .Team.ArchetypeLabel}} · {{.}}{{end}}</p>
 {{with .OneRotation}}<p class="muted">{{t "team.one_rotation" (thousands .DPS)}}</p>{{end}}
 {{with .Filler}}<p class="muted">{{.}}</p>{{end}}
 {{with .ChartNote}}<p class="muted">{{.}}</p>{{end}}

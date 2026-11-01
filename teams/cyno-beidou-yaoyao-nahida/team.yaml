@@ -5,7 +5,6 @@ members:
     - beidou
     - yaoyao
     - nahida
-archetype: ""
 status: draft
 rotation_version: 1
 gcsim_commit: 2350be9
