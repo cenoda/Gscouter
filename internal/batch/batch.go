@@ -21,7 +21,8 @@ import (
 )
 
 // Dirs returns dirs when any are given, else every directory directly
-// under root, in name order.
+// under root, in name order. A name starting with a dot is skipped: it is
+// a staging directory cmd/harvest's crash left behind, not a team.
 func Dirs(root string, dirs []string) ([]string, error) {
 	if len(dirs) > 0 {
 		return dirs, nil
@@ -31,7 +32,7 @@ func Dirs(root string, dirs []string) ([]string, error) {
 		return nil, err
 	}
 	for _, e := range entries {
-		if e.IsDir() {
+		if e.IsDir() && !strings.HasPrefix(e.Name(), ".") {
 			dirs = append(dirs, filepath.Join(root, e.Name()))
 		}
 	}
@@ -49,7 +50,7 @@ func WithAlternatives(dirs []string) ([]string, error) {
 			return nil, err
 		}
 		for _, e := range entries {
-			if e.IsDir() {
+			if e.IsDir() && !strings.HasPrefix(e.Name(), ".") {
 				out = append(out, filepath.Join(dir, library.AltDir, e.Name()))
 			}
 		}

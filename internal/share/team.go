@@ -54,16 +54,66 @@ func (sp Split) Team(sources []string, ref *library.Reference, notes string) (*l
 }
 
 // Write stores the team in root/<id>/: team.yaml, rotation.gcsl, the
-// source's build as build.txt and its conditions as source.txt. It refuses to replace an existing team
-// unless force is set.
+// source's build as build.txt and its conditions as source.txt. A team
+// already in the library with the same members, in any order and under
+// any alias (library.Key), is refused unless force is set; with force,
+// the new team takes that team's ID, name and archetype and is written
+// over its directory, so its links and its alternatives' parent ID stay
+// as they were. A second directory for the same members would stop the
+// library from loading.
 func (sp Split) Write(root string, t *library.Team, force bool) (string, error) {
 	dir := filepath.Join(root, t.ID)
-	if _, err := os.Stat(dir); err == nil && !force {
-		return "", fmt.Errorf("%s already exists; use -force to replace it", dir)
-	} else if err != nil && !errors.Is(err, os.ErrNotExist) {
+	was, wasDir, err := findTeam(root, t.Members)
+	if err != nil {
 		return "", err
 	}
-	return dir, sp.WriteDir(dir, t)
+	if was == nil {
+		if _, err := os.Stat(dir); err == nil && !force {
+			return "", fmt.Errorf("%s already exists; use -force to replace it", dir)
+		} else if err != nil && !errors.Is(err, os.ErrNotExist) {
+			return "", err
+		}
+		return dir, sp.WriteDir(dir, t)
+	}
+	if !force {
+		return "", fmt.Errorf("%s has the same members; use -force to replace it", wasDir)
+	}
+	t.ID, t.Name = was.ID, was.Name
+	if t.Archetype == "" {
+		t.Archetype = was.Archetype
+	}
+	return wasDir, sp.WriteDir(wasDir, t)
+}
+
+// findTeam returns the team in root whose members are members in any
+// order, and its directory, or nil. A name starting with a dot is a
+// staging directory (cmd/harvest) and is skipped.
+func findTeam(root string, members []string) (*library.Team, string, error) {
+	entries, err := os.ReadDir(root)
+	if errors.Is(err, os.ErrNotExist) {
+		return nil, "", nil
+	}
+	if err != nil {
+		return nil, "", err
+	}
+	key := library.Key(members)
+	for _, e := range entries {
+		if !e.IsDir() || strings.HasPrefix(e.Name(), ".") {
+			continue
+		}
+		dir := filepath.Join(root, e.Name())
+		if _, err := os.Stat(filepath.Join(dir, "team.yaml")); err != nil {
+			continue
+		}
+		t, err := library.Load(dir)
+		if err != nil {
+			return nil, "", err
+		}
+		if library.Key(t.Members) == key {
+			return t, dir, nil
+		}
+	}
+	return nil, "", nil
 }
 
 // WriteDir stores the team's files in dir, as Write does, replacing
