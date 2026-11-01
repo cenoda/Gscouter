@@ -96,18 +96,24 @@ func TestSlimOthers(t *testing.T) {
 }
 
 // readFullTable reads teams/weights.json, skipping the test when the
-// checkout has only its Git LFS pointer.
+// checkout has only its Git LFS pointer. With GSCOUTER_REQUIRE_LFS set
+// (as CI sets it), a missing table fails the test instead, so that a
+// broken LFS fetch cannot turn the check into a silent skip.
 func readFullTable(t *testing.T) *Table {
 	t.Helper()
+	skip := t.Skip
+	if os.Getenv("GSCOUTER_REQUIRE_LFS") != "" {
+		skip = t.Fatal
+	}
 	data, err := os.ReadFile("../../teams/weights.json")
 	if os.IsNotExist(err) {
-		t.Skip("no teams/weights.json")
+		skip("no teams/weights.json")
 	}
 	if err != nil {
 		t.Fatal(err)
 	}
 	if bytes.HasPrefix(data, []byte("version https://git-lfs.github.com/spec/")) {
-		t.Skip("teams/weights.json is a Git LFS pointer; fetch it with git lfs pull")
+		skip("teams/weights.json is a Git LFS pointer; fetch it with git lfs pull")
 	}
 	full, err := ReadTable(bytes.NewReader(data))
 	if err != nil {
