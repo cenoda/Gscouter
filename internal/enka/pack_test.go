@@ -80,3 +80,17 @@ func TestUnpackRejects(t *testing.T) {
 		}
 	}
 }
+
+// Talent levels are base levels: gcsim refuses any above 10, so a link
+// or GOOD file with a boosted level is refused when read, not at scoring.
+func TestUnpackRejectsBoostedTalent(t *testing.T) {
+	c := parseSkirk(t, nil)
+	c.Talents[1] = 11
+	if _, err := Unpack(Pack([]Character{c})); err == nil {
+		t.Error("talent 11 read")
+	}
+	c.Talents[1] = 10
+	if _, err := Unpack(Pack([]Character{c})); err != nil {
+		t.Errorf("talent 10: %v", err)
+	}
+}

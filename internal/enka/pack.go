@@ -134,7 +134,9 @@ func Unpack(b []byte) ([]Character, error) {
 			Level:    r.int(1, 100),
 			MaxLevel: r.int(1, 100),
 			Cons:     r.int(0, 6),
-			Talents:  [3]int{r.int(1, 15), r.int(1, 15), r.int(1, 15)},
+			// Base levels: gcsim refuses any above 10 (the
+			// constellation bonus is its own to add).
+			Talents: [3]int{r.int(1, 10), r.int(1, 10), r.int(1, 10)},
 			Weapon: Weapon{
 				Key:      r.string(),
 				Refine:   r.int(1, 5),

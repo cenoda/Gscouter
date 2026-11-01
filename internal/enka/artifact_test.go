@@ -205,3 +205,39 @@ func TestFingerprint(t *testing.T) {
 		t.Error("different slots, same fingerprint")
 	}
 }
+
+// The game shows flat substats rounded to whole numbers, so every roll at
+// the top tier can show above the exact maximum (298.75 HP shows as 299);
+// such a piece is still valid. One more point is not.
+func TestCheckPiecesFlatRounding(t *testing.T) {
+	dataOnce.Do(func() { data, dataErr = loadGameData() })
+	if dataErr != nil {
+		t.Fatal(dataErr)
+	}
+	piece := func(level int, s StatValue) []Artifact {
+		main, ok := data.mainValue("atk", 5, level)
+		if !ok {
+			t.Fatalf("no 5★ ATK main stat at +%d", level)
+		}
+		return []Artifact{{Slot: Plume, Rarity: 5, Level: level, Main: StatValue{"atk", main}, Subs: []StatValue{s}}}
+	}
+	for _, c := range []struct {
+		level int
+		sub   StatValue
+		ok    bool
+	}{
+		{0, StatValue{"hp", 299}, true},
+		{0, StatValue{"hp", 300}, false},
+		{4, StatValue{"hp", 598}, true},
+		{20, StatValue{"hp", 1793}, true},
+		{4, StatValue{"em", 47}, true},
+		{4, StatValue{"em", 48}, false},
+		{4, StatValue{"cr", 0.078}, true},
+		{4, StatValue{"cr", 0.079}, false},
+	} {
+		err := data.checkPieces(piece(c.level, c.sub), PiecesFull)
+		if (err == nil) != c.ok {
+			t.Errorf("+%d %s=%v: err %v, want ok %v", c.level, c.sub.Key, c.sub.Value, err, c.ok)
+		}
+	}
+}
