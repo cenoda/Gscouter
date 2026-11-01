@@ -38,6 +38,30 @@ Even when raw DPS calculation formulas are mathematically sound, the *environmen
 - **Player frustration**: In actual gameplay (Spiral Abyss Floor 12), combat encounters are decided within 1 to 2 rotations (20–40 seconds). Burst-heavy teams (e.g., Raiden Hypercarry, International) often build lower ER specifically to trade sustainable looping for explosive 1-cycle clear speed.
 - In Gscouter, such practical speedrun builds are penalized with severe "energy wait" penalties, leading players to protest: *"My team clears Abyss Floor 12 in 25 seconds without issue, but your site rates it as trash because of a 7-minute infinite loop rule that doesn't exist in the game."*
 
+- The one-rotation number from full energy is already shown next to the score (design §3.1); the complaint is that readers do not notice it.
+
+#### 3.1.1 Review: a 120 s window instead of 150–450 s (2026-11-01)
+
+Proposed: score the first 120 s from full energy, the length of a timed endgame fight, instead of the loop.
+
+Measured with `cmd/validate -iter 20 -shard 1/20` (241 library teams, fork `eb218847`), once as today and once with `-warmup 0 -duration 120`:
+
+| Measure | Result |
+|---|---|
+| 120 s score / looped score | median 0.990, 5th–95th percentile 0.947–1.060, worst 0.904 |
+| Rank correlation (Spearman) | 0.993; 9 of the top 10 stay in the top 10 |
+| Largest rank moves | ±22–35 places of 241 |
+| Energy waits | the biggest drop from 2–7 s/min to 0–2 s/min (Kuki / Mika / Yun Jin / Furina 7.0 → 0.2), but their scores move only 0–6%: fillers already make up most of the wait in the loop |
+
+What it means:
+
+- **The ranking barely changes.** For most teams the loop and the 120 s window give the same order, so the switch would answer the complaint mostly in wording, not in numbers.
+- **Energy Recharge stops counting.** Starting with full energy, a team bursts at least once without earning it, and in 120 s the deficit hardly shows. That drops the rule "managing ER is part of building" (design §2) and the energy warnings with it.
+- **The cut falls mid-rotation.** One rotation takes 64–135 s on these teams, so 120 s holds one to two rotations, and a team whose payoff lands just after 120 s loses it. The teams that fall most (Xingqiu / Dehya / Bennett / Xiangling −10%, Sucrose / Xiangling / Yelan / Hu Tao −9%) and rise most (Neuvillette / Furina / Ororon / Lan Yan +13%) are moved by where the cut lands, not by their builds. The loop averages that out.
+- **What a timed fight starts with is the mode's rule.** If it starts with empty bursts, the 120 s window would need `energy` at 0, which changes numbers far more than the window does, and every rotation's opener assumes full energy.
+
+Options: keep the loop and show the one-rotation number as prominently as the score; or show a 120 s number as a second figure, which costs one more simulation per team (about 25% more simulation time, since a 120 s run is about a quarter of a 450 s one). Not decided.
+
 ### 3.2 Fixed Library Rotations & Constellation Mismatch
 - **C0 rotations forced on high-constellation builds**: 4,339 of 4,570 teams have only a single community rotation (almost always authored for C0 5★ characters). High constellations (C2/C6) fundamentally change skill priorities, cooldown timings, and field times (e.g., Furina C6 on-field attacks, Chasca C6 instant charges, Citlali C6 burst skipping).
 - Running a C0 rotation on a C6 account frequently results in wasted buffs, idle time, or rejected inputs, drastically under-scoring invested accounts (`docs/cycle.md`). High-spending players are the quickest to complain publicly when their investment is under-represented.
