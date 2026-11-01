@@ -33,7 +33,7 @@ type goodResponse struct {
 	// Notes say, in the visitor's language, how many characters were
 	// imported and which were not, and why.
 	Notes []goodNote `json:"notes"`
-	Error string   `json:"error,omitempty"`
+	Error string     `json:"error,omitempty"`
 }
 
 // handleGOOD converts a GOOD file (the request body) into packed builds
