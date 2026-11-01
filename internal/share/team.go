@@ -57,9 +57,9 @@ func (sp Split) Team(sources []string, ref *library.Reference, notes string) (*l
 // source's build as build.txt and its conditions as source.txt. A team
 // already in the library with the same members, in any order and under
 // any alias (library.Key), is refused unless force is set; with force,
-// the new team takes that team's ID, name and archetype and is written
-// over its directory, so its links and its alternatives' parent ID stay
-// as they were. A second directory for the same members would stop the
+// the new team takes that team's ID, name and hand-written archetype, if
+// any, and is written over its directory, so its links and its
+// alternatives' parent ID stay as they were. A second directory for the same members would stop the
 // library from loading.
 func (sp Split) Write(root string, t *library.Team, force bool) (string, error) {
 	dir := filepath.Join(root, t.ID)

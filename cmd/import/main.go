@@ -67,7 +67,7 @@ func run(link, root string, force bool) error {
 	for _, d := range sp.Dropped {
 		fmt.Println("  " + d)
 	}
-	fmt.Println("Next: set archetype in team.yaml, then run: go run ./cmd/validate -v " + dir)
+	fmt.Println("Next: go run ./cmd/validate -v " + dir)
 	return nil
 }
 

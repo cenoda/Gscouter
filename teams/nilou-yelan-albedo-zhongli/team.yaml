@@ -5,7 +5,6 @@ members:
     - yelan
     - albedo
     - zhongli
-archetype: ""
 status: supported
 rotation_version: 1
 gcsim_commit: 2350be9

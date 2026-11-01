@@ -237,17 +237,20 @@ teams/
     team.yaml        # metadata, character params, source and its DPS
     rotation.gcsl    # rotation from the source config (actions only)
     build.txt        # the source config's build, used for validation
-    source.txt       # the source config's conditions, for the reference check
+    source.txt       # the source config's conditions, for the reference check;
+                     # only teams with a source DPS (none for a written team, §5.4)
     alt/             # alternatives for higher constellations (§5.2), if any
       <entry>/       # one per database entry, the same four files
 ```
 
-Example `team.yaml` (written by `cmd/harvest`; `cmd/import` writes the same fields, with the share's gcsim version):
+Example `team.yaml` (written by `cmd/harvest`; `cmd/import` writes the same fields, with the share's gcsim version). These are the fields `library.Team` reads:
 
 ```yaml
 id: hutao-xingqiu-zhongli-yelan
 name: Hutao / Xingqiu / Zhongli / Yelan
 members: [hutao, xingqiu, zhongli, yelan]
+# archetype: Pyro vaporize hypercarry  # optional; without it the team page
+#                        # shows one derived from the members' elements
 status: supported        # supported | draft | blocked (§5.3, step 3)
 rotation_version: 1
 gcsim_commit: 2350be9    # gcsim version used for validation
@@ -269,7 +272,13 @@ validation:              # the last check (cmd/validate -promote, §5.3)
   kept: 1.078            # looped score over one pass under the common conditions
   dps: 72426             # looped score with build.txt, as the site scores it
   draft: '...'           # on a draft team, the criterion it misses
+# a team written from a guide (§5.4) has no reference and records instead:
+# cross_check: {dps: 0, source: '', note: what was searched or found}
+# an alternative derived from the team's rotation (§5.2) records:
+# variant: {drop: burst, char: citlali}
 ```
+
+**Archetype**: the team page shows the team's archetype after its score. Without a hand-written `archetype` it is derived from the members' elements (`library.DeriveArchetype`): the reactions they can trigger (Pyro and Hydro make "Vaporize"; Anemo and Geo are left out, since Swirl and Crystallize carry another element), or, with none, the elements that deal the damage ("Hydro"). Written teams keep the archetype of their guide ("Stellar Swirl"), which elements cannot name. Before (until 2026-11-01), `cmd/import` asked for a hand-written archetype; 4,395 of 4,570 teams had none, and their page showed nothing.
 
 ### 5.2 Rotation authoring rules
 
@@ -308,7 +317,7 @@ The library is filled from the community gcsim database at db.kqm.gg, the list g
 5. Teams run in parallel (`-j`, default one per CPU, each simulation on one CPU; on 4 CPUs this was as fast as one team at a time on all CPUs). Teams that fail every entry go to `teams/harvest-failed.txt` with the first entry's failure, and later runs skip them unless `-retry-failed` is set.
 6. **Alternatives** (§5.2) for each team harvested: the entries with a member at a higher constellation than the team's own entry, grouped by their constellations. Each group's entries are tried as in step 4, and the one picked is written to `alt/<entry>/` when its rotation is not one the team has already and it meets the approval criteria below; an experimental one is not kept, since a person reviews those. `-alternatives` does only this step again, for every team already in the library, and adds no team; it keeps an earlier alternative until the entries that would replace it were measured, and writes the new set in full before swapping it in.
 
-Each team stores the source's options, target, energy and hurt lines in `source.txt`. Only the reference check uses them; the site's score and the looped checks use the common conditions (§3.2).
+Each team from a source config stores the source's options, target, energy and hurt lines in `source.txt`; a written team has none. Only the reference check uses them; the site's score and the looped checks use the common conditions (§3.2).
 
 | Step | Mode | Description |
 |---|---|---|

@@ -89,14 +89,16 @@ func UsesForkOnlyWeapon(build string) bool {
 }
 
 type Team struct {
-	ID              string   `yaml:"id"`
-	Name            string   `yaml:"name"`
-	Members         []string `yaml:"members"` // gcsim character keys
-	Archetype       string   `yaml:"archetype"`
-	Status          Status   `yaml:"status"`
-	Tier            Tier     `yaml:"tier,omitempty"`
-	RotationVersion int      `yaml:"rotation_version"`
-	GcsimCommit     string   `yaml:"gcsim_commit"`
+	ID      string   `yaml:"id"`
+	Name    string   `yaml:"name"`
+	Members []string `yaml:"members"` // gcsim character keys
+	// Archetype is a hand-written archetype; without one the site shows
+	// one derived from the members' elements (ArchetypeLabel).
+	Archetype       string `yaml:"archetype,omitempty"`
+	Status          Status `yaml:"status"`
+	Tier            Tier   `yaml:"tier,omitempty"`
+	RotationVersion int    `yaml:"rotation_version"`
+	GcsimCommit     string `yaml:"gcsim_commit"`
 	// GcsimFork is the commit of Gscouter's gcsim fork an experimental
 	// team was written for. GcsimCommit stays the upstream base, which a
 	// fix on the fork does not change.
