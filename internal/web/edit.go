@@ -31,6 +31,9 @@ type editData struct {
 	// Resources are what start_energy sets for each, and its range
 	// (chart.StartResource), which the params sheet's control follows.
 	Resources [chart.Slots]chart.Resource
+	// Bows says which hold a bow (chart.Bow), whose held attack key is
+	// an aimed shot rather than a charged attack.
+	Bows [chart.Slots]bool
 	// Build is the players' character lines, without params, which the
 	// chart's params and Defaults are added to for each preview.
 	// RecordBuild is Build with Defaults added (withDefaults), which the
@@ -187,6 +190,7 @@ func (s *Server) handleEdit(w http.ResponseWriter, r *http.Request) {
 	d.Names, d.Defaults = chartSlots(tr.Team, tr.Chars)
 	for i, n := range d.Names {
 		d.Resources[i] = chart.StartResource(n)
+		d.Bows[i] = chart.Bow(n)
 	}
 	d.RecordBuild = withDefaults(d.Build, d.Names, d.Defaults)
 	d.Order = partyOrder(tr.Chars)

@@ -329,6 +329,7 @@ func init() {
 		"ed.jump":               "Lompat",
 		"ed.plunge":             "Tukikan",
 		"ed.hold_charge":        "Tahan: berat",
+		"ed.hold_aim":           "Tahan: tembakan bidik",
 		"ed.hold_skill":         "Tahan: ditahan",
 		"ed.select":             "Ketuk not untuk memilihnya.",
 		"ed.playhead_end":       "Playhead: di akhir",

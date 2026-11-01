@@ -25,9 +25,11 @@ var updates = []update{
 		Date: "2026-11-01",
 		En: []string{
 			"The share sheet puts the link first, with Copy link as its main button, and fits on one screen. Its artifact box now reads “Include artifact pieces” (on by default) and says what turning it off leaves out. A tap outside the sheet closes it.",
+			"In the rotation editor, holding the attack key on a bow character (Chasca, Ganyu and others) adds an aimed shot; it used to add a charged attack, which gcsim rejects for bows.",
 		},
 		Ko: []string{
 			"공유하기 창에서 링크가 맨 위로 올라오고 링크 복사가 주 버튼이 되었으며, 창이 한 화면에 들어옵니다. 성유물 체크박스는 “성유물 부위 정보 포함”(기본 켜짐)으로 바뀌었고, 끄면 무엇이 빠지는지 설명이 붙었습니다. 창 바깥을 누르면 닫힙니다.",
+			"로테이션 편집기에서 활 캐릭터(차스카, 감우 등)의 평타 키를 길게 누르면 조준 사격이 들어갑니다. 전에는 강공격이 들어가 gcsim이 거부했습니다.",
 		},
 	},
 	{

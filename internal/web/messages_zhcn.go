@@ -329,6 +329,7 @@ func init() {
 		"ed.jump":               "跳跃",
 		"ed.plunge":             "下落攻击",
 		"ed.hold_charge":        "长按：重击",
+		"ed.hold_aim":           "长按：瞄准射击",
 		"ed.hold_skill":         "长按：长按",
 		"ed.select":             "点按音符以选择。",
 		"ed.playhead_end":       "播放头：末尾",

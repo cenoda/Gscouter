@@ -329,6 +329,7 @@ func init() {
 		"ed.jump":               "Nhảy",
 		"ed.plunge":             "Đáp xuống",
 		"ed.hold_charge":        "Giữ: trọng kích",
+		"ed.hold_aim":           "Giữ: ngắm bắn",
 		"ed.hold_skill":         "Giữ: dạng giữ",
 		"ed.select":             "Chạm vào nốt để chọn.",
 		"ed.playhead_end":       "Đầu phát: ở cuối",
