@@ -155,6 +155,9 @@ type updateView struct {
 type updatesData struct {
 	Meta    pageMeta
 	Updates []updateView
+	// LinesLang is the language of the lines when it is not the page's
+	// (English on a page in a third language), for screen readers.
+	LinesLang string
 }
 
 func (s *Server) handleAbout(w http.ResponseWriter, r *http.Request) {
@@ -170,6 +173,8 @@ func (s *Server) handleUpdates(w http.ResponseWriter, r *http.Request) {
 		lines := u.En
 		if l.Lang == langKorean {
 			lines = u.Ko
+		} else if l.Lang != langEnglish {
+			data.LinesLang = langEnglish
 		}
 		data.Updates = append(data.Updates, updateView{Date: u.Date, Scores: u.Scores, Lines: lines})
 	}

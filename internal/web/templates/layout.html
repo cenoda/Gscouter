@@ -325,8 +325,8 @@ dialog.share label { display: flex; gap: 6px; align-items: center; margin-top: 1
 </svg>
 <main>
 <header>
-<a class="logo" href="/"><svg><use href="#logo"/></svg>Gscouter</a>
-<nav><a href="/">{{t "nav.lookup"}}</a><a href="/teams">{{t "nav.teams"}}</a>
+<a class="logo" href="{{link "/" nil}}"><svg><use href="#logo"/></svg>Gscouter</a>
+<nav><a href="{{link "/" nil}}">{{t "nav.lookup"}}</a><a href="{{link "/teams" nil}}">{{t "nav.teams"}}</a>
 <form class="lang" method="post" action="/lang">
 <select name="lang" aria-label="{{t "lang.label"}}" title="{{t "lang.label"}}" onchange="this.form.submit()">
 <option value=""{{if langAuto}} selected{{end}}>{{t "lang.auto"}}</option>
@@ -412,7 +412,7 @@ dialog.share label { display: flex; gap: 6px; align-items: center; margin-top: 1
 <p class="muted">{{th "foot.credits"}}</p>
 <p class="muted">{{th "foot.discord"}}</p>
 <p class="muted">{{th "foot.legal"}}</p>
-<p class="muted"><a href="/about">{{t "about.title"}}</a> · <a href="/updates">{{t "foot.updated" lastUpdate}}</a> · <a href="https://github.com/cenoda/Gscouter">GitHub</a></p>
+<p class="muted"><a href="{{link "/about" nil}}">{{t "about.title"}}</a> · <a href="{{link "/updates" nil}}">{{t "foot.updated" lastUpdate}}</a> · <a href="https://github.com/cenoda/Gscouter">GitHub</a></p>
 </footer>
 </main>
 <div class="toast" id="toast" role="status"></div>

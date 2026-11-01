@@ -47,6 +47,11 @@ const (
 	linksPerMinute = 20
 )
 
+// formLimit bounds the body of the small forms (/s, /send, /lang): a
+// result URL and a few fields. Without it a multipart body is read in
+// full, its files spilled to disk, before the handler sees a field.
+const formLimit = 64 << 10
+
 var shortIDPattern = regexp.MustCompile(`^[A-Za-z0-9_-]{8,12}$`)
 
 // handleShorten makes the short link for a result URL, given as the
@@ -56,6 +61,7 @@ func (s *Server) handleShorten(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
+	r.Body = http.MaxBytesReader(w, r.Body, formLimit)
 	target, err := shortTarget(r.PostFormValue("u"))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)

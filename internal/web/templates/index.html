@@ -43,7 +43,7 @@ if (matchMedia("(pointer: fine)").matches) document.querySelector("#uid-form inp
 
 <div class="card">
 <h3>{{t "index.supported"}}</h3>
-<p>{{t "index.supported_lead" .TeamCount}} <a href="/teams">{{t "index.find"}}</a></p>
+<p>{{t "index.supported_lead" .TeamCount}} <a href="{{link "/teams" nil}}">{{t "index.find"}}</a></p>
 </div>
 <script>
 (function () {
@@ -179,14 +179,19 @@ if (matchMedia("(pointer: fine)").matches) document.querySelector("#uid-form inp
 
   function picker() {
     refresh();
+    // A suggestion carries the builds of its characters outside the
+    // showcase, filled in before any way of following it: a click, a
+    // middle click, the context menu's new tab or copy, a keyboard focus.
     card.querySelectorAll(".suggest a").forEach(function (a) {
-      a.addEventListener("click", function () {
+      function fill() {
         var u = new URL(a.href);
         u.searchParams.delete("build");
         var sel = u.searchParams.get(vs ? "b" : "a") || "";
         tokens(sel.slice(sel.indexOf(":") + 1).split(",")).forEach(function (t) { u.searchParams.append("build", t); });
         a.href = u.href;
-      });
+      }
+      ["click", "auxclick", "contextmenu", "focusin", "pointerenter"].forEach(function (e) { a.addEventListener(e, fill); });
+      fill();
     });
     // A character with several builds is picked with the chosen one.
     card.querySelectorAll("select.build-choice").forEach(function (sel) {
@@ -297,13 +302,13 @@ if (matchMedia("(pointer: fine)").matches) document.querySelector("#uid-form inp
 {{end}}
 </ul>
 {{else}}
-<p class="muted">{{t "index.no_suggested"}} <a href="/teams">{{t "index.find"}}</a></p>
+<p class="muted">{{t "index.no_suggested"}} <a href="{{link "/teams" nil}}">{{t "index.find"}}</a></p>
 {{end}}
 {{with $.Unlocks}}
 <h3>{{t "index.unlock_heading"}}</h3>
 <p class="muted">{{t "index.unlock_lead"}}</p>
 <ul class="unlock">
-{{range .}}<li><a href="/characters/{{.Key}}">{{template "face" .Key}}<span>{{name .Key}}</span><b>+{{.Teams}}</b></a></li>
+{{range .}}<li><a href="{{link (print "/characters/" .Key) nil}}">{{template "face" .Key}}<span>{{name .Key}}</span><b>+{{.Teams}}</b></a></li>
 {{end}}</ul>
 {{end}}
 <h3>{{t "index.pick"}}</h3>

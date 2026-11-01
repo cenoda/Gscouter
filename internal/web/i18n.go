@@ -156,6 +156,9 @@ func siteLang(tag string) string {
 // handleLang saves the language picked in the page header, or forgets it
 // when the visitor picks "Auto", and goes back to the page they were on.
 func (s *Server) handleLang(w http.ResponseWriter, r *http.Request) {
+	if r.Body != nil {
+		r.Body = http.MaxBytesReader(w, r.Body, formLimit)
+	}
 	c := &http.Cookie{Name: langCookie, Path: "/", SameSite: http.SameSiteLaxMode}
 	if v := r.FormValue("lang"); catalog[v] != nil {
 		c.Value, c.MaxAge = v, int((400 * 24 * time.Hour).Seconds())
