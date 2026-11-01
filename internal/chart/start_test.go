@@ -149,3 +149,16 @@ func TestStartResource(t *testing.T) {
 		t.Errorf("Skirk: %+v", r)
 	}
 }
+
+// TestBow checks the weapon classes the editor's held attack key reads:
+// a bow aims, everything else charges.
+func TestBow(t *testing.T) {
+	for name, want := range map[string]bool{
+		"chasca": true, "ganyu": true, "yelan": true, "fischl": true,
+		"bennett": false, "xiangling": false, "mavuika": false, "citlali": false, "nahida": false, "aetheranemo": false, "nobody": false,
+	} {
+		if got := Bow(name); got != want {
+			t.Errorf("Bow(%q) = %v, want %v", name, got, want)
+		}
+	}
+}

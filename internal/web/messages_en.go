@@ -329,6 +329,7 @@ func init() {
 		"ed.jump":               "Jump",
 		"ed.plunge":             "Plunge",
 		"ed.hold_charge":        "Hold: charged",
+		"ed.hold_aim":           "Hold: aimed shot",
 		"ed.hold_skill":         "Hold: held",
 		"ed.select":             "Tap a note to select it.",
 		"ed.playhead_end":       "Playhead: at the end",

@@ -329,6 +329,7 @@ func init() {
 		"ed.jump":               "Zıpla",
 		"ed.plunge":             "Dalış",
 		"ed.hold_charge":        "Basılı: yüklü",
+		"ed.hold_aim":           "Basılı: nişanlı atış",
 		"ed.hold_skill":         "Basılı: basılı tutma",
 		"ed.select":             "Seçmek için bir notaya dokunun.",
 		"ed.playhead_end":       "Oynatma başı: sonda",

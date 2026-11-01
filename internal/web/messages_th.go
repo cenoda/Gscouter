@@ -329,6 +329,7 @@ func init() {
 		"ed.jump":               "กระโดด",
 		"ed.plunge":             "พุ่งลง",
 		"ed.hold_charge":        "กดค้าง: ชาร์จ",
+		"ed.hold_aim":           "กดค้าง: ยิงเล็ง",
 		"ed.hold_skill":         "กดค้าง: กดค้าง",
 		"ed.select":             "แตะโน้ตเพื่อเลือก",
 		"ed.playhead_end":       "หัวเล่น: ท้ายสุด",

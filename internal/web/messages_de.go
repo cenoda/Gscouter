@@ -329,6 +329,7 @@ func init() {
 		"ed.jump":               "Sprung",
 		"ed.plunge":             "Sturzangriff",
 		"ed.hold_charge":        "Halten: Sturmangriff",
+		"ed.hold_aim":           "Halten: Gezielter Schuss",
 		"ed.hold_skill":         "Halten: gehalten",
 		"ed.select":             "Tippe auf eine Note, um sie auszuwählen.",
 		"ed.playhead_end":       "Abspielkopf: am Ende",

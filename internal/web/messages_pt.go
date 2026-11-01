@@ -329,6 +329,7 @@ func init() {
 		"ed.jump":               "Pular",
 		"ed.plunge":             "Mergulho",
 		"ed.hold_charge":        "Segurar: carregado",
+		"ed.hold_aim":           "Segurar: tiro mirado",
 		"ed.hold_skill":         "Segurar: segurada",
 		"ed.select":             "Toque numa nota para selecioná-la.",
 		"ed.playhead_end":       "Cursor: no fim",

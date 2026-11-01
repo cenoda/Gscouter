@@ -195,7 +195,7 @@
 <button type="button" class="ed-key q" data-a="burst" aria-label="{{t "tl.burst"}}">Q<span class="kb"></span></button>
 <button type="button" class="ed-key plunge" data-a="high_plunge">{{t "ed.plunge"}}<span class="kb"></span></button>
 <button type="button" class="ed-key dash" data-a="dash">{{t "ed.dash"}}<span class="kb"></span></button>
-<button type="button" class="ed-key atk" data-a="attack">{{t "ed.attack"}}<small>{{t "ed.hold_charge"}}</small><span class="kb"></span></button>
+<button type="button" class="ed-key atk" data-a="attack">{{t "ed.attack"}}<small id="ed-hold-atk">{{t "ed.hold_charge"}}</small><span class="kb"></span></button>
 <button type="button" class="ed-key jump" data-a="jump">{{t "ed.jump"}}<span class="kb"></span></button>
 <button type="button" class="ed-key e" data-a="skill" aria-label="{{t "tl.skill"}}">E<small>{{t "ed.hold_skill"}}</small><span class="kb"></span></button>
 </div>
@@ -212,6 +212,8 @@
   var V = {{.Version}}, BUILD = {{.Build}}, RECORD_BUILD = {{.RecordBuild}}, ROTATION = {{.Rotation}}, SCORE = {{.Score}};
   var NAMES = JSON.stringify({{.Names}}), DEFAULTS = JSON.stringify({{.Defaults}}), RESOURCES = JSON.stringify({{.Resources}});
   var ENEMY = {{.Enemy}};
+  // A bow's held attack is an aimed shot: gcsim has no charge for bows.
+  var BOWS = {{.Bows}}, HOLD_ATK = [{{t "ed.hold_charge"}}, {{t "ed.hold_aim"}}];
   var START = {{.Chart}};
   var TEMPLATE = {{with .Template}}{name: {{teamName .}}, rotation: {{.Rotation}}}{{else}}null{{end}};
   var TEMPLATE_BUILD = {{.TemplateBuild}}, TEMPLATE_NAMES = JSON.stringify({{.TemplateNames}}), MOVES = JSON.stringify({{.Moves}});
@@ -553,6 +555,7 @@
       var on = +b.dataset.sw === active;
       b.classList.toggle("on", on); b.setAttribute("aria-pressed", on);
     });
+    $("ed-hold-atk").textContent = HOLD_ATK[BOWS[active] ? 1 : 0];
   }
   function message(text, bad) { var m = $("ed-msg"); m.textContent = text; m.className = "ed-msg " + (bad ? "bad" : "muted"); }
 
@@ -586,7 +589,7 @@
   function add(a, held) {
     if (!st) return;
     var n = {s: active, a: a, p: [], r: false, w: 0, d: 0};
-    if (a === "attack" && held) n.a = "charge";
+    if (a === "attack" && held) n.a = BOWS[active] ? "aim" : "charge";
     if (a === "skill" && held) n.p = [["hold", 1]];
     snapshot();
     st.notes.splice(cursor, 0, n);

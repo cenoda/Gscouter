@@ -329,6 +329,7 @@ func init() {
 		"ed.jump":               "Saut",
 		"ed.plunge":             "Plongée",
 		"ed.hold_charge":        "Maintenir : chargée",
+		"ed.hold_aim":           "Maintenir : tir visé",
 		"ed.hold_skill":         "Maintenir : maintenue",
 		"ed.select":             "Touchez une note pour la sélectionner.",
 		"ed.playhead_end":       "Tête de lecture : à la fin",

@@ -329,6 +329,7 @@ func init() {
 		"ed.jump":               "Salto",
 		"ed.plunge":             "Attacco in caduta",
 		"ed.hold_charge":        "Tenere: caricato",
+		"ed.hold_aim":           "Tenere: colpo mirato",
 		"ed.hold_skill":         "Tenere: tenuta",
 		"ed.select":             "Tocca una nota per selezionarla.",
 		"ed.playhead_end":       "Cursore: alla fine",

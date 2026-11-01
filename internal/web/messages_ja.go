@@ -329,6 +329,7 @@ func init() {
 		"ed.jump":               "ジャンプ",
 		"ed.plunge":             "落下攻撃",
 		"ed.hold_charge":        "長押し: 重撃",
+		"ed.hold_aim":           "長押し: 狙い撃ち",
 		"ed.hold_skill":         "長押し: 長押し",
 		"ed.select":             "ノーツをタップして選択します。",
 		"ed.playhead_end":       "再生位置: 末尾",

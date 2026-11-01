@@ -329,6 +329,7 @@ func init() {
 		"ed.jump":               "점프",
 		"ed.plunge":             "낙하",
 		"ed.hold_charge":        "길게: 강공격",
+		"ed.hold_aim":           "길게: 조준 사격",
 		"ed.hold_skill":         "길게: 홀드",
 		"ed.select":             "노트를 눌러 선택하세요.",
 		"ed.playhead_end":       "플레이헤드: 끝",

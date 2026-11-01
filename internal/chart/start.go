@@ -6,6 +6,7 @@ import (
 
 	"github.com/cenoda/gscouter/internal/library"
 	"github.com/genshinsim/gcsim/pkg/catalog"
+	"github.com/genshinsim/gcsim/pkg/model"
 	"github.com/genshinsim/gcsim/pkg/shortcut"
 )
 
@@ -68,4 +69,17 @@ func StartResource(name string) Resource {
 		}
 	}
 	return Resource{"energy", 100}
+}
+
+// Bow says whether name holds a bow (the character data's weapon class,
+// pkg/catalog). A held attack is then an aimed shot: gcsim's bow
+// characters implement aim, and charge only as the template's "action
+// charge not implemented" error.
+func Bow(name string) bool {
+	if k, ok := shortcut.CharNameToKey[strings.ToLower(name)]; ok {
+		if d := catalog.CharacterMap[k]; d != nil {
+			return d.GetWeaponClass() == model.WeaponType_WEAPON_BOW
+		}
+	}
+	return false
 }
