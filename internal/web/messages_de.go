@@ -94,7 +94,9 @@ func init() {
 		"share.copy_image":      "Bild kopieren",
 		"share.link":            "Link",
 		"share.copy_link":       "Link kopieren",
-		"share.more":            "Weitere Apps",
+		"share.pieces":          "Einzelne Artefakte einschließen",
+		"share.pieces_note":     "Die Nebenwerte jedes Teils. Ausgeschaltet behält der Link nur Platz, Stufe und Hauptwert jedes Teils; die Wertung bleibt gleich.",
+		"share.more":            "Link senden",
 		"share.custom":          "Eigene Rotation",
 		"score.repick":          "Andere Charaktere wählen",
 		"score.compare_heading": "Mit einem anderen Team vergleichen",
@@ -276,7 +278,6 @@ func init() {
 		"art.slot.circlet": "Krone",
 		"art.subs_out":     "Nebenwerte weggelassen",
 		"art.reload":       "Dieser Link stammt aus der Zeit, bevor einzelne Artefakte gespeichert wurden. Lade die Präsentation erneut, um die Artefakte und die Artefaktwertung zu sehen.",
-		"art.leave_out":    "Einzelne Artefakte weglassen",
 
 		"warn.duplicate": "%s und %s tragen dasselbe Artefakt (%s). Im Spiel trägt ein Artefakt nur ein Charakter zugleich, daher ist diese Punktzahl nicht mit Standardpunktzahlen vergleichbar.",
 

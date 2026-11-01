@@ -94,7 +94,9 @@ func init() {
 		"share.copy_image":      "이미지 복사",
 		"share.link":            "링크",
 		"share.copy_link":       "링크 복사",
-		"share.more":            "다른 앱으로 공유",
+		"share.pieces":          "성유물 부위 정보 포함",
+		"share.pieces_note":     "부위별 부옵션입니다. 끄면 링크에는 부위·레벨·주옵션만 남고, 점수는 같습니다.",
+		"share.more":            "링크 보내기",
 		"share.custom":          "커스텀 로테이션",
 		"score.repick":          "다른 캐릭터 고르기",
 		"score.compare_heading": "다른 파티와 비교하기",
@@ -276,7 +278,6 @@ func init() {
 		"art.slot.circlet": "왕관",
 		"art.subs_out":     "부옵션 생략",
 		"art.reload":       "성유물을 부위별로 저장하기 전에 만든 링크입니다. 부위별 정보와 성유물 점수를 보려면 쇼케이스를 다시 불러오세요.",
-		"art.leave_out":    "성유물 부위 정보 빼기",
 
 		"warn.duplicate": "%s, %s: 같은 성유물(%s)을 함께 착용하고 있습니다. 게임에서는 성유물 하나를 한 캐릭터만 착용할 수 있으므로, 이 점수는 표준 점수와 비교할 수 없습니다.",
 

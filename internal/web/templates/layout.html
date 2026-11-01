@@ -285,13 +285,17 @@ dialog.share { width: min(560px, calc(100% - 32px)); max-height: calc(100% - 32p
 dialog.share::backdrop { background: rgba(0,0,0,.45); }
 dialog.share section { border-top: 1px solid var(--line); margin-top: 12px; padding-top: 12px; }
 dialog.share [hidden] { display: none; }
-dialog.share label { display: flex; gap: 6px; align-items: center; margin-top: 8px; }
+dialog.share label { display: flex; gap: 6px; align-items: center; margin-top: 10px; }
+.share-note { font-size: .85rem; margin: 2px 0 0 22px; }
 .share-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .share-head h2 { margin: 0; }
 .share-head button { padding: 4px 12px; }
-.share-preview { display: block; max-width: 100%; max-height: min(55vh, 600px); margin: 0 auto; min-height: 120px; border-radius: 6px; border: 1px solid var(--line); background: #15161d; }
+.share-preview { display: block; max-width: 100%; max-height: min(40vh, 420px); margin: 0 auto; min-height: 120px; border-radius: 6px; border: 1px solid var(--line); background: #15161d; }
 .share-url { display: flex; gap: 8px; margin-top: 10px; }
 .share-url input[type=text] { font-size: .9rem; }
+.share-native { width: 100%; justify-content: center; margin-top: 12px; }
+.share-nets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
+.share-nets .button { justify-content: center; padding: 8px 4px; }
 .busy { position: fixed; inset: 0; z-index: 20; display: none; place-items: center; background: rgba(0,0,0,.35); }
 .busy.show { display: grid; }
 .busy div { background: var(--card); color: var(--text); border-radius: 6px; padding: 18px 22px; display: flex; gap: 12px; align-items: center; max-width: calc(100% - 32px); }
@@ -504,8 +508,9 @@ function flash(btn, text) {
 }
 // openShare opens the share sheet beside btn: the page's link to copy or
 // post, and on a result page the result as an image to save or send.
-// A checked "leave pieces out" box shares its link instead, which
-// carries the builds without their pieces.
+// An unchecked "include artifact pieces" box shares its strip link
+// instead, which carries the builds without their pieces. A click on
+// the backdrop closes the sheet.
 function openShare(btn) {
   var sheet = btn.parentNode.querySelector("dialog.share");
   if (!sheet.showModal) {
@@ -514,6 +519,10 @@ function openShare(btn) {
   }
   if (!sheet.ready) {
     sheet.ready = true;
+    sheet.addEventListener("click", function (e) {
+      var r = sheet.getBoundingClientRect();
+      if (e.target === sheet && (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)) sheet.close();
+    });
     shareLink(sheet);
     var data = sheet.querySelector(".share-data");
     if (data) shareImage(sheet, JSON.parse(data.textContent));
@@ -534,7 +543,7 @@ function shareLink(sheet) {
     sheet.querySelectorAll("a[data-net]").forEach(function (a) { a.href = nets[a.dataset.net](u, document.title); });
   }
   function load() {
-    var page = strip && strip.checked ? new URL(strip.dataset.strip, location.href) : new URL(location.href);
+    var page = strip && !strip.checked ? new URL(strip.dataset.strip, location.href) : new URL(location.href);
     show(page.href);
     var mine = url = shortLink(page);
     mine.then(function (u) { if (url === mine) show(u); });
@@ -792,10 +801,10 @@ browser from share-data (shareImage), with the builds or without. */}}
 <section>
 <h3>{{t "share.image"}}</h3>
 <img class="share-preview" alt="{{t "share.image"}}">
-<label class="muted"><input type="checkbox" class="share-spec" checked> {{t "share.spec"}}</label>
-<p class="muted">{{t "share.spec_note"}}</p>
+<label><input type="checkbox" class="share-spec" checked> {{t "share.spec"}}</label>
+<p class="muted share-note">{{t "share.spec_note"}}</p>
 <div class="actions">
-<button type="button" class="share-save" disabled>{{t "share.save"}}</button>
+<button type="button" class="secondary share-save" disabled>{{t "share.save"}}</button>
 <button type="button" class="secondary share-files" hidden>{{t "share.send_image"}}</button>
 <button type="button" class="secondary share-copy-image" hidden>{{t "share.copy_image"}}</button>
 </div>
@@ -809,15 +818,17 @@ browser from share-data (shareImage), with the builds or without. */}}
 </section>
 {{end}}
 
-{{/* share-link is the page's link, to copy or post; strip is the link
-without the artifact pieces, "" when there are none to leave out. */}}
+{{/* share-link is the page's link, to copy or post, shown first since
+it is what most sharers want; strip is the link without the artifact
+pieces, "" when there are none to leave out. */}}
 {{define "share-link"}}
 <section>
 <h3>{{t "share.link"}}</h3>
-{{with .}}<label class="muted"><input type="checkbox" data-strip="{{.}}"> {{t "art.leave_out"}}</label>{{end}}
-<div class="share-url"><input type="text" readonly class="share-url-text" aria-label="{{t "js.link"}}"><button type="button" class="secondary share-copy"><svg class="icon"><use href="#i-link"/></svg>{{t "share.copy_link"}}</button></div>
-<div class="actions">
+<div class="share-url"><input type="text" readonly class="share-url-text" aria-label="{{t "js.link"}}"><button type="button" class="share-copy"><svg class="icon"><use href="#i-link"/></svg>{{t "share.copy_link"}}</button></div>
+{{with .}}<label><input type="checkbox" data-strip="{{.}}" checked> {{t "share.pieces"}}</label>
+<p class="muted share-note">{{t "share.pieces_note"}}</p>{{end}}
 <button type="button" class="secondary share-native" hidden>{{t "share.more"}}</button>
+<div class="share-nets">
 <a class="button secondary" data-net="x" target="_blank" rel="noopener">X</a>
 <a class="button secondary" data-net="facebook" target="_blank" rel="noopener">Facebook</a>
 <a class="button secondary" data-net="reddit" target="_blank" rel="noopener">Reddit</a>

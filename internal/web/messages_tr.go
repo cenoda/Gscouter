@@ -94,7 +94,9 @@ func init() {
 		"share.copy_image":      "Görseli kopyala",
 		"share.link":            "Bağlantı",
 		"share.copy_link":       "Bağlantıyı kopyala",
-		"share.more":            "Diğer uygulamalar",
+		"share.pieces":          "Yadigar parçalarını dahil et",
+		"share.pieces_note":     "Her parçanın alt istatistikleri. Kapalıyken bağlantı her parçanın yalnızca yuvasını, seviyesini ve ana istatistiğini tutar; puan aynı kalır.",
+		"share.more":            "Bağlantıyı gönder",
 		"share.custom":          "Kendi rotasyonun",
 		"score.repick":          "Başka karakterler seç",
 		"score.compare_heading": "Başka bir takımla karşılaştır",
@@ -276,7 +278,6 @@ func init() {
 		"art.slot.circlet": "Taç",
 		"art.subs_out":     "Alt istatistikler çıkarıldı",
 		"art.reload":       "Bu bağlantı, yadigarlar tek tek saklanmadan önce oluşturuldu. Parçaları ve yadigar puanını görmek için galeriyi yeniden yükle.",
-		"art.leave_out":    "Yadigar parçalarını dahil etme",
 
 		"warn.duplicate": "%s ve %s aynı yadigarı takıyor (%s). Oyunda bir yadigar aynı anda yalnızca bir karakterde olabilir, bu yüzden bu puan standart puanlarla karşılaştırılamaz.",
 

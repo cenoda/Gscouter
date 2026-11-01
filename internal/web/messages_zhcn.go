@@ -94,7 +94,9 @@ func init() {
 		"share.copy_image":      "复制图片",
 		"share.link":            "链接",
 		"share.copy_link":       "复制链接",
-		"share.more":            "通过其他应用分享",
+		"share.pieces":          "包含圣遗物部位",
+		"share.pieces_note":     "各部位的副词条。关闭后，链接只保留各部位的位置、等级和主词条，分数不变。",
+		"share.more":            "发送链接",
 		"share.custom":          "自定义循环",
 		"score.repick":          "选择其他角色",
 		"score.compare_heading": "与其他队伍比较",
@@ -276,7 +278,6 @@ func init() {
 		"art.slot.circlet": "冠",
 		"art.subs_out":     "副词条已省略",
 		"art.reload":       "此链接创建于按部位保存圣遗物之前。请重新读取展柜以查看各部位和圣遗物评分。",
-		"art.leave_out":    "不包含圣遗物部位",
 
 		"warn.duplicate": "%s和%s装备了同一件圣遗物（%s）。游戏中一件圣遗物同时只能由一名角色装备，因此此分数不能与标准分数比较。",
 

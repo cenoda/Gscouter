@@ -94,7 +94,9 @@ func init() {
 		"share.copy_image":      "Copia immagine",
 		"share.link":            "Link",
 		"share.copy_link":       "Copia link",
-		"share.more":            "Altre app",
+		"share.pieces":          "Includi i pezzi dei manufatti",
+		"share.pieces_note":     "Le statistiche secondarie di ogni pezzo. Se disattivato, il link conserva solo slot, livello e statistica principale di ogni pezzo; il punteggio resta lo stesso.",
+		"share.more":            "Invia link",
 		"share.custom":          "Rotazione personalizzata",
 		"score.repick":          "Scegli altri personaggi",
 		"score.compare_heading": "Confronta con un'altra squadra",
@@ -276,7 +278,6 @@ func init() {
 		"art.slot.circlet": "Corona",
 		"art.subs_out":     "Statistiche secondarie omesse",
 		"art.reload":       "Questo link risale a prima che i manufatti fossero salvati pezzo per pezzo. Ricarica la vetrina per vedere i pezzi e il punteggio dei manufatti.",
-		"art.leave_out":    "Escludi i pezzi dei manufatti",
 
 		"warn.duplicate": "%s e %s indossano lo stesso manufatto (%s). Nel gioco un manufatto va a un solo personaggio alla volta, quindi questo punteggio non è confrontabile con quelli standard.",
 
