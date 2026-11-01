@@ -93,14 +93,22 @@ func main() {
 		Addr:              *addr,
 		Handler:           srv.Handler(),
 		ReadHeaderTimeout: 10 * time.Second,
+		IdleTimeout:       2 * time.Minute,
 	}
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
+	// ListenAndServe returns as soon as Shutdown starts; main waits for
+	// Shutdown to finish the requests in flight before it flushes usage
+	// and closes the link store (deferred above).
+	drained := make(chan struct{})
 	go func() {
+		defer close(drained)
 		<-ctx.Done()
 		shutdown, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 		defer cancel()
-		httpSrv.Shutdown(shutdown)
+		if err := httpSrv.Shutdown(shutdown); err != nil {
+			slog.Error("shutdown", "err", err)
+		}
 	}()
 
 	slog.Info("listening", "addr", *addr, "teams", len(lib.Teams))
@@ -108,6 +116,7 @@ func main() {
 		slog.Error("serve", "err", err)
 		os.Exit(1)
 	}
+	<-drained
 	if err := srv.FlushUsage(); err != nil {
 		slog.Error("usage", "err", err)
 	}

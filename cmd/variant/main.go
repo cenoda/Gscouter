@@ -45,15 +45,16 @@ func main() {
 		iterations = flag.Int("iter", 200, "iterations of each score")
 	)
 	flag.Parse()
-	if *char == "" || flag.NArg() == 0 || !slices.Contains(library.VariantDrops, *drop) {
+	if *char == "" || flag.NArg() == 0 || !slices.Contains(library.VariantDrops, *drop) || *cons < 0 || *cons > 6 {
 		flag.Usage()
 		os.Exit(2)
 	}
-	written := 0
+	written, failed := 0, 0
 	for _, dir := range flag.Args() {
 		name, gain, err := derive(dir, library.Variant{Drop: *drop, Char: *char}, *cons, *minGain, *iterations)
 		switch {
 		case err != nil:
+			failed++
 			fmt.Printf("%-50s error: %v\n", filepath.Base(dir), err)
 		case gain >= *minGain:
 			written++
@@ -62,7 +63,10 @@ func main() {
 			fmt.Printf("%-50s %+6.1f%%\n", filepath.Base(dir), gain*100)
 		}
 	}
-	fmt.Printf("\nwrote %d variants (%s C%d without %s) for %d teams\n", written, *char, *cons, *drop, flag.NArg())
+	fmt.Printf("\nwrote %d variants (%s C%d without %s) for %d teams, %d failed\n", written, *char, *cons, *drop, flag.NArg(), failed)
+	if failed > 0 {
+		os.Exit(1)
+	}
 }
 
 // derive measures the variant of the team in dir and writes or removes

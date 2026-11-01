@@ -26,10 +26,18 @@ var updates = []update{
 		En: []string{
 			"The share sheet puts the link first, with Copy link as its main button, and fits on one screen. Its artifact box now reads “Include artifact pieces” (on by default) and says what turning it off leaves out. A tap outside the sheet closes it.",
 			"In the rotation editor, holding the attack key on a bow character (Chasca, Ganyu and others) adds an aimed shot; it used to add a charged attack, which gcsim rejects for bows.",
+			"Artifact pieces are kept for builds whose flat substats (HP, ATK, DEF, Elemental Mastery) rolled at the top value every time. Their whole set of pieces was dropped before, because the game rounds those numbers up.",
+			"A suggested party opened in a new tab or copied as a link keeps the builds of characters you added outside the showcase.",
+			"Links in the header, the footer and the front page keep the page language.",
+			"A GOOD file with talent levels above 10 (levels with the constellation bonus) skips those characters with a reason, instead of failing when the score is calculated.",
 		},
 		Ko: []string{
 			"공유하기 창에서 링크가 맨 위로 올라오고 링크 복사가 주 버튼이 되었으며, 창이 한 화면에 들어옵니다. 성유물 체크박스는 “성유물 부위 정보 포함”(기본 켜짐)으로 바뀌었고, 끄면 무엇이 빠지는지 설명이 붙었습니다. 창 바깥을 누르면 닫힙니다.",
 			"로테이션 편집기에서 활 캐릭터(차스카, 감우 등)의 평타 키를 길게 누르면 조준 사격이 들어갑니다. 전에는 강공격이 들어가 gcsim이 거부했습니다.",
+			"고정 수치 부옵션(HP, 공격력, 방어력, 원소 마스터리)이 매번 최고 수치로 오른 빌드도 성유물 부위 정보가 유지됩니다. 게임이 이 수치를 반올림해 보여주는 탓에 전에는 그 캐릭터의 부위 정보가 통째로 빠졌습니다.",
+			"추천 파티를 새 탭으로 열거나 링크로 복사해도 쇼케이스 밖에서 추가한 캐릭터의 빌드가 유지됩니다.",
+			"헤더, 푸터, 첫 화면의 링크가 페이지 언어를 유지합니다.",
+			"특성 레벨이 10을 넘는(별자리 보너스가 더해진) GOOD 파일은 점수 계산 중에 실패하지 않고, 그 캐릭터를 이유와 함께 건너뜁니다.",
 		},
 	},
 	{
@@ -157,6 +165,9 @@ type updateView struct {
 type updatesData struct {
 	Meta    pageMeta
 	Updates []updateView
+	// LinesLang is the language of the lines when it is not the page's
+	// (English on a page in a third language), for screen readers.
+	LinesLang string
 }
 
 func (s *Server) handleAbout(w http.ResponseWriter, r *http.Request) {
@@ -172,6 +183,8 @@ func (s *Server) handleUpdates(w http.ResponseWriter, r *http.Request) {
 		lines := u.En
 		if l.Lang == langKorean {
 			lines = u.Ko
+		} else if l.Lang != langEnglish {
+			data.LinesLang = langEnglish
 		}
 		data.Updates = append(data.Updates, updateView{Date: u.Date, Scores: u.Scores, Lines: lines})
 	}

@@ -99,7 +99,11 @@ func element(name string) string {
 	} else {
 		e = enka.Element(key)
 	}
-	elementCache.Store(key, e)
+	// Only names the game data knows are kept: a result URL can name any
+	// character, and caching every name would grow without bound.
+	if e != "" {
+		elementCache.Store(key, e)
+	}
 	return e
 }
 
@@ -119,7 +123,10 @@ func enkaKey(name string) string {
 			key = "aether" + elem
 		}
 	}
-	enkaKeys.Store(name, key)
+	// Only names the game data knows are kept, as in element.
+	if enka.IconURL(key) != "" {
+		enkaKeys.Store(name, key)
+	}
 	return key
 }
 
@@ -369,7 +376,7 @@ func (s *Server) handleShowcase(w http.ResponseWriter, r *http.Request) {
 	defer cancel()
 	p, err := s.profiles.Profile(ctx, data.UID)
 	if err != nil {
-		http.Error(w, enkaMessage(l, err), http.StatusBadGateway)
+		http.Error(w, enkaMessage(l, err), enkaStatus(err))
 		return
 	}
 	s.usage.uid(r, data.UID)

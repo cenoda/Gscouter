@@ -105,3 +105,51 @@ func TestTeamTier(t *testing.T) {
 		t.Errorf("Hymn build: tier %q, fork %q", team.Tier, team.GcsimFork)
 	}
 }
+
+// A share of a team already in the library, with its members declared in
+// another order, is refused, and with force replaces that team in its own
+// directory: a second directory for the same members would stop the
+// library from loading.
+func TestWriteSameMembers(t *testing.T) {
+	root := t.TempDir()
+	first := Split{Members: []string{"hutao", "xingqiu", "zhongli", "yelan"}, Rotation: "hutao attack;\n"}
+	team, err := first.Team(nil, nil, "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	team.Archetype = "vape"
+	if _, err := first.Write(root, team, false); err != nil {
+		t.Fatal(err)
+	}
+
+	again := Split{Members: []string{"zhongli", "hutao", "yelan", "xingqiu"}, Rotation: "zhongli skill;\n"}
+	team2, err := again.Team(nil, nil, "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := again.Write(root, team2, false); err == nil || !strings.Contains(err.Error(), "same members") {
+		t.Fatalf("write without force: err %v, want same members", err)
+	}
+	dir, err := again.Write(root, team2, true)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if want := root + "/hutao-xingqiu-zhongli-yelan"; dir != want {
+		t.Errorf("forced write went to %s, want %s", dir, want)
+	}
+	lib, err := library.LoadLibrary(os.DirFS(root))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(lib.Teams) != 1 {
+		t.Fatalf("library has %d teams, want 1", len(lib.Teams))
+	}
+	got := lib.Teams[0]
+	if got.ID != "hutao-xingqiu-zhongli-yelan" || got.Archetype != "vape" {
+		t.Errorf("replaced team id %q archetype %q", got.ID, got.Archetype)
+	}
+	rot, err := os.ReadFile(dir + "/rotation.gcsl")
+	if err != nil || string(rot) != "zhongli skill;\n" {
+		t.Errorf("rotation %q, %v", rot, err)
+	}
+}

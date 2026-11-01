@@ -33,6 +33,7 @@ func (s *Server) handleSend(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
+	r.Body = http.MaxBytesReader(w, r.Body, formLimit)
 	target, err := shortTarget(r.PostFormValue("u"))
 	if err != nil || !strings.HasPrefix(target, "/score?") {
 		http.Error(w, "not a result link", http.StatusBadRequest)

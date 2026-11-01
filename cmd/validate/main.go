@@ -168,7 +168,7 @@ func record(r *validate.Report, iterations int) error {
 		// A check that timed out reports no team.
 		team, err := library.Load(r.Dir)
 		if err != nil {
-			return nil
+			return fmt.Errorf("%s: timed out, and its team does not load: %w", r.Dir, err)
 		}
 		r.Team = team
 	}

@@ -80,6 +80,13 @@ func Fill(rotation string, energy map[string]Filler, skill, party []string) stri
 				}
 			}
 		}
+		if end := commentEnd(rotation, i); end > i {
+			// A comment is copied as is and leaves start as it was, so
+			// the action on the next line is still read as one.
+			b.WriteString(rotation[i:end])
+			i = end
+			continue
+		}
 		c := rotation[i]
 		b.WriteByte(c)
 		i++
@@ -92,6 +99,20 @@ func Fill(rotation string, energy map[string]Filler, skill, party []string) stri
 		}
 	}
 	return b.String()
+}
+
+// commentEnd returns the offset of the end of the line when a gcsl
+// comment ("#" or "//") starts at s[i], or i. Until 2026-11-01 the
+// comment's characters cleared Fill's and DropBursts' statement start,
+// and the action after a comment line was passed over.
+func commentEnd(s string, i int) int {
+	if s[i] != '#' && !strings.HasPrefix(s[i:], "//") {
+		return i
+	}
+	if n := strings.IndexByte(s[i:], '\n'); n >= 0 {
+		return i + n
+	}
+	return len(s)
 }
 
 // statement is an action statement read by scanStatement:

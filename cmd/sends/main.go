@@ -11,15 +11,24 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
 	"strings"
 
 	"github.com/cenoda/gscouter/internal/links"
 )
 
 func main() {
-	path := flag.String("links", "links.db", "SQLite file of short links and sends")
+	path := flag.String("links", "", "SQLite file of short links and sends (the server's -links)")
 	site := flag.String("site", "", "the site's public URL, put before each link")
 	flag.Parse()
+	// links.Open creates a missing database, which would read as "no
+	// rotations sent yet" for a wrong path.
+	if *path == "" {
+		log.Fatal("-links is required")
+	}
+	if _, err := os.Stat(*path); err != nil {
+		log.Fatal(err)
+	}
 	store, err := links.Open(*path)
 	if err != nil {
 		log.Fatal(err)

@@ -182,3 +182,35 @@ func TestShortLinkWarmsCard(t *testing.T) {
 		}
 	}
 }
+
+// A body past formLimit is refused before the form is read.
+func TestShortLinkBodyLimit(t *testing.T) {
+	srv := newTestSite(t)
+	srv.SetLinks(&memLinks{m: map[string]string{}})
+	ts := newTestServerFor(t, srv)
+	body := "u=" + strings.Repeat("x", formLimit+1)
+	resp, err := ts.Client().Post(ts.URL+"/s", "application/x-www-form-urlencoded", strings.NewReader(body))
+	if err != nil {
+		t.Fatal(err)
+	}
+	resp.Body.Close()
+	if resp.StatusCode != http.StatusBadRequest {
+		t.Errorf("oversized body: %d", resp.StatusCode)
+	}
+}
+
+// Names the game data does not know are not cached: a URL can name any.
+func TestNameCachesKeepOnlyKnown(t *testing.T) {
+	enkaKey("nosuchcharacter-cachetest")
+	element("nosuchcharacter-cachetest")
+	if _, ok := enkaKeys.Load("nosuchcharacter-cachetest"); ok {
+		t.Error("enkaKey cached an unknown name")
+	}
+	if _, ok := elementCache.Load("nosuchcharacter-cachetest"); ok {
+		t.Error("element cached an unknown name")
+	}
+	enkaKey("hutao")
+	if _, ok := enkaKeys.Load("hutao"); !ok {
+		t.Error("enkaKey did not cache hutao")
+	}
+}

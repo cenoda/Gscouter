@@ -32,6 +32,13 @@ func DropBursts(rotation, char string) string {
 				continue
 			}
 		}
+		if end := commentEnd(rotation, i); end > i {
+			// A comment is copied as is and leaves start as it was, so
+			// the action on the next line is still read as one.
+			b.WriteString(rotation[i:end])
+			i = end
+			continue
+		}
 		c := rotation[i]
 		b.WriteByte(c)
 		i++

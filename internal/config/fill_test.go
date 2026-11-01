@@ -323,3 +323,20 @@ func TestParenthesizedParams(t *testing.T) {
 		}
 	}
 }
+
+// An action after a comment line, or after a trailing comment, is still
+// an action: Fill and DropBursts read past the comment.
+func TestFillAfterComment(t *testing.T) {
+	rot := "active xingqiu;\n# burst first\nxingqiu burst;\nbennett burst; // then Bennett\nxingqiu burst;\n"
+	party := []string{"xingqiu", "bennett"}
+	got := Fill(rot, map[string]Filler{"xingqiu": FillSkip}, nil, party)
+	if n := strings.Count(got, "xingqiu burst;"); n != strings.Count(Fill("active xingqiu;\nxingqiu burst;\nxingqiu burst;\n", map[string]Filler{"xingqiu": FillSkip}, nil, party), "xingqiu burst;") || got == rot {
+		t.Errorf("a burst after a comment was not filled (%d left):\n%s", n, got)
+	}
+	if !strings.Contains(got, "# burst first\n") || !strings.Contains(got, "// then Bennett\n") {
+		t.Errorf("comments lost:\n%s", got)
+	}
+	if got := DropBursts(rot, "xingqiu"); strings.Contains(got, "xingqiu burst") {
+		t.Errorf("DropBursts kept a burst after a comment:\n%s", got)
+	}
+}

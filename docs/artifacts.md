@@ -1,6 +1,6 @@
 # Artifacts
 
-> Status: Implemented, except verified builds (§3), which wait for the arena · Last updated: 2026-10-31
+> Status: Implemented, except verified builds (§3), which wait for the arena · Last updated: 2026-11-01
 
 This covers two roadmap nodes (`docs/roadmap.md`): **Artifacts** (ring 1) and **Artifact score** (ring 2). How much each piece contributes to the team's DPS (taking one piece's stats out) is a later step and not part of this design.
 

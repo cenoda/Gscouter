@@ -197,7 +197,14 @@ func (g *gameData) checkPieces(pieces []Artifact, detail PieceDetail) error {
 					return fmt.Errorf("%s: substat %q twice", p.Slot, s.Key)
 				}
 			}
-			if n := tenths(s); n == 0 || float64(n) > math.Ceil(max*10*float64(rolls)) {
+			// The game shows flat stats (HP, ATK, DEF, EM) rounded to
+			// whole numbers, so every roll at the top tier can show
+			// above the exact sum: two 298.75 HP rolls show as 598.
+			limit := math.Ceil(max * 10 * float64(rolls))
+			if statsByName[s.Key].scale == 1 {
+				limit = math.Max(limit, math.Round(max*float64(rolls))*10)
+			}
+			if n := tenths(s); n == 0 || float64(n) > limit {
 				return fmt.Errorf("%s: substat %s out of range", p.Slot, s.Key)
 			}
 		}

@@ -691,6 +691,23 @@ func enkaMessage(l localizer, err error) string {
 	}
 }
 
+// enkaStatus is the HTTP status for an Enka error: the visitor's own
+// mistakes are theirs, not a failure upstream.
+func enkaStatus(err error) int {
+	switch {
+	case errors.Is(err, enka.ErrInvalidUID):
+		return http.StatusBadRequest
+	case errors.Is(err, enka.ErrNotFound):
+		return http.StatusNotFound
+	case errors.Is(err, enka.ErrRateLimited):
+		return http.StatusTooManyRequests
+	case errors.Is(err, enka.ErrMaintenance):
+		return http.StatusServiceUnavailable
+	default:
+		return http.StatusBadGateway
+	}
+}
+
 func sorted(s []string) []string {
 	out := slices.Clone(s)
 	slices.Sort(out)
