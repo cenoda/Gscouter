@@ -68,8 +68,9 @@ If they differ from ours (other enemy level, resistance, several
 targets, other energy), the site's DPS differs from the source's, but
 validation still compares like with like.
 
-Then set `archetype` in `team.yaml` (e.g. `Pyro vaporize hypercarry`).
-Leave `status: draft`; `cmd/validate -promote` sets `supported` once the
+The site derives the team's archetype from its members' elements; set
+`archetype` in `team.yaml` only to name one elements cannot (a written
+team's guide archetype, e.g. `Stellar Swirl`). Leave `status: draft`; `cmd/validate -promote` sets `supported` once the
 team meets the criteria (step 3).
 
 ## 3. Validate
