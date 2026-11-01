@@ -56,3 +56,25 @@ func TestSends(t *testing.T) {
 		t.Errorf("Sends() = %v, want the two links once each", got)
 	}
 }
+
+func TestMessages(t *testing.T) {
+	s, err := Open(filepath.Join(t.TempDir(), "links.db"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer s.Close()
+	ctx := context.Background()
+	for _, m := range [][2]string{{"first", "/score?a=1"}, {"second", ""}, {"second", ""}} {
+		if err := s.AddMessage(ctx, m[0], m[1]); err != nil {
+			t.Fatal(err)
+		}
+	}
+	got, err := s.Messages(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// Every message is kept, the same text twice too, newest first.
+	if len(got) != 3 || got[0].Text != "second" || got[2].Text != "first" || got[2].Page != "/score?a=1" {
+		t.Errorf("Messages() = %v", got)
+	}
+}

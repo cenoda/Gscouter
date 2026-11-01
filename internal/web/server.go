@@ -70,16 +70,18 @@ type Server struct {
 	settings Settings
 	tmpl     map[localizer]*template.Template // by language
 
-	sem       chan struct{}
-	waiting   atomic.Int32
-	results   *cache[string, *score.Result]
-	timelines *cache[string, *timeline.Timeline]
-	cards     *cache[string, []byte] // link preview PNGs by URL
-	client    *clientFiles           // nil: the server calculates every result
-	links     LinkStore              // nil: no short links (see SetLinks)
-	linkLimit *rateLimit
-	sends     SendStore // nil: no sending charts (see SetSends)
-	sendLimit *rateLimit
+	sem          chan struct{}
+	waiting      atomic.Int32
+	results      *cache[string, *score.Result]
+	timelines    *cache[string, *timeline.Timeline]
+	cards        *cache[string, []byte] // link preview PNGs by URL
+	client       *clientFiles           // nil: the server calculates every result
+	links        LinkStore              // nil: no short links (see SetLinks)
+	linkLimit    *rateLimit
+	sends        SendStore // nil: no sending charts (see SetSends)
+	sendLimit    *rateLimit
+	messages     MessageStore // nil: no message form (see SetMessages)
+	messageLimit *rateLimit
 
 	site       string                     // the site's URL (see SetSite)
 	byID       map[string]*library.Team   // library teams by ID
@@ -145,6 +147,7 @@ func (s *Server) Handler() http.Handler {
 	}
 	mux.HandleFunc("POST /s", s.handleShorten)
 	mux.HandleFunc("POST /send", s.handleSend)
+	mux.HandleFunc("POST /message", s.handleMessage)
 	mux.HandleFunc("GET /s/{id}", s.handleShort)
 	mux.HandleFunc("GET /healthz", s.handleHealth)
 	return mux
