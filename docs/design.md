@@ -407,6 +407,8 @@ Characters in the game that upstream gcsim lacks, with their state upstream and 
 
 ## 8. Risks
 
+A detailed analysis of community friction points, competitive toxicity, and user criticism risks (excluding DPS engine calculation accuracy) is in [docs/criticism.md](criticism.md).
+
 | Risk | Impact | Mitigation |
 |---|---|---|
 | gcsim lags on new characters | Latest meta teams unsupported | Experimental tier on a fork (§5.4), contribute upstream |
@@ -415,6 +417,7 @@ Characters in the game that upstream gcsim lacks, with their state upstream and 
 | Uneven rotation quality | Fairness compromised | Automated validation + cross-checks with public calcs + PR review |
 | Game patches change numbers | Old scores not comparable | Record gcsim and rotation versions with results; consider seasons |
 | Simulation cost | Server load | Build-hash cache, tune iteration count |
+| Competitive & community friction | Player backlash, meta toxicity | Soften Versus framing, UID masking options, document ruleset limits (`docs/criticism.md`) |
 
 ## 9. Open Questions
 
