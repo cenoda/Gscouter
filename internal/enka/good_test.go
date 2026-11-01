@@ -3,6 +3,7 @@ package enka
 import (
 	"errors"
 	"os"
+	"reflect"
 	"slices"
 	"strings"
 	"testing"
@@ -26,12 +27,15 @@ func TestParseGOOD(t *testing.T) {
 		t.Errorf("characters = %v, want %v", keys, want)
 	}
 	wantSkipped := []GOODSkipped{
-		{"Manekina", "character Manekina is not supported by gcsim yet"},
-		{"Chongyun", "weapon SomeSwordFromTheFuture is not supported by gcsim yet"},
-		{"Bennett", "character Bennett has no weapon"},
+		{Key: "Manekina", Char: "manekina", Reason: GOODManekin},
+		{Key: "Chongyun", Char: "chongyun", Reason: GOODUnknownWeapon, Args: []any{"SomeSwordFromTheFuture"}},
+		{Key: "Bennett", Char: "bennett", Reason: GOODNoWeapon},
 	}
-	if !slices.Equal(skipped, wantSkipped) {
+	if !reflect.DeepEqual(skipped, wantSkipped) {
 		t.Errorf("skipped = %+v, want %+v", skipped, wantSkipped)
+	}
+	if got := skipped[1].Error(); got != "character Chongyun: weapon SomeSwordFromTheFuture is not supported by gcsim yet" {
+		t.Errorf("Error() = %q", got)
 	}
 	if len(chars) == 0 {
 		return
@@ -83,14 +87,41 @@ func TestParseGOODRejects(t *testing.T) {
 			t.Errorf("%q: err = %v, want ErrNotGOOD", raw, err)
 		}
 	}
-	// A character the game could not have is skipped, not the file.
-	chars, skipped, err := ParseGOOD([]byte(`{"format":"GOOD","characters":[
-		{"key":"HuTao","level":90,"constellation":9,"ascension":6,"talent":{"auto":1,"skill":1,"burst":1}},
-		{"key":"Xingqiu","level":90,"constellation":0,"ascension":6,"talent":{"auto":1,"skill":1,"burst":1}}],
-		"weapons":[{"key":"StaffOfHoma","level":90,"ascension":6,"refinement":1,"location":"HuTao"},
-		{"key":"SacrificialSword","level":90,"ascension":6,"refinement":1,"location":"Xingqiu"}]}`))
-	if err != nil || len(chars) != 1 || chars[0].Key != "xingqiu" || len(skipped) != 1 || skipped[0].Key != "HuTao" {
-		t.Errorf("chars = %+v, skipped = %+v, err = %v", chars, skipped, err)
+	// A character the game could not have is skipped, not the file,
+	// with the number that is wrong.
+	for _, tc := range []struct {
+		char, weapon string
+		want         GOODReason
+		args         []any
+	}{
+		{`"level":90,"constellation":9,"talent":{"auto":1,"skill":1,"burst":1}`, `"level":90,"refinement":1`, GOODConstellation, []any{9}},
+		{`"level":0,"constellation":0,"talent":{"auto":1,"skill":1,"burst":1}`, `"level":90,"refinement":1`, GOODLevel, []any{0}},
+		{`"level":90,"constellation":0,"talent":{"auto":10,"skill":13,"burst":13}`, `"level":90,"refinement":1`, GOODTalent, []any{10, 13, 13}},
+		{`"level":90,"constellation":0,"talent":{"auto":1,"skill":1,"burst":1}`, `"level":90,"refinement":6`, GOODRefinement, []any{6}},
+		{`"level":90,"constellation":0,"talent":{"auto":1,"skill":1,"burst":1}`, `"level":120,"refinement":1`, GOODWeaponLevel, []any{120}},
+	} {
+		chars, skipped, err := ParseGOOD([]byte(`{"format":"GOOD","characters":[
+			{"key":"HuTao","ascension":6,` + tc.char + `},
+			{"key":"Xingqiu","level":90,"constellation":0,"ascension":6,"talent":{"auto":1,"skill":1,"burst":1}}],
+			"weapons":[{"key":"StaffOfHoma","ascension":6,"location":"HuTao",` + tc.weapon + `},
+			{"key":"SacrificialSword","level":90,"ascension":6,"refinement":1,"location":"Xingqiu"}]}`))
+		if err != nil || len(chars) != 1 || chars[0].Key != "xingqiu" || len(skipped) != 1 ||
+			skipped[0].Key != "HuTao" || skipped[0].Reason != tc.want || !reflect.DeepEqual(skipped[0].Args, tc.args) {
+			t.Errorf("%s: chars = %+v, skipped = %+v, err = %v", tc.want.Code(), chars, skipped, err)
+		}
+	}
+}
+
+func TestGOODReasons(t *testing.T) {
+	codes := map[string]bool{}
+	for _, r := range GOODReasons {
+		if r.Code() == "" || codes[r.Code()] || goodReasons[r] == "" {
+			t.Errorf("reason %d: code %q, message %q", r, r.Code(), goodReasons[r])
+		}
+		codes[r.Code()] = true
+	}
+	if len(goodReasons) != len(GOODReasons) {
+		t.Errorf("%d messages for %d reasons", len(goodReasons), len(GOODReasons))
 	}
 }
 

@@ -15,7 +15,21 @@ import (
 
 func postGOOD(t *testing.T, base string, client *http.Client, raw []byte) (int, goodResponse) {
 	t.Helper()
-	resp, err := client.Post(base+"/good", "application/json", bytes.NewReader(raw))
+	return postGOODLang(t, base, client, raw, "")
+}
+
+// postGOODLang posts a GOOD file with an Accept-Language header.
+func postGOODLang(t *testing.T, base string, client *http.Client, raw []byte, lang string) (int, goodResponse) {
+	t.Helper()
+	req, err := http.NewRequest(http.MethodPost, base+"/good", bytes.NewReader(raw))
+	if err != nil {
+		t.Fatal(err)
+	}
+	req.Header.Set("Content-Type", "application/json")
+	if lang != "" {
+		req.Header.Set("Accept-Language", lang)
+	}
+	resp, err := client.Do(req)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -41,8 +55,9 @@ func TestGOODImport(t *testing.T) {
 	if code != http.StatusOK || len(res.Builds) != 6 {
 		t.Fatalf("status %d, %+v", code, res)
 	}
-	notes := strings.Join(res.Notes, "\n")
-	mustContain(t, notes, "Imported 6 characters.", "Not imported: Manekina (character Manekina is not supported by gcsim yet)", "Not imported: Bennett")
+	notes := noteText(res.Notes)
+	mustContain(t, notes, "Imported 6 characters.", "Not imported: Manekina (Manekin and Manekina are not supported by gcsim)",
+		"Not imported: Chongyun (weapon SomeSwordFromTheFuture is not supported by gcsim yet)", "Not imported: Bennett (no weapon equipped)")
 
 	var kept []keptBuild
 	tokens := map[string]string{}
@@ -87,5 +102,60 @@ func TestGOODTravelerJoinsShowcase(t *testing.T) {
 	_, body := post(t, ts, "/showcase", url.Values{"uid": {"800000009"}, "kept": {`[{"b":"` + buildToken(aether) + `","t":0}]`}})
 	if strings.Contains(body, "data-kept") {
 		t.Error("the kept Aether joined the showcase's Lumine")
+	}
+}
+
+func noteText(notes []goodNote) string {
+	var lines []string
+	for _, n := range notes {
+		lines = append(lines, n.Text)
+	}
+	return strings.Join(lines, "\n")
+}
+
+// Why a character was not imported is said in the visitor's language,
+// with the character's in-game name once.
+func TestGOODSkippedLanguage(t *testing.T) {
+	ts := newTestServer(t)
+	raw := []byte(`{"format":"GOOD","characters":[
+		{"key":"HuTao","level":90,"constellation":0,"ascension":6,"talent":{"auto":1,"skill":1,"burst":1}},
+		{"key":"Xingqiu","level":90,"constellation":0,"ascension":6,"talent":{"auto":10,"skill":13,"burst":13}}],
+		"weapons":[{"key":"SacrificialSword","level":90,"ascension":6,"refinement":1,"location":"Xingqiu"}]}`)
+	for lang, want := range map[string][]string{
+		"ko": {"가져오지 못함: 호두 (장착한 무기 없음)", "가져오지 못함: 행추 (특성 레벨 10/13/13이 기본 레벨"},
+		"ja": {"読み込めなかったキャラクター: 胡桃 (武器を装備していません)", "読み込めなかったキャラクター: 行秋 (天賦レベル10/13/13が"},
+	} {
+		code, res := postGOODLang(t, ts.URL, ts.Client(), raw, lang)
+		if code != http.StatusOK || len(res.Notes) != 3 {
+			t.Fatalf("%s: status %d, %+v", lang, code, res)
+		}
+		notes := noteText(res.Notes)
+		mustContain(t, notes, want...)
+		if strings.Contains(notes, "HuTao") || strings.Contains(notes, "weapon") {
+			t.Errorf("%s: notes in English or by GOOD key:\n%s", lang, notes)
+		}
+		for _, n := range res.Notes {
+			if n.Lang != "" {
+				t.Errorf("%s: %q marked %q", lang, n.Text, n.Lang)
+			}
+		}
+	}
+}
+
+// Every reason has a message, and one the catalog does not know stays
+// in English, marked so.
+func TestGOODReasonMessages(t *testing.T) {
+	for _, r := range enka.GOODReasons {
+		if _, ok := catalog[langEnglish]["good."+r.Code()]; !ok {
+			t.Errorf("no message for reason %q", r.Code())
+		}
+	}
+	slot := enka.GOODSkipped{Key: "HuTao", Char: "hutao", Reason: enka.GOODSlotTwice, Args: []any{enka.Circlet}}
+	if n := (localizer{Lang: "ko"}).goodSkipped(slot); n.Text != "가져오지 못함: 호두 (왕관 부위에 성유물이 두 개)" || n.Lang != "" {
+		t.Errorf("slot: %+v", n)
+	}
+	odd := enka.GOODSkipped{Key: "HuTao", Char: "hutao", Reason: 0}
+	if n := (localizer{Lang: "ko"}).goodSkipped(odd); n.Lang != "en" || n.Text != "Not imported: HuTao (skipped)" {
+		t.Errorf("unknown reason: %+v", n)
 	}
 }

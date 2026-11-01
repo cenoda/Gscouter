@@ -134,7 +134,8 @@ if (matchMedia("(pointer: fine)").matches) document.querySelector("#uid-form inp
           save();
           (res.notes || []).forEach(function (n) {
             var p = document.createElement("p");
-            p.textContent = n;
+            p.textContent = n.text;
+            if (n.lang) p.lang = n.lang;
             goodStatus.appendChild(p);
           });
           showKept();
