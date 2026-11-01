@@ -99,7 +99,8 @@ func (s *Server) handleVersusCard(w http.ResponseWriter, r *http.Request) {
 }
 
 // cardMu draws one card at a time: font faces are not safe for
-// concurrent use.
+// concurrent use. Cards fetch their face icons before taking it, so a
+// slow icon host holds up only the card that waits on it.
 var cardMu sync.Mutex
 
 // serveCard serves a card PNG, drawing it at most once per URL a day.
@@ -152,6 +153,8 @@ func cardMembers(tr teamResult) []cardMember {
 // scoreCard shows the score above the four members, each with their
 // damage share.
 func scoreCard(ctx context.Context, tr teamResult) image.Image {
+	members := cardMembers(tr)
+	icons := memberIcons(ctx, members)
 	cardMu.Lock()
 	defer cardMu.Unlock()
 	c := newCanvas()
@@ -170,9 +173,9 @@ func scoreCard(ctx context.Context, tr teamResult) image.Image {
 	c.text(sub, 64, 284, 28, false, cardMuted)
 
 	const colW = (cardW - 2*48) / 4
-	for i, m := range cardMembers(tr) {
+	for i, m := range members {
 		cx := 48 + colW*i + colW/2
-		c.face(ctx, m, cx, 400, 150)
+		c.face(m, icons[i], cx, 400, 150)
 		c.centered(m.Name, cx, 520, 32, true, cardText)
 		c.centered(fmt.Sprintf("C%d  R%d", m.Cons, m.Refine), cx, 556, 24, false, cardMuted)
 		c.bar(cx-100, 574, 200, 12, m.Share, elementColor(m.Element))
@@ -183,6 +186,8 @@ func scoreCard(ctx context.Context, tr teamResult) image.Image {
 
 // versusCard shows both teams side by side with the winner's lead.
 func versusCard(ctx context.Context, d versusData) image.Image {
+	teams := [][]cardMember{cardMembers(d.A), cardMembers(d.B)}
+	icons := memberIcons(ctx, slices.Concat(teams...))
 	cardMu.Lock()
 	defer cardMu.Unlock()
 	c := newCanvas()
@@ -215,9 +220,9 @@ func versusCard(ctx context.Context, d versusData) image.Image {
 			c.centered(fmt.Sprintf("+%.1f%%", lead*100), mid, 290, 32, true, cardGood)
 		}
 		const step = 124
-		for i, m := range cardMembers(tr) {
+		for i, m := range teams[side] {
 			cx := mid + (i*2-3)*step/2
-			c.face(ctx, m, cx, 396, 108)
+			c.face(m, icons[side*len(teams[0])+i], cx, 396, 108)
 			c.centered(m.Name, cx, 490, 22, true, cardText)
 			c.centered(fmt.Sprintf("C%d  %.0f%%", m.Cons, m.Share*100), cx, 522, 22, false, cardMuted)
 			c.bar(cx-44, 538, 88, 10, m.Share, elementColor(m.Element))
@@ -285,13 +290,12 @@ func arc(z *vector.Rasterizer, cx, cy, r float32, a0, a1 float64) {
 }
 
 // face draws a member's face icon in an element-colored ring, or their
-// initial when the icon can't be loaded.
-func (c *canvas) face(ctx context.Context, m cardMember, cx, cy, d int) {
+// initial when icon is nil (it couldn't be loaded).
+func (c *canvas) face(m cardMember, icon image.Image, cx, cy, d int) {
 	col := elementColor(m.Element)
 	r := float32(d) / 2
 	circle(float32(cx), float32(cy), r+5).Draw(c.img, c.img.Bounds(), image.NewUniform(col), image.Point{})
 	circle(float32(cx), float32(cy), r).Draw(c.img, c.img.Bounds(), image.NewUniform(cardLine), image.Point{})
-	icon := faceImage(ctx, face(m.Key))
 	if icon == nil {
 		c.centered(strings.ToUpper(m.Name[:1]), cx, cy+d/6, float64(d)/2, true, cardText)
 		return
@@ -352,9 +356,42 @@ func fontFace(size float64, bold bool) font.Face {
 	return ff
 }
 
+// iconFetches is how many face icons a card fetches at once.
+const iconFetches = 4
+
+// memberIcons loads the members' face icons in parallel, in their order;
+// an icon that can't be loaded is nil.
+func memberIcons(ctx context.Context, members []cardMember) []image.Image {
+	icons := make([]image.Image, len(members))
+	sem := make(chan struct{}, iconFetches)
+	var wg sync.WaitGroup
+	for i, m := range members {
+		wg.Go(func() {
+			sem <- struct{}{}
+			defer func() { <-sem }()
+			icons[i] = faceImage(ctx, face(m.Key))
+		})
+	}
+	wg.Wait()
+	return icons
+}
+
+// iconRetry is how long a face icon that failed to load is not fetched
+// again: while the icon host is down, cards draw initials at once
+// instead of waiting out the fetch timeout every time.
+const iconRetry = 5 * time.Minute
+
+// iconClient fetches face icons; tests replace it.
+var iconClient = http.DefaultClient
+
+type iconEntry struct {
+	img   image.Image // nil if the fetch failed
+	retry time.Time   // when a failed icon may be fetched again
+}
+
 var (
 	iconMu    sync.Mutex
-	iconCache = map[string]image.Image{} // URL -> decoded icon, nil if it failed
+	iconCache = map[string]iconEntry{} // URL -> decoded icon, or a recent failure
 )
 
 // faceImage downloads and caches a face icon, or returns nil.
@@ -363,20 +400,20 @@ func faceImage(ctx context.Context, url string) image.Image {
 		return nil
 	}
 	iconMu.Lock()
-	img, ok := iconCache[url]
+	e, ok := iconCache[url]
 	iconMu.Unlock()
-	if ok {
-		return img
+	if ok && (e.img != nil || time.Now().Before(e.retry)) {
+		return e.img
 	}
-	img = fetchImage(ctx, url)
-	if img != nil {
-		iconMu.Lock()
-		iconCache[url] = img
-		iconMu.Unlock()
+	img := fetchImage(ctx, url)
+	if img == nil && ctx.Err() != nil {
+		return nil // the card was given up on: not the icon's fault
 	}
+	iconMu.Lock()
+	iconCache[url] = iconEntry{img: img, retry: time.Now().Add(iconRetry)}
+	iconMu.Unlock()
 	return img
 }
-
 func fetchImage(ctx context.Context, url string) image.Image {
 	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
 	defer cancel()
@@ -385,7 +422,7 @@ func fetchImage(ctx context.Context, url string) image.Image {
 		return nil
 	}
 	req.Header.Set("User-Agent", "Gscouter (+https://github.com/cenoda/gscouter)")
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := iconClient.Do(req)
 	if err != nil {
 		slog.Warn("face icon", "url", url, "err", err)
 		return nil
