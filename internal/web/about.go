@@ -22,6 +22,15 @@ type update struct {
 // footer shows the newest date.
 var updates = []update{
 	{
+		Date: "2026-11-01",
+		En: []string{
+			"The share sheet puts the link first, with Copy link as its main button, and fits on one screen. Its artifact box now reads “Include artifact pieces” (on by default) and says what turning it off leaves out. A tap outside the sheet closes it.",
+		},
+		Ko: []string{
+			"공유하기 창에서 링크가 맨 위로 올라오고 링크 복사가 주 버튼이 되었으며, 창이 한 화면에 들어옵니다. 성유물 체크박스는 “성유물 부위 정보 포함”(기본 켜짐)으로 바뀌었고, 끄면 무엇이 빠지는지 설명이 붙었습니다. 창 바깥을 누르면 닫힙니다.",
+		},
+	},
+	{
 		Date: "2026-10-31",
 		En: []string{
 			"The party list starts by picking a character or typing a name, then shows matching parties one per row. It no longer marks every party as supported.",

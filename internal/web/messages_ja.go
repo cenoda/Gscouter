@@ -94,7 +94,9 @@ func init() {
 		"share.copy_image":      "画像をコピー",
 		"share.link":            "リンク",
 		"share.copy_link":       "リンクをコピー",
-		"share.more":            "ほかのアプリで共有",
+		"share.pieces":          "聖遺物の部位を含める",
+		"share.pieces_note":     "部位ごとのサブステータスです。オフにすると、リンクには部位・レベル・メインステータスだけが残ります。スコアは変わりません。",
+		"share.more":            "リンクを送る",
 		"share.custom":          "カスタムローテーション",
 		"score.repick":          "別のキャラクターを選ぶ",
 		"score.compare_heading": "他の編成と比較する",
@@ -276,7 +278,6 @@ func init() {
 		"art.slot.circlet": "冠",
 		"art.subs_out":     "サブステータス省略",
 		"art.reload":       "聖遺物を部位ごとに保存する前に作られたリンクです。部位と聖遺物スコアを見るには、ラインナップを読み込み直してください。",
-		"art.leave_out":    "聖遺物の部位を含めない",
 
 		"warn.duplicate": "%sと%sが同じ聖遺物（%s）を装備しています。ゲームでは聖遺物は一度に一人しか装備できないため、このスコアは標準のスコアとは比較できません。",
 

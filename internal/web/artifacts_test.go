@@ -176,7 +176,7 @@ func TestScorePieces(t *testing.T) {
 	_, body := get(t, ts, "/score?a="+url.QueryEscape(sel.String()))
 	mustContain(t, body, `<details class="rotation">
 <summary>Artifact pieces</summary>`, "Artifact totals", artTotals, "Circlet", "Finale", sub,
-		"Leave artifact pieces out", `data-strip="/score?a=`+url.QueryEscape(teamResult{Selection: sel}.Stripped())+`"`)
+		"Include artifact pieces", `data-strip="/score?a=`+url.QueryEscape(teamResult{Selection: sel}.Stripped())+`"`)
 	totalStats(t, body, artTotals)
 	weaponIcon, _ := enka.WeaponIcon(builds[0].Weapon)
 	mustContain(t, body, `<span class="item r5"><img src="`+enka.ArtifactIconURL(builds[0].Pieces[0].Set, enka.Flower)+`"`,

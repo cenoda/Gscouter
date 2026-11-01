@@ -94,7 +94,9 @@ func init() {
 		"share.copy_image":      "Salin gambar",
 		"share.link":            "Link",
 		"share.copy_link":       "Salin link",
-		"share.more":            "Aplikasi lain",
+		"share.pieces":          "Sertakan bagian artefak",
+		"share.pieces_note":     "Substat tiap bagian. Jika dimatikan, tautan hanya menyimpan slot, level, dan stat utama tiap bagian; skornya tetap sama.",
+		"share.more":            "Kirim tautan",
 		"share.custom":          "Rotasi sendiri",
 		"score.repick":          "Pilih karakter lain",
 		"score.compare_heading": "Bandingkan dengan tim lain",
@@ -276,7 +278,6 @@ func init() {
 		"art.slot.circlet": "Mahkota",
 		"art.subs_out":     "Substat tidak disertakan",
 		"art.reload":       "Link ini dibuat sebelum artefak disimpan per bagian. Muat ulang showcase untuk melihat bagian-bagiannya dan skor artefak.",
-		"art.leave_out":    "Jangan sertakan bagian artefak",
 
 		"warn.duplicate": "%s dan %s memakai artefak yang sama (%s). Di game, satu artefak hanya bisa dipakai satu karakter dalam satu waktu, jadi skor ini tidak bisa dibandingkan dengan skor standar.",
 

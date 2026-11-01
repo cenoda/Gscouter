@@ -94,7 +94,9 @@ func init() {
 		"share.copy_image":      "Copiar imagem",
 		"share.link":            "Link",
 		"share.copy_link":       "Copiar link",
-		"share.more":            "Outros apps",
+		"share.pieces":          "Incluir as peças de artefatos",
+		"share.pieces_note":     "Os atributos secundários de cada peça. Desativado, o link guarda só o slot, o nível e o atributo principal de cada peça; a pontuação é a mesma.",
+		"share.more":            "Enviar link",
 		"share.custom":          "Rotação própria",
 		"score.repick":          "Escolher outros personagens",
 		"score.compare_heading": "Comparar com outra equipe",
@@ -276,7 +278,6 @@ func init() {
 		"art.slot.circlet": "Tiara",
 		"art.subs_out":     "Atributos secundários omitidos",
 		"art.reload":       "Este link é de antes de os artefatos serem salvos peça por peça. Carregue a Exibição de Personagens de novo para ver as peças e a pontuação de artefatos.",
-		"art.leave_out":    "Deixar as peças de artefatos de fora",
 
 		"warn.duplicate": "%s e %s usam o mesmo artefato (%s). No jogo, um artefato fica com um personagem de cada vez, então esta pontuação não se compara com as padrão.",
 

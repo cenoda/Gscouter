@@ -94,7 +94,9 @@ func init() {
 		"share.copy_image":      "複製圖片",
 		"share.link":            "連結",
 		"share.copy_link":       "複製連結",
-		"share.more":            "透過其他應用程式分享",
+		"share.pieces":          "包含聖遺物部位",
+		"share.pieces_note":     "各部位的副詞條。關閉後，連結只保留各部位的位置、等級和主詞條，分數不變。",
+		"share.more":            "傳送連結",
 		"share.custom":          "自訂循環",
 		"score.repick":          "選擇其他角色",
 		"score.compare_heading": "與其他隊伍比較",
@@ -276,7 +278,6 @@ func init() {
 		"art.slot.circlet": "冠",
 		"art.subs_out":     "副詞條已省略",
 		"art.reload":       "此連結建立於按部位儲存聖遺物之前。請重新讀取展示櫃以查看各部位與聖遺物評分。",
-		"art.leave_out":    "不包含聖遺物部位",
 
 		"warn.duplicate": "%s和%s裝備了同一件聖遺物（%s）。遊戲中一件聖遺物同時只能由一名角色裝備，因此此分數無法與標準分數比較。",
 

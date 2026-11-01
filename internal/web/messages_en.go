@@ -94,7 +94,9 @@ func init() {
 		"share.copy_image":      "Copy image",
 		"share.link":            "Link",
 		"share.copy_link":       "Copy link",
-		"share.more":            "More apps",
+		"share.pieces":          "Include artifact pieces",
+		"share.pieces_note":     "Each piece's substats. Turned off, the link keeps only each piece's slot, level and main stat; the score is the same.",
+		"share.more":            "Send link",
 		"share.custom":          "Custom rotation",
 		"score.repick":          "Pick other characters",
 		"score.compare_heading": "Compare with another team",
@@ -276,7 +278,6 @@ func init() {
 		"art.slot.circlet": "Circlet",
 		"art.subs_out":     "Substats left out",
 		"art.reload":       "This link was made before artifact pieces were kept. Load the showcase again to see the pieces and the artifact score.",
-		"art.leave_out":    "Leave artifact pieces out",
 
 		"warn.duplicate": "%s and %s wear the same artifact (%s). The game puts an artifact on one character at a time, so this score does not compare with standard scores.",
 

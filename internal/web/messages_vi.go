@@ -94,7 +94,9 @@ func init() {
 		"share.copy_image":      "Sao chép hình",
 		"share.link":            "Liên kết",
 		"share.copy_link":       "Sao chép liên kết",
-		"share.more":            "Ứng dụng khác",
+		"share.pieces":          "Kèm từng món Thánh Di Vật",
+		"share.pieces_note":     "Dòng phụ của từng món. Khi tắt, liên kết chỉ giữ ô, cấp và dòng chính của từng món; điểm vẫn như cũ.",
+		"share.more":            "Gửi liên kết",
 		"share.custom":          "Vòng xoay tự viết",
 		"score.repick":          "Chọn nhân vật khác",
 		"score.compare_heading": "So sánh với đội hình khác",
@@ -276,7 +278,6 @@ func init() {
 		"art.slot.circlet": "Nón",
 		"art.subs_out":     "Đã ẩn dòng phụ",
 		"art.reload":       "Liên kết này được tạo trước khi Thánh Di Vật được lưu theo từng món. Hãy tải lại phần trưng bày để xem từng món và điểm Thánh Di Vật.",
-		"art.leave_out":    "Không kèm từng món Thánh Di Vật",
 
 		"warn.duplicate": "%s và %s đang trang bị cùng một Thánh Di Vật (%s). Trong game, mỗi Thánh Di Vật chỉ một nhân vật trang bị được tại một thời điểm, nên điểm này không so sánh được với điểm tiêu chuẩn.",
 

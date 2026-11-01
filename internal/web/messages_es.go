@@ -94,7 +94,9 @@ func init() {
 		"share.copy_image":      "Copiar imagen",
 		"share.link":            "Enlace",
 		"share.copy_link":       "Copiar enlace",
-		"share.more":            "Más apps",
+		"share.pieces":          "Incluir las piezas de artefactos",
+		"share.pieces_note":     "Las estadísticas secundarias de cada pieza. Desactivado, el enlace guarda solo la ranura, el nivel y la estadística principal de cada pieza; la puntuación es la misma.",
+		"share.more":            "Enviar enlace",
 		"share.custom":          "Rotación propia",
 		"score.repick":          "Elegir otros personajes",
 		"score.compare_heading": "Comparar con otro equipo",
@@ -276,7 +278,6 @@ func init() {
 		"art.slot.circlet": "Tiara",
 		"art.subs_out":     "Atributos secundarios omitidos",
 		"art.reload":       "Este enlace se creó antes de que se guardaran los artefactos por pieza. Vuelve a cargar la exhibición para ver las piezas y la puntuación de artefactos.",
-		"art.leave_out":    "Omitir las piezas de artefactos",
 
 		"warn.duplicate": "%s y %s llevan el mismo artefacto (%s). En el juego, un artefacto solo lo lleva un personaje a la vez, así que esta puntuación no se compara con las estándar.",
 

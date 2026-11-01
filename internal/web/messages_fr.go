@@ -94,7 +94,9 @@ func init() {
 		"share.copy_image":      "Copier l'image",
 		"share.link":            "Lien",
 		"share.copy_link":       "Copier le lien",
-		"share.more":            "Autres applis",
+		"share.pieces":          "Inclure les pièces d'artéfacts",
+		"share.pieces_note":     "Les statistiques secondaires de chaque pièce. Désactivée, le lien ne garde que l'emplacement, le niveau et la statistique principale de chaque pièce ; le score reste le même.",
+		"share.more":            "Envoyer le lien",
 		"share.custom":          "Rotation personnalisée",
 		"score.repick":          "Choisir d'autres personnages",
 		"score.compare_heading": "Comparer avec une autre équipe",
@@ -276,7 +278,6 @@ func init() {
 		"art.slot.circlet": "Diadème",
 		"art.subs_out":     "Stats secondaires omises",
 		"art.reload":       "Ce lien date d'avant l'enregistrement des artéfacts pièce par pièce. Rechargez la vitrine pour voir les pièces et le score d'artéfacts.",
-		"art.leave_out":    "Ne pas inclure les pièces d'artéfacts",
 
 		"warn.duplicate": "%s et %s portent le même artéfact (%s). Dans le jeu, un artéfact n'est porté que par un personnage à la fois, ce score ne se compare donc pas aux scores standard.",
 
