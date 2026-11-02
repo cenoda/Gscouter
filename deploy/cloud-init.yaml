@@ -41,6 +41,11 @@ write_files:
       WantedBy=timers.target
 
 runcmd:
+  # Oracle Cloud's Ubuntu images reject every inbound port but 22 in their
+  # own firewall rules; open 80 and 443 now and on reboot. Elsewhere the
+  # rules file does not exist and this only adds an ACCEPT rule.
+  - iptables -I INPUT -p tcp -m multiport --dports 80,443 -j ACCEPT
+  - "[ ! -f /etc/iptables/rules.v4 ] || sed -i '/^-A INPUT -j REJECT/i -A INPUT -p tcp -m multiport --dports 80,443 -j ACCEPT' /etc/iptables/rules.v4"
   - curl -fsSL https://raw.githubusercontent.com/cenoda/gscouter/main/deploy/update.sh -o /opt/gscouter/update.sh
   - chmod +x /opt/gscouter/update.sh
   - systemctl enable --now docker
