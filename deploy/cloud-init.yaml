@@ -1,5 +1,6 @@
 #cloud-config
-# Paste this into "Custom data" when creating an Ubuntu 24.04 VM.
+# Paste this into the VM's user data (Vultr: "Cloud-Init User-Data";
+# Azure: "Custom data") when creating an Ubuntu 24.04 VM.
 # Change the DOMAIN line below to your domain first.
 
 package_update: true
@@ -41,6 +42,8 @@ write_files:
       WantedBy=timers.target
 
 runcmd:
+  # Some images (Vultr's Ubuntu) allow only SSH through ufw.
+  - [sh, -c, "ufw allow 80/tcp; ufw allow 443; true"]
   - curl -fsSL https://raw.githubusercontent.com/cenoda/gscouter/main/deploy/update.sh -o /opt/gscouter/update.sh
   - chmod +x /opt/gscouter/update.sh
   - systemctl enable --now docker
