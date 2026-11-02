@@ -74,10 +74,12 @@ func runJob(_ js.Value, args []js.Value) any {
 // workers (self.gscouterRun), and runs timelines itself. A candidate the
 // engine rejects comes back as Score's error, as it does natively, for
 // the search (steady.Score, steady.Best) to go on with the next one.
+// With engine set, the helpers run gscouter-engine's module, and gcsim
+// for a config it refuses (internal/web/templates/layout.html).
 type workerSim struct{}
 
-func (workerSim) Score(_ context.Context, cfg string, warmup float64, iterations int) (*score.Result, error) {
-	v, err := await(js.Global().Call("gscouterRun", cfg, warmup, 1, iterations))
+func (workerSim) Score(_ context.Context, cfg string, warmup float64, iterations int, engine bool) (*score.Result, error) {
+	v, err := await(js.Global().Call("gscouterRun", cfg, warmup, 1, iterations, engine))
 	if err != nil {
 		return nil, err
 	}

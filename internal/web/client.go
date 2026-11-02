@@ -2,6 +2,7 @@ package web
 
 import (
 	"bytes"
+	"compress/gzip"
 	"context"
 	"crypto/sha256"
 	"embed"
@@ -15,6 +16,8 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
+
+	"github.com/cenoda/gscouter/internal/engine"
 )
 
 // Result pages can be calculated in the visitor's browser instead of on
@@ -43,6 +46,40 @@ type Job struct {
 type clientFiles struct {
 	dir     string
 	version string // cache-busting hash of the WebAssembly build
+}
+
+// SetEngine runs the teams e approves on gscouter-engine, on the server
+// and in browsers, which download its module as gse.wasm. A nil e runs
+// every team on gcsim.
+func (s *Server) SetEngine(e *engine.Engine) {
+	s.engine = e
+	s.engineGzip = nil
+	if e == nil {
+		return
+	}
+	// The module takes about a second to compile: not on a visitor's
+	// time when teams run on it.
+	if c, ok := e.Runner().(interface{ Compile() error }); ok && len(e.Teams()) > 0 {
+		go c.Compile()
+	}
+	var buf bytes.Buffer
+	zw, _ := gzip.NewWriterLevel(&buf, gzip.BestCompression)
+	zw.Write(e.Module())
+	if zw.Close() == nil {
+		s.engineGzip = buf.Bytes()
+	}
+}
+
+// engineVersion is the engine's version for the page, its module's URL
+// and the keys of the simulations a tab keeps: a prefix of the module's
+// hash, "" when no team of job runs on the engine.
+func (s *Server) engineVersion(job *Job) string {
+	for _, tr := range job.Teams {
+		if tr.Engine && s.engine != nil {
+			return s.engine.Hash()[:16]
+		}
+	}
+	return ""
 }
 
 // ServeClient lets browsers calculate results, with the browser build in
@@ -81,6 +118,9 @@ func (s *Server) job(l localizer, page string, teams ...teamResult) *Job {
 type clientData struct {
 	Job     *Job
 	Version string
+	// Engine is the engine's version (engineVersion) when a team runs on
+	// it, for the page to load gse.wasm into its helper workers.
+	Engine string
 	// Fallback is the page calculated on the server, for browsers
 	// without WebAssembly or Web Workers.
 	Fallback string
@@ -92,7 +132,7 @@ func (s *Server) clientData(r *http.Request, job *Job) *clientData {
 	}
 	q := r.URL.Query()
 	q.Set("server", "1")
-	return &clientData{Job: job, Version: s.client.version, Fallback: r.URL.Path + "?" + q.Encode()}
+	return &clientData{Job: job, Version: s.client.version, Engine: s.engineVersion(job), Fallback: r.URL.Path + "?" + q.Encode()}
 }
 
 // RunJob calculates job with sim and renders the page body it is waiting
@@ -167,6 +207,22 @@ func (s *Server) handleStatic(w http.ResponseWriter, r *http.Request) {
 		b, _ := staticFS.ReadFile("static/worker.js")
 		w.Header().Set("Content-Type", "text/javascript; charset=utf-8")
 		http.ServeContent(w, r, name, time.Time{}, bytes.NewReader(b))
+	case name == "gse.wasm" && s.engine != nil:
+		// The engine's module, built into the server. Its URL carries
+		// the module's own hash (engineVersion).
+		if r.URL.Query().Get("v") == s.engine.Hash()[:16] {
+			w.Header().Set("Cache-Control", "public, max-age=31536000, immutable")
+		} else {
+			w.Header().Set("Cache-Control", "no-cache")
+		}
+		w.Header().Set("Content-Type", "application/wasm")
+		w.Header().Add("Vary", "Accept-Encoding")
+		b := s.engine.Module()
+		if s.engineGzip != nil && strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") {
+			w.Header().Set("Content-Encoding", "gzip")
+			b = s.engineGzip
+		}
+		http.ServeContent(w, r, "", time.Time{}, bytes.NewReader(b))
 	case s.client == nil:
 		http.NotFound(w, r)
 	case name == "wasm_exec.js":

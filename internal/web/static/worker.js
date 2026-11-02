@@ -1,10 +1,29 @@
 // A worker running the browser build of Gscouter (cmd/wasm) for a result
 // page (the "client" template). The lead calculates the page and asks
-// the page for simulations; helpers run a share of their iterations. The
-// chart editor (edit.html) runs one worker and calls it directly.
+// the page for simulations; helpers run a share of their iterations, on
+// gcsim or, for a team that runs on it, on gscouter-engine's module
+// (internal/engine). The chart editor (edit.html) runs one worker and
+// calls it directly.
 importScripts("/static/wasm_exec.js" + self.location.search);
 
-var ready, waiting = {}, next = 0;
+var ready, waiting = {}, next = 0, gse = null;
+
+// engineSlice runs gse_run_slice (gscouter-engine's wasm/lib.rs): the
+// config goes in through gse_alloc, and the result comes back as a u32
+// status (0 ok), a u32 length and that many bytes of UTF-8, the same
+// JSON as gscouter.runSlice. It returns {result} or {error}.
+function engineSlice(cfg, warmup, seed, first, count) {
+  var x = gse.exports, bytes = new TextEncoder().encode(cfg);
+  var p = x.gse_alloc(bytes.length) >>> 0;
+  new Uint8Array(x.memory.buffer, p, bytes.length).set(bytes);
+  var r = x.gse_run_slice(p, bytes.length, warmup, BigInt(seed), first, count) >>> 0;
+  var head = new DataView(x.memory.buffer, r, 8);
+  var status = head.getUint32(0, true), len = head.getUint32(4, true);
+  var text = new TextDecoder().decode(new Uint8Array(x.memory.buffer, r + 8, len));
+  x.gse_free_result(r);
+  x.gse_free(p, bytes.length);
+  return status === 0 ? {result: text} : {error: text};
+}
 
 function report(err) {
   postMessage({type: "error", error: String(err && err.message || err)});
@@ -15,18 +34,38 @@ self.onmessage = function (e) {
   if (m.type === "init") {
     var go = new Go();
     ready = WebAssembly.instantiate(m.module, go.importObject).then(function (inst) { go.run(inst); });
+    // The engine's module, for a page with a team on it. It imports
+    // nothing.
+    if (m.engine) ready = ready.then(function () {
+      return WebAssembly.instantiate(m.engine, {}).then(function (inst) { gse = inst; });
+    });
     ready.then(function () { postMessage({type: "ready"}); }, report);
     return;
   }
   ready.then(function () {
     switch (m.type) {
     case "slice":
-      // A candidate the engine rejects fails its run, not the page: the
+      // A candidate gcsim rejects fails its run, not the page: the
       // error goes back with the run, for the lead's search to go on.
+      // One the engine refuses goes back as engineError, for the page
+      // to run all of it on gcsim.
+      var head = {type: "slice", run: m.run, gen: m.gen, index: m.index, count: m.count};
+      if (m.engine) {
+        var e;
+        try {
+          e = gse ? engineSlice(m.cfg, m.warmup, m.seed, m.first, m.count) : {error: "engine not loaded"};
+        } catch (err) {
+          e = {error: String(err && err.message || err)};
+        }
+        if (e.result !== undefined) head.result = e.result;
+        else head.engineError = e.error;
+        postMessage(head);
+        break;
+      }
       var out = gscouter.runSlice(m.cfg, m.warmup, m.seed, m.first, m.count);
-      postMessage(typeof out === "string" ?
-        {type: "slice", run: m.run, index: m.index, count: m.count, result: out} :
-        {type: "slice", run: m.run, index: m.index, count: m.count, error: String(out.error)});
+      if (typeof out === "string") head.result = out;
+      else head.error = String(out.error);
+      postMessage(head);
       break;
     case "job":
       gscouter.runJob(JSON.stringify(m.job)).then(function (out) {
@@ -58,10 +97,11 @@ self.gscouterTime = function (name, ms) {
 // gscouterRun is how the lead's Go code asks the page for a simulation:
 // it resolves to the iterations as JSON, or rejects with the error of a
 // candidate the engine rejected.
-self.gscouterRun = function (cfg, warmup, seed, iterations) {
+// With engine set, the team runs on gscouter-engine.
+self.gscouterRun = function (cfg, warmup, seed, iterations, engine) {
   return new Promise(function (resolve, reject) {
     var id = next++;
     waiting[id] = {resolve: resolve, reject: reject};
-    postMessage({type: "run", id: id, cfg: cfg, warmup: warmup, seed: seed, iterations: iterations});
+    postMessage({type: "run", id: id, cfg: cfg, warmup: warmup, seed: seed, iterations: iterations, engine: !!engine});
   });
 };

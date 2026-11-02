@@ -98,8 +98,13 @@ func (c *Cache) RunIterations(ctx context.Context, cfg string, opts Options) ([]
 	if c == nil {
 		return RunIterations(ctx, cfg, opts)
 	}
-	// Workers does not change the result.
-	key := hash(cfg, fmt.Sprint(opts.Iterations, opts.First, opts.Seed), fmt.Sprintf("%b", opts.Warmup))
+	// Workers does not change the result; the engine does, so a run on
+	// it is keyed by its module's hash (gcsim's keys are as before).
+	parts := []string{cfg, fmt.Sprint(opts.Iterations, opts.First, opts.Seed), fmt.Sprintf("%b", opts.Warmup)}
+	if opts.Engine != nil {
+		parts = append(parts, "engine "+opts.Engine.ID())
+	}
+	key := hash(parts...)
 	path := filepath.Join(c.dir, key[:2], key+".json")
 	if raw, err := os.ReadFile(path); err == nil {
 		var its []Iteration

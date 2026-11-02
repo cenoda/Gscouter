@@ -1,0 +1,200 @@
+package engine
+
+import (
+	"context"
+	"crypto/sha256"
+	"encoding/hex"
+	"fmt"
+	"os"
+	"reflect"
+	"strings"
+	"testing"
+
+	"github.com/cenoda/gscouter/internal/score"
+)
+
+func TestParseApproved(t *testing.T) {
+	got, err := ParseApproved("# comment\n\nhutao-xingqiu-yelan-zhongli 2026-11-02\n  raiden-national 2026-11-03  \n")
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := []Approval{{"hutao-xingqiu-yelan-zhongli", "2026-11-02"}, {"raiden-national", "2026-11-03"}}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v, want %v", got, want)
+	}
+	for name, text := range map[string]string{
+		"no date":    "hutao-xingqiu-yelan-zhongli\n",
+		"bad date":   "hutao-xingqiu-yelan-zhongli 2026-13-01\n",
+		"extra word": "hutao-xingqiu-yelan-zhongli 2026-11-02 yes\n",
+		"twice":      "a 2026-11-02\na 2026-11-03\n",
+	} {
+		if _, err := ParseApproved(text); err == nil {
+			t.Errorf("%s: no error", name)
+		}
+	}
+}
+
+// The committed list and release load. The list is the owner's to fill
+// (docs/engine.md §2): an entry needs no change here.
+func TestCommittedFilesLoad(t *testing.T) {
+	b, err := os.ReadFile("approved.txt")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := ParseApproved(string(b)); err != nil {
+		t.Fatal(err)
+	}
+	e, skipped, err := Release()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(skipped) > 0 {
+		t.Errorf("approved teams the release leaves on gcsim: %v", skipped)
+	}
+	if e != nil {
+		t.Logf("engine %s at %s: %d teams", e.Hash()[:16], e.Commit(), len(e.Teams()))
+	}
+}
+
+// fake is testdata/fake.wasm, a stand-in for the engine's module with
+// the same calls (testdata/fake/lib.rs).
+func fake(t testing.TB) []byte {
+	t.Helper()
+	b, err := os.ReadFile("testdata/fake.wasm")
+	if err != nil {
+		t.Fatal(err)
+	}
+	return b
+}
+
+func manifest(module []byte, teams map[string]bool) []byte {
+	sum := sha256.Sum256(module)
+	var parts []string
+	for id, v := range teams {
+		parts = append(parts, fmt.Sprintf("%q: {\"verified\": %v}", id, v))
+	}
+	return fmt.Appendf(nil, `{"engine": {"commit": "abc", "wasm_sha256": %q}, "teams": {%s}}`, hex.EncodeToString(sum[:]), strings.Join(parts, ","))
+}
+
+func TestRouting(t *testing.T) {
+	mod := fake(t)
+	m := manifest(mod, map[string]bool{"verified-approved": true, "verified": true, "unverified-approved": false})
+	e, skipped, err := New(mod, m, []Approval{{"verified-approved", "2026-11-02"}, {"unverified-approved", "2026-11-02"}, {"absent-approved", "2026-11-02"}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	for team, want := range map[string]bool{"verified-approved": true, "verified": false, "unverified-approved": false, "absent-approved": false, "other": false} {
+		if got := e.Use(team); got != want {
+			t.Errorf("Use(%s) = %v, want %v", team, got, want)
+		}
+	}
+	if want := []string{"unverified-approved: not verified", "absent-approved: not in the manifest"}; !reflect.DeepEqual(skipped, want) {
+		t.Errorf("skipped %v, want %v", skipped, want)
+	}
+	if got := e.Teams(); !reflect.DeepEqual(got, []string{"verified-approved"}) {
+		t.Errorf("Teams() = %v", got)
+	}
+	var none *Engine
+	if none.Use("verified-approved") || none.Runner() != nil || none.Teams() != nil {
+		t.Error("a nil engine runs teams")
+	}
+	// An empty list runs nothing on the engine.
+	e, _, err = New(mod, m, nil)
+	if err != nil || e.Use("verified-approved") {
+		t.Errorf("empty list: Use = true, err %v", err)
+	}
+}
+
+func TestModuleMustMatchManifest(t *testing.T) {
+	mod := fake(t)
+	other := manifest([]byte("another module"), nil)
+	if _, _, err := New(mod, other, nil); err == nil {
+		t.Error("a module that is not the manifest's loaded")
+	}
+}
+
+const cfg = "hutao char lvl=90/90 cons=0 talent=9,9,9;\nxingqiu char lvl=90/90 cons=6 talent=9,9,9;\n"
+
+func fakeEngine(t *testing.T) *Engine {
+	mod := fake(t)
+	e, _, err := New(mod, manifest(mod, nil), nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return e
+}
+
+// The runner splits iterations among instances and merges them in
+// order: iteration i has the fake's seed + i DPS however it is split.
+func TestRunnerSlices(t *testing.T) {
+	e := fakeEngine(t)
+	for _, workers := range []int{1, 3, 7, 50} {
+		its, err := e.Runner().RunIterations(context.Background(), cfg, score.Options{Iterations: 7, First: 5, Seed: 100, Workers: workers})
+		if err != nil {
+			t.Fatal(err)
+		}
+		if len(its) != 7 {
+			t.Fatalf("workers %d: %d iterations", workers, len(its))
+		}
+		for j, it := range its {
+			if want := float64(100 + 5 + j); it.DPS != want || !reflect.DeepEqual(it.Names, []string{"hutao", "xingqiu"}) || it.Frames != 6000 {
+				t.Errorf("workers %d: iteration %d = %+v, want DPS %v", workers, j, it, want)
+			}
+		}
+	}
+}
+
+func TestRunnerRefuses(t *testing.T) {
+	e := fakeEngine(t)
+	ctx := context.Background()
+	if _, err := e.Runner().RunIterations(ctx, cfg+"# refuse\n", score.Options{Iterations: 4, Seed: 1}); err == nil || !strings.Contains(err.Error(), "unsupported: refuse") {
+		t.Errorf("refused config: err %v", err)
+	}
+	// A fight failing in one share fails the run.
+	if _, err := e.Runner().RunIterations(ctx, cfg+"# fail at 6\n", score.Options{Iterations: 8, Seed: 1, Workers: 4}); err == nil || !strings.Contains(err.Error(), "iteration 6") {
+		t.Errorf("failing fight: err %v", err)
+	}
+	missing, err := e.Check(ctx, cfg+"# refuse\n")
+	if err != nil || !reflect.DeepEqual(missing, []string{"unsupported: refuse"}) {
+		t.Errorf("Check = %v, %v", missing, err)
+	}
+	if missing, err := e.Check(ctx, cfg); err != nil || len(missing) != 0 {
+		t.Errorf("Check = %v, %v", missing, err)
+	}
+}
+
+// A config the engine refuses runs on gcsim (score.RunIterations), all
+// of it.
+func TestRefusedConfigRunsOnGcsim(t *testing.T) {
+	e := fakeEngine(t)
+	gcsimCfg := "options iteration=1 duration=20;\ntarget lvl=100 resist=0.1;\nenergy every interval=480,720 amount=1;\n" +
+		"xingqiu char lvl=90/90 cons=6 talent=9,9,9;\nxingqiu add weapon=\"sacrificialsword\" refine=1 lvl=90/90;\n" +
+		"xingqiu add stats hp=4780 atk=311 atk%=0.466 hydro%=0.466 cr=0.311;\nactive xingqiu;\nwhile 1 { xingqiu attack; }\n"
+	opts := score.Options{Iterations: 3, Seed: 1, Workers: 1}
+	want, err := score.RunIterations(context.Background(), gcsimCfg, opts)
+	if err != nil {
+		t.Fatal(err)
+	}
+	opts.Engine = e.Runner()
+	got, err := score.RunIterations(context.Background(), gcsimCfg+"# refuse\n", opts)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got[0].DPS != want[0].DPS || got[0].DPS < 10 {
+		t.Errorf("refused config: DPS %v, gcsim's %v", got[0].DPS, want[0].DPS)
+	}
+	// Accepted, the same config runs on the engine.
+	got, err = score.RunIterations(context.Background(), gcsimCfg, opts)
+	if err != nil || got[0].DPS != 1 {
+		t.Errorf("accepted config: %v, %v; want the fake's DPS 1", got, err)
+	}
+}
+
+func TestCancel(t *testing.T) {
+	e := fakeEngine(t)
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+	if _, err := e.Runner().RunIterations(ctx, cfg, score.Options{Iterations: 4, Seed: 1}); err == nil {
+		t.Error("a cancelled run returned results")
+	}
+}

@@ -12,6 +12,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/cenoda/gscouter/internal/engine"
 	"github.com/cenoda/gscouter/internal/enka"
 	"github.com/cenoda/gscouter/internal/library"
 	"github.com/cenoda/gscouter/internal/links"
@@ -32,6 +33,8 @@ func main() {
 	site := flag.String("site", os.Getenv("GSCOUTER_SITE"), "the site's public URL, e.g. https://gscouter.example; without it, links for search engines take each request's host")
 	indexNow := flag.String("indexnow", os.Getenv("GSCOUTER_INDEXNOW"), "state file of IndexNow submissions (needs -site); none turns them off")
 	usageFile := flag.String("usage", os.Getenv("GSCOUTER_USAGE"), "JSON file of daily usage counts; none turns them off")
+	useEngine := flag.Bool("engine", true, "score the approved teams on gscouter-engine (internal/engine); false runs every team on gcsim")
+	engineDir := flag.String("engine-dir", "", "directory with approved.txt, gse.wasm and manifest.json to use instead of the pinned release, to try one")
 	flag.Parse()
 
 	lib, err := library.LoadLibrary(teams.FS)
@@ -51,6 +54,26 @@ func main() {
 			os.Exit(1)
 		}
 		slog.Info("browsers calculate results", "dir", *static)
+	}
+
+	if *useEngine {
+		// A release that does not load leaves every team on gcsim.
+		e, skipped, err := engine.Release()
+		if *engineDir != "" {
+			e, skipped, err = engine.ReleaseDir(*engineDir)
+		}
+		switch {
+		case err != nil:
+			slog.Error("engine off", "err", err)
+		case e == nil:
+			slog.Info("engine off: no release pinned")
+		default:
+			srv.SetEngine(e)
+			slog.Info("engine", "commit", e.Commit(), "module", e.Hash()[:16], "teams", len(e.Teams()))
+		}
+		for _, s := range skipped {
+			slog.Warn("approved team stays on gcsim", "why", s)
+		}
 	}
 
 	if on(*linksDB) {

@@ -1,0 +1,7 @@
+# Library teams the owner approved to score on gscouter-engine
+# (docs/engine.md §2). Only the owner adds a line: a team's score moves
+# (within 1% of gcsim) when it moves to the engine.
+#
+# One team per line: its library id, then the date of the owner's answer
+# (YYYY-MM-DD). A team runs on the engine only when it is also verified
+# in release/manifest.json.

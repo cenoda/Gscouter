@@ -1,6 +1,6 @@
 # Faster DPS
 
-> Status: Paused (2026-10-28, `docs/roadmap.md`) · Last updated: 2026-10-28
+> Status: Paused (2026-10-28, `docs/roadmap.md`) · Last updated: 2026-11-02
 
 Measurements of the time to a score, and what was tried to shorten it. The site calculates results in the visitor's browser (design §4.7); the library is validated on the command line (design §5.3). Both run the same simulations.
 
@@ -40,3 +40,23 @@ A full run (`cmd/validate -iter 20 -j 4`, 4 CPUs) simulates per team one pass un
 The whole library took 41 minutes (148 CPU minutes) instead of 67 (233), every report identical to the last bit (`cmd/compare`, 4,433 teams); a rerun with the cache took 2 minutes. `-shard k/n` splits a run across machines. A cached run is not identical in one way: a team near the 2-minute limit of a check, which is measured in wall time and depends on the machine's load, finishes once enough of its simulations are cached. Ningguang / Xingqiu / Bennett / Chiori timed out on both cold runs and passed with the cache. With the search's cap at 24 runs (2026-10-28, `docs/fillers.md` §5), a cold run took 37 minutes for the 4,398 teams recorded at 20 iterations and 1 minute for the 53 recorded at 100; the same team timed out again and passed with the cache.
 
 Rejected: ranking filler candidates on fewer iterations and running only the winner fully. Which follow-ups `steady.Score` tries, in what order, and which wins all depend on each run's full result. Ranked on 5 iterations (7 minutes for the library), 748 of 4,431 teams chose another filler or none, so it would change scores.
+
+## 4. gscouter-engine
+
+_2026-11-02._ A team on gscouter-engine (`docs/engine.md`) has its simulations run by the helper workers on the engine's WebAssembly module instead of gcsim. Measured on one result page, Hu Tao / Xingqiu / Zhongli / Yelan with `internal/web`'s test showcase (Zhongli on Staff of Homa: the engine lacks Black Tassel), approved only locally with a manifest written for the test and the module built from gscouter-engine `2090c58` (not a release run). Headless Chromium on 4 CPUs, a fresh profile each time, the result opened directly (no front-page warm-up), 3 runs each, median (range):
+
+| Stage | gcsim (before) | engine (after) |
+|---|---|---|
+| Download and compile, local (the engine's 1.5 MB module beside the browser build) | 0.36 s | 0.38 s |
+| Starting the workers | 3.6 s (3.5–3.9) | 3.6 s (3.1–4.2) |
+| Score simulation (50 iterations) | 3.1 s (2.9–3.3) | 0.60 s (0.56–0.65) |
+| Filler search (runs of 10 iterations) | 7 runs, 2.0–2.3 s | 6 runs, 0.28–0.41 s |
+| Best filler again, one pass (50 iterations each) | 0.4–0.55 s | 0.05–0.12 s |
+| All simulations | 5.7 s (5.4–6.1) | 1.0 s (0.9–1.2) |
+| Lead's job after the workers start (simulations, timelines, rendering) | 6.3 s | 2.1 s |
+| Total, local | 10.3 s (10.3–10.5) | 6.1 s (5.6–6.7) |
+
+- The score was 20,421 on the engine against 20,370 on gcsim (+0.25%). The engine's filler search made one run fewer, so it picked another filler or stopped sooner; the two engines may (gscouter-engine `docs/roadmap.md` §4). The result was the same in each run, and the page the server calculated (`server=1`) was the browser's to the byte, on either engine.
+- Simulation is no longer most of the page: starting the workers (Go's runtime in each, without the front page's warm-up, §1) is now the largest stage, then the lead's own work (timelines, details, rendering, about 1 s).
+- The same showcase with Zhongli on Black Tassel, which the engine lacks: every config was refused and ran on gcsim, and the page was gcsim's to the byte.
+- On the server (`server=1`, same page): 0.76 s on gcsim, 1.35 s on the engine with the module's first compile (about 0.75–1 s, now done when the server starts). The engine on wazero against gcsim natively: `docs/engine.md` §4.

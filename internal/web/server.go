@@ -22,6 +22,7 @@ import (
 
 	"github.com/cenoda/gscouter/internal/chart"
 	"github.com/cenoda/gscouter/internal/config"
+	"github.com/cenoda/gscouter/internal/engine"
 	"github.com/cenoda/gscouter/internal/enka"
 	"github.com/cenoda/gscouter/internal/library"
 	"github.com/cenoda/gscouter/internal/score"
@@ -76,6 +77,8 @@ type Server struct {
 	timelines    *cache[string, *timeline.Timeline]
 	cards        *cache[string, []byte] // link preview PNGs by URL
 	client       *clientFiles           // nil: the server calculates every result
+	engine       *engine.Engine         // nil: every team runs on gcsim (see SetEngine)
+	engineGzip   []byte                 // the engine's module, compressed
 	links        LinkStore              // nil: no short links (see SetLinks)
 	linkLimit    *rateLimit
 	sends        SendStore // nil: no sending charts (see SetSends)
@@ -306,6 +309,10 @@ type teamResult struct {
 	// chart (Selection.Chart), for the comparison; ChartNote says so.
 	Library   *score.Result
 	ChartNote string
+	// Engine is set when the team's simulations run on gscouter-engine
+	// (internal/engine): a library team approved and verified, scored
+	// with the library's rotations. The server decides it in prepare.
+	Engine bool `json:",omitempty"`
 	// ID tells the teams on one page apart, for element ids.
 	ID string
 	// Problem explains why there is no score: unsupported team, blocked
@@ -358,8 +365,10 @@ func usesForkOnlyWeapon(chars []enka.Character) bool {
 // Simulator runs the simulations of a score: the server's own, queued
 // and cached, or a browser's workers (cmd/wasm).
 type Simulator interface {
-	// Score is score.Run of cfg with the given warmup and iterations.
-	Score(ctx context.Context, cfg string, warmup float64, iterations int) (*score.Result, error)
+	// Score is score.Run of cfg with the given warmup and iterations,
+	// on gscouter-engine when engine is set (teamResult.Engine), with
+	// gcsim for a config the engine refuses.
+	Score(ctx context.Context, cfg string, warmup float64, iterations int, engine bool) (*score.Result, error)
 	// Timeline runs cfg once (seed 1) and reduces seconds [from, to).
 	Timeline(ctx context.Context, cfg string, from, to float64) (*timeline.Timeline, error)
 }
@@ -367,8 +376,8 @@ type Simulator interface {
 // serverSim is the server's own Simulator.
 type serverSim struct{ *Server }
 
-func (s serverSim) Score(ctx context.Context, cfg string, warmup float64, iterations int) (*score.Result, error) {
-	return s.score(ctx, cfg, warmup, iterations)
+func (s serverSim) Score(ctx context.Context, cfg string, warmup float64, iterations int, engine bool) (*score.Result, error) {
+	return s.score(ctx, cfg, warmup, iterations, engine)
 }
 
 func (s serverSim) Timeline(ctx context.Context, cfg string, from, to float64) (*timeline.Timeline, error) {
@@ -422,6 +431,9 @@ func (s *Server) prepare(ctx context.Context, l localizer, sel selection, enemy 
 	case tr.Team.Status == library.StatusBlocked:
 		tr.Problem = l.T("problem.blocked", tr.Team.Notes)
 	}
+	// A chart is the player's rotation, which no engine release verified;
+	// the library score beside it stays on the same engine (docs/engine.md §2).
+	tr.Engine = sel.Chart == "" && s.engine.Use(tr.Team.ID)
 	scoreArtifacts(&tr)
 	return tr
 }
@@ -479,7 +491,7 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 				iterations = min(iterations, exploreIterations)
 			}
 			cfg := config.Assemble(config.Conditions{Iterations: iterations, Duration: set.Duration, Enemy: tr.Enemy}, builds[i], rotation)
-			res, err := sim.Score(ctx, cfg, set.Warmup, iterations)
+			res, err := sim.Score(ctx, cfg, set.Warmup, iterations, tr.Engine)
 			if err != nil && (errors.Is(err, errBusy) || ctx.Err() != nil) {
 				return nil, steady.Fatal(err)
 			}
@@ -535,7 +547,7 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 	}
 	var oneRes *score.Result
 	if err == nil {
-		oneRes, err = sim.Score(ctx, once, 0, set.Iterations)
+		oneRes, err = sim.Score(ctx, once, 0, set.Iterations, tr.Engine)
 	}
 	if err != nil {
 		if errors.Is(err, errBusy) {
@@ -581,9 +593,20 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 	}
 }
 
-// score runs a simulation, reusing the cached result for the same config.
-func (s *Server) score(ctx context.Context, cfg string, warmup float64, iterations int) (*score.Result, error) {
-	sum := sha256.Sum256(fmt.Appendf(nil, "%v %v\n%s", warmup, iterations, cfg))
+// score runs a simulation, reusing the cached result for the same config,
+// on the engine when onEngine is set and the server has one.
+func (s *Server) score(ctx context.Context, cfg string, warmup float64, iterations int, onEngine bool) (*score.Result, error) {
+	var eng score.Engine
+	if onEngine {
+		eng = s.engine.Runner()
+	}
+	head := fmt.Appendf(nil, "%v %v\n", warmup, iterations)
+	if eng != nil {
+		// A run on the engine is keyed by its module; gcsim's keys are
+		// as before.
+		head = fmt.Appendf(nil, "engine %s\n%s", eng.ID(), head)
+	}
+	sum := sha256.Sum256(append(head, cfg...))
 	key := hex.EncodeToString(sum[:])
 	if res, ok := s.results.get(key); ok {
 		return res, nil
@@ -606,6 +629,7 @@ func (s *Server) score(ctx context.Context, cfg string, warmup float64, iteratio
 		Iterations: iterations,
 		Warmup:     warmup,
 		Seed:       1,
+		Engine:     eng,
 	})
 	if err != nil {
 		return nil, err

@@ -891,9 +891,12 @@ pieces, "" when there are none to leave out. */}}
 // whose iterations are shared out among helper workers. Browsers that
 // cannot, or a calculation that fails here, get the server's page; a
 // candidate the engine rejects fails only its simulation, which the
-// lead's search gets back as an error, as it does on the server.
+// lead's search gets back as an error, as it does on the server. A team
+// on gscouter-engine (internal/engine) has its simulations run by the
+// helpers on the engine's module, and on gcsim when the engine refuses
+// them.
 (function () {
-  var job = {{.Job}}, v = {{.Version}}, fallback = {{.Fallback}};
+  var job = {{.Job}}, v = {{.Version}}, fallback = {{.Fallback}}, engine = {{.Engine}};
   var progress = {{t "js.progress"}};
   var workers = [], done = false;
   // Stages are recorded as performance measures named "gscouter:*"
@@ -922,11 +925,19 @@ pieces, "" when there are none to leave out. */}}
     if (!WebAssembly.compileStreaming) return bytes();
     return WebAssembly.compileStreaming(fetch(wasm)).catch(bytes);
   }
+  // The engine's module, only for a page with a team on it.
+  function compileEngine() {
+    if (!engine) return Promise.resolve(null);
+    return fetch("/static/gse.wasm?v=" + engine).then(function (r) {
+      if (!r.ok) throw new Error("gse.wasm: HTTP " + r.status);
+      return r.arrayBuffer();
+    }).then(function (b) { return WebAssembly.compile(b); });
+  }
 
-  function spawn(module) {
+  function spawn(module, engineModule) {
     var w = new Worker("/static/worker.js?v=" + v);
     w.onerror = function (e) { fail(e.message || "worker error"); };
-    w.postMessage({type: "init", module: module});
+    w.postMessage(engineModule ? {type: "init", module: module, engine: engineModule} : {type: "init", module: module});
     workers.push(w);
     return w;
   }
@@ -958,7 +969,7 @@ pieces, "" when there are none to leave out. */}}
   function pump() {
     while (idle.length && queue.length) {
       var w = idle.shift(), c = queue.shift();
-      w.postMessage({type: "slice", run: c.run, index: c.index, cfg: c.cfg, warmup: c.warmup, seed: c.seed, first: c.first, count: c.count});
+      w.postMessage({type: "slice", run: c.run, gen: c.gen, engine: c.engine, index: c.index, cfg: c.cfg, warmup: c.warmup, seed: c.seed, first: c.first, count: c.count});
     }
   }
   function show(run) {
@@ -968,13 +979,25 @@ pieces, "" when there are none to leave out. */}}
     document.querySelectorAll(".pending .progress").forEach(function (el) { el.textContent = text; });
   }
 
+  // chunk queues a run's iterations in chunks, on the engine or gcsim
+  // as the run is now.
+  function chunk(key, run, cfg, seed) {
+    run.left = 0;
+    run.parts = [];
+    run.finished = 0;
+    for (var first = 0; first < run.iterations; first += run.size) {
+      queue.push({run: key, gen: run.gen, engine: run.engine, index: run.left++, cfg: cfg, warmup: run.warmup, seed: seed, first: first, count: Math.min(run.size, run.iterations - first)});
+    }
+  }
+
   var started = now();
-  compile().then(function (module) {
+  Promise.all([compile(), compileEngine()]).then(function (modules) {
+    var module = modules[0], engineModule = modules[1];
     measure("compile", started);
     var lead = spawn(module), spawned = now(), unready = 0, jobStart = 0;
     var n = Math.max(1, Math.min(navigator.hardwareConcurrency || 2, 6));
     var helpers = [];
-    for (var i = 0; i < n; i++) helpers.push(spawn(module));
+    for (var i = 0; i < n; i++) helpers.push(spawn(module, engineModule));
     unready = helpers.length;
     helpers.forEach(function (h) {
       h.onmessage = function (e) {
@@ -987,8 +1010,18 @@ pieces, "" when there are none to leave out. */}}
         }
         if (m.type === "error") return fail(m.error);
         var run = runs[m.run];
-        if (!run) {
-          // A slice of a simulation that already failed.
+        if (!run || m.gen !== run.gen) {
+          // A slice of a simulation that already failed, or that moved
+          // to gcsim.
+        } else if (m.engineError !== undefined) {
+          // The engine refused the config: run all of it on gcsim, as
+          // the server does (score.RunIterations), so that no run is
+          // part one engine and part the other.
+          queue = queue.filter(function (c) { return c.run !== m.run; });
+          run.gen++;
+          run.engine = false;
+          chunk(m.run, run, run.cfg, run.seed);
+          show(run);
         } else if (m.error !== undefined) {
           // The engine rejected the candidate: fail its simulation alone,
           // drop its other slices and keep nothing.
@@ -1019,16 +1052,16 @@ pieces, "" when there are none to leave out. */}}
         lead.postMessage({type: "job", job: job});
         break;
       case "run":
-        var cached = m.warmup + " " + m.seed + " " + m.iterations + "\n" + m.cfg, result = recall(cached);
+        // A run on the engine is kept under the engine's version too.
+        var onEngine = !!(m.engine && engineModule);
+        var cached = (onEngine ? "gse " + engine + "\n" : "") + m.warmup + " " + m.seed + " " + m.iterations + "\n" + m.cfg, result = recall(cached);
         if (result !== null) {
           lead.postMessage({type: "runResult", id: m.id, result: result});
           break;
         }
         var key = count++, size = Math.max(1, Math.ceil(m.iterations / (2 * helpers.length)));
-        var run = runs[key] = {id: m.id, key: cached, n: count, iterations: m.iterations, warmup: m.warmup, start: now(), finished: 0, left: 0, parts: []};
-        for (var first = 0; first < m.iterations; first += size) {
-          queue.push({run: key, index: run.left++, cfg: m.cfg, warmup: m.warmup, seed: m.seed, first: first, count: Math.min(size, m.iterations - first)});
-        }
+        var run = runs[key] = {id: m.id, key: cached, n: count, iterations: m.iterations, warmup: m.warmup, cfg: m.cfg, seed: m.seed, size: size, gen: 0, engine: onEngine, start: now(), finished: 0, left: 0, parts: []};
+        chunk(key, run, m.cfg, m.seed);
         show(run);
         pump();
         break;
