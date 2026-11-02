@@ -5,10 +5,12 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
+	"io/fs"
 	"os"
 	"reflect"
 	"strings"
 	"testing"
+	"testing/fstest"
 
 	"github.com/cenoda/gscouter/internal/score"
 )
@@ -73,22 +75,49 @@ func manifest(module []byte, teams map[string]bool) []byte {
 	for id, v := range teams {
 		parts = append(parts, fmt.Sprintf("%q: {\"verified\": %v}", id, v))
 	}
-	return fmt.Appendf(nil, `{"engine": {"commit": "abc", "wasm_sha256": %q}, "teams": {%s}}`, hex.EncodeToString(sum[:]), strings.Join(parts, ","))
+	return fmt.Appendf(nil, `{"engine": {"commit": "abc", "wasm_sha256": %q}, "gscouter_commit": "g1", "teams": {%s}}`, hex.EncodeToString(sum[:]), strings.Join(parts, ","))
+}
+
+// library is a team library with each team's files, as teams/ has them.
+func library(ids ...string) fstest.MapFS {
+	l := fstest.MapFS{}
+	for _, id := range ids {
+		l[id+"/team.yaml"] = &fstest.MapFile{Data: []byte("id: " + id + "\n")}
+		l[id+"/rotation.gcsl"] = &fstest.MapFile{Data: []byte("attack;\n")}
+	}
+	return l
+}
+
+// pinned is release/teams.txt for library's teams as they are.
+func pinned(t *testing.T, l fs.FS, ids ...string) map[string]string {
+	t.Helper()
+	out := map[string]string{}
+	for _, id := range ids {
+		h, err := TeamHash(l, id)
+		if err != nil {
+			t.Fatal(err)
+		}
+		out[id] = h
+	}
+	return out
 }
 
 func TestRouting(t *testing.T) {
 	mod := fake(t)
-	m := manifest(mod, map[string]bool{"verified-approved": true, "verified": true, "unverified-approved": false})
-	e, skipped, err := New(mod, m, []Approval{{"verified-approved", "2026-11-02"}, {"unverified-approved", "2026-11-02"}, {"absent-approved", "2026-11-02"}})
+	m := manifest(mod, map[string]bool{"verified-approved": true, "verified": true, "unverified-approved": false, "changed-approved": true, "unpinned-approved": true})
+	l := library("verified-approved", "verified", "unverified-approved", "changed-approved", "unpinned-approved")
+	pins := pinned(t, l, "verified-approved", "verified", "changed-approved")
+	l["changed-approved/alt/x/build.txt"] = &fstest.MapFile{Data: []byte("changed\n")}
+	e, skipped, err := New(mod, m, pins, l, []Approval{{"verified-approved", "2026-11-02"}, {"unverified-approved", "2026-11-02"}, {"absent-approved", "2026-11-02"}, {"changed-approved", "2026-11-02"}, {"unpinned-approved", "2026-11-02"}})
 	if err != nil {
 		t.Fatal(err)
 	}
-	for team, want := range map[string]bool{"verified-approved": true, "verified": false, "unverified-approved": false, "absent-approved": false, "other": false} {
+	for team, want := range map[string]bool{"verified-approved": true, "verified": false, "unverified-approved": false, "absent-approved": false, "changed-approved": false, "unpinned-approved": false, "other": false} {
 		if got := e.Use(team); got != want {
 			t.Errorf("Use(%s) = %v, want %v", team, got, want)
 		}
 	}
-	if want := []string{"unverified-approved: not verified", "absent-approved: not in the manifest"}; !reflect.DeepEqual(skipped, want) {
+	if want := []string{"unverified-approved: not verified", "absent-approved: not in the manifest", "changed-approved: teams/changed-approved changed since Gscouter g1, which the release verified", "unpinned-approved: no pinned library files (release/teams.txt)"}; !reflect.DeepEqual(skipped, want) {
 		t.Errorf("skipped %v, want %v", skipped, want)
 	}
 	if got := e.Teams(); !reflect.DeepEqual(got, []string{"verified-approved"}) {
@@ -99,7 +128,7 @@ func TestRouting(t *testing.T) {
 		t.Error("a nil engine runs teams")
 	}
 	// An empty list runs nothing on the engine.
-	e, _, err = New(mod, m, nil)
+	e, _, err = New(mod, m, pins, l, nil)
 	if err != nil || e.Use("verified-approved") {
 		t.Errorf("empty list: Use = true, err %v", err)
 	}
@@ -108,7 +137,7 @@ func TestRouting(t *testing.T) {
 func TestModuleMustMatchManifest(t *testing.T) {
 	mod := fake(t)
 	other := manifest([]byte("another module"), nil)
-	if _, _, err := New(mod, other, nil); err == nil {
+	if _, _, err := New(mod, other, nil, nil, nil); err == nil {
 		t.Error("a module that is not the manifest's loaded")
 	}
 }
@@ -117,7 +146,7 @@ const cfg = "hutao char lvl=90/90 cons=0 talent=9,9,9;\nxingqiu char lvl=90/90 c
 
 func fakeEngine(t *testing.T) *Engine {
 	mod := fake(t)
-	e, _, err := New(mod, manifest(mod, nil), nil)
+	e, _, err := New(mod, manifest(mod, nil), nil, nil, nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -196,5 +225,38 @@ func TestCancel(t *testing.T) {
 	cancel()
 	if _, err := e.Runner().RunIterations(ctx, cfg, score.Options{Iterations: 4, Seed: 1}); err == nil {
 		t.Error("a cancelled run returned results")
+	}
+}
+
+func TestPinnedFile(t *testing.T) {
+	hashes := map[string]string{"b": strings.Repeat("1", 64), "a": strings.Repeat("2", 64)}
+	text := FormatPinned("abc123", hashes)
+	got, err := ParsePinned(text)
+	if err != nil || !reflect.DeepEqual(got, hashes) {
+		t.Errorf("ParsePinned(FormatPinned) = %v, %v\n%s", got, err, text)
+	}
+	if _, err := ParsePinned("a deadbeef\n"); err == nil {
+		t.Error("a short hash parsed")
+	}
+}
+
+// TeamHash covers the files the server embeds and nothing else.
+func TestTeamHash(t *testing.T) {
+	l := library("a")
+	want, _ := TeamHash(l, "a")
+	l["a/source.txt"] = &fstest.MapFile{Data: []byte("not scored")}
+	l["a/notes/build.txt"] = &fstest.MapFile{Data: []byte("not embedded")}
+	if got, _ := TeamHash(l, "a"); got != want {
+		t.Error("a file the server does not embed changed the hash")
+	}
+	for _, name := range []string{"a/build.txt", "a/alt/x/team.yaml"} {
+		l := library("a")
+		l[name] = &fstest.MapFile{Data: []byte("x")}
+		if got, _ := TeamHash(l, "a"); got == want {
+			t.Errorf("%s did not change the hash", name)
+		}
+	}
+	if _, err := TeamHash(l, "none"); err == nil {
+		t.Error("a team without files hashed")
 	}
 }

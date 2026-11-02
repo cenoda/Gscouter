@@ -12,6 +12,7 @@ import (
 	"testing"
 
 	"github.com/cenoda/gscouter/internal/engine"
+	"github.com/cenoda/gscouter/teams"
 )
 
 // testEngine is an engine on the stand-in module (internal/engine's
@@ -24,16 +25,21 @@ func testEngine(t *testing.T, verified map[string]bool, approved ...string) *eng
 		t.Fatal(err)
 	}
 	sum := sha256.Sum256(mod)
-	var teams []string
+	var entries []string
 	for id, v := range verified {
-		teams = append(teams, fmt.Sprintf("%q: {\"verified\": %v}", id, v))
+		entries = append(entries, fmt.Sprintf("%q: {\"verified\": %v}", id, v))
 	}
-	manifest := fmt.Sprintf(`{"engine": {"commit": "test", "wasm_sha256": %q}, "teams": {%s}}`, hex.EncodeToString(sum[:]), strings.Join(teams, ","))
+	manifest := fmt.Sprintf(`{"engine": {"commit": "test", "wasm_sha256": %q}, "teams": {%s}}`, hex.EncodeToString(sum[:]), strings.Join(entries, ","))
 	var list []engine.Approval
+	pinned := map[string]string{}
 	for _, id := range approved {
 		list = append(list, engine.Approval{Team: id, Date: "2026-11-02"})
+		// The library as it is; "other" is not in it.
+		if h, err := engine.TeamHash(teams.FS, id); err == nil {
+			pinned[id] = h
+		}
 	}
-	e, _, err := engine.New(mod, []byte(manifest), list)
+	e, _, err := engine.New(mod, []byte(manifest), pinned, teams.FS, list)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -66,6 +72,20 @@ func TestEngineRouting(t *testing.T) {
 			t.Errorf("%s: Engine = %v, want %v", name, got, c.want)
 		}
 	}
+	// A team whose library files changed since the release verified it
+	// stays on gcsim.
+	mod, _ := os.ReadFile("../engine/testdata/fake.wasm")
+	sum := sha256.Sum256(mod)
+	manifest := fmt.Sprintf(`{"engine": {"wasm_sha256": %q}, "gscouter_commit": "old", "teams": {%q: {"verified": true}}}`, hex.EncodeToString(sum[:]), id)
+	e, skipped, err := engine.New(mod, []byte(manifest), map[string]string{id: strings.Repeat("0", 64)}, teams.FS, []engine.Approval{{Team: id, Date: "2026-11-02"}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	srv.SetEngine(e)
+	if srv.prepare(ctx, english, hutaoSel, nil).Engine || len(skipped) != 1 || !strings.Contains(skipped[0], "changed since Gscouter old") {
+		t.Errorf("a changed team runs on the engine (skipped %v)", skipped)
+	}
+
 	// The player's own rotation stays on gcsim, with the library's
 	// score beside it.
 	srv.SetEngine(testEngine(t, map[string]bool{id: true}, id))

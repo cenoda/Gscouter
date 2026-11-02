@@ -5,9 +5,12 @@ package engine
 import (
 	"embed"
 	"errors"
+	"fmt"
 	"io/fs"
 	"os"
 	"path"
+
+	"github.com/cenoda/gscouter/teams"
 )
 
 // The approved list and the pinned release (release/README.md), built
@@ -24,8 +27,8 @@ func Release() (e *Engine, skipped []string, err error) {
 	return load(files, "release")
 }
 
-// ReleaseDir is Release from dir, which holds approved.txt, gse.wasm and
-// manifest.json, for trying a release before pinning it.
+// ReleaseDir is Release from dir, which holds approved.txt, gse.wasm,
+// manifest.json and teams.txt, for trying a release before pinning it.
 func ReleaseDir(dir string) (e *Engine, skipped []string, err error) {
 	return load(os.DirFS(dir), ".")
 }
@@ -50,5 +53,13 @@ func load(fsys fs.FS, release string) (e *Engine, skipped []string, err error) {
 	if err != nil {
 		return nil, nil, err
 	}
-	return New(module, manifest, list)
+	pinnedText, err := fs.ReadFile(fsys, path.Join(release, "teams.txt"))
+	if err != nil {
+		return nil, nil, fmt.Errorf("%w: pin a release with cmd/pinengine", err)
+	}
+	pinned, err := ParsePinned(string(pinnedText))
+	if err != nil {
+		return nil, nil, err
+	}
+	return New(module, manifest, pinned, teams.FS, list)
 }

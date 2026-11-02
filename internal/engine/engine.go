@@ -3,8 +3,9 @@
 // runs its WebAssembly module on the server (wazero) as the browser's
 // helper workers do (docs/engine.md).
 //
-// A library team runs on the engine when it is both verified in the
-// engine release's manifest (release/manifest.json) and on the owner's
+// A library team runs on the engine when it is verified in the engine
+// release's manifest (release/manifest.json), its library files are those
+// the release verified (release/teams.txt), and it is on the owner's
 // approved list (approved.txt). Everything else runs on gcsim, as does a
 // config the engine refuses.
 package engine
@@ -15,6 +16,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"io/fs"
 	"sort"
 	"strings"
 	"time"
@@ -80,9 +82,11 @@ type Engine struct {
 }
 
 // New checks module against manifest and returns the engine with the
-// teams that are both verified in manifest and approved. skipped lists
-// the approved teams it leaves on gcsim, and why.
-func New(module, manifest []byte, approved []Approval) (e *Engine, skipped []string, err error) {
+// approved teams that manifest verifies and whose files in library (laid
+// out as teams/) hash as pinned says they did at the manifest's Gscouter
+// commit (TeamHash). skipped lists the approved teams it leaves on gcsim,
+// and why. Only the approved teams are hashed.
+func New(module, manifest []byte, pinned map[string]string, library fs.FS, approved []Approval) (e *Engine, skipped []string, err error) {
 	var m Manifest
 	if err := json.Unmarshal(manifest, &m); err != nil {
 		return nil, nil, fmt.Errorf("manifest: %w", err)
@@ -99,8 +103,17 @@ func New(module, manifest []byte, approved []Approval) (e *Engine, skipped []str
 			skipped = append(skipped, a.Team+": not in the manifest")
 		case !t.Verified:
 			skipped = append(skipped, a.Team+": not verified")
+		case pinned[a.Team] == "":
+			skipped = append(skipped, a.Team+": no pinned library files (release/teams.txt)")
 		default:
-			e.teams[a.Team] = true
+			switch h, err := TeamHash(library, a.Team); {
+			case err != nil:
+				skipped = append(skipped, a.Team+": "+err.Error())
+			case h != pinned[a.Team]:
+				skipped = append(skipped, fmt.Sprintf("%s: teams/%s changed since Gscouter %s, which the release verified", a.Team, a.Team, m.Gscouter))
+			default:
+				e.teams[a.Team] = true
+			}
 		}
 	}
 	e.runner = newRunner(e)

@@ -7,6 +7,10 @@ one `engine-release` artifact, from a manual run of gscouter-engine's
 - `gse.wasm`: the WebAssembly module (`gse_wasm.wasm` in the artifact).
 - `manifest.json`: the teams verified on that module, which names it by its
   SHA-256 (`engine.wasm_sha256`).
+- `teams.txt`: the hash of each verified team's library files at the
+  manifest's `gscouter_commit`. A team whose files differ runs on gcsim.
+
+`go run ./cmd/pinengine -from <artifact dir>` writes all three.
 
 Both are embedded in the server (`internal/engine`). Without them the
 engine is off and every team runs on gcsim. A module whose SHA-256 is not
