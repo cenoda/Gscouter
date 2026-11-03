@@ -68,7 +68,7 @@ The problems that a tier by character DPS cannot handle without exceptions (owne
 4. **Team grades**: sort the team DPS values and break them where the gaps are large (natural breaks) instead of at fixed cuts, never separating teams whose difference is below what matters (about 1–2%, and the simulation's noise).
 5. **Free-rider check**: for each member of each team, if the library has a team that differs only in that member and is stronger (beyond the same margin), the member is not credited with that team.
 6. **Character grade per archetype**: the best grade among the teams of that archetype the character is credited with.
-7. **Tier**: each character@constellation's count of archetypes per grade, sorted by the count in the highest grade, then the next.
+7. **Tier**: each character@constellation's count of archetypes per grade, sorted by the count in the highest grade, then the next. The tier page shows only these counts per grade (owner, 2026-11-03); everything else is on a character's detail.
 
 ### 5.2 Example
 
@@ -94,7 +94,7 @@ Escoffier C0     2   1   3    top only in a few teams
 
 - **Double carry and sub-DPS**: the grade is the team's, so two damage dealers splitting a team's damage both get its grade.
 - **Supports** get the grade of the teams they are the best choice in, and their count of archetypes shows their flexibility.
-- **Free riders** are removed by step 5, a comparison of library scores, not an exception.
+- **Free riders** are removed by step 5, a comparison of library scores, not an exception. Where the library has no team differing in that member alone, a free rider keeps the team's grade; the owner judges such pairs common enough (2026-11-03), and the tier improves as the library fills.
 - **Ayato and Escoffier** differ in their counts per grade: nothing is summed or averaged, so the peak is never diluted. Breadth counts against the common grade boundaries, not the character's own peak (counted against its own peak, a character weak everywhere would look the most flexible).
 - **The unit is character@constellation**, so a C2 Cyno and a C0 Odette stand in one row with a constellation badge. The selector sets each character's default constellation; the visitor's own constellations change only their badges. Changing the selector shows the precomputed results for that constellation (Cyno rises to S in Stellar-Conduct teams at C1).
 - **One grade per archetype, never averaged over archetypes**: averaged, Cyno (S in Stellar-Conduct teams, B or lower elsewhere at C0) would get an A that draws "why?" from both sides.
@@ -119,9 +119,7 @@ On a character's detail, its share of a team can be shown: the Shapley value ove
 
 ## 7. Open questions
 
-1. **One-member variants in the library.** Step 5 can only remove a free rider when the library has a team differing in that member alone; without one, a free rider keeps the team's grade. How many such pairs the library has is to be counted. The tier improves as the library fills.
-2. **Archetypes**: the library's teams must be classified into archetypes: who names them, from what.
-3. **Cost**: every library team at 7 constellations with the roll budget, precomputed. The free-rider check compares existing scores and needs no simulation. Shapley shares (§5.4), if shown, add 15 subsets per team, and need a rule to remove members from a rotation (swap timings and buff order can break; whether the fillers, `docs/fillers.md`, can fill the freed time is to be checked).
-4. **Weapons** (§4): which weapon each entry uses, or a weapon axis. Proposed so far, not decided: a second selector (free / 4★ / 5★ R1), the weapon in each class picked by team DPS on the whole team; the refinement of gacha 4★ weapons; whether the visitor's own weapons count (proposed: no, they are build).
-5. **How the counts per grade are shown** on the tier page.
-6. **Teammates' constellations** when a team is simulated for an entry: the selector's, the visitor's, or a fixed one.
+1. **Archetypes**: the library's teams must be classified into archetypes: who names them, from what.
+2. **Cost**: every library team at 7 constellations with the roll budget, precomputed. The free-rider check compares existing scores and needs no simulation. Shapley shares (§5.4), if shown, add 15 subsets per team, and need a rule to remove members from a rotation (swap timings and buff order can break; whether the fillers, `docs/fillers.md`, can fill the freed time is to be checked).
+3. **Weapons** (§4): which weapon each entry uses, or a weapon axis. Proposed so far, not decided: a second selector (free / 4★ / 5★ R1), the weapon in each class picked by team DPS on the whole team; the refinement of gacha 4★ weapons; whether the visitor's own weapons count (proposed: no, they are build).
+4. **Teammates' constellations** when a team is simulated for an entry: the selector's, the visitor's, or a fixed one.
