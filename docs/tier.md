@@ -56,53 +56,72 @@ A Korean Genshin guide site. Checked 2026-11-03; its arca.live introduction and 
 - Artifacts: a fixed roll budget, not fixed stat values, as in the KQM Standards (§2.2). Each character in each team gets its best main stats and its 40 rolls distributed as well as possible, so an ATK scaler gets ATK%, an HP scaler HP%, and crit is balanced for each. The artifact weights table (`docs/artifacts.md` §5) gives the DPS per roll and the right main stats per team and character; a greedy distribution from it, checked by a few simulations (the weights ignore diminishing returns, such as the crit ratio), would do. ER is one of the stats rolls can go to, since waits for energy cost score in the looped score.
 - Weapons: not discussed yet (§7).
 
-## 5. A character's share of its team: Shapley values
+## 5. From library teams to a tier
 
-The problems that a tier by character DPS cannot handle without exceptions (owner, 2026-11-03):
+The problems that a tier by character DPS cannot handle without exceptions (owner, 2026-11-03): a C2 Cyno and a C0 Odette in one row; what groups characters into one tier; comparing, say, a C2 Citlali with a C0 Mavuika; Kamisato Ayato (among the lowest DPS, among the most flexible); telling supports from damage dealers; Escoffier (strong only under particular conditions); double-carry and sub-DPS teams. Handling each as an exception is not wanted, and the tier is one grade, not two (owner).
 
-- a C2 Cyno and a C0 Odette in one row;
-- what groups characters into one tier, and by what rule;
-- comparing, say, a C2 Citlali with a C0 Mavuika;
-- Kamisato Ayato: among the lowest DPS but among the most flexible, so he lands in B and the tier says nothing of why;
-- telling supports from damage dealers;
-- Escoffier: strong only under particular conditions.
+### 5.1 Steps
 
-Handling each as an exception is not wanted (owner). Proposal: one rule for every character.
+1. **Library teams**, each named with its archetype (Hu Tao vaporize, Stellar-Conduct, …).
+2. **Fixed conditions**: constellation from the selector (§3), artifacts by the roll budget (§4), weapon (open, §7), the usual enemy.
+3. **Simulate every team** under those conditions: one team DPS each. Precomputed for every constellation.
+4. **Team grades**: sort the team DPS values and break them where the gaps are large (natural breaks) instead of at fixed cuts, never separating teams whose difference is below what matters (about 1–2%, and the simulation's noise).
+5. **Free-rider check**: for each member of each team, if the library has a team that differs only in that member and is stronger (beyond the same margin), the member is not credited with that team.
+6. **Character grade per archetype**: the best grade among the teams of that archetype the character is credited with.
+7. **Tier**: each character@constellation's count of archetypes per grade, sorted by the count in the highest grade, then the next.
 
-### 5.1 The share
+### 5.2 Example
 
-- **The baseline is an empty slot, not another character.** A team can be played with fewer than four, so removing a member needs no choice of who replaces it.
-- **A member's share is its Shapley value** over the team's members: the team DPS of every subset of the four (15 non-empty subsets) is simulated, and each member gets its added DPS averaged over every order in which the four could join. Synergy (Hu Tao and Xingqiu's vaporize) is split between the members that make it, instead of counted whole for each.
-- The four shares add up to the team's DPS exactly, so team tiers and character tiers cannot contradict each other.
-- Damage dealers and supports are measured in one unit. Today's per-character DPS share counts only damage dealt, so supports get almost nothing; a battery's value shows up because the subsets without it burst late.
-- Support or dealer is not an input. If a label is wanted, it comes from the share of damage dealt beside the Shapley share.
-- A character that deals damage alone (a one-member team) gets that in its share. This is intended: dealing damage alone is value.
+Illustrative teams and numbers, not measured. Hu Tao vaporize at C0:
 
-### 5.2 Grades and breadth
+```
+Team 1  Hu Tao / Xingqiu / Yelan / Zhongli    52k  S
+Team 2  Hu Tao / Xingqiu / Yelan / Noelle     47k  A
+Team 3  Hu Tao / Xingqiu / Albedo / Zhongli   44k  A
+```
 
-- **The unit graded is character@constellation in an archetype.** A grade averaged over archetypes gives a grade no team has: Cyno is S in Stellar-Conduct teams and B or lower elsewhere at C0, much stronger from C1, and an A for him draws "why?" from both sides.
-- **Tier boundaries from the data**: break the sorted shares where the gaps are large (natural breaks) instead of fixed cuts, and never separate entries whose difference is below what matters (about 1–2%, and the simulation's noise).
-- **A character's entry is its count of archetypes per grade**, for example `Escoffier S 2 · A 1 · B 3`, `Ayato A 0 · B 12`. Its peak is the highest grade with a count; its breadth is the counts. Nothing is summed or averaged, so the peak is never diluted. Entries sort by the count in the highest grade first (an S in one archetype ranks above A in ten); that order is a rule that can change.
-- Breadth counts against the common grade boundaries, not against the character's own peak: counted against its own peak, a character weak everywhere would look the most flexible.
-- **Constellations**: shares are computed per constellation, so a C2 Cyno and a C0 Odette stand in one row with a constellation badge. The selector sets each character's default constellation; the visitor's own constellations change only their badges.
-- **Comparing two entries** (C2 Citlali and C0 Mavuika): their grade counts, their shares in the teams they share, and the teams each one makes possible.
-- **Irreplaceability**, the drop when a member is swapped for the best other character the library has for that team, is a different measure ("how much it would be missed"): two strong characters that substitute for each other both score low. It is not a tier input; it may be shown on the comparison.
+Noelle is not credited with team 2, since team 1 differs only in her slot and is stronger; Albedo likewise in team 3. No member of team 1 has a stronger one-member variant, so all four are credited. In this archetype Hu Tao, Xingqiu, Yelan and Zhongli are S; Noelle and Albedo have no grade. Over every archetype:
+
+```
+                 S   A   B
+Zhongli C0       6   4   2    best choice in many teams
+Hu Tao C0        2   1   0
+Ayato C0         0   0  12    low peak, credited in many teams
+Escoffier C0     2   1   3    top only in a few teams
+```
+
+### 5.3 How it answers the problems
+
+- **Double carry and sub-DPS**: the grade is the team's, so two damage dealers splitting a team's damage both get its grade.
+- **Supports** get the grade of the teams they are the best choice in, and their count of archetypes shows their flexibility.
+- **Free riders** are removed by step 5, a comparison of library scores, not an exception.
+- **Ayato and Escoffier** differ in their counts per grade: nothing is summed or averaged, so the peak is never diluted. Breadth counts against the common grade boundaries, not the character's own peak (counted against its own peak, a character weak everywhere would look the most flexible).
+- **The unit is character@constellation**, so a C2 Cyno and a C0 Odette stand in one row with a constellation badge. The selector sets each character's default constellation; the visitor's own constellations change only their badges. Changing the selector shows the precomputed results for that constellation (Cyno rises to S in Stellar-Conduct teams at C1).
+- **One grade per archetype, never averaged over archetypes**: averaged, Cyno (S in Stellar-Conduct teams, B or lower elsewhere at C0) would get an A that draws "why?" from both sides.
+- **Comparing two entries** (C2 Citlali and C0 Mavuika): their counts per grade, their grades in the archetypes they share, and the teams each is credited with.
+
+### 5.4 Shapley shares, for explanation only
+
+On a character's detail, its share of a team can be shown: the Shapley value over the team's members, with an empty slot as the baseline (the team DPS of every subset of the four, 15 non-empty ones, and each member's added DPS averaged over every order of joining). The four shares add up to the team DPS, and synergy is split between the members that make it. It is not a grade input: a damage dealer in a double-carry team gets about half the share of one in a hypercarry team with the same team DPS (alone 20k and 20k, together 45k: 22.5k each; against a dealer alone 30k with a support adding 50%: 37.5k and 7.5k), and supports' shares are small.
 
 ## 6. Rejected along the way
 
-- **One grade per character**, averaging its archetypes (§5.2).
+- **One grade per character**, averaging its archetypes (§5.3).
 - **A per-character default constellation** (4★ C6, 5★ C0): the C0 selection would then show 5★ at C0 beside 4★ at C6.
 - **A grade with the constellation where it changes** (`B → S (C1)`): most visitors would not read it and would take the site for a C0 tier list.
 - **Grouped constellation tabs** (C0 / C1–2 / C6): C1 and C2 differ too much for some characters (Cyno); C3 to C5 are needed too.
 - **The visitor's own builds in the tier**: that is the score pages' job (§1).
-- **Contribution above a replacement character** (as baseball's WAR): a member's value as team DPS minus the team's with a replacement-level character in its slot. Baseball's nine roles are separable, so a minor-league player can fill one; a Genshin team's four are not: no character replaces Hu Tao in her team, and nothing explains why her replacement would be Xiangling rather than Noelle (owner, 2026-11-03). Taking the best 4★ as the replacement also gives Bennett, a 4★, no value. It also needed a library team with the same other three members for every value.
-- **Breadth as the area of the value distribution**, or as a count against the character's own peak: the first averages the peak away, the second rewards being weak everywhere (§5.2).
+- **Contribution above a replacement character** (as baseball's WAR): a member's value as team DPS minus the team's with a replacement-level character in its slot. Baseball's nine roles are separable, so a minor-league player can fill one; a Genshin team's four are not: no character replaces Hu Tao in her team, and nothing explains why her replacement would be Xiangling rather than Noelle (owner, 2026-11-03). Taking the best 4★ as the replacement also gives Bennett, a 4★, no value.
+- **Breadth as the area of the value distribution**, or as a count against the character's own peak: the first averages the peak away, the second rewards being weak everywhere (§5.3).
+- **Grades from Shapley shares**: double-carry and sub-DPS characters, and supports, come out low (§5.4).
+- **Team grade without the free-rider check**: Noelle would get S from Hu Tao's team.
+- **Two grades per archetype** (team grade and share grade side by side): the tier is one grade (owner, 2026-11-03).
 
 ## 7. Open questions
 
-1. **Subset rotations.** Removing members from a rotation can break swap timings and buff order. Removal needs an automatic rule; whether the fillers (`docs/fillers.md`) can fill the freed time is to be checked.
-2. **Archetypes**: breadth counts archetypes, not teams (popular characters have more harvested teams), so the library's teams must be classified into archetypes: who names them, from what.
-3. **Cost**: 15 subsets per team, at 7 constellations, precomputed. Larger than the weights table (about 11.5 h of a 4-vCPU machine for 4,017 teams), though subsets with fewer members simulate faster.
-4. **Weapons** (§4): which weapon each entry uses, or a weapon axis.
-5. **How the grade counts are shown** on the tier page, and whether a chart (peak against breadth) is added.
-6. **Teammates' constellations** when an entry's share is measured: the selector's, the visitor's, or a fixed one.
+1. **One-member variants in the library.** Step 5 can only remove a free rider when the library has a team differing in that member alone; without one, a free rider keeps the team's grade. How many such pairs the library has is to be counted. The tier improves as the library fills.
+2. **Archetypes**: the library's teams must be classified into archetypes: who names them, from what.
+3. **Cost**: every library team at 7 constellations with the roll budget, precomputed. The free-rider check compares existing scores and needs no simulation. Shapley shares (§5.4), if shown, add 15 subsets per team, and need a rule to remove members from a rotation (swap timings and buff order can break; whether the fillers, `docs/fillers.md`, can fill the freed time is to be checked).
+4. **Weapons** (§4): which weapon each entry uses, or a weapon axis. Proposed so far, not decided: a second selector (free / 4★ / 5★ R1), the weapon in each class picked by team DPS on the whole team; the refinement of gacha 4★ weapons; whether the visitor's own weapons count (proposed: no, they are build).
+5. **How the counts per grade are shown** on the tier page.
+6. **Teammates' constellations** when a team is simulated for an entry: the selector's, the visitor's, or a fixed one.
