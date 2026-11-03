@@ -1,9 +1,12 @@
-FROM golang:1.27 AS build
+# The build stage runs on the builder's own platform and cross-compiles the
+# server for the target one (amd64 or arm64), so no emulation is needed.
+FROM --platform=$BUILDPLATFORM golang:1.27 AS build
+ARG TARGETOS TARGETARCH
 WORKDIR /src
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
-RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/server ./cmd/server
+RUN CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH go build -trimpath -ldflags="-s -w" -o /out/server ./cmd/server
 # The browser build, which calculates results in visitors' browsers
 # (internal/web/client.go), with the matching Go runtime glue.
 RUN mkdir -p /out/static \

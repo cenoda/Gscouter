@@ -11,9 +11,10 @@ Gscouter runs on one small Linux VM with Docker. Pushing to `main` builds `ghcr.
 
 ## First-time setup
 
-1. Create the VM (Azure: Ubuntu Server 24.04 LTS, size B2ats v2).
+1. Create the VM: Ubuntu 24.04, amd64 or arm64 (the image is built for both), at least 1 GB of memory.
    - Allow inbound ports 80 and 443 (and 22 if you want SSH).
-   - Under Advanced, paste `cloud-init.yaml` into "Custom data", with the `DOMAIN=` line changed to your domain.
+   - Paste `cloud-init.yaml`, with the `DOMAIN=` line changed to your domain, as the VM's user data (Azure: Advanced → "Custom data"; Oracle Cloud: "Show advanced options" → Management → "Paste cloud-init script").
+   - Oracle Cloud: VM.Standard.A1.Flex (Ampere, Always Free) fits. Open 80 and 443 in the subnet's security list (Networking → the VCN → Security Lists → Add Ingress Rules, source `0.0.0.0/0`, TCP); the VM's own firewall is opened by `cloud-init.yaml`. Oracle may reclaim an Always Free instance that stays idle for 7 days on a Free Tier account; a Pay As You Go account keeps it.
 2. Point the domain to the VM: add a DNS `A` record for the domain with the VM's public IP.
 3. Wait a few minutes, then open `https://<domain>`.
 
@@ -36,4 +37,4 @@ The VM pulls the image without credentials, so the `gscouter` package on GitHub 
 - Usage counts: `docker run --rm -v gscouter_links:/data busybox:1.37 cat /data/usage.json` shows, per UTC day, front page views (`pages`), result page views (`results`) and distinct UIDs looked up (`uids`). The file is saved every 10 minutes and on shutdown.
   - Without the VM: set `GSCOUTER_USAGE_TOKEN` in `/opt/gscouter/.env` to a long random string (`openssl rand -hex 32`) and force an update. Then `curl -H "Authorization: Bearer <token>" https://<domain>/healthz` returns the counts, today's included; without the token `/healthz` answers `ok` as before, so the counts have no address of their own. An agent session reads them the same way when the token is in its environment as `GSCOUTER_USAGE_TOKEN` and the domain is allowed in its network settings.
 
-Without SSH, use the Azure portal's "Run command" (RunShellScript) for these.
+Without SSH, use the provider's console for these (Azure: "Run command"; Oracle Cloud: the instance's Cloud Shell console connection).
