@@ -56,7 +56,7 @@ A Korean Genshin guide site. Checked 2026-11-03; its arca.live introduction and 
 - Artifacts: a fixed roll budget, not fixed stat values, as in the KQM Standards (§2.2). Each character in each team gets its best main stats and its 40 rolls distributed as well as possible, so an ATK scaler gets ATK%, an HP scaler HP%, and crit is balanced for each. The artifact weights table (`docs/artifacts.md` §5) gives the DPS per roll and the right main stats per team and character; a greedy distribution from it, checked by a few simulations (the weights ignore diminishing returns, such as the crit ratio), would do. ER is one of the stats rolls can go to, since waits for energy cost score in the looped score.
 - Weapons: not discussed yet (§7).
 
-## 5. Contribution above replacement
+## 5. A character's share of its team: Shapley values
 
 The problems that a tier by character DPS cannot handle without exceptions (owner, 2026-11-03):
 
@@ -67,30 +67,42 @@ The problems that a tier by character DPS cannot handle without exceptions (owne
 - telling supports from damage dealers;
 - Escoffier: strong only under particular conditions.
 
-Proposal: measure every character the same way, like baseball's WAR.
+Handling each as an exception is not wanted (owner). Proposal: one rule for every character.
 
-- **Value of a character in a team = team DPS with it − team DPS with that slot given to a replacement-level character** (for example the best 4★ that fits the slot). Damage dealers and supports are measured in the same unit, team DPS. A character has one value per team it is in; the distribution of those values describes it.
-- **Two axes, not one grade**: peak (its highest value) and breadth (how many archetypes it reaches, say, some share of its peak in). Escoffier is high peak, narrow breadth; Ayato low peak, wide breadth. Neither needs an exception; they sit in different places.
-- **Support or dealer** is not an input. If a label is wanted, it comes from the character's share of team damage.
-- **Entries are character@constellation.** Values are computed per constellation, so a C2 Cyno and a C0 Odette stand in one row with a constellation badge. The selector sets each character's default constellation; the visitor's own constellations change only their badges.
-- **Comparing two entries** (C2 Citlali and C0 Mavuika): their peak and breadth, their values in the teams they share, and the teams each one makes possible.
-- **Tier boundaries from the data**: break the sorted values where the gaps are large (natural breaks) instead of fixed cuts, and never separate entries whose difference is below what matters (about 1–2%, and the simulation's noise).
-- The unit of a tier is character × archetype, not character (§6): a single grade averaged over archetypes gives a grade no team has (Cyno: S in Stellar-Conduct teams, B or lower elsewhere at C0, much stronger from C1, and an A for him draws "why?" from both sides).
+### 5.1 The share
+
+- **The baseline is an empty slot, not another character.** A team can be played with fewer than four, so removing a member needs no choice of who replaces it.
+- **A member's share is its Shapley value** over the team's members: the team DPS of every subset of the four (15 non-empty subsets) is simulated, and each member gets its added DPS averaged over every order in which the four could join. Synergy (Hu Tao and Xingqiu's vaporize) is split between the members that make it, instead of counted whole for each.
+- The four shares add up to the team's DPS exactly, so team tiers and character tiers cannot contradict each other.
+- Damage dealers and supports are measured in one unit. Today's per-character DPS share counts only damage dealt, so supports get almost nothing; a battery's value shows up because the subsets without it burst late.
+- Support or dealer is not an input. If a label is wanted, it comes from the share of damage dealt beside the Shapley share.
+- A character that deals damage alone (a one-member team) gets that in its share. This is intended: dealing damage alone is value.
+
+### 5.2 Grades and breadth
+
+- **The unit graded is character@constellation in an archetype.** A grade averaged over archetypes gives a grade no team has: Cyno is S in Stellar-Conduct teams and B or lower elsewhere at C0, much stronger from C1, and an A for him draws "why?" from both sides.
+- **Tier boundaries from the data**: break the sorted shares where the gaps are large (natural breaks) instead of fixed cuts, and never separate entries whose difference is below what matters (about 1–2%, and the simulation's noise).
+- **A character's entry is its count of archetypes per grade**, for example `Escoffier S 2 · A 1 · B 3`, `Ayato A 0 · B 12`. Its peak is the highest grade with a count; its breadth is the counts. Nothing is summed or averaged, so the peak is never diluted. Entries sort by the count in the highest grade first (an S in one archetype ranks above A in ten); that order is a rule that can change.
+- Breadth counts against the common grade boundaries, not against the character's own peak: counted against its own peak, a character weak everywhere would look the most flexible.
+- **Constellations**: shares are computed per constellation, so a C2 Cyno and a C0 Odette stand in one row with a constellation badge. The selector sets each character's default constellation; the visitor's own constellations change only their badges.
+- **Comparing two entries** (C2 Citlali and C0 Mavuika): their grade counts, their shares in the teams they share, and the teams each one makes possible.
+- **Irreplaceability**, the drop when a member is swapped for the best other character the library has for that team, is a different measure ("how much it would be missed"): two strong characters that substitute for each other both score low. It is not a tier input; it may be shown on the comparison.
 
 ## 6. Rejected along the way
 
-- **One grade per character**, averaging its archetypes (§5).
+- **One grade per character**, averaging its archetypes (§5.2).
 - **A per-character default constellation** (4★ C6, 5★ C0): the C0 selection would then show 5★ at C0 beside 4★ at C6.
 - **A grade with the constellation where it changes** (`B → S (C1)`): most visitors would not read it and would take the site for a C0 tier list.
 - **Grouped constellation tabs** (C0 / C1–2 / C6): C1 and C2 differ too much for some characters (Cyno); C3 to C5 are needed too.
 - **The visitor's own builds in the tier**: that is the score pages' job (§1).
+- **Contribution above a replacement character** (as baseball's WAR): a member's value as team DPS minus the team's with a replacement-level character in its slot. Baseball's nine roles are separable, so a minor-league player can fill one; a Genshin team's four are not: no character replaces Hu Tao in her team, and nothing explains why her replacement would be Xiangling rather than Noelle (owner, 2026-11-03). Taking the best 4★ as the replacement also gives Bennett, a 4★, no value. It also needed a library team with the same other three members for every value.
+- **Breadth as the area of the value distribution**, or as a count against the character's own peak: the first averages the peak away, the second rewards being weak everywhere (§5.2).
 
 ## 7. Open questions
 
-1. **Replacement teams need rotations.** Swapping a character changes the rotation, so a value needs a library team with the same other three members. How many such pairs the library has, and so which values can be measured, is to be counted.
-2. **The replacement level per slot** (damage dealer, applier, buffer) must come from a rule on the data (for example the 4★ most often used in that slot), not by hand, or it becomes an exception again.
-3. **Breadth follows the library's bias**: popular characters have more harvested teams. Breadth has to count archetypes, not teams, so archetypes must be classified (who names them, from what).
-4. **Cost**: every member of every team replaced, at 7 constellations, precomputed. Larger than the weights table (about 11.5 h of a 4-vCPU machine for 4,017 teams).
-5. **Weapons**: which weapon each entry uses (signature R1, best 4★, free), or a weapon axis.
-6. **How the two axes are shown**: a chart of peak against breadth, a grade from peak with breadth beside it, or both.
-7. **Teammates' constellations** when an entry's value is measured: the selector's, the visitor's, or a fixed one.
+1. **Subset rotations.** Removing members from a rotation can break swap timings and buff order. Removal needs an automatic rule; whether the fillers (`docs/fillers.md`) can fill the freed time is to be checked.
+2. **Archetypes**: breadth counts archetypes, not teams (popular characters have more harvested teams), so the library's teams must be classified into archetypes: who names them, from what.
+3. **Cost**: 15 subsets per team, at 7 constellations, precomputed. Larger than the weights table (about 11.5 h of a 4-vCPU machine for 4,017 teams), though subsets with fewer members simulate faster.
+4. **Weapons** (§4): which weapon each entry uses, or a weapon axis.
+5. **How the grade counts are shown** on the tier page, and whether a chart (peak against breadth) is added.
+6. **Teammates' constellations** when an entry's share is measured: the selector's, the visitor's, or a fixed one.
