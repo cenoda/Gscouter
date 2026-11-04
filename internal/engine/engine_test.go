@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"encoding/hex"
+	"errors"
 	"fmt"
 	"io/fs"
 	"os"
@@ -218,9 +219,15 @@ func TestRefusedConfigRunsOnGcsim(t *testing.T) {
 	if got[0].DPS != want[0].DPS || got[0].DPS < 10 {
 		t.Errorf("refused config: DPS %v, gcsim's %v", got[0].DPS, want[0].DPS)
 	}
+	if !score.Aggregate(got, 0).GcsimFallback {
+		t.Error("refusal lost fallback signal")
+	}
+	if _, err := score.RunIterations(context.Background(), "# refuse\ninvalid config", opts); !errors.Is(err, score.ErrGcsimFallback) {
+		t.Errorf("failed gcsim retry lost fallback signal: %v", err)
+	}
 	// Accepted, the same config runs on the engine.
 	got, err = score.RunIterations(context.Background(), gcsimCfg, opts)
-	if err != nil || got[0].DPS != 1 {
+	if err != nil || got[0].DPS != 1 || got[0].GcsimFallback {
 		t.Errorf("accepted config: %v, %v; want the fake's DPS 1", got, err)
 	}
 }
@@ -338,14 +345,14 @@ func TestRuntimeFailureRunsOnGcsim(t *testing.T) {
 			t.Fatalf("%q: %v", marker, err)
 		}
 		for i := range got {
-			if got[i].DPS != want[i].DPS {
+			if got[i].DPS != want[i].DPS || !got[i].GcsimFallback {
 				t.Errorf("%q: iteration %d DPS %v, gcsim's %v", marker, i, got[i].DPS, want[i].DPS)
 			}
 		}
 	}
 	// After a trap, the engine still runs.
 	got, err := score.RunIterations(ctx, gcsimCfg, opts)
-	if err != nil || got[0].DPS != 1 {
+	if err != nil || got[0].DPS != 1 || got[0].GcsimFallback {
 		t.Errorf("after a trap: %v, %v; want the fake's DPS 1", got, err)
 	}
 }

@@ -1034,6 +1034,7 @@ pieces, "" when there are none to leave out. */}}
           queue = queue.filter(function (c) { return c.run !== m.run; });
           run.gen++;
           run.engine = false;
+          run.fallback = true;
           chunk(m.run, run, run.cfg, run.seed);
           show(run);
         } else if (m.error !== undefined) {
@@ -1041,7 +1042,7 @@ pieces, "" when there are none to leave out. */}}
           // drop its other slices and keep nothing.
           delete runs[m.run];
           queue = queue.filter(function (c) { return c.run !== m.run; });
-          lead.postMessage({type: "runResult", id: run.id, error: m.error});
+          lead.postMessage({type: "runResult", id: run.id, error: m.error, gcsimFallback: !!run.fallback});
         } else {
           run.parts[m.index] = m.result.slice(1, -1);
           run.finished += m.count;
@@ -1049,6 +1050,13 @@ pieces, "" when there are none to leave out. */}}
           if (--run.left === 0) {
             delete runs[m.run];
             var result = "[" + run.parts.filter(Boolean).join(",") + "]";
+            if (run.fallback) {
+              // Keep the fallback signal in cached iterations too, so the
+              // shared search policy can restart on gcsim after a reload.
+              var its = JSON.parse(result);
+              its.forEach(function (it) { it.gcsimFallback = true; });
+              result = JSON.stringify(its);
+            }
             keep(run.key, result);
             measure("run", run.start, {iterations: run.iterations, warmup: run.warmup});
             lead.postMessage({type: "runResult", id: run.id, result: result});
@@ -1074,7 +1082,7 @@ pieces, "" when there are none to leave out. */}}
           break;
         }
         var key = count++, size = Math.max(1, Math.ceil(m.iterations / (2 * helpers.length)));
-        var run = runs[key] = {id: m.id, key: cached, n: count, iterations: m.iterations, warmup: m.warmup, cfg: m.cfg, seed: m.seed, size: size, gen: 0, engine: onEngine, start: now(), finished: 0, left: 0, parts: []};
+        var run = runs[key] = {id: m.id, key: cached, n: count, iterations: m.iterations, warmup: m.warmup, cfg: m.cfg, seed: m.seed, size: size, gen: 0, engine: onEngine, fallback: !!m.engine && !onEngine, start: now(), finished: 0, left: 0, parts: []};
         chunk(key, run, m.cfg, m.seed);
         show(run);
         pump();
