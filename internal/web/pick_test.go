@@ -117,8 +117,8 @@ func TestEngineKeepsGcsimPick(t *testing.T) {
 // The setting travels in Job.Settings, and RunJob uses the same compute
 // policy as the server. A fallback at any stage restarts the gcsim search.
 func TestEngineOwnSearch(t *testing.T) {
-	if DefaultSettings.EngineOwnSearch {
-		t.Fatal("engine own search must default off")
+	if !DefaultSettings.EngineOwnSearch {
+		t.Fatal("engine own search must default on (the owner, 2026-11-04)")
 	}
 	srv := newTestSite(t)
 	ctx := context.Background()
@@ -179,5 +179,43 @@ func TestEngineOwnSearch(t *testing.T) {
 	sim, got := run(2, true)
 	if len(sim.gcsim) == 0 || sim.timelines[1] != gcsim.timelines[1] || got.Filler != baseline.Filler {
 		t.Error("failed gcsim retry did not restart search with gcsim's pick")
+	}
+}
+
+// An engine team's own search ranks its candidates on
+// engineExploreIterations, a gcsim team's on exploreIterations.
+func TestEngineOwnSearchRanksOn50(t *testing.T) {
+	srv := newTestSite(t)
+	ctx := context.Background()
+	sel := selection{UID: "800000002", Chars: hutaoSel.Chars}
+	set := srv.settings
+	set.Iterations, set.EngineOwnSearch = 60, true
+	iterationsOf := func(cfgs []string) map[string]int {
+		n := map[string]int{}
+		for _, c := range cfgs {
+			for _, f := range strings.Fields(c) {
+				if strings.HasPrefix(f, "iteration=") {
+					n[f]++
+				}
+			}
+		}
+		return n
+	}
+	tr := srv.prepare(ctx, english, sel, nil)
+	tr.Engine = true
+	eng := &noisySim{serverSim: serverSim{srv}}
+	compute(ctx, english, eng, set, &tr)
+	if tr.Problem != "" {
+		t.Fatal(tr.Problem)
+	}
+	got := iterationsOf(eng.engine)
+	if len(eng.gcsim) != 0 || got["iteration=50"] == 0 || got["iteration=10"] != 0 {
+		t.Errorf("engine team: engine runs by iterations %v, %d gcsim runs; want ranking on 50 and no gcsim", got, len(eng.gcsim))
+	}
+	g := srv.prepare(ctx, english, sel, nil)
+	gc := &noisySim{serverSim: serverSim{srv}}
+	compute(ctx, english, gc, set, &g)
+	if n := iterationsOf(gc.gcsim); n["iteration=10"] == 0 || n["iteration=50"] != 0 {
+		t.Errorf("gcsim team: runs by iterations %v; want ranking on 10", n)
 	}
 }
