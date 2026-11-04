@@ -2,7 +2,7 @@
 
 > Status: 4,447 teams approved on release e6c8a07 (owner, 2026-11-04) · Last updated: 2026-11-04
 
-How Gscouter scores teams on gscouter-engine, a Rust port of gcsim (https://github.com/cenoda/gscouter-engine), Phase 4 of its roadmap (`docs/roadmap.md` §3 there). The engine scores within 1% of gcsim, not to the bit, so a team moves to it only when the owner approves it. Everything else stays on gcsim.
+How Gscouter scores teams on gscouter-engine, a Rust port of gcsim (https://github.com/cenoda/gscouter-engine), Phase 4 of its roadmap (`docs/roadmap.md` §3 there). The engine's own status (content, the release's numbers) is its `README.md`; how it is checked against gcsim, its `docs/verification.md`. The engine scores within 1% of gcsim, not to the bit, so a team moves to it only when the owner approves it. Everything else stays on gcsim.
 
 ## 1. Which runs go to the engine
 
@@ -42,7 +42,7 @@ With the list empty, Gscouter behaves as before the engine: on 2026-11-02 the `s
 
 A release is the artifact `engine-release` of a manual run of gscouter-engine's `compare` workflow with `release` set to `true` on its `main`: the WebAssembly module and `manifest.json`, the teams verified on it, naming it by its SHA-256.
 
-- **Pinned in the repository**: the module and the manifest are committed as `internal/engine/release/gse.wasm` and `manifest.json` (about 1.5 MB per release), with `teams.txt`, the hash of each verified team's library files (`engine.TeamHash`) at the manifest's `gscouter_commit`, read from git by the pinning step. Artifacts of workflow runs expire and need a GitHub token to download, and the browser and the server must run the same bytes, so the build takes them from the repository rather than fetching them.
+- **Pinned in the repository**: the module and the manifest are committed as `internal/engine/release/gse.wasm` and `manifest.json` (about 4 MB per release: the module of `e6c8a07` is 4.0 MB), with `teams.txt`, the hash of each verified team's library files (`engine.TeamHash`) at the manifest's `gscouter_commit`, read from git by the pinning step. Artifacts of workflow runs expire and need a GitHub token to download, and the browser and the server must run the same bytes, so the build takes them from the repository rather than fetching them.
 - **Built into the server**: `go:embed`, as the team library is. Nothing changes in the Dockerfile, the deployment or `-static`: the image carries the engine because the server binary does. The browser build (`cmd/wasm`) does not embed it.
 - **Served to browsers** by the server at `/static/gse.wasm?v=<first 16 hex digits of its SHA-256>`, compressed once in memory, `immutable` like the browser build. A page downloads it only when one of its teams runs on the engine, and compiles it beside the browser build.
 - **Checked**: the server loads the release only when the module's SHA-256 is the manifest's; otherwise it logs why and runs every team on gcsim. Without the module, the engine is off. At start it hashes each approved team's embedded library files, a few small files per team, and a team whose hash is not `teams.txt`'s runs on gcsim: a verification holds for the rotations and builds it ran, and a change to them (a new rotation, a revalidation) waits for a release that verifies the new files.

@@ -1,6 +1,6 @@
 # Gscouter Roadmap
 
-> Last updated: 2026-11-01
+> Last updated: 2026-11-04
 
 The design document (`docs/design.md`) describes the MVP: a team DPS score. This roadmap is where the site goes after it, drawn from the owner's mind map.
 
@@ -48,7 +48,7 @@ Status: ✅ done · 🔶 partly done · ❌ not started.
 | Ring | Node | Depends on | Status | What it is |
 |---|---|---|---|---|
 | 0 | DPS | — | ✅ | Team DPS from the player's builds with a fixed rotation, versus view, calculated in the browser |
-| 1 | faster DPS | DPS | 🔶 | Shorter time to a score. **Paused (2026-10-28)**: about 11–14 s in the browser on 4 CPUs, most of it simulation, and what speeds up a simulation is done or measured as no gain (`docs/speed.md`): the CPUs are full, download, compile and worker start are under 1 s, iterations are down to 50 and filler ranking to 10. What is left only lowers the number of simulations or how long the wait feels: starting the filler search from the filler that won for the library build, a provisional score from fewer iterations, the score before the timelines (at most 0.7 s), profiling gcsim itself |
+| 1 | faster DPS | DPS | 🔶 | Shorter time to a score. **On gscouter-engine (2026-11-04)**: 4,447 library teams score on the Rust port of gcsim, and a page that searches for fillers takes about half the time (Hu Tao / Xingqiu / Zhongli / Yelan 8.7 s against 19.9 s on gcsim, `docs/engine.md` §5); teams with a chart, timelines and character details stay on gcsim. Before it, **paused for gcsim (2026-10-28)**: about 11–14 s in the browser on 4 CPUs, most of it simulation, and what speeds up a simulation is done or measured as no gain (`docs/speed.md`): the CPUs are full, download, compile and worker start are under 1 s, iterations are down to 50 and filler ranking to 10. What is left only lowers the number of simulations or how long the wait feels: starting the filler search from the filler that won for the library build, a provisional score from fewer iterations, the score before the timelines (at most 0.7 s), profiling gcsim itself |
 | 1 | Tier & Wiki | DPS | 🔶 | Team and character tiers from scores. `/teams` lists the library; there are no tiers yet |
 | 1 | Artifacts | DPS | ❌ | Each artifact kept piece by piece, shown as totals by default, checked for duplicates (`docs/artifacts.md`) |
 | 1 | Cycle | DPS | 🔶 | The rotation and its timeline are shown (design §4.5); nothing about it can be changed yet. One rotation scores every build, which under-scores higher constellations (`docs/cycle.md`) |

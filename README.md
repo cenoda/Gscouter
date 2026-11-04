@@ -8,7 +8,7 @@ Status: prototype. The website looks up a UID on Enka.Network, lets you pick fou
 
 - Go 1.27 or newer (with `GOTOOLCHAIN=auto`, an older Go downloads it automatically)
 
-Gscouter uses [gcsim](https://github.com/genshinsim/gcsim) as a Go library, pinned in `go.mod`.
+Gscouter uses [gcsim](https://github.com/genshinsim/gcsim) as a Go library, pinned in `go.mod`, and scores the library teams the owner approved on [gscouter-engine](https://github.com/cenoda/gscouter-engine), a Rust port of gcsim within 1% of it, whose WebAssembly module is pinned in `internal/engine/release` (`docs/engine.md`).
 
 ## Website
 

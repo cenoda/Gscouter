@@ -1,6 +1,6 @@
 # Faster DPS
 
-> Status: Paused (2026-10-28, `docs/roadmap.md`) · Last updated: 2026-11-02
+> Status: Paused for gcsim (2026-10-28, `docs/roadmap.md`); the gain came from gscouter-engine (§4), which scores 4,447 library teams since 2026-11-04 · Last updated: 2026-11-04
 
 Measurements of the time to a score, and what was tried to shorten it. The site calculates results in the visitor's browser (design §4.7); the library is validated on the command line (design §5.3). Both run the same simulations.
 
@@ -43,11 +43,11 @@ Rejected: ranking filler candidates on fewer iterations and running only the win
 
 ## 4. gscouter-engine
 
-_2026-11-02._ A team on gscouter-engine (`docs/engine.md`) has its simulations run by the helper workers on the engine's WebAssembly module instead of gcsim. Measured on one result page, Hu Tao / Xingqiu / Zhongli / Yelan with `internal/web`'s test showcase (Zhongli on Staff of Homa: the engine lacks Black Tassel), approved only locally with a manifest written for the test and the module built from gscouter-engine `2090c58` (not a release run). Headless Chromium on 4 CPUs, a fresh profile each time, the result opened directly (no front-page warm-up), 3 runs each, median (range):
+_2026-11-02._ (Since then the engine has every weapon and set, so Black Tassel below runs on it too, and the release of 2026-11-04 is pinned with its own filler search: current page times are in `docs/engine.md` §5.) A team on gscouter-engine (`docs/engine.md`) has its simulations run by the helper workers on the engine's WebAssembly module instead of gcsim. Measured on one result page, Hu Tao / Xingqiu / Zhongli / Yelan with `internal/web`'s test showcase (Zhongli on Staff of Homa: the engine lacks Black Tassel), approved only locally with a manifest written for the test and the module built from gscouter-engine `2090c58` (not a release run). Headless Chromium on 4 CPUs, a fresh profile each time, the result opened directly (no front-page warm-up), 3 runs each, median (range):
 
 | Stage | gcsim (before) | engine (after) |
 |---|---|---|
-| Download and compile, local (the engine's 1.5 MB module beside the browser build) | 0.36 s | 0.38 s |
+| Download and compile, local (the engine's module beside the browser build, 1.5 MB then) | 0.36 s | 0.38 s |
 | Starting the workers | 3.6 s (3.5–3.9) | 3.6 s (3.1–4.2) |
 | Score simulation (50 iterations) | 3.1 s (2.9–3.3) | 0.60 s (0.56–0.65) |
 | Filler search (runs of 10 iterations) | 7 runs, 2.0–2.3 s | 6 runs, 0.28–0.41 s |
