@@ -132,7 +132,11 @@ func await(p js.Value) (js.Value, error) {
 	catch := js.FuncOf(func(_ js.Value, args []js.Value) any {
 		// An Error's message, as the native search would have it.
 		if msg := args[0].Get("message"); msg.Type() == js.TypeString {
-			errs <- errors.New(msg.String())
+			err := errors.New(msg.String())
+			if fallback := args[0].Get("gcsimFallback"); fallback.Type() == js.TypeBoolean && fallback.Bool() {
+				err = errors.Join(err, score.ErrGcsimFallback)
+			}
+			errs <- err
 		} else {
 			errs <- errors.New(args[0].Call("toString").String())
 		}

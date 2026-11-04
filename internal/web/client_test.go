@@ -151,6 +151,14 @@ func TestIndexPrefetchesClient(t *testing.T) {
 // search, which goes on to score the next candidate in the browser and
 // keeps only the finished simulation (testdata/worker_protocol.js).
 func TestWorkerProtocol(t *testing.T) {
+	testWorkerProtocol(t, false)
+}
+
+func TestWorkerFallbackSignal(t *testing.T) {
+	testWorkerProtocol(t, true)
+}
+
+func testWorkerProtocol(t *testing.T, fallback bool) {
 	node, err := exec.LookPath("node")
 	if err != nil {
 		t.Skip("node not found")
@@ -170,19 +178,25 @@ func TestWorkerProtocol(t *testing.T) {
 	if err := os.WriteFile(page, []byte(body[i:i+end]), 0o644); err != nil {
 		t.Fatal(err)
 	}
-	b, err := exec.Command(node, filepath.Join("testdata", "worker_protocol.js"), filepath.Join("static", "worker.js"), page).Output()
+	mode := ""
+	if fallback {
+		mode = "fallback"
+	}
+	b, err := exec.Command(node, filepath.Join("testdata", "worker_protocol.js"), filepath.Join("static", "worker.js"), page, mode).Output()
 	if err != nil {
 		t.Fatalf("node: %v", err)
 	}
 	type lead struct {
 		Cfg                  string
 		Iterations, Distinct int
+		Fallbacks            int
 		Error                string
 	}
 	var out struct {
 		Fallback, Body *string
 		Lead           []lead
 		Saved, Errors  []string
+		Helper         []struct{ Cfg string }
 	}
 	if err := json.Unmarshal(b, &out); err != nil {
 		t.Fatalf("%v: %s", err, b)
@@ -191,13 +205,29 @@ func TestWorkerProtocol(t *testing.T) {
 		t.Errorf("fell back to the server (%q)", out.Errors)
 	}
 	want := []lead{{Cfg: "rejected", Error: "candidate rotation rejected"}, {Cfg: "accepted", Iterations: 10, Distinct: 10}}
+	if fallback {
+		want = []lead{{Cfg: "rejected", Error: "candidate rotation rejected", Fallbacks: 1}, {Cfg: "accepted", Iterations: 10, Distinct: 10, Fallbacks: 10}, {Cfg: "accepted", Iterations: 10, Distinct: 10, Fallbacks: 10}}
+		accepted := 0
+		for _, h := range out.Helper {
+			if h.Cfg == "accepted" {
+				accepted++
+			}
+		}
+		if accepted != 4 {
+			t.Errorf("gcsim ran %d chunks, want 4 (second request must use cache)", accepted)
+		}
+	}
 	if !reflect.DeepEqual(out.Lead, want) {
 		t.Errorf("the lead saw %+v, want %+v", out.Lead, want)
 	}
 	if out.Body == nil || *out.Body != "scored" {
 		t.Error("the page was not rendered")
 	}
-	if !reflect.DeepEqual(out.Saved, []string{"accepted"}) {
+	saved := []string{"accepted"}
+	if fallback {
+		saved = []string{"0 1 10\naccepted"}
+	}
+	if !reflect.DeepEqual(out.Saved, saved) {
 		t.Errorf("kept %q, want only the finished simulation", out.Saved)
 	}
 }

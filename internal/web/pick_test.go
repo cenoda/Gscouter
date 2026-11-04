@@ -2,6 +2,8 @@ package web
 
 import (
 	"context"
+	"encoding/json"
+	"errors"
 	"fmt"
 	"hash/fnv"
 	"strings"
@@ -17,8 +19,11 @@ import (
 // timelines.
 type noisySim struct {
 	serverSim
-	engine    []string
-	timelines []string
+	gcsim         []string
+	fallbackAt    int // engine call that falls back, zero for none
+	fallbackError bool
+	engine        []string
+	timelines     []string
 }
 
 func factor(cfg string) float64 {
@@ -29,11 +34,21 @@ func factor(cfg string) float64 {
 
 func (s *noisySim) Score(ctx context.Context, cfg string, warmup float64, iterations int, engine bool) (*score.Result, error) {
 	res, err := s.serverSim.Score(ctx, cfg, warmup, iterations, false)
+	if !engine {
+		s.gcsim = append(s.gcsim, cfg)
+	}
 	if err != nil || !engine {
 		return res, err
 	}
 	s.engine = append(s.engine, cfg)
 	out := *res
+	if len(s.engine) == s.fallbackAt {
+		if s.fallbackError {
+			return nil, errors.Join(errors.New("retry failed"), score.ErrGcsimFallback)
+		}
+		out.GcsimFallback = true
+		return &out, nil
+	}
 	out.DPS *= factor(cfg)
 	return &out, nil
 }
@@ -96,5 +111,111 @@ func TestEngineKeepsGcsimPick(t *testing.T) {
 	}
 	if searched == 0 {
 		t.Error("no showcase searched: the rule is not exercised")
+	}
+}
+
+// The setting travels in Job.Settings, and RunJob uses the same compute
+// policy as the server. A fallback at any stage restarts the gcsim search.
+func TestEngineOwnSearch(t *testing.T) {
+	if !DefaultSettings.EngineOwnSearch {
+		t.Fatal("engine own search must default on (the owner, 2026-11-04)")
+	}
+	srv := newTestSite(t)
+	ctx := context.Background()
+	sel := selection{UID: "800000002", Chars: hutaoSel.Chars}
+	baseline := srv.prepare(ctx, english, sel, nil)
+	gcsim := &noisySim{serverSim: serverSim{srv}}
+	compute(ctx, english, gcsim, srv.settings, &baseline)
+	if baseline.Problem != "" || len(gcsim.timelines) < 2 || len(gcsim.gcsim) <= 3 {
+		t.Fatalf("baseline did not search: %s, %d runs", baseline.Problem, len(gcsim.gcsim))
+	}
+	set := srv.settings
+	set.EngineOwnSearch = true
+	run := func(fallbackAt int, fallbackError bool) (*noisySim, teamResult) {
+		t.Helper()
+		tr := srv.prepare(ctx, english, sel, nil)
+		tr.Engine = true
+		// Round-trip the job as the browser receives it, including the setting.
+		data, err := json.Marshal(Job{Page: "score", Lang: "en", Settings: set, Teams: []teamResult{tr}})
+		if err != nil {
+			t.Fatal(err)
+		}
+		var job Job
+		if err := json.Unmarshal(data, &job); err != nil {
+			t.Fatal(err)
+		}
+		if !job.Settings.EngineOwnSearch {
+			t.Fatal("job lost setting")
+		}
+		sim := &noisySim{serverSim: serverSim{srv}, fallbackAt: fallbackAt, fallbackError: fallbackError}
+		if _, _, err := RunJob(ctx, job, sim); err != nil {
+			t.Fatal(err)
+		}
+		got := job.Teams[0]
+		if got.Problem != "" || len(sim.timelines) < 2 {
+			t.Fatalf("compute: %s", got.Problem)
+		}
+		return sim, got
+	}
+	own, _ := run(0, false)
+	if len(own.engine) <= 3 {
+		t.Fatalf("engine did not finish search: %d runs", len(own.engine))
+	}
+	if len(own.gcsim) != 0 {
+		t.Fatalf("own search ran %d gcsim scores", len(own.gcsim))
+	}
+	// First run, a ranked filler, and the final search run (before one pass).
+	for _, at := range []int{1, 2, len(own.engine) - 1} {
+		t.Run(fmt.Sprintf("fallback-at-%d", at), func(t *testing.T) {
+			sim, got := run(at, false)
+			if len(sim.gcsim) != len(gcsim.gcsim)-1 { // one pass still requests the engine
+				t.Errorf("fallback ran %d gcsim scores, want full search's %d", len(sim.gcsim), len(gcsim.gcsim)-1)
+			}
+			if sim.timelines[1] != gcsim.timelines[1] || got.Rotation != baseline.Rotation || got.Filler != baseline.Filler {
+				t.Error("fallback did not keep gcsim's pick")
+			}
+		})
+	}
+	sim, got := run(2, true)
+	if len(sim.gcsim) == 0 || sim.timelines[1] != gcsim.timelines[1] || got.Filler != baseline.Filler {
+		t.Error("failed gcsim retry did not restart search with gcsim's pick")
+	}
+}
+
+// An engine team's own search ranks its candidates on
+// engineExploreIterations, a gcsim team's on exploreIterations.
+func TestEngineOwnSearchRanksOn50(t *testing.T) {
+	srv := newTestSite(t)
+	ctx := context.Background()
+	sel := selection{UID: "800000002", Chars: hutaoSel.Chars}
+	set := srv.settings
+	set.Iterations, set.EngineOwnSearch = 60, true
+	iterationsOf := func(cfgs []string) map[string]int {
+		n := map[string]int{}
+		for _, c := range cfgs {
+			for _, f := range strings.Fields(c) {
+				if strings.HasPrefix(f, "iteration=") {
+					n[f]++
+				}
+			}
+		}
+		return n
+	}
+	tr := srv.prepare(ctx, english, sel, nil)
+	tr.Engine = true
+	eng := &noisySim{serverSim: serverSim{srv}}
+	compute(ctx, english, eng, set, &tr)
+	if tr.Problem != "" {
+		t.Fatal(tr.Problem)
+	}
+	got := iterationsOf(eng.engine)
+	if len(eng.gcsim) != 0 || got["iteration=50"] == 0 || got["iteration=10"] != 0 {
+		t.Errorf("engine team: engine runs by iterations %v, %d gcsim runs; want ranking on 50 and no gcsim", got, len(eng.gcsim))
+	}
+	g := srv.prepare(ctx, english, sel, nil)
+	gc := &noisySim{serverSim: serverSim{srv}}
+	compute(ctx, english, gc, set, &g)
+	if n := iterationsOf(gc.gcsim); n["iteration=10"] == 0 || n["iteration=50"] != 0 {
+		t.Errorf("gcsim team: runs by iterations %v; want ranking on 10", n)
 	}
 }

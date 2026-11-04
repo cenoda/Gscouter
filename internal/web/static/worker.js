@@ -91,7 +91,11 @@ self.onmessage = function (e) {
     case "runResult":
       var w = waiting[m.id];
       delete waiting[m.id];
-      if (m.error !== undefined) w.reject(new Error(m.error));
+      if (m.error !== undefined) {
+        var err = new Error(m.error);
+        err.gcsimFallback = !!m.gcsimFallback;
+        w.reject(err);
+      }
       else w.resolve(m.result);
       break;
     }
