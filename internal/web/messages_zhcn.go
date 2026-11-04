@@ -321,7 +321,7 @@ func init() {
 		"about.delete":          `如需删除短链接，可通过每个页面底部的留言表单提出。长链接本身就包含同样的信息，所以持有它的人仍可使用。`,
 		"about.verify":          `以上内容都可以自行核实：网站的全部源代码公开在 <a href="https://github.com/cenoda/Gscouter">GitHub</a> 上，浏览器的开发者工具也能显示页面发出的每一个请求。`,
 		"about.scores_h":        "关于分数",
-		"about.scores":          `分数是固定条件下的 gcsim 模拟，并非游戏内的实测值。可能有偏差，并会随引擎或轮转更新而变化：见<a href="/updates">更新记录</a>。`,
+		"about.scores":          `分数是固定条件下的模拟（gcsim，或对队伍库中的大多数队伍而言，与 gcsim 相差在 1% 以内的 gscouter-engine），并非游戏内的实测值。可能有偏差，并会随引擎或轮转更新而变化：见<a href="/updates">更新记录</a>。`,
 		"updates.title":         "更新记录",
 		"updates.lead":          "访客能注意到的变更，按时间倒序。条目为英文。",
 		"updates.scores":        "分数变化",

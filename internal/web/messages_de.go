@@ -321,7 +321,7 @@ func init() {
 		"about.delete":          `Die Entfernung eines Kurzlinks lässt sich über das Nachrichtenformular unten auf jeder Seite anfragen. Der lange Link enthält dieselben Daten selbst und funktioniert daher für alle weiter, die ihn haben.`,
 		"about.verify":          `All das lässt sich nachprüfen: Der gesamte Quellcode der Seite steht auf <a href="https://github.com/cenoda/Gscouter">GitHub</a>, und die Entwicklertools deines Browsers zeigen jede Anfrage, die eine Seite stellt.`,
 		"about.scores_h":        "Zu den Ergebnissen",
-		"about.scores":          `Ergebnisse sind gcsim-Simulationen unter festen Bedingungen, keine Messungen im Spiel. Sie können abweichen und ändern sich, wenn Engine oder Rotationen aktualisiert werden: siehe <a href="/updates">Neuigkeiten</a>.`,
+		"about.scores":          `Ergebnisse sind Simulationen unter festen Bedingungen, mit gcsim oder, für die meisten Bibliotheksteams, mit gscouter-engine, das innerhalb von 1 % mit gcsim übereinstimmt, keine Messungen im Spiel. Sie können abweichen und ändern sich, wenn Engine oder Rotationen aktualisiert werden: siehe <a href="/updates">Neuigkeiten</a>.`,
 		"updates.title":         "Neuigkeiten",
 		"updates.lead":          "Änderungen, die Besucher bemerken können, die neuesten zuerst. Die Einträge sind auf Englisch.",
 		"updates.scores":        "Ergebnisse geändert",
