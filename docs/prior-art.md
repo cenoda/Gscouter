@@ -1,8 +1,8 @@
-# Other Calculators
+# Prior Art
 
 > Status: Research · Last updated: 2026-11-04
 
-Other Genshin Impact damage calculators and simulators: what each does well, what Gscouter does not have yet, and where Gscouter is behind. The purpose is to learn from tools that solved problems before Gscouter did. It is not a ranking of those tools.
+Calculators and simulators Gscouter learns from: what each does well, what Gscouter does not have yet, and where Gscouter is behind. The purpose is to learn from tools that solved problems before Gscouter did. It is not a ranking of those tools.
 
 Method: web searches and the public pages and repositories linked in §7, read on 2026-11-04. Statements the sources do not support are marked *unverified*. Where a site could not be read, the document says so. Screenshots of other tools are not stored in this repository. Their content is described here in text and credited to its author.
 
