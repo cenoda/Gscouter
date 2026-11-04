@@ -10,7 +10,8 @@
 const fs = require("fs");
 const vm = require("vm");
 
-const [workerSrc, pageSrc] = process.argv.slice(2).map((p) => fs.readFileSync(p, "utf8"));
+const [workerSrc, pageSrc] = process.argv.slice(2, 4).map((p) => fs.readFileSync(p, "utf8"));
+const fallbackTest = process.argv[4] === "fallback";
 const out = {fallback: null, body: null, lead: [], helper: [], saved: [], errors: []};
 const later = (f) => setImmediate(f);
 const clone = (m) => structuredClone(m);
@@ -28,12 +29,16 @@ function engine(self, lead) {
     // The search: one candidate fails, the next must still be scored.
     async runJob() {
       if (!lead) throw new Error("job on a helper");
-      for (const cfg of ["rejected", "accepted"]) {
+      for (const cfg of (fallbackTest ? ["rejected", "accepted", "accepted"] : ["rejected", "accepted"])) {
         try {
-          const its = JSON.parse(await self.gscouterRun(cfg, 0, 1, 10));
-          out.lead.push({cfg, iterations: its.length, distinct: new Set(its.map((x) => x.i)).size});
+          const its = JSON.parse(await self.gscouterRun(cfg, 0, 1, 10, fallbackTest));
+          const result = {cfg, iterations: its.length, distinct: new Set(its.map((x) => x.i)).size};
+          if (fallbackTest) result.fallbacks = its.filter((x) => x.gcsimFallback).length;
+          out.lead.push(result);
         } catch (e) {
-          out.lead.push({cfg, error: e.message});
+          const result = {cfg, error: e.message};
+          if (fallbackTest) result.fallbacks = e.gcsimFallback ? 1 : 0;
+          out.lead.push(result);
         }
       }
       return {body: "scored", title: "t"};
@@ -49,7 +54,11 @@ class Worker {
       location: {search: ""},
       importScripts() {},
       postMessage: (m) => later(() => page.onmessage && page.onmessage({data: clone(m)})),
-      WebAssembly: {instantiate: () => Promise.resolve({})},
+      // An engine trap exercises the real worker's fallback protocol.
+      WebAssembly: {instantiate: () => Promise.resolve({exports: {
+        gse_alloc() { throw new Error("engine trap"); }
+      }})},
+      TextEncoder, TextDecoder,
       Go: class {
         constructor() { this.importObject = {}; }
         run() { engine(self, lead); }
@@ -74,9 +83,9 @@ const sessionStorage = {
   get length() { return store.size; },
 };
 const page = {
-  WebAssembly: {compileStreaming: () => Promise.resolve({})},
+  WebAssembly: {compileStreaming: () => Promise.resolve({}), compile: () => Promise.resolve({})},
   Worker, Promise, sessionStorage,
-  fetch: () => Promise.resolve({ok: true}),
+  fetch: () => Promise.resolve({ok: true, arrayBuffer: () => Promise.resolve(new ArrayBuffer(0))}),
   navigator: {hardwareConcurrency: 2},
   performance: {now: () => 0, measure() {}},
   location: {replace: (u) => { out.fallback = u; }},
@@ -88,6 +97,6 @@ const page = {
 };
 page.window = page;
 vm.createContext(page);
-vm.runInContext(pageSrc, page, {filename: "page.js"});
+vm.runInContext(fallbackTest ? pageSrc.replace('engine = ""', 'engine = "test-module"') : pageSrc, page, {filename: "page.js"});
 
 setTimeout(() => { console.log(JSON.stringify(out)); }, 500);

@@ -35,6 +35,7 @@ func main() {
 	usageFile := flag.String("usage", os.Getenv("GSCOUTER_USAGE"), "JSON file of daily usage counts; none turns them off")
 	useEngine := flag.Bool("engine", true, "score the approved teams on gscouter-engine (internal/engine); false runs every team on gcsim")
 	engineDir := flag.String("engine-dir", "", "directory with approved.txt, gse.wasm, manifest.json and teams.txt to use instead of the pinned release, to try one")
+	flag.BoolVar(&s.EngineOwnSearch, "engine-own-search", s.EngineOwnSearch, "let engine teams pick their own fillers (faster searching pages, but picks and scores may differ from gcsim)")
 	flag.Parse()
 
 	lib, err := library.LoadLibrary(teams.FS)

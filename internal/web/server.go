@@ -35,11 +35,12 @@ var templateFS embed.FS
 
 // Settings control the simulation cost per score.
 type Settings struct {
-	Iterations    int
-	Warmup        float64 // seconds excluded from the score
-	Duration      float64 // seconds of the looped fight
-	MaxConcurrent int     // simulations running at once
-	MaxQueue      int     // simulations waiting before requests are rejected
+	Iterations      int
+	Warmup          float64 // seconds excluded from the score
+	Duration        float64 // seconds of the looped fight
+	MaxConcurrent   int     // simulations running at once
+	MaxQueue        int     // simulations waiting before requests are rejected
+	EngineOwnSearch bool    `json:",omitempty"` // let engine teams pick their own fillers; default false
 }
 
 // DefaultSettings score the looped rotation over 150-450 s, after the
@@ -515,6 +516,7 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 	// searchRuns counts the search's runs; with stopOnEngine, a search on
 	// the engine stops at its second run (keepGcsimPick).
 	searchRuns, stopOnEngine := 0, false
+	searching := false
 	rankOn := func(onEngine bool, builds []string, alternative func(i int, err error)) func(i int, rotation string, rank bool) (*score.Result, error) {
 		return func(i int, rotation string, rank bool) (*score.Result, error) {
 			searchRuns++
@@ -529,6 +531,9 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 			res, err := sim.Score(ctx, cfg, set.Warmup, iterations, onEngine)
 			if err != nil && (errors.Is(err, errBusy) || ctx.Err() != nil) {
 				return nil, steady.Fatal(err)
+			}
+			if searching && set.EngineOwnSearch && onEngine && (errors.Is(err, score.ErrGcsimFallback) || res != nil && res.GcsimFallback) {
+				return nil, steady.Fatal(errSearchOnGcsim)
 			}
 			if err != nil && i > 0 {
 				alternative(i, err)
@@ -549,18 +554,13 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 		failed := func(i int, err error) {
 			slog.Warn("alternative rotation failed", "team", tr.Team.ID, "source", rotations[i].Sources, "err", err)
 		}
-		// On the engine, the page keeps the rotation and filler gcsim
-		// picks (the owner, 2026-11-04; docs/engine.md §5): a search that
-		// goes past the rotation as written stops on the engine at its
-		// second run and runs on gcsim, and gcsim's pick is scored on the
-		// engine. A search is mostly runs ranked on 10 iterations, whose
-		// noise differs between the two engines, so their picks differed
-		// for 1 build in 6. Stopping there, rather than after the engine's
-		// whole search, spares that search and changes no pick: it is the
-		// same condition, met at the same run.
-		searchRuns, stopOnEngine = 0, tr.Engine
+		// Both the server and the browser use this policy. By default,
+		// stop at the second engine run and keep gcsim's pick. Opting in
+		// lets the engine finish, unless a run falls back to gcsim.
+		searchRuns, stopOnEngine = 0, tr.Engine && !set.EngineOwnSearch
+		searching = true
 		best, out, err = steady.Best(runs, rank(builds, failed))
-		stopOnEngine = false
+		searching, stopOnEngine = false, false
 		if errors.Is(err, errSearchOnGcsim) {
 			best, out, err = keepGcsimPick(runs, builds, rankOn, failed)
 		}

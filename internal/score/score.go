@@ -68,11 +68,16 @@ type Engine interface {
 	RunIterations(ctx context.Context, cfg string, opts Options) ([]Iteration, error)
 }
 
+// ErrGcsimFallback marks a refused engine run whose gcsim retry also failed.
+var ErrGcsimFallback = errors.New("engine run fell back to gcsim")
+
 type Result struct {
-	DPS    float64 // mean team DPS over the scoring window
-	StdDev float64 // standard deviation of DPS across iterations
-	StdErr float64 // standard error of DPS
-	Window float64 // length of the scoring window in seconds
+	// GcsimFallback reports that an engine run was retried on gcsim.
+	GcsimFallback bool    `json:",omitempty"`
+	DPS           float64 // mean team DPS over the scoring window
+	StdDev        float64 // standard deviation of DPS across iterations
+	StdErr        float64 // standard error of DPS
+	Window        float64 // length of the scoring window in seconds
 	// Drift is (second-half DPS - first-half DPS) / first-half DPS over the
 	// scoring window. A team that has reached a steady state has a drift
 	// near 0. A window under a second has no two halves to compare and
@@ -97,13 +102,15 @@ type Character struct {
 // Iteration is the part of one gcsim run that the score needs. Iterations
 // run in separate places (browser workers) are merged by Aggregate.
 type Iteration struct {
-	DPS        float64              `json:"dps"`
-	FirstHalf  float64              `json:"first"`  // DPS in the first half of the window
-	SecondHalf float64              `json:"second"` // DPS in the second half of the window
-	CharDPS    []float64            `json:"chars"`
-	Waits      []map[string]float64 `json:"waits"` // seconds within the window, by reason
-	Frames     int                  `json:"frames"`
-	Names      []string             `json:"names"`
+	// GcsimFallback survives chunk transport and caches for search routing.
+	GcsimFallback bool                 `json:"gcsimFallback,omitempty"`
+	DPS           float64              `json:"dps"`
+	FirstHalf     float64              `json:"first"`  // DPS in the first half of the window
+	SecondHalf    float64              `json:"second"` // DPS in the second half of the window
+	CharDPS       []float64            `json:"chars"`
+	Waits         []map[string]float64 `json:"waits"` // seconds within the window, by reason
+	Frames        int                  `json:"frames"`
+	Names         []string             `json:"names"`
 }
 
 // Run simulates cfg and returns its steady-state DPS. The fight duration is
@@ -152,6 +159,14 @@ func RunIterations(ctx context.Context, cfg string, opts Options) ([]Iteration, 
 		// nothing of an imported file is (about.d_good).
 		slog.Warn("engine failed a config, running gcsim", "engine", e.ID()[:min(12, len(e.ID()))], "team", LabelOf(ctx), "err", err)
 		opts.Engine = nil
+		its, err = RunIterations(ctx, cfg, opts)
+		if err != nil {
+			return its, errors.Join(err, ErrGcsimFallback)
+		}
+		for i := range its {
+			its[i].GcsimFallback = true
+		}
+		return its, err
 	}
 	file := ast.NewFile()
 	simcfg, gcsl, err := parser.New(file, cfg).Parse()
@@ -539,6 +554,7 @@ func Aggregate(its []Iteration, warmup float64) *Result {
 
 	var mean, frames, firstHalf, secondHalf float64
 	for _, it := range its {
+		r.GcsimFallback = r.GcsimFallback || it.GcsimFallback
 		mean += it.DPS
 		frames += float64(it.Frames)
 		firstHalf += it.FirstHalf
