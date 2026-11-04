@@ -27,10 +27,12 @@ var updates = []update{
 		En: []string{
 			"Scores of 4,430 library teams are now calculated by gscouter-engine, a port of gcsim, in your browser and on the server. Each team’s library build was compared with gcsim and its score is within 1% of gcsim’s, so these teams’ scores move a little, by less than 1%. Results with your own rotation chart, timelines and character details are still calculated by gcsim, and so is any build that uses something the engine does not have yet.",
 			"For teams calculated by gscouter-engine, the engine now searches for fillers itself, and more thoroughly: it tries each candidate with the full 50 iterations instead of 10. Result pages that search for fillers are about twice as fast. In a few builds the result shows another filler than before, because the search found another one, usually a better one, and its score changes with it.",
+			"17 more library teams, Nefer’s teams and Hu Tao / Yelan / Ineffa / Flins, are now calculated by gscouter-engine, 4,447 in all. Every weapon and artifact set is now in the engine, so builds that use them, which fell back to gcsim before, now run on the engine for these teams, within 1% of gcsim. Builds with anything the engine still lacks keep running on gcsim.",
 		},
 		Ko: []string{
 			"라이브러리 파티 4,430개의 점수를 이제 gcsim을 옮긴 gscouter-engine이 브라우저와 서버에서 계산합니다. 파티마다 라이브러리 빌드를 gcsim과 비교했고 점수는 gcsim과 1% 이내로 같아서, 이 파티들의 점수가 1% 미만으로 조금 바뀝니다. 직접 만든 로테이션 차트, 타임라인, 캐릭터 상세, 그리고 엔진에 아직 없는 것을 쓰는 빌드는 여전히 gcsim이 계산합니다.",
 			"gscouter-engine이 계산하는 파티는 이제 엔진이 필러를 직접, 더 꼼꼼하게 찾습니다. 후보마다 10회가 아니라 50회 전체로 돌려 봅니다. 필러를 찾는 결과 페이지가 약 두 배 빨라졌습니다. 일부 빌드에서는 대개 더 나은 필러를 찾아 전과 다른 필러가 나오고, 점수도 그에 따라 바뀝니다.",
+			"라이브러리 파티 17개(네페르 파티들과 호두 / 야란 / 이네파 / 플린스)를 더해, 이제 4,447개 파티를 gscouter-engine이 계산합니다. 모든 무기와 성유물 세트가 엔진에 들어와서, 전에는 그 무기나 세트 때문에 gcsim으로 계산하던 빌드도 이 파티들에서는 엔진이 gcsim과 1% 이내로 계산합니다. 엔진에 아직 없는 것을 쓰는 빌드는 계속 gcsim이 계산합니다.",
 		},
 	},
 	{
