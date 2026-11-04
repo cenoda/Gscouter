@@ -4433,14 +4433,51 @@ zibai-linnea-xilonen-columbina 2026-11-04
 
 # Group B of engine c0a324820f6a (module 92819c5f92522409), Gscouter 004ce0dda881: the owner's yes of 2026-11-04,
 # one by one ("A,B 모두 승인."). Each holds for this module only.
-durin-nicole-xilonen-bennett 2026-11-04 release=92819c5f92522409
-flins-ineffa-aino-sucrose 2026-11-04 release=92819c5f92522409
-flins-ineffa-furina-sucrose 2026-11-04 release=92819c5f92522409
-flins-ineffa-mona-sucrose 2026-11-04 release=92819c5f92522409
-kaedeharakazuha-faruzan-bennett-xianyun 2026-11-04 release=92819c5f92522409
-kamisatoayato-charlotte-beidou-xingqiu 2026-11-04 release=92819c5f92522409
-klee-fischl-beidou-bennett 2026-11-04 release=92819c5f92522409
-klee-xingqiu-kirara-nahida 2026-11-04 release=92819c5f92522409
-nahida-kamisatoayato-travelerdendro-kukishinobu 2026-11-04 release=92819c5f92522409
-raidenshogun-alhaitham-bennett-nahida 2026-11-04 release=92819c5f92522409
-traveleranemo-furina-fischl-bennett 2026-11-04 release=92819c5f92522409
+
+# 2026-11-04, pinning engine e6c8a071b153a75c065b0448484bbfb1cb7bd6c0 (module fb96395ec9152413): dropped, each back to the owner
+# before it runs on the engine again:
+#   durin-nicole-xilonen-bennett (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
+#   flins-ineffa-aino-sucrose (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
+#   flins-ineffa-furina-sucrose (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
+#   flins-ineffa-mona-sucrose (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
+#   kaedeharakazuha-faruzan-bennett-xianyun (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
+#   kamisatoayato-charlotte-beidou-xingqiu (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
+#   klee-fischl-beidou-bennett (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
+#   klee-xingqiu-kirara-nahida (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
+#   nahida-kamisatoayato-travelerdendro-kukishinobu (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
+#   raidenshogun-alhaitham-bennett-nahida (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
+#   traveleranemo-furina-fischl-bennett (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
+
+# Group A of engine e6c8a071b153a75c065b0448484bbfb1cb7bd6c0 (module fb96395ec9152413), Gscouter e4d5796bc32fb4d8: the owner's yes of 2026-11-04.
+hutao-yelan-ineffa-flins 2026-11-04
+nefer-aino-collei-kukishinobu 2026-11-04
+nefer-aino-lauma-kukishinobu 2026-11-04
+nefer-aino-lauma-nahida 2026-11-04
+nefer-aino-lauma-sucrose 2026-11-04
+nefer-aino-lauma-zhongli 2026-11-04
+nefer-aino-nahida-kukishinobu 2026-11-04
+nefer-furina-lauma-ineffa 2026-11-04
+nefer-furina-lauma-kukishinobu 2026-11-04
+nefer-lauma-columbina-nahida 2026-11-04
+nefer-lauma-columbina-nilou 2026-11-04
+nefer-lauma-columbina-sucrose 2026-11-04
+nefer-lauma-nilou-nahida 2026-11-04
+nefer-lauma-nilou-sucrose 2026-11-04
+nefer-linnea-lauma-columbina 2026-11-04
+nefer-linnea-lauma-nilou 2026-11-04
+nefer-sangonomiyakokomi-lauma-nahida 2026-11-04
+
+# Group B of engine e6c8a071b153 (module fb96395ec9152413), Gscouter e4d5796bc32f: the owner's yes of 2026-11-04,
+# one by one ("둘다 승인"; "릴리즈 fb96395ec9152413(run 41814779013) 승인합니다: 새 A군 17개와 B군 11개 갱신 모두.").
+# Each holds for this module only.
+durin-nicole-xilonen-bennett 2026-11-04 release=fb96395ec9152413
+flins-ineffa-aino-sucrose 2026-11-04 release=fb96395ec9152413
+flins-ineffa-furina-sucrose 2026-11-04 release=fb96395ec9152413
+flins-ineffa-mona-sucrose 2026-11-04 release=fb96395ec9152413
+kaedeharakazuha-faruzan-bennett-xianyun 2026-11-04 release=fb96395ec9152413
+kamisatoayato-charlotte-beidou-xingqiu 2026-11-04 release=fb96395ec9152413
+klee-fischl-beidou-bennett 2026-11-04 release=fb96395ec9152413
+klee-xingqiu-kirara-nahida 2026-11-04 release=fb96395ec9152413
+nahida-kamisatoayato-travelerdendro-kukishinobu 2026-11-04 release=fb96395ec9152413
+raidenshogun-alhaitham-bennett-nahida 2026-11-04 release=fb96395ec9152413
+traveleranemo-furina-fischl-bennett 2026-11-04 release=fb96395ec9152413
