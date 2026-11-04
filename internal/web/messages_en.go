@@ -321,7 +321,7 @@ func init() {
 		"about.delete":          `Removing a short link can be requested with the message form at the bottom of any page. The long link holds the same data in itself, so it keeps working for anyone who has it.`,
 		"about.verify":          `You can check all of this: the site's full source code is on <a href="https://github.com/cenoda/Gscouter">GitHub</a>, and your browser's developer tools show every request a page makes.`,
 		"about.scores_h":        "About the scores",
-		"about.scores":          `Scores are gcsim simulations under fixed conditions, not measurements from the game. They can be off, and they change when the engine or rotations are updated: see the <a href="/updates">updates</a>.`,
+		"about.scores":          `Scores are simulations under fixed conditions, by gcsim or, for most library teams, by gscouter-engine, which matches gcsim within 1%, not measurements from the game. They can be off, and they change when the engine or rotations are updated: see the <a href="/updates">updates</a>.`,
 		"updates.title":         "Updates",
 		"updates.lead":          "Changes visitors can notice, newest first.",
 		"updates.scores":        "Scores changed",

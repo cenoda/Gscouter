@@ -321,7 +321,7 @@ func init() {
 		"about.delete":          `Penghapusan tautan pendek bisa diminta lewat formulir pesan di bagian bawah setiap halaman. Tautan panjang memuat data yang sama di dalamnya, jadi tetap berfungsi bagi siapa pun yang memilikinya.`,
 		"about.verify":          `Semua ini bisa diperiksa sendiri: seluruh kode sumber situs ada di <a href="https://github.com/cenoda/Gscouter">GitHub</a>, dan alat pengembang di browser menampilkan setiap permintaan yang dikirim halaman.`,
 		"about.scores_h":        "Tentang skor",
-		"about.scores":          `Skor adalah simulasi gcsim dalam kondisi tetap, bukan hasil pengukuran di dalam game. Skor bisa meleset dan berubah saat engine atau rotasi diperbarui: lihat <a href="/updates">pembaruan</a>.`,
+		"about.scores":          `Skor adalah simulasi dalam kondisi tetap, oleh gcsim atau, untuk sebagian besar tim pustaka, oleh gscouter-engine yang hasilnya berselisih paling banyak 1% dari gcsim, bukan hasil pengukuran di dalam game. Skor bisa meleset dan berubah saat engine atau rotasi diperbarui: lihat <a href="/updates">pembaruan</a>.`,
 		"updates.title":         "Pembaruan",
 		"updates.lead":          "Perubahan yang bisa disadari pengunjung, dari yang terbaru. Isinya dalam bahasa Inggris.",
 		"updates.scores":        "Skor berubah",

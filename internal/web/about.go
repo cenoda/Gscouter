@@ -22,6 +22,16 @@ type update struct {
 // footer shows the newest date.
 var updates = []update{
 	{
+		Date:   "2026-11-04",
+		Scores: true,
+		En: []string{
+			"Scores of 4,430 library teams are now calculated by gscouter-engine, a port of gcsim, in your browser and on the server. Each team’s library build was compared with gcsim and its score is within 1% of gcsim’s, so these teams’ scores move a little, by less than 1%. The rotation and fillers a result shows are the ones gcsim picks. Results with your own rotation chart, timelines and character details are still calculated by gcsim, and so is any build that uses something the engine does not have yet.",
+		},
+		Ko: []string{
+			"라이브러리 파티 4,430개의 점수를 이제 gcsim을 옮긴 gscouter-engine이 브라우저와 서버에서 계산합니다. 파티마다 라이브러리 빌드를 gcsim과 비교했고 점수는 gcsim과 1% 이내로 같아서, 이 파티들의 점수가 1% 미만으로 조금 바뀝니다. 결과에 나오는 로테이션과 필러는 gcsim이 고르는 것과 같습니다. 직접 만든 로테이션 차트, 타임라인, 캐릭터 상세, 그리고 엔진에 아직 없는 것을 쓰는 빌드는 여전히 gcsim이 계산합니다.",
+		},
+	},
+	{
 		Date: "2026-11-01",
 		En: []string{
 			"The page linked as “Privacy and data” in the footer (formerly “Our promises”) states its principles plainly and adds how to check them yourself: the site’s source code on GitHub, and your browser’s developer tools. The server’s error logs no longer hold the UID of a failed lookup.",

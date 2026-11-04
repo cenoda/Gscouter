@@ -1,6 +1,6 @@
 # gscouter-engine in Gscouter
 
-> Status: implemented, no team approved yet; the owner's rules for approving decided 2026-11-04 · Last updated: 2026-11-04
+> Status: 4,430 teams approved on release c0a3248 (owner, 2026-11-04) · Last updated: 2026-11-04
 
 How Gscouter scores teams on gscouter-engine, a Rust port of gcsim (https://github.com/cenoda/gscouter-engine), Phase 4 of its roadmap (`docs/roadmap.md` §3 there). The engine scores within 1% of gcsim, not to the bit, so a team moves to it only when the owner approves it. Everything else stays on gcsim.
 
@@ -65,10 +65,4 @@ Measured 2026-11-02 on this session's machine (4 CPUs), gscouter-engine's `confi
 
 ## 6. The `/updates` entry
 
-Required by the owner (2026-11-04) when teams move to the engine: one entry with the merge the owner approves, then one for each release that moves teams. It is written here, not in `internal/web/about.go`, until the owner approves the first release's teams; the numbers come from that release. Draft:
-
-- En: "Scores of {N} library teams are now calculated by gscouter-engine, a faster port of gcsim, in your browser and on the server. Each was compared with gcsim on its library build, its variants and the configs its result page runs, and its scores stay within 1% of gcsim's, but they move a little: within ±0.5% for most teams, up to 1% for the rest. Teams with your own rotation chart, timelines and character details are still calculated by gcsim. Result pages of these teams are faster."
-- Ko: "라이브러리 파티 {N}개의 점수를 이제 gcsim을 더 빠르게 옮긴 gscouter-engine이 브라우저와 서버에서 계산합니다. 각 파티는 라이브러리 빌드, 변형 빌드, 결과 페이지가 돌리는 설정에서 gcsim과 비교했고 점수는 gcsim과 1% 안에서 같지만, 조금 움직입니다: 대부분 ±0.5% 안, 나머지는 1%까지. 직접 만든 로테이션 차트, 타임라인, 캐릭터 상세는 여전히 gcsim이 계산합니다. 이 파티들의 결과 페이지가 더 빨리 뜹니다."
-- `Scores: true` (the entry's "Scores changed" mark).
-- `about.scores` ("Scores are gcsim simulations…") is changed with it, in every language: "Scores are simulations by gcsim, or for some library teams by gscouter-engine, which matches gcsim within 1%, under fixed conditions…".
-- "Faster" is said only once measured on the site's pages for the approved teams (`docs/speed.md`).
+Required by the owner (2026-11-04) when teams move to the engine, and written in `internal/web/about.go` (2026-11-04, `Scores` set): 4,430 library teams on gscouter-engine, within 1% of gcsim, with gcsim's picks of rotation and fillers; charts, timelines, character details and builds with content the engine lacks stay on gcsim. Each language's `about.scores` names the engine beside gcsim. Each later release that moves teams gets its own entry. It says nothing of speed: on the server a page that searches is slower than on gcsim, with gcsim's picks kept (§5), and in the browser it is 1.3–1.6 times faster only on teams whose search stops at the rotation as written (measured 2026-11-04 on 5 library teams).

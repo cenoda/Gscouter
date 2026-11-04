@@ -321,7 +321,7 @@ func init() {
 		"about.delete":          `Có thể yêu cầu xóa liên kết ngắn bằng biểu mẫu tin nhắn ở cuối mỗi trang. Liên kết dài tự chứa cùng dữ liệu nên vẫn hoạt động với bất kỳ ai có nó.`,
 		"about.verify":          `Tất cả điều này đều có thể tự kiểm chứng: toàn bộ mã nguồn của trang có trên <a href="https://github.com/cenoda/Gscouter">GitHub</a>, và công cụ dành cho nhà phát triển của trình duyệt hiển thị mọi yêu cầu mà trang gửi đi.`,
 		"about.scores_h":        "Về điểm số",
-		"about.scores":          `Điểm số là mô phỏng gcsim trong điều kiện cố định, không phải số đo trong game. Chúng có thể sai lệch và thay đổi khi engine hoặc vòng xoay được cập nhật: xem <a href="/updates">cập nhật</a>.`,
+		"about.scores":          `Điểm số là mô phỏng trong điều kiện cố định, bằng gcsim hoặc, với phần lớn đội trong thư viện, bằng gscouter-engine (khớp với gcsim trong phạm vi 1%), không phải số đo trong game. Chúng có thể sai lệch và thay đổi khi engine hoặc vòng xoay được cập nhật: xem <a href="/updates">cập nhật</a>.`,
 		"updates.title":         "Cập nhật",
 		"updates.lead":          "Những thay đổi người truy cập có thể nhận thấy, mới nhất trước. Nội dung bằng tiếng Anh.",
 		"updates.scores":        "Điểm thay đổi",
