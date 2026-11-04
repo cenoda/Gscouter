@@ -14,7 +14,7 @@ A team's simulations run on the engine when all of these hold, and on gcsim othe
 - its library files (`teams/<id>/`: `team.yaml`, `rotation.gcsl`, `build.txt`, and those of its alternatives) are the ones the release verified, at the manifest's Gscouter commit (§3);
 - it is on the owner's approved list, and its approval holds for this release (§2).
 
-The server decides it when it prepares a team (`teamResult.Engine`), and the job carries the decision to the browser, so both route alike. For such a team, every score simulation runs on the engine: the score, the filler and alternative ranking runs (`steady.Best`) and the one pass. Timelines, character details and the chart editor stay on gcsim, in Go.
+The server decides it when it prepares a team (`teamResult.Engine`), and the job carries the decision to the browser, so both route alike. For such a team, every score simulation runs on the engine: the score, the filler and alternative ranking runs (`steady.Best`) and the one pass, except that the page keeps gcsim's pick of rotation and filler (§5). Timelines, character details and the chart editor stay on gcsim, in Go.
 
 A config the engine refuses (one it lacks something for, such as a weapon, or a fight that fails on it) runs on gcsim, all of its iterations, so a run is never part one engine and part the other: on the server `score.RunIterations` runs gcsim instead; in the browser a helper reports the refusal and the page runs all of that run's chunks again on gcsim. Iteration `i` uses seed `1 + i` wherever it runs, and a chunk's result does not depend on how the run is split, so the browser and the server give the same result either way. The manifest's list of page configs the engine cannot run is not read: the engine refuses them itself.
 
@@ -56,7 +56,7 @@ Measured 2026-11-02 on this session's machine (4 CPUs), gscouter-engine's `confi
 
 - **Charts on approved teams** run on gcsim (§1), kept so for now (2026-11-02). The engine runs them when it has what they use, but no release verifies players' charts.
 - Decided 2026-11-02: a team whose library files changed since the manifest's Gscouter commit runs on gcsim (§3).
-- **Fillers** (owner, 2026-11-04): when a team moves to the engine, its page keeps the rotation and filler candidate gcsim picks, unless the engine's pick is clearly better (outside the 1% tie window). How is open (§6).
+- **Fillers: the page keeps gcsim's pick** (owner, 2026-11-04). The search (`steady.Best`) is mostly runs ranked on 10 iterations, whose noise differs between the engines: on 331 library builds that run on both (main 794a974, 2026-11-04) they picked another rotation or filler for 56, 40 of them within 1% of each other, and the page score moved by −1.7% to +3.4% on those 56. So `compute` (shared by the server and the browser's lead worker) runs the search on the engine first; when it went past the rotation as written (more than one run), it runs the search again on gcsim and scores gcsim's pick on the engine with the full iterations (`keepGcsimPick`). A team whose search stops at the rotation as written (about two thirds of library builds) runs on the engine alone. The engine's speed is then kept only for those; ranking on more iterations, so that both engines find the true best, is a follow-up.
 
 ## 6. The `/updates` entry
 
