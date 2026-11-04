@@ -41,9 +41,9 @@ type Manifest struct {
 // docs/phase4-approval.md); GroupWhy says why a team is in B.
 type ManifestTeam struct {
 	Verified bool `json:"verified"`
-	// VerifiedKinds are the kinds of build the team passed: every kind,
-	// or library alone in a library-only release (docs/engine.md §2),
-	// which Gscouter runs alike.
+	// VerifiedKinds are the kinds of build the team passed: library (and
+	// the probes), the whole verification (docs/engine.md §2), and any
+	// other kind its release judged.
 	VerifiedKinds []string `json:"verified_kinds"`
 	Group         string   `json:"group"`
 	GroupWhy      []string `json:"group_why"`
