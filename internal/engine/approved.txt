@@ -4433,14 +4433,17 @@ zibai-linnea-xilonen-columbina 2026-11-04
 
 # Group B of engine c0a324820f6a (module 92819c5f92522409), Gscouter 004ce0dda881: the owner's yes of 2026-11-04,
 # one by one ("A,B 모두 승인."). Each holds for this module only.
-durin-nicole-xilonen-bennett 2026-11-04 release=92819c5f92522409
-flins-ineffa-aino-sucrose 2026-11-04 release=92819c5f92522409
-flins-ineffa-furina-sucrose 2026-11-04 release=92819c5f92522409
-flins-ineffa-mona-sucrose 2026-11-04 release=92819c5f92522409
-kaedeharakazuha-faruzan-bennett-xianyun 2026-11-04 release=92819c5f92522409
-kamisatoayato-charlotte-beidou-xingqiu 2026-11-04 release=92819c5f92522409
-klee-fischl-beidou-bennett 2026-11-04 release=92819c5f92522409
-klee-xingqiu-kirara-nahida 2026-11-04 release=92819c5f92522409
-nahida-kamisatoayato-travelerdendro-kukishinobu 2026-11-04 release=92819c5f92522409
-raidenshogun-alhaitham-bennett-nahida 2026-11-04 release=92819c5f92522409
-traveleranemo-furina-fischl-bennett 2026-11-04 release=92819c5f92522409
+
+# 2026-11-04, pinning engine e6c8a071b153a75c065b0448484bbfb1cb7bd6c0 (module fb96395ec9152413): dropped, each back to the owner
+# before it runs on the engine again:
+#   durin-nicole-xilonen-bennett (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
+#   flins-ineffa-aino-sucrose (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
+#   flins-ineffa-furina-sucrose (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
+#   flins-ineffa-mona-sucrose (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
+#   kaedeharakazuha-faruzan-bennett-xianyun (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
+#   kamisatoayato-charlotte-beidou-xingqiu (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
+#   klee-fischl-beidou-bennett (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
+#   klee-xingqiu-kirara-nahida (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
+#   nahida-kamisatoayato-travelerdendro-kukishinobu (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
+#   raidenshogun-alhaitham-bennett-nahida (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
+#   traveleranemo-furina-fischl-bennett (approved 2026-11-04): approved from group B for module 92819c5f92522409 only
