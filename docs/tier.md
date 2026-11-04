@@ -1,6 +1,6 @@
 # Tier & Wiki
 
-> Status: Draft, under discussion (nothing here is decided) · Last updated: 2026-11-03
+> Status: Draft, under discussion (nothing here is decided) · Last updated: 2026-11-04
 
 Roadmap node Tier & Wiki (`docs/roadmap.md`): team and character tiers from scores. This document records the direction discussed with the owner on 2026-11-03 and the questions still open. Every point is a proposal until the owner decides it.
 
@@ -53,8 +53,30 @@ A Korean Genshin guide site. Checked 2026-11-03; its arca.live introduction and 
 
 ## 4. Artifacts and weapons
 
+### 4.1 Artifacts
+
 - Artifacts: a fixed roll budget, not fixed stat values, as in the KQM Standards (§2.2). Each character in each team gets its best main stats and its 40 rolls distributed as well as possible, so an ATK scaler gets ATK%, an HP scaler HP%, and crit is balanced for each. The artifact weights table (`docs/artifacts.md` §5) gives the DPS per roll and the right main stats per team and character; a greedy distribution from it, checked by a few simulations (the weights ignore diminishing returns, such as the crit ratio), would do. ER is one of the stats rolls can go to, since waits for energy cost score in the looped score.
-- Weapons: not discussed yet (§7).
+
+### 4.2 Weapons
+
+Players use one or two 5★ weapons and fill the rest with 4★ and 3★ weapons at mixed refinements, so neither every member at one rarity nor one refinement for all is realistic (owner, 2026-11-03).
+
+- **A recommended weapon list per character, written by the developer** as wiki content, as guides list weapons: a 5★ pick and a non-5★ pick, each with its refinement, and more than one pick where the character's role changes the weapon (Venti has three weapons for different jobs). It includes signature weapons the library lacks (Haran Geppaku Futsu, Ayato's, appears in no library team; the owner has it). Weapons that misbehave in gcsim's looped mode are left out or marked here (§4.3).
+- **A selector: 5★ weapons per team, N** (0, 1, 2; whether 0–4 is open). Which members hold them is decided by simulation: every way to give N members their 5★ pick (6 ways for N = 2) and every role pick is simulated, and the strongest team DPS wins. With 2–4 candidates per member this is an exhaustive comparison, not a greedy one, and can run enough iterations that weapon differences are not lost in noise. The criterion is team DPS, so a support gets a 5★ when that helps the team more.
+- **The visitor's own weapons are not reflected.** The showcase gives the weapons of the characters in it only, and weapons are build (§1).
+- **Cost** is left to the engine: gscouter-engine (the Rust port of gcsim) is to make these simulations cheap once complete.
+- The detail of a character shows the weapons each team used and that the list is the developer's choice, with the simulated comparison behind it.
+
+### 4.3 Weapon limits
+
+From a review of an earlier automatic-search proposal (2026-11-04; §6), the points that still apply:
+
+- **Rotations are written for the library's original weapons.** Weapons that change actions are undervalued on other characters: Sacrificial weapons reset a skill, but one library rotation reads `sacrificial-cd`; Favonius waits (`favonius-cd`, 824 reads) exist only for the original holder; Thrilling Tales of Dragon Slayers needs the swap order it was written for. 136 rotations branch on a weapon (`.furina.weapon == ...`).
+- **gcsim's looped (time-based) mode has no enemy HP and no hits on the player.** Wolf's Gravestone's "enemy below 30% HP" check reads 0/0, which is never above 0.3, so its party ATK buff triggers every 30 s (`internal/weapons/claymore/wolf/wolf.go:65`, `pkg/enemy/enemy.go:50-53` in gcsim; checked 2026-11-04). Weapons needing a kill or a hit taken never trigger, and stacks that a hit would remove are never lost. Weapon params with defaults unlike the library's (Sapwood Blade's `pickup_delay`, stacks params) need a rule when a weapon moves to another character. The list (§4.2) must be checked against this.
+- **Weapons and artifacts interact**: the roll budget is distributed from the weights table (`docs/artifacts.md` §5), measured with the original weapons; a different weapon changes the value of ER and the crit ratio, so rolls are distributed again after weapons are chosen, and fillers chosen with the original weapon can starve a team without its Favonius.
+- **Team buffs that do not stack** (two Thrilling Tales, the Millennial Movement weapons) and two copies of one 5★ in a team need a rule (proposed: no duplicate 5★ in a team).
+- **The free-rider check** compares teams whose weapon assignments can differ; it should compare with the shared members' weapons held fixed.
+- Shield and healing weapons are worth nothing in a single-target DPS tier, consistently with the rest of it.
 
 ## 5. From library teams to a tier
 
@@ -116,10 +138,13 @@ On a character's detail, its share of a team can be shown: the Shapley value ove
 - **Grades from Shapley shares**: double-carry and sub-DPS characters, and supports, come out low (§5.4).
 - **Team grade without the free-rider check**: Noelle would get S from Hu Tao's team.
 - **Two grades per archetype** (team grade and share grade side by side): the tier is one grade (owner, 2026-11-03).
+- **One weapon class for the whole team** (all crafted, all 4★, all 5★): players mix one or two 5★ with 4★ weapons (owner).
+- **Weapons searched automatically** from every weapon of the class the library used, refinement set by how the weapon is obtained (crafted, fishing and Starglitter R5, gacha 4★ R1, event and battle pass excluded), greedy 5★ assignment by team DPS. A review (2026-11-04) found: the library's weapons are 3% 5★ (557 of 18,262 slots) and lack many signatures (Haran Geppaku Futsu, Beacon of the Reed Sea, Jadefall's Splendor); no data says how a weapon is obtained; excluding the battle pass drops the most used weapons (Deathmatch, Serpent Spine) and 3★ weapons at R1 are absurd; 82% of the library's Favonius weapons are R3; Favonius and Sacrificial weapons draw extra random numbers, so short same-seed runs cannot separate weapons (about ±1.5% against 1–3% differences); greedy assignment misses pairs and duplicates non-stacking buffs; an estimated 190 hours of a 4-vCPU machine with gcsim.
+- **The library's own weapons**: costs nothing and matches the rotations, but leaves out signatures the library lacks (owner, 2026-11-04).
 
 ## 7. Open questions
 
 1. **Archetypes**: the library's teams must be classified into archetypes: who names them, from what.
 2. **Cost**: every library team at 7 constellations with the roll budget, precomputed. The free-rider check compares existing scores and needs no simulation. Shapley shares (§5.4), if shown, add 15 subsets per team, and need a rule to remove members from a rotation (swap timings and buff order can break; whether the fillers, `docs/fillers.md`, can fill the freed time is to be checked).
-3. **Weapons** (§4): which weapon each entry uses, or a weapon axis. Proposed so far, not decided: a second selector (free / 4★ / 5★ R1), the weapon in each class picked by team DPS on the whole team; the refinement of gacha 4★ weapons; whether the visitor's own weapons count (proposed: no, they are build).
+3. **Weapons** (§4.2): the choices of N (0–2 or 0–4) and its default, which the tier effectively becomes for most visitors; the format and upkeep of the recommended weapon list; the rules of §4.3.
 4. **Teammates' constellations** when a team is simulated for an entry: the selector's, the visitor's, or a fixed one.
