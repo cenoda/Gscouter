@@ -430,6 +430,10 @@ type fatalError struct{ err error }
 func (e fatalError) Error() string { return e.err.Error() }
 func (e fatalError) Unwrap() error { return e.err }
 
+// IsFatal reports whether err stops the search (Fatal, or the context
+// ended), as Best and Score return it.
+func IsFatal(err error) bool { return isFatal(err) }
+
 func isFatal(err error) bool {
 	var f fatalError
 	return errors.As(err, &f) || errors.Is(err, context.Canceled) || errors.Is(err, context.DeadlineExceeded)

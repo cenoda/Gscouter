@@ -4,6 +4,7 @@ go 1.27.0
 
 require (
 	github.com/genshinsim/gcsim v1.15.2-0.20261023165544-2350be9e835a
+	github.com/tetratelabs/wazero v1.12.0
 	golang.org/x/image v0.47.0
 	gopkg.in/yaml.v3 v3.0.1
 	modernc.org/sqlite v1.61.0

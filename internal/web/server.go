@@ -22,6 +22,7 @@ import (
 
 	"github.com/cenoda/gscouter/internal/chart"
 	"github.com/cenoda/gscouter/internal/config"
+	"github.com/cenoda/gscouter/internal/engine"
 	"github.com/cenoda/gscouter/internal/enka"
 	"github.com/cenoda/gscouter/internal/library"
 	"github.com/cenoda/gscouter/internal/score"
@@ -65,10 +66,13 @@ type SavedBuildSource interface {
 var errBusy = errors.New("server busy")
 
 type Server struct {
-	lib      *library.Library
-	profiles ProfileSource
-	settings Settings
-	tmpl     map[localizer]*template.Template // by language
+	// engineReports limits the browsers' reports of engine failures
+	// (handleEngineError).
+	engineReports reportLimit
+	lib           *library.Library
+	profiles      ProfileSource
+	settings      Settings
+	tmpl          map[localizer]*template.Template // by language
 
 	sem          chan struct{}
 	waiting      atomic.Int32
@@ -76,6 +80,8 @@ type Server struct {
 	timelines    *cache[string, *timeline.Timeline]
 	cards        *cache[string, []byte] // link preview PNGs by URL
 	client       *clientFiles           // nil: the server calculates every result
+	engine       *engine.Engine         // nil: every team runs on gcsim (see SetEngine)
+	engineGzip   []byte                 // the engine's module, compressed
 	links        LinkStore              // nil: no short links (see SetLinks)
 	linkLimit    *rateLimit
 	sends        SendStore // nil: no sending charts (see SetSends)
@@ -148,6 +154,7 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("POST /s", s.handleShorten)
 	mux.HandleFunc("POST /send", s.handleSend)
 	mux.HandleFunc("POST /message", s.handleMessage)
+	mux.HandleFunc("POST /engine-error", s.handleEngineError)
 	mux.HandleFunc("GET /s/{id}", s.handleShort)
 	mux.HandleFunc("GET /healthz", s.handleHealth)
 	return mux
@@ -306,6 +313,10 @@ type teamResult struct {
 	// chart (Selection.Chart), for the comparison; ChartNote says so.
 	Library   *score.Result
 	ChartNote string
+	// Engine is set when the team's simulations run on gscouter-engine
+	// (internal/engine): a library team approved and verified, scored
+	// with the library's rotations. The server decides it in prepare.
+	Engine bool `json:",omitempty"`
 	// ID tells the teams on one page apart, for element ids.
 	ID string
 	// Problem explains why there is no score: unsupported team, blocked
@@ -358,8 +369,10 @@ func usesForkOnlyWeapon(chars []enka.Character) bool {
 // Simulator runs the simulations of a score: the server's own, queued
 // and cached, or a browser's workers (cmd/wasm).
 type Simulator interface {
-	// Score is score.Run of cfg with the given warmup and iterations.
-	Score(ctx context.Context, cfg string, warmup float64, iterations int) (*score.Result, error)
+	// Score is score.Run of cfg with the given warmup and iterations,
+	// on gscouter-engine when engine is set (teamResult.Engine), with
+	// gcsim for a config the engine refuses.
+	Score(ctx context.Context, cfg string, warmup float64, iterations int, engine bool) (*score.Result, error)
 	// Timeline runs cfg once (seed 1) and reduces seconds [from, to).
 	Timeline(ctx context.Context, cfg string, from, to float64) (*timeline.Timeline, error)
 }
@@ -367,8 +380,8 @@ type Simulator interface {
 // serverSim is the server's own Simulator.
 type serverSim struct{ *Server }
 
-func (s serverSim) Score(ctx context.Context, cfg string, warmup float64, iterations int) (*score.Result, error) {
-	return s.score(ctx, cfg, warmup, iterations)
+func (s serverSim) Score(ctx context.Context, cfg string, warmup float64, iterations int, engine bool) (*score.Result, error) {
+	return s.score(ctx, cfg, warmup, iterations, engine)
 }
 
 func (s serverSim) Timeline(ctx context.Context, cfg string, from, to float64) (*timeline.Timeline, error) {
@@ -422,8 +435,31 @@ func (s *Server) prepare(ctx context.Context, l localizer, sel selection, enemy 
 	case tr.Team.Status == library.StatusBlocked:
 		tr.Problem = l.T("problem.blocked", tr.Team.Notes)
 	}
+	// A chart is the player's rotation, which no engine release verified;
+	// the library score beside it stays on the same engine (docs/engine.md §2).
+	tr.Engine = sel.Chart == "" && s.engine.Use(tr.Team.ID)
 	scoreArtifacts(&tr)
 	return tr
+}
+
+// errSearchOnGcsim stops a search on the engine that goes past the
+// rotation as written, for keepGcsimPick to run it on gcsim.
+var errSearchOnGcsim = errors.New("the search goes past the rotation as written: run it on gcsim")
+
+// keepGcsimPick runs the search on gcsim and scores its pick on the
+// engine with the full iterations: the engine's result, gcsim's choice.
+func keepGcsimPick(runs []steady.Rotation, builds []string, rankOn func(onEngine bool, builds []string, alternative func(i int, err error)) func(i int, rotation string, rank bool) (*score.Result, error), failed func(i int, err error)) (int, *steady.Outcome, error) {
+	best, out, err := steady.Best(runs, rankOn(false, builds, failed))
+	if err != nil {
+		return best, out, err
+	}
+	res, err := rankOn(true, builds, failed)(best, out.Looped, false)
+	if err != nil {
+		return best, nil, err
+	}
+	picked := *out
+	picked.Result = res
+	return best, &picked, nil
 }
 
 // exploreIterations is the iterations of the runs that try fillers for a
@@ -436,6 +472,10 @@ const exploreIterations = 10
 // compute calculates a prepared team with sim, filling in its score, or
 // its Problem when the calculation fails.
 func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *teamResult) {
+	// A config the engine fails is logged with the team (score.RunIterations).
+	if tr.Team != nil {
+		ctx = score.WithLabel(ctx, tr.Team.ID)
+	}
 	// Each of the team's rotations (its own and its alternatives) names
 	// the members its own way and may need params of its own.
 	cons := map[string]int{}
@@ -472,14 +512,21 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 	// The rotation as written runs with the full iterations; most teams
 	// stop there. Fillers and alternatives are only ranked, with fewer,
 	// and the best of them confirmed with the full iterations.
-	rank := func(builds []string, alternative func(i int, err error)) func(i int, rotation string, rank bool) (*score.Result, error) {
+	// searchRuns counts the search's runs; with stopOnEngine, a search on
+	// the engine stops at its second run (keepGcsimPick).
+	searchRuns, stopOnEngine := 0, false
+	rankOn := func(onEngine bool, builds []string, alternative func(i int, err error)) func(i int, rotation string, rank bool) (*score.Result, error) {
 		return func(i int, rotation string, rank bool) (*score.Result, error) {
+			searchRuns++
+			if onEngine && stopOnEngine && searchRuns > 1 {
+				return nil, steady.Fatal(errSearchOnGcsim)
+			}
 			iterations := set.Iterations
 			if rank {
 				iterations = min(iterations, exploreIterations)
 			}
 			cfg := config.Assemble(config.Conditions{Iterations: iterations, Duration: set.Duration, Enemy: tr.Enemy}, builds[i], rotation)
-			res, err := sim.Score(ctx, cfg, set.Warmup, iterations)
+			res, err := sim.Score(ctx, cfg, set.Warmup, iterations, onEngine)
 			if err != nil && (errors.Is(err, errBusy) || ctx.Err() != nil) {
 				return nil, steady.Fatal(err)
 			}
@@ -489,6 +536,9 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 			return res, err
 		}
 	}
+	rank := func(builds []string, alternative func(i int, err error)) func(i int, rotation string, rank bool) (*score.Result, error) {
+		return rankOn(tr.Engine, builds, alternative)
+	}
 	var (
 		best                  int
 		out                   *steady.Outcome
@@ -496,9 +546,24 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 		build, rotation, once string
 	)
 	if len(runs) > 0 {
-		best, out, err = steady.Best(runs, rank(builds, func(i int, err error) {
+		failed := func(i int, err error) {
 			slog.Warn("alternative rotation failed", "team", tr.Team.ID, "source", rotations[i].Sources, "err", err)
-		}))
+		}
+		// On the engine, the page keeps the rotation and filler gcsim
+		// picks (the owner, 2026-11-04; docs/engine.md §5): a search that
+		// goes past the rotation as written stops on the engine at its
+		// second run and runs on gcsim, and gcsim's pick is scored on the
+		// engine. A search is mostly runs ranked on 10 iterations, whose
+		// noise differs between the two engines, so their picks differed
+		// for 1 build in 6. Stopping there, rather than after the engine's
+		// whole search, spares that search and changes no pick: it is the
+		// same condition, met at the same run.
+		searchRuns, stopOnEngine = 0, tr.Engine
+		best, out, err = steady.Best(runs, rank(builds, failed))
+		stopOnEngine = false
+		if errors.Is(err, errSearchOnGcsim) {
+			best, out, err = keepGcsimPick(runs, builds, rankOn, failed)
+		}
 		if err == nil {
 			build, rotation = builds[best], runs[best].Rotation
 		}
@@ -535,7 +600,7 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 	}
 	var oneRes *score.Result
 	if err == nil {
-		oneRes, err = sim.Score(ctx, once, 0, set.Iterations)
+		oneRes, err = sim.Score(ctx, once, 0, set.Iterations, tr.Engine)
 	}
 	if err != nil {
 		if errors.Is(err, errBusy) {
@@ -581,9 +646,20 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 	}
 }
 
-// score runs a simulation, reusing the cached result for the same config.
-func (s *Server) score(ctx context.Context, cfg string, warmup float64, iterations int) (*score.Result, error) {
-	sum := sha256.Sum256(fmt.Appendf(nil, "%v %v\n%s", warmup, iterations, cfg))
+// score runs a simulation, reusing the cached result for the same config,
+// on the engine when onEngine is set and the server has one.
+func (s *Server) score(ctx context.Context, cfg string, warmup float64, iterations int, onEngine bool) (*score.Result, error) {
+	var eng score.Engine
+	if onEngine {
+		eng = s.engine.Runner()
+	}
+	head := fmt.Appendf(nil, "%v %v\n", warmup, iterations)
+	if eng != nil {
+		// A run on the engine is keyed by its module; gcsim's keys are
+		// as before.
+		head = fmt.Appendf(nil, "engine %s\n%s", eng.ID(), head)
+	}
+	sum := sha256.Sum256(append(head, cfg...))
 	key := hex.EncodeToString(sum[:])
 	if res, ok := s.results.get(key); ok {
 		return res, nil
@@ -606,6 +682,7 @@ func (s *Server) score(ctx context.Context, cfg string, warmup float64, iteratio
 		Iterations: iterations,
 		Warmup:     warmup,
 		Seed:       1,
+		Engine:     eng,
 	})
 	if err != nil {
 		return nil, err

@@ -321,7 +321,7 @@ func init() {
 		"about.delete":          `La rimozione di un link breve si può chiedere con il modulo per i messaggi in fondo a ogni pagina. Il link lungo contiene in sé gli stessi dati, quindi continua a funzionare per chi lo possiede.`,
 		"about.verify":          `Tutto questo si può verificare: il codice sorgente completo del sito è su <a href="https://github.com/cenoda/Gscouter">GitHub</a>, e gli strumenti per sviluppatori del browser mostrano ogni richiesta che fa una pagina.`,
 		"about.scores_h":        "Sui punteggi",
-		"about.scores":          `I punteggi sono simulazioni gcsim in condizioni fisse, non misurazioni nel gioco. Possono discostarsi e cambiano quando il motore o le rotazioni vengono aggiornati: vedi gli <a href="/updates">aggiornamenti</a>.`,
+		"about.scores":          `I punteggi sono simulazioni in condizioni fisse, di gcsim o, per la maggior parte delle squadre della libreria, di gscouter-engine, che concorda con gcsim entro l'1%, non misurazioni nel gioco. Possono discostarsi e cambiano quando il motore o le rotazioni vengono aggiornati: vedi gli <a href="/updates">aggiornamenti</a>.`,
 		"updates.title":         "Aggiornamenti",
 		"updates.lead":          "Le modifiche che un visitatore può notare, dalle più recenti. Le voci sono in inglese.",
 		"updates.scores":        "Punteggi cambiati",

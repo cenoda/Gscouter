@@ -321,7 +321,7 @@ func init() {
 		"about.delete":          `Bir kısa bağlantının kaldırılması her sayfanın altındaki mesaj formuyla istenebilir. Uzun bağlantı aynı verileri kendi içinde taşır, bu yüzden ona sahip olan herkes için çalışmaya devam eder.`,
 		"about.verify":          `Bunların hepsi doğrulanabilir: sitenin tüm kaynak kodu <a href="https://github.com/cenoda/Gscouter">GitHub</a> üzerinde açık, tarayıcının geliştirici araçları da bir sayfanın yaptığı her isteği gösterir.`,
 		"about.scores_h":        "Puanlar hakkında",
-		"about.scores":          `Puanlar sabit koşullarda yapılan gcsim simülasyonlarıdır, oyun içi ölçümler değildir. Sapabilir ve motor ya da rotasyonlar güncellendiğinde değişir: <a href="/updates">güncellemelere</a> bak.`,
+		"about.scores":          `Puanlar sabit koşullarda yapılan simülasyonlardır: gcsim ile ya da kütüphanedeki takımların çoğu için gcsim ile %1 içinde örtüşen gscouter-engine ile, oyun içi ölçümler değildir. Sapabilir ve motor ya da rotasyonlar güncellendiğinde değişir: <a href="/updates">güncellemelere</a> bak.`,
 		"updates.title":         "Güncellemeler",
 		"updates.lead":          "Ziyaretçilerin fark edebileceği değişiklikler, en yenisi önce. Kayıtlar İngilizcedir.",
 		"updates.scores":        "Puanlar değişti",

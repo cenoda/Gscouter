@@ -55,3 +55,55 @@ func TestCacheRepeatsRun(t *testing.T) {
 		}
 	}
 }
+
+// constEngine is an engine whose every iteration deals dps.
+type constEngine struct {
+	id  string
+	dps float64
+}
+
+func (e constEngine) ID() string { return e.id }
+
+func (e constEngine) RunIterations(_ context.Context, _ string, opts Options) ([]Iteration, error) {
+	its := make([]Iteration, opts.Iterations)
+	for i := range its {
+		its[i].DPS = e.dps
+	}
+	return its, nil
+}
+
+// A run on an engine is cached under the engine's module: neither
+// gcsim's entry nor another module's is read for it, and gcsim's key is
+// as it was.
+func TestCacheKeysOnEngine(t *testing.T) {
+	cfg := testConfig(t, 60)
+	opts := Options{Iterations: 3, Warmup: 20, Seed: 1}
+	c := newCache(t.TempDir(), "gcsim@v1 h1:x")
+	ctx := context.Background()
+	want, err := c.Run(ctx, cfg, opts)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, e := range []constEngine{{"module-a", 1}, {"module-b", 2}, {"module-a", 3}} {
+		o := opts
+		o.Engine = e
+		got, err := c.Run(ctx, cfg, o)
+		if err != nil {
+			t.Fatal(err)
+		}
+		// module-a's first result is kept and read back for the second.
+		if wantDPS := map[string]float64{"module-a": 1, "module-b": 2}[e.id]; got.DPS != wantDPS {
+			t.Errorf("engine %s: DPS %v, want %v", e.id, got.DPS, wantDPS)
+		}
+	}
+	if got, _ := c.Run(ctx, cfg, opts); !reflect.DeepEqual(got, want) {
+		t.Errorf("gcsim after the engines: %+v, want %+v", got, want)
+	}
+}
+
+// WithLabel names a context's runs.
+func TestLabel(t *testing.T) {
+	if LabelOf(WithLabel(context.Background(), "a-b-c-d")) != "a-b-c-d" || LabelOf(context.Background()) != "" {
+		t.Error("labels")
+	}
+}

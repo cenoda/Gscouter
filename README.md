@@ -25,6 +25,8 @@ go run ./cmd/server          # http://localhost:8080
 | `-concurrent` | 1 | Simulations running at once |
 | `-queue` | 8 | Simulations waiting before requests are rejected |
 | `-static` | `$GSCOUTER_STATIC` | Directory of the browser build; when set, visitors' browsers calculate results |
+| `-engine` | true | Score the approved teams on gscouter-engine (`docs/engine.md`); false runs every team on gcsim |
+| `-engine-dir` | | Directory with `approved.txt`, `gse.wasm`, `manifest.json` and `teams.txt` to try instead of the pinned engine release |
 | `-links` | `$GSCOUTER_LINKS` | SQLite file of short links (`/s/...`); without it (or `none`), copying a result copies its long link |
 | `-site` | `$GSCOUTER_SITE` | The site's public URL (e.g. `https://gscouter.example`) for canonical links, sitemaps and IndexNow; without it, they take each request's host |
 | `-indexnow` | `$GSCOUTER_INDEXNOW` | State file of [IndexNow](https://www.indexnow.org) submissions (needs `-site`); without it (or `none`), nothing is submitted |
