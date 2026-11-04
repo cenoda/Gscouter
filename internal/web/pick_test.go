@@ -82,8 +82,15 @@ func TestEngineKeepsGcsimPick(t *testing.T) {
 		if want := res.DPS * factor(full); e.Result.DPS != want {
 			t.Errorf("%s: engine DPS %v, want gcsim's pick on the engine, %v", sel.UID, e.Result.DPS, want)
 		}
-		if len(eng.engine) > 2 {
+		// A search past the rotation as written stops on the engine at
+		// its second run: the engine runs the first run, gcsim's pick and
+		// the one pass, three in all; one that stops at the first, two.
+		switch len(eng.engine) {
+		case 3:
 			searched++
+		case 2:
+		default:
+			t.Errorf("%s: %d runs on the engine, want 2 or 3", sel.UID, len(eng.engine))
 		}
 		t.Logf("%s: %d runs on the engine, DPS %.1f on gcsim, %.1f on the engine", sel.UID, len(eng.engine), g.Result.DPS, e.Result.DPS)
 	}

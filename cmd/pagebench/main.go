@@ -37,6 +37,8 @@ import (
 
 const iters, explore = 50, 10
 
+var verbose = flag.Bool("v", false, "print each run's time")
+
 var errStop = errors.New("stop: the search goes past the rotation as written")
 
 type timing struct{ total, gcsim, eng time.Duration }
@@ -61,6 +63,9 @@ func (p *page) run(i int, looped string, rank, onEngine bool) (*score.Result, er
 	start := time.Now()
 	res, err := score.Run(context.Background(), cfg, o)
 	d := time.Since(start)
+	if *verbose {
+		fmt.Printf("    run %d its engine=%v %.3fs\n", n, onEngine, d.Seconds())
+	}
 	if onEngine {
 		p.t.eng += d
 	} else {
@@ -77,6 +82,9 @@ func (p *page) once(best int, rotation string, onEngine bool) {
 	}
 	start := time.Now()
 	score.Run(context.Background(), cfg, o)
+	if *verbose {
+		fmt.Printf("    once engine=%v %.3fs\n", onEngine, time.Since(start).Seconds())
+	}
 	if onEngine {
 		p.t.eng += time.Since(start)
 	} else {

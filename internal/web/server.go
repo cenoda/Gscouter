@@ -442,6 +442,10 @@ func (s *Server) prepare(ctx context.Context, l localizer, sel selection, enemy 
 	return tr
 }
 
+// errSearchOnGcsim stops a search on the engine that goes past the
+// rotation as written, for keepGcsimPick to run it on gcsim.
+var errSearchOnGcsim = errors.New("the search goes past the rotation as written: run it on gcsim")
+
 // keepGcsimPick runs the search on gcsim and scores its pick on the
 // engine with the full iterations: the engine's result, gcsim's choice.
 func keepGcsimPick(runs []steady.Rotation, builds []string, rankOn func(onEngine bool, builds []string, alternative func(i int, err error)) func(i int, rotation string, rank bool) (*score.Result, error), failed func(i int, err error)) (int, *steady.Outcome, error) {
@@ -508,11 +512,15 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 	// The rotation as written runs with the full iterations; most teams
 	// stop there. Fillers and alternatives are only ranked, with fewer,
 	// and the best of them confirmed with the full iterations.
-	// searchRuns counts the search's runs, for keepGcsimPick.
-	searchRuns := 0
+	// searchRuns counts the search's runs; with stopOnEngine, a search on
+	// the engine stops at its second run (keepGcsimPick).
+	searchRuns, stopOnEngine := 0, false
 	rankOn := func(onEngine bool, builds []string, alternative func(i int, err error)) func(i int, rotation string, rank bool) (*score.Result, error) {
 		return func(i int, rotation string, rank bool) (*score.Result, error) {
 			searchRuns++
+			if onEngine && stopOnEngine && searchRuns > 1 {
+				return nil, steady.Fatal(errSearchOnGcsim)
+			}
 			iterations := set.Iterations
 			if rank {
 				iterations = min(iterations, exploreIterations)
@@ -541,15 +549,19 @@ func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *
 		failed := func(i int, err error) {
 			slog.Warn("alternative rotation failed", "team", tr.Team.ID, "source", rotations[i].Sources, "err", err)
 		}
-		searchRuns = 0
-		best, out, err = steady.Best(runs, rank(builds, failed))
 		// On the engine, the page keeps the rotation and filler gcsim
 		// picks (the owner, 2026-11-04; docs/engine.md §5): a search that
-		// went past the rotation as written runs again on gcsim, and
-		// gcsim's pick is scored on the engine. A search is mostly runs
-		// ranked on 10 iterations, whose noise differs between the two
-		// engines, so their picks differed for 1 build in 6.
-		if tr.Engine && searchRuns > 1 && (err == nil || !steady.IsFatal(err)) {
+		// goes past the rotation as written stops on the engine at its
+		// second run and runs on gcsim, and gcsim's pick is scored on the
+		// engine. A search is mostly runs ranked on 10 iterations, whose
+		// noise differs between the two engines, so their picks differed
+		// for 1 build in 6. Stopping there, rather than after the engine's
+		// whole search, spares that search and changes no pick: it is the
+		// same condition, met at the same run.
+		searchRuns, stopOnEngine = 0, tr.Engine
+		best, out, err = steady.Best(runs, rank(builds, failed))
+		stopOnEngine = false
+		if errors.Is(err, errSearchOnGcsim) {
 			best, out, err = keepGcsimPick(runs, builds, rankOn, failed)
 		}
 		if err == nil {
