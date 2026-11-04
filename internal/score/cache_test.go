@@ -100,3 +100,10 @@ func TestCacheKeysOnEngine(t *testing.T) {
 		t.Errorf("gcsim after the engines: %+v, want %+v", got, want)
 	}
 }
+
+// WithLabel names a context's runs.
+func TestLabel(t *testing.T) {
+	if LabelOf(WithLabel(context.Background(), "a-b-c-d")) != "a-b-c-d" || LabelOf(context.Background()) != "" {
+		t.Error("labels")
+	}
+}

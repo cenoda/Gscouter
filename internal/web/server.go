@@ -66,10 +66,13 @@ type SavedBuildSource interface {
 var errBusy = errors.New("server busy")
 
 type Server struct {
-	lib      *library.Library
-	profiles ProfileSource
-	settings Settings
-	tmpl     map[localizer]*template.Template // by language
+	// engineReports limits the browsers' reports of engine failures
+	// (handleEngineError).
+	engineReports reportLimit
+	lib           *library.Library
+	profiles      ProfileSource
+	settings      Settings
+	tmpl          map[localizer]*template.Template // by language
 
 	sem          chan struct{}
 	waiting      atomic.Int32
@@ -151,6 +154,7 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("POST /s", s.handleShorten)
 	mux.HandleFunc("POST /send", s.handleSend)
 	mux.HandleFunc("POST /message", s.handleMessage)
+	mux.HandleFunc("POST /engine-error", s.handleEngineError)
 	mux.HandleFunc("GET /s/{id}", s.handleShort)
 	mux.HandleFunc("GET /healthz", s.handleHealth)
 	return mux
@@ -464,6 +468,10 @@ const exploreIterations = 10
 // compute calculates a prepared team with sim, filling in its score, or
 // its Problem when the calculation fails.
 func compute(ctx context.Context, l localizer, sim Simulator, set Settings, tr *teamResult) {
+	// A config the engine fails is logged with the team (score.RunIterations).
+	if tr.Team != nil {
+		ctx = score.WithLabel(ctx, tr.Team.ID)
+	}
 	// Each of the team's rotations (its own and its alternatives) names
 	// the members its own way and may need params of its own.
 	cons := map[string]int{}

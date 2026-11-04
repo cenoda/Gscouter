@@ -934,6 +934,19 @@ pieces, "" when there are none to leave out. */}}
     }).then(function (b) { return WebAssembly.compile(b); });
   }
 
+  // reportEngine sends what the engine failed on to the server's log
+  // (/engine-error): the teams and the error, which names what the engine
+  // lacks; not the build (nothing of an imported file is logged). The page
+  // goes on, on gcsim.
+  var reported = 0;
+  function reportEngine(err) {
+    if (reported++ >= 5 || !navigator.sendBeacon) return;
+    var teams = (job.Teams || []).map(function (t) { return t.Team && t.Team.ID || ""; });
+    try {
+      navigator.sendBeacon("/engine-error", JSON.stringify({teams: teams, error: String(err).slice(0, 2000), engine: engine}));
+    } catch (e) {}
+  }
+
   function spawn(module, engineModule) {
     var w = new Worker("/static/worker.js?v=" + v);
     w.onerror = function (e) { fail(e.message || "worker error"); };
@@ -1017,6 +1030,7 @@ pieces, "" when there are none to leave out. */}}
           // The engine refused the config: run all of it on gcsim, as
           // the server does (score.RunIterations), so that no run is
           // part one engine and part the other.
+          reportEngine(m.engineError);
           queue = queue.filter(function (c) { return c.run !== m.run; });
           run.gen++;
           run.engine = false;

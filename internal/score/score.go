@@ -123,6 +123,20 @@ func Run(ctx context.Context, cfg string, opts Options) (*Result, error) {
 // runs on gcsim, all of its iterations, so that a run is never part one
 // engine and part the other (the browser does the same,
 // internal/web/templates/layout.html).
+type labelKey struct{}
+
+// WithLabel names what ctx's runs are for (a library team's id), for
+// RunIterations' log of a config the engine fails.
+func WithLabel(ctx context.Context, label string) context.Context {
+	return context.WithValue(ctx, labelKey{}, label)
+}
+
+// LabelOf is the label WithLabel gave ctx, or "".
+func LabelOf(ctx context.Context) string {
+	s, _ := ctx.Value(labelKey{}).(string)
+	return s
+}
+
 func RunIterations(ctx context.Context, cfg string, opts Options) ([]Iteration, error) {
 	if opts.Iterations <= 0 {
 		return nil, errors.New("iterations must be positive")
@@ -132,7 +146,11 @@ func RunIterations(ctx context.Context, cfg string, opts Options) ([]Iteration, 
 		if err == nil || ctx.Err() != nil {
 			return its, err
 		}
-		slog.Info("engine refused a config, running gcsim", "engine", e.ID()[:min(12, len(e.ID()))], "err", err)
+		// What the engine lacks, or what failed in it, logged with the
+		// team, to find what to port; the request goes on, on gcsim.
+		// The player's build is not logged: the site promises that
+		// nothing of an imported file is (about.d_good).
+		slog.Warn("engine failed a config, running gcsim", "engine", e.ID()[:min(12, len(e.ID()))], "team", LabelOf(ctx), "err", err)
 		opts.Engine = nil
 	}
 	file := ast.NewFile()

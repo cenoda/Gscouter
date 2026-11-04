@@ -6,7 +6,7 @@
 // calls it directly.
 importScripts("/static/wasm_exec.js" + self.location.search);
 
-var ready, waiting = {}, next = 0, gse = null;
+var ready, waiting = {}, next = 0, gse = null, gseModule = null;
 
 // engineSlice runs gse_run_slice (gscouter-engine's wasm/lib.rs): the
 // config goes in through gse_alloc, and the result comes back as a u32
@@ -36,9 +36,12 @@ self.onmessage = function (e) {
     ready = WebAssembly.instantiate(m.module, go.importObject).then(function (inst) { go.run(inst); });
     // The engine's module, for a page with a team on it. It imports
     // nothing.
-    if (m.engine) ready = ready.then(function () {
-      return WebAssembly.instantiate(m.engine, {}).then(function (inst) { gse = inst; });
-    });
+    if (m.engine) {
+      gseModule = m.engine;
+      ready = ready.then(function () {
+        return WebAssembly.instantiate(m.engine, {}).then(function (inst) { gse = inst; });
+      });
+    }
     ready.then(function () { postMessage({type: "ready"}); }, report);
     return;
   }
@@ -55,7 +58,14 @@ self.onmessage = function (e) {
         try {
           e = gse ? engineSlice(m.cfg, m.warmup, m.seed, m.first, m.count) : {error: "engine not loaded"};
         } catch (err) {
+          // A trap (a panic in the engine aborts it): the instance's
+          // memory may be left half-written, so it is dropped and a new
+          // one made for the next slices; this run goes to gcsim.
           e = {error: String(err && err.message || err)};
+          gse = null;
+          ready = ready.then(function () {
+            return WebAssembly.instantiate(gseModule, {}).then(function (inst) { gse = inst; });
+          });
         }
         if (e.result !== undefined) head.result = e.result;
         else head.engineError = e.error;

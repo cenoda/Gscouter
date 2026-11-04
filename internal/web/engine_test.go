@@ -10,6 +10,7 @@ import (
 	"os"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/cenoda/gscouter/internal/engine"
 	"github.com/cenoda/gscouter/teams"
@@ -218,5 +219,36 @@ func TestJobEngineField(t *testing.T) {
 	b, _ = json.Marshal(teamResult{Engine: true})
 	if !strings.Contains(string(b), `"Engine":true`) {
 		t.Errorf("job JSON with the engine: %s", b)
+	}
+}
+
+// A browser's report of an engine failure is logged and answered 204,
+// at most engineReportsPerMinute a minute; a bad body is ignored.
+func TestEngineErrorReport(t *testing.T) {
+	srv := newTestSite(t)
+	ts := newTestServerFor(t, srv)
+	post := func(body string) int {
+		resp, err := http.Post(ts.URL+"/engine-error", "text/plain", strings.NewReader(body))
+		if err != nil {
+			t.Fatal(err)
+		}
+		resp.Body.Close()
+		return resp.StatusCode
+	}
+	if code := post(`{"teams":["a-b-c-d"],"error":"wasm error: unreachable","engine":"0123"}`); code != http.StatusNoContent {
+		t.Errorf("report: status %d", code)
+	}
+	if code := post("not json"); code != http.StatusNoContent {
+		t.Errorf("bad body: status %d", code)
+	}
+	var l reportLimit
+	now := time.Unix(600, 0)
+	for i := 0; i < engineReportsPerMinute; i++ {
+		if !l.allow(now) {
+			t.Fatalf("report %d refused", i)
+		}
+	}
+	if l.allow(now) || !l.allow(now.Add(time.Minute)) {
+		t.Error("the limit does not hold a minute")
 	}
 }

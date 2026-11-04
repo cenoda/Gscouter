@@ -308,3 +308,44 @@ func TestLibraryOnlyRelease(t *testing.T) {
 		t.Errorf("library-only: Use = %v, skipped %v, err %v", e.Use("a"), skipped, err)
 	}
 }
+
+// A config the check accepts but the engine fails on while it runs, by
+// an error or by a trap (a panic in the engine, which aborts the module:
+// the instance traps, the server does not), runs on gcsim, all of it;
+// the runner goes on running other configs.
+func TestRuntimeFailureRunsOnGcsim(t *testing.T) {
+	e := fakeEngine(t)
+	ctx := context.Background()
+	gcsimCfg := "options iteration=1 duration=20;\ntarget lvl=100 resist=0.1;\nenergy every interval=480,720 amount=1;\n" +
+		"xingqiu char lvl=90/90 cons=6 talent=9,9,9;\nxingqiu add weapon=\"sacrificialsword\" refine=1 lvl=90/90;\n" +
+		"xingqiu add stats hp=4780 atk=311 atk%=0.466 hydro%=0.466 cr=0.311;\nactive xingqiu;\nwhile 1 { xingqiu attack; }\n"
+	opts := score.Options{Iterations: 4, Seed: 1, Workers: 2}
+	want, err := score.RunIterations(ctx, gcsimCfg, opts)
+	if err != nil {
+		t.Fatal(err)
+	}
+	opts.Engine = e.Runner()
+	for _, marker := range []string{"# fail at 2\n", "# panic at 3\n"} {
+		cfg := gcsimCfg + marker
+		if missing, err := e.Check(ctx, cfg); err != nil || len(missing) != 0 {
+			t.Fatalf("%q: the check refuses it (%v, %v)", marker, missing, err)
+		}
+		if _, err := e.Runner().RunIterations(ctx, cfg, opts); err == nil {
+			t.Errorf("%q: the engine ran it", marker)
+		}
+		got, err := score.RunIterations(ctx, cfg, opts)
+		if err != nil {
+			t.Fatalf("%q: %v", marker, err)
+		}
+		for i := range got {
+			if got[i].DPS != want[i].DPS {
+				t.Errorf("%q: iteration %d DPS %v, gcsim's %v", marker, i, got[i].DPS, want[i].DPS)
+			}
+		}
+	}
+	// After a trap, the engine still runs.
+	got, err := score.RunIterations(ctx, gcsimCfg, opts)
+	if err != nil || got[0].DPS != 1 {
+		t.Errorf("after a trap: %v, %v; want the fake's DPS 1", got, err)
+	}
+}

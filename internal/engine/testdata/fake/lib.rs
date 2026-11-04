@@ -11,7 +11,9 @@
 //! lines) deals seed + i DPS, half by the first member and the rest split
 //! among the others, over 6,000 frames. A config holding "refuse" is
 //! refused, as one the engine lacks something for; one holding "fail at
-//! N" fails at iteration N, as a fight that errors.
+//! N" fails at iteration N, as a fight that errors; one holding "panic at
+//! N" panics there, which with `panic = "abort"` traps (`unreachable`), as
+//! a panic in the engine does. gse_check accepts both.
 
 use std::fmt::Write;
 
@@ -47,10 +49,14 @@ pub unsafe extern "C" fn gse_run_slice(cfg: *const u8, len: u32, _warmup: f64, s
         return result(1, "unsupported: refuse".into());
     }
     let fail = src.find("fail at ").map(|i| src[i + 8..].split_whitespace().next().unwrap_or("").parse::<u32>().unwrap_or(0));
+    let panic_at = src.find("panic at ").map(|i| src[i + 9..].split_whitespace().next().unwrap_or("").parse::<u32>().unwrap_or(0));
     let names = names(src);
     let mut o = String::from("[");
     for j in 0..count {
         let i = first + j;
+        if panic_at == Some(i) {
+            panic!("iteration {i}: a panic in the engine");
+        }
         if fail == Some(i) {
             return result(1, format!("iteration {i} (seed {}): failed", seed + i as i64));
         }
