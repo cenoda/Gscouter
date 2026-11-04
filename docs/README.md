@@ -1,6 +1,6 @@
 # Documents
 
-> Last updated: 2026-11-02
+> Last updated: 2026-11-04
 
 What each document is for, and the habits that keep them readable. These are conventions, not rules: follow them unless a document has a reason not to, and change them here when they stop fitting.
 
@@ -11,6 +11,7 @@ What each document is for, and the habits that keep them readable. These are con
 | `docs/design.md` | The MVP: what the score is, how the system computes it, the team library and its tiers. Decisions and how things work now |
 | `docs/roadmap.md` | Where the site goes after the MVP, as a map of nodes |
 | `docs/criticism.md` | Analysis of community risks, friction points, and potential backlash (excluding DPS engine accuracy) |
+| `docs/prior-art.md` | Calculators and simulators Gscouter learns from (LUNABASE Simulator and others): what they do well, what Gscouter lacks, where it is behind |
 | `docs/artifacts.md` | Roadmap nodes Artifacts and Artifact score |
 | `docs/pull.md` | Roadmap node Pull a character |
 | `docs/speed.md` | Roadmap node faster DPS: time to a score in the browser and in validation runs, and what was tried |
