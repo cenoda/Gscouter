@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"hash/fnv"
 	"io/fs"
+	"math"
 	"os"
 	"sort"
 	"sync"
@@ -60,14 +61,24 @@ type pick struct {
 	Err              string
 }
 
+// exploreEngine is the ranking runs' iterations on the engine (10 as the
+// site ranks; -explore-engine).
+var exploreEngine = flag.Int("explore-engine", 10, "iterations of the engine's ranking runs")
+
 func cross(t *library.Team, build string, idx int, looped string, eng score.Engine) float64 {
+	return crossN(t, build, idx, looped, eng, 500)
+}
+
+// crossN is the DPS of rotation idx's looped script on eng (gcsim for
+// nil) at iters iterations.
+func crossN(t *library.Team, build string, idx int, looped string, eng score.Engine, iters int) float64 {
 	rotations := t.RotationsFor(library.BuildConstellations(build))
 	b := build
 	for m, p := range rotations[idx].Params {
 		b = config.AddParams(b, m, p)
 	}
-	cfg := config.Assemble(config.Conditions{Iterations: 500, Duration: 450}, b, looped)
-	res, err := score.Run(context.Background(), cfg, score.Options{Iterations: 500, Warmup: 150, Seed: 1, Engine: eng})
+	cfg := config.Assemble(config.Conditions{Iterations: iters, Duration: 450}, b, looped)
+	res, err := score.Run(context.Background(), cfg, score.Options{Iterations: iters, Warmup: 150, Seed: 1, Engine: eng})
 	if err != nil {
 		return -1
 	}
@@ -75,7 +86,11 @@ func cross(t *library.Team, build string, idx int, looped string, eng score.Engi
 }
 
 func search(t *library.Team, build string, eng score.Engine, n *int) (int, *steady.Outcome, error) {
-	const iters, explore = 50, 10
+	const iters = 50
+	explore := 10
+	if eng != nil {
+		explore = *exploreEngine
+	}
 	rotations := t.RotationsFor(library.BuildConstellations(build))
 	builds := make([]string, len(rotations))
 	runs := make([]steady.Rotation, len(rotations))
@@ -102,7 +117,13 @@ func main() {
 	sample := flag.Int("sample", 0, "teams to run (by hash), 0 for all")
 	workers := flag.Int("j", 4, "teams at once")
 	out := flag.String("out", "picks.json", "")
+	judge := flag.String("judge", "", "a picks file: score both picks of each build whose picks differ by more than 1% on the engine (G500/E500) on gcsim at -judge-iter iterations, and print them")
+	judgeIter := flag.Int("judge-iter", 4000, "iterations of -judge")
 	flag.Parse()
+	if *judge != "" {
+		judgePicks(*judge, *judgeIter)
+		return
+	}
 	mod, err := os.ReadFile(*wasm)
 	if err != nil {
 		panic(err)
@@ -188,4 +209,53 @@ func main() {
 	wg.Wait()
 	b, _ := json.MarshalIndent(picks, "", " ")
 	os.WriteFile(*out, b, 0o644)
+}
+
+// judgePicks scores on gcsim both picks of each build whose two picks
+// differ by more than 1% on the engine.
+func judgePicks(path string, iters int) {
+	raw, err := os.ReadFile(path)
+	if err != nil {
+		panic(err)
+	}
+	var picks []pick
+	if err := json.Unmarshal(raw, &picks); err != nil {
+		panic(err)
+	}
+	lib, err := library.LoadLibrary(teams.FS)
+	if err != nil {
+		panic(err)
+	}
+	byID := map[string]*library.Team{}
+	for _, t := range lib.Teams {
+		byID[t.ID] = t
+	}
+	fmt.Printf("%-48s %10s %10s %8s %8s\n", "team", "gcsim pick", "engine pick", "engine", "±95%")
+	for _, p := range picks {
+		if p.G500 <= 0 || p.E500 <= 0 || math.Abs(p.E500/p.G500-1) <= 0.01 {
+			continue
+		}
+		t := byID[p.Team]
+		build, _ := fs.ReadFile(teams.FS, p.Team+"/build.txt")
+		g, gse := crossNSE(t, string(build), p.GIdx, p.GLooped, iters)
+		e, ese := crossNSE(t, string(build), p.EIdx, p.ELooped, iters)
+		d := e/g - 1
+		half := 1.96 * math.Sqrt(gse*gse+ese*ese) / g
+		fmt.Printf("%-48s %10.1f %10.1f %+7.2f%% %7.2f%%   (engine at 500: %+.2f%%)\n", p.Team, g, e, 100*d, 100*half, 100*(p.E500/p.G500-1))
+	}
+}
+
+// crossNSE is crossN on gcsim with the standard error of the mean.
+func crossNSE(t *library.Team, build string, idx int, looped string, iters int) (float64, float64) {
+	rotations := t.RotationsFor(library.BuildConstellations(build))
+	b := build
+	for m, p := range rotations[idx].Params {
+		b = config.AddParams(b, m, p)
+	}
+	cfg := config.Assemble(config.Conditions{Iterations: iters, Duration: 450}, b, looped)
+	res, err := score.Run(context.Background(), cfg, score.Options{Iterations: iters, Warmup: 150, Seed: 1})
+	if err != nil {
+		return -1, 0
+	}
+	return res.DPS, res.StdErr
 }
