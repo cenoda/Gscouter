@@ -295,3 +295,16 @@ func TestDropped(t *testing.T) {
 		}
 	}
 }
+
+// A library-only release's team (verified on its library build alone)
+// runs on the engine like any verified team in group A.
+func TestLibraryOnlyRelease(t *testing.T) {
+	mod := fake(t)
+	sum := sha256.Sum256(mod)
+	m := fmt.Appendf(nil, `{"engine": {"commit": "abc", "wasm_sha256": %q}, "gscouter_commit": "g1", "kinds": ["library"], "teams": {"a": {"verified": true, "verified_kinds": ["library"], "group": "A"}}}`, hex.EncodeToString(sum[:]))
+	l := library("a")
+	e, skipped, err := New(mod, m, pinned(t, l, "a"), l, []Approval{{Team: "a", Date: "2026-11-04"}})
+	if err != nil || !e.Use("a") || len(skipped) > 0 {
+		t.Errorf("library-only: Use = %v, skipped %v, err %v", e.Use("a"), skipped, err)
+	}
+}
