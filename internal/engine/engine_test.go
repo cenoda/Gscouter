@@ -16,19 +16,21 @@ import (
 )
 
 func TestParseApproved(t *testing.T) {
-	got, err := ParseApproved("# comment\n\nhutao-xingqiu-yelan-zhongli 2026-11-02\n  raiden-national 2026-11-03  \n")
+	got, err := ParseApproved("# comment\n\nhutao-xingqiu-yelan-zhongli 2026-11-02\n  raiden-national 2026-11-03  \nb-team 2026-11-04 release=0123456789abcdef\n")
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := []Approval{{"hutao-xingqiu-yelan-zhongli", "2026-11-02"}, {"raiden-national", "2026-11-03"}}
+	want := []Approval{{"hutao-xingqiu-yelan-zhongli", "2026-11-02", ""}, {"raiden-national", "2026-11-03", ""}, {"b-team", "2026-11-04", "0123456789abcdef"}}
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("got %v, want %v", got, want)
 	}
 	for name, text := range map[string]string{
-		"no date":    "hutao-xingqiu-yelan-zhongli\n",
-		"bad date":   "hutao-xingqiu-yelan-zhongli 2026-13-01\n",
-		"extra word": "hutao-xingqiu-yelan-zhongli 2026-11-02 yes\n",
-		"twice":      "a 2026-11-02\na 2026-11-03\n",
+		"no date":       "hutao-xingqiu-yelan-zhongli\n",
+		"bad date":      "hutao-xingqiu-yelan-zhongli 2026-13-01\n",
+		"extra word":    "hutao-xingqiu-yelan-zhongli 2026-11-02 yes\n",
+		"twice":         "a 2026-11-02\na 2026-11-03\n",
+		"short release": "a 2026-11-02 release=0123\n",
+		"bad release":   "a 2026-11-02 release=0123456789abcdeg\n",
 	} {
 		if _, err := ParseApproved(text); err == nil {
 			t.Errorf("%s: no error", name)
@@ -73,7 +75,11 @@ func manifest(module []byte, teams map[string]bool) []byte {
 	sum := sha256.Sum256(module)
 	var parts []string
 	for id, v := range teams {
-		parts = append(parts, fmt.Sprintf("%q: {\"verified\": %v}", id, v))
+		group := ""
+		if v {
+			group = "A"
+		}
+		parts = append(parts, fmt.Sprintf("%q: {\"verified\": %v, \"group\": %q}", id, v, group))
 	}
 	return fmt.Appendf(nil, `{"engine": {"commit": "abc", "wasm_sha256": %q}, "gscouter_commit": "g1", "teams": {%s}}`, hex.EncodeToString(sum[:]), strings.Join(parts, ","))
 }
@@ -108,7 +114,7 @@ func TestRouting(t *testing.T) {
 	l := library("verified-approved", "verified", "unverified-approved", "changed-approved", "unpinned-approved")
 	pins := pinned(t, l, "verified-approved", "verified", "changed-approved")
 	l["changed-approved/alt/x/build.txt"] = &fstest.MapFile{Data: []byte("changed\n")}
-	e, skipped, err := New(mod, m, pins, l, []Approval{{"verified-approved", "2026-11-02"}, {"unverified-approved", "2026-11-02"}, {"absent-approved", "2026-11-02"}, {"changed-approved", "2026-11-02"}, {"unpinned-approved", "2026-11-02"}})
+	e, skipped, err := New(mod, m, pins, l, []Approval{{Team: "verified-approved", Date: "2026-11-02"}, {Team: "unverified-approved", Date: "2026-11-02"}, {Team: "absent-approved", Date: "2026-11-02"}, {Team: "changed-approved", Date: "2026-11-02"}, {Team: "unpinned-approved", Date: "2026-11-02"}})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -258,5 +264,34 @@ func TestTeamHash(t *testing.T) {
 	}
 	if _, err := TeamHash(l, "none"); err == nil {
 		t.Error("a team without files hashed")
+	}
+}
+
+// An approval from group A holds while the team stays in group A; one
+// from group B, for its release only.
+func TestDropped(t *testing.T) {
+	m := Manifest{Teams: map[string]ManifestTeam{
+		"a":  {Verified: true, Group: "A"},
+		"b":  {Verified: true, Group: "B", GroupWhy: []string{"library +0.70%"}},
+		"u":  {Verified: false},
+		"no": {Verified: true},
+	}}
+	m.Engine.WasmSHA256 = "0123456789abcdef" + strings.Repeat("0", 48)
+	for _, c := range []struct {
+		a    Approval
+		want string
+	}{
+		{Approval{Team: "a"}, ""},
+		{Approval{Team: "b"}, "in group B (library +0.70%)"},
+		{Approval{Team: "b", Release: "0123456789abcdef"}, ""},
+		{Approval{Team: "b", Release: "fedcba9876543210"}, "approved from group B for module fedcba9876543210 only"},
+		{Approval{Team: "a", Release: "fedcba9876543210"}, "approved from group B for module fedcba9876543210 only"},
+		{Approval{Team: "u"}, "not verified"},
+		{Approval{Team: "x"}, "not in the manifest"},
+		{Approval{Team: "no"}, "not in group A"},
+	} {
+		if got := Dropped(m, c.a); got != c.want {
+			t.Errorf("%+v: %q, want %q", c.a, got, c.want)
+		}
 	}
 }

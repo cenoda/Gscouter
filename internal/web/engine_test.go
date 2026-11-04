@@ -27,7 +27,7 @@ func testEngine(t *testing.T, verified map[string]bool, approved ...string) *eng
 	sum := sha256.Sum256(mod)
 	var entries []string
 	for id, v := range verified {
-		entries = append(entries, fmt.Sprintf("%q: {\"verified\": %v}", id, v))
+		entries = append(entries, fmt.Sprintf("%q: {\"verified\": %v, \"group\": \"A\"}", id, v))
 	}
 	manifest := fmt.Sprintf(`{"engine": {"commit": "test", "wasm_sha256": %q}, "teams": {%s}}`, hex.EncodeToString(sum[:]), strings.Join(entries, ","))
 	var list []engine.Approval
@@ -72,11 +72,31 @@ func TestEngineRouting(t *testing.T) {
 			t.Errorf("%s: Engine = %v, want %v", name, got, c.want)
 		}
 	}
+	// An approval from group A does not hold for a team in group B.
+	{
+		mod, _ := os.ReadFile("../engine/testdata/fake.wasm")
+		sum := sha256.Sum256(mod)
+		h, _ := engine.TeamHash(teams.FS, id)
+		manifest := fmt.Sprintf(`{"engine": {"wasm_sha256": %q}, "teams": {%q: {"verified": true, "group": "B"}}}`, hex.EncodeToString(sum[:]), id)
+		e, skipped, err := engine.New(mod, []byte(manifest), map[string]string{id: h}, teams.FS, []engine.Approval{{Team: id, Date: "2026-11-04"}})
+		if err != nil {
+			t.Fatal(err)
+		}
+		srv.SetEngine(e)
+		if srv.prepare(ctx, english, hutaoSel, nil).Engine || len(skipped) != 1 {
+			t.Errorf("a group B team approved from group A runs on the engine (skipped %v)", skipped)
+		}
+		e, _, _ = engine.New(mod, []byte(manifest), map[string]string{id: h}, teams.FS, []engine.Approval{{Team: id, Date: "2026-11-04", Release: hex.EncodeToString(sum[:])[:16]}})
+		srv.SetEngine(e)
+		if !srv.prepare(ctx, english, hutaoSel, nil).Engine {
+			t.Error("a group B team approved for its release stays on gcsim")
+		}
+	}
 	// A team whose library files changed since the release verified it
 	// stays on gcsim.
 	mod, _ := os.ReadFile("../engine/testdata/fake.wasm")
 	sum := sha256.Sum256(mod)
-	manifest := fmt.Sprintf(`{"engine": {"wasm_sha256": %q}, "gscouter_commit": "old", "teams": {%q: {"verified": true}}}`, hex.EncodeToString(sum[:]), id)
+	manifest := fmt.Sprintf(`{"engine": {"wasm_sha256": %q}, "gscouter_commit": "old", "teams": {%q: {"verified": true, "group": "A"}}}`, hex.EncodeToString(sum[:]), id)
 	e, skipped, err := engine.New(mod, []byte(manifest), map[string]string{id: strings.Repeat("0", 64)}, teams.FS, []engine.Approval{{Team: id, Date: "2026-11-02"}})
 	if err != nil {
 		t.Fatal(err)

@@ -1,7 +1,11 @@
 # Library teams the owner approved to score on gscouter-engine
-# (docs/engine.md §2). Only the owner adds a line: a team's score moves
+# (docs/engine.md §2). Only the owner approves: a team's score moves
 # (within 1% of gcsim) when it moves to the engine.
 #
 # One team per line: its library id, then the date of the owner's answer
-# (YYYY-MM-DD). A team runs on the engine only when it is also verified
-# in release/manifest.json.
+# (YYYY-MM-DD), then, for a team approved from group B,
+# release=<first 16 hex digits of the module's SHA-256>. An approval from
+# group A holds while the team stays verified in group A of the pinned
+# release (release/manifest.json); one from group B, for its release only.
+# cmd/pinengine takes off the approvals a release drops, and adds group A
+# with -approve-a after the owner's yes.
