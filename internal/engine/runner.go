@@ -5,18 +5,16 @@ package engine
 import (
 	"context"
 	"crypto/sha256"
-	"encoding/binary"
 	"encoding/hex"
 	"encoding/json"
-	"errors"
 	"fmt"
-	"math"
 	"runtime"
 	"sync"
 
 	"github.com/tetratelabs/wazero"
 	"github.com/tetratelabs/wazero/api"
 
+	"github.com/cenoda/gscouter/internal/gse"
 	"github.com/cenoda/gscouter/internal/score"
 )
 
@@ -124,7 +122,7 @@ func (r *runner) slice(ctx context.Context, cfg string, warmup float64, seed int
 			return nil, err
 		}
 		n := min(step, count-i)
-		body, err := call(ctx, m, "gse_run_slice", cfg, api.EncodeF64(warmup), uint64(seed), uint64(uint32(first+i)), uint64(uint32(n)))
+		body, err := gse.Call(ctx, m, "gse_run_slice", cfg, api.EncodeF64(warmup), uint64(seed), uint64(uint32(first+i)), uint64(uint32(n)))
 		if err != nil {
 			return nil, err
 		}
@@ -152,7 +150,7 @@ func (e *Engine) Check(ctx context.Context, cfg string) ([]string, error) {
 		return nil, fmt.Errorf("engine: instantiate: %w", err)
 	}
 	defer m.Close(context.Background())
-	body, err := call(ctx, m, "gse_check", cfg)
+	body, err := gse.Call(ctx, m, "gse_check", cfg)
 	if err != nil {
 		return nil, err
 	}
@@ -161,51 +159,4 @@ func (e *Engine) Check(ctx context.Context, cfg string) ([]string, error) {
 		return nil, fmt.Errorf("engine: %w", err)
 	}
 	return missing, nil
-}
-
-// call is one call of the module (wasm/lib.rs in gscouter-engine): cfg
-// goes in through gse_alloc, fn is called with its pointer, its length and
-// args, and the result comes back as a u32 status (0 ok), a u32 length
-// and that many bytes, the body or the error.
-func call(ctx context.Context, m api.Module, fn string, cfg string, args ...uint64) ([]byte, error) {
-	alloc, free, freeResult, f := m.ExportedFunction("gse_alloc"), m.ExportedFunction("gse_free"), m.ExportedFunction("gse_free_result"), m.ExportedFunction(fn)
-	if alloc == nil || free == nil || freeResult == nil || f == nil {
-		return nil, fmt.Errorf("engine: the module does not export %s", fn)
-	}
-	if len(cfg) > math.MaxUint32 {
-		return nil, errors.New("engine: config too long")
-	}
-	res, err := alloc.Call(ctx, uint64(len(cfg)))
-	if err != nil {
-		return nil, fmt.Errorf("engine: %w", err)
-	}
-	ptr := uint32(res[0])
-	if !m.Memory().WriteString(ptr, cfg) {
-		return nil, errors.New("engine: config out of the module's memory")
-	}
-	res, err = f.Call(ctx, append([]uint64{uint64(ptr), uint64(len(cfg))}, args...)...)
-	if err != nil {
-		return nil, fmt.Errorf("engine: %w", err)
-	}
-	out := uint32(res[0])
-	head, ok := m.Memory().Read(out, 8)
-	if !ok {
-		return nil, errors.New("engine: result out of the module's memory")
-	}
-	status, n := binary.LittleEndian.Uint32(head), binary.LittleEndian.Uint32(head[4:])
-	b, ok := m.Memory().Read(out+8, n)
-	if !ok {
-		return nil, errors.New("engine: result out of the module's memory")
-	}
-	body := append([]byte(nil), b...)
-	if _, err := freeResult.Call(ctx, uint64(out)); err != nil {
-		return nil, fmt.Errorf("engine: %w", err)
-	}
-	if _, err := free.Call(ctx, uint64(ptr), uint64(len(cfg))); err != nil {
-		return nil, fmt.Errorf("engine: %w", err)
-	}
-	if status != 0 {
-		return nil, errors.New(string(body))
-	}
-	return body, nil
 }

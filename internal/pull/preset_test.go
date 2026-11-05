@@ -6,11 +6,13 @@ import (
 	"time"
 
 	"github.com/cenoda/gscouter/internal/enka"
+	"github.com/cenoda/gscouter/internal/gse"
 	"github.com/cenoda/gscouter/internal/library"
 	"github.com/cenoda/gscouter/teams"
 )
 
 func TestParse(t *testing.T) {
+	needParse(t)
 	// The forms build.txt files write: an alias, a constant expression,
 	// a stat repeated on one line, weapon and set params, the Traveler.
 	chars, err := Parse(`kazuha char lvl=90/90 cons=0 talent=9,9,9;
@@ -59,6 +61,7 @@ travelercryo add stats atk%=0.466;
 // (Unpack checks it against the game data), and it writes the same
 // stats as its build.txt.
 func TestLibraryPresets(t *testing.T) {
+	needParse(t)
 	lib, err := library.LoadLibrary(teams.FS)
 	if err != nil {
 		t.Fatal(err)
@@ -105,6 +108,7 @@ func TestLibraryPresets(t *testing.T) {
 }
 
 func TestForCopies(t *testing.T) {
+	needParse(t)
 	lib, err := library.LoadLibrary(teams.FS)
 	if err != nil {
 		t.Fatal(err)
@@ -120,5 +124,15 @@ func TestForCopies(t *testing.T) {
 	d, _ := p.For(team, team.Members[0])
 	if d.Config() == c.Config() || d.Sets["x"] != 0 {
 		t.Error("changing a preset changed the stored one")
+	}
+}
+
+// needParse skips a test that reads setup lines until the pinned engine
+// release has the parse API (gse_parse), which config.Characters and
+// pull.Parse use.
+func needParse(t *testing.T) {
+	t.Helper()
+	if err := gse.Available(); err != nil {
+		t.Skipf("skipped until a release with gse_parse is pinned: %v", err)
 	}
 }

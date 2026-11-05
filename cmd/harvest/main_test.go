@@ -10,6 +10,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/cenoda/gscouter/internal/gse"
 	"github.com/cenoda/gscouter/internal/kqm"
 	"github.com/cenoda/gscouter/internal/library"
 	"github.com/cenoda/gscouter/internal/score"
@@ -177,6 +178,7 @@ func unchanged(t *testing.T, dir string, want map[string]string) {
 // The audit's reproduction: the only new candidate does not parse, with
 // the real checks. The earlier alternative stays.
 func TestAlternativesKeepsEarlierOnParseError(t *testing.T) {
+	needParse(t)
 	dir := teamDir(t)
 	want := read(t, filepath.Join(dir, library.AltDir, earlyAlt))
 	cfg := strings.Replace(configOf(t, dir), "hutao char lvl=90/90 cons=1", "hutao char lvl=90/90 cons=6", 1)
@@ -454,6 +456,7 @@ func newRoot(t *testing.T, dir string) candidate {
 // does not parse, with the real checks. The team stays as it was, its
 // alternatives too.
 func TestForceKeepsTeamOnParseError(t *testing.T) {
+	needParse(t)
 	root, dir := libraryRoot(t)
 	want := tree(t, dir)
 	cfg := configOf(t, dir) + "hutao audit_invalid_action;\n"
@@ -709,4 +712,14 @@ func TestRunReportsAlternativesFailure(t *testing.T) {
 		t.Errorf("run returns %v", err)
 	}
 	unchanged(t, dir, want)
+}
+
+// needParse skips a test that reads setup lines until the pinned engine
+// release has the parse API (gse_parse), which config.Characters and
+// pull.Parse use.
+func needParse(t *testing.T) {
+	t.Helper()
+	if err := gse.Available(); err != nil {
+		t.Skipf("skipped until a release with gse_parse is pinned: %v", err)
+	}
 }

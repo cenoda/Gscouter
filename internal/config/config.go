@@ -9,8 +9,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/genshinsim/gcsim/pkg/gcs/ast"
-	"github.com/genshinsim/gcsim/pkg/gcs/parser"
+	"github.com/cenoda/gscouter/internal/gse"
 )
 
 // Conditions are the simulation conditions shared by every team
@@ -95,19 +94,26 @@ func AssembleSource(conditions string, iterations int, build, rotation string) s
 	return b.String()
 }
 
-// Characters returns the gcsim keys of the characters set up in an
-// assembled config, in the order they appear.
+// Characters returns the keys of the characters set up in an assembled
+// config, in the order they appear, as the engine's parse API reads them
+// (gse.Parse; gscouter-engine docs/parse-api.md). A config that does
+// not parse, or that fails a check of a whole config (no active
+// character, no target, ...), is an error.
 func Characters(cfg string) ([]string, error) {
-	simcfg, _, err := parser.New(ast.NewFile(), cfg).Parse()
+	p, err := gse.Parse(cfg)
 	if err != nil {
 		return nil, err
 	}
-	if len(simcfg.Errors) > 0 {
-		return nil, errors.Join(simcfg.Errors...)
+	if len(p.Errors) > 0 {
+		errs := make([]error, len(p.Errors))
+		for i, e := range p.Errors {
+			errs[i] = e
+		}
+		return nil, errors.Join(errs...)
 	}
-	chars := make([]string, len(simcfg.Characters))
-	for i, p := range simcfg.Characters {
-		chars[i] = p.Base.Key.String()
+	chars := make([]string, len(p.Characters))
+	for i, c := range p.Characters {
+		chars[i] = c.Key
 	}
 	return chars, nil
 }

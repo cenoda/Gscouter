@@ -78,13 +78,12 @@ Phase 6 of gscouter-engine (`docs/independence.md` there) takes gcsim out of Gsc
 - **Keys**: `internal/gamekeys` embeds the engine's key catalog (`gse --catalog` format, engine `main` 8a3c580, `internal/gamekeys/README.md`); `internal/config/weapon.go` and `internal/library/library.go` take keys from it instead of gcsim's `shortcut` and `core/keys`. A test checks that it resolves exactly the names gcsim's `shortcut` accepts, to the same keys.
 - **Enka**: the mappings, names and artifact main stat table in `internal/enka/data/` are legacy data, no longer copied from gcsim or Enka's store (`internal/enka/data/README.md`). A new character's or weapon's ID, level, ascension and base stats are read from a showcase the owner chooses, once, with a developer command when that character or weapon is ported (new characters come last; the command is not built yet). The ID is matched to its key by those base stats against the official base stats (HoYoWiki integers). Neither Enka's store data nor gcsim's UI data supplies new IDs. Gscouter logs and stores no showcase data: a character or weapon not in the mapping is skipped, as before. (owner, 2026-11-05)
 - **Bosses**: `internal/config/bosses.go` holds the resistances as data (`legacy_gcsim`), checked against gcsim's monster data by a test.
+- **Parsing**: `config.Characters` and `pull.Parse` read setup lines with the engine's parse API (`gse_parse`, gscouter-engine `docs/parse-api.md`, `parse_version` 1) through `internal/gse`, which runs the pinned release's module on wazero (`internal/engine/release/module.go` embeds it; the browser build does not). `add stats random`, which gcsim reads, is refused with a clear error (class `unsupported`). gcsim's parser stays only in `internal/pull/agree_test.go`, which checks that both read every `build.txt` and library config alike, until step 5. A release without `gse_parse` (such as e6c8a07) cannot parse: `config.Characters` and `pull.Parse` return an error, and their tests skip, naming why, until a release with it is pinned.
 
-Non-test files that still import gcsim, and the step that removes each:
+Non-test files that still import gcsim, and the step that removes each (`internal/config` and `internal/pull` import none):
 
 | File | gcsim packages | Step |
 |---|---|---|
-| `internal/config/config.go` | `gcs/ast`, `gcs/parser` | 2, the engine's parse API |
-| `internal/pull/preset.go` | `gcs/ast`, `gcs/parser`, `core/attributes` (names of the parser's stat array, so it goes with the parser) | 2, the engine's parse API |
 | `internal/chart/start.go` | `catalog`, `model`, `shortcut` (burst cost and weapon class by key; `gamekeys.Character` has both, but the change waits for the chart's move) | 4 |
 | `internal/chart/preview.go` | `core`, `core/action`, `core/event`, `stats` | 4 |
 | `internal/timeline/timeline.go` | `stats` | 4 |

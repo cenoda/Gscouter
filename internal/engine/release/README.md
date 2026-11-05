@@ -15,3 +15,5 @@ one `engine-release` artifact, from a manual run of gscouter-engine's
 Both are embedded in the server (`internal/engine`). Without them the
 engine is off and every team runs on gcsim. A module whose SHA-256 is not
 the manifest's turns the engine off too, and the server logs why.
+
+`module.go` embeds `gse.wasm` for the parse API (`internal/gse`), outside the browser build. `cmd/pinengine` writes only `gse.wasm`, `manifest.json` and `teams.txt`.

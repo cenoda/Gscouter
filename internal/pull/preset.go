@@ -12,46 +12,44 @@ import (
 	"strings"
 
 	"github.com/cenoda/gscouter/internal/enka"
+	"github.com/cenoda/gscouter/internal/gse"
 	"github.com/cenoda/gscouter/internal/library"
-	"github.com/genshinsim/gcsim/pkg/core/attributes"
-	"github.com/genshinsim/gcsim/pkg/gcs/ast"
-	"github.com/genshinsim/gcsim/pkg/gcs/parser"
 )
 
-// Parse reads the characters of gcsim setup lines, such as a library
-// build.txt, in the order they appear. gcsim's own parser reads them, so
-// every form a build.txt writes (aliases, constant expressions, params)
-// reads as gcsim reads it. Weapon, set and character params are dropped,
-// as they are for showcase builds (enka.Character has none): a preset
-// runs with gcsim's defaults, like a player's build.
+// Parse reads the characters of setup lines, such as a library
+// build.txt, in the order they appear. The engine's parse API reads them
+// (gse.Parse; gscouter-engine docs/parse-api.md), so every form a
+// build.txt writes (aliases, constant expressions, params) reads as gcsim
+// reads it; the one form it refuses, add stats random, is an error.
+// Weapon, set and character params are dropped, as they are for showcase
+// builds (enka.Character has none): a preset runs with the default
+// params, like a player's build. The checks of a whole config (no active
+// character, no target) do not apply to setup lines alone.
 func Parse(build string) ([]enka.Character, error) {
-	res, _, err := parser.New(ast.NewFile(), build).Parse()
+	res, err := gse.Parse(build)
 	if err != nil {
 		return nil, err
 	}
 	chars := make([]enka.Character, 0, len(res.Characters))
 	for _, p := range res.Characters {
 		c := enka.Character{
-			Key:      enkaKey(p.Base.Key.String()),
-			Level:    p.Base.Level,
-			MaxLevel: p.Base.MaxLevel,
-			Cons:     p.Base.Cons,
-			Talents:  [3]int{p.Talents.Attack, p.Talents.Skill, p.Talents.Burst},
-			Weapon: enka.Weapon{
-				Key:      p.Weapon.Key.String(),
-				Refine:   p.Weapon.Refine,
-				Level:    p.Weapon.Level,
-				MaxLevel: p.Weapon.MaxLevel,
-			},
-			Sets:  map[string]int{},
-			Stats: map[string]float64{},
+			Key:      enkaKey(p.Key),
+			Level:    p.Level,
+			MaxLevel: p.MaxLevel,
+			Cons:     p.Cons,
+			Talents:  p.Talents,
+			Sets:     map[string]int{},
+			Stats:    map[string]float64{},
 		}
-		for set, n := range p.Sets {
-			c.Sets[set.String()] = n
+		if w := p.Weapon; w != nil {
+			c.Weapon = enka.Weapon{Key: w.Key, Refine: w.Refine, Level: w.Level, MaxLevel: w.MaxLevel}
 		}
-		for i, v := range p.Stats {
-			if v != 0 && i != int(attributes.NoStat) {
-				c.Stats[attributes.Stat(i).String()] = v
+		for _, s := range p.Sets {
+			c.Sets[s.Key] = s.Count
+		}
+		for stat, v := range p.Stats {
+			if v != 0 {
+				c.Stats[stat] = v
 			}
 		}
 		chars = append(chars, c)
