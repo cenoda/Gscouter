@@ -149,8 +149,8 @@ func TestEnemyTarget(t *testing.T) {
 }
 
 func TestBosses(t *testing.T) {
-	if len(Bosses) != len(bossList) {
-		t.Fatalf("%d bosses, want %d", len(Bosses), len(bossList))
+	if len(Bosses) != 37 {
+		t.Fatalf("%d bosses, want 37", len(Bosses))
 	}
 	b, ok := FindBoss("azhdaha")
 	if !ok || b.Resist != [len(Elements)]int{10, 10, 10, 10, 10, 10, 70, 40} {
