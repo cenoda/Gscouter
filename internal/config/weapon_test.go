@@ -5,6 +5,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/cenoda/gscouter/internal/gamekeys"
 	"github.com/genshinsim/gcsim/pkg/gcs/ast"
 	"github.com/genshinsim/gcsim/pkg/gcs/parser"
 )
@@ -77,5 +78,27 @@ func TestSwapModWeapons(t *testing.T) {
 	}
 	if _, chars := SwapModWeapons(weaponBuild, "active xilonen;\nxilonen skill;\n"); chars != nil {
 		t.Errorf("swapped %v for a rotation without weapon mods", chars)
+	}
+}
+
+// The mod weapons and their plain swaps are keys of the catalog, of one
+// weapon class, as gcsim's keys were.
+func TestModWeaponKeys(t *testing.T) {
+	class := map[string]string{}
+	for _, e := range gamekeys.All().Weapons {
+		class[e.Key] = e.WeaponClass
+	}
+	for w, mw := range modWeapons {
+		if class[w] == "" || class[w] != class[mw.plain] {
+			t.Errorf("%s (%q) -> %s (%q): not one weapon class", w, class[w], mw.plain, class[mw.plain])
+		}
+		a, ok1 := gamekeys.Weapon(w)
+		b, ok2 := gamekeys.Weapon(mw.plain)
+		if !ok1 || !ok2 || a != w || b != mw.plain {
+			t.Errorf("%s -> %s: not catalog keys", w, mw.plain)
+		}
+	}
+	if _, ok := gamekeys.Char("sangonomiyakokomi"); !ok {
+		t.Error("sangonomiyakokomi is not a catalog key")
 	}
 }

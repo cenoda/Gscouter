@@ -12,7 +12,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/genshinsim/gcsim/pkg/shortcut"
+	"github.com/cenoda/gscouter/internal/gamekeys"
 	"gopkg.in/yaml.v3"
 )
 
@@ -64,12 +64,13 @@ var ForkOnlyWeapons = map[string]bool{
 	"wintersheavyheart":   true,
 }
 
-// WeaponKey returns gcsim's key for a weapon name or one of its
-// shortcuts, or the lowercased name when gcsim does not know it.
+// WeaponKey returns the key for a weapon name or one of its aliases
+// (gscouter-engine's key catalog, the same as gcsim's), or the
+// lowercased name when the catalog does not know it.
 func WeaponKey(name string) string {
 	name = strings.ToLower(name)
-	if key, ok := shortcut.WeaponNameToKey[name]; ok {
-		return key.String()
+	if key, ok := gamekeys.Weapon(name); ok {
+		return key
 	}
 	return name
 }
@@ -449,17 +450,17 @@ func Key(chars []string) string {
 	return strings.Join(canonicalSet(chars), " ")
 }
 
-// Canonical returns the name used to compare characters: gcsim's key for
+// Canonical returns the name used to compare characters: the key (from
+// gscouter-engine's key catalog, the same as gcsim's) for
 // any of its aliases (e.g. "kazuha" -> "kaedeharakazuha"), with both
 // Traveler genders folded into one ("aethercryo", "luminecryo" ->
 // "travelercryo"). Unknown names are returned lowercased.
 func Canonical(name string) string {
 	name = strings.ToLower(name)
-	key, ok := shortcut.CharNameToKey[name]
+	s, ok := gamekeys.Char(name)
 	if !ok {
 		return name
 	}
-	s := key.String()
 	for _, prefix := range []string{"aether", "lumine"} {
 		if elem, ok := strings.CutPrefix(s, prefix); ok {
 			return "traveler" + elem

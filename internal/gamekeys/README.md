@@ -1,0 +1,10 @@
+# The key catalog
+
+`catalog.json` is gscouter-engine's key catalog (its `docs/porting.md` §4): every character, weapon and artifact set the engine knows, by key, with the other names gcsl accepts for it. Gscouter takes its keys from it (`gamekeys.Char`, `Weapon`, `Set`) instead of gcsim's `pkg/shortcut` and `pkg/core/keys` (step 2 of the engine's `docs/independence.md`).
+
+- **Engine commit**: `8a3c5800a4e6df3dc6f39bc5cf1c8e236f0ce06d` (gscouter-engine `main`, 2026-11-05), `gamekeys.EngineCommit`. The release Gscouter pins (`internal/engine/release`, `e6c8a07`) predates the catalog export (`1050c64`), so the catalog is taken from `main`. Only names and keys are read here; the engine's data and verification stay those of the pinned release.
+- **How it was made**: this session could not build `gse`, so `catalog_fromsource.py` wrote it by reading the engine's own tables at that commit (`engine/src/data.rs` `CHAR_NAMES`, `CHAR_KEYS`, `WEAPON_NAMES`, `WEAPON_KEYS`, `SET_NAMES`, `SET_KEYS`, `CHARS`, `WEAPONS`; the content lists of `chars`, `weapons`, `sets`; the empty `provenance::RECORDS`), in the format of `engine/src/catalog.rs` `json()`. It should be byte-identical to `gse --catalog` at that commit; replace it with that output (`gse --catalog > catalog.json`, then diff) when a `gse` is at hand.
+- **Updating**: `gse --catalog > internal/gamekeys/catalog.json` at the new engine commit, set `EngineCommit`, and run `go test ./internal/gamekeys ./internal/config ./internal/library`. A new name is added in the engine's `data.rs` only, never here.
+- **Provenance**: every entry is `legacy_gcsim` (`provenance_default`): the names and keys were gcsim's `pkg/shortcut` tables at `eb21884`, kept under the owner's legacy-data exception of 2026-11-04.
+
+The tests check that the catalog decodes, that it resolves exactly the names gcsim's `pkg/shortcut` accepts, each to the key gcsim prints (`TestSameAsGcsimShortcut`; it goes with the gcsim tests in step 5), and that it has every character, weapon and set the team library names (`TestCoversLibrary`).
