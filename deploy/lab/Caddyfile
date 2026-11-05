@@ -1,0 +1,12 @@
+{$LAB_DOMAIN} {
+	encode gzip
+	@root path /
+	redir @root /lab 302
+	@lab path /lab /lab/* /favicon.ico /favicon.svg /apple-touch-icon.png
+	handle @lab {
+		reverse_proxy lab:8080
+	}
+	handle {
+		respond "Not found" 404
+	}
+}

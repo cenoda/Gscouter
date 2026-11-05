@@ -29,6 +29,7 @@ func main() {
 	flag.IntVar(&s.MaxConcurrent, "concurrent", s.MaxConcurrent, "simulations running at once")
 	flag.IntVar(&s.MaxQueue, "queue", s.MaxQueue, "simulations waiting before requests are rejected")
 	static := flag.String("static", os.Getenv("GSCOUTER_STATIC"), "directory of the browser build (cmd/wasm); browsers then calculate results")
+	rotationLab := flag.String("rotation-lab", os.Getenv("GSCOUTER_ROTATION_LAB"), "directory with the optional browser rotation lab's gso.wasm, dictionary.json and manifest.json")
 	linksDB := flag.String("links", os.Getenv("GSCOUTER_LINKS"), "SQLite file of short links; none turns them off")
 	site := flag.String("site", os.Getenv("GSCOUTER_SITE"), "the site's public URL, e.g. https://gscouter.example; without it, links for search engines take each request's host")
 	indexNow := flag.String("indexnow", os.Getenv("GSCOUTER_INDEXNOW"), "state file of IndexNow submissions (needs -site); none turns them off")
@@ -55,6 +56,13 @@ func main() {
 			os.Exit(1)
 		}
 		slog.Info("browsers calculate results", "dir", *static)
+	}
+	if *rotationLab != "" {
+		if err := srv.SetRotationLab(*rotationLab); err != nil {
+			slog.Error("rotation lab", "dir", *rotationLab, "err", err)
+			os.Exit(1)
+		}
+		slog.Info("browser rotation lab", "dir", *rotationLab, "path", "/lab")
 	}
 
 	if *useEngine {

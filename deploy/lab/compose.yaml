@@ -1,0 +1,38 @@
+name: gscouter-rotation-lab
+services:
+  lab:
+    image: ${LAB_IMAGE:-gscouter-rotation-lab:local}
+    restart: unless-stopped
+    mem_limit: 600m
+    environment:
+      GSCOUTER_ROTATION_LAB: /lab-static
+      GSCOUTER_SITE: https://${LAB_DOMAIN:?Set LAB_DOMAIN in .env}
+    expose:
+      - "8080"
+    networks:
+      - lab
+
+  # Use this profile only on a dedicated host with ports 80/443 available.
+  caddy:
+    image: caddy:2
+    profiles: [https]
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      LAB_DOMAIN: ${LAB_DOMAIN:?Set LAB_DOMAIN in .env}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - lab
+
+networks:
+  lab:
+    name: gscouter-rotation-lab
+volumes:
+  caddy_data:
+  caddy_config:
