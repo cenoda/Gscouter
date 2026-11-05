@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 // Exercise the shipped ABI and real WASM fights without a server or JS packages.
 import assert from 'node:assert/strict';
+import {spawnSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
-import {readFile} from 'node:fs/promises';
+import {mkdtemp, readFile, rm, writeFile} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
 import path from 'node:path';
 
 const assets = path.resolve(process.argv[2] || 'lab-static');
@@ -72,10 +74,37 @@ assert.equal(stopped.stop_reason, 'requested');
 assert.equal(stopped.search_evaluations, 0);
 assert.equal(stopped.baseline.mean, stopped.selected.mean);
 assert.equal(stopped.improvement.mean, 0);
+let nativeParity = 'not requested';
+if (process.argv.includes('--native-parity')) {
+  const temp = await mkdtemp(path.join(tmpdir(), 'gso-browser-replay-'));
+  try {
+    const file = path.join(temp, 'input.json');
+    await writeFile(file, JSON.stringify(input));
+    const run = spawnSync('cargo', ['run', '--quiet', '--locked', '--manifest-path',
+      path.join(optimizer, 'browser/Cargo.toml'), '--example', 'replay', '--', file],
+      {encoding: 'utf8', timeout: 180000, maxBuffer: 4 * 1024 * 1024});
+    if (run.error) throw run.error;
+    assert.equal(run.status, 0, run.stderr);
+    const native = JSON.parse(run.stdout);
+    for (const key of ['gcsl', 'baseline_gcsl', 'decisions', 'accepted', 'promotions',
+      'evaluations', 'search_evaluations', 'audit_evaluations', 'failed_evaluations']) {
+      assert.equal(report[key], native[key], `native/WASM ${key}`);
+    }
+    for (const key of ['baseline', 'selected', 'improvement']) {
+      assert.equal(report[key].n, native[key].n);
+      for (const field of ['mean', 'se']) {
+        const a = report[key][field], b = native[key][field];
+        assert.ok(Math.abs(a - b) <= Math.max(1e-7, Math.abs(b) * 1e-10),
+          `native/WASM ${key}.${field}: ${a} vs ${b}`);
+      }
+    }
+    nativeParity = 'passed';
+  } finally { await rm(temp, {recursive: true, force: true}); }
+}
 console.log(JSON.stringify({
   engine: report.engine, phases: [...phases], steps,
   evaluations: report.evaluations, decisions: report.decisions,
   accepted: report.accepted, promotions: report.promotions,
   baseline: report.baseline, selected: report.selected,
-  elapsed_ms: Math.round(performance.now() - started), finish_audit: 'passed',
+  elapsed_ms: Math.round(performance.now() - started), finish_audit: 'passed', native_parity: nativeParity,
 }, null, 2));

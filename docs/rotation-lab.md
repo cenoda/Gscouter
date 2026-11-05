@@ -189,8 +189,26 @@ in Gscouter before deployment:
 ```sh
 cargo test --locked --manifest-path ../gscouter-optimizer-browser/browser/Cargo.toml
 go test ./internal/web ./cmd/server
-node scripts/smoke-rotation-lab.mjs ./lab-static ../gscouter-optimizer-browser
+node scripts/smoke-rotation-lab.mjs ./lab-static ../gscouter-optimizer-browser --native-parity
 ```
+
+Local execution QA on 2026-11-05 covered the browser core's six tests and the
+native pilot's 19 tests. The shipped WASM smoke completed 192 actual fight
+evaluations and five search decisions with a 256-fight search cap, then finished
+the independent 16-sample audit. This short run retained its baseline. The
+native replay produced the same selected GCSL and counters, and the baseline,
+selected and paired statistics matched within `max(1e-7, abs(native)*1e-10)`.
+The smoke also checked requested finish, audit completion and no extra work
+after completion.
+
+Chromium integration QA used a synthetic C0 Enka profile through the real HTTP
+handlers and real WASM, including start, progress, completion, immediate stop,
+restart and requested finish. Request inspection confirmed that results were
+not uploaded for remote calculation. This is execution and integration QA,
+not a rotation-effectiveness benchmark or a live Enka-service availability
+check. Docker was unavailable in the development environment: Compose YAML
+and routing configuration were inspected, but container startup and public TLS
+must be verified on the deployment host.
 
 Keep the exact manifest with reported failures, plus the selected team, seed,
 evaluation limit and browser version. Enka may reject a hidden showcase or

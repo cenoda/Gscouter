@@ -1,3 +1,4 @@
 /lab-static/
 /.lab-qa/
 __pycache__/
+/deploy/lab/.env
