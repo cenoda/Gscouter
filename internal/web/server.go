@@ -69,6 +69,7 @@ type SavedBuildSource interface {
 var errBusy = errors.New("server busy")
 
 type Server struct {
+	rotationLab *rotationLab // nil unless the separate browser inference assets are enabled
 	// engineReports limits the browsers' reports of engine failures
 	// (handleEngineError).
 	engineReports reportLimit
@@ -130,6 +131,12 @@ func New(lib *library.Library, profiles ProfileSource, settings Settings) (*Serv
 
 func (s *Server) Handler() http.Handler {
 	mux := http.NewServeMux()
+	if s.rotationLab != nil {
+		mux.HandleFunc("GET /lab", s.handleRotationLab)
+		mux.HandleFunc("GET /lab/profile", s.handleRotationLabProfile)
+		mux.HandleFunc("POST /lab/input", s.handleRotationLabInput)
+		mux.HandleFunc("GET /lab/assets/{file}", s.handleRotationLabAsset)
+	}
 	mux.HandleFunc("GET /{$}", s.handleIndex)
 	mux.HandleFunc("POST /showcase", s.handleShowcase)
 	mux.HandleFunc("POST /good", s.handleGOOD)
