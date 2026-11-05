@@ -25,6 +25,7 @@ go run ./cmd/server          # http://localhost:8080
 | `-concurrent` | 1 | Simulations running at once |
 | `-queue` | 8 | Simulations waiting before requests are rejected |
 | `-static` | `$GSCOUTER_STATIC` | Directory of the browser build; when set, visitors' browsers calculate results |
+| `-rotation-lab` | `$GSCOUTER_ROTATION_LAB` | Optional browser rotation-refinement assets; enables `/lab` (see [setup and separate deployment](docs/rotation-lab.md)) |
 | `-engine` | false | Score the approved teams on gscouter-engine (`docs/engine.md`); false by default while gscouter-engine is updated for the 0–120 s last-completed-cycle window |
 | `-engine-own-search` | true | Engine teams run their own filler search, ranked on 50 iterations, and use its pick; false keeps gcsim's pick (`docs/engine.md` §5) |
 | `-engine-dir` | | Directory with `approved.txt`, `gse.wasm`, `manifest.json` and `teams.txt` to try instead of the pinned engine release |

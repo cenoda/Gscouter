@@ -17,6 +17,7 @@ What each document is for, and the habits that keep them readable. These are con
 | `docs/speed.md` | Roadmap node faster DPS: time to a score in the browser and in validation runs, and what was tried |
 | `docs/cycle-swap.md` | Roadmap node Cycle swap: a rotation editor built like a rhythm-game chart editor (research) |
 | `docs/cycle.md` | Roadmap node Cycle: how the fixed rotation fits builds other than the source's (constellations, weapons), and what to change |
+| `docs/rotation-lab.md` | Optional browser-local rotation refinement: build assets, validate the pilot, and deploy a separate Enka-powered lab |
 | `docs/fillers.md` | How the looped score fills a character's waits for energy or cooldowns, and what that changes |
 | `docs/engine.md` | gscouter-engine in Gscouter: which teams run on it, the owner's approved list, how a release is pinned and shipped, and the gcsim imports left (independence from gcsim). The engine's own documents are in its repository (`README.md`, `docs/README.md`) |
 | `docs/fork.md` | The gcsim fork: how it is kept, regression runs, the characters and weapons on it |
