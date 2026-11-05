@@ -1,6 +1,6 @@
 # gscouter-engine in Gscouter
 
-> Status: 4,447 teams approved on release e6c8a07 (owner, 2026-11-04) · Last updated: 2026-11-04
+> Status: 4,447 teams approved on release e6c8a07 (owner, 2026-11-04) · Last updated: 2026-11-05
 
 How Gscouter scores teams on gscouter-engine, a Rust port of gcsim (https://github.com/cenoda/gscouter-engine), Phase 4 of its roadmap (`docs/roadmap.md` §3 there). The engine's own status (content, the release's numbers) is its `README.md`; how it is checked against gcsim, its `docs/verification.md`. The engine scores within 1% of gcsim, not to the bit, so a team moves to it only when the owner approves it. Everything else stays on gcsim.
 
@@ -69,3 +69,26 @@ Measured 2026-11-02 on this session's machine (4 CPUs), gscouter-engine's `confi
 ## 6. The `/updates` entry
 
 Required by the owner (2026-11-04) when teams move to the engine, in `internal/web/about.go`. One entry of 2026-11-04, `Scores` set, in three lines: the move of 4,430 library teams to gscouter-engine, within 1% of gcsim (charts, timelines, character details and builds with content the engine lacks stay on gcsim), and the engine's own filler search: about twice as fast on pages that search, and in a few builds another filler, usually a better one, with its score; then the 17 teams release e6c8a07 added (Nefer's and Hu Tao / Yelan / Ineffa / Flins, 4,447 in all), and every weapon and set now in the engine, so builds with them run on it for these teams. Each language's `about.scores` names the engine beside gcsim, within 1%. Each later release that moves teams gets its own entry.
+
+## 7. gcsim imports left (independence, step 2)
+
+Phase 6 of gscouter-engine (`docs/independence.md` there) takes gcsim out of Gscouter step by step. Step 2 removes it from the input path. Done so far (2026-11-05, branch `claude/independence-step2-inputs`):
+
+- **Keys**: `internal/gamekeys` embeds the engine's key catalog (`gse --catalog` format, engine `main` 8a3c580, `internal/gamekeys/README.md`); `internal/config/weapon.go` and `internal/library/library.go` take keys from it instead of gcsim's `shortcut` and `core/keys`. A test checks that it resolves exactly the names gcsim's `shortcut` accepts, to the same keys.
+- **Enka**: the mappings, names and artifact main stat table in `internal/enka/data/` are legacy data, no longer copied from gcsim or Enka's store (`internal/enka/data/README.md`); a showcase ID missing from them is logged as `enka new id` with its level, ascension and base stats, without the UID.
+- **Bosses**: `internal/config/bosses.go` holds the resistances as data (`legacy_gcsim`), checked against gcsim's monster data by a test.
+
+Non-test files that still import gcsim, and the step that removes each:
+
+| File | gcsim packages | Step |
+|---|---|---|
+| `internal/config/config.go` | `gcs/ast`, `gcs/parser` | 2, the engine's parse API |
+| `internal/pull/preset.go` | `gcs/ast`, `gcs/parser`, `core/attributes` (names of the parser's stat array, so it goes with the parser) | 2, the engine's parse API |
+| `internal/chart/start.go` | `catalog`, `model`, `shortcut` (burst cost and weapon class by key; `gamekeys.Character` has both, but the change waits for the chart's move) | 4 |
+| `internal/chart/preview.go` | `core`, `core/action`, `core/event`, `stats` | 4 |
+| `internal/timeline/timeline.go` | `stats` | 4 |
+| `internal/score/chasca.go` | `core`, `core/action`, `core/info`, `core/keys`, `core/player/character` | 4 |
+| `internal/score/score.go` | `core`, `core/action`, `core/attributes`, `core/event`, `core/info`, `gcs/ast`, `gcs/eval`, `gcs/parser`, `simulation`, `stats` | 5 |
+| `internal/score/requests.go` | `core`, `core/action`, `gcs/ast`, `gcs/eval`, `gcs/parser`, `stats` | 5 |
+
+`internal/score/cache.go` names gcsim's module path for cache keys (`gcsimModule`) without importing it (step 5), `internal/enka/gen.sh` still reads gcsim's module, only to write a copy to diff against, and `internal/web`'s message files only link to gcsim's repository. Tests that import gcsim (now also `internal/gamekeys`, `internal/config/bosses_test.go`) go in step 5.

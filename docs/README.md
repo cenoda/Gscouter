@@ -18,7 +18,7 @@ What each document is for, and the habits that keep them readable. These are con
 | `docs/cycle-swap.md` | Roadmap node Cycle swap: a rotation editor built like a rhythm-game chart editor (research) |
 | `docs/cycle.md` | Roadmap node Cycle: how the fixed rotation fits builds other than the source's (constellations, weapons), and what to change |
 | `docs/fillers.md` | How the looped score fills a character's waits for energy or cooldowns, and what that changes |
-| `docs/engine.md` | gscouter-engine in Gscouter: which teams run on it, the owner's approved list, how a release is pinned and shipped. The engine's own documents are in its repository (`README.md`, `docs/README.md`) |
+| `docs/engine.md` | gscouter-engine in Gscouter: which teams run on it, the owner's approved list, how a release is pinned and shipped, and the gcsim imports left (independence from gcsim). The engine's own documents are in its repository (`README.md`, `docs/README.md`) |
 | `docs/fork.md` | The gcsim fork: how it is kept, regression runs, the characters and weapons on it |
 | `docs/characters/<name>.md` | One character on the fork: its implementation notes (source, frame data, known problems) and its written library teams |
 | `docs/characters/first-batches.md` | The first written teams (Nefer, Linnea, Zibai, Iansan), recorded before characters had their own documents |
