@@ -10,6 +10,8 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/cenoda/gscouter/internal/enka"
 )
 
 func labAssets(t *testing.T) string {
@@ -155,5 +157,23 @@ func TestRotationLabRealBuildInput(t *testing.T) {
 		if w.Code != tc.status {
 			t.Fatalf("party status %d want %d: %s", w.Code, tc.status, w.Body.String())
 		}
+	}
+
+	// Draft teams with a rotation are also accepted.
+	draftTeam := []enka.Character{
+		char("vesna", "beyondthechrysalis", "scarletproof", map[string]float64{"hp": 4780, "atk": 311, "atk%": 0.466, "cd": 0.622}),
+		char("vodyanitsa", "thrillingtalesofdragonslayers", "tenacityofthemillelith", map[string]float64{"hp": 4780, "atk": 311}),
+		char("luminecryo", "exaiphanesblade", "heartofthefurnace", map[string]float64{"hp": 4780, "atk": 311}),
+		char("faruzan", "favoniuswarbow", "viridescentvenerer", map[string]float64{"hp": 4780, "atk": 311, "er": 0.5}),
+	}
+	draftTokens := make([]string, len(draftTeam))
+	for i, c := range draftTeam {
+		draftTokens[i] = buildToken(c)
+	}
+	draftBody, _ := json.Marshal(map[string]any{"builds": draftTokens})
+	draftResp := httptest.NewRecorder()
+	h.ServeHTTP(draftResp, httptest.NewRequest("POST", "/lab/input", strings.NewReader(string(draftBody))))
+	if draftResp.Code != http.StatusOK {
+		t.Fatalf("draft team rejected with status %d: %s", draftResp.Code, draftResp.Body.String())
 	}
 }

@@ -166,7 +166,7 @@ func (s *Server) handleRotationLabInput(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 	t := s.lib.Find(keys(chars))
-	if t == nil || t.Status != library.StatusSupported || t.Rotation == "" {
+	if t == nil || t.Status == library.StatusBlocked || t.Rotation == "" {
 		labError(w, 422, "이 파티는 아직 실험실에서 지원하지 않습니다. 기존 라이브러리 로테이션이 있는 파티를 선택해 주세요.")
 		return
 	}
