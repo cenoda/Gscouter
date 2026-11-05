@@ -22,7 +22,7 @@ for attempt in range(30):
     try:
         page, headers = get("/lab")
         break
-    except (urllib.error.URLError, TimeoutError):
+    except (urllib.error.URLError, TimeoutError, OSError):
         if attempt == 29:
             raise
         time.sleep(1)
