@@ -10,8 +10,8 @@ func init() {
 		"site.title":  "Gscouter · 原神（Genshin Impact）隊伍 DPS 計算器",
 		"site.desc":   "透過原神（Genshin Impact）UID，以同一敵人、同一循環計算角色展示櫃中四名角色組成的隊伍 DPS，並與其他玩家比較。",
 		"foot.method": "計算方式",
-		"foot.method1": "Gscouter 在單一 100 級、全抗性 10% 的敵人面前，按固定間隔給予元素微粒，無限重複社群 gcsim 循環，" +
-			"取初始能量耗盡後 150–450 秒區間的平均 DPS 作為分數。元素充能效率不足會拉低分數。",
+		"foot.method1": "Gscouter 在單一 100 級、全抗性 10% 的敵人面前，按固定間隔給予元素微粒，重複社群 gcsim 循環，" +
+			"取滿能量起 0–120 秒（截至最後一個完整循環）的平均 DPS 作為分數。元素充能效率不足會拉低分數。",
 		"foot.method2": "當能量或冷卻導致角色原地等待時，分數會在「等待」與「以元素戰技、換人或普通攻擊填補空檔」之間取較高者。" +
 			"「單輪循環」是從滿能量開始打一輪的結果，與社群 gcsim 設定所回報的數值為同一基準。",
 		"foot.credits":      `模擬 <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · 循環 <a href="https://db.kqm.gg">KQM gcsim DB</a> · 角色資料 <a href="https://enka.network">Enka.Network</a>`,
@@ -389,7 +389,7 @@ func init() {
 		"ed.start_energy":       "初始能量",
 		"ed.fighting_spirit":    "初始戰意",
 		"ed.param_default":      "預設：%s",
-		"ed.params_note":        "初始狀態在計分排除的前 150 秒之後影響很小。修改的值會隨譜面一起儲存。",
+		"ed.params_note":        "初始狀態決定第一輪循環的起始能量與層數。修改的值會隨譜面一起儲存。",
 		"ed.reset_params":       "恢復預設",
 		"ed.close":              "關閉",
 		"ed.settings":           "設定",

@@ -10,8 +10,8 @@ func init() {
 		"site.title":  "Gscouter · Calculadora de DPS de equipe de Genshin Impact",
 		"site.desc":   "Calcule o DPS de uma equipe de quatro personagens da Exibição de Personagens a partir de um UID de Genshin Impact, contra o mesmo inimigo e com a mesma rotação, e compare com outros jogadores.",
 		"foot.method": "Como a pontuação funciona",
-		"foot.method1": "O Gscouter repete sem parar a rotação do gcsim da comunidade contra um único inimigo de Nv. 100 com 10% de RES a tudo, com partículas em intervalos regulares, " +
-			"e pontua o DPS médio entre 150 e 450 s, depois que a energia inicial acaba. Pouca Recarga de Energia reduz a pontuação.",
+		"foot.method1": "O Gscouter repete a rotação do gcsim da comunidade contra um único inimigo de Nv. 100 com 10% de RES a tudo, com partículas em intervalos regulares, " +
+			"e pontua o DPS médio do início com a energia cheia em 120 s (até a última rotação completa). Pouca Recarga de Energia reduz a pontuação nas rotações seguintes.",
 		"foot.method2": "Quando a energia ou um Tempo de Recarga deixaria um personagem parado, a pontuação fica com o melhor entre esperar e preencher o tempo com Habilidades Elementais, trocas ou ataques normais. " +
 			"\"Uma rotação\" é uma única passada com a energia cheia, o número informado pelas configurações do gcsim da comunidade.",
 		"foot.credits":      `Simulação <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotações <a href="https://db.kqm.gg">KQM gcsim DB</a> · Dados dos personagens <a href="https://enka.network">Enka.Network</a>`,
@@ -389,7 +389,7 @@ func init() {
 		"ed.start_energy":       "Energia inicial",
 		"ed.fighting_spirit":    "Espírito de luta inicial",
 		"ed.param_default":      "Padrão: %s",
-		"ed.params_note":        "Estados iniciais pesam pouco depois dos primeiros 150 s, que a pontuação deixa de fora. Valores alterados vão junto com a partitura.",
+		"ed.params_note":        "Estados iniciais afetam a primeira rotação da luta pontuada de 120 s. Valores alterados vão junto com a partitura.",
 		"ed.reset_params":       "Voltar ao padrão",
 		"ed.close":              "Fechar",
 		"ed.settings":           "Configurações",

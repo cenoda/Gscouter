@@ -10,8 +10,8 @@ func init() {
 		"site.title":  "Gscouter · 原神（Genshin Impact）編成DPS計算",
 		"site.desc":   "原神（Genshin Impact）のUIDからキャラクターラインナップのキャラクター4人で組んだ編成のDPSを、同じ敵・同じローテーションで計算し、他のプレイヤーと比較できます。",
 		"foot.method": "スコアの計算方法",
-		"foot.method1": "全耐性10%のLv.100の敵1体を相手に、一定間隔で元素粒子が得られる条件で、コミュニティのgcsimローテーションを繰り返し続け、" +
-			"初期エネルギーが尽きた後の150–450秒の平均DPSをスコアにします。元素チャージ効率が足りないとスコアが下がります。",
+		"foot.method1": "全耐性10%のLv.100の敵1体を相手に、一定間隔で元素粒子が得られる条件で、コミュニティのgcsimローテーションを繰り返し、" +
+			"エネルギー満タンから始まる0–120秒（完了した最後のローテーションまで）の平均DPSをスコアにします。元素チャージ効率が足りないとスコアが下がります。",
 		"foot.method2": "元素エネルギーやクールタイムのせいでキャラクターが立ち止まって待つことになる場合は、その時間を元素スキル・交代・通常攻撃で埋めた場合と比べて高いほうを採用します。" +
 			"「ローテーション1回」はエネルギー満タンの状態から1周した値で、コミュニティのgcsim設定が報告する数値と同じ基準です。",
 		"foot.credits":      `シミュレーション <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · ローテーション <a href="https://db.kqm.gg">KQM gcsim DB</a> · キャラクター情報 <a href="https://enka.network">Enka.Network</a>`,
@@ -389,7 +389,7 @@ func init() {
 		"ed.start_energy":       "開始エネルギー",
 		"ed.fighting_spirit":    "開始時の闘志",
 		"ed.param_default":      "既定値: %s",
-		"ed.params_note":        "開始状態は、スコアから除く最初の150秒以降はほとんど影響しません。変えた値はチャートと一緒に保存されます。",
+		"ed.params_note":        "開始状態は最初のローテーションのエネルギーやスタックに反映されます。変えた値はチャートと一緒に保存されます。",
 		"ed.reset_params":       "既定値に戻す",
 		"ed.close":              "閉じる",
 		"ed.settings":           "設定",

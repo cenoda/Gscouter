@@ -24,8 +24,8 @@ func main() {
 		teamDir    = flag.String("team", "", "team library directory")
 		buildPath  = flag.String("build", "", "build file (gcsim character setup lines)")
 		iterations = flag.Int("iter", 1000, "number of iterations")
-		warmup     = flag.Float64("warmup", 150, "seconds of the looped fight excluded from the score")
-		duration   = flag.Float64("duration", 450, "length of the looped fight in seconds")
+		warmup     = flag.Float64("warmup", 0, "seconds of the looped fight excluded from the score")
+		duration   = flag.Float64("duration", 120, "length of the looped fight in seconds")
 		seed       = flag.Int64("seed", 1, "seed of the first iteration")
 		dump       = flag.Bool("dump", false, "print the assembled gcsim config and exit")
 	)
@@ -103,7 +103,7 @@ func run(teamDir, buildPath string, iterations int, warmup, duration float64, se
 
 	fmt.Printf("Team:      %s (rotation v%d, %s)\n", team.Name, team.RotationVersion, team.Status)
 	fmt.Printf("Score:     %.0f DPS ± %.0f (1 s.e.; s.d. %.0f)\n", res.DPS, res.StdErr, res.StdDev)
-	fmt.Printf("Window:    %.0fs–%.0fs of the looped rotation, %d iterations, %s\n", warmup, warmup+res.Window, res.Iterations, time.Since(start).Round(time.Millisecond))
+	fmt.Printf("Window:    %.0fs–%.1fs of the looped rotation, %d iterations, %s\n", warmup, warmup+res.Window, res.Iterations, time.Since(start).Round(time.Millisecond))
 	fmt.Printf("One pass:  %.0f DPS over %.1fs from full energy (community gcsim measure)\n", oneRes.DPS, oneRes.Window)
 	if best > 0 {
 		var raised []string

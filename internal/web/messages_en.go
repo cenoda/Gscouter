@@ -10,8 +10,8 @@ func init() {
 		"site.title":  "Gscouter · Genshin Impact team DPS calculator",
 		"site.desc":   "Calculate the DPS of a team of four showcase characters from a Genshin Impact UID, against the same enemy with the same rotation, and compare it with other players.",
 		"foot.method": "How scores work",
-		"foot.method1": "Gscouter repeats the community gcsim rotation endlessly against a single Lv. 100 enemy with 10% resistance to everything, with particles at regular intervals, " +
-			"and scores the average DPS over 150–450 s, after the starting energy has run out. Too little Energy Recharge lowers the score.",
+		"foot.method1": "Gscouter repeats the community gcsim rotation against a single Lv. 100 enemy with 10% resistance to everything, with particles at regular intervals, " +
+			"and scores the average DPS from full energy over 0–120 s, up to the last completed rotation. Too little Energy Recharge lowers the score.",
 		"foot.method2": "When energy or a cooldown would leave a character standing still, the score takes the better of waiting and filling the time with Elemental Skills, swaps or normal attacks. " +
 			"\"One rotation\" is a single pass from full energy, the number community gcsim configs report.",
 		"foot.credits":      `Simulation <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotations <a href="https://db.kqm.gg">KQM gcsim DB</a> · Character data <a href="https://enka.network">Enka.Network</a>`,
@@ -389,7 +389,7 @@ func init() {
 		"ed.start_energy":       "Starting energy",
 		"ed.fighting_spirit":    "Starting Fighting Spirit",
 		"ed.param_default":      "Default: %s",
-		"ed.params_note":        "Starting states matter little after the first 150 s, which the score leaves out. Changed values travel with the chart.",
+		"ed.params_note":        "Starting states set the energy and stacks of the first rotation. Changed values travel with the chart.",
 		"ed.reset_params":       "Back to the defaults",
 		"ed.close":              "Close",
 		"ed.settings":           "Settings",

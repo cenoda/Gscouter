@@ -10,8 +10,8 @@ func init() {
 		"site.title":  "Gscouter · Calcolatore DPS di squadra per Genshin Impact",
 		"site.desc":   "Calcola il DPS di una squadra di quattro personaggi in vetrina a partire da un UID di Genshin Impact, contro lo stesso nemico con la stessa rotazione, e confrontalo con altri giocatori.",
 		"foot.method": "Come si calcolano i punteggi",
-		"foot.method1": "Gscouter ripete all'infinito la rotazione gcsim della community contro un singolo nemico di Lv. 100 con il 10% di RES a tutto, con particelle a intervalli regolari, " +
-			"e assegna come punteggio il DPS medio tra 150 e 450 s, dopo che l'energia iniziale si è esaurita. Una Ricarica di energia insufficiente abbassa il punteggio.",
+		"foot.method1": "Gscouter ripete la rotazione gcsim della community contro un singolo nemico di Lv. 100 con il 10% di RES a tutto, con particelle a intervalli regolari, " +
+			"e assegna come punteggio il DPS medio da energia piena tra 0 e 120 s, fino all'ultima rotazione completata. Una Ricarica di energia insufficiente abbassa il punteggio.",
 		"foot.method2": "Quando l'energia o un tempo di ricarica lascerebbero un personaggio fermo ad aspettare, il punteggio sceglie il meglio tra attendere e riempire il tempo con Abilità elementali, cambi o Attacchi normali. " +
 			"\"Una rotazione\" è un singolo passaggio con energia piena, il valore riportato dalle configurazioni gcsim della community.",
 		"foot.credits":      `Simulazione <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotazioni <a href="https://db.kqm.gg">KQM gcsim DB</a> · Dati dei personaggi <a href="https://enka.network">Enka.Network</a>`,
@@ -389,7 +389,7 @@ func init() {
 		"ed.start_energy":       "Energia iniziale",
 		"ed.fighting_spirit":    "Spirito combattivo iniziale",
 		"ed.param_default":      "Predefinito: %s",
-		"ed.params_note":        "Gli stati iniziali contano poco dopo i primi 150 s, che il punteggio esclude. I valori cambiati viaggiano con lo spartito.",
+		"ed.params_note":        "Gli stati iniziali impostano l'energia e gli accumuli della prima rotazione. I valori cambiati viaggiano con lo spartito.",
 		"ed.reset_params":       "Torna ai predefiniti",
 		"ed.close":              "Chiudi",
 		"ed.settings":           "Impostazioni",

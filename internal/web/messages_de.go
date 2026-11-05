@@ -10,8 +10,8 @@ func init() {
 		"site.title":  "Gscouter · Team-DPS-Rechner für Genshin Impact",
 		"site.desc":   "Berechne aus einer Genshin Impact-UID die DPS eines Teams aus vier ausgestellten Charakteren – gegen denselben Gegner mit derselben Rotation – und vergleiche sie mit anderen Spielern.",
 		"foot.method": "So werden die Werte berechnet",
-		"foot.method1": "Gscouter wiederholt die gcsim-Rotation der Community endlos gegen einen einzelnen Gegner der Stufe 100 mit 10 % Resistenz gegen alles und mit Partikeln in regelmäßigen Abständen, " +
-			"und wertet die durchschnittlichen DPS von 150 bis 450 s, nachdem die Startenergie aufgebraucht ist. Zu wenig Aufladerate senkt den Wert.",
+		"foot.method1": "Gscouter wiederholt die gcsim-Rotation der Community gegen einen einzelnen Gegner der Stufe 100 mit 10 % Resistenz gegen alles und mit Partikeln in regelmäßigen Abständen, " +
+			"und wertet die durchschnittlichen DPS mit voller Startenergie über 0 bis 120 s bis zur letzten abgeschlossenen Rotation. Zu wenig Aufladerate senkt den Wert.",
 		"foot.method2": "Wenn ein Charakter wegen Energie oder einer Abklingzeit untätig warten müsste, zählt das Bessere aus Warten und dem Füllen der Zeit mit Elementarfähigkeiten, Wechseln oder Normalen Angriffen. " +
 			"„Eine Rotation“ ist ein einzelner Durchlauf mit voller Energie – der Wert, den gcsim-Konfigurationen der Community angeben.",
 		"foot.credits":      `Simulation <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotationen <a href="https://db.kqm.gg">KQM gcsim DB</a> · Charakterdaten <a href="https://enka.network">Enka.Network</a>`,
@@ -389,7 +389,7 @@ func init() {
 		"ed.start_energy":       "Startenergie",
 		"ed.fighting_spirit":    "Start-Kampfgeist",
 		"ed.param_default":      "Standard: %s",
-		"ed.params_note":        "Startzustände zählen nach den ersten 150 s, die die Wertung auslässt, kaum. Geänderte Werte gehören zur Partitur.",
+		"ed.params_note":        "Startzustände legen Energie und Stapel der ersten Rotation fest. Geänderte Werte gehören zur Partitur.",
 		"ed.reset_params":       "Auf Standard zurücksetzen",
 		"ed.close":              "Schließen",
 		"ed.settings":           "Einstellungen",

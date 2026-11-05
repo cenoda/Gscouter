@@ -1,9 +1,13 @@
-// Package score computes the steady-state DPS of a gcsim config.
+// Package score computes the DPS of a gcsim config over a scoring window.
 //
-// Each iteration is simulated for the full duration, then only the damage
-// dealt after the warmup (the opener) is counted. gcsim records damage in
-// 0.5 s buckets per iteration, so the window is cut at an exact bucket
-// boundary instead of being approximated from two separate runs.
+// Each iteration is simulated for the full duration. With a warmup (such
+// as the 150–450 s window used by library validation), only the damage
+// dealt after the warmup is counted. With no warmup on a looped fight
+// (the site's 0–120 s window from full energy), the window ends at the
+// last cycle that completed within the duration, so an unfinished cycle's
+// setup at the end of the clock does not drag the average down. gcsim
+// records damage in 0.5 s buckets per iteration, so the window is cut at
+// a bucket boundary.
 package score
 
 import (
@@ -182,6 +186,9 @@ func RunIterations(ctx context.Context, cfg string, opts Options) ([]Iteration, 
 		return nil, fmt.Errorf("duration %vs must be longer than warmup %vs", simcfg.Settings.Duration, opts.Warmup)
 	}
 	startBucket := int(opts.Warmup*60) / bucketFrames
+	if opts.Warmup == 0 && simcfg.Settings.Duration > 0 {
+		markCycles(gcsl)
+	}
 
 	workers := opts.Workers
 	if workers <= 0 {
@@ -204,7 +211,7 @@ func RunIterations(ctx context.Context, cfg string, opts Options) ([]Iteration, 
 			defer wg.Done()
 			for i := range jobs {
 				seed := opts.Seed + int64(opts.First+i)
-				res, err := simulate(ctx, file, simcfg, gcsl, seed)
+				res, endFrame, err := simulateWindow(ctx, file, simcfg, gcsl, seed)
 				if err != nil {
 					if ctx.Err() != nil {
 						continue // returned below
@@ -215,7 +222,7 @@ func RunIterations(ctx context.Context, cfg string, opts Options) ([]Iteration, 
 					})
 					continue
 				}
-				results[i] = summarize(&res, startBucket)
+				results[i] = summarize(&res, startBucket, endFrame)
 			}
 		}()
 	}
@@ -262,6 +269,15 @@ var ErrStuck = errors.New("the rotation plays actions that take no time, such as
 // its duration, when ctx is done or the fight reaches maxFightFrames;
 // the result is then the fight so far, and the error ctx's.
 func simulate(ctx context.Context, file *ast.File, simcfg *info.ActionList, gcsl ast.Node, seed int64) (stats.Result, error) {
+	res, _, err := simulateWith(ctx, file, simcfg, gcsl, seed, maxFightFrames, nil, nil)
+	return res, err
+}
+
+// simulateWindow is simulate, also returning the frame at which the
+// scoring window ends: the end of the last completed cycle when gcsl's
+// cycles were marked by markCycles and the fight did not stall after it,
+// or res.Duration otherwise.
+func simulateWindow(ctx context.Context, file *ast.File, simcfg *info.ActionList, gcsl ast.Node, seed int64) (stats.Result, int, error) {
 	return simulateWith(ctx, file, simcfg, gcsl, seed, maxFightFrames, nil, nil)
 }
 
@@ -273,16 +289,25 @@ type syncEvaluator interface {
 }
 
 // stillGuard stops the program once it has played maxStillActions
-// actions on one frame.
+// actions on one frame, and records cycle markers placed by markCycles.
 type stillGuard struct {
 	syncEvaluator
-	c            *core.Core
-	frame, count int
-	stuck        bool
+	c                          *core.Core
+	frame, count               int
+	stuck                      bool
+	cycles, cycleEnd, maxCycle int
 }
 
 func (g *stillGuard) RunSync(exec func(*action.Eval) bool) error {
 	return g.syncEvaluator.RunSync(func(e *action.Eval) bool {
+		if IsMarker(e) {
+			if g.c.F > g.cycleEnd {
+				g.cycles++
+				g.maxCycle = max(g.maxCycle, g.c.F-g.cycleEnd)
+				g.cycleEnd = g.c.F
+			}
+			return true
+		}
 		if g.c.F != g.frame {
 			g.frame, g.count = g.c.F, 0
 		}
@@ -295,21 +320,117 @@ func (g *stillGuard) RunSync(exec func(*action.Eval) bool) error {
 	})
 }
 
+// cycleMarker is a marker action (delay(Marker)) that stillGuard records
+// as the end of a cycle without passing to gcsim.
+func cycleMarker() ast.Node {
+	return &ast.CallExpr{
+		Fun:  &ast.Ident{Value: "delay"},
+		Args: []ast.Expr{&ast.NumberLit{IntVal: Marker}},
+	}
+}
+
+// markCycles places a cycleMarker at the end of each rotation cycle in
+// gcsl's outer while loop: at the end of any top-level for loop in which
+// two or more characters act (and before it if two or more characters act
+// in an opener before the loop), or at the end of the while loop's body.
+func markCycles(gcsl ast.Node) {
+	root, ok := gcsl.(*ast.BlockStmt)
+	if !ok {
+		return
+	}
+	var loop *ast.WhileStmt
+	for _, n := range root.List {
+		if w, ok := n.(*ast.WhileStmt); ok {
+			loop = w
+		}
+	}
+	if loop == nil || loop.WhileBlock == nil || !multiChar(loop) {
+		return
+	}
+	var list, since []ast.Node
+	markedFor := false
+	for _, n := range loop.WhileBlock.List {
+		if f, ok := n.(*ast.ForStmt); ok && f.Body != nil && multiChar(f.Body) {
+			if multiChar(since...) {
+				list = append(list, cycleMarker())
+			}
+			since = nil
+			f.Body.Append(cycleMarker())
+			markedFor = true
+		} else {
+			since = append(since, n)
+		}
+		list = append(list, n)
+	}
+	if !markedFor || multiChar(since...) {
+		list = append(list, cycleMarker())
+	}
+	loop.WhileBlock.List = list
+}
+
+// multiChar reports whether two or more characters execute actions in nodes.
+func multiChar(nodes ...ast.Node) bool {
+	chars := map[int64]bool{}
+	collectChars(nodes, chars)
+	return len(chars) >= 2
+}
+
+func collectChars(nodes []ast.Node, chars map[int64]bool) {
+	for _, n := range nodes {
+		switch s := n.(type) {
+		case *ast.BlockStmt:
+			if s != nil {
+				collectChars(s.List, chars)
+			}
+		case *ast.IfStmt:
+			if s.IfBlock != nil {
+				collectChars(s.IfBlock.List, chars)
+			}
+			if s.ElseBlock != nil {
+				collectChars([]ast.Node{s.ElseBlock}, chars)
+			}
+		case *ast.SwitchStmt:
+			for _, c := range s.Cases {
+				if c.Body != nil {
+					collectChars(c.Body.List, chars)
+				}
+			}
+			if s.Default != nil {
+				collectChars(s.Default.List, chars)
+			}
+		case *ast.WhileStmt:
+			if s.WhileBlock != nil {
+				collectChars(s.WhileBlock.List, chars)
+			}
+		case *ast.ForStmt:
+			if s.Body != nil {
+				collectChars(s.Body.List, chars)
+			}
+		case *ast.CallExpr:
+			if id, ok := s.Fun.(*ast.Ident); ok && id.Value == "execute_action" && len(s.Args) > 0 {
+				if lit, ok := s.Args[0].(*ast.NumberLit); ok {
+					chars[lit.IntVal] = true
+				}
+			}
+		}
+	}
+}
+
 // simulateWith is simulate, ending the fight at limit frames instead of
 // maxFightFrames, calling setup with the fight's core before the fight
 // is set up, and running the program through wrap when set.
-func simulateWith(ctx context.Context, file *ast.File, simcfg *info.ActionList, gcsl ast.Node, seed int64, limit int, setup func(*core.Core), wrap func(*eval.Eval, *core.Core) syncEvaluator) (stats.Result, error) {
+func simulateWith(ctx context.Context, file *ast.File, simcfg *info.ActionList, gcsl ast.Node, seed int64, limit int, setup func(*core.Core), wrap func(*eval.Eval, *core.Core) syncEvaluator) (stats.Result, int, error) {
 	cfg := simcfg.Copy()
 	c, err := simulation.NewCore(seed, false, cfg)
 	if err != nil {
-		return stats.Result{}, err
+		return stats.Result{}, 0, err
 	}
 	if setup != nil {
 		setup(c)
 	}
 	ev, err := eval.NewEvaluator(file, gcsl.Copy(), c)
 	if err != nil {
-		return stats.Result{}, err
+		return stats.Result{}, 0, err
 	}
 	var run syncEvaluator = ev
 	if wrap != nil {
@@ -318,7 +439,7 @@ func simulateWith(ctx context.Context, file *ast.File, simcfg *info.ActionList, 
 	guard := &stillGuard{syncEvaluator: run, c: c, frame: -1}
 	sim, err := simulation.New(cfg, guard, c)
 	if err != nil {
-		return stats.Result{}, err
+		return stats.Result{}, 0, err
 	}
 	// gcsim has no way to stop a fight from outside, so this ends it as a
 	// fight with a duration ends: its stop check, run after OnTick, ends
@@ -340,7 +461,11 @@ func simulateWith(ctx context.Context, file *ast.File, simcfg *info.ActionList, 
 	if err == nil {
 		err = ctx.Err()
 	}
-	return res, err
+	endFrame := res.Duration
+	if guard.cycleEnd > 0 && (guard.cycles >= 2 || guard.cycleEnd > res.Duration/2) && res.Duration-guard.cycleEnd <= guard.maxCycle*3/2 {
+		endFrame = guard.cycleEnd
+	}
+	return res, endFrame, err
 }
 
 // Once runs cfg a single time and returns gcsim's full result, for
@@ -377,7 +502,7 @@ func Trace(ctx context.Context, cfg string, seed int64, limit int) (*stats.Resul
 	if limit <= 0 || limit > maxFightFrames {
 		limit = maxFightFrames
 	}
-	res, err := simulateWith(ctx, file, simcfg, gcsl, seed, limit, func(c *core.Core) {
+	res, _, err := simulateWith(ctx, file, simcfg, gcsl, seed, limit, func(c *core.Core) {
 		c.Events.Subscribe(event.OnActionExec, func(args ...any) {
 			char := args[0].(int)
 			a := Action{Frame: c.F, Action: args[1].(action.Action).String()}
@@ -466,23 +591,32 @@ var screenStats = map[string]bool{
 	"pyro%": true, "hydro%": true, "anemo%": true, "electro%": true, "dendro%": true, "cryo%": true, "geo%": true, "phys%": true,
 }
 
-// summarize reduces one run to the damage dealt from startBucket onwards.
+// summarize reduces one run to the damage dealt from startBucket to
+// endFrame (or res.Duration when endFrame <= 0).
 //
 // Every number it returns is finite, as browser workers send iterations
 // as JSON, which has no NaN. A fight that ended by the start of the
 // window, which a one-pass rotation can, has no window: it scores 0. A
 // window too short to split into two halves at a bucket boundary, under
 // a second, gives both halves the window's DPS, so it shows no drift.
-func summarize(res *stats.Result, startBucket int) Iteration {
+func summarize(res *stats.Result, startBucket, endFrame int) Iteration {
 	startFrame := startBucket * bucketFrames
-	window := float64(res.Duration-startFrame) / 60
-	midBucket := (startFrame + res.Duration) / 2 / bucketFrames
+	if endFrame <= 0 || endFrame > res.Duration {
+		endFrame = res.Duration
+	}
+	endBucket := len(res.DamageBuckets)
+	if endFrame < res.Duration {
+		endBucket = (endFrame + bucketFrames/2) / bucketFrames
+		endFrame = endBucket * bucketFrames
+	}
+	window := float64(endFrame-startFrame) / 60
+	midBucket := (startFrame + endFrame) / 2 / bucketFrames
 	midFrame := midBucket * bucketFrames
 
 	it := Iteration{
 		CharDPS: make([]float64, len(res.Characters)),
 		Waits:   make([]map[string]float64, len(res.Characters)),
-		Frames:  res.Duration,
+		Frames:  endFrame,
 		Names:   make([]string, len(res.Characters)),
 	}
 	if window <= 0 {
@@ -494,9 +628,10 @@ func summarize(res *stats.Result, startBucket int) Iteration {
 	}
 
 	// cumulative[i] is the team damage dealt in buckets 0..i.
-	cumulative := make([]float64, len(res.DamageBuckets))
+	nBuckets := min(endBucket, len(res.DamageBuckets))
+	cumulative := make([]float64, nBuckets)
 	var sum float64
-	for i, d := range res.DamageBuckets {
+	for i, d := range res.DamageBuckets[:nBuckets] {
 		sum += d
 		cumulative[i] = sum
 		switch {
@@ -507,12 +642,12 @@ func summarize(res *stats.Result, startBucket int) Iteration {
 		}
 	}
 	it.DPS = (it.FirstHalf + it.SecondHalf) / window
-	// midFrame < res.Duration whenever the window has length, so the
+	// midFrame < endFrame whenever the window has length, so the
 	// second half always does; the first is empty when midBucket is
 	// startBucket.
 	if midFrame > startFrame {
 		it.FirstHalf /= float64(midFrame-startFrame) / 60
-		it.SecondHalf /= float64(res.Duration-midFrame) / 60
+		it.SecondHalf /= float64(endFrame-midFrame) / 60
 	} else {
 		it.FirstHalf, it.SecondHalf = it.DPS, it.DPS
 	}
@@ -534,7 +669,7 @@ func summarize(res *stats.Result, startBucket int) Iteration {
 		}
 		it.Waits[c] = map[string]float64{}
 		for _, f := range res.Characters[c].FailedActions {
-			if overlap := min(f.End, res.Duration) - max(f.Start, startFrame); overlap > 0 {
+			if overlap := min(f.End, endFrame) - max(f.Start, startFrame); overlap > 0 {
 				it.Waits[c][f.Reason] += float64(overlap) / 60
 			}
 		}

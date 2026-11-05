@@ -1,7 +1,7 @@
 # Gscouter Design Document
 
 > Status: Draft (prototype in progress)
-> Last updated: 2026-11-04 · Game version baseline: 7.1
+> Last updated: 2026-11-05 · Game version baseline: 7.1
 
 ## 1. Overview
 
@@ -30,7 +30,7 @@ These set the scope of the MVP. Changing rotations, build recommendations and re
 | Constellations / refinements | Included in the score | Investment is part of building |
 | Enemy | Lv. 100, 10% resistance to all elements and physical, single target | Matches the KQM standard, so results can be cross-checked against community calcs |
 | Custom enemy | A result page can set the enemy's level and per-element resistances, or start from a boss preset (§3.3); marked as not comparable with standard scores | Lets players see a team against a particular boss without giving up the standard score |
-| Fight duration | Infinite cycles of the community rotation (steady state after the opener) | Shows how well a build's Energy Recharge sustains the rotation; the one-pass community number is shown alongside |
+| Fight duration | 0–120 s from full energy, truncated to the end of the last completed cycle | Matches real 2-minute endgame chambers (Spiral Abyss, Stygian Onslaught) where the first cycle starts at full energy and subsequent cycles test Energy Recharge, without diluting DPS with an unfinished cycle's setup at 120 s; the one-pass community number is shown alongside |
 | Rotation | A fixed rotation per team: a community gcsim config when one exists; otherwise one written from a published community guide, marked "experimental" (§5.4) | Removes player control from the equation; community configs are the accepted standard, and a guide is the next best source while the database lacks a team |
 | Teams not in the library | No score of their own; the player can score them with a rotation written in the editor (`docs/cycle-swap.md` §8), which the result names as theirs | Library quality comes first; a player's own rotation is the player's claim, and a sent one can become the team's first library rotation after review |
 | Characters gcsim or the community database lacks | Scored in an "experimental" tier with a badge (§5.4): characters upstream gcsim lacks run on a Gscouter fork of gcsim, and teams the database has no entry for get a rotation written from a community guide | A public site needs every released character; upstream takes months per character, and the database often has no entry for a character that upstream has (Iansan, Illuga, Odette, Alyosha) |
@@ -48,15 +48,19 @@ These set the scope of the MVP. Changing rotations, build recommendations and re
 ### 3.1 Score
 
 ```
-score = average team DPS over 150–450 s, repeating the community rotation endlessly
+score = average team DPS from full energy over 0–120 s, up to the end of the last completed cycle
 ```
 
-- Rotations come from community gcsim configs (§5). Those configs run the rotation **once** from full energy, trusting that energy will be full again by the next rotation. Gscouter repeats it instead (`active` runs once, the rest loops), so a build whose Energy Recharge cannot sustain the rotation waits for energy and scores lower. That is the point of the infinite-cycle rule.
-- The first 150 s are excluded: every character starts with full energy, and the deficit takes a few cycles to show.
+- Rotations come from community gcsim configs (§5). Those configs run the rotation **once** from full energy, trusting that energy will be full again by the next rotation. Gscouter repeats it instead (`active` runs once, the rest loops) over a 120 s fight starting at full energy (`warmup=0, duration=120`), so the first cycle starts with bursts charged and the remaining cycles (typically 4–5 cycles in 120 s) test whether the build's Energy Recharge can sustain the rotation.
+- **Last-completed-cycle truncation**: if a cycle is still in progress when the 120 s timer expires, only the damage and time up to the end of the last completed cycle are counted (`markCycles` in `internal/score/score.go`, rounded to the nearest 0.5 s bucket). Most rotations front-load 8–10 s of low-damage support setup (`E → Q` across three supports) before the main carry's damage window; cutting at a fixed 120.0 s mid-setup added those 8–10 s to the denominator without their damage phase, lowering a 21 s team's reported DPS by ~8–10% (`105 s` of damage divided by `115 s`). If a build stalls on `wait_for_energy` in the second cycle until 120 s (so the unfinished span exceeds $1.5\times$ the longest completed cycle), the full 120 s window is kept so the energy stall is still penalized and triggers the filler search.
+- **Why `0–120 s` up to the last completed cycle instead of `150–450 s` (changed 2026-11-05)**:
+  1. **First-cycle full energy matches how players build ER**: in Spiral Abyss and Stygian Onslaught (and on community leaderboards like Akasha), fights last 60–120 s and start with full energy. Players with signature weapons or C1+ energy constellations tune their ER to clear 3–5 rotations using the initial full energy buffer plus particle generation. Discarding the first 150 s (`warmup=150, duration=450`) threw away the full-energy opener and scored only pure asymptotic steady state, heavily penalizing practical low-ER builds and one-time opener passives (such as Widsith or signature weapon stacks).
+  2. **Fixed-timer mid-cycle cutoff diluted DPS**: even for builds with plenty of ER, cutting the window at a fixed timestamp included an incomplete final rotation's support setup without its carry phase. Together, these two effects caused Gscouter's scores to read noticeably lower than community expectations and single-rotation numbers.
+  3. **Library validation stays at `150–450 s` by convention**: `cmd/validate`, `cmd/harvest`, and `cmd/weights` retain the `warmup=150, duration=450` steady-state convention so existing library promotion thresholds (`Report.Kept`), validation caches, and artifact weight tables remain stable across the 4,570-team library.
 - The single pass from full energy is still computed and shown as "one rotation". It is what community configs report, and validation checks it against the source (§5.3).
 - Each iteration `i` uses seed `base + i`, so the same build always gets the same score. Randomness such as crits is averaged over iterations; the result stores the standard deviation and the standard error.
 - **Fillers**: when the looped rotation makes a character stand still (1 s/min or more) waiting for burst energy or a skill cooldown, the rotation is run again with that wait handled, and the best run is the score. A burst energy wait is filled with the character's own skill or attacks, or with another member's skill and a swap back, or the burst is passed when not ready; cooldown waits are filled with attacks. A rotation's own loop that attacks until a burst is ready, which gcsim does not count as a wait, is bounded so that the wait shows. Every run that still leaves characters standing still is followed by runs that handle them, up to 24 runs ranked on 10 iterations on the site, the best then run again on the full iterations. How and why, and what it changes: `docs/fillers.md`.
-- Window slicing: gcsim records each iteration's damage in 0.5 s buckets, so one run per iteration gives the window's damage (verified equal to the difference method by a unit test).
+- Window slicing: gcsim records each iteration's damage in 0.5 s buckets, so one run per iteration gives the window's damage up to the last completed cycle's bucket boundary (verified equal to gcsim's DPS by unit tests).
 
 Hu Tao / Yelan / Xingqiu / Zhongli, imported from a gcsim share, source build:
 
@@ -86,7 +90,7 @@ History: a first library batch of 64 rotations written by agents without sources
 | Enemy resistance | 10% for all elements + physical |
 | Number of targets | 1 |
 | Enemy HP | Infinite (time-based end); the one-pass check gives the enemy `hp=999999999` so the run ends with the rotation |
-| Fight duration | 450 s with the rotation looped, first 150 s excluded; plus one pass from full energy (§3.1) |
+| Fight duration | Site & CLI: 120 s from full energy (`warmup=0`), truncated to the last completed cycle; plus one pass from full energy (§3.1). Library validation (`cmd/validate`): 450 s, first 150 s excluded |
 | Iterations | Site: 50 (±0.7%, §3.1); fillers are ranked on 10 (§3.1). CLI: 1000 (±0.2%) |
 | Energy | 1 clear particle every 8–12 s (`energy every interval=480,720 amount=1`). Provisional, see §9 |
 | Swap delay | 12 frames |
@@ -94,7 +98,7 @@ History: a first library batch of 64 rotations written by agents without sources
 As a gcsim config, roughly:
 
 ```
-options iteration=50 duration=450 swap_delay=12;
+options iteration=50 duration=120 swap_delay=12;
 target lvl=100 resist=0.1;
 energy every interval=480,720 amount=1;
 ```
@@ -168,7 +172,7 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
 ### 4.4 Config assembly and execution
 
 - Combine the common conditions (§3.2) + the user's build (§4.2) + the library rotation (§5) into a gcsim config.
-- Loop the rotation for 450 s per iteration and average the team DPS from 150 s; also run it once from full energy (§3.1).
+- Loop the rotation for 120 s per iteration from full energy and average the team DPS up to the last completed cycle; also run it once from full energy (§3.1).
 - **Where it runs**: in the visitor's browser (§4.7), or on the server for link-preview cards and browsers that cannot.
 - **Cache key** = hash of the assembled config. The config contains the build, the rotation and the conditions, and the gcsim version is fixed per deployment, so the same build is never recomputed.
 - Characters are compared by canonical name: gcsim aliases resolve to one key (`kazuha` = `kaedeharakazuha`), and both Traveler genders fold into `traveler<element>`. When the player's key differs from the library's (e.g. `aethercryo` vs. `travelercryo`), the rotation is rewritten to the player's key.
@@ -176,7 +180,7 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
 
 ### 4.5 Results
 
-- **Score**: team DPS with the rotation looped (150–450 s), plus the one-rotation number
+- **Score**: team DPS with the rotation looped over 0–120 s (up to the last completed cycle), plus the one-rotation number
 - **Rotation**: when one of the team's alternatives scored (§5.2), a note with the constellations it was written for and a link to its source; the one pass, timelines and script are then that rotation's
 - **Per-character contribution**: DPS and share, with each character's build: level, constellations, weapon, talents, artifact sets and total stats as on the character screen (docs/artifacts.md §2)
 - **Warnings**
@@ -190,7 +194,7 @@ GOOD JSON ─┘   (to gcsim keys)        (library)      │   (build + rotation
 ### 4.6 Deployment
 
 - **One Go binary** (`cmd/server`) serves the site, calls Enka, runs gcsim in-process, and caches Enka responses (for Enka's TTL; saved builds, §4.8, for 10 minutes) and scores (24 h) in memory. On disk it keeps only short links (§4.8), the IndexNow state and daily usage counts. The team library is embedded in the binary. Result pages are calculated in visitors' browsers (§4.7); the server still calculates link-preview cards and pages for browsers that cannot.
-- **Engines**: teams the owner approved, and that the pinned gscouter-engine release verifies, are scored on gscouter-engine, a Rust port of gcsim within 1% of it; every other team on gcsim. The engine's WebAssembly module is built into the server, which runs it on wazero and serves it to browsers, so both give the same result. A config the engine refuses runs on gcsim. 4,447 of the library's 4,570 teams are approved, on release `e6c8a07` (owner, 2026-11-04); engine teams run their own filler search. See `docs/engine.md`.
+- **Engines**: teams the owner approved, and that the pinned gscouter-engine release verifies, are scored on gscouter-engine, a Rust port of gcsim within 1% of it; every other team on gcsim. The engine's WebAssembly module is built into the server, which runs it on wazero and serves it to browsers, so both give the same result. A config the engine refuses runs on gcsim. 4,447 of the library's 4,570 teams are approved, on release `e6c8a07` (owner, 2026-11-04); engine teams run their own filler search. While `gscouter-engine` is being updated for the `0–120 s` last-completed-cycle scoring window, `-engine` defaults to `false` on `cmd/server` so all teams run on gcsim. See `docs/engine.md`.
 - **Usage counts**: to know roughly how many people use the site, the server counts, per UTC day, front page views, result page views and distinct UIDs looked up, leaving out requests whose User-Agent looks like a crawler or link preview (`internal/web/usage.go`). Only the counts are kept, in `/data/usage.json`, and logged when a day ends. UIDs are told apart by a hash keyed with a value drawn each day and held in memory; the key and hashes are dropped at the end of the day, so nothing in the counts leads back to a player. No address, cookie or analytics script is used. The owner reads them on the VM, or from `/healthz` with a bearer token (`GSCOUTER_USAGE_TOKEN`); without it `/healthz` answers `ok`, so the counts have no URL of their own. The day's UIDs do not survive a restart, so a UID looked up on both sides of an update counts twice.
 - **Concurrency**: one simulation at a time, up to 8 waiting; beyond that the request gets a "busy" message. Peak memory per simulation is about 35 MB.
 - **Hosting**: a single Azure B2ats v2 VM (2 vCPU, 1 GB) with Docker. Caddy terminates HTTPS for the owner's domain. Expected cost is roughly KRW 15–20k per month.

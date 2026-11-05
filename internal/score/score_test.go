@@ -49,17 +49,58 @@ func near(a, b, relTol float64) bool {
 	return math.Abs(a-b) <= relTol*math.Max(math.Abs(a), math.Abs(b))
 }
 
-// With no warmup the score must equal gcsim's own DPS.
+// With no warmup on a looped fight, the window ends at the last cycle
+// that completed within the duration, and its DPS equals gcsim's own DPS
+// over that window.
 func TestNoWarmupMatchesGcsimDPS(t *testing.T) {
-	const duration, seed = 90, 42
+	const duration, seed = 120, 42
 	cfg := testConfig(t, duration)
 	res, err := Run(context.Background(), cfg, Options{Iterations: 1, Seed: seed})
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := totalDamage(t, cfg, seed) / duration
+	if res.Window <= 0 || res.Window >= duration {
+		t.Fatalf("Window = %vs, want last completed cycle before %vs", res.Window, duration)
+	}
+	want := totalDamage(t, testConfig(t, res.Window), seed) / res.Window
 	if !near(res.DPS, want, 1e-9) {
-		t.Errorf("DPS = %v, want %v", res.DPS, want)
+		t.Errorf("DPS = %v, want %v over %vs", res.DPS, want, res.Window)
+	}
+	full := totalDamage(t, cfg, seed) / duration
+	if res.DPS <= full {
+		t.Errorf("truncated DPS %v is not above mid-cycle 120s DPS %v", res.DPS, full)
+	}
+
+	// A library rotation with a multi-cycle for loop inside while 1
+	// marks each cycle of the for loop, not only the whole 4-cycle block.
+	forCfg := strings.Replace(cfg, "while 1 {\n", "while 1 {\nfor let r = 0; r < 4; r = r + 1 {\n", 1) + "}\n"
+	forRes, err := Run(context.Background(), forCfg, Options{Iterations: 1, Seed: seed})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if forRes.Window != res.Window || !near(forRes.DPS, res.DPS, 1e-9) {
+		t.Errorf("for-loop rotation: DPS %v over %vs, want %v over %vs", forRes.DPS, forRes.Window, res.DPS, res.Window)
+	}
+}
+
+// A rotation whose second cycle stalls waiting for energy until the end of
+// the fight is not truncated to the first (full-energy) cycle.
+func TestStalledSecondCycleNotTruncated(t *testing.T) {
+	build, err := os.ReadFile("testdata/build.txt")
+	if err != nil {
+		t.Fatal(err)
+	}
+	rotation, err := config.Loop("active yelan;\nyelan burst;\nfurina burst;\n")
+	if err != nil {
+		t.Fatal(err)
+	}
+	cfg := config.Assemble(config.Conditions{Duration: 120, Iterations: 1}, string(build), rotation)
+	res, err := Run(context.Background(), cfg, Options{Iterations: 1, Seed: 1})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if res.Window != 120 {
+		t.Errorf("Window = %vs, want 120s when the second cycle stalls", res.Window)
 	}
 }
 
@@ -375,7 +416,7 @@ func TestNoWindow(t *testing.T) {
 		DamageCumulativeContrib: []float64{1, 1},
 		FailedActions:           []stats.ActionFailInterval{{Start: 10, End: 40, Reason: "skill_cd"}},
 	}}}
-	it := summarize(res, 2) // the window starts at frame 60
+	it := summarize(res, 2, 0) // the window starts at frame 60
 	if !finite(it) || it.DPS != 0 || it.CharDPS[0] != 0 || len(it.Waits[0]) != 0 {
 		t.Errorf("summarize = %+v, want a finite iteration with no score", it)
 	}

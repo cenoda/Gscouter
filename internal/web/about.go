@@ -22,11 +22,16 @@ type update struct {
 // footer shows the newest date.
 var updates = []update{
 	{
-		Date: "2026-11-05",
+		Date:   "2026-11-05",
+		Scores: true,
 		En: []string{
+			"Scores now measure the first 120 s of the fight from full energy, stopping at the end of the last completed rotation, instead of 150–450 s. Starting with full energy matches Spiral Abyss and Stygian Onslaught, where the first rotation’s bursts are already charged and Energy Recharge only has to sustain the rotations after it; stopping at the last completed rotation avoids counting a support setup at 120 s whose damage phase was cut off by the timer.",
+			"While gscouter-engine is updated for the new 0–120 s last-completed-rotation window, all teams are calculated by gcsim.",
 			"The footer credits gscouter-engine beside gcsim as the simulation.",
 		},
 		Ko: []string{
+			"점수가 이제 150–450초 구간 대신, 원소 에너지가 가득 찬 상태에서 시작해 120초 동안(마지막으로 끝난 사이클까지만) 평균 DPS를 잽니다. 첫 사이클을 완충 상태로 시작하므로 나선 비경이나 지맥 제압전처럼 첫 사이클 원소폭발은 이미 차 있고 그다음 사이클부터만 원소 충전 효율이 필요한 실제 세팅 기준과 맞으며, 120초에 사이클이 덜 끝났을 때 딜 타임 없이 서포터 선작업 시간만 분모에 들어가 DPS가 낮아지던 현상이 사라집니다.",
+			"새 0–120초(마지막 완료 사이클 기준) 구간에 맞춰 gscouter-engine을 업데이트하는 동안 모든 파티는 gcsim으로 계산합니다.",
 			"푸터의 시뮬레이션 출처에 gcsim과 함께 gscouter-engine을 적었습니다.",
 		},
 	},

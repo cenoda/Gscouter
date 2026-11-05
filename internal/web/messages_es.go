@@ -10,8 +10,8 @@ func init() {
 		"site.title":  "Gscouter · Calculadora de DPS de equipos de Genshin Impact",
 		"site.desc":   "Calcula el DPS de un equipo de cuatro personajes de la exhibición a partir de un UID de Genshin Impact, contra el mismo enemigo y con la misma rotación, y compáralo con el de otros jugadores.",
 		"foot.method": "Cómo se calcula la puntuación",
-		"foot.method1": "Gscouter repite sin fin la rotación de gcsim de la comunidad contra un único enemigo de nivel 100 con un 10% de RES a todo, con partículas a intervalos regulares, " +
-			"y puntúa el DPS medio entre los 150 y los 450 s, cuando ya se ha agotado la energía inicial. Una Recarga de Energía insuficiente baja la puntuación.",
+		"foot.method1": "Gscouter repite la rotación de gcsim de la comunidad contra un único enemigo de nivel 100 con un 10% de RES a todo, con partículas a intervalos regulares, " +
+			"y puntúa el DPS medio desde la energía llena entre 0 y 120 s, hasta la última rotación completada. Una Recarga de Energía insuficiente baja la puntuación.",
 		"foot.method2": "Cuando la energía o un tiempo de enfriamiento dejarían a un personaje quieto esperando, la puntuación se queda con lo mejor entre esperar y rellenar ese tiempo con Habilidades Elementales, cambios de personaje o ataques normales. " +
 			"\"Una rotación\" es una sola pasada con la energía llena, la cifra que dan las configuraciones de gcsim de la comunidad.",
 		"foot.credits":      `Simulación <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotaciones <a href="https://db.kqm.gg">KQM gcsim DB</a> · Datos de personajes <a href="https://enka.network">Enka.Network</a>`,
@@ -389,7 +389,7 @@ func init() {
 		"ed.start_energy":       "Energía inicial",
 		"ed.fighting_spirit":    "Espíritu de lucha inicial",
 		"ed.param_default":      "Por defecto: %s",
-		"ed.params_note":        "Los estados iniciales influyen poco después de los primeros 150 s, que la puntuación excluye. Los valores cambiados viajan con la partitura.",
+		"ed.params_note":        "Los estados iniciales fijan la energía y las cargas de la primera rotación. Los valores cambiados viajan con la partitura.",
 		"ed.reset_params":       "Volver a los valores por defecto",
 		"ed.close":              "Cerrar",
 		"ed.settings":           "Ajustes",

@@ -10,8 +10,8 @@ func init() {
 		"site.title":  "Gscouter · Kalkulator DPS tim Genshin Impact",
 		"site.desc":   "Hitung DPS tim berisi empat karakter showcase dari UID Genshin Impact, melawan musuh yang sama dengan rotasi yang sama, lalu bandingkan dengan pemain lain.",
 		"foot.method": "Cara skor dihitung",
-		"foot.method1": "Gscouter mengulang rotasi gcsim komunitas tanpa henti melawan satu musuh Lv. 100 dengan RES 10% terhadap semua elemen, dengan Elemental Particle pada interval tetap, " +
-			"dan memakai rata-rata DPS pada detik 150–450, setelah Energy awal habis, sebagai skor. Energy Recharge yang kurang akan menurunkan skor.",
+		"foot.method1": "Gscouter mengulang rotasi gcsim komunitas melawan satu musuh Lv. 100 dengan RES 10% terhadap semua elemen, dengan Elemental Particle pada interval tetap, " +
+			"dan memakai rata-rata DPS dari Energy penuh pada detik 0–120, hingga rotasi terakhir yang selesai, sebagai skor. Energy Recharge yang kurang akan menurunkan skor.",
 		"foot.method2": "Jika Energy atau cooldown membuat karakter hanya berdiri menunggu, skor memakai hasil terbaik antara menunggu dan mengisi waktu itu dengan Elemental Skill, ganti karakter, atau Normal Attack. " +
 			"\"Satu rotasi\" adalah satu putaran dari Energy penuh, angka yang dilaporkan konfigurasi gcsim komunitas.",
 		"foot.credits":      `Simulasi <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotasi <a href="https://db.kqm.gg">KQM gcsim DB</a> · Data karakter <a href="https://enka.network">Enka.Network</a>`,
@@ -389,7 +389,7 @@ func init() {
 		"ed.start_energy":       "Energi awal",
 		"ed.fighting_spirit":    "Semangat Juang awal",
 		"ed.param_default":      "Bawaan: %s",
-		"ed.params_note":        "Keadaan awal hampir tidak berpengaruh setelah 150 dtk pertama yang tidak dihitung skor. Nilai yang diubah ikut bersama chart.",
+		"ed.params_note":        "Keadaan awal mengatur Energy dan stack pada rotasi pertama. Nilai yang diubah ikut bersama chart.",
 		"ed.reset_params":       "Kembali ke bawaan",
 		"ed.close":              "Tutup",
 		"ed.settings":           "Pengaturan",

@@ -20,12 +20,12 @@ go run ./cmd/server          # http://localhost:8080
 |---|---|---|
 | `-addr` | `:8080` (or `$PORT`) | Listen address |
 | `-iter` | 50 | Iterations per score |
-| `-warmup` | 150 | Seconds of the looped fight excluded from the score |
-| `-duration` | 450 | Length of the looped fight in seconds |
+| `-warmup` | 0 | Seconds of the looped fight excluded from the score |
+| `-duration` | 120 | Length of the looped fight in seconds |
 | `-concurrent` | 1 | Simulations running at once |
 | `-queue` | 8 | Simulations waiting before requests are rejected |
 | `-static` | `$GSCOUTER_STATIC` | Directory of the browser build; when set, visitors' browsers calculate results |
-| `-engine` | true | Score the approved teams on gscouter-engine (`docs/engine.md`); false runs every team on gcsim |
+| `-engine` | false | Score the approved teams on gscouter-engine (`docs/engine.md`); false by default while gscouter-engine is updated for the 0–120 s last-completed-cycle window |
 | `-engine-own-search` | true | Engine teams run their own filler search, ranked on 50 iterations, and use its pick; false keeps gcsim's pick (`docs/engine.md` §5) |
 | `-engine-dir` | | Directory with `approved.txt`, `gse.wasm`, `manifest.json` and `teams.txt` to try instead of the pinned engine release |
 | `-links` | `$GSCOUTER_LINKS` | SQLite file of short links (`/s/...`); without it (or `none`), copying a result copies its long link |
@@ -60,7 +60,7 @@ go run ./cmd/gscouter \
 ```
 Team:      Hutao / Xingqiu / Zhongli / Yelan (rotation v1, supported)
 Score:     72363 DPS ± 77 (1 s.e.; s.d. 2430)
-Window:    150s–450s of the looped rotation, 1000 iterations, 9.882s
+Window:    0s–109.5s of the looped rotation, 1000 iterations, 3.210s
 One pass:  67851 DPS over 87.5s from full energy (community gcsim measure)
 
 Character           DPS   Share    Energy wait
@@ -70,7 +70,7 @@ zhongli            1473    2.0%        0.00s/m
 yelan             15855   21.9%        0.00s/m
 ```
 
-- **Score**: team DPS with the community rotation repeated endlessly, over 150–450 s once the starting energy has run out. Too little Energy Recharge shows up as energy waits and a lower score.
+- **Score**: team DPS with the community rotation repeated from full energy over 0–120 s, truncated to the end of the last completed rotation cycle (library validation in `cmd/validate` retains the 150–450 s convention). Too little Energy Recharge shows up as energy waits in later rotations and a lower score.
 - **Fillers**: when the looped rotation makes a character stand still (1 s/min or more) waiting for burst energy or a skill cooldown, the rotation is run again with that time handled, and the best run is the score. A burst energy wait is either filled (with the character's own skill or attacks, or with another member's skill and an immediate swap back) or the burst is passed when it is not ready, as Hu Tao teams play, and the way out for Skirk's opening burst, which a loop cannot charge again; each character gets its own choice. Skill cooldown waits are filled with attacks. A rotation's own loop that attacks until a burst is ready (`while !.xingqiu.burst.ready { xingqiu attack; }`) is not a wait to gcsim; it is bounded to two attacks so that the wait shows, and the rotation as written stays a candidate. Skills are used as the rotation writes them (hold or tap, following plunges). Every run that still leaves characters standing still is followed by runs that handle them, up to 16 runs per score (`internal/steady`).
 - **One pass**: the rotation once from full energy, as community gcsim configs report it. Validation compares this with the source.
 - **Energy wait**: seconds per minute that a character's actions waited for energy. Too little Energy Recharge for the rotation lowers the score.
@@ -82,8 +82,8 @@ Flags:
 | `-team` | | Team library directory |
 | `-build` | | Build file |
 | `-iter` | 1000 | Iterations |
-| `-warmup` | 150 | Seconds of the looped fight excluded from the score |
-| `-duration` | 450 | Length of the looped fight in seconds |
+| `-warmup` | 0 | Seconds of the looped fight excluded from the score |
+| `-duration` | 120 | Length of the looped fight in seconds |
 | `-seed` | 1 | Seed of the first iteration |
 | `-dump` | false | Print the assembled gcsim config and exit |
 

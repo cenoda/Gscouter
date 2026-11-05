@@ -10,8 +10,8 @@ func init() {
 		"site.title":  "지스카우터(Gscouter) · 원신(Genshin Impact) 파티 DPS·딜 계산기",
 		"site.desc":   "지스카우터(Gscouter)는 원신(Genshin Impact) UID로 쇼케이스 캐릭터 4명의 파티 DPS를 같은 적·같은 로테이션 기준으로 계산하고 다른 플레이어와 비교합니다.",
 		"foot.method": "계산 방식",
-		"foot.method1": "Lv.100 적 1명, 모든 내성 10%, 일정한 간격의 원소 입자 조건에서 커뮤니티 gcsim 로테이션을 끝없이 반복해, " +
-			"시작 에너지가 바닥난 뒤인 150–450초 구간의 평균 DPS를 점수로 씁니다. 원소 충전 효율이 부족하면 점수가 내려갑니다.",
+		"foot.method1": "Lv.100 적 1명, 모든 내성 10%, 일정한 간격의 원소 입자 조건에서 커뮤니티 gcsim 로테이션을 반복해, " +
+			"에너지가 가득 찬 상태에서 시작한 0–120초 구간(완료된 마지막 사이클까지)의 평균 DPS를 점수로 씁니다. 원소 충전 효율이 부족하면 점수가 내려갑니다.",
 		"foot.method2": "에너지나 쿨타임 때문에 캐릭터가 서서 기다리게 되면, 그 시간을 원소전투 스킬·교체·평타로 채운 경우와 비교해 높은 쪽을 씁니다. " +
 			"\"로테이션 1회\"는 에너지가 가득한 상태에서 한 번 돌린 값으로, 커뮤니티 gcsim 설정이 보고하는 숫자와 같은 기준입니다.",
 		"foot.credits":      `시뮬레이션 <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · 로테이션 <a href="https://db.kqm.gg">KQM gcsim DB</a> · 캐릭터 정보 <a href="https://enka.network">Enka.Network</a>`,
@@ -389,7 +389,7 @@ func init() {
 		"ed.start_energy":       "시작 에너지",
 		"ed.fighting_spirit":    "시작 투지",
 		"ed.param_default":      "기본값: %s",
-		"ed.params_note":        "시작 상태는 점수에서 빠지는 처음 150초 이후에는 영향이 작습니다. 바꾼 값은 차트와 함께 다닙니다.",
+		"ed.params_note":        "시작 상태는 첫 사이클의 에너지와 스택에 반영됩니다. 바꾼 값은 차트와 함께 다닙니다.",
 		"ed.reset_params":       "기본값으로",
 		"ed.close":              "닫기",
 		"ed.settings":           "설정",

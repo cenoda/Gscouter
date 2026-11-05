@@ -10,8 +10,8 @@ func init() {
 		"site.title":  "Gscouter · Tính DPS đội hình Genshin Impact",
 		"site.desc":   "Tính DPS của đội hình 4 nhân vật trưng bày từ UID Genshin Impact, với cùng một kẻ địch và cùng một vòng xoay, rồi so sánh với người chơi khác.",
 		"foot.method": "Cách tính điểm",
-		"foot.method1": "Gscouter lặp lại vòng xoay gcsim của cộng đồng liên tục trước một kẻ địch Lv.100 có 10% kháng mọi loại, nhận Hạt Nguyên Tố đều đặn theo chu kỳ, " +
-			"và lấy DPS trung bình trong khoảng 150–450 giây, sau khi năng lượng ban đầu đã cạn, làm điểm. Thiếu Hiệu Quả Nạp Nguyên Tố sẽ làm điểm giảm.",
+		"foot.method1": "Gscouter lặp lại vòng xoay gcsim của cộng đồng trước một kẻ địch Lv.100 có 10% kháng mọi loại, nhận Hạt Nguyên Tố đều đặn theo chu kỳ, " +
+			"và lấy DPS trung bình từ lúc đầy năng lượng trong 120 giây (đến hết vòng xoay hoàn chỉnh cuối cùng) làm điểm. Thiếu Hiệu Quả Nạp Nguyên Tố sẽ làm giảm điểm ở các vòng xoay tiếp theo.",
 		"foot.method2": "Khi năng lượng hoặc thời gian hồi khiến nhân vật phải đứng chờ, điểm sẽ lấy kết quả tốt hơn giữa việc chờ và việc lấp thời gian đó bằng Kỹ Năng Nguyên Tố, đổi nhân vật hoặc tấn công thường. " +
 			"\"Một vòng xoay\" là một lượt từ lúc đầy năng lượng, tức con số mà các cấu hình gcsim của cộng đồng báo cáo.",
 		"foot.credits":      `Mô phỏng <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Vòng xoay <a href="https://db.kqm.gg">KQM gcsim DB</a> · Dữ liệu nhân vật <a href="https://enka.network">Enka.Network</a>`,
@@ -389,7 +389,7 @@ func init() {
 		"ed.start_energy":       "Năng lượng ban đầu",
 		"ed.fighting_spirit":    "Chiến Ý ban đầu",
 		"ed.param_default":      "Mặc định: %s",
-		"ed.params_note":        "Trạng thái ban đầu ít ảnh hưởng sau 150 giây đầu mà điểm số bỏ qua. Giá trị đã đổi đi cùng bản nhạc.",
+		"ed.params_note":        "Trạng thái ban đầu ảnh hưởng đến vòng xoay đầu tiên của trận đấu 120 giây được tính điểm. Giá trị đã đổi đi cùng bản nhạc.",
 		"ed.reset_params":       "Về mặc định",
 		"ed.close":              "Đóng",
 		"ed.settings":           "Cài đặt",

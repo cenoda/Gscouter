@@ -1,6 +1,6 @@
 # gscouter-engine in Gscouter
 
-> Status: 4,447 teams approved on release 211d588 (module db01704ce071; group A carried forward, the 11 group B carried as identical, 2026-11-05; owner's answers of 2026-11-04) · Last updated: 2026-11-05
+> Status: 4,447 teams approved on release 211d588 (module db01704ce071; group A carried forward, the 11 group B carried as identical, 2026-11-05; owner's answers of 2026-11-04); `-engine` off by default while gscouter-engine is updated for the 0–120 s last-completed-cycle window · Last updated: 2026-11-05
 
 How Gscouter scores teams on gscouter-engine, a Rust port of gcsim (https://github.com/cenoda/gscouter-engine), Phase 4 of its roadmap (`docs/roadmap.md` §3 there). The engine's own status (content, the release's numbers) is its `README.md`; how it is checked against gcsim, its `docs/verification.md`. The engine scores within 1% of gcsim, not to the bit, so a team moves to it only when the owner approves it. Everything else stays on gcsim.
 

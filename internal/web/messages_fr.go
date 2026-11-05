@@ -10,8 +10,8 @@ func init() {
 		"site.title":  "Gscouter · Calculateur de DPS d'équipe pour Genshin Impact",
 		"site.desc":   "Calculez le DPS d'une équipe de quatre personnages de la vitrine à partir d'un UID Genshin Impact, contre le même ennemi avec la même rotation, et comparez-le à celui d'autres joueurs.",
 		"foot.method": "Calcul des scores",
-		"foot.method1": "Gscouter répète sans fin la rotation gcsim de la communauté contre un seul ennemi niv. 100 avec 10 % de RÉS à tout, avec des particules à intervalles réguliers, " +
-			"et retient le DPS moyen entre 150 et 450 s, une fois l'énergie de départ épuisée. Une Recharge d'énergie insuffisante fait baisser le score.",
+		"foot.method1": "Gscouter répète la rotation gcsim de la communauté contre un seul ennemi niv. 100 avec 10 % de RÉS à tout, avec des particules à intervalles réguliers, " +
+			"et retient le DPS moyen à partir de l'énergie pleine entre 0 et 120 s, jusqu'à la dernière rotation terminée. Une Recharge d'énergie insuffisante fait baisser le score.",
 		"foot.method2": "Quand l'énergie ou un temps de recharge laisserait un personnage immobile, le score retient le meilleur choix entre attendre et combler ce temps avec des Compétences élémentaires, des changements de personnage ou des Attaques normales. " +
 			"« Une rotation » correspond à un seul passage avec l'énergie au maximum, le chiffre indiqué par les configurations gcsim de la communauté.",
 		"foot.credits":      `Simulation <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotations <a href="https://db.kqm.gg">KQM gcsim DB</a> · Données des personnages <a href="https://enka.network">Enka.Network</a>`,
@@ -389,7 +389,7 @@ func init() {
 		"ed.start_energy":       "Énergie de départ",
 		"ed.fighting_spirit":    "Esprit combatif de départ",
 		"ed.param_default":      "Par défaut : %s",
-		"ed.params_note":        "Les états de départ comptent peu après les 150 premières secondes, que le score exclut. Les valeurs modifiées suivent la partition.",
+		"ed.params_note":        "Les états de départ fixent l'énergie et les cumuls de la première rotation. Les valeurs modifiées suivent la partition.",
 		"ed.reset_params":       "Revenir aux valeurs par défaut",
 		"ed.close":              "Fermer",
 		"ed.settings":           "Réglages",

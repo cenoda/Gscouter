@@ -43,12 +43,12 @@ type Settings struct {
 	EngineOwnSearch bool    `json:",omitempty"` // engine teams run their own filler search and pick (docs/engine.md §5)
 }
 
-// DefaultSettings score the looped rotation over 150-450 s, after the
-// full starting energy has run out (design §3.1).
+// DefaultSettings score the looped rotation over 0-120 s from full
+// energy, up to the last completed cycle (design §3.1).
 var DefaultSettings = Settings{
 	Iterations:    50,
-	Warmup:        150,
-	Duration:      450,
+	Warmup:        0,
+	Duration:      120,
 	MaxConcurrent: 1,
 	MaxQueue:      8,
 	// Engine teams run their own filler search (the owner, 2026-11-04).
