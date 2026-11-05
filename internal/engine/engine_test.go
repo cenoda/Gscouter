@@ -17,21 +17,32 @@ import (
 )
 
 func TestParseApproved(t *testing.T) {
-	got, err := ParseApproved("# comment\n\nhutao-xingqiu-yelan-zhongli 2026-11-02\n  raiden-national 2026-11-03  \nb-team 2026-11-04 release=0123456789abcdef\n")
+	got, err := ParseApproved("# comment\n\nhutao-xingqiu-yelan-zhongli 2026-11-02\n  raiden-national 2026-11-03  \nb-team 2026-11-04 release=0123456789abcdef\nc-team 2026-11-04 release=fedcba9876543210 carried=0123456789abcdef:identical:2026-11-06\n")
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := []Approval{{"hutao-xingqiu-yelan-zhongli", "2026-11-02", ""}, {"raiden-national", "2026-11-03", ""}, {"b-team", "2026-11-04", "0123456789abcdef"}}
+	want := []Approval{
+		{Team: "hutao-xingqiu-yelan-zhongli", Date: "2026-11-02"},
+		{Team: "raiden-national", Date: "2026-11-03"},
+		{Team: "b-team", Date: "2026-11-04", Release: "0123456789abcdef"},
+		{Team: "c-team", Date: "2026-11-04", Release: "fedcba9876543210", Carried: []Carry{{From: "0123456789abcdef", How: "identical", Date: "2026-11-06"}}},
+	}
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("got %v, want %v", got, want)
 	}
+	if s := want[3].String(); s != "c-team 2026-11-04 release=fedcba9876543210 carried=0123456789abcdef:identical:2026-11-06" {
+		t.Errorf("String() = %q", s)
+	}
 	for name, text := range map[string]string{
-		"no date":       "hutao-xingqiu-yelan-zhongli\n",
-		"bad date":      "hutao-xingqiu-yelan-zhongli 2026-13-01\n",
-		"extra word":    "hutao-xingqiu-yelan-zhongli 2026-11-02 yes\n",
-		"twice":         "a 2026-11-02\na 2026-11-03\n",
-		"short release": "a 2026-11-02 release=0123\n",
-		"bad release":   "a 2026-11-02 release=0123456789abcdeg\n",
+		"carry without release": "a 2026-11-02 carried=0123456789abcdef:identical:2026-11-06\n",
+		"carry how":             "a 2026-11-02 release=0123456789abcdef carried=fedcba9876543210:close:2026-11-06\n",
+		"carry date":            "a 2026-11-02 release=0123456789abcdef carried=fedcba9876543210:identical:2026-11\n",
+		"no date":               "hutao-xingqiu-yelan-zhongli\n",
+		"bad date":              "hutao-xingqiu-yelan-zhongli 2026-13-01\n",
+		"extra word":            "hutao-xingqiu-yelan-zhongli 2026-11-02 yes\n",
+		"twice":                 "a 2026-11-02\na 2026-11-03\n",
+		"short release":         "a 2026-11-02 release=0123\n",
+		"bad release":           "a 2026-11-02 release=0123456789abcdeg\n",
 	} {
 		if _, err := ParseApproved(text); err == nil {
 			t.Errorf("%s: no error", name)

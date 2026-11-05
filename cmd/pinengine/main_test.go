@@ -85,7 +85,7 @@ func TestApprovals(t *testing.T) {
 		"new-a":      {Verified: true, Group: "A"},
 		"new-b":      {Verified: true, Group: "B"},
 	}
-	if err := dropApprovals(list, m, "2026-12-01"); err != nil {
+	if err := dropApprovals(list, m, "2026-12-01", nil, nil); err != nil {
 		t.Fatal(err)
 	}
 	b, _ := os.ReadFile(list)
@@ -108,7 +108,7 @@ func TestApprovals(t *testing.T) {
 	}
 	b, _ = os.ReadFile(list)
 	got, _ = engine.ParseApproved(string(b))
-	if len(got) != 2 || got[1] != (engine.Approval{Team: "new-a", Date: "2026-12-02"}) || !strings.Contains(string(b), "# Group A of engine e2 (module fedcba9876543210), Gscouter g2: the owner's yes of 2026-12-02.") {
+	if len(got) != 2 || got[1].String() != "new-a 2026-12-02" || !strings.Contains(string(b), "# Group A of engine e2 (module fedcba9876543210), Gscouter g2: the owner's yes of 2026-12-02.") {
 		t.Errorf("after -approve-a: %v\n%s", got, b)
 	}
 	if approveGroupA(rel, list, "2026-12-02") == nil {

@@ -6,9 +6,12 @@
 # (YYYY-MM-DD), then, for a team approved from group B,
 # release=<first 16 hex digits of the module's SHA-256>. An approval from
 # group A holds while the team stays verified in group A of the pinned
-# release (release/manifest.json); one from group B, for its release only.
-# cmd/pinengine takes off the approvals a release drops, and adds group A
-# with -approve-a after the owner's yes.
+# release (release/manifest.json); one from group B, for its release only,
+# unless cmd/pinengine carried it to a new release because the new module
+# scored the team identically: its line then names the new release and
+# carried=<old module>:identical:<date of the pin>, and keeps the date of
+# the owner's answer. cmd/pinengine takes off the approvals a release
+# drops, and adds group A with -approve-a after the owner's yes.
 
 # Group A of engine c0a324820f6a490d925b51ac03d0433906f9bcc0 (module 92819c5f92522409), Gscouter 004ce0dda881eb14: the owner's yes of 2026-11-04.
 aino-fischl-columbina-sucrose 2026-11-04

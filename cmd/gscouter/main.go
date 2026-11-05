@@ -75,11 +75,11 @@ func run(teamDir, buildPath string, iterations int, warmup, duration float64, se
 		return config.Assemble(config.Conditions{Iterations: iterations, Duration: duration}, builds[i], looped)
 	}
 	if dump {
-		looped, err := steady.Looped(team.Rotation, team.Members)
+		cfg, err := steady.LibraryConfig(team, string(raw), iterations, duration)
 		if err != nil {
 			return err
 		}
-		fmt.Print(assemble(0, looped))
+		fmt.Print(cfg)
 		return nil
 	}
 

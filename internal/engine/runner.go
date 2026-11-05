@@ -4,7 +4,9 @@ package engine
 
 import (
 	"context"
+	"crypto/sha256"
 	"encoding/binary"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -31,6 +33,14 @@ type runner struct {
 }
 
 func newRunner(e *Engine) score.Engine { return &runner{e: e} }
+
+// ModuleRunner runs configs on module alone, with no manifest or
+// approved teams: for cmd/pinengine, which runs a team on the old and the
+// new module of a release to carry its approval.
+func ModuleRunner(module []byte) score.Engine {
+	sum := sha256.Sum256(module)
+	return newRunner(&Engine{hash: hex.EncodeToString(sum[:]), module: module})
+}
 
 func (r *runner) ID() string { return r.e.hash }
 

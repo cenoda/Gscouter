@@ -11,11 +11,21 @@
 //
 // The commit must be in the clone's history (git fetch it if not).
 //
-// Pinning also takes off the approved list (internal/engine/approved.txt)
+// Pinning carries forward each group B approval of the pinned module (the
+// owner, 2026-11-05): the team's library build runs on the pinned and the
+// new module at its verdict's iterations, seed 1 and a warmup of 150 s,
+// and when team DPS and every character's DPS are identical to the last
+// digit, its line gets release=<new module> and
+// carried=<old module>:identical:<today>, keeping the owner's date. The
+// pinned module (-to) must be there to carry from; without it pinning
+// refuses, unless -carry=false drops them.
+//
+// Pinning then takes off the approved list (internal/engine/approved.txt)
 // every approval the new release drops (engine.Dropped: the team is not
 // verified, has left group A, or was approved from group B for another
-// release), under a comment saying why: such a team comes back to the
-// owner before it runs on the engine again (docs/engine.md §2).
+// release and did not carry), under a comment saying why: such a team
+// comes back to the owner before it runs on the engine again
+// (docs/engine.md §2).
 //
 // After the owner's yes for the pinned release's group A, record it:
 //
@@ -28,6 +38,7 @@ package main
 import (
 	"archive/tar"
 	"bytes"
+	"context"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
@@ -53,13 +64,14 @@ func main() {
 	to := flag.String("to", "internal/engine/release", "directory to write the pinned release to")
 	repo := flag.String("repo", ".", "the Gscouter clone whose history holds the manifest's commit")
 	approved := flag.String("approved", "internal/engine/approved.txt", "the approved list, from which pinning takes the approvals the release drops")
+	carryB := flag.Bool("carry", true, "carry group B approvals of the pinned module forward when the new module scores their teams identically; false drops them")
 	approveA := flag.String("approve-a", "", "the date (YYYY-MM-DD) of the owner's yes for the pinned release's group A: add its teams to the approved list, and pin nothing")
 	flag.Parse()
 	var err error
 	if *approveA != "" {
 		err = approveGroupA(*to, *approved, *approveA)
 	} else {
-		err = run(*from, *to, *repo, *approved)
+		err = run(*from, *to, *repo, *approved, *carryB)
 	}
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "pinengine:", err)
@@ -67,7 +79,7 @@ func main() {
 	}
 }
 
-func run(from, to, repo, approved string) error {
+func run(from, to, repo, approved string, carryB bool) error {
 	if from == "" {
 		return errors.New("want -from")
 	}
@@ -106,6 +118,30 @@ func run(from, to, repo, approved string) error {
 			fmt.Printf("changed since %s, stays on gcsim: %s\n", m.Gscouter, id)
 		}
 	}
+	today := time.Now().Format(time.DateOnly)
+	rawList, err := os.ReadFile(approved)
+	if err != nil {
+		return err
+	}
+	list, err := engine.ParseApproved(string(rawList))
+	if err != nil {
+		return err
+	}
+	var carried map[string]engine.Approval
+	var why map[string]string
+	if carryB {
+		prev, err := pinnedRelease(to, repo)
+		if err != nil {
+			return err
+		}
+		next := &release{module: module, manifest: m, library: library, runner: engine.ModuleRunner(module)}
+		if carried, why, err = carry(context.Background(), list, prev, next, today); err != nil {
+			return err
+		}
+		for _, a := range carried {
+			fmt.Printf("approval carried, scores identical: %s\n", a)
+		}
+	}
 	if err := os.MkdirAll(to, 0o755); err != nil {
 		return err
 	}
@@ -115,13 +151,40 @@ func run(from, to, repo, approved string) error {
 		}
 	}
 	fmt.Printf("pinned engine %s: %d verified teams at Gscouter %s\n", m.Engine.Commit, len(hashes), m.Gscouter)
-	return dropApprovals(approved, m, time.Now().Format(time.DateOnly))
+	return dropApprovals(approved, m, today, carried, why)
 }
 
-// dropApprovals takes off the approved list at path the approvals the
-// release of m drops, and writes why in a comment at its end, dated
-// today.
-func dropApprovals(path string, m engine.Manifest, today string) error {
+// pinnedRelease is the release pinned in dir, to carry approvals from,
+// with its library at its Gscouter commit; nil without a module there.
+func pinnedRelease(dir, repo string) (*release, error) {
+	module, err := os.ReadFile(filepath.Join(dir, "gse.wasm"))
+	if errors.Is(err, fs.ErrNotExist) {
+		return nil, nil
+	}
+	if err != nil {
+		return nil, err
+	}
+	raw, err := os.ReadFile(filepath.Join(dir, "manifest.json"))
+	if err != nil {
+		return nil, err
+	}
+	var m engine.Manifest
+	if err := json.Unmarshal(raw, &m); err != nil {
+		return nil, fmt.Errorf("pinned manifest: %w", err)
+	}
+	library, err := teamsAt(repo, m.Gscouter)
+	if err != nil {
+		return nil, err
+	}
+	return &release{module: module, manifest: m, library: library, runner: engine.ModuleRunner(module)}, nil
+}
+
+// dropApprovals rewrites the approved list at path for the release of
+// m: the lines of carried approvals get their new release and carry, and
+// the approvals the release drops are taken off, with why (why's reason
+// for a group B approval that did not carry, else engine.Dropped's) in a
+// comment at its end, dated today.
+func dropApprovals(path string, m engine.Manifest, today string, carried map[string]engine.Approval, carryWhy map[string]string) error {
 	raw, err := os.ReadFile(path)
 	if err != nil {
 		return err
@@ -132,20 +195,32 @@ func dropApprovals(path string, m engine.Manifest, today string) error {
 	}
 	why := map[string]string{}
 	for _, a := range list {
-		if w := engine.Dropped(m, a); w != "" {
+		if _, ok := carried[a.Team]; ok {
+			continue
+		}
+		w := engine.Dropped(m, a)
+		if cw := carryWhy[a.Team]; cw != "" && w != "" {
+			w = "approved from group B for module " + a.Release + ", not carried: " + cw
+		}
+		if w != "" {
 			why[a.Team] = fmt.Sprintf("%s (approved %s): %s", a.Team, a.Date, w)
 		}
 	}
-	if len(why) == 0 {
+	if len(why) == 0 && len(carried) == 0 {
 		return nil
 	}
 	var keep []string
 	var dropped []string
 	for _, line := range strings.SplitAfter(string(raw), "\n") {
 		f := strings.Fields(line)
-		if len(f) > 0 && !strings.HasPrefix(f[0], "#") && why[f[0]] != "" {
-			dropped = append(dropped, why[f[0]])
-			continue
+		if len(f) > 0 && !strings.HasPrefix(f[0], "#") {
+			if why[f[0]] != "" {
+				dropped = append(dropped, why[f[0]])
+				continue
+			}
+			if c, ok := carried[f[0]]; ok {
+				line = c.String() + "\n"
+			}
 		}
 		keep = append(keep, line)
 	}
@@ -153,10 +228,15 @@ func dropApprovals(path string, m engine.Manifest, today string) error {
 	if out != "" && !strings.HasSuffix(out, "\n") {
 		out += "\n"
 	}
-	out += fmt.Sprintf("\n# %s, pinning engine %s (module %s): dropped, each back to the owner\n# before it runs on the engine again:\n", today, m.Engine.Commit, short(m.Engine.WasmSHA256))
-	for _, d := range dropped {
-		out += "#   " + d + "\n"
-		fmt.Println("approval dropped:", d)
+	if len(dropped) > 0 {
+		out += fmt.Sprintf("\n# %s, pinning engine %s (module %s): dropped, each back to the owner\n# before it runs on the engine again:\n", today, m.Engine.Commit, short(m.Engine.WasmSHA256))
+		for _, d := range dropped {
+			out += "#   " + d + "\n"
+			fmt.Println("approval dropped:", d)
+		}
+	}
+	if _, err := engine.ParseApproved(out); err != nil {
+		return err
 	}
 	return os.WriteFile(path, []byte(out), 0o644)
 }

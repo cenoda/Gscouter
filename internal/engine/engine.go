@@ -47,6 +47,15 @@ type ManifestTeam struct {
 	VerifiedKinds []string `json:"verified_kinds"`
 	Group         string   `json:"group"`
 	GroupWhy      []string `json:"group_why"`
+	// Scores are the verdicts' runs, one per build judged.
+	Scores []ManifestScore `json:"scores"`
+}
+
+// ManifestScore is the part of a verdict's run that cmd/pinengine reads:
+// the build ("library") and the iterations it was decided at.
+type ManifestScore struct {
+	Build      string `json:"build"`
+	Iterations int    `json:"iterations"`
 }
 
 // Approval is a line of the approved list.
@@ -58,12 +67,60 @@ type Approval struct {
 	// release the approval holds for. Without it the approval was of a
 	// group A team and holds while the team stays verified in group A.
 	Release string
+	// Carried lists, oldest first, the releases a group B approval was
+	// carried forward from at pin time because the new module scored the
+	// team identically (cmd/pinengine, docs/engine.md §2). Date stays the
+	// owner's answer.
+	Carried []Carry
+}
+
+// Carry is one carry of a group B approval to a new module: from the
+// module it held for, how (only "identical": team DPS and every
+// character's DPS identical to the last digit on both modules), and when.
+type Carry struct {
+	From string // first 16 hex digits of the old module's SHA-256
+	How  string
+	Date string
+}
+
+// String is the carry as the approved list writes it.
+func (c Carry) String() string { return "carried=" + c.From + ":" + c.How + ":" + c.Date }
+
+// String is the approval as a line of the approved list.
+func (a Approval) String() string {
+	s := a.Team + " " + a.Date
+	if a.Release != "" {
+		s += " release=" + a.Release
+	}
+	for _, c := range a.Carried {
+		s += " " + c.String()
+	}
+	return s
+}
+
+func isModulePrefix(s string) bool {
+	_, err := hex.DecodeString(s)
+	return len(s) == 16 && err == nil
+}
+
+func parseCarry(field string) (Carry, error) {
+	v, ok := strings.CutPrefix(field, "carried=")
+	p := strings.Split(v, ":")
+	if !ok || len(p) != 3 || !isModulePrefix(p[0]) || p[1] != "identical" {
+		return Carry{}, fmt.Errorf("want carried=<16 hex digits of the old module's SHA-256>:identical:<date>, got %q", field)
+	}
+	if _, err := time.Parse(time.DateOnly, p[2]); err != nil {
+		return Carry{}, fmt.Errorf("carry date %q is not YYYY-MM-DD", p[2])
+	}
+	return Carry{From: p[0], How: p[1], Date: p[2]}, nil
 }
 
 // ParseApproved reads the approved list: one team per line, its id, the
 // date of the owner's answer and, for a team approved from group B,
-// release=<first 16 hex digits of the module's SHA-256>, separated by
-// spaces. Blank lines and lines starting with # are skipped.
+// release=<first 16 hex digits of the module's SHA-256>, then any
+// carried=<old module>:identical:<date> fields of the carries that brought
+// it to that release, separated by spaces. Blank lines and lines starting
+// with # are skipped.
 func ParseApproved(text string) ([]Approval, error) {
 	var out []Approval
 	seen := map[string]bool{}
@@ -74,16 +131,23 @@ func ParseApproved(text string) ([]Approval, error) {
 			continue
 		}
 		f := strings.Fields(line)
-		if len(f) != 2 && len(f) != 3 {
+		if len(f) < 2 {
 			return nil, fmt.Errorf("approved list, line %d: want a team id, a date and for group B release=<module>, got %q", n, line)
 		}
-		release := ""
-		if len(f) == 3 {
+		a := Approval{Team: f[0], Date: f[1]}
+		if len(f) >= 3 {
 			r, ok := strings.CutPrefix(f[2], "release=")
-			if _, err := hex.DecodeString(r); !ok || len(r) != 16 || err != nil {
+			if !ok || !isModulePrefix(r) {
 				return nil, fmt.Errorf("approved list, line %d: want release=<16 hex digits of the module's SHA-256>, got %q", n, f[2])
 			}
-			release = r
+			a.Release = r
+		}
+		for _, field := range f[min(3, len(f)):] {
+			c, err := parseCarry(field)
+			if err != nil {
+				return nil, fmt.Errorf("approved list, line %d: %v", n, err)
+			}
+			a.Carried = append(a.Carried, c)
 		}
 		if _, err := time.Parse(time.DateOnly, f[1]); err != nil {
 			return nil, fmt.Errorf("approved list, line %d: date %q is not YYYY-MM-DD", n, f[1])
@@ -92,7 +156,7 @@ func ParseApproved(text string) ([]Approval, error) {
 			return nil, fmt.Errorf("approved list, line %d: %s is listed twice", n, f[0])
 		}
 		seen[f[0]] = true
-		out = append(out, Approval{Team: f[0], Date: f[1], Release: release})
+		out = append(out, a)
 	}
 	return out, sc.Err()
 }
@@ -149,7 +213,9 @@ func New(module, manifest []byte, pinned map[string]string, library fs.FS, appro
 // Dropped says why the approval a does not hold for the release of
 // manifest m, or "" when it holds. An approval holds while its team is
 // verified and in group A; one given from group B (Release set) holds
-// for its release only. A dropped approval needs the owner's yes again
+// for its release only: cmd/pinengine carries it to a new release, at pin
+// time, only when the new module scores the team identically, and writes
+// the new release on its line. A dropped approval needs the owner's yes again
 // (cmd/pinengine takes it off the list), whatever a later release says.
 // A team whose library files changed since the release is not dropped:
 // it waits on gcsim for a release that verifies its files (New).
