@@ -1,5 +1,7 @@
 # Browser rotation lab
 
+> Status: Implemented on the feature branches; deployment not performed · Last updated: 2026-11-05
+
 The optional `/lab` page demonstrates rotation refinement on a visitor's actual
 Enka showcase build. Both candidate search and fight evaluation run in a Web
 Worker on the visitor's device. The Go server fetches Enka profiles and provides
