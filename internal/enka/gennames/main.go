@@ -1,8 +1,9 @@
 // Command gennames writes <dir>/names.json: the in-game names of every
 // character, weapon and artifact set in <dir>/*.dm.json and of the
 // artifact stats, in each of the game's text languages, from
-// Enka.Network's public store data (MIT license). Run it from
-// internal/enka through gen.sh.
+// Enka.Network's public store data (MIT license), and individual artifact
+// piece names and 2pc/4pc set bonuses from genshin-db (MIT license). Run
+// it from internal/enka through gen.sh.
 //
 // data/ is legacy data (data/README.md): gennames does not write it, and
 // -dir must name another directory, to diff against data/.
@@ -17,9 +18,11 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"sync"
 )
 
 const store = "https://raw.githubusercontent.com/EnkaNetwork/API-docs/master/store/gi/"
+const genshinDBStore = "https://raw.githubusercontent.com/theBowja/genshin-db/main/src/data/"
 
 type entry struct {
 	ID    int    `json:"id"`
@@ -29,6 +32,35 @@ type entry struct {
 
 type item struct {
 	NameTextMapHash int64
+}
+
+type genshinDBArtifact struct {
+	Name      string `json:"name"`
+	Effect2Pc string `json:"effect2Pc"`
+	Effect4Pc string `json:"effect4Pc"`
+	Flower    struct{ Name string } `json:"flower"`
+	Plume     struct{ Name string } `json:"plume"`
+	Sands     struct{ Name string } `json:"sands"`
+	Goblet    struct{ Name string } `json:"goblet"`
+	Circlet   struct{ Name string } `json:"circlet"`
+}
+
+var genshinDBLangs = map[string]string{
+	"zh-cn": "ChineseSimplified",
+	"zh-tw": "ChineseTraditional",
+	"en":    "English",
+	"ko":    "Korean",
+	"ja":    "Japanese",
+	"es":    "Spanish",
+	"fr":    "French",
+	"ru":    "Russian",
+	"th":    "Thai",
+	"vi":    "Vietnamese",
+	"de":    "German",
+	"id":    "Indonesian",
+	"pt":    "Portuguese",
+	"tr":    "Turkish",
+	"it":    "Italian",
 }
 
 // statProps are the game's names of the artifact stats, by gcsim key.
@@ -75,10 +107,12 @@ func main() {
 	}
 
 	names := map[string]map[string]map[string]string{
-		"characters": {},
-		"weapons":    {},
-		"artifacts":  {},
-		"stats":      {},
+		"characters":       {},
+		"weapons":          {},
+		"artifacts":        {},
+		"stats":            {},
+		"artifact_pieces":  {},
+		"artifact_effects": {},
 	}
 	for _, kind := range []struct {
 		file, out string
@@ -123,6 +157,105 @@ func main() {
 		}
 		names["stats"][key] = byLang
 	}
+
+	// Artifact piece names and set effects from genshin-db.
+	var artifactDM struct{ Data map[string]entry }
+	read(filepath.Join(*dir, "artifact.dm.json"), &artifactDM)
+	type task struct {
+		langCode, langFolder, setKey string
+	}
+	var tasks []task
+	for setKey := range artifactDM.Data {
+		for code, folder := range genshinDBLangs {
+			tasks = append(tasks, task{code, folder, setKey})
+		}
+	}
+
+	type result struct {
+		t   task
+		art *genshinDBArtifact
+		err error
+	}
+	taskCh := make(chan task, len(tasks))
+	resCh := make(chan result, len(tasks))
+	for _, t := range tasks {
+		taskCh <- t
+	}
+	close(taskCh)
+
+	var wg sync.WaitGroup
+	for range 20 {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			for t := range taskCh {
+				u := fmt.Sprintf("%s%s/artifacts/%s.json", genshinDBStore, t.langFolder, t.setKey)
+				resp, err := http.Get(u)
+				if err != nil {
+					resCh <- result{t: t, err: err}
+					continue
+				}
+				if resp.StatusCode != http.StatusOK {
+					resp.Body.Close()
+					resCh <- result{t: t, err: fmt.Errorf("%s: %s", u, resp.Status)}
+					continue
+				}
+				raw, err := io.ReadAll(resp.Body)
+				resp.Body.Close()
+				if err != nil {
+					resCh <- result{t: t, err: err}
+					continue
+				}
+				var a genshinDBArtifact
+				if err := json.Unmarshal(raw, &a); err != nil {
+					resCh <- result{t: t, err: err}
+					continue
+				}
+				resCh <- result{t: t, art: &a}
+			}
+		}()
+	}
+	wg.Wait()
+	close(resCh)
+
+	for res := range resCh {
+		if res.err != nil {
+			log.Printf("warning: artifact %s in %s: %v", res.t.setKey, res.t.langCode, res.err)
+			continue
+		}
+		a := res.art
+		slotMap := map[string]string{
+			"flower":  a.Flower.Name,
+			"plume":   a.Plume.Name,
+			"sands":   a.Sands.Name,
+			"goblet":  a.Goblet.Name,
+			"circlet": a.Circlet.Name,
+		}
+		for slot, pname := range slotMap {
+			if pname != "" {
+				pkey := res.t.setKey + "." + slot
+				if names["artifact_pieces"][pkey] == nil {
+					names["artifact_pieces"][pkey] = map[string]string{}
+				}
+				names["artifact_pieces"][pkey][res.t.langCode] = pname
+			}
+		}
+		if a.Effect2Pc != "" {
+			ekey := res.t.setKey + ".2"
+			if names["artifact_effects"][ekey] == nil {
+				names["artifact_effects"][ekey] = map[string]string{}
+			}
+			names["artifact_effects"][ekey][res.t.langCode] = a.Effect2Pc
+		}
+		if a.Effect4Pc != "" {
+			ekey := res.t.setKey + ".4"
+			if names["artifact_effects"][ekey] == nil {
+				names["artifact_effects"][ekey] = map[string]string{}
+			}
+			names["artifact_effects"][ekey][res.t.langCode] = a.Effect4Pc
+		}
+	}
+
 	out, err := json.MarshalIndent(names, "", "\t")
 	if err != nil {
 		log.Fatal(err)
@@ -159,3 +292,5 @@ func read(file string, v any) {
 		log.Fatalf("%s: %v", file, err)
 	}
 }
+
+

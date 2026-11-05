@@ -288,6 +288,7 @@ func init() {
 		"err.boss":          "不明なボスです：%q",
 
 		"art.totals":       "聖遺物の合計",
+		"art.sets":         "セット効果",
 		"art.pieces":       "聖遺物の部位別表示",
 		"art.slot.flower":  "花",
 		"art.slot.plume":   "羽",

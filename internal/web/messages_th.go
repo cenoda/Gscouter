@@ -288,6 +288,7 @@ func init() {
 		"err.boss":          "ไม่รู้จักบอส: %q",
 
 		"art.totals":       "ค่ารวมของอาร์ติแฟกต์",
+		"art.sets":         "เอฟเฟกต์เซ็ต",
 		"art.pieces":       "อาร์ติแฟกต์แต่ละชิ้น",
 		"art.slot.flower":  "ดอกไม้",
 		"art.slot.plume":   "ขนนก",

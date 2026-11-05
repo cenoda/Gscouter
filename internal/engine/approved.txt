@@ -4472,7 +4472,10 @@ nefer-sangonomiyakokomi-lauma-nahida 2026-11-04
 
 # Group B of engine e6c8a071b153 (module fb96395ec9152413), Gscouter e4d5796bc32f: the owner's yes of 2026-11-04,
 # one by one ("둘다 승인"; "릴리즈 fb96395ec9152413(run 41814779013) 승인합니다: 새 A군 17개와 B군 11개 갱신 모두.").
-# Each holds for this module only.
+# Given for module fb96395ec9152413; on 2026-11-05 cmd/pinengine carried
+# all eleven to module db01704ce071b454 (engine 211d588), each scoring
+# identically on both modules (carried=...:identical:...). Each holds for
+# the module its line names.
 durin-nicole-xilonen-bennett 2026-11-04 release=db01704ce071b454 carried=fb96395ec9152413:identical:2026-11-05
 flins-ineffa-aino-sucrose 2026-11-04 release=db01704ce071b454 carried=fb96395ec9152413:identical:2026-11-05
 flins-ineffa-furina-sucrose 2026-11-04 release=db01704ce071b454 carried=fb96395ec9152413:identical:2026-11-05

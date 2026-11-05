@@ -288,6 +288,7 @@ func init() {
 		"err.boss":          "未知首領：%q",
 
 		"art.totals":       "聖遺物合計",
+		"art.sets":         "套裝效果",
 		"art.pieces":       "聖遺物各部位",
 		"art.slot.flower":  "花",
 		"art.slot.plume":   "羽",

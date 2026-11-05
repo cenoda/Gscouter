@@ -174,8 +174,9 @@ func TestScorePieces(t *testing.T) {
 	sub := english.subsText(builds[0].Pieces[0])
 	artTotals := template.HTMLEscapeString(english.artTotals(builds[0]))
 	_, body := get(t, ts, "/score?a="+url.QueryEscape(sel.String()))
+	circletTitle := template.HTMLEscapeString(english.pieceTitle(builds[0].Pieces[4]))
 	mustContain(t, body, `<details class="rotation">
-<summary>Artifact pieces</summary>`, "Artifact totals", artTotals, "Circlet", "Finale", sub,
+<summary>Artifact pieces</summary>`, "Artifact totals", artTotals, "Set bonuses", circletTitle, "Circlet", "Finale", sub,
 		"Include artifact pieces", `data-strip="/score?a=`+url.QueryEscape(teamResult{Selection: sel}.Stripped())+`"`)
 	totalStats(t, body, artTotals)
 	weaponIcon, _ := enka.WeaponIcon(builds[0].Weapon)
@@ -299,4 +300,12 @@ func TestArtifactScoreText(t *testing.T) {
 			}
 		}
 	}
+}
+
+func TestArtifactPiecesAndBonuses(t *testing.T) {
+	ts := newTestServer(t)
+	builds := piecedTeam()
+	sel := selection{UID: "800000005", Chars: keys(builds), Builds: builds, Nickname: "Lohen"}
+	_, body := get(t, ts, "/score?hl=ko&a="+url.QueryEscape(sel.String()))
+	mustContain(t, body, "세트 효과", "검투사의 개선", "왕관 · 검투사의 피날레 · 5★ &#43;20")
 }
