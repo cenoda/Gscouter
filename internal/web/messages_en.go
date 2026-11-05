@@ -288,6 +288,7 @@ func init() {
 		"err.boss":          "Unknown boss: %q",
 
 		"art.totals":       "Artifact totals",
+		"art.sets":         "Set bonuses",
 		"art.pieces":       "Artifact pieces",
 		"art.slot.flower":  "Flower",
 		"art.slot.plume":   "Plume",

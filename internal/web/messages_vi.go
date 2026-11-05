@@ -288,6 +288,7 @@ func init() {
 		"err.boss":          "Boss không xác định: %q",
 
 		"art.totals":       "Tổng chỉ số Thánh Di Vật",
+		"art.sets":         "Hiệu quả bộ",
 		"art.pieces":       "Thánh Di Vật từng món",
 		"art.slot.flower":  "Hoa",
 		"art.slot.plume":   "Lông",

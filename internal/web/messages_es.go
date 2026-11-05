@@ -288,6 +288,7 @@ func init() {
 		"err.boss":          "Jefe desconocido: %q",
 
 		"art.totals":       "Totales de los artefactos",
+		"art.sets":         "Efectos de conjunto",
 		"art.pieces":       "Artefactos por pieza",
 		"art.slot.flower":  "Flor",
 		"art.slot.plume":   "Pluma",

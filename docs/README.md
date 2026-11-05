@@ -1,6 +1,6 @@
 # Documents
 
-> Last updated: 2026-11-04
+> Last updated: 2026-11-05
 
 What each document is for, and the habits that keep them readable. These are conventions, not rules: follow them unless a document has a reason not to, and change them here when they stop fitting.
 

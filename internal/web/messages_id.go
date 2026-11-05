@@ -288,6 +288,7 @@ func init() {
 		"err.boss":          "Boss tidak dikenal: %q",
 
 		"art.totals":       "Total artefak",
+		"art.sets":         "Efek set",
 		"art.pieces":       "Artefak per bagian",
 		"art.slot.flower":  "Bunga",
 		"art.slot.plume":   "Bulu",

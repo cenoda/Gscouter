@@ -288,6 +288,7 @@ func init() {
 		"err.boss":          "알 수 없는 보스입니다: %q",
 
 		"art.totals":       "성유물 합계",
+		"art.sets":         "세트 효과",
 		"art.pieces":       "성유물 부위별 보기",
 		"art.slot.flower":  "꽃",
 		"art.slot.plume":   "깃털",

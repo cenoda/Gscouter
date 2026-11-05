@@ -82,11 +82,58 @@ func (l localizer) stats(stats map[string]float64) []string {
 	return parts
 }
 
-// pieceText describes a piece below its slot: set, rarity and level.
+// SetBonus describes an active 2-piece or 4-piece set bonus for display.
+type SetBonus struct {
+	Name   string
+	Count  int
+	Bonus2 string
+	Bonus4 string
+}
+
+// setBonuses lists the active 2-piece and 4-piece set bonuses of a character.
+func (l localizer) setBonuses(c enka.Character) []SetBonus {
+	var bonuses []SetBonus
+	for _, set := range slices.Sorted(maps.Keys(c.Sets)) {
+		cnt := c.Sets[set]
+		if cnt < 2 {
+			continue
+		}
+		b2 := enka.ArtifactBonus(set, 2, l.Lang)
+		if b2 == "" {
+			continue
+		}
+		b := SetBonus{
+			Name:   l.setName(set),
+			Count:  cnt,
+			Bonus2: b2,
+		}
+		if cnt >= 4 {
+			b.Bonus4 = enka.ArtifactBonus(set, 4, l.Lang)
+		}
+		bonuses = append(bonuses, b)
+	}
+	return bonuses
+}
+
+// pieceTitle returns the in-game name of the artifact piece (e.g.
+// "Gladiator's Nostalgia") if known, or falls back to the slot name
+// ("Flower", "Plume", ...).
+func (l localizer) pieceTitle(p enka.Artifact) string {
+	if name := enka.ArtifactPieceName(p.Set, p.Slot, l.Lang); name != "" {
+		return name
+	}
+	return l.T("art.slot." + p.Slot.String())
+}
+
+// pieceText describes a piece below its slot or piece name: set, rarity and level.
+// When the piece has its own name shown above, pieceText prefixes the slot name.
 func (l localizer) pieceText(p enka.Artifact) string {
 	s := fmt.Sprintf("%d★ +%d", p.Rarity, p.Level)
 	if p.Set != "" {
 		s = l.setName(p.Set) + " · " + s
+		if enka.ArtifactPieceName(p.Set, p.Slot, l.Lang) != "" {
+			s = l.T("art.slot."+p.Slot.String()) + " · " + s
+		}
 	}
 	return s
 }
@@ -226,14 +273,16 @@ type icon struct {
 // language.
 func artifactFuncs(l localizer) template.FuncMap {
 	return template.FuncMap{
-		"totals":    l.totals,
-		"artTotals": l.artTotals,
-		"hasTotals": hasTotals,
-		"stat":      l.statText,
-		"pieceText": l.pieceText,
-		"verdict":   l.verdict,
-		"subsText":  l.subsText,
-		"slotName":  func(s enka.Slot) string { return l.T("art.slot." + s.String()) },
+		"totals":     l.totals,
+		"artTotals":  l.artTotals,
+		"setBonuses": l.setBonuses,
+		"hasTotals":  hasTotals,
+		"stat":       l.statText,
+		"pieceTitle": l.pieceTitle,
+		"pieceText":  l.pieceText,
+		"verdict":    l.verdict,
+		"subsText":   l.subsText,
+		"slotName":   func(s enka.Slot) string { return l.T("art.slot." + s.String()) },
 		"pieceIcon": func(p enka.Artifact) icon { return icon{enka.ArtifactIconURL(p.Set, p.Slot), p.Rarity} },
 		"weaponIcon": func(w enka.Weapon) icon {
 			url, rarity := enka.WeaponIcon(w)

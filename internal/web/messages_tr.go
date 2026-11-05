@@ -288,6 +288,7 @@ func init() {
 		"err.boss":          "Bilinmeyen boss: %q",
 
 		"art.totals":       "Yadigar toplamları",
+		"art.sets":         "Set bonusları",
 		"art.pieces":       "Tek tek yadigarlar",
 		"art.slot.flower":  "Çiçek",
 		"art.slot.plume":   "Tüy",

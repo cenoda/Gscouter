@@ -831,8 +831,9 @@ function resultCanvas(data, faces, spec) {
 <table class="pieces">
 {{range .Chars}}<tr><th colspan="2"><span class="who">{{template "face" .Key}}{{name .Key}}</span></th></tr>
 {{with artTotals .}}<tr><td colspan="2">{{t "art.totals"}}<span class="muted">{{.}}</span></td></tr>
+{{end}}{{with setBonuses .}}<tr><td colspan="2">{{t "art.sets"}}<span class="muted">{{range $i, $b := .}}{{if $i}}<br>{{end}}<strong>{{$b.Name}} ({{$b.Count}})</strong> — 2: {{$b.Bonus2}}{{if $b.Bonus4}}<br>4: {{$b.Bonus4}}{{end}}{{end}}</span></td></tr>
 {{end}}{{if none .}}{{if $any}}<tr><td colspan="2" class="muted">{{t "art.reload"}}</td></tr>{{end}}
-{{else}}{{$full := full .}}{{range .Pieces}}<tr><td><div class="piece">{{template "item" (pieceIcon .)}}<div>{{slotName .Slot}}<span class="muted">{{pieceText .}}</span></div></div></td><td>{{stat .Main}}<span class="muted">{{if $full}}{{subsText .}}{{else}}{{t "art.subs_out"}}{{end}}</span></td></tr>
+{{else}}{{$full := full .}}{{range .Pieces}}<tr><td><div class="piece">{{template "item" (pieceIcon .)}}<div>{{pieceTitle .}}<span class="muted">{{pieceText .}}</span></div></div></td><td>{{stat .Main}}<span class="muted">{{if $full}}{{subsText .}}{{else}}{{t "art.subs_out"}}{{end}}</span></td></tr>
 {{end}}{{end}}{{end}}
 </table>
 </div>{{end}}
