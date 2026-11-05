@@ -14,4 +14,4 @@ Provenance of every entry in these files: `legacy_gcsim` (names: `legacy_enka_st
 
 ## New IDs
 
-New character and weapon IDs come from Enka.Network's published store data. A new character's base stats start from HoYoWiki's integers and are refined from a showcase the owner chooses, read once with a developer command when that character is ported (new characters come last; the command is not built yet). Gscouter logs and stores no showcase data: a character or weapon not in these files is skipped, as before.
+New mappings are not taken from Enka's store data or gcsim, which are built from the game's files; only the existing entries above stay, as legacy. A new character's or weapon's ID, level, ascension and base stats are read from a showcase the owner chooses, once, with a developer command when that character is ported (new characters come last; the command is not built yet). The ID is matched to its key by those base stats against the official base stats (HoYoWiki). Gscouter logs and stores no showcase data from its users: a character or weapon not in these files is skipped, as before.
