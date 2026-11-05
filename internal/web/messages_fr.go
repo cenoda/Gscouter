@@ -14,7 +14,7 @@ func init() {
 			"et retient le DPS moyen entre 150 et 450 s, une fois l'énergie de départ épuisée. Une Recharge d'énergie insuffisante fait baisser le score.",
 		"foot.method2": "Quand l'énergie ou un temps de recharge laisserait un personnage immobile, le score retient le meilleur choix entre attendre et combler ce temps avec des Compétences élémentaires, des changements de personnage ou des Attaques normales. " +
 			"« Une rotation » correspond à un seul passage avec l'énergie au maximum, le chiffre indiqué par les configurations gcsim de la communauté.",
-		"foot.credits":      `Simulation <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotations <a href="https://db.kqm.gg">KQM gcsim DB</a> · Données des personnages <a href="https://enka.network">Enka.Network</a>`,
+		"foot.credits":      `Simulation <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotations <a href="https://db.kqm.gg">KQM gcsim DB</a> · Données des personnages <a href="https://enka.network">Enka.Network</a>`,
 		"foot.contact":      `Écrire au développeur`,
 		"foot.contact_note": `Questions, signalements de scores, suppression d'un lien court, ou autre chose. Seul le développeur le lit ; rien n'est affiché sur le site. La page où vous êtes est envoyée avec. Laissez un moyen de contact seulement si vous voulez une réponse.`,
 		"foot.contact_ph":   `Votre message`,

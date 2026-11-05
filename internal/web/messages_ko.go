@@ -14,7 +14,7 @@ func init() {
 			"시작 에너지가 바닥난 뒤인 150–450초 구간의 평균 DPS를 점수로 씁니다. 원소 충전 효율이 부족하면 점수가 내려갑니다.",
 		"foot.method2": "에너지나 쿨타임 때문에 캐릭터가 서서 기다리게 되면, 그 시간을 원소전투 스킬·교체·평타로 채운 경우와 비교해 높은 쪽을 씁니다. " +
 			"\"로테이션 1회\"는 에너지가 가득한 상태에서 한 번 돌린 값으로, 커뮤니티 gcsim 설정이 보고하는 숫자와 같은 기준입니다.",
-		"foot.credits":      `시뮬레이션 <a href="https://github.com/genshinsim/gcsim">gcsim</a> · 로테이션 <a href="https://db.kqm.gg">KQM gcsim DB</a> · 캐릭터 정보 <a href="https://enka.network">Enka.Network</a>`,
+		"foot.credits":      `시뮬레이션 <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · 로테이션 <a href="https://db.kqm.gg">KQM gcsim DB</a> · 캐릭터 정보 <a href="https://enka.network">Enka.Network</a>`,
 		"foot.contact":      `개발자에게 메시지 보내기`,
 		"foot.contact_note": `질문, 점수 제보, 짧은 링크 삭제 요청 등 무엇이든 괜찮습니다. 개발자만 읽고, 사이트에는 아무것도 표시되지 않습니다. 지금 보고 있는 페이지 주소가 함께 전송됩니다. 답장을 원할 때만 연락처를 적어 주세요.`,
 		"foot.contact_ph":   `메시지`,

@@ -14,7 +14,7 @@ func init() {
 			"初期エネルギーが尽きた後の150–450秒の平均DPSをスコアにします。元素チャージ効率が足りないとスコアが下がります。",
 		"foot.method2": "元素エネルギーやクールタイムのせいでキャラクターが立ち止まって待つことになる場合は、その時間を元素スキル・交代・通常攻撃で埋めた場合と比べて高いほうを採用します。" +
 			"「ローテーション1回」はエネルギー満タンの状態から1周した値で、コミュニティのgcsim設定が報告する数値と同じ基準です。",
-		"foot.credits":      `シミュレーション <a href="https://github.com/genshinsim/gcsim">gcsim</a> · ローテーション <a href="https://db.kqm.gg">KQM gcsim DB</a> · キャラクター情報 <a href="https://enka.network">Enka.Network</a>`,
+		"foot.credits":      `シミュレーション <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · ローテーション <a href="https://db.kqm.gg">KQM gcsim DB</a> · キャラクター情報 <a href="https://enka.network">Enka.Network</a>`,
 		"foot.contact":      `開発者にメッセージを送る`,
 		"foot.contact_note": `質問、スコアの報告、短縮リンクの削除依頼など何でもどうぞ。読むのは開発者だけで、サイトには何も表示されません。今見ているページのアドレスも一緒に送られます。返信がほしい場合だけ連絡先を書いてください。`,
 		"foot.contact_ph":   `メッセージ`,

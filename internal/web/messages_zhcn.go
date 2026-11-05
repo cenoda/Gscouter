@@ -14,7 +14,7 @@ func init() {
 			"取初始能量耗尽之后 150–450 秒区间的平均 DPS 作为分数。元素充能效率不足会拉低分数。",
 		"foot.method2": "当能量或冷却导致角色原地等待时，分数会在“等待”与“用元素战技、切人或普通攻击填补空档”之间取较高者。" +
 			"“单轮循环”是从满能量开始打一轮的结果，与社区 gcsim 配置所报告的数值同一口径。",
-		"foot.credits":      `模拟 <a href="https://github.com/genshinsim/gcsim">gcsim</a> · 循环 <a href="https://db.kqm.gg">KQM gcsim DB</a> · 角色数据 <a href="https://enka.network">Enka.Network</a>`,
+		"foot.credits":      `模拟 <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · 循环 <a href="https://db.kqm.gg">KQM gcsim DB</a> · 角色数据 <a href="https://enka.network">Enka.Network</a>`,
 		"foot.contact":      `给开发者留言`,
 		"foot.contact_note": `问题、分数反馈、删除短链接，什么都可以。只有开发者会看到，网站上不会显示任何内容。当前页面的地址会一并发送。只有想得到回复时才留下联系方式。`,
 		"foot.contact_ph":   `留言内容`,

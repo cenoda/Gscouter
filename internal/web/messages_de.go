@@ -14,7 +14,7 @@ func init() {
 			"und wertet die durchschnittlichen DPS von 150 bis 450 s, nachdem die Startenergie aufgebraucht ist. Zu wenig Aufladerate senkt den Wert.",
 		"foot.method2": "Wenn ein Charakter wegen Energie oder einer Abklingzeit untätig warten müsste, zählt das Bessere aus Warten und dem Füllen der Zeit mit Elementarfähigkeiten, Wechseln oder Normalen Angriffen. " +
 			"„Eine Rotation“ ist ein einzelner Durchlauf mit voller Energie – der Wert, den gcsim-Konfigurationen der Community angeben.",
-		"foot.credits":      `Simulation <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotationen <a href="https://db.kqm.gg">KQM gcsim DB</a> · Charakterdaten <a href="https://enka.network">Enka.Network</a>`,
+		"foot.credits":      `Simulation <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotationen <a href="https://db.kqm.gg">KQM gcsim DB</a> · Charakterdaten <a href="https://enka.network">Enka.Network</a>`,
 		"foot.contact":      `Nachricht an den Entwickler`,
 		"foot.contact_note": `Fragen, Score-Meldungen, Entfernen eines Kurzlinks oder sonst etwas. Nur der Entwickler liest sie; auf der Seite wird nichts angezeigt. Die Seite, auf der du bist, wird mitgeschickt. Gib eine Kontaktmöglichkeit nur an, wenn du eine Antwort möchtest.`,
 		"foot.contact_ph":   `Deine Nachricht`,

@@ -14,7 +14,7 @@ func init() {
 			"và lấy DPS trung bình trong khoảng 150–450 giây, sau khi năng lượng ban đầu đã cạn, làm điểm. Thiếu Hiệu Quả Nạp Nguyên Tố sẽ làm điểm giảm.",
 		"foot.method2": "Khi năng lượng hoặc thời gian hồi khiến nhân vật phải đứng chờ, điểm sẽ lấy kết quả tốt hơn giữa việc chờ và việc lấp thời gian đó bằng Kỹ Năng Nguyên Tố, đổi nhân vật hoặc tấn công thường. " +
 			"\"Một vòng xoay\" là một lượt từ lúc đầy năng lượng, tức con số mà các cấu hình gcsim của cộng đồng báo cáo.",
-		"foot.credits":      `Mô phỏng <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Vòng xoay <a href="https://db.kqm.gg">KQM gcsim DB</a> · Dữ liệu nhân vật <a href="https://enka.network">Enka.Network</a>`,
+		"foot.credits":      `Mô phỏng <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Vòng xoay <a href="https://db.kqm.gg">KQM gcsim DB</a> · Dữ liệu nhân vật <a href="https://enka.network">Enka.Network</a>`,
 		"foot.contact":      `Nhắn cho nhà phát triển`,
 		"foot.contact_note": `Câu hỏi, báo cáo điểm số, yêu cầu xóa liên kết ngắn hay bất cứ điều gì. Chỉ nhà phát triển đọc; không có gì hiển thị trên trang. Địa chỉ trang bạn đang xem được gửi kèm. Chỉ để lại liên hệ nếu bạn muốn được trả lời.`,
 		"foot.contact_ph":   `Tin nhắn của bạn`,

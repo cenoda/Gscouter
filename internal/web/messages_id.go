@@ -14,7 +14,7 @@ func init() {
 			"dan memakai rata-rata DPS pada detik 150–450, setelah Energy awal habis, sebagai skor. Energy Recharge yang kurang akan menurunkan skor.",
 		"foot.method2": "Jika Energy atau cooldown membuat karakter hanya berdiri menunggu, skor memakai hasil terbaik antara menunggu dan mengisi waktu itu dengan Elemental Skill, ganti karakter, atau Normal Attack. " +
 			"\"Satu rotasi\" adalah satu putaran dari Energy penuh, angka yang dilaporkan konfigurasi gcsim komunitas.",
-		"foot.credits":      `Simulasi <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotasi <a href="https://db.kqm.gg">KQM gcsim DB</a> · Data karakter <a href="https://enka.network">Enka.Network</a>`,
+		"foot.credits":      `Simulasi <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotasi <a href="https://db.kqm.gg">KQM gcsim DB</a> · Data karakter <a href="https://enka.network">Enka.Network</a>`,
 		"foot.contact":      `Kirim pesan ke pengembang`,
 		"foot.contact_note": `Pertanyaan, laporan skor, penghapusan tautan pendek, atau apa pun. Hanya pengembang yang membacanya; tidak ada yang ditampilkan di situs. Halaman yang sedang dibuka ikut terkirim. Cantumkan kontak hanya jika ingin dibalas.`,
 		"foot.contact_ph":   `Pesanmu`,

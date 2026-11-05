@@ -14,7 +14,7 @@ func init() {
 			"y puntúa el DPS medio entre los 150 y los 450 s, cuando ya se ha agotado la energía inicial. Una Recarga de Energía insuficiente baja la puntuación.",
 		"foot.method2": "Cuando la energía o un tiempo de enfriamiento dejarían a un personaje quieto esperando, la puntuación se queda con lo mejor entre esperar y rellenar ese tiempo con Habilidades Elementales, cambios de personaje o ataques normales. " +
 			"\"Una rotación\" es una sola pasada con la energía llena, la cifra que dan las configuraciones de gcsim de la comunidad.",
-		"foot.credits":      `Simulación <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotaciones <a href="https://db.kqm.gg">KQM gcsim DB</a> · Datos de personajes <a href="https://enka.network">Enka.Network</a>`,
+		"foot.credits":      `Simulación <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotaciones <a href="https://db.kqm.gg">KQM gcsim DB</a> · Datos de personajes <a href="https://enka.network">Enka.Network</a>`,
 		"foot.contact":      `Escribir al desarrollador`,
 		"foot.contact_note": `Preguntas, reportes de puntuaciones, eliminar un enlace corto o cualquier otra cosa. Solo el desarrollador lo lee; nada se muestra en el sitio. Se envía junto con la página en la que estás. Deja un contacto solo si quieres respuesta.`,
 		"foot.contact_ph":   `Tu mensaje`,

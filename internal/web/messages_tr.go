@@ -14,7 +14,7 @@ func init() {
 			"ve başlangıç enerjisi bittikten sonraki 150–450 sn arasındaki ortalama DPS'i puan olarak alır. Yetersiz Enerji Yüklemesi puanı düşürür.",
 		"foot.method2": "Enerji veya bekleme süresi bir karakteri boşta bekletecekse puan, beklemek ile bu süreyi Element Becerileri, karakter değişimleri veya normal saldırılarla doldurmak arasından iyi olanı alır. " +
 			"\"Tek rotasyon\", dolu enerjiyle yapılan tek bir turdur; topluluğun gcsim yapılandırmalarının bildirdiği sayı budur.",
-		"foot.credits":      `Simülasyon <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotasyonlar <a href="https://db.kqm.gg">KQM gcsim DB</a> · Karakter verileri <a href="https://enka.network">Enka.Network</a>`,
+		"foot.credits":      `Simülasyon <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotasyonlar <a href="https://db.kqm.gg">KQM gcsim DB</a> · Karakter verileri <a href="https://enka.network">Enka.Network</a>`,
 		"foot.contact":      `Geliştiriciye mesaj gönder`,
 		"foot.contact_note": `Sorular, skor bildirimleri, kısa bağlantı kaldırma ya da başka herhangi bir şey. Yalnızca geliştirici okur; sitede hiçbir şey gösterilmez. Bulunduğun sayfanın adresi de gönderilir. Yalnızca yanıt istiyorsan iletişim bilgisi bırak.`,
 		"foot.contact_ph":   `Mesajın`,

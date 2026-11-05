@@ -14,7 +14,7 @@ func init() {
 			"และใช้ DPS เฉลี่ยในช่วง 150–450 วินาที หลังพลังงานเริ่มต้นหมดแล้ว เป็นคะแนน หากการฟื้นฟูพลังงานไม่พอ คะแนนจะลดลง",
 		"foot.method2": "เมื่อพลังงานหรือคูลดาวน์ทำให้ตัวละครต้องยืนรอ คะแนนจะเลือกค่าที่ดีกว่าระหว่างการรอเฉย ๆ กับการใช้เวลานั้นไปกับทักษะธาตุ การสลับตัว หรือการโจมตีปกติ " +
 			"\"หนึ่งโรเตชัน\" คือการเล่นหนึ่งรอบจากพลังงานเต็ม ซึ่งเป็นตัวเลขเดียวกับที่ config gcsim ของคอมมูนิตี้รายงาน",
-		"foot.credits":      `การจำลอง <a href="https://github.com/genshinsim/gcsim">gcsim</a> · โรเตชัน <a href="https://db.kqm.gg">KQM gcsim DB</a> · ข้อมูลตัวละคร <a href="https://enka.network">Enka.Network</a>`,
+		"foot.credits":      `การจำลอง <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · โรเตชัน <a href="https://db.kqm.gg">KQM gcsim DB</a> · ข้อมูลตัวละคร <a href="https://enka.network">Enka.Network</a>`,
 		"foot.contact":      `ส่งข้อความถึงผู้พัฒนา`,
 		"foot.contact_note": `คำถาม แจ้งปัญหาคะแนน ขอลบลิงก์สั้น หรือเรื่องอื่นใดก็ได้ ผู้พัฒนาอ่านเพียงคนเดียวและไม่มีอะไรแสดงบนเว็บไซต์ ที่อยู่ของหน้าที่เปิดอยู่จะส่งไปด้วย ใส่ช่องทางติดต่อเฉพาะเมื่ออยากได้คำตอบ`,
 		"foot.contact_ph":   `ข้อความของคุณ`,

@@ -14,7 +14,7 @@ func init() {
 			"and scores the average DPS over 150–450 s, after the starting energy has run out. Too little Energy Recharge lowers the score.",
 		"foot.method2": "When energy or a cooldown would leave a character standing still, the score takes the better of waiting and filling the time with Elemental Skills, swaps or normal attacks. " +
 			"\"One rotation\" is a single pass from full energy, the number community gcsim configs report.",
-		"foot.credits":      `Simulation <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotations <a href="https://db.kqm.gg">KQM gcsim DB</a> · Character data <a href="https://enka.network">Enka.Network</a>`,
+		"foot.credits":      `Simulation <a href="https://github.com/cenoda/gscouter-engine">gscouter-engine</a> / <a href="https://github.com/genshinsim/gcsim">gcsim</a> · Rotations <a href="https://db.kqm.gg">KQM gcsim DB</a> · Character data <a href="https://enka.network">Enka.Network</a>`,
 		"foot.contact":      `Message the developer`,
 		"foot.contact_note": `Questions, score reports, removing a short link, anything else. Only the developer reads it; nothing is shown on the site. The page you are on is sent with it. Add a way to reach you only if you want a reply.`,
 		"foot.contact_ph":   `Your message`,

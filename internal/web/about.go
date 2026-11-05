@@ -22,6 +22,15 @@ type update struct {
 // footer shows the newest date.
 var updates = []update{
 	{
+		Date: "2026-11-05",
+		En: []string{
+			"The footer credits gscouter-engine beside gcsim as the simulation.",
+		},
+		Ko: []string{
+			"푸터의 시뮬레이션 출처에 gcsim과 함께 gscouter-engine을 적었습니다.",
+		},
+	},
+	{
 		Date:   "2026-11-04",
 		Scores: true,
 		En: []string{
