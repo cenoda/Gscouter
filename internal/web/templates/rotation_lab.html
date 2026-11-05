@@ -4,30 +4,30 @@
 <p>내 Enka 빌드에 맞춰 기존 로테이션을 개선합니다. 후보 생성, 시뮬레이션, 비교는 모두 <strong>이 브라우저에서</strong> 실행됩니다.</p>
 <p class="muted">파일럿의 사전 체험입니다. 최적해나 실제 플레이 재현성을 보장하지 않습니다. 라이브러리에 로테이션이 있는 파티부터 지원하며, 장비·별자리는 그대로 유지합니다.</p>
 <form id="lab-profile-form" class="inline"><label for="lab-uid">UID</label><input id="lab-uid" name="uid" type="text" inputmode="numeric" maxlength="10" pattern="[1-9][0-9]{8,9}" required autocomplete="off" placeholder="공개 쇼케이스 UID"><button id="lab-load" type="submit">Enka 불러오기</button></form>
-<p class="muted">공개 쇼케이스의 캐릭터와 장비를 불러옵니다. UID 조회만 서버를 거치며, 추론 결과는 서버에 전송되지 않습니다.</p>
+<p class="muted">공개 쇼케이스의 캐릭터와 장비를 불러옵니다. Enka 조회와 입력 준비만 서버를 거치며, 후보 탐색·시뮬레이션은 브라우저에서 실행됩니다. 추론 결과는 서버에 전송되지 않습니다.</p>
 <p id="lab-profile-status" role="status" aria-live="polite"></p>
 <div id="lab-characters" class="chars"></div>
 </div>
 <div class="card">
 <h2>탐색 실행</h2>
 <p id="lab-selection">캐릭터 네 명을 선택해 주세요.</p>
-<div class="actions"><label>탐색 평가 예산 <select id="lab-budget"><option value="512">512회 · 짧게</option><option value="2048" selected>2,048회</option><option value="8192">8,192회 · 길게</option></select></label><label>시드 <input id="lab-seed" type="number" value="11" min="1" max="1000000" style="width:7em"></label><label>최대 실행 시간 <select id="lab-duration"><option value="60">1분</option><option value="180" selected>3분</option><option value="600">10분</option></select></label></div>
+<div class="actions"><label>탐색 평가 예산 <select id="lab-budget"><option value="512">512회 · 짧게</option><option value="2048" selected>2,048회</option><option value="8192">8,192회 · 길게</option></select></label><label>시드 <input id="lab-seed" type="number" value="11" min="1" max="1000000" style="width:7em"></label><label>탐색 시간 제한 <select id="lab-duration"><option value="60">1분</option><option value="180" selected>3분</option><option value="600">10분</option></select></label></div>
 <p class="muted">평가 예산은 탐색에 사용합니다. 별도의 검증 평가가 뒤따릅니다. 기기에 따라 속도가 다르며, 탭을 열어 두어야 합니다.</p>
 <div class="actions"><button id="lab-start" type="button" disabled>추론 시작</button><button id="lab-finish" type="button" class="secondary" disabled>탐색 종료 후 검증</button><button id="lab-stop" type="button" class="secondary" disabled>즉시 중지</button></div>
 <p id="lab-status" role="status" aria-live="polite">실행 대기 중</p>
 <p id="lab-error" class="bad" role="alert" hidden></p>
-<dl id="lab-metrics" style="display:grid;grid-template-columns:max-content 1fr;gap:4px 20px"><dt>단계</dt><dd id="lab-phase">—</dd><dt>평가한 전투</dt><dd id="lab-evaluations">0</dd><dt>비교 / 채택 / 최고점 갱신</dt><dd id="lab-decisions">0 / 0 / 0</dd><dt>실패한 평가</dt><dd id="lab-failures">0</dd><dt>최고 탐색 추정 DPS</dt><dd id="lab-best">—</dd><dt>실행 시간</dt><dd id="lab-elapsed">0초</dd></dl>
+<dl id="lab-metrics" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4px 12px;overflow-wrap:anywhere"><dt>단계</dt><dd id="lab-phase" style="margin:0">—</dd><dt>평가한 전투</dt><dd id="lab-evaluations" style="margin:0">0</dd><dt>비교 / 채택 / 최고점 갱신</dt><dd id="lab-decisions" style="margin:0">0 / 0 / 0</dd><dt>실패한 평가</dt><dd id="lab-failures" style="margin:0">0</dd><dt>최고 탐색 추정 DPS</dt><dd id="lab-best" style="margin:0">—</dd><dt>실행 시간</dt><dd id="lab-elapsed" style="margin:0">0초</dd></dl>
 <p class="muted">탐색 추정값은 후보를 찾는 중의 수치입니다. 아래 독립 검증 결과와 구분해 보세요.</p>
 <details><summary>실제 탐색 기록 · 최근 120건</summary><pre id="lab-events" style="max-height:18em;overflow:auto;white-space:pre-wrap"></pre></details>
 <details><summary>현재 최고 후보의 GCSL</summary><pre id="lab-current-gcsl" style="max-height:22em;overflow:auto;white-space:pre-wrap"></pre></details>
 </div>
 <div class="card" id="lab-results" hidden>
 <h2>독립 검증 결과</h2><p id="lab-result-summary"></p>
-<dl style="display:grid;grid-template-columns:max-content 1fr;gap:4px 20px"><dt>기존 로테이션 DPS</dt><dd id="lab-baseline">—</dd><dt>선택된 로테이션 DPS</dt><dd id="lab-selected">—</dd><dt>같은 시드로 비교한 차이</dt><dd id="lab-improvement">—</dd></dl>
+<dl style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4px 12px;overflow-wrap:anywhere"><dt>기존 로테이션 DPS</dt><dd id="lab-baseline" style="margin:0">—</dd><dt>선택된 로테이션 DPS</dt><dd id="lab-selected" style="margin:0">—</dd><dt>같은 시드로 비교한 차이</dt><dd id="lab-improvement" style="margin:0">—</dd></dl>
 <p class="muted">기존 로테이션과 탐색에서 선택한 후보를 비교합니다. 독립 검증에서 개선이 확인되지 않을 수도 있습니다.</p>
 <div class="actions"><button id="lab-copy" type="button" class="secondary">GCSL 복사</button><a id="lab-download" class="button secondary" download="gscouter-rotation.gcsl">GCSL 다운로드</a><button id="lab-report-download" class="secondary" type="button">실행 보고서 다운로드</button></div>
 <details><summary>로테이션 GCSL</summary><pre id="lab-gcsl" style="max-height:28em;overflow:auto;white-space:pre-wrap"></pre></details>
 </div>
-<div class="card"><h2>계산 조건과 버전</h2><p id="lab-version">버전 정보를 불러오는 중…</p><p id="lab-conditions"></p><p class="muted">이 실험실은 별도의 최신 gse 기반 WASM을 사용합니다. 일반 GSC 점수와 계산 조건이 다를 수 있습니다. 입력과 결과는 이 탭 안에 보관되며, 새로고침하면 사라집니다.</p></div>
+<div class="card"><h2>계산 조건과 버전</h2><p id="lab-version" style="overflow-wrap:anywhere">버전 정보를 불러오는 중…</p><p id="lab-conditions"></p><p class="muted">이 실험실은 별도의 최신 gse 기반 WASM을 사용합니다. 일반 GSC 점수와 계산 조건이 다를 수 있습니다. 입력과 결과는 이 탭 안에 보관되며, 새로고침하면 사라집니다.</p></div>
 <script src="/lab/assets/lab.js" defer></script>
 {{template "foot"}}
