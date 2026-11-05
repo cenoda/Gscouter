@@ -9,8 +9,8 @@ import (
 
 // The data files are legacy data (data/README.md): gcsim's UI data at the
 // fork go.mod pins (MIT license) and names.json from Enka.Network's store
-// data. They are no longer regenerated from those sources; IDs missing
-// from them are observed from showcases (observe.go).
+// data. They are no longer regenerated from those sources (data/README.md
+// says where new IDs come from).
 //
 //go:embed data/*.json
 var dataFS embed.FS

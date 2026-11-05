@@ -14,9 +14,4 @@ Provenance of every entry in these files: `legacy_gcsim` (names: `legacy_enka_st
 
 ## New IDs
 
-New mappings are not taken from these sources. They are observed from the showcases Gscouter already receives: when a showcase carries an `avatarId` or a weapon `itemId` missing from these files, the server logs one line with the message `enka new id` (`observe.go`), once per distinct observation per process:
-
-- a character: `avatar_id`, `skill_depot_id`, `level`, `ascension`, `base_hp`, `base_atk`, `base_def` (the showcase's `fightPropMap` 1, 4 and 7; `base_atk` includes the weapon's base ATK), `weapon_base_atk` (the weapon's shown base ATK, so the character's own is `base_atk − weapon_base_atk`);
-- a weapon: `item_id`, `level`, `ascension`, `base_atk`, and its substat (`sub_prop`, `sub_value`) as the showcase shows them.
-
-Nothing else is logged: no UID, nickname, other character or artifact. The ID is then matched to its key by those base stats against the official base stats (gscouter-engine `docs/independence.md` §4); the logged values are the source, recorded beside the new entry. The showcase is otherwise handled as before: a character or weapon not in the mapping is skipped, with the same reason.
+New character and weapon IDs come from Enka.Network's published store data. A new character's base stats start from HoYoWiki's integers and are refined from a showcase the owner chooses, read once with a developer command when that character is ported (new characters come last; the command is not built yet). Gscouter logs and stores no showcase data: a character or weapon not in these files is skipped, as before.

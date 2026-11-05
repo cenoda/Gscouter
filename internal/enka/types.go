@@ -29,9 +29,6 @@ type avatar struct {
 	PropMap       map[string]propItem `json:"propMap"`
 	SkillLevelMap map[string]int      `json:"skillLevelMap"`
 	EquipList     []equip             `json:"equipList"`
-	// FightPropMap holds the character's stats by fight prop ID; only the
-	// base HP, ATK and DEF are read, to record a new ID (observe.go).
-	FightPropMap map[string]float64 `json:"fightPropMap"`
 }
 
 const (
@@ -71,10 +68,6 @@ type equip struct {
 			AppendPropID string  `json:"appendPropId"`
 			StatValue    float64 `json:"statValue"`
 		} `json:"reliquarySubstats"`
-		WeaponStats []struct {
-			AppendPropID string  `json:"appendPropId"`
-			StatValue    float64 `json:"statValue"`
-		} `json:"weaponStats"`
 	} `json:"flat"`
 }
 
