@@ -7,11 +7,11 @@ import (
 	"strconv"
 )
 
-// The data files come from gcsim's UI package at the version pinned in
-// go.mod (MIT license), names.json from Enka.Network's store data (see
-// gennames). Regenerate them after upgrading gcsim.
+// The data files are legacy data (data/README.md): gcsim's UI data at the
+// fork go.mod pins (MIT license) and names.json from Enka.Network's store
+// data. They are no longer regenerated from those sources; IDs missing
+// from them are observed from showcases (observe.go).
 //
-//go:generate ./gen.sh
 //go:embed data/*.json
 var dataFS embed.FS
 

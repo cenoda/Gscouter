@@ -1,17 +1,22 @@
-// Command gennames writes data/names.json: the in-game names of every
-// character, weapon and artifact set in data/*.dm.json and of the
+// Command gennames writes <dir>/names.json: the in-game names of every
+// character, weapon and artifact set in <dir>/*.dm.json and of the
 // artifact stats, in each of the game's text languages, from
 // Enka.Network's public store data (MIT license). Run it from
-// internal/enka after updating the gcsim data.
+// internal/enka through gen.sh.
+//
+// data/ is legacy data (data/README.md): gennames does not write it, and
+// -dir must name another directory, to diff against data/.
 package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 )
 
 const store = "https://raw.githubusercontent.com/EnkaNetwork/API-docs/master/store/gi/"
@@ -43,6 +48,16 @@ var statProps = map[string]string{
 }
 
 func main() {
+	dir := flag.String("dir", "", "directory holding the *.dm.json files, where names.json is written (not data)")
+	flag.Parse()
+	if *dir == "" {
+		log.Fatal("gennames: -dir is required")
+	}
+	if a, err := filepath.Abs(*dir); err != nil {
+		log.Fatal(err)
+	} else if b, _ := filepath.Abs("data"); a == b {
+		log.Fatal("gennames: data/ is legacy data and is not overwritten (data/README.md)")
+	}
 	var avatars, weapons map[string]item
 	var relics struct {
 		Sets map[string]struct{ Name string }
@@ -69,9 +84,9 @@ func main() {
 		file, out string
 		items     map[string]item
 	}{
-		{"data/character.dm.json", "characters", avatars},
-		{"data/weapon.dm.json", "weapons", weapons},
-		{"data/artifact.dm.json", "artifacts", sets},
+		{filepath.Join(*dir, "character.dm.json"), "characters", avatars},
+		{filepath.Join(*dir, "weapon.dm.json"), "weapons", weapons},
+		{filepath.Join(*dir, "artifact.dm.json"), "artifacts", sets},
 	} {
 		var dm struct{ Data map[string]entry }
 		read(kind.file, &dm)
@@ -112,7 +127,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if err := os.WriteFile("data/names.json", append(out, '\n'), 0o644); err != nil {
+	if err := os.WriteFile(filepath.Join(*dir, "names.json"), append(out, '\n'), 0o644); err != nil {
 		log.Fatal(err)
 	}
 }

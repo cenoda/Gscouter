@@ -172,6 +172,7 @@ func Parse(raw []byte) (*Profile, error) {
 		p.Owner = &Owner{Username: o.Username, Hash: o.Hash}
 	}
 	for _, a := range resp.AvatarInfoList {
+		data.observeNew(a)
 		c, err := data.convert(a)
 		if err != nil {
 			p.Skipped = append(p.Skipped, Skipped{AvatarID: a.AvatarID, Reason: err.Error()})
