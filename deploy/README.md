@@ -22,6 +22,14 @@ The VM pulls the image without credentials, so the `gscouter` package on GitHub 
 
 ## Operations
 
+- The browser rotation pilot is served at `/lab` on the same domain. Caddy
+  forwards only `/lab` and `/lab/*` to the `rotation-lab` sidecar; all other
+  routes keep using the main app. No additional DNS, environment variables,
+  secrets or persistent volumes are needed. The existing update timer pulls
+  the sidecar image with the rest of the stack. Its 256 MB memory limit and
+  192 MiB Go garbage-collection target cover
+  page and asset serving plus Enka input preparation; search and simulation
+  run in each visitor's browser.
 - Logs: `cd /opt/gscouter && docker compose logs -f`
 - Force an update now: `sudo systemctl start gscouter-update`
 - Change the domain: point the new domain (and its `www` name) to the VM, then in `/opt/gscouter/.env` set `DOMAIN` to it and add the old one to `OLD_DOMAINS` (space-separated), and force an update. `www.<domain>` and the old domains redirect to the same page on the new one, so shared links keep working.

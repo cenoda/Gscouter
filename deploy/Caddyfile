@@ -10,11 +10,22 @@
 # Caddy obtains and renews the HTTPS certificate for DOMAIN automatically.
 {$DOMAIN} {
 	encode gzip
-	reverse_proxy gscouter:8080 {
-		# While the app restarts for an update, hold requests until it is
-		# back instead of failing them.
-		lb_try_duration 30s
-		lb_try_interval 250ms
+	# Keep the pilot isolated while sharing the existing domain and TLS.
+	# Exact /lab and its children match; /laboratory still goes to Gscouter.
+	@rotation_lab path /lab /lab/*
+	handle @rotation_lab {
+		reverse_proxy rotation-lab:8080 {
+			lb_try_duration 30s
+			lb_try_interval 250ms
+		}
+	}
+	handle {
+		reverse_proxy gscouter:8080 {
+			# While the app restarts for an update, hold requests until it is
+			# back instead of failing them.
+			lb_try_duration 30s
+			lb_try_interval 250ms
+		}
 	}
 	# If it is still down, show a page instead of an empty response, which
 	# some browsers save as a file.
