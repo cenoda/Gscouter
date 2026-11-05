@@ -1,6 +1,6 @@
 # Browser rotation lab
 
-> Status: Implemented on the feature branches; deployment not performed · Last updated: 2026-11-05
+> Status: Implemented; automatic release and production routing prepared. Public activation awaits a verified image and main rollout · Last updated: 2026-11-05
 
 The optional `/lab` page demonstrates rotation refinement on a visitor's actual
 Enka showcase build. Both candidate search and fight evaluation run in a Web
@@ -11,7 +11,8 @@ search or simulation for lab requests.
 The lab is implemented on `feat/browser-rotation-lab` in Gscouter and
 gscouter-optimizer. It is separate from the production site's normal scoring
 path and disabled unless `-rotation-lab DIR` or `GSCOUTER_ROTATION_LAB=DIR` is set.
-No production engine pin, deployment timer or published image is changed.
+The production sidecar sets this internally. The normal app's engine pin and
+scoring behavior remain unchanged.
 
 ## Scope
 
@@ -33,7 +34,46 @@ No production engine pin, deployment timer or published image is changed.
   numbers should not be compared directly with normal Gscouter scores, which
   use a different scoring window.
 
-## Build locally
+## Automatic deployment on the existing production stack
+
+The default deployment target is **https://gscouter.net/lab** on the existing
+Gscouter host. It requires no new DNS record, secret, manual `.env` edit or
+additional public port. The sidecar reuses the stack's existing `DOMAIN` and
+TLS configuration. This address is the rollout target; it is not a statement
+that public activation has already been verified.
+
+Pushing Gscouter's `feat/browser-rotation-lab` branch starts
+`.github/workflows/rotation-lab.yml`. Before publishing, the workflow runs:
+
+1. Go web-handler/server tests and Rust browser-core tests.
+2. The WASM asset build, real browser-core search and native/WASM replay parity.
+3. Clean-source and exact-revision checks for the generated manifest.
+4. An actual container startup plus HTTP and served-asset smoke checks.
+
+Only after these checks pass does it publish
+`ghcr.io/cenoda/gscouter:rotation-lab`, together with an immutable
+`ghcr.io/cenoda/gscouter:rotation-lab-<Gscouter SHA>` tag for rollback. The
+optimizer input is pinned by the tracked
+`deploy/lab/optimizer-revision.txt`: one exact Git commit, not a user setting
+or secret. Updating the optimizer means committing its new revision there and
+letting the same release checks run.
+
+Initial activation requires verification that the checked image is publicly
+pullable, followed by the deployment-only sidecar/routing change on `main`
+(prepared as `0b947465`). The existing VM updater checks `main` every five
+minutes, pulls the image and applies the Compose/Caddy changes. Caddy forwards
+exactly `/lab` and `/lab/*` to the separate `rotation-lab` container; `/`,
+`/score`, `/static/*` and other normal routes keep using the existing app.
+Paths and request bodies are preserved. The sidecar has a 256 MB memory limit
+and `GOMEMLIMIT=192MiB`; inference remains in visitors' browsers.
+
+After initial activation, later successful feature-branch releases update the
+same image tag and are picked up by that updater without additional user
+configuration. Public activation is complete only after the intended URL and
+its manifest/assets are checked on the live host. The dedicated manual-host
+instructions below are optional alternatives, not prerequisites for this path.
+
+## Optional local development
 
 Requirements: Git, Python **3.11+**, Rust with Cargo and the
 `wasm32-unknown-unknown` standard library, and Go 1.27+ (or Go's automatic
@@ -86,7 +126,7 @@ builds. For a reproducible release, commit both source branches, rebuild, retain
 the three assets together and keep both Git SHAs. Stop the lab before replacing
 its assets; the server validates the matching files at startup.
 
-## Build the separate container
+## Optional manual container build
 
 Build assets first on a machine with Rust/Python, then run from Gscouter:
 
@@ -115,7 +155,7 @@ gzip -dc gscouter-rotation-lab.tar.gz | docker load
 No credentials or secret API tokens are required by the lab. The image contains
 public library data and application code, not user profiles.
 
-## HTTPS on a dedicated host
+## Optional HTTPS on a dedicated host
 
 Use a domain/subdomain whose DNS A/AAAA record points to the host. Allow inbound
 TCP 80/443 (and optionally UDP 443 for HTTP/3). Ports 80/443 must be free; this
@@ -152,7 +192,7 @@ docker compose --profile https down
 Retain the volumes to preserve Caddy certificates. Keep previous source SHAs
 and images to roll back a release.
 
-## Behind an existing reverse proxy
+## Optional deployment behind another reverse proxy
 
 Run only the lab service (`docker compose up -d lab`), then route a separate
 hostname to `lab:8080` on the `gscouter-rotation-lab` Docker network. Configure
@@ -199,16 +239,19 @@ the independent 16-sample audit. This short run retained its baseline. The
 native replay produced the same selected GCSL and counters, and the baseline,
 selected and paired statistics matched within `max(1e-7, abs(native)*1e-10)`.
 The smoke also checked requested finish, audit completion and no extra work
-after completion.
+after completion. The automatic release repeats these checks before publishing.
 
 Chromium integration QA used a synthetic C0 Enka profile through the real HTTP
 handlers and real WASM, including start, progress, completion, immediate stop,
 restart and requested finish. Request inspection confirmed that results were
 not uploaded for remote calculation. This is execution and integration QA,
 not a rotation-effectiveness benchmark or a live Enka-service availability
-check. Docker was unavailable in the development environment: Compose YAML
-and routing configuration were inspected, but container startup and public TLS
-must be verified on the deployment host.
+check. Docker was unavailable in the original development environment. The
+automatic release workflow therefore includes a real container startup and
+HTTP/assets check before publishing. The existing-domain proxy routing was
+also exercised with actual Caddy against local upstreams, including exact lab
+paths, child assets, POST body preservation and normal-app fallbacks. Public
+TLS and activation still require verification after the production rollout.
 
 Keep the exact manifest with reported failures, plus the selected team, seed,
 evaluation limit and browser version. Enka may reject a hidden showcase or

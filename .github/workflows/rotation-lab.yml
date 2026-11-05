@@ -1,0 +1,163 @@
+name: rotation-lab
+
+on:
+  push:
+    branches: [feat/browser-rotation-lab]
+  workflow_dispatch:
+
+concurrency:
+  group: rotation-lab-release
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    # A dispatch from another ref must not move the public lab image tag.
+    if: github.ref == 'refs/heads/feat/browser-rotation-lab'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    outputs:
+      digest: ${{ steps.publish.outputs.digest }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Read the immutable optimizer revision
+        id: optimizer
+        shell: bash
+        run: |
+          set -euo pipefail
+          revision=$(python3 -c "from pathlib import Path; print(Path('deploy/lab/optimizer-revision.txt').read_text().strip())")
+          if [[ ! "$revision" =~ ^[a-f0-9]{40}$ ]]; then
+            echo 'optimizer-revision.txt must contain one exact Git SHA' >&2
+            exit 1
+          fi
+          echo "revision=$revision" >> "$GITHUB_OUTPUT"
+          echo "checkout=$RUNNER_TEMP/gscouter-optimizer-browser" >> "$GITHUB_OUTPUT"
+
+      - name: Check out the pinned optimizer outside the site source
+        shell: bash
+        env:
+          OPTIMIZER_REVISION: ${{ steps.optimizer.outputs.revision }}
+          OPTIMIZER_CHECKOUT: ${{ steps.optimizer.outputs.checkout }}
+        run: |
+          set -euo pipefail
+          git init -q "$OPTIMIZER_CHECKOUT"
+          git -C "$OPTIMIZER_CHECKOUT" remote add origin https://github.com/cenoda/gscouter-optimizer.git
+          git -C "$OPTIMIZER_CHECKOUT" fetch --no-tags --depth=1 origin "$OPTIMIZER_REVISION"
+          git -C "$OPTIMIZER_CHECKOUT" -c advice.detachedHead=false checkout --detach FETCH_HEAD
+          test "$(git -C "$OPTIMIZER_CHECKOUT" rev-parse HEAD)" = "$OPTIMIZER_REVISION"
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            ${{ runner.temp }}/gscouter-optimizer-browser/target
+            ${{ runner.temp }}/gscouter-optimizer-browser/browser/target
+          key: ${{ runner.os }}-rotation-lab-rust-${{ hashFiles('deploy/lab/optimizer-revision.txt') }}
+
+      - name: Test the Go handlers and browser core
+        shell: bash
+        env:
+          OPTIMIZER_CHECKOUT: ${{ steps.optimizer.outputs.checkout }}
+        run: |
+          set -euo pipefail
+          go test ./internal/web ./cmd/server
+          cargo test --locked --manifest-path "$OPTIMIZER_CHECKOUT/browser/Cargo.toml"
+
+      - name: Build the assets and verify native/WASM replay
+        shell: bash
+        env:
+          OPTIMIZER_CHECKOUT: ${{ steps.optimizer.outputs.checkout }}
+          EXPECTED_OPTIMIZER_REVISION: ${{ steps.optimizer.outputs.revision }}
+        run: |
+          set -euo pipefail
+          bash scripts/build-rotation-lab.sh "$OPTIMIZER_CHECKOUT"
+          node scripts/smoke-rotation-lab.mjs ./lab-static "$OPTIMIZER_CHECKOUT" --native-parity
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          manifest = json.loads(Path('lab-static/manifest.json').read_text())
+          assert manifest['site']['commit'] == os.environ['GITHUB_SHA'], manifest['site']
+          assert manifest['optimizer']['commit'] == os.environ['EXPECTED_OPTIMIZER_REVISION'], manifest['optimizer']
+          assert manifest['site']['dirty'] is False, manifest['site']
+          assert manifest['optimizer']['dirty'] is False, manifest['optimizer']
+          print('Asset provenance is clean and matches the exact release inputs')
+          PY
+
+      - name: Retain the release manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: rotation-lab-manifest-${{ github.sha }}
+          path: lab-static/manifest.json
+
+      - uses: docker/setup-buildx-action@v3
+      - name: Build the runnable amd64 image before publishing
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile.lab
+          platforms: linux/amd64
+          load: true
+          tags: gscouter-rotation-lab:smoke
+          cache-from: type=gha,scope=rotation-lab
+      - name: Smoke-test the container and served assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          trap 'docker logs rotation-lab-smoke; docker rm -f rotation-lab-smoke' EXIT
+          docker run --detach --name rotation-lab-smoke \
+            --memory 256m --env GOMEMLIMIT=192MiB \
+            --publish 127.0.0.1:18080:8080 gscouter-rotation-lab:smoke
+          python3 scripts/smoke-rotation-lab-http.py http://127.0.0.1:18080 ./lab-static
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish the checked lab image
+        id: publish
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile.lab
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ghcr.io/cenoda/gscouter:rotation-lab
+            ghcr.io/cenoda/gscouter:rotation-lab-${{ github.sha }}
+          labels: |
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.title=Gscouter browser rotation lab
+          cache-from: type=gha,scope=rotation-lab
+          cache-to: type=gha,scope=rotation-lab,mode=max
+
+      - name: Record the published image
+        env:
+          IMAGE_DIGEST: ${{ steps.publish.outputs.digest }}
+          SOURCE_REVISION: ${{ github.sha }}
+          OPTIMIZER_REVISION: ${{ steps.optimizer.outputs.revision }}
+        run: |
+          {
+            printf '%s\n' '### Browser rotation lab image' ''
+            printf -- '- Image: %s\n' "ghcr.io/cenoda/gscouter:rotation-lab-$SOURCE_REVISION"
+            printf -- '- Digest: %s\n' "$IMAGE_DIGEST"
+            printf -- '- Optimizer: %s\n' "$OPTIMIZER_REVISION"
+            printf '%s\n' '- Checks: Go handlers, browser core, real WASM search and strict native replay, container HTTP/assets'
+          } >> "$GITHUB_STEP_SUMMARY"

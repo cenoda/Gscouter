@@ -1,12 +1,13 @@
 # syntax=docker/dockerfile:1
 # Prebuild lab-static with scripts/build-rotation-lab.sh before docker build.
 # This separate image leaves the production image/update workflow unchanged.
-FROM golang:1.27 AS build
+FROM --platform=$BUILDPLATFORM golang:1.27 AS build
+ARG TARGETOS TARGETARCH
 WORKDIR /src
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
-RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/server ./cmd/server
+RUN CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH go build -trimpath -ldflags="-s -w" -o /out/server ./cmd/server
 RUN test -s lab-static/gso.wasm && test -s lab-static/dictionary.json && test -s lab-static/manifest.json
 
 FROM gcr.io/distroless/static-debian12:nonroot
