@@ -1,8 +1,10 @@
 # gcsim fork
 
-> Status: in use for the experimental tier · Last updated: 2026-10-29
+> Status: in use for the experimental tier; closed to new characters since 2026-11-04 · Last updated: 2026-11-06
 
 The experimental tier (design §5.4) scores characters and weapons upstream gcsim lacks on a Gscouter fork of gcsim. This document covers how the fork is kept, how verified scores are kept from moving, what is on it, and the engine fixes Gscouter makes outside it (§7). Each character's implementation notes and library teams are in `docs/characters/<name>.md`.
+
+**No new characters on the fork (owner, 2026-11-04).** This document records how the characters already here were added, and that is no longer how new characters are added. They are implemented only in gscouter-engine, after its independence step 3 (gscouter-engine `docs/independence.md` §5, `docs/independence-roadmap.md`), and from released, public sources only: no datamining, no pre-release, beta or leaked data, and no databases built from extracted data (Honey Hunter, genshin-db, AnimeGameData, gcsim's newly generated data). The rules are in gscouter-engine `docs/independence.md` §4. §1's "multipliers come from gcsim's data pipeline" and the game's ability data cited in the character documents (`ConfigAbility_...`, `Relic_...`) describe that earlier work and are not to be repeated. The fork is still kept for the characters and fixes on it (§2–§5, §7).
 
 ## 1. How the fork is kept
 
@@ -111,6 +113,8 @@ Fork-only weapons are listed in `library.ForkOnlyWeapons` (gcsim keys; now `here
 ## 6. Characters gcsim lacks
 
 _Checked 2026-10-26._
+
+The plans below predate the 2026-11-04 policy (top of this document). Characters released since, such as Mitya and Valeriy (7.2), are not added to the fork.
 
 Enka.Network's character list compared with the characters in gcsim `2350be9`. The Manekin and Manekina (Miliastra Wonderland avatars) are left out.
 
