@@ -167,6 +167,15 @@
 
   <div class="lab-controls-grid">
     <div class="lab-control-item">
+      <label for="lab-pilot">파일럿 탐색기</label>
+      <select id="lab-pilot">
+        <option value="syn" selected>SYN (Cycle Synthesis · 신규 권장)</option>
+        <option value="xo">XO (Crossover · 이식 탐색)</option>
+        <option value="2.1">2.1 (Held-Out v2.1 탐색기)</option>
+        <option value="baseline">기존 (기본 탐색기)</option>
+      </select>
+    </div>
+    <div class="lab-control-item">
       <label for="lab-budget">탐색 평가 예산</label>
       <select id="lab-budget">
         <option value="512">512회 (빠름)</option>

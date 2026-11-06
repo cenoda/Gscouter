@@ -81,6 +81,7 @@ self.onmessage = async function (event) {
     report({op: "start", input: {
       build: info.build, rotation: info.rotation,
       dictionary: JSON.parse(decode.decode(dictionaryBytes)),
+      pilot: message.pilot || "syn",
       seed: message.seed, max_evaluations: message.max_evaluations,
       audit_samples: 32, scoring: manifest.scoring
     }});

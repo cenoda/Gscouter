@@ -706,11 +706,15 @@
         if (currentRun === run) fail("브라우저 추론 작업에서 오류가 발생했습니다: " + (event.message || ""));
       };
 
+      const pilotSelect = el("pilot");
+      const pilotArm = pilotSelect ? pilotSelect.value : "syn";
+
       watch(60000);
       worker.postMessage({
         type: "start",
         input,
         seed,
+        pilot: pilotArm,
         max_evaluations: Number(el("budget").value)
       });
 
