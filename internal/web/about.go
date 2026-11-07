@@ -22,7 +22,7 @@ type update struct {
 // footer shows the newest date.
 var updates = []update{
 	{
-		Date:   "2026-11-07",
+		Date:   "2026-11-08",
 		Scores: true,
 		En: []string{
 			"gscouter-engine now scores the same 0–120 s window, up to the last completed rotation, as gcsim, and calculates the scores of 4,569 library teams again, every team but one. Each team’s library build was compared with gcsim on the new window and is within 0.5% of it (on average 0.02% lower), so these teams’ scores move by about that much. Charts, timelines, character details and builds with content the engine lacks stay on gcsim.",
