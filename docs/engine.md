@@ -1,6 +1,6 @@
 # gscouter-engine in Gscouter
 
-> Status: 4,447 teams approved on release 211d588 (module db01704ce071; group A carried forward, the 11 group B carried as identical, 2026-11-05; owner's answers of 2026-11-04); `-engine` off by default while gscouter-engine is updated for the 0–120 s last-completed-cycle window · Last updated: 2026-11-05
+> Status: 4,569 teams approved on release 84c50aa (module 121c36975e03, the 0–120 s last-completed-cycle window; group A carried forward, the 11 group B approvals dropped and approved again with group A's 133 teams by the owner, 2026-11-07); `-engine` on by default · Last updated: 2026-11-07
 
 How Gscouter scores teams on gscouter-engine, a Rust port of gcsim (https://github.com/cenoda/gscouter-engine), Phase 4 of its roadmap (`docs/roadmap.md` §3 there). The engine's own status (content, the release's numbers) is its `README.md`; how it is checked against gcsim, its `docs/verification.md`. The engine scores within 1% of gcsim, not to the bit, so a team moves to it only when the owner approves it. Everything else stays on gcsim.
 
@@ -69,7 +69,7 @@ Measured 2026-11-02 on this session's machine (4 CPUs), gscouter-engine's `confi
 
 ## 6. The `/updates` entry
 
-Required by the owner (2026-11-04) when teams move to the engine, in `internal/web/about.go`. One entry of 2026-11-04, `Scores` set, in three lines: the move of 4,430 library teams to gscouter-engine, within 1% of gcsim (charts, timelines, character details and builds with content the engine lacks stay on gcsim), and the engine's own filler search: about twice as fast on pages that search, and in a few builds another filler, usually a better one, with its score; then the 17 teams release e6c8a07 added (Nefer's and Hu Tao / Yelan / Ineffa / Flins, 4,447 in all), and every weapon and set now in the engine, so builds with them run on it for these teams. Each language's `about.scores` names the engine beside gcsim, within 1%. Each later release that moves teams gets its own entry.
+Required by the owner (2026-11-04) when teams move to the engine, in `internal/web/about.go`. One entry of 2026-11-04, `Scores` set, in three lines: the move of 4,430 library teams to gscouter-engine, within 1% of gcsim (charts, timelines, character details and builds with content the engine lacks stay on gcsim), and the engine's own filler search: about twice as fast on pages that search, and in a few builds another filler, usually a better one, with its score; then the 17 teams release e6c8a07 added (Nefer's and Hu Tao / Yelan / Ineffa / Flins, 4,447 in all), and every weapon and set now in the engine, so builds with them run on it for these teams. Each language's `about.scores` names the engine beside gcsim, within 1%. Each later release that moves teams gets its own entry: 2026-11-07, release 84c50aa on the 0–120 s last-completed-cycle window (Gscouter 6e0e822 had moved every team to gcsim until the engine scored that window), 4,569 teams.
 
 ## 7. gcsim imports left (independence, step 2)
 

@@ -22,6 +22,16 @@ type update struct {
 // footer shows the newest date.
 var updates = []update{
 	{
+		Date:   "2026-11-07",
+		Scores: true,
+		En: []string{
+			"gscouter-engine now scores the same 0–120 s window, up to the last completed rotation, as gcsim, and calculates the scores of 4,569 library teams again, every team but one. Each team’s library build was compared with gcsim on the new window and is within 0.5% of it (on average 0.02% lower), so these teams’ scores move by about that much. Charts, timelines, character details and builds with content the engine lacks stay on gcsim.",
+		},
+		Ko: []string{
+			"gscouter-engine이 이제 gcsim과 같은 0–120초(마지막으로 끝난 사이클까지) 구간으로 점수를 내고, 라이브러리 파티 4,569개(한 팀을 뺀 전부)의 점수를 다시 계산합니다. 파티마다 라이브러리 빌드를 새 구간에서 gcsim과 비교했고 0.5% 이내(평균 0.02% 낮음)로 같아서, 이 파티들의 점수는 그만큼 움직입니다. 차트, 타임라인, 캐릭터 상세와 엔진에 없는 내용이 들어간 빌드는 gcsim으로 계산합니다.",
+		},
+	},
+	{
 		Date:   "2026-11-05",
 		Scores: true,
 		En: []string{
