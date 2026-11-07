@@ -8,7 +8,7 @@ func init() {
 		"lang.auto":   "Otomatis",
 		"lang.apply":  "Terapkan",
 		"site.title":  "Gscouter · Kalkulator DPS tim Genshin Impact",
-		"site.desc":   "Hitung DPS tim berisi empat karakter showcase dari UID Genshin Impact, melawan musuh yang sama dengan rotasi yang sama, lalu bandingkan dengan pemain lain.",
+		"site.desc":   "Hitung DPS tim dari UID Genshin Impact, dengan karakter showcase, build yang disimpan di Enka.Network, atau file GOOD, melawan musuh yang sama atau bos, dengan rotasi komunitas atau rotasi sendiri, lalu bandingkan dengan pemain lain.",
 		"foot.method": "Cara skor dihitung",
 		"foot.method1": "Gscouter mengulang rotasi gcsim komunitas melawan satu musuh Lv. 100 dengan RES 10% terhadap semua elemen, dengan Elemental Particle pada interval tetap, " +
 			"dan memakai rata-rata DPS dari Energy penuh pada detik 0–120, hingga rotasi terakhir yang selesai, sebagai skor. Energy Recharge yang kurang akan menurunkan skor.",

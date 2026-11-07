@@ -8,7 +8,7 @@ func init() {
 		"lang.auto":   "Tự động",
 		"lang.apply":  "Áp dụng",
 		"site.title":  "Gscouter · Tính DPS đội hình Genshin Impact",
-		"site.desc":   "Tính DPS của đội hình 4 nhân vật trưng bày từ UID Genshin Impact, với cùng một kẻ địch và cùng một vòng xoay, rồi so sánh với người chơi khác.",
+		"site.desc":   "Tính DPS của đội hình từ UID Genshin Impact, với nhân vật trưng bày, build đã lưu trên Enka.Network hoặc tệp GOOD, đối đầu cùng một kẻ địch hoặc boss, với vòng xoay của cộng đồng hoặc của riêng bạn, rồi so sánh với người chơi khác.",
 		"foot.method": "Cách tính điểm",
 		"foot.method1": "Gscouter lặp lại vòng xoay gcsim của cộng đồng trước một kẻ địch Lv.100 có 10% kháng mọi loại, nhận Hạt Nguyên Tố đều đặn theo chu kỳ, " +
 			"và lấy DPS trung bình từ lúc đầy năng lượng trong 120 giây (đến hết vòng xoay hoàn chỉnh cuối cùng) làm điểm. Thiếu Hiệu Quả Nạp Nguyên Tố sẽ làm giảm điểm ở các vòng xoay tiếp theo.",

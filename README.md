@@ -2,7 +2,15 @@
 
 Genshin Impact team DPS calculator: settles "whose team is better built?" by scoring every team under the same conditions with a fixed rotation. See [docs/design.md](docs/design.md) for the design and [docs/README.md](docs/README.md) for the other documents.
 
-Status: prototype. The website looks up a UID on Enka.Network, lets you pick four showcase characters (or one of the library teams the showcase can build; characters can also be imported from a GOOD file, as Genshin Optimizer and inventory scanners write), and scores or compares teams. Results and comparisons have shareable links; `/teams` lists the library and finds teams by character. Character face icons are HoYoverse's, loaded from Enka.Network (`enka.network/ui/<icon>.png`, the icon name from gcsim's character data); element icons are drawn for the site. Gscouter is a non-commercial fan project with no ads or donations, which HoYoverse's fan content guidance allows.
+Status: prototype, updated often; the site's `/updates` page lists every change a visitor can notice. The website looks up a UID on Enka.Network and scores or compares teams of four:
+
+- **Characters**: the profile showcase, builds the player saved on Enka.Network, characters the browser kept from earlier showcases, and a GOOD file (Genshin Optimizer, inventory scanners) for the rest. A character does not need to be in the showcase.
+- **Teams**: about 4,570 teams from the community gcsim database (KQM), searchable on `/teams`. Four characters that form no library team are not scored yet (`docs/cycle-swap.md` §8).
+- **Rotations**: each library team has the community rotation; the rotation editor scores, compares and shares a player's own.
+- **Conditions**: the standard enemy is Lv. 100 with 10% resistance, and a fight starts with full energy and is scored over its first 120 s, up to the last completed rotation, close to Spiral Abyss and Stygian Onslaught. A result can also be scored against a custom enemy or one of 37 boss presets.
+- **Simulation**: gcsim, in the visitor's browser.
+
+Results and comparisons have shareable links and images. Character face icons are HoYoverse's, loaded from Enka.Network (`enka.network/ui/<icon>.png`, the icon name from gcsim's character data); element icons are drawn for the site. Gscouter is a non-commercial fan project with no ads or donations, which HoYoverse's fan content guidance allows.
 
 ## Requirements
 

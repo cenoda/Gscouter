@@ -8,7 +8,7 @@ func init() {
 		"lang.auto":   "Automatisch",
 		"lang.apply":  "Übernehmen",
 		"site.title":  "Gscouter · Team-DPS-Rechner für Genshin Impact",
-		"site.desc":   "Berechne aus einer Genshin Impact-UID die DPS eines Teams aus vier ausgestellten Charakteren – gegen denselben Gegner mit derselben Rotation – und vergleiche sie mit anderen Spielern.",
+		"site.desc":   "Berechne aus einer Genshin Impact-UID die DPS eines Teams – mit ausgestellten Charakteren, auf Enka.Network gespeicherten Builds oder einer GOOD-Datei, gegen denselben Gegner oder einen Boss, mit der Community-Rotation oder deiner eigenen – und vergleiche sie mit anderen Spielern.",
 		"foot.method": "So werden die Werte berechnet",
 		"foot.method1": "Gscouter wiederholt die gcsim-Rotation der Community gegen einen einzelnen Gegner der Stufe 100 mit 10 % Resistenz gegen alles und mit Partikeln in regelmäßigen Abständen, " +
 			"und wertet die durchschnittlichen DPS mit voller Startenergie über 0 bis 120 s bis zur letzten abgeschlossenen Rotation. Zu wenig Aufladerate senkt den Wert.",

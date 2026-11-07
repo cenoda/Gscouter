@@ -8,7 +8,7 @@ func init() {
 		"lang.auto":   "Automático",
 		"lang.apply":  "Aplicar",
 		"site.title":  "Gscouter · Calculadora de DPS de equipe de Genshin Impact",
-		"site.desc":   "Calcule o DPS de uma equipe de quatro personagens da Exibição de Personagens a partir de um UID de Genshin Impact, contra o mesmo inimigo e com a mesma rotação, e compare com outros jogadores.",
+		"site.desc":   "Calcule o DPS de uma equipe a partir de um UID de Genshin Impact, com personagens da Exibição de Personagens, builds salvas no Enka.Network ou um arquivo GOOD, contra o mesmo inimigo ou um chefe, com a rotação da comunidade ou a sua, e compare com outros jogadores.",
 		"foot.method": "Como a pontuação funciona",
 		"foot.method1": "O Gscouter repete a rotação do gcsim da comunidade contra um único inimigo de Nv. 100 com 10% de RES a tudo, com partículas em intervalos regulares, " +
 			"e pontua o DPS médio do início com a energia cheia em 120 s (até a última rotação completa). Pouca Recarga de Energia reduz a pontuação nas rotações seguintes.",

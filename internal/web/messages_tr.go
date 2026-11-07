@@ -8,7 +8,7 @@ func init() {
 		"lang.auto":   "Otomatik",
 		"lang.apply":  "Uygula",
 		"site.title":  "Gscouter · Genshin Impact takım DPS hesaplayıcı",
-		"site.desc":   "Bir Genshin Impact UID'sinin Karakter Galerisi'ndeki dört karakterden oluşan takımın DPS'ini aynı düşmana karşı, aynı rotasyonla hesapla ve diğer oyuncularla karşılaştır.",
+		"site.desc":   "Bir Genshin Impact UID'sinden takımın DPS'ini hesapla: Karakter Galerisi'ndeki karakterlerle, Enka.Network'te kayıtlı buildlerle veya bir GOOD dosyasıyla, aynı düşmana ya da bir bossa karşı, topluluk rotasyonuyla veya kendi rotasyonunla; sonra diğer oyuncularla karşılaştır.",
 		"foot.method": "Puanlama nasıl çalışır",
 		"foot.method1": "Gscouter, topluluğun gcsim rotasyonunu her şeye karşı %10 direnci olan 100. seviye tek bir düşmana karşı, düzenli aralıklarla gelen parçacıklarla tekrarlar " +
 			"ve dolu enerjiyle başlayarak 120 sn (tamamlanan son rotasyona kadar) içindeki ortalama DPS'i puan olarak alır. Yetersiz Enerji Yüklemesi sonraki rotasyonlarda puanı düşürür.",

@@ -8,7 +8,7 @@ func init() {
 		"lang.auto":   "自動",
 		"lang.apply":  "套用",
 		"site.title":  "Gscouter · 原神（Genshin Impact）隊伍 DPS 計算器",
-		"site.desc":   "透過原神（Genshin Impact）UID，以同一敵人、同一循環計算角色展示櫃中四名角色組成的隊伍 DPS，並與其他玩家比較。",
+		"site.desc":   "透過原神（Genshin Impact）UID 計算隊伍 DPS，並與其他玩家比較。可使用角色展示櫃中的角色、儲存在 Enka.Network 的配裝或 GOOD 檔案，對同一敵人或首領，以社群循環或自訂循環計算。",
 		"foot.method": "計算方式",
 		"foot.method1": "Gscouter 在單一 100 級、全抗性 10% 的敵人面前，按固定間隔給予元素微粒，重複社群 gcsim 循環，" +
 			"取滿能量起 0–120 秒（截至最後一個完整循環）的平均 DPS 作為分數。元素充能效率不足會拉低分數。",

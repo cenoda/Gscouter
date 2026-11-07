@@ -8,7 +8,7 @@ func init() {
 		"lang.auto":   "자동",
 		"lang.apply":  "적용",
 		"site.title":  "지스카우터(Gscouter) · 원신(Genshin Impact) 파티 DPS·딜 계산기",
-		"site.desc":   "지스카우터(Gscouter)는 원신(Genshin Impact) UID로 쇼케이스 캐릭터 4명의 파티 DPS를 같은 적·같은 로테이션 기준으로 계산하고 다른 플레이어와 비교합니다.",
+		"site.desc":   "지스카우터(Gscouter)는 원신(Genshin Impact) UID로 파티 DPS를 계산하고 다른 플레이어와 비교합니다. 쇼케이스 캐릭터, Enka.Network에 저장한 빌드, GOOD 파일을 쓸 수 있고, 같은 적이나 보스를 상대로 커뮤니티 로테이션이나 직접 만든 로테이션으로 계산합니다.",
 		"foot.method": "계산 방식",
 		"foot.method1": "Lv.100 적 1명, 모든 내성 10%, 일정한 간격의 원소 입자 조건에서 커뮤니티 gcsim 로테이션을 반복해, " +
 			"에너지가 가득 찬 상태에서 시작한 0–120초 구간(완료된 마지막 사이클까지)의 평균 DPS를 점수로 씁니다. 원소 충전 효율이 부족하면 점수가 내려갑니다.",
